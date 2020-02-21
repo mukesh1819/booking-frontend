@@ -5,12 +5,13 @@ import PackageList from '../packages/PackageList';
 import './flights.scss';
 import TabView from '../shared/TabView';
 import Sidebar from '../shared/Sidebar';
-
+import Banner from '../shared/Banner';
 export default class Flights extends Component {
 	render() {
+		const tabs = [{name: 'flights', label: 'Flights'}, {name: 'packages', label: 'Packages'}];
 		return (
 			<React.Fragment>
-				<TabView tabs={[{name: 'flights', label: 'Flights'}, {name: 'packages', label: 'Packages'}]}>
+				<TabView tabs={tabs}>
 					<div
 						class='tab-pane fade active show'
 						id='nav-flights'

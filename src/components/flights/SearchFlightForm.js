@@ -16,7 +16,7 @@ import history from '../../history';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {ButtonGroup} from 'react-bootstrap';
 import Counter from '../shared/Counter';
-import {Dropdown} from 'react-bootstrap';
+import Dropdown from '../shared/Dropdown';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
@@ -128,7 +128,7 @@ class SearchFlightForm extends Component {
 									setFieldValue
 									/* and other goodies */
 								}) => (
-									<form onSubmit={handleSubmit} className='form-wrap'>
+									<form onSubmit={handleSubmit}>
 										<ButtonGroup aria-label='Basic example'>
 											<Button
 												type='button'
@@ -232,28 +232,23 @@ class SearchFlightForm extends Component {
 											</div>
 											<div className='field-box'>
 												<label>Adult/Child</label>
-												<Dropdown>
-													<Dropdown.Toggle id='dropdown-basic' className='form-control'>
-														{`${values.intAdult} Adult, ${values.intChild} Child`}
-													</Dropdown.Toggle>
-													<Dropdown.Menu className='p-1'>
-														<label>Adult</label>
-														<label>Child</label>
-														<Counter
-															id='intAdult'
-															type='number'
-															onBlur={handleBlur}
-															onChange={(value) => setFieldValue('intAdult', value)}
-															value={values.intAdult}
-														/>
-														<Counter
-															id='intChild'
-															type='number'
-															onBlur={handleBlur}
-															onChange={(value) => setFieldValue('intChild', value)}
-															value={values.intChild}
-														/>
-													</Dropdown.Menu>
+												<Dropdown title={`${values.intAdult} Adult, ${values.intChild} Child`}>
+													<span class='text-small'>Adult</span>
+													<Counter
+														id='intAdult'
+														type='number'
+														onBlur={handleBlur}
+														onChange={(value) => setFieldValue('intAdult', value)}
+														value={values.intAdult}
+													/>
+													<span class='text-small'>Child</span>
+													<Counter
+														id='intChild'
+														type='number'
+														onBlur={handleBlur}
+														onChange={(value) => setFieldValue('intChild', value)}
+														value={values.intChild}
+													/>
 												</Dropdown>
 												<ErrorMessage name='intAdult' />
 												<ErrorMessage name='intChild' />

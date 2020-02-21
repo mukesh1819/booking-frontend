@@ -1,5 +1,6 @@
 const initialState = {
-    booking: null
+    booking: null,
+    currency: 'NPR'
 };
 
 export default function (state = initialState, action) {
@@ -9,6 +10,12 @@ export default function (state = initialState, action) {
                 ...state,
                 booking: action.payload
             };
+        }
+        case "SET_CURRENCY": {
+            return {
+                ...state,
+                currency: action.payload
+            }
         }
         default:
             return state;

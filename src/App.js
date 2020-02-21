@@ -6,15 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'stylesheets/index.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './redux/store';
 import routing from './routes';
-var $ = require('jquery');
 
 function App() {
-    return (
-        <Provider store={store}>{routing}</Provider>
-    );
+	return <Provider store={store}>{routing}</Provider>;
 }
 
 export default App;

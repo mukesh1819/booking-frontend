@@ -26,7 +26,7 @@ export default class Users extends Component {
 	render() {
 		const {ActiveComponent} = this.state;
 		return (
-			<div className='container'>
+			<div className='container p-0'>
 				<h3> Profile </h3>
 				<nav className='nav nav-tabs'>
 					<div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
@@ -54,7 +54,7 @@ export default class Users extends Component {
 						>
 							<i className='icon-dribbble' />Bookings
 						</a>
-						<a
+						{/* <a
 							class='nav-item nav-link'
 							id='nav-transactions-tab'
 							data-toggle='tab'
@@ -77,11 +77,11 @@ export default class Users extends Component {
 							onClick={() => this.activateTab(Reports)}
 						>
 							<i className='icon-dribbble' />Reports
-						</a>
+						</a> */}
 					</div>
 				</nav>
 
-				<div class='tab-content py-3 px-3 px-sm-0' id='nav-tabContent'>
+				<div class='tab-content' id='nav-tabContent'>
 					<div
 						class='tab-pane fade show active'
 						id='nav-profile'

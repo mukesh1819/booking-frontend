@@ -1,28 +1,47 @@
 import React from 'react';
 import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
+import {Link, NavLink} from 'react-router-dom';
+import history from '../../history';
 
-function Sidebar(props) {
-	const items = [
-		{name: 'home', label: 'Home'},
-		{name: 'billing', label: 'Billing'},
-		{name: 'settings', label: 'Settings'}
-	];
-	console.log('Sidebar', items);
+function Sidebar({items = [], onHide}) {
 	return (
-		<div className='sidebar'>
-			<Modal className='Sidebar left' show={props.isVisible} onHide={props.onHide} autoFocus keyboard>
-				<Modal.Header closeButton>
-					<Modal.Title>Sidebar Menu</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>{props.children}</Modal.Body>
-				<ListGroup>
-					{items.map(({label, name, ...rest}) => (
-						<ListGroup.Item key={name} variant='primary'>
-							{label}
-						</ListGroup.Item>
-					))}
-				</ListGroup>
-			</Modal>
+		<div>
+			<div className='p-2'>
+				<i
+					className='icon-circle-cross float-right'
+					onClick={() => {
+						onHide();
+					}}
+				/>
+				<span class='text-bold' />
+			</div>
+			<ListGroup>
+				{items.map(({label, name, icon, value, link, ...rest}) => (
+					<ListGroup.Item
+						className='d-flex justify-content-between'
+						key={name}
+						onClick={() => {
+							history.push(link);
+							onHide();
+						}}
+					>
+						<span>
+							<i className={icon} /> {label}
+						</span>
+						<span class='text-bold'>{value}</span>
+					</ListGroup.Item>
+				))}
+				<ListGroup.Item className='d-flex justify-content-between' key='flights'>
+					<span>
+						<i className='icon-paper-plane' /> {'Flights'}
+					</span>
+				</ListGroup.Item>
+				<ListGroup.Item className='d-flex justify-content-between' key='packages'>
+					<span>
+						<i className='icon-paper-plane' /> {'Packages'}
+					</span>
+				</ListGroup.Item>
+			</ListGroup>
 		</div>
 	);
 }

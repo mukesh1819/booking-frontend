@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import store from '../../redux/store';
 
-const FlightDetails = ({ flight }) => {
-    return (
-        <div className='flight-details'>
+const FlightDetails = ({flight}) => {
+	return (
+		<div className='flight-details'>
 			<div className='header text-center'>
 				<img src={flight.AirlineLogo} className='p-2' />
 				<div className='text-bold'>
@@ -32,7 +32,7 @@ const FlightDetails = ({ flight }) => {
 				</div>
 			</div>
 		</div>
-    );
+	);
 };
 
 export default FlightDetails;

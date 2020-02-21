@@ -1,8 +1,9 @@
 @import "./overrides";
 @import "./mixins";
-@import '~bootstrap/scss/bootstrap.scss';
+@import "bootstrap";
 @import './colors';
 @import "./typography";
+@import "./icomoon";
 
 $fontColor : #252525;
 
@@ -58,6 +59,15 @@ input {
         width: 20px;
         height: 20px;
     }
+}
+
+.sidebar {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 32px;
+    @include transition(.3s);
+    z-index: 100;
 }
 
 .form-control {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {handleResponse, handleError} from './apiUtils';
-import {USER_API_URL} from '../constants';
+import {USER_API_URL, GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../constants';
 
 export function signIn(details) {
 	return axios({
@@ -31,6 +31,16 @@ export const createUser = (details) => {
 			headers: {
 				'Content-Type': 'application/json'
 			}
+		}
+	});
+};
+
+export const authorizeUser = () => {
+	return axios({
+		method: 'get',
+		url: GOOGLE_AUTH_URL,
+		headers: {
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 };

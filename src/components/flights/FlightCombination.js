@@ -11,29 +11,33 @@ const FlightCombination = ({type, flight, selected, onFlightSelect, onFlightDese
 		<div className='flight-card d-flex align-items-center' onClick={() => onViewDetails('COMBINATION', flight)}>
 			<div className='col-10 no-padding'>
 				<div className='d-flex justify-content-between align-items-center'>
-					<div className='col-2 no-padding'>
+					<div className='no-padding'>
 						<img src={inboundFlight.AirlineLogo} className='w-100 p-2' />
 					</div>
-					<div className='col-7 d-flex no-padding'>
-						<span className=''>{inboundFlight.DepartureTime}</span>
-						<span className='line-from-to' />
-						<span>{inboundFlight.ArrivalTime}</span>
-					</div>
-					<div className='d-flex justify-content-between'>
-						<span className='text-small m-auto'>{inboundFlight.duration} min</span>
+					<div className='flex-grow-1'>
+						<div className='d-flex no-padding'>
+							<span className=''>{inboundFlight.DepartureTime}</span>
+							<span className='line-from-to' />
+							<span>{inboundFlight.ArrivalTime}</span>
+						</div>
+						<div className='d-flex justify-content-between'>
+							<span className='text-small m-auto'>{inboundFlight.duration} min</span>
+						</div>
 					</div>
 				</div>
 				<div className='d-flex justify-content-between align-items-center'>
-					<div className='col-2 no-padding'>
+					<div className='no-padding'>
 						<img src={outboundFlight.AirlineLogo} className='w-100 p-2' />
 					</div>
-					<div className='col-7 d-flex no-padding'>
-						<span className=''>{outboundFlight.DepartureTime}</span>
-						<span className='line-from-to' />
-						<span>{outboundFlight.ArrivalTime}</span>
-					</div>
-					<div className='d-flex justify-content-between'>
-						<span className='text-small m-auto'>{outboundFlight.duration} min</span>
+					<div className='flex-grow-1'>
+						<div className='d-flex no-padding'>
+							<span className=''>{outboundFlight.DepartureTime}</span>
+							<span className='line-from-to' />
+							<span>{outboundFlight.ArrivalTime}</span>
+						</div>
+						<div className='d-flex justify-content-between'>
+							<span className='text-small m-auto'>{outboundFlight.duration} min</span>
+						</div>
 					</div>
 				</div>
 			</div>

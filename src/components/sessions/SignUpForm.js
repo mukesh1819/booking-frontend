@@ -1,34 +1,33 @@
-import React, { Component } from 'react';
-import { Formik, Form, Field } from 'formik';
-import { createUser } from '../../api/sessions';
+import React, {Component} from 'react';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {createUser} from '../../api/sessions';
 import history from '../../history';
-import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from '../../constants';
-import { loginUser } from '../../redux/actions/sessions';
+import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
+import {loginUser} from '../../redux/actions/sessions';
 import * as yup from 'yup';
-import { connect } from 'react-redux';
-import ErrorMessage from '../ErrorMessage';
-import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 class SignUpForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null
-        };
-    }
+	constructor(props) {
+		super(props);
+		this.state = {
+			error: null
+		};
+	}
 
-    render() {
-        const { outboundFlights, inboundFlights, selectedInboundFlight, selectedOutboundFlight } = this.props;
-        const UsersSignupForm = yup.object().shape({
-            password: yup.string().required('Required'),
-            password_confirmation: yup
-                .string()
-                .oneOf([yup.ref('password'), null], "Passwords don't match!")
-                .required('Required')
-        });
+	render() {
+		const {outboundFlights, inboundFlights, selectedInboundFlight, selectedOutboundFlight} = this.props;
+		const UsersSignupForm = yup.object().shape({
+			password: yup.string().required('Required'),
+			password_confirmation: yup
+				.string()
+				.oneOf([yup.ref('password'), null], "Passwords don't match!")
+				.required('Required')
+		});
 
-        return (
-            <Formik
+		return (
+			<Formik
 				initialValues={{
 					name: '',
 					email: '',
@@ -166,8 +165,8 @@ class SignUpForm extends Component {
 
 										<hr />
 
-										<div className='text-center row'>
-											<span class='text-small'>Sign In with </span>
+										<div class='text-center text-small'>Sign In with </div>
+										<div className='row'>
 											<div className='btn-group col-6'>
 												<a className='btn btn-danger disabled'>
 													<i className='icon-google' />
@@ -176,8 +175,6 @@ class SignUpForm extends Component {
 													Google
 												</a>
 											</div>
-											<br />
-											<br />
 											<div className='btn-group col-6'>
 												<a className='btn bg-fb disabled'>
 													<i className='icon-facebook' />
@@ -194,18 +191,18 @@ class SignUpForm extends Component {
 					</form>
 				)}
 			</Formik>
-        );
-    }
+		);
+	}
 }
 
-const mapStateToProps = ({ currentUser }) => {
-    return {
-        currentUser
-    };
+const mapStateToProps = ({currentUser}) => {
+	return {
+		currentUser
+	};
 };
 
 const mapDispatchToProps = {
-    loginUser
+	loginUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

@@ -48,7 +48,7 @@ class PassengerDetails extends Component {
 		const {passengers, toggle} = this.props;
 		console.log(passengers);
 		return (
-			<div className='passenger-details'>
+			<div className='passenger-details container p-0'>
 				<div className='p-2'>
 					<i
 						className='icon-circle-cross float-right'

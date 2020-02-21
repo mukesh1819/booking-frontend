@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Button} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
-const BookingDetails = ({ bookings = [] }) => {
-    return (
-        <div>
+const BookingDetails = ({bookings = []}) => {
+	return (
+		<div>
 			<Card>
 				<Card.Body>
 					<Card.Title>BookingDetails</Card.Title>
@@ -130,6 +130,6 @@ const BookingDetails = ({ bookings = [] }) => {
 				</table>
 			</div>
 		</div>
-    );
+	);
 };
 export default BookingDetails;

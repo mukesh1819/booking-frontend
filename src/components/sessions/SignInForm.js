@@ -64,7 +64,7 @@ class SignInForm extends Component {
 								<div class='text-small'>
 									Don't have an account? <Link to='/signup'>Create Account</Link>
 								</div>
-								<form onSubmit={handleSubmit} className='form-wrap mt-4'>
+								<form onSubmit={handleSubmit} className='form-wrap'>
 									<div className='input-section'>
 										<div className='field'>
 											<label>Email</label>

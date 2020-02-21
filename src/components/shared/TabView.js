@@ -14,14 +14,13 @@ export default class TabView extends Component {
 	};
 
 	render() {
-		const {tabs = ['Flights'], children} = this.props;
-		console.log('tab', tabs);
+		const {tabs = [], children} = this.props;
 		return (
-			<div className='d-md-none'>
-				<nav className='nav nav-tabs'>
-					<div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
+			<div className=''>
+				<nav>
+					<div className='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
 						<a
-							class='nav-item nav-link active'
+							className='nav-item nav-link active'
 							id='nav-profile-tab'
 							data-toggle='tab'
 							href='#nav-flights'
@@ -33,7 +32,7 @@ export default class TabView extends Component {
 							{'Flights'}
 						</a>
 						<a
-							class='nav-item nav-link'
+							className='nav-item nav-link'
 							id='nav-profile-tab'
 							data-toggle='tab'
 							href='#nav-packages'
@@ -46,7 +45,7 @@ export default class TabView extends Component {
 						</a>
 					</div>
 				</nav>
-				<div class='tab-content px-sm-0' id='nav-tabContent'>
+				<div className='tab-content px-sm-0' id='nav-tabContent'>
 					{children}
 				</div>
 			</div>

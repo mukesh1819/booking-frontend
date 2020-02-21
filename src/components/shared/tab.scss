@@ -1,14 +1,18 @@
 @import "../../styles/index.scss";
 
+nav {
+    background-color: #272e38;
+}
+
 nav>.nav.nav-tabs {
     border: none;
     color: #fff;
-    background: #272e38;
     border-radius: 0;
-}
-
-nav>.nav-fill {
     width: 100%;
+
+    @include tablet {
+        width: max-content;
+    }
 }
 
 nav>div a.nav-item.nav-link {
