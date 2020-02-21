@@ -1,0 +1,28 @@
+$danger: #d9534f !default;
+$primary: #09C6AB;
+$info: #5bc0de !default;
+$secondary: #ca222f;
+$success: #5cb85c !default;
+$warning: #f0ad4e !default;
+
+$black: #000;
+$gray: #ccc;
+$gray: lighten($gray, 33.5%) !default; // #555
+$gray-dark: lighten($gray, 20%) !default; // #333
+$gray-darker: lighten($gray, 13.5%) !default; // #222
+$gray-light: lighten($gray, 46.7%) !default; // #777
+$gray-lighter: lighten($gray, 93.5%) !default; // #eee
+$white: #fff;
+
+$link-color: #09C6AB;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: underline !default;
+
+$body-bg-color: $white;
+$selection-color: #f9f6f0;
+$overlay-color: #3b3d40;
+
+$form-group-margin-bottom: 30px;
+$input-border-focus: $primary;
+
+$text-color: $gray-dark !default;

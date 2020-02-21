@@ -1,0 +1,43 @@
+@import '../../styles/index.scss';
+
+footer {
+    padding: 7em 0;
+    clear: both;
+    position: relative;
+
+    h3 {
+        color: black;
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 15px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+}
+
+.footer-social-icons {
+    margin: 0;
+    padding: 0;
+
+    li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+        zoom: 1;
+
+        a {
+            display: inline-block;
+            zoom: 1;
+            *display: inline;
+            color: $primary;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            i {
+                font-size: 20px;
+            }
+
+        }
+    }
+}

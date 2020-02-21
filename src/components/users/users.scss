@@ -1,0 +1,56 @@
+@import '../../styles/index';
+
+$fb-color: #4267B2;
+$accent: #09C6AB;
+
+.bg {
+    &-fb {
+        background-color: $fb-color;
+    }
+
+    &-accent {
+        background-color: $accent;
+    }
+}
+
+.login-page {
+    background-color: $accent;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login-form {
+    background-color: #343a40;
+    color: white;
+}
+
+.input-section {
+    .card-body {
+        padding: 0.25rem;
+
+        @include tablet {
+            padding: 1rem;
+        }
+    }
+
+    label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        display: none;
+
+        @include tablet {
+            display: block;
+        }
+    }
+
+    .form-control {
+        margin-bottom: 8px;
+
+        @include tablet {
+            margin: 2px;
+        }
+    }
+
+}

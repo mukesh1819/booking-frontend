@@ -1,0 +1,32 @@
+import React, {useState} from 'react';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup} from 'reactstrap';
+import {Redirect} from 'react-router-dom';
+
+const ModalExample = (props) => {
+	const {title, buttonLabel, className, show, children, toggle, onSuccess} = props;
+	const [modal, setModal] = useState(show);
+
+	// const toggle = () => {
+	// 	setModal(!modal);
+	// };
+	return (
+		<div>
+			<Modal size='lg' isOpen={show} toggle={toggle} className={className} backdrop={true}>
+				<ModalHeader toggle={toggle}> {title} </ModalHeader>
+				<ModalBody>{children}</ModalBody>
+				<ModalFooter>
+					<span
+						color='primary'
+						onClick={() => {
+							onSuccess();
+						}}
+					>
+						{buttonLabel}
+					</span>
+				</ModalFooter>
+			</Modal>
+		</div>
+	);
+};
+
+export default ModalExample;

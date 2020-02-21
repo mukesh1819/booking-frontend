@@ -1,0 +1,1 @@
+export const getFlights = store => store.flights;

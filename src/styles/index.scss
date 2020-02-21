@@ -1,0 +1,284 @@
+@import "./overrides";
+@import "./mixins";
+@import "bootstrap";
+@import './colors';
+@import "./typography";
+
+$fontColor : #252525;
+
+$regularFont : Gotham-Book;
+$mediumFont : Gotham-Medium;
+$boldFont : Gotham-Bold;
+
+$font14 : 14px;
+
+
+* {
+    font-family: $font-family-sans-serif;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+body {
+    color: $fontColor;
+    font-family: $regularFont, Serif, Arial;
+    font-size: $font14;
+    overflow-x: hidden;
+}
+
+ul,
+li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    margin-right: 10px;
+    border: 1px solid #dddddd;
+}
+
+.navbar-brand {
+    font-size: 1rem;
+
+    @include desktop {
+        font-size: 1.2rem;
+    }
+}
+
+.navbar-toggler {
+    padding: 0.25rem;
+
+    &-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.form-control {
+    margin: 2px;
+}
+
+.no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#dropdown-basic {
+    background-color: $white;
+    color: $black;
+    width: 100%;
+
+
+    &:hover {
+        cursor: pointer;
+        background-color: $white;
+    }
+}
+
+.validation-msg {
+    font-size: small;
+    color: red;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.circular-icon {
+    padding: 8px;
+    background-color: $gray;
+    color: $white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.card-item {
+    display: block;
+    width: 100%;
+    position: relative;
+    background: $white;
+    overflow: hidden;
+    z-index: 9;
+    bottom: 0;
+    margin-bottom: 30px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
+
+    @include border-radius(10px);
+    @include transition(.3s);
+
+    figure {
+        height: 240px;
+        overflow: hidden;
+        z-index: 12;
+        position: relative;
+
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            background: rgba(0, 0, 0, .4);
+            @include transition(.7s);
+
+            i {
+                z-index: 12;
+                color: $white;
+                font-size: 30px;
+                position: absolute;
+                margin-left: -15px;
+                margin-top: -45px;
+                top: 50%;
+                left: 50%;
+                @include transition(.3s);
+            }
+        }
+    }
+
+    img {
+        z-index: 8;
+        opacity: 1;
+        @include transition(.3s);
+    }
+
+    .details-text {
+        padding: 0px 10px 10px 20px;
+        text-align: center;
+
+        h2,
+        span {
+            text-decoration: none !important;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 400;
+            margin: 0 0 10px 0;
+            color: $primary;
+        }
+
+        span {
+            color: lighten($black, 70%);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        p {
+            color: $black;
+            @include transition(.5s);
+        }
+
+        span.btn {
+            color: $white !important;
+            opacity: 1;
+            visibility: visible;
+            bottom: 0;
+            background: lighten($black, 10%);
+            border: 2px solid lighten($black, 10%) !important;
+            // bottom: -20px;
+            position: relative;
+            @include transition(.5s);
+        }
+    }
+
+    &:hover,
+    &:focus {
+        bottom: 7px;
+        text-decoration: none;
+        box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.19);
+
+        img {
+            transform: scale(1.2);
+        }
+
+        span.btn {
+            opacity: 1;
+            visibility: visible;
+            bottom: 0px;
+            border: 2px solid lighten($primary, 5%) !important;
+            background: lighten($primary, 5%) !important;
+        }
+
+        figure {
+            .overlay {
+                opacity: 1;
+                visibility: visible;
+
+                i {
+                    margin-top: -15px;
+                }
+            }
+        }
+
+        h2,
+        span {
+            text-decoration: none !important;
+        }
+    }
+}
+
+
+.table {
+    margin: 20px 0;
+}
+
+.table-header {
+    display: flex;
+    line-height: 24px;
+    font-size: 16px;
+    padding: 0 10px;
+    justify-content: space-between;
+}
+
+.table-empty {
+    margin: 200px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.table-row {
+    display: flex;
+    line-height: 24px;
+    white-space: nowrap;
+    margin: 10px 0;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+}
+
+.table-header>span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+}
+
+.table-row>span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+}
+
+.button-inline {
+    border-width: 0;
+    background: transparent;
+    color: inherit;
+    text-align: inherit;
+    -webkit-font-smoothing: inherit;
+    padding: 0;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.button-active {
+    border-radius: 0;
+    border-bottom: 1px solid #38BB6C;
+}

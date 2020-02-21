@@ -1,0 +1,47 @@
+@import "../../styles/index.scss";
+
+nav>.nav.nav-tabs {
+    border: none;
+    color: #fff;
+    background: #272e38;
+    border-radius: 0;
+}
+
+nav>.nav-fill {
+    width: 100%;
+}
+
+nav>div a.nav-item.nav-link {
+    border: none;
+    background-color: #272e38;
+    border-radius: 0;
+}
+
+nav>div a.nav-item.nav-link.active {
+    background-color: #272e38 !important;
+    border-bottom: $primary 3px solid;
+    color: #fff;
+}
+
+// nav>div a.nav-item.nav-link.active:after {
+//     content: "";
+//     position: relative;
+//     top: 45px;
+//     left: -10%;
+//     border: 15px solid transparent;
+//     border-top-color: $primary;
+// }
+
+.tab-content {
+    background: #fdfdfd;
+    line-height: 25px;
+    border: 1px solid #ddd;
+}
+
+nav>div a.nav-item.nav-link:hover,
+nav>div a.nav-item.nav-link:focus {
+    border-bottom: $primary 3px solid;
+    color: #fff;
+    border-radius: 0;
+    transition: background 0.20s linear;
+}

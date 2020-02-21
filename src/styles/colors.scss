@@ -1,0 +1,12 @@
+$fb-color: #4267B2;
+$accent: #09C6AB;
+
+.bg {
+    &-fb {
+        background-color: $fb-color;
+    }
+
+    &-accent {
+        background-color: $accent;
+    }
+}
