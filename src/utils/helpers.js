@@ -1,5 +1,5 @@
 function csrfToken(document) {
-    return document.querySelector('[name="csrf-token"]').content;
+    return document.querySelector('[name="csrf-token"]') ? document.querySelector('[name="csrf-token"]').content : null;
 }
 
 export function passCsrfToken(document, axios) {

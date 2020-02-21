@@ -9,8 +9,6 @@ import moment from 'moment';
 import EmptyContent from '../EmptyContent';
 import Badge from '../shared/Badge';
 
-const $ = require('jquery');
-$.DataTable = require('datatables.net');
 
 class Bookings extends Component {
     constructor(props) {
