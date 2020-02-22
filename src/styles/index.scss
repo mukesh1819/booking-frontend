@@ -4,6 +4,7 @@
 @import './colors';
 @import "./typography";
 @import "./icomoon";
+@import "./pdf";
 
 $fontColor : #252525;
 
@@ -85,6 +86,14 @@ input {
 .no-padding {
     padding: 0 !important;
     margin: 0 !important;
+}
+
+.card-body {
+    padding: 0.5rem;
+
+    @include desktop {
+        padding: 1rem;
+    }
 }
 
 #dropdown-basic {

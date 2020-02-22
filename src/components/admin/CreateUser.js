@@ -1,20 +1,21 @@
-import React, {Component} from 'react';
-import SignUpForm from '../sessions/SignUpForm';
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {createUser} from '../../api/sessions';
+import React, { Component } from 'react';
+import SignUpForm from '../sessions/SignUpForm'
+import { Formik, Form, Field } from 'formik';
+import { createUser } from '../../api/sessions';
 import * as yup from 'yup';
 import history from '../../history';
+import ErrorMessage from '../ErrorMessage';
 
 const CreateUser = () => {
-	const UsersSignupForm = yup.object().shape({
-		password: yup.string().required('Required'),
-		password_confirmation: yup
-			.string()
-			.oneOf([yup.ref('password'), null], "Passwords don't match!")
-			.required('Required')
-	});
-	return (
-		<Formik
+    const UsersSignupForm = yup.object().shape({
+        password: yup.string().required('Required'),
+        password_confirmation: yup
+            .string()
+            .oneOf([yup.ref('password'), null], "Passwords don't match!")
+            .required('Required')
+    });
+    return (
+        <Formik
 			initialValues={{
 				name: '',
 				email: '',
@@ -25,60 +26,66 @@ const CreateUser = () => {
 			}}
 			validationSchema={UsersSignupForm}
 			onSubmit={(values, {setSubmitting, setStatus}) => {
-				const variables = {
-					user: {
-						name: values.name,
-						email: values.email,
-						phone_number: values.phone_number,
-						password: values.password,
-						password_confirmation: values.password_confirmation,
-						role_id: values.role_id
-					}
-				};
-				createUser(variables)
-					.then((response) => {
-						setSubmitting(false);
-						console.log(response.data.message);
-						window.location.reload();
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-						// this.setState({
-						// 	error
-						// });
-					});
-			}}
-		>
-			{({
-				values,
-				errors,
-				touched,
-				handleChange,
-				handleBlur,
-				handleSubmit,
-				isSubmitting,
-				setFieldValue
-				/* and other goodies */
-			}) => (
-				<form onSubmit={handleSubmit} className='form-wrap'>
-					<div className='bg-accent full-height d-flex justify-content-around p-4 align-items-center'>
-						<div className='card'>
-							<div className='card-body'>
-								<h2>Sign Up</h2>
-								<div className='field'>
-									<label>Full Name</label>
+					const variables = {
+						user: {
+							name: values.name,
+							email: values.email,
+							phone_number: values.phone_number,
+							password: values.password,
+							password_confirmation: values.password_confirmation,
+							role_id: values.role_id
+						}
+					};
+					createUser(variables)
+						.then((response) => {
+							setSubmitting(false);
+							console.log(response.data.message);
+							swal({
+								title: 'User Created!',
+								text: 'User created successfully!',
+								icon: 'success',
+								button: 'Continue!'
+							});
+							window.location.reload();
 
-									<Field
-										type='text'
-										name='name'
-										className='form-control'
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.name}
-									/>
-								</div>
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+							// this.setState({
+							// 	error
+							// });
+						});
+				}}
+			>
+				{({
+					values,
+					errors,
+					touched,
+					handleChange,
+					handleBlur,
+					handleSubmit,
+					isSubmitting,
+					setFieldValue
+					/* and other goodies */
+				}) => (
+					<form onSubmit={handleSubmit} className='form-wrap'>
+						<div className='bg-accent full-height d-flex justify-content-around p-4 align-items-center'>
+							<div className='card'>
+								<div className='card-body'>
+									<h2>Create User</h2>
+									<div className='field'>
+										<label>Full Name</label>
 
+										<Field
+											type='text'
+											name='name'
+											className='form-control'
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={values.name}
+										/>
+									</div>
 								<div className='field'>
 									<label>Email</label>
 
@@ -158,6 +165,6 @@ const CreateUser = () => {
 				</form>
 			)}
 		</Formik>
-	);
+    );
 };
 export default CreateUser;

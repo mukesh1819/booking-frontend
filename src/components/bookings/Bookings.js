@@ -9,6 +9,7 @@ import moment from 'moment';
 import EmptyContent from '../EmptyContent';
 import Badge from '../shared/Badge';
 
+const $ = require('jquery');
 // $.DataTable = require('datatables.net');
 
 class Bookings extends Component {
@@ -28,7 +29,6 @@ class Bookings extends Component {
 				this.setState({
 					bookings: response.data
 				});
-				this.setState(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -89,9 +89,6 @@ class Bookings extends Component {
 								<th>Created at</th>
 								<th>Status</th>
 								<th>Actions</th>
-								<th />
-								<th />
-								<th />
 							</tr>
 						</thead>
 
@@ -105,22 +102,31 @@ class Bookings extends Component {
 											<Badge type={booking.status} content={booking.status} />
 										</td>
 										<td>
-											<Link to='ticket details'>Ticket</Link>
-										</td>
-										<td>
-											<Link
-												to={{
-													pathname: '/details',
-													state: {
-														flight: booking
-													}
-												}}
-											>
-												Show
-											</Link>
-										</td>
-										<td>
-											<Link to='/edit'>Edit</Link>
+											<span className='mr-4 btn'>
+												<Link
+													to={{
+														pathname: '/ticket_details',
+														state: {
+															booking: booking
+														}
+													}}
+												>
+													Ticket
+												</Link>
+											</span>
+
+											<span className='btn'>
+												<Link
+													to={{
+														pathname: '/booking_details',
+														state: {
+															booking: booking
+														}
+													}}
+												>
+													Edit
+												</Link>
+											</span>
 										</td>
 									</tr>
 								);

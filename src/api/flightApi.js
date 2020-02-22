@@ -47,7 +47,57 @@ export function submitPassengers(formData) {
 		data: formData,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${localstorage.token}`
+			Authorization: `Bearer ${localStorage.token}`
+		}
+	});
+}
+
+export function cancelUserTickets(passengers) {
+	const data = {
+		ids: passengers.map((passenger) => {
+			return passenger.id;
+		})
+	};
+	return axios({
+		method: 'put',
+		url: `/tickets/cancel_request`,
+		data: data,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${localStorage.token}`
+		}
+	});
+}
+
+export function getAdminBookings() {
+	return axios({
+		method: 'get',
+		url: `/admin/bookings?q[status_eq]=processing`,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer $(localStorage.token)`
+		}
+	});
+}
+
+export function cancelAdminTicket(id) {
+	return axios({
+		method: 'put',
+		url: `/admin/tickets/${id}/cancel`,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer $(localStorage.token)`
+		}
+	});
+}
+
+export function ignoreAdminTicket(id) {
+	return axios({
+		method: 'put',
+		url: `/admin/tickets/${id}/ignore`,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer $(localStorage.token)`
 		}
 	});
 }

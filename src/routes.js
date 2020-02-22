@@ -22,6 +22,8 @@ import TransactionList from './components/admin/TransactionList';
 import CreateUser from './components/admin/CreateUser';
 import UsersList from './components/admin/UsersList';
 import history from './history';
+import Bookings from './components/bookings/Bookings';
+import UpdateBooking from './components/admin/UpdateBooking';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -33,13 +35,12 @@ const routing = (
 		<Switch>
 			<Route exact path='/' component={Flights} />
 			<Route path='/flights' component={FlightList} />
-			<Route path='/details' render={(props) => <FlightDetails {...props.state} />} />
 			<Route path='/hotels' component={HotelList} />
 			<Route path='/packages' component={Packages} />
 			<Route path='/about' component={About} />
 			<Route path='/book_flight' component={PassengerForm} />
 			<Route path='/profile' component={Users} />
-			<Route path='/bookings' component={Users} />
+			<Route path='/booking_list' component={Bookings} />
 			<Route path='/transactions' component={Users} />
 			<Route path='/records' component={Users} />
 			<Route path='/login' component={SignInForm} />
@@ -50,6 +51,7 @@ const routing = (
 			<Route path='/transaction_list' component={TransactionList} />
 			<Route path='/admin/create_user' component={CreateUser} />
 			<Route path='/admin/users_list' component={UsersList} />
+			<Route path='/admin/update_booking' component={UpdateBooking} />
 			<Route path='/admin' component={Dashboard} />
 			<Route component={PageNotFound} />
 		</Switch>

@@ -4,6 +4,7 @@ import { passCsrfToken } from '../../utils/helpers';
 import axios from 'axios';
 import { cancelAdminTicket } from '../../api/flightApi';
 import { ignoreAdminTicket } from '../../api/flightApi';
+import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
 
@@ -16,7 +17,6 @@ class UpdateBooking extends Component {
     }
 
     componentDidMount() {
-        debugger;
         passCsrfToken(document, axios);
         this.fetchBookings();
     }
@@ -37,13 +37,14 @@ class UpdateBooking extends Component {
     adminCancelRequest(passenger_id) {
         cancelAdminTicket(passenger_id)
             .then((response) => {
-                console.log(repsonse);
+                console.log(response);
                 swal({
                     title: 'Tickets cancellation!',
                     text: 'Your ticket is cancelled',
                     icon: 'success',
                     button: 'Continue!'
                 });
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error);
@@ -60,15 +61,14 @@ class UpdateBooking extends Component {
     adminIgnoreRequest(passenger_id) {
         ignoreAdminTicket(passenger_id)
             .then((response) => {
-                console.log(repsonse);
+                console.log(response);
                 swal({
                     title: 'Tickets Ignored!',
-                    text: 'Your ticket is ignored and can continue happy flying',
+                    text: response.data.message,
                     icon: 'success',
                     button: 'Continue!'
                 });
-                history.push('/booking_list');
-
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error);
@@ -101,22 +101,32 @@ class UpdateBooking extends Component {
 				        </thead>
 				        <tbody>
 				        	
-				          		{bookings.map((booking) => {
-						          	booking.passenger.map((passenger) => {
-						          		<tr>
-					          			<td>{  passenger.title + " " + passenger.first_name}</td>
-						                <td>{ passenger.nationality }</td>
-						                <td>{ passenger.passenger_type }</td>
-						                <td>{ passenger.ticket_no }</td>
-						                <td>{ passenger.passenger_status }</td>
-						                { passenger.passenger_status !== 'cancelled' && (
-
-						                	<td><span className="btn btn-lg btn-danger d-flex align-items-end" onClick={() => this.adminCancelRequest(passenger.id)}>cancel</span>
-						                	<span className="btn btn-lg d-flex align-items-end btn-secondary" onClick={() => this.adminIgnoreRequest(passenger.id)}>ignore</span></td>
-						                )}
-						                  
-						                {passenger.passenger_status === 'cancelled' && <td><p className="text-danger text-center font-weight-bolder text-lg mt-2"> Ticket Cancelled </p></td> }
-						                </tr>
+				          		{this.state.bookings.map((booking) => {
+						          	return booking.passengers.map((passenger) => {
+                                        return(
+                                            <tr>
+                                                <td><Link to={{
+                                                        pathname: '/booking_details',
+                                                        state:{
+                                                            booking: booking
+                                                        }
+                                                    }}>{  passenger.title + " " + passenger.first_name}</Link>
+                                                </td>
+                                                <td>{ passenger.nationality }</td>
+                                                <td>{ passenger.passenger_type }</td>
+                                                <td>{ passenger.ticket_no }</td>
+                                                <td>{ passenger.passenger_status }</td>
+                                                { passenger.passenger_status === 'processing' && (
+                                                    <td>
+                                                    <td><span className="btn  btn-danger d-flex align-items-start" onClick={() => this.adminCancelRequest(passenger.id)}>cancel</span></td>
+                                                    <td><span className="btn  d-flex align-items-start btn-secondary" onClick={() => this.adminIgnoreRequest(passenger.id)}>ignore</span></td>
+                                                    </td>
+                                                )}
+                                                
+                                                {passenger.passenger_status === 'cancelled' && <td><p className="text-danger text-center font-weight-bolder text-lg mt-2"> Ticket Cancelled </p></td> }
+                                            </tr>
+                                        );
+						          		
 						          	})	
 					          	})}
 			              	

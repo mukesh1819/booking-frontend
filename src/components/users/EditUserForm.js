@@ -6,6 +6,9 @@ import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import {passCsrfToken} from '../../utils/helpers';
 import {Formik, Form, Field} from 'formik';
+import * as yup from 'yup';
+import ErrorMessage from '../ErrorMessage';
+import history from '../../history';
 
 class EditUserForm extends Component {
 	constructor(props) {
@@ -24,7 +27,6 @@ class EditUserForm extends Component {
 	fetchDetails = () => {
 		getUserDetails()
 			.then((response) => {
-				debugger;
 				this.setState({
 					userDetails: response.data.user
 				});
@@ -41,6 +43,15 @@ class EditUserForm extends Component {
 	render() {
 		// const { user } = this.props;
 		const {user} = this.props.location.state;
+
+		const UpdateSignupForm = yup.object().shape({
+			password: yup.string().required('Required'),
+			password_confirmation: yup
+				.string()
+				.oneOf([yup.ref('password'), null], "Passwords don't match!")
+				.required('Required')
+		});
+
 		return (
 			<div className='container'>
 				<div className='main'>
@@ -50,30 +61,35 @@ class EditUserForm extends Component {
 						<div className='card-body'>
 							<Formik
 								initialValues={{
-									id: 1,
+									id: user.id,
 									name: user.name,
 									email: user.email,
-									password: ''
+									password: '',
+									password_confirmation: ''
 								}}
+								validationSchema={UpdateSignupForm}
 								onSubmit={(values, {setSubmitting, setStatus}) => {
 									const variables = {
 										user: {
-											id: 1,
+											id: values.id,
 											name: values.name,
 											email: values.email,
-											password: values.password
+											password: values.password,
+											password_confirmation: values.password_confirmation
 										}
 									};
 									updateUserDetails(variables)
 										.then((response) => {
+											setSubmitting(false);
 											this.setState({
 												userDetails: response.data.user
 											});
 											console.log(response.data.user);
-											<Redirect to='/profile' />;
+											history.push('/profile');
 										})
 										.catch((error) => {
 											console.log(error);
+											setSubmitting(false);
 											this.setState({
 												error
 											});
@@ -148,12 +164,13 @@ class EditUserForm extends Component {
 											<div className='col-md-6'>
 												<Field
 													type='password'
-													name='password'
+													name='password_confirmation'
 													className='form-control'
 													onBlur={handleBlur}
 													onChange={handleChange}
-													value={values.confirm_password}
+													value={values.password_confirmation}
 												/>
+												<ErrorMessage name='password_confirmation' />
 											</div>
 										</div>
 
