@@ -9,6 +9,7 @@ import Dropdown from './shared/Dropdown';
 import SignUpForm from './sessions/SignInForm';
 import Currencies from './users/Currencies';
 import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
+import history from '../history';
 
 class NavBar extends Component {
 	constructor(props) {
@@ -125,56 +126,56 @@ class NavBar extends Component {
 								{/* <Dropdown icon={'icon-user'} title={''}>
 								<SignUpForm />
 							</Dropdown> */}
-								<li className='dropdown mx-3'>
-									<div className=' dropdown-toggle navbar-font-style' data-toggle='dropdown'>
-										<i className='icon-user' />
-									</div>
-									<ul className='dropdown-menu dropdown-menu-right'>
-										<li>
-											{loggedIn && (
-												<Link to='/profile' className='dropdown-item'>
-													Profile
-												</Link>
-											)}
-										</li>
-										<li>
-											{loggedIn && (
-												<Link to='/bookings' className='dropdown-item'>
-													My Bookings
-												</Link>
-											)}
-										</li>
-										<li>
-											{loggedIn && (
-												<a
-													className='dropdown-item'
-													onClick={() => {
-														logout();
-														this.setState({
-															loggedIn: false
-														});
-														<Redirect to='/login' />;
-													}}
-												>
-													Logout
-												</a>
-											)}
-										</li>
-										<li>
-											{!loggedIn && (
-												<Link to='/login' className='dropdown-item'>
-													Login
-												</Link>
-											)}
-										</li>
-										<li>
-											{!loggedIn && (
-												<Link to='/signup' className='dropdown-item'>
-													Sign up
-												</Link>
-											)}
-										</li>
-									</ul>
+
+								<li className='mx-3'>
+									<Dropdown icon={'icon-user'}>
+										<ul>
+											<li>
+												{loggedIn && (
+													<Link to='/profile' className='dropdown-item'>
+														Profile
+													</Link>
+												)}
+											</li>
+											<li>
+												{loggedIn && (
+													<Link to='/bookings' className='dropdown-item'>
+														My Bookings
+													</Link>
+												)}
+											</li>
+											<li>
+												{loggedIn && (
+													<a
+														className='dropdown-item'
+														onClick={() => {
+															logout();
+															this.setState({
+																loggedIn: false
+															});
+															history.push('/login');
+														}}
+													>
+														Logout
+													</a>
+												)}
+											</li>
+											<li>
+												{!loggedIn && (
+													<Link to='/login' className='dropdown-item'>
+														Login
+													</Link>
+												)}
+											</li>
+											<li>
+												{!loggedIn && (
+													<Link to='/signup' className='dropdown-item'>
+														Sign up
+													</Link>
+												)}
+											</li>
+										</ul>
+									</Dropdown>
 								</li>
 							</ul>
 						</div>

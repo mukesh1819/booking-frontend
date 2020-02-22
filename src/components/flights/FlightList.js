@@ -45,6 +45,7 @@ class FlightList extends Component {
 		// this.onFlightSelect = this.onFlightSelect.bind(this);
 		this.onFlightDeselect = this.onFlightDeselect.bind(this);
 		this.onViewDetails = this.onViewDetails.bind(this);
+		this.onSort = this.onSort.bind(this);
 	}
 
 	onSort(sortKey) {

@@ -5,7 +5,7 @@ export default ({children, icon, title, ...rest}) => {
 	return (
 		<Dropdown alignRight>
 			<Dropdown.Toggle id='dropdown-basic' className='form-control'>
-				{icon} {title}
+				<i className={icon} /> {title}
 			</Dropdown.Toggle>
 			<Dropdown.Menu className='p-1 dropdown-menu-right'>{children}</Dropdown.Menu>
 		</Dropdown>

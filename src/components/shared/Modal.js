@@ -15,14 +15,14 @@ const ModalExample = (props) => {
 				<ModalHeader toggle={toggle}> {title} </ModalHeader>
 				<ModalBody>{children}</ModalBody>
 				<ModalFooter>
-					<span
+					<Button
 						color='primary'
 						onClick={() => {
 							onSuccess();
 						}}
 					>
 						{buttonLabel}
-					</span>
+					</Button>
 				</ModalFooter>
 			</Modal>
 		</div>
