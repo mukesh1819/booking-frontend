@@ -3,45 +3,38 @@ import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import history from '../../history';
 
-function Sidebar({items = [], onHide}) {
+function Sidebar({items = [], isVisible, onHide}) {
 	return (
-		<div>
-			<div className='p-2'>
-				<i
-					className='icon-circle-cross float-right'
-					onClick={() => {
-						onHide();
-					}}
-				/>
-				<span class='text-bold' />
-			</div>
-			<ListGroup>
-				{items.map(({label, name, icon, value, link, ...rest}) => (
-					<ListGroup.Item
-						className='d-flex justify-content-between'
-						key={name}
-						onClick={() => {
-							history.push(link);
-							onHide();
-						}}
-					>
+		<div className={`sidebar d-md-none ${isVisible ? 'show' : 'closed'}`}>
+			<div>
+				<ListGroup>
+					{items.map(({label, name, icon, value, link, ...rest}) => (
+						<ListGroup.Item
+							className='d-flex justify-content-between'
+							key={name}
+							onClick={() => {
+								history.push(link);
+								onHide();
+							}}
+						>
+							<span>
+								<i className={icon} /> {label}
+							</span>
+							<span class='text-bold'>{value}</span>
+						</ListGroup.Item>
+					))}
+					<ListGroup.Item className='d-flex justify-content-between' key='flights'>
 						<span>
-							<i className={icon} /> {label}
+							<i className='icon-paper-plane' /> {'Flights'}
 						</span>
-						<span class='text-bold'>{value}</span>
 					</ListGroup.Item>
-				))}
-				<ListGroup.Item className='d-flex justify-content-between' key='flights'>
-					<span>
-						<i className='icon-paper-plane' /> {'Flights'}
-					</span>
-				</ListGroup.Item>
-				<ListGroup.Item className='d-flex justify-content-between' key='packages'>
-					<span>
-						<i className='icon-paper-plane' /> {'Packages'}
-					</span>
-				</ListGroup.Item>
-			</ListGroup>
+					<ListGroup.Item className='d-flex justify-content-between' key='packages'>
+						<span>
+							<i className='icon-paper-plane' /> {'Packages'}
+						</span>
+					</ListGroup.Item>
+				</ListGroup>
+			</div>
 		</div>
 	);
 }

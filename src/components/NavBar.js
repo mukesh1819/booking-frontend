@@ -181,9 +181,12 @@ class NavBar extends Component {
 						</div>
 					</div>
 				</nav>
-				<div className={`sidebar d-md-none ${this.state.sideBarIsVisible ? '' : 'd-none'}`}>
-					<Sidebar items={sideBarMenu} side='left' onHide={() => this.toggleSidebar()} />
-				</div>
+				<Sidebar
+					isVisible={this.state.sideBarIsVisible}
+					items={sideBarMenu}
+					side='left'
+					onHide={() => this.toggleSidebar()}
+				/>
 			</div>
 		);
 	}
