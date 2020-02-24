@@ -17,6 +17,8 @@ import {Container, Button, Segment} from 'semantic-ui-react';
 import {ButtonGroup} from 'react-bootstrap';
 import Counter from '../shared/Counter';
 import Dropdown from '../shared/Dropdown';
+import IconInput from '../shared/IconInput';
+import {Input} from 'semantic-ui-react';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
@@ -29,7 +31,9 @@ class SearchFlightForm extends Component {
 			hideReturnField: true,
 			isSubmitted: false,
 			availableFlights: [],
-			searching: false
+			searching: false,
+			strSectorFrom: 'KTM',
+			strSectorTo: 'PKR'
 		};
 	}
 
@@ -58,6 +62,12 @@ class SearchFlightForm extends Component {
 		this.setState({
 			tripType: trip,
 			hideReturnField: trip == 'O' ? true : false
+		});
+	};
+
+	toggleSectors = () => {
+		this.setState(function(prevState) {
+			return {strSectorFrom: prevState.strSectorTo, strSectorTo: prevState.strSectorFrom};
 		});
 	};
 
@@ -156,110 +166,136 @@ class SearchFlightForm extends Component {
 										<div className='input-section'>
 											<div className='field-box'>
 												<label>Going from</label>
-												<Field
-													as='select'
-													name='strSectorFrom'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.strSectorFrom}
-												>
-													<option value='' disabled selected>
-														Going From
-													</option>
-													{this.state.cities.map(function(sector) {
-														return (
-															<option key={sector.SectorCode} value={sector.SectorCode}>
-																{sector.SectorName}
-															</option>
-														);
-													})}
-													<ErrorMessage name='strSectorFrom' />
-												</Field>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														as='select'
+														name='strSectorFrom'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={(value) => {
+															setFieldValue('strSectorFrom', date);
+														}}
+														value={values.strSectorFrom}
+													>
+														<option value='' disabled selected>
+															Going From
+														</option>
+														{this.state.cities.map(function(sector) {
+															return (
+																<option
+																	key={sector.SectorCode}
+																	value={sector.SectorCode}
+																>
+																	{sector.SectorName}
+																</option>
+															);
+														})}
+														<ErrorMessage name='strSectorFrom' />
+													</Field>
+												</IconInput>
+												<i className='icon-toggle' />
 											</div>
 											<div className='field-box'>
 												<label>Going To</label>
-												<Field
-													as='select'
-													name='strSectorTo'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.strSectorTo}
-												>
-													<option value='' disabled selected>
-														Going To
-													</option>
-													{this.state.cities.map(function(sector) {
-														return (
-															<option key={sector.SectorCode} value={sector.SectorCode}>
-																{sector.SectorName}
-															</option>
-														);
-													})}
-												</Field>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														as='select'
+														name='strSectorTo'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.strSectorTo}
+													>
+														<option value='' disabled selected>
+															Going To
+														</option>
+														{this.state.cities.map(function(sector) {
+															return (
+																<option
+																	key={sector.SectorCode}
+																	value={sector.SectorCode}
+																>
+																	{sector.SectorName}
+																</option>
+															);
+														})}
+													</Field>
+												</IconInput>
+
 												<ErrorMessage name='strSectorTo' />
 											</div>
 											<div className='field-box'>
 												<label>Departure Date</label>
-												<DatePicker
-													name='strFlightDate'
-													className='form-control'
-													type='date'
-													date={new Date()}
-													minDate={new Date()}
-													format='dd-mm-YYYY'
-													onBlur={handleBlur}
-													onChange={(date) => setFieldValue('strFlightDate', date)}
-													value={values.strFlightDate}
-												/>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<DatePicker
+														name='strFlightDate'
+														className='form-control'
+														type='date'
+														date={new Date()}
+														minDate={new Date()}
+														format='dd-mm-YYYY'
+														onBlur={handleBlur}
+														onChange={(date) => setFieldValue('strFlightDate', date)}
+														value={values.strFlightDate}
+													/>
+												</IconInput>
 												<ErrorMessage name='strFlightDate' />
 											</div>
 											<div className={`field-box ${hideReturnField ? 'd-none' : ''}`}>
 												<label>Arrival Date</label>
-												<DatePicker
-													name='strReturnDate'
-													className='form-control'
-													type='date'
-													format='dd-mm-YYYY'
-													date={new Date()}
-													onBlur={handleBlur}
-													onChange={(date) => setFieldValue('strReturnDate', date)}
-													value={values.strReturnDate}
-													disabled={hideReturnField}
-												/>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<DatePicker
+														name='strReturnDate'
+														className='form-control'
+														type='date'
+														format='dd-mm-YYYY'
+														date={new Date()}
+														onBlur={handleBlur}
+														onChange={(date) => setFieldValue('strReturnDate', date)}
+														value={values.strReturnDate}
+														disabled={hideReturnField}
+													/>
+												</IconInput>
 												<ErrorMessage name='strReturnDate' />
 											</div>
 											<div className='field-box'>
 												<label>Adult/Child</label>
-												<Dropdown title={`${values.intAdult} Adult, ${values.intChild} Child`}>
-													<span class='text-small'>Adult</span>
-													<Counter
-														id='intAdult'
-														type='number'
-														onBlur={handleBlur}
-														onChange={(value) => setFieldValue('intAdult', value)}
-														value={values.intAdult}
-													/>
-													<span class='text-small'>Child</span>
-													<Counter
-														id='intChild'
-														type='number'
-														onBlur={handleBlur}
-														onChange={(value) => setFieldValue('intChild', value)}
-														value={values.intChild}
-													/>
-												</Dropdown>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Dropdown
+														title={`${values.intAdult + values.intChild} Traveller`}
+														className='text-field'
+													>
+														<Counter
+															id='intAdult'
+															type='number'
+															className='m-1'
+															onBlur={handleBlur}
+															title={`${values.intAdult} Adult`}
+															onChange={(value) => setFieldValue('intAdult', value)}
+															value={values.intAdult}
+														/>
+														<Counter
+															id='intChild'
+															type='number'
+															className='m-1'
+															onBlur={handleBlur}
+															title={`${values.intChild} Adult`}
+															onChange={(value) => setFieldValue('intChild', value)}
+															value={values.intChild}
+														/>
+													</Dropdown>
+												</IconInput>
 												<ErrorMessage name='intAdult' />
 												<ErrorMessage name='intChild' />
 											</div>
 											<div className='field-box'>
 												<label>Nationality</label>
-
-												<Field as='select' className='form-control'>
-													<option value='NP'> Nepali </option>{' '}
-													<option value='IN'> Indian </option>
-												</Field>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field as='select' className='form-control'>
+														<option value='NP'> Nepali </option>{' '}
+														<option value='IN'> Indian </option>
+													</Field>
+												</IconInput>
 												<ErrorMessage name='strNationality' />
 											</div>
 										</div>
