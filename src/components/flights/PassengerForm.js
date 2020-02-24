@@ -32,13 +32,12 @@ class PassengerForm extends Component {
 			viewDetails: false,
 			passengers: []
 		};
+		this.toggleView = this.toggleView.bind(this);
 	}
 
 	toggleView() {
-		this.setState({
-			viewDetails: function(state) {
-				return !state.viewDetails;
-			}
+		this.setState(function(prevState) {
+			return {viewDetails: !prevState.viewDetails};
 		});
 	}
 

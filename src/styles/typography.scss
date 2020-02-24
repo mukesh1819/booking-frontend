@@ -20,6 +20,10 @@ sans-serif,
 "Segoe UI Symbol" !default;
 
 .text {
+    &-normal {
+        font-size: 2rem;
+    }
+
     &-large {
         font-size: 2rem;
     }
