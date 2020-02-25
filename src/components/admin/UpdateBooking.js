@@ -103,6 +103,7 @@ class UpdateBooking extends Component {
 				        	
 				          		{this.state.bookings.map((booking) => {
 						          	return booking.passengers.map((passenger) => {
+                                         if (passenger.passenger.status !== 'processing') {return}
                                         return(
                                             <tr>
                                                 <td><Link to={{
@@ -123,7 +124,6 @@ class UpdateBooking extends Component {
                                                     </td>
                                                 )}
                                                 
-                                                {passenger.passenger_status === 'cancelled' && <td><p className="text-danger text-center font-weight-bolder text-lg mt-2"> Ticket Cancelled </p></td> }
                                             </tr>
                                         );
 						          		

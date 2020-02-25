@@ -24,6 +24,8 @@ import UsersList from './components/admin/UsersList';
 import history from './history';
 import Bookings from './components/bookings/Bookings';
 import UpdateBooking from './components/admin/UpdateBooking';
+import TransactionDetails from './components/admin/TransactionDetails'
+import AdminBookingDetails from './components/admin/BookingDetails'
 
 function About() {
 	return <h2>About Us</h2>;
@@ -47,11 +49,13 @@ const routing = (
 			<Route path='/signup' component={SignUpForm} />
 			<Route path='/users/edit' component={EditUserForm} />
 			<Route path='/booking_details' component={BookingDetails} />
-			<Route path='/ticket_details' component={TicketDetails} />
-			<Route path='/transaction_list' component={TransactionList} />
+			<Route path='/admin/ticket_details' component={TicketDetails} />
+			<Route path='/admin/transaction_details' component={TransactionDetails} />
+			<Route path='/admin/transaction_list' component={TransactionList} />
 			<Route path='/admin/create_user' component={CreateUser} />
 			<Route path='/admin/users_list' component={UsersList} />
 			<Route path='/admin/update_booking' component={UpdateBooking} />
+			<Route path='/admin/booking_details' component={AdminBookingDetails} />
 			<Route path='/admin' component={Dashboard} />
 			<Route component={PageNotFound} />
 		</Switch>

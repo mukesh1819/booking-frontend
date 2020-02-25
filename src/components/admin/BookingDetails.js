@@ -2,133 +2,109 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
-const BookingDetails = ({ bookings = [] }) => {
+const BookingDetails = (props) => {
+	debugger;
+	const {bookings} = props;
     return (
         <div>
 			<Card>
 				<Card.Body>
 					<Card.Title>BookingDetails</Card.Title>
 					{bookings.map((booking) => {
-						<React.Fragment>
+						return(
+							<React.Fragment>
 							<div className='row'>
 								<div className='col-3'>
-									<p>Booking Flight Id</p>
+									Flight Id - <p>{booking.flight_id}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking return_flight_id</p>
+									Return Flight Id - <p>{booking.return_flight_id}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking user_id</p>
+									User Id - <p>{booking.user_id}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking contact_name</p>
+									Contact Name - <p>{booking.contact_name}</p>
 								</div>
 							</div>
 
 							<div className='row'>
 								<div className='col-3'>
-									<p>Booking mobile_no</p>
+									Mobile No - <p>{booking.mobile_no}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking email</p>
+									email - <p>{booking.email}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking pnr_no</p>
+									Pnr No - <p>{booking.pnr_no}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking created_at</p>
+									Created at - <p>{booking.created_at}</p>
 								</div>
 							</div>
 
 							<div className='row'>
 								<div className='col-3'>
-									<p>Booking airline</p>
+									<p>{booking.airline}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking flight_no</p>
+									<p>{booking.flight_no}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking booking_date_time</p>
+									<p>{booking.booking_date_time}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking departure_flight_time</p>
+									<p>{booking.departure_flight_time}</p>
 								</div>
 							</div>
 
 							<div className='row'>
 								<div className='col-3'>
-									<p>Booking arrival</p>
+									Arrival - <p>{booking.arrival}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking arrival_time</p>
+									Arrival time - <p>{booking.arrival_time}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking sector</p>
+									Sector - <p>{booking.sector}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking departure</p>
+									Departure - <p>{booking.departure}</p>
 								</div>
 							</div>
 
 							<div className='row'>
 								<div className='col-3'>
-									<p>Booking class_code</p>
+									Class code - <p>{booking.class_code}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking NPR total_fare</p>
+									Total fare - <p>{booking.total_fare}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking refundable</p>
+									Refundable - <p>{booking.refundable}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking status</p>
+									Status - <p>{booking.status}</p>
 								</div>
 							</div>
 
 							<div className='row'>
 								<div className='col-3'>
-									<p>Booking booking_transaction_id</p>
+									Transaction id - <p>{booking.booking_transaction_id}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking free_baggage</p>
+									Baggage - <p>{booking.free_baggage}</p>
 								</div>
 								<div className='col-3'>
-									<p>Booking reporting_time</p>
+									Reporting time - <p>{booking.reporting_time}</p>
 								</div>
 							</div>
-						</React.Fragment>;
+						</React.Fragment>
+					);
 					})}
 				</Card.Body>
 			</Card>
 
-			<div className='col-md-9 ml-auto mr-auto' id='search-form1'>
-				<h3 className='text-success'>Passenger Info</h3>
-				<table className='table table-striped table-sm'>
-					<thead>
-						<tr>
-							<th>Passenger Name</th>
-							<th>Nationality</th>
-							<th>Passenger Type</th>
-							<th>Ticket No</th>
-							<th>Gender</th>
-							<th> status</th>
-							<th>booking id</th>
-						</tr>
-					</thead>
-					<tbody>
-						{/* for each passengers */}
-						<tr>
-							<td> Mr passengertitle + " " + passengerfirst_name</td>
-							<td> passengernationality </td>
-							<td>passengerpassenger_type </td>
-							<td> passengerticket_no</td>
-							<td>passenger gender</td>
-							<td> passengerstatus</td>
-							<td>passenger booking id </td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 		</div>
     );
 };

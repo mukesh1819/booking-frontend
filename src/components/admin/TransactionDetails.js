@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
-import UserDetails from './UserDetails';
+import UserDetails from '../users/UserDetailCard';
 import BookingDetails from './BookingDetails'
-const TransactionDetails = () => {
+
+const TransactionDetails = (props) => {
+    const {transaction} = props.location.state;
+    console.log(transaction);
     return (
         <div>
-		<UserDetails />
-		<BookingDetails />
+		<UserDetails user= {transaction.user} />
+		<BookingDetails bookings= {transaction.bookings} />
 	</div>
     );
 };
