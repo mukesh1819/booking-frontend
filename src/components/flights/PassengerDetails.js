@@ -51,7 +51,7 @@ class PassengerDetails extends Component {
 			<div className='passenger-details container p-0'>
 				<div className='p-2'>
 					<i
-						className='icon-circle-cross float-right'
+						className='icon-circle-cross text-normal float-right'
 						onClick={() => {
 							toggle();
 						}}
