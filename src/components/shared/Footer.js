@@ -4,20 +4,60 @@ import './footer.scss';
 
 const Footer = () => (
 	<footer id='footer' role='contentinfo'>
-		<div className='container'>
-			<div className='row mx-0'>
-				<div className='col-md-4'>
-					<div className='footer-widget'>
-						<h3>About Us</h3>
-						{/* <p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore eos molestias quod sint
-							ipsum possimus temporibus officia iste perspiciatis consectetur in fugiat repudiandae cum.
-							Totam cupiditate nostrum ut neque ab?
-						</p> */}
+		<div className='container-fluid'>
+			<div className='d-flex justify-content-between align-items-center'>
+				<div className=''>
+					<div className='footer-widget footer-links'>
+						<ul className='footer-links'>
+							<li className='d-md-inline px-2'>
+								<a href='#'> About Us</a>
+							</li>
+							<li className='d-md-inline px-2'>
+								<a href='#'>Privacy Policy</a>
+							</li>
+							<li className='d-md-inline px-2'>
+								<a href='#'>Terms & Conditions</a>
+							</li>
+							<li className='d-md-inline px-2'>
+								<a href='#'>Partner With Us</a>
+							</li>
+							<li className='d-md-inline px-2'>
+								<a href='#'>Blogs</a>
+							</li>
+							<li className='d-md-inline px-2'>
+								<a href='#'>Contact Us</a>
+							</li>
+						</ul>
 					</div>
 				</div>
+				<div className=''>
+					<span className=''>
+						<ul className='footer-social-icons'>
+							<li>
+								<a href='#'>
+									<i className='icon-twitter' />
+								</a>
+							</li>
+							<li>
+								<a href='#'>
+									<i className='icon-facebook' />
+								</a>
+							</li>
+							<li>
+								<a href='#'>
+									<i className='icon-linkedin' />
+								</a>
+							</li>
+							<li>
+								<a href='#'>
+									<i className='icon-dribbble' />
+								</a>
+							</li>
+						</ul>
+					</span>
+				</div>
 
-				<div className='col-md-2 col-md-push-1'>
+				{/* <div className='col-md-4 col-md-push-1'>
 					<div className='footer-widget'>
 						<h3>Destination</h3>
 						<ul className='footer-links'>
@@ -84,39 +124,11 @@ const Footer = () => (
 							</li>
 						</ul>
 					</div>
-				</div>
+				</div> */}
 			</div>
-
-			<div className='row copyright'>
-				<div className='col-md-12'>
-					<p className='pull-left'>
-						<small className='block'>&copy; Bookings Nepal </small>
-					</p>
-					<span className='text-center'>
-						<ul className='footer-social-icons'>
-							<li>
-								<a href='#'>
-									<i className='icon-twitter' />
-								</a>
-							</li>
-							<li>
-								<a href='#'>
-									<i className='icon-facebook' />
-								</a>
-							</li>
-							<li>
-								<a href='#'>
-									<i className='icon-linkedin' />
-								</a>
-							</li>
-							<li>
-								<a href='#'>
-									<i className='icon-dribbble' />
-								</a>
-							</li>
-						</ul>
-					</span>
-				</div>
+			<hr className='m-0' />
+			<div className='d-flex justify-content-between align-items-center p-1'>
+				<small className='block text-muted'>&copy; All rights reserved </small>
 			</div>
 		</div>
 	</footer>
