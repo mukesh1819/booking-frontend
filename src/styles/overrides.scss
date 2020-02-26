@@ -14,11 +14,14 @@ $gray-light: lighten($gray, 46.7%) !default; // #777
 $gray-lighter: lighten($gray, 93.5%) !default; // #eee
 $white: #fff;
 
+$fb-color: #4267B2;
+$accent: #09C6AB;
+
 $link-color: #09C6AB;
 $link-hover-color: darken($link-color, 15%) !default;
 $link-hover-decoration: underline !default;
 
-$body-bg-color: $white;
+$body-bg-color: #F4F7FC;
 $selection-color: #f9f6f0;
 $overlay-color: #3b3d40;
 
@@ -26,3 +29,26 @@ $form-group-margin-bottom: 30px;
 $input-border-focus: $primary;
 
 $text-color: $gray-dark !default;
+
+
+.bg {
+    &-fb {
+        background-color: $fb-color;
+    }
+
+    &-accent {
+        background-color: $accent;
+    }
+
+    &-gray {
+        background-color: $gray;
+    }
+
+    &-gray-light {
+        background-color: $gray-light;
+    }
+
+    &-body {
+        background-color: $body-bg-color;
+    }
+}

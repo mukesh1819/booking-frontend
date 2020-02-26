@@ -28,3 +28,10 @@ export function isRefundable(type) {
     }
     return "Non - Refundable"
 }
+
+export function userInitials(user) {
+    if (user.name == undefined || user.name == "") {
+        return "H"
+    }
+    return user.name[0].toUpperCase()
+}

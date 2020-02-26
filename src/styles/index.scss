@@ -136,10 +136,9 @@ input:read-only {
 }
 
 #dropdown-basic {
-    background-color: $white;
-    color: $black;
-    width: 100%;
-
+    background: #ffffff00 !important;
+    padding: 0;
+    border: none !important;
 
     &:hover {
         cursor: pointer;

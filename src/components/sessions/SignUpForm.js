@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import {connect} from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
 import {Link} from 'react-router-dom';
+import SocialLinks from './SocialLinks';
 
 class SignUpForm extends Component {
 	constructor(props) {
@@ -165,26 +166,8 @@ class SignUpForm extends Component {
 										</button>
 
 										<hr />
-
-										<div class='text-center text-small'>Sign In with </div>
-										<div className='row'>
-											<div className='btn-group col-6'>
-												<a className='btn btn-danger disabled'>
-													<i className='icon-google' />
-												</a>
-												<a className='btn btn-danger' href={GOOGLE_AUTH_URL}>
-													Google
-												</a>
-											</div>
-											<div className='btn-group col-6'>
-												<a className='btn bg-fb disabled'>
-													<i className='icon-facebook' />
-												</a>
-												<a className='btn bg-fb' href={FACEBOOK_AUTH_URL}>
-													Facebook
-												</a>
-											</div>
-										</div>
+										<div class='text-center text-small mb-2'>Sign In with </div>
+										<SocialLinks />
 									</div>
 								</div>
 							</div>

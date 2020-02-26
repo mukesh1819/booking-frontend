@@ -31,11 +31,10 @@ class SearchFlightForm extends Component {
 			isSubmitted: false,
 			availableFlights: [],
 			searching: false,
-
-			tripType: 'O',
-			strSectorFrom: 'KTM',
-			strSectorTo: 'PKR'
+			tripType: 'O'
 		};
+		this.strSectorFrom = React.createRef();
+		this.strSectorTo = React.createRef();
 	}
 
 	componentDidMount() {
@@ -70,9 +69,15 @@ class SearchFlightForm extends Component {
 	};
 
 	toggleSectors = () => {
-		this.setState(function(prevState) {
-			return {strSectorFrom: prevState.strSectorTo, strSectorTo: prevState.strSectorFrom};
-		});
+		debugger;
+		this.strSectorFrom.current;
+		console.log('Changed SearchDetails', this.state.searchDetails);
+		this.props.setSearchDetails(
+			Object.assign({}, this.state.searchDetails, {
+				strSectorFrom: this.state.searchDetails.strSectorTo,
+				strSectorTo: this.state.searchDetails.strSectorFrom
+			})
+		);
 	};
 
 	render() {
@@ -180,6 +185,7 @@ class SearchFlightForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.strSectorFrom}
+														ref={this.strSectorFrom}
 													>
 														<option value='' disabled selected>
 															Going From
@@ -197,7 +203,7 @@ class SearchFlightForm extends Component {
 														<ErrorMessage name='strSectorFrom' />
 													</Field>
 												</IconInput>
-												<i className='icon-toggle' />
+												<i className='icon-toggle' onClick={this.toggleSectors} />
 											</div>
 											<div className='field-box'>
 												<label>Going To</label>
@@ -209,6 +215,7 @@ class SearchFlightForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.strSectorTo}
+														ref={this.strSectorTo}
 													>
 														<option value='' disabled selected>
 															Going To
@@ -241,6 +248,7 @@ class SearchFlightForm extends Component {
 														onBlur={handleBlur}
 														onChange={(date) => setFieldValue('strFlightDate', date)}
 														value={values.strFlightDate}
+														placeholder='Departure Date'
 													/>
 												</IconInput>
 												<ErrorMessage name='strFlightDate' />
@@ -259,6 +267,7 @@ class SearchFlightForm extends Component {
 														onChange={(date) => setFieldValue('strReturnDate', date)}
 														value={values.strReturnDate}
 														disabled={hideReturnField}
+														placeholder='Arrival Date'
 													/>
 												</IconInput>
 												<ErrorMessage name='strReturnDate' />

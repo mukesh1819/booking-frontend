@@ -3,7 +3,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {logoutUser} from '../redux/actions/sessions';
 import {connect} from 'react-redux';
 import store from '../redux/store';
-import {logout} from '../utils/helpers';
+import {logout, userInitials} from '../utils/helpers';
 import Sidebar from './shared/Sidebar';
 import Dropdown from './shared/Dropdown';
 import SignUpForm from './sessions/SignInForm';
@@ -31,6 +31,8 @@ class NavBar extends Component {
 
 	render() {
 		const {loggedIn} = this.state;
+		const {currentUser} = this.props;
+
 		const sideBarMenu = [
 			{icon: 'icon-home', name: 'home', label: 'Home', value: '', link: '/'},
 			{
@@ -77,11 +79,11 @@ class NavBar extends Component {
 								Booking Nepal
 							</Link>
 						</div>
-						<div className='collapse navbar-collapse'>
+						<div className='navbar-collapse collapse'>
 							<ul className='navbar-nav ml-auto align-items-center'>
-								<Dropdown title={this.props.currency}>
+								{/* <Dropdown title={this.props.currency}>
 									<Currencies />
-								</Dropdown>
+								</Dropdown> */}
 								{/* <li className='mx-3'>
 								<NavLink
 									className='navbar-font-style'
@@ -126,7 +128,7 @@ class NavBar extends Component {
 							</Dropdown> */}
 
 								<li className='mx-3'>
-									<Dropdown icon={'icon-user'}>
+									<Dropdown title={userInitials(currentUser)}>
 										<ul>
 											<li>
 												{loggedIn && (
