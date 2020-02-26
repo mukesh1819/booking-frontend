@@ -3,7 +3,7 @@ import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from '../../constants';
 
 const SocialButtonLinks = () => {
     return(
-        <div>
+    <div>
         <div>Link your account with:</div>
         <div className='d-inline'>
             <div className='btn-group'>

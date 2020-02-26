@@ -49,7 +49,7 @@ const routing = (
 			<Route path='/signup' component={SignUpForm} />
 			<Route path='/users/edit' component={EditUserForm} />
 			<Route path='/booking_details' component={BookingDetails} />
-			<Route path='/admin/ticket_details' component={TicketDetails} />
+			<Route path='/ticket_details' component={TicketDetails} />
 			<Route path='/admin/transaction_details' component={TransactionDetails} />
 			<Route path='/admin/transaction_list' component={TransactionList} />
 			<Route path='/admin/create_user' component={CreateUser} />
