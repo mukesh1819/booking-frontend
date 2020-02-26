@@ -13,6 +13,7 @@ import store from '../../redux/store';
 import {selectInboundFlight, selectOutboundFlight, deselectFlight} from '../../redux/actions/flightActions';
 import {Link, Redirect} from 'react-router-dom';
 import SearchFlightForm from './SearchFlightForm';
+import SearchDetails from './SearchDetails';
 import EmptyContent from '../EmptyContent';
 import history from '../../history';
 
@@ -26,8 +27,8 @@ const SORTS = {
 	// DEPARTURE: (list) => sortBy(list, 'departure').reverse(),
 };
 
-const Sort = ({sortKey, onSort, children}) => (
-	<Button variant='secondary' onClick={() => onSort(sortKey)}>
+const Sort = ({sortKey, onSort, isActive, children}) => (
+	<Button variant='secondary' className={isActive ? 'active' : ''} onClick={() => onSort(sortKey)}>
 		{children}
 	</Button>
 );
@@ -111,24 +112,27 @@ class FlightList extends Component {
 		const reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList;
 
 		if (reverseSortedList.length == 0) {
+			debugger;
 			return (
-				<React.Fragment>
-					<SearchFlightForm />
+				<div className='container p-0'>
+					<SearchDetails />
 					<EmptyContent>No Flights found.</EmptyContent>
-				</React.Fragment>
+				</div>
 			);
 		}
 
 		return (
 			<div className='container p-0'>
-				<div class='bg-secondary text-center'>
-					<Sort sortKey={'PRICE'} onSort={this.onSort}>
+				<SearchDetails />
+
+				<div class='bg-secondary text-center sorter'>
+					<Sort sortKey={'PRICE'} onSort={this.onSort} isActive={sortKey == 'PRICE'}>
 						Cheapest
 					</Sort>
-					<Sort sortKey={'DURATION'} onSort={this.onSort}>
+					<Sort sortKey={'DURATION'} onSort={this.onSort} isActive={sortKey == 'DURATION'}>
 						Quickest
 					</Sort>
-					<Sort sortKey={'TIME'} onSort={this.onSort}>
+					<Sort sortKey={'TIME'} onSort={this.onSort} isActive={sortKey == 'TIME'}>
 						Earliest
 					</Sort>
 				</div>

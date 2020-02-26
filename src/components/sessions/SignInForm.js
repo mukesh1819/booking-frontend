@@ -34,7 +34,7 @@ class SignInForm extends Component {
 							setSubmitting(false);
 							this.props.loginUser(response.data.user);
 							localStorage.setItem('token', response.data.jwt);
-							history.push('/');
+							history.goBack();
 							NavBar.forceUpdate();
 							console.log(response.data);
 						})

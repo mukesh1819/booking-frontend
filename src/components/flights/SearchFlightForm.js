@@ -27,11 +27,12 @@ class SearchFlightForm extends Component {
 		date.setDate(date.getDate() + 2);
 		this.state = {
 			cities: [],
-			tripType: 'O',
 			hideReturnField: true,
 			isSubmitted: false,
 			availableFlights: [],
 			searching: false,
+
+			tripType: 'O',
 			strSectorFrom: 'KTM',
 			strSectorTo: 'PKR'
 		};
@@ -39,6 +40,9 @@ class SearchFlightForm extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
+		this.setState({
+			searchDetails: this.props.searchDetails
+		});
 		this.fetchCities();
 	}
 
@@ -73,12 +77,16 @@ class SearchFlightForm extends Component {
 
 	render() {
 		const ListWithLoading = withLoading(FlightList);
-		const tomorrow = addDays(new Date(), 1);
 		const {hideReturnField} = this.state;
+		const {searchDetails} = this.props;
+		console.log('Search Details', searchDetails);
 
 		const SearchFlightSchema = yup.object().shape({
 			strFlightDate: yup.date().required('Required').default(function() {
 				return new Date();
+			}),
+			strReturnDate: yup.date().required('Required').default(function() {
+				return yup.ref('strFlightDate');
 			}),
 			strSectorFrom: yup.string().required('Required'),
 			strSectorTo: yup.string().required('Required'),
@@ -94,16 +102,7 @@ class SearchFlightForm extends Component {
 						<Container>
 							<div className='text-white mb-2'>Search and book flights</div>
 							<Formik
-								initialValues={{
-									strTripType: this.state.tripType,
-									strFlightDate: tomorrow,
-									strReturnDate: tomorrow,
-									strNationality: 'NP',
-									intAdult: 1,
-									intChild: 0,
-									strSectorFrom: 'KTM',
-									strSectorTo: 'PKR'
-								}}
+								initialValues={searchDetails}
 								validationSchema={SearchFlightSchema}
 								onSubmit={(values, {setSubmitting}) => {
 									this.setState({
@@ -123,7 +122,14 @@ class SearchFlightForm extends Component {
 											history.push('/flights');
 										})
 										.catch((error) => {
-											console.log(error);
+											console.log('Search Flight Error', error);
+											setSubmitting(false);
+											swal({
+												title: 'No Flights Found!',
+												text: 'Something went wrong',
+												icon: 'error',
+												button: 'Try Again!'
+											});
 										});
 								}}
 							>
@@ -138,7 +144,7 @@ class SearchFlightForm extends Component {
 									setFieldValue
 									/* and other goodies */
 								}) => (
-									<form onSubmit={handleSubmit}>
+									<form onSubmit={handleSubmit} autocomplete='off'>
 										<ButtonGroup aria-label='Basic example'>
 											<Button
 												type='button'
@@ -172,9 +178,7 @@ class SearchFlightForm extends Component {
 														name='strSectorFrom'
 														className='form-control'
 														onBlur={handleBlur}
-														onChange={(value) => {
-															setFieldValue('strSectorFrom', date);
-														}}
+														onChange={handleChange}
 														value={values.strSectorFrom}
 													>
 														<option value='' disabled selected>
@@ -250,6 +254,7 @@ class SearchFlightForm extends Component {
 														type='date'
 														format='dd-mm-YYYY'
 														date={new Date()}
+														minDate={new Date()}
 														onBlur={handleBlur}
 														onChange={(date) => setFieldValue('strReturnDate', date)}
 														value={values.strReturnDate}
@@ -291,8 +296,17 @@ class SearchFlightForm extends Component {
 											<div className='field-box'>
 												<label>Nationality</label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
-													<Field as='select' className='form-control'>
-														<option value='NP'> Nepali </option>{' '}
+													<Field
+														as='select'
+														name='strNationality'
+														className='form-control'
+														onChange={handleChange}
+														value={values.strNationality}
+													>
+														<option value='' disabled>
+															Nationality
+														</option>
+														<option value='NP'> Nepali </option>
 														<option value='IN'> Indian </option>
 													</Field>
 												</IconInput>
@@ -314,9 +328,9 @@ class SearchFlightForm extends Component {
 						</Container>
 					</div>
 				</header>
-				{this.state.isSubmitted && (
+				{/* {this.state.isSubmitted && (
 					<ListWithLoading flights={this.state.availableFlights} searching={this.state.searching} />
-				)}
+				)} */}
 			</React.Fragment>
 		);
 	}
@@ -330,9 +344,10 @@ const Loading = () => (
 );
 
 const withLoading = (Component) => ({searching, ...rest}) => (searching ? <Loading /> : <Component {...rest} />);
-const mapStateToProps = ({flights}) => {
+const mapStateToProps = ({flightStore}) => {
 	return {
-		flights
+		flights: flightStore.flights,
+		searchDetails: flightStore.searchDetails
 	};
 };
 

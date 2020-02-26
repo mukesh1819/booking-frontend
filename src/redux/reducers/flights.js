@@ -1,3 +1,10 @@
+import {
+    subDays,
+    addDays
+} from '../../utils/helpers';
+
+const tomorrow = addDays(new Date(), 1);
+
 const initialState = {
     flights: {
         outbounds: [],
@@ -6,7 +13,16 @@ const initialState = {
     },
     selectedInboundFlight: null,
     selectedOutboundFlight: null,
-    searchDetails: {}
+    searchDetails: {
+        strTripType: 'O',
+        strFlightDate: '',
+        strReturnDate: tomorrow,
+        strNationality: '',
+        intAdult: 1,
+        intChild: 0,
+        strSectorFrom: '',
+        strSectorTo: ''
+    }
 };
 
 export default function (state = initialState, action) {
