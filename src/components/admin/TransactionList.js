@@ -8,14 +8,35 @@ import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
 import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {Tabs, Tab } from 'react-bootstrap';
+import UserDetailCard from '../users/UserDetailCard';
+import BookingDetails from './BookingDetails';
+import TransactionApiResponse from './TransactionApiResponse';
+import ModalExample from '../shared/Modal';
+import {ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup} from 'reactstrap';
 
+ 
 class TransactionList extends Component{
 
 	constructor(props){
 		super(props);
 		this.state = {
-			transactions: []
+			transactions: [],
+			selectedTransaction: null,
+			key: 'user'
 		}
+	}
+
+	onTransactionSelect(transaction){
+		this.setState({
+			selectedTransaction: transaction,
+		})
+	}
+
+	setKey(key){
+		this.setState({
+			key: key
+		})
 	}
 
 	componentDidMount(){
@@ -37,7 +58,7 @@ class TransactionList extends Component{
 	}
 
 	render(){
-
+		const {show, key, selectedTransaction} = this.state;
 		return (
 			<React.Fragment>
 				{this.state.transactions !== null && (
@@ -61,14 +82,9 @@ class TransactionList extends Component{
 											<td>{transaction.idx}</td>
 											<td>{transaction.state}</td>
 											<td>{transaction.amount}</td>
-											<td><Link 
-												to={{
-													pathname: '/admin/transaction_details',
-													state: {
-														transaction: transaction
-													}
-												}}
-											>Transaction details</Link>
+											<td><span className ="btn btn-primary"
+												onClick={() => this.onTransactionSelect(transaction)}
+											>Transaction details</span>
 											</td>
 											
 										</tr>
@@ -80,7 +96,26 @@ class TransactionList extends Component{
 					  </div>
 					</div>
 				)}
-				
+			<ModalExample
+                title='Transaction Details'
+                buttonLabel='Details'
+                show={selectedTransaction !== null}
+                toggle={() => this.onTransactionSelect(null)}
+                onSuccess={() => this.onTransactionSelect(null)}
+            >
+                {selectedTransaction !== null && <Tabs id="controlled-tab-example" activeKey={key} onSelect={k => this.setKey(k)}>
+                    <Tab eventKey="user" title="user">
+                        <UserDetailCard user= {selectedTransaction.user} />
+                    </Tab>
+                    <Tab eventKey="bookings" title="bookings">
+                        < BookingDetails bookings={selectedTransaction.bookings}/>
+                    </Tab>
+                    <Tab eventKey="response" title="response">
+                        <TransactionApiResponse response= {selectedTransaction.response} />
+                    </Tab>
+                </Tabs>}
+                
+            </ModalExample>
 			</React.Fragment>
 			
 	

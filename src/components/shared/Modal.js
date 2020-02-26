@@ -4,7 +4,6 @@ import {Redirect} from 'react-router-dom';
 
 const ModalExample = (props) => {
 	const {title, buttonLabel, className, show, children, toggle, onSuccess} = props;
-	const [modal, setModal] = useState(show);
 
 	// const toggle = () => {
 	// 	setModal(!modal);
