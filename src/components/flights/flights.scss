@@ -79,7 +79,7 @@
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 
     @include transition(.3s);
-    @include border-radius(10px);
+    // @include border-radius(10px);
 
     img {
         z-index: 8;

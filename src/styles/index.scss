@@ -45,6 +45,10 @@ input {
     border: 1px solid #dddddd;
 }
 
+input:read-only {
+    background-color: white;
+}
+
 .navbar-brand {
     font-size: 1rem;
     padding: 0.3125rem 1rem;
@@ -85,6 +89,23 @@ input {
 .form-control {
     margin: 2px;
     @include border-radius(0px)
+}
+
+.modal {
+    .modal-dialog {
+        height: 100%;
+        margin: auto;
+
+        @include tablet {
+            height: auto;
+        }
+    }
+
+    .modal-body {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
 }
 
 .btn {

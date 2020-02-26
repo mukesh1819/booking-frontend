@@ -21,7 +21,9 @@ const FlightCombination = ({type, flight, selected, onFlightSelect, onFlightDese
 							<span>{inboundFlight.ArrivalTime}</span>
 						</div>
 						<div className='d-flex justify-content-between'>
+							<span className='text-small text-muted'>{searchDetails.strSectorFrom}</span>
 							<span className='text-small m-auto'>{inboundFlight.duration} min</span>
+							<span className='text-small text-muted'>{searchDetails.strSectorTo}</span>
 						</div>
 					</div>
 				</div>
