@@ -49,3 +49,15 @@ export function getUsers() {
         }
     });
 }
+
+export function sendUserEmail(data){
+    return axios({
+        method: 'post',
+        url: `/admin/user_email`,
+        data: data,
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.token}`
+        }
+    })
+}

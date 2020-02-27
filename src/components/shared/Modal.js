@@ -12,7 +12,7 @@ const ModalExample = (props) => {
 		<div>
 			<Modal size='lg' isOpen={show} toggle={toggle} className={className} backdrop={true}>
 				<ModalHeader toggle={toggle}> {title} </ModalHeader>
-				<ModalBody>{children}</ModalBody>
+				<ModalBody style={{display:'block'}}>{children}</ModalBody>
 				<ModalFooter>
 					<Button
 						color='primary'
