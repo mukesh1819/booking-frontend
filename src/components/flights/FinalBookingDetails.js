@@ -10,15 +10,16 @@ import {createBooking, submitPassengers} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions/bookingActions';
-import {PassengerDetails} from './PassengerDetails';
+import PassengerDetails from './PassengerDetails';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
 import store from '../../redux/store';
 import {newPayment} from '../../api/paymentApi';
 
-class PassengerDetails extends Component {
+class FinalBookingDetails extends Component {
 	constructor(props) {
 		super(props);
+		this.submit = submit.bind(this);
 	}
 
 	submit() {
@@ -41,8 +42,7 @@ class PassengerDetails extends Component {
 			})
 			.catch((error) => {
 				console.log(error);
-			})
-			.bind(this);
+			});
 	}
 
 	render() {
@@ -59,6 +59,7 @@ class PassengerDetails extends Component {
 					/>
 					<span class='text-bold'>Passenger Details</span>
 				</div>
+				<span class='text-bold'>Passenger Details</span>
 				<PassengerDetails passengers={passengers} />
 
 				<div className='text-center m-1'>
@@ -91,4 +92,4 @@ const mapDispatchToProps = {
 	setBooking
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PassengerDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(FinalBookingDetails);

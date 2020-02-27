@@ -150,7 +150,7 @@ class SearchFlightForm extends Component {
 									/* and other goodies */
 								}) => (
 									<form onSubmit={handleSubmit} autocomplete='off'>
-										<ButtonGroup aria-label='Basic example'>
+										<ButtonGroup className='d-none d-md-block' aria-label='Basic example'>
 											<Button
 												type='button'
 												variant='secondary'
@@ -177,7 +177,7 @@ class SearchFlightForm extends Component {
 										<div className='input-section'>
 											<div className='field-box'>
 												<label>Going from</label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<IconInput icon='icon-arrow-right' iconPosition='left'>
 													<Field
 														as='select'
 														name='strSectorFrom'
@@ -203,11 +203,11 @@ class SearchFlightForm extends Component {
 														<ErrorMessage name='strSectorFrom' />
 													</Field>
 												</IconInput>
-												<i className='icon-toggle' onClick={this.toggleSectors} />
+												<i className='icon-switch' onClick={this.toggleSectors} />
 											</div>
 											<div className='field-box'>
 												<label>Going To</label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<IconInput icon='icon-arrow-left' iconPosition='left'>
 													<Field
 														as='select'
 														name='strSectorTo'
@@ -237,7 +237,7 @@ class SearchFlightForm extends Component {
 											</div>
 											<div className='field-box'>
 												<label>Departure Date</label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<IconInput icon='icon-calendar' iconPosition='left'>
 													<DatePicker
 														name='strFlightDate'
 														className='form-control'
@@ -255,7 +255,7 @@ class SearchFlightForm extends Component {
 											</div>
 											<div className={`field-box ${hideReturnField ? 'd-none' : ''}`}>
 												<label>Arrival Date</label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<IconInput icon='icon-calendar' iconPosition='left'>
 													<DatePicker
 														name='strReturnDate'
 														className='form-control'
@@ -274,7 +274,7 @@ class SearchFlightForm extends Component {
 											</div>
 											<div className='field-box'>
 												<label>Adult/Child</label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<IconInput icon='icon-users' iconPosition='left'>
 													<Dropdown
 														title={`${values.intAdult + values.intChild} Traveller`}
 														className='text-field'
@@ -304,7 +304,7 @@ class SearchFlightForm extends Component {
 											</div>
 											<div className='field-box'>
 												<label>Nationality</label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<IconInput icon='icon-flag' iconPosition='left'>
 													<Field
 														as='select'
 														name='strNationality'

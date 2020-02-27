@@ -6,6 +6,10 @@
     height: 100vh;
 
     @include tablet {
+        height: max-content;
+    }
+
+    @include desktop {
         padding: 50px;
     }
 }
@@ -58,7 +62,7 @@
         text-transform: uppercase;
         display: none;
 
-        @include tablet {
+        @include desktop {
             display: block;
         }
     }

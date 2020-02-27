@@ -15,13 +15,13 @@ nav>.nav.nav-tabs {
     }
 }
 
-nav>div a.nav-item.nav-link {
+nav>a.nav-item.nav-link {
     border: none;
     background-color: #272e38;
     border-radius: 0;
 }
 
-nav>div a.nav-item.nav-link.active {
+nav>a.nav-item.nav-link.active {
     background-color: #272e38 !important;
     border-bottom: $primary 3px solid;
     color: #fff;
@@ -35,12 +35,6 @@ nav>div a.nav-item.nav-link.active {
 //     border: 15px solid transparent;
 //     border-top-color: $primary;
 // }
-
-.tab-content {
-    background: #fdfdfd;
-    line-height: 25px;
-    border: 1px solid #ddd;
-}
 
 nav>div a.nav-item.nav-link:hover,
 nav>div a.nav-item.nav-link:focus {
