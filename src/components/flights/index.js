@@ -13,12 +13,16 @@ export default class Flights extends Component {
 			<React.Fragment>
 				<TabView tabs={tabs}>
 					<div
-						class='tab-pane fade active show'
+						class='tab-pane fade active show bg-body'
 						id='nav-flights'
 						role='tabpanel'
 						aria-labelledby='nav-flights-tab'
 					>
 						<SearchFlightForm />
+						<div className='container text-center'>
+							<h4> Things to do </h4>
+							{/* <PackageList /> */}
+						</div>
 					</div>
 					<div class='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
 						<div className='container'>

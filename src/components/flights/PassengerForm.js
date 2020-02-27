@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions/bookingActions';
 import ErrorMessage from '../ErrorMessage';
-import PassengerDetails from './PassengerDetails';
+import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
 
 import './flights.scss';
@@ -90,7 +90,7 @@ class PassengerForm extends Component {
 		}
 
 		if (this.state.viewDetails) {
-			return <PassengerDetails passengers={this.state.passengers} toggle={this.toggleView} />;
+			return <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} />;
 		}
 
 		return (
