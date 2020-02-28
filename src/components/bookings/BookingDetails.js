@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { cancelUserTickets } from '../../api/flightApi';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
+import swal from 'sweetalert';
 
 class BookingDetails extends Component {
 

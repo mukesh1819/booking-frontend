@@ -26,6 +26,7 @@ import Bookings from './components/bookings/Bookings';
 import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails'
 import AdminBookingDetails from './components/admin/BookingDetails'
+import UserEmail from './components/admin/UserEmail';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -56,6 +57,7 @@ const routing = (
 			<Route path='/admin/users_list' component={UsersList} />
 			<Route path='/admin/update_booking' component={UpdateBooking} />
 			<Route path='/admin/booking_details' component={AdminBookingDetails} />
+			<Route path='/admin/email' component={UserEmail} />
 			<Route path='/admin' component={Dashboard} />
 			<Route component={PageNotFound} />
 		</Switch>

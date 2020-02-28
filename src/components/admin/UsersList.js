@@ -8,6 +8,7 @@ import {passCsrfToken, toTableData} from '../../utils/helpers';
 import EditUserForm from '../users/EditUserForm';
 import {getUsers} from '../../api/userApi';
 
+
 class UsersList extends Component {
 	constructor(props) {
 		super(props);
@@ -79,6 +80,17 @@ class UsersList extends Component {
 												{' '}
 												Edit{' '}
 											</Link>
+										</td>
+
+										<td>
+											<Link to=
+												{{
+													pathname: '/admin/email',
+													state:{
+														user: user
+													}
+												}}
+											>Contact</Link>
 										</td>
 									</tr>
 								);
