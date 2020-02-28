@@ -42,7 +42,6 @@ export default class Flights extends Component {
 						</div>
 					</Tab>
 				</Tabs>
-				<Sidebar />
 			</React.Fragment>
 		);
 	}

@@ -5,6 +5,7 @@
 @import "./typography";
 @import "./icomoon";
 @import "./pdf";
+@import "material-ui";
 
 $fontColor : #252525;
 
@@ -95,7 +96,7 @@ img {
 }
 
 .sidebar.closed {
-    left: -200vw;
+    right: -100vw;
 }
 
 .sidebar.show {
@@ -115,12 +116,6 @@ img {
         @include tablet {
             height: auto;
         }
-    }
-
-    .modal-body {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
     }
 }
 

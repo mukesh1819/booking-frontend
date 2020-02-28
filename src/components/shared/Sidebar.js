@@ -5,7 +5,7 @@ import history from '../../history';
 
 function Sidebar({items = [], isVisible, onHide}) {
 	return (
-		<div className={`sidebar d-none ${isVisible ? 'show' : 'closed'}`}>
+		<div className={`sidebar d-md-none ${isVisible ? 'show' : 'closed'}`}>
 			<div>
 				<ListGroup>
 					{items.map(({label, name, icon, value, link, ...rest}) => (

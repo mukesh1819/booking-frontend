@@ -21,6 +21,7 @@ const FlightDetails = ({flight}) => {
 				</div>
 				<hr />
 				<div>
+					<div class='text-bold text-center'> Total: {flight.total_fare} </div>
 					Fare Details:
 					<ul>
 						<li> Base Fare (1 Adult): {flight.AdultFare} </li>
@@ -28,7 +29,6 @@ const FlightDetails = ({flight}) => {
 						<li> Fuel Surcharge: {flight.FuelSurcharge} </li>
 						<li> Tax: {flight.Tax} </li>
 					</ul>
-					<span class='text-bold'> Total: {flight.total_fare} </span>
 				</div>
 			</div>
 		</div>
