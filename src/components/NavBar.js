@@ -42,7 +42,14 @@ class NavBar extends Component {
 				value: '',
 				link: '/bookings'
 			},
-			{icon: 'icon-user', name: 'settings', label: 'My Account', value: '', link: '/profile'},
+			{
+				icon: 'icon-user',
+				name: 'settings',
+				label: 'My Account',
+				details: 'currentUser.name',
+				value: '',
+				link: '/profile'
+			},
 			{
 				icon: 'icon-calculator',
 				name: 'currency',
@@ -128,7 +135,7 @@ class NavBar extends Component {
 							</Dropdown> */}
 
 								<li className='mx-3'>
-									<Dropdown title={userInitials(currentUser)}>
+									<Dropdown title={userInitials(currentUser)} className='text-white'>
 										<ul>
 											<li>
 												{loggedIn && (
@@ -150,6 +157,7 @@ class NavBar extends Component {
 														className='dropdown-item'
 														onClick={() => {
 															logout();
+															this.props.logoutUser();
 															this.setState({
 																loggedIn: false
 															});

@@ -31,8 +31,8 @@ export default class Flights extends Component {
 					<Tab eventKey='flights' title='Flights'>
 						<SearchFlightForm />
 						<div className='container text-center'>
-							<h4> Things to do </h4>
-							{/* <PackageList /> */}
+							<h4 className='m-4'> Things to do </h4>
+							<PackageList />
 						</div>
 					</Tab>
 					<Tab eventKey='packages' title='Packages'>

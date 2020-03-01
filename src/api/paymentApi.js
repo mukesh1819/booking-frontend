@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {handleResponse, handleError} from './apiUtils';
-import {API_URL} from '../constants';
+import {PAYMENT_URL, API_URL} from '../constants';
 
 export function newPayment(idx) {
-	window.open(`/payments/new?idx=${idx}`);
+	window.open(`${PAYMENT_URL}/new?idx=${idx}`, '_blank');
 }

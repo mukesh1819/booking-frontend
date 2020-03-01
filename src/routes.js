@@ -24,9 +24,10 @@ import UsersList from './components/admin/UsersList';
 import history from './history';
 import Bookings from './components/bookings/Bookings';
 import UpdateBooking from './components/admin/UpdateBooking';
-import TransactionDetails from './components/admin/TransactionDetails'
-import AdminBookingDetails from './components/admin/BookingDetails'
+import TransactionDetails from './components/admin/TransactionDetails';
+import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
+import PrivateRoute from './components/PrivateRoute';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -37,28 +38,32 @@ const routing = (
 		<NavBar />
 		<Switch>
 			<Route exact path='/' component={Flights} />
+
+			<Route path='/login' component={SignInForm} />
+			<Route path='/signup' component={SignUpForm} />
 			<Route path='/flights' component={FlightList} />
 			<Route path='/hotels' component={HotelList} />
 			<Route path='/packages' component={Packages} />
 			<Route path='/about' component={About} />
-			<Route path='/book_flight' component={PassengerForm} />
-			<Route path='/profile' component={Users} />
-			<Route path='/booking_list' component={Bookings} />
-			<Route path='/transactions' component={Users} />
-			<Route path='/records' component={Users} />
-			<Route path='/login' component={SignInForm} />
-			<Route path='/signup' component={SignUpForm} />
-			<Route path='/users/edit' component={EditUserForm} />
-			<Route path='/booking_details' component={BookingDetails} />
-			<Route path='/ticket_details' component={TicketDetails} />
-			<Route path='/admin/transaction_details' component={TransactionDetails} />
-			<Route path='/admin/transaction_list' component={TransactionList} />
-			<Route path='/admin/create_user' component={CreateUser} />
-			<Route path='/admin/users_list' component={UsersList} />
-			<Route path='/admin/update_booking' component={UpdateBooking} />
-			<Route path='/admin/booking_details' component={AdminBookingDetails} />
-			<Route path='/admin/email' component={UserEmail} />
-			<Route path='/admin' component={Dashboard} />
+
+			<PrivateRoute path='/book_flight' component={PassengerForm} />
+			<PrivateRoute path='/booking_list' component={Bookings} />
+			<PrivateRoute path='/transactions' component={Users} />
+			<PrivateRoute path='/records' component={Users} />
+			<PrivateRoute path='/profile' component={Users} />
+			<PrivateRoute path='/users/edit' component={EditUserForm} />
+			<PrivateRoute path='/booking_details' component={BookingDetails} />
+			<PrivateRoute path='/ticket_details' component={TicketDetails} />
+
+			<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
+			<PrivateRoute path='/admin/transaction_list' component={TransactionList} />
+			<PrivateRoute path='/admin/create_user' component={CreateUser} />
+			<PrivateRoute path='/admin/users_list' component={UsersList} />
+			<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
+			<PrivateRoute path='/admin/booking_details' component={AdminBookingDetails} />
+			<PrivateRoute path='/admin/email' component={UserEmail} />
+			<PrivateRoute path='/admin' component={Dashboard} />
+
 			<Route component={PageNotFound} />
 		</Switch>
 		<Footer />

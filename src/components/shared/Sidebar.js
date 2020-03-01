@@ -6,34 +6,34 @@ import history from '../../history';
 function Sidebar({items = [], isVisible, onHide}) {
 	return (
 		<div className={`sidebar d-md-none ${isVisible ? 'show' : 'closed'}`}>
-			<div>
-				<ListGroup>
-					{items.map(({label, name, icon, value, link, ...rest}) => (
-						<ListGroup.Item
-							className='d-flex justify-content-between'
-							key={name}
-							onClick={() => {
-								history.push(link);
-								onHide();
-							}}
-						>
-							<span>
-								<i className={icon} /> {label}
-							</span>
-							<span class='text-bold'>{value}</span>
-						</ListGroup.Item>
-					))}
-					<ListGroup.Item className='d-flex justify-content-between' key='flights'>
+			<div className='list-group'>
+				{items.map(({label, name, details, icon, value, link, ...rest}) => (
+					<div
+						className='list-group-item d-flex justify-content-between align-items-center'
+						key={name}
+						onClick={() => {
+							history.push(link);
+							onHide();
+						}}
+					>
 						<span>
-							<i className='icon-paper-plane' /> {'Flights'}
+							<i className={`${icon} p-2`} /> {label}
+							{details}
 						</span>
-					</ListGroup.Item>
-					<ListGroup.Item className='d-flex justify-content-between' key='packages'>
-						<span>
-							<i className='icon-paper-plane' /> {'Packages'}
-						</span>
-					</ListGroup.Item>
-				</ListGroup>
+						<span class='text-bold'>{value}</span>
+					</div>
+				))}
+				<hr />
+				<div className='list-group-item d-flex justify-content-between' key='flights'>
+					<span>
+						<i className='icon-paper-plane' /> {'Flights'}
+					</span>
+				</div>
+				<div className='list-group-item d-flex justify-content-between' key='packages'>
+					<span>
+						<i className='icon-paper-plane' /> {'Packages'}
+					</span>
+				</div>
 			</div>
 		</div>
 	);

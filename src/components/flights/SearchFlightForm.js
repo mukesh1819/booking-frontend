@@ -290,6 +290,7 @@ class SearchFlightForm extends Component {
 															/>
 														}
 													/>
+													<span class='label'>Round Trip?</span>
 												</div>
 											</div>
 											<div className={`field-box ${hideReturnField ? 'd-none' : ''}`}>

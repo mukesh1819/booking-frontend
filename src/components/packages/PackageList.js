@@ -14,9 +14,7 @@ class PackageList extends Component {
 		};
 	}
 
-	componentDidMount() {}
-
-	render() {
+	componentDidMount() {
 		const options = {
 			margin: 20,
 			loop: true,
@@ -39,17 +37,22 @@ class PackageList extends Component {
 				}
 			}
 		};
+		$(document).ready(function() {
+			$('.owl-carousel').owlCarousel(options);
+		});
+	}
+
+	render() {
 		return (
 			<div className='container p-4'>
-				<OwlCarousel ref='car' options={options} className='owl-theme'>
+				<div className='owl-carousel owl-theme'>
 					<Package />
 					<Package />
 					<Package />
 					<Package />
 					<Package />
 					<Package />
-					<Package />
-				</OwlCarousel>
+				</div>
 			</div>
 		);
 	}

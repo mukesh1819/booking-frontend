@@ -16,6 +16,7 @@ import SearchFlightForm from './SearchFlightForm';
 import SearchDetails from './SearchDetails';
 import EmptyContent from '../EmptyContent';
 import history from '../../history';
+import DropdownItem from '../shared/Dropdown';
 
 require('./flights.scss');
 
@@ -139,34 +140,45 @@ class FlightList extends Component {
 						Earliest
 					</Sort>
 				</div>
-				<div className='page'>
-					<div className='d-flex flex-wrap'>
-						<div class='d-none d-md-block'>
-							<span onClick={() => this.onSort('PRICE')}>Cheapest</span>
-							<span onClick={() => this.onSort('DURATION')}>Quickest</span>
-							<span onClick={() => this.onSort('TIME')}>Earliest</span>
-						</div>
-						<div className='flex-grow-1'>
-							<TableView
-								values={reverseSortedList}
-								ChildComponent={component}
-								type={type}
-								onFlightSelect={this.onFlightSelect}
-								onViewDetails={this.onViewDetails}
-							/>
+				<div className='row'>
+					<div className='col-sm-0 col-md-2 bg-white p-0'>
+						<div className='card filter-flights'>
+							<div className='card-header'>Filter</div>
+							<div className='card-body text-center'>
+								<DropdownItem title={`Cheapest`} className='text-field'>
+									<div className='p-2' onClick={() => this.onSort('PRICE')}>
+										Cheapest
+									</div>
+									<div className='p-2' onClick={() => this.onSort('DURATION')}>
+										Quickest
+									</div>
+									<div className='p-2' onClick={() => this.onSort('TIME')}>
+										Earliest
+									</div>
+								</DropdownItem>
+							</div>
 						</div>
 					</div>
-
-					<ModalExample
-						title='Flight Details'
-						buttonLabel='Book'
-						show={this.state.selectedFlight !== null}
-						toggle={this.onViewDetails}
-						onSuccess={this.onBook}
-					>
-						{this.state.selectedFlight && <DetailComponent flight={this.state.selectedFlight} />}
-					</ModalExample>
+					<div className='col-sm-12 col-md-10'>
+						<TableView
+							values={reverseSortedList}
+							ChildComponent={component}
+							type={type}
+							onFlightSelect={this.onFlightSelect}
+							onViewDetails={this.onViewDetails}
+						/>
+					</div>
 				</div>
+
+				<ModalExample
+					title='Flight Details'
+					buttonLabel='Book'
+					show={this.state.selectedFlight !== null}
+					toggle={this.onViewDetails}
+					onSuccess={this.onBook}
+				>
+					{this.state.selectedFlight && <DetailComponent flight={this.state.selectedFlight} />}
+				</ModalExample>
 			</div>
 		);
 	}

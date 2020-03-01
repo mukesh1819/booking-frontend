@@ -173,9 +173,18 @@
 .toggle-trip {
     position: absolute;
     right: 0;
+    display: table;
 
     @include tablet {
         display: none;
+    }
+
+    .label {
+        display: table;
+        position: relative;
+        font-size: 0.6rem;
+        bottom: 10px;
+        right: 4px;
     }
 }
 
@@ -200,4 +209,13 @@ select::-ms-expand {
 select {
     -moz-appearance: none;
     -webkit-appearance: none;
+}
+
+.filter-flights {
+    .custom-dropdown {
+        padding: 10px;
+        border: 1px solid;
+    }
+
+    .custom-dropdown-menu {}
 }

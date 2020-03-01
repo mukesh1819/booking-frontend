@@ -5,7 +5,7 @@ import history from '../../history';
 import {loginUser} from '../../redux/actions/sessions';
 import {connect} from 'react-redux';
 import NavBar from '../NavBar';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
 
 class SignInForm extends Component {
@@ -15,7 +15,14 @@ class SignInForm extends Component {
 	}
 
 	render() {
-		const {outboundFlights, inboundFlights, selectedInboundFlight, selectedOutboundFlight} = this.props;
+		const {currentUser} = this.props;
+		if (currentUser.email !== undefined) {
+			var path = '/';
+			if (this.props.location.state !== undefined) {
+				path = this.props.location.state.from.pathname;
+			}
+			return <Redirect to={path} />;
+		}
 
 		return (
 			<React.Fragment>
@@ -34,9 +41,10 @@ class SignInForm extends Component {
 						signIn(variables)
 							.then((response) => {
 								setSubmitting(false);
+								console.log('Logged In user', response);
 								this.props.loginUser(response.data.user);
 								localStorage.setItem('token', response.data.jwt);
-								history.goBack();
+								history.push(this.props.location.state.from.pathname);
 								NavBar.forceUpdate();
 								console.log(response.data);
 							})
@@ -120,9 +128,9 @@ class SignInForm extends Component {
 	}
 }
 
-const mapStateToProps = ({currentUser}) => {
+const mapStateToProps = ({userStore}) => {
 	return {
-		currentUser
+		currentUser: userStore.currentUser
 	};
 };
 

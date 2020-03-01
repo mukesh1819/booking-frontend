@@ -85,10 +85,6 @@ class PassengerForm extends Component {
 			return <Redirect to='/' />;
 		}
 
-		if (this.props.currentUser.email == undefined) {
-			return <Redirect to='/login' />;
-		}
-
 		if (this.state.viewDetails) {
 			return <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} />;
 		}

@@ -92,6 +92,7 @@ img {
 
     .list-group-item {
         border: 0px;
+        padding: 10px 20px;
     }
 }
 
@@ -152,6 +153,17 @@ img {
     &:hover {
         cursor: pointer;
     }
+}
+
+.custom-dropdown {
+    cursor: pointer;
+}
+
+.custom-dropdown-menu {
+    padding: 0.5rem;
+    background: white;
+    position: absolute;
+    transform: translate(0px, 15px);
 }
 
 .validation-msg {

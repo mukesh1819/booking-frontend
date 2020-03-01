@@ -13,9 +13,6 @@ import SocialLinks from './SocialLinks';
 class SignUpForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			error: null
-		};
 	}
 
 	render() {
@@ -59,9 +56,12 @@ class SignUpForm extends Component {
 						.catch((error) => {
 							setSubmitting(false);
 							console.log(error);
-							// this.setState({
-							// 	error
-							// });
+							swal({
+								title: 'Something went wrong!',
+								text: 'User was not created!',
+								icon: 'error',
+								button: 'Try Again!'
+							});
 						});
 				}}
 			>
@@ -81,7 +81,6 @@ class SignUpForm extends Component {
 							<div className='login-form card p-2'>
 								<div className='card-body'>
 									<h4>Sign Up</h4>
-									{this.state.error}
 									<div class='text-small'>
 										Already have an account? <Link to='/login'>Sign In</Link>
 									</div>
