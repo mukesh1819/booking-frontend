@@ -112,11 +112,14 @@ class FlightList extends Component {
 		const reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList;
 
 		if (reverseSortedList.length == 0) {
-			debugger;
 			return (
 				<div className='container p-0'>
-					<SearchDetails />
-					<EmptyContent>No Flights found.</EmptyContent>
+					<EmptyContent>
+						No Flights found.<br />
+						<Link to='/' className='btn btn-primary'>
+							Try Again
+						</Link>
+					</EmptyContent>
 				</div>
 			);
 		}
@@ -125,7 +128,7 @@ class FlightList extends Component {
 			<div className='container p-0'>
 				<SearchDetails />
 
-				<div class='bg-secondary text-center sorter'>
+				<div class='bg-secondary text-center sorter d-md-none'>
 					<Sort sortKey={'PRICE'} onSort={this.onSort} isActive={sortKey == 'PRICE'}>
 						Cheapest
 					</Sort>
@@ -138,6 +141,11 @@ class FlightList extends Component {
 				</div>
 				<div className='page'>
 					<div className='d-flex flex-wrap'>
+						<div class='d-none d-md-block'>
+							<span onClick={() => this.onSort('PRICE')}>Cheapest</span>
+							<span onClick={() => this.onSort('DURATION')}>Quickest</span>
+							<span onClick={() => this.onSort('TIME')}>Earliest</span>
+						</div>
 						<div className='flex-grow-1'>
 							<TableView
 								values={reverseSortedList}
@@ -147,49 +155,7 @@ class FlightList extends Component {
 								onViewDetails={this.onViewDetails}
 							/>
 						</div>
-						{/* 
-						{selectedOutboundFlight != null && (
-							<div className='flex-grow-1'>
-								<Flight
-									type='OUTBOUND'
-									flight={selectedOutboundFlight}
-									selected={true}
-									onFlightDeselect={this.onFlightDeselect}
-									onViewDetails={this.onViewDetails}
-								/>
-							</div>
-						)}
-
-						{combinations.length > 0 &&
-						selectedInboundFlight == null && (
-							<div className='flex-grow-1'>
-								<TableView
-									values={combinations}
-									ChildComponent={FlightCombination}
-									type='COMBINATION'
-									onFlightSelect={this.onFlightSelect}
-									onViewDetails={this.onViewDetails}
-								/>
-							</div>
-						)}
-
-						{selectedInboundFlight !== null && (
-							<div className='flex-grow-1'>
-								<Flight
-									type='INBOUND'
-									flight={selectedInboundFlight}
-									selected={true}
-									onFlightDeselect={this.onFlightDeselect}
-									onViewDetails={this.onViewDetails}
-								/>
-							</div>
-						)} */}
 					</div>
-					{/* {(selectedInboundFlight || selectedOutboundFlight) && (
-						<Link to='/book_flight' className='btn btn-primary float-right'>
-							Continue to Book
-						</Link>
-					)} */}
 
 					<ModalExample
 						title='Flight Details'

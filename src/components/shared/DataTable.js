@@ -3,7 +3,6 @@ import {MDBDataTable} from 'mdbreact';
 
 const Datatable = ({data}) => {
 	console.log('Formatted Data', data);
-	debugger;
 	return <MDBDataTable striped bordered hover data={data} />;
 };
 

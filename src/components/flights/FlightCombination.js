@@ -3,13 +3,23 @@ import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
 import Tooltip from '../shared/Tooltip';
 import Flight from './Flight';
+import {connect} from 'react-redux';
+import {isRefundable} from '../../utils/helpers';
 
-const FlightCombination = ({type, flight, selected, onFlightSelect, onFlightDeselect, onViewDetails}) => {
+const FlightCombination = ({
+	type,
+	flight,
+	selected,
+	onFlightSelect,
+	onFlightDeselect,
+	onViewDetails,
+	searchDetails
+}) => {
 	const inboundFlight = flight.inbound;
 	const outboundFlight = flight.outbound;
 	return (
 		<div className='flight-card d-flex align-items-center' onClick={() => onViewDetails('COMBINATION', flight)}>
-			<div className='col-10 no-padding'>
+			<div className='flex-grow-1'>
 				<div className='d-flex justify-content-between align-items-center'>
 					<div className='no-padding'>
 						<img src={inboundFlight.AirlineLogo} className='w-100 p-2' />
@@ -43,11 +53,12 @@ const FlightCombination = ({type, flight, selected, onFlightSelect, onFlightDese
 					</div>
 				</div>
 			</div>
-			<div className='col-2 no-padding'>
+			<div className=''>
 				<div className='text-center'>
-					<div className='text-strong p-2'>
-						NPR:<br />
-						<span>{flight.total_fare}</span>
+					<div className='p-2'>
+						Npr:&nbsp;
+						<span className='text-strong '>{flight.total_fare}</span>
+						<div class='text-smaller text-muted'>{isRefundable(flight.Refundable)}</div>
 					</div>
 					{/* {selected && (
 					<Tooltip message='Deselect'>
@@ -59,4 +70,11 @@ const FlightCombination = ({type, flight, selected, onFlightSelect, onFlightDese
 		</div>
 	);
 };
-export default FlightCombination;
+
+const mapStateToProps = ({flightStore}) => ({
+	searchDetails: flightStore.searchDetails
+});
+
+const mapDispatchToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FlightCombination);

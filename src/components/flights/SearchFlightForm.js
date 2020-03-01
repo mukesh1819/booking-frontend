@@ -16,9 +16,12 @@ import history from '../../history';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {ButtonGroup} from 'react-bootstrap';
 import Counter from '../shared/Counter';
-import Dropdown from '../shared/Dropdown';
+import DropdownItem from '../shared/Dropdown';
+
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
@@ -68,8 +71,15 @@ class SearchFlightForm extends Component {
 		});
 	};
 
+	toggleTripType = () => {
+		var value = this.state.tripType == 'R' ? 'O' : 'R';
+		this.setState(function(prevState) {
+			return {tripType: prevState.tripType == 'R' ? 'O' : 'R', hideReturnField: !prevState.hideReturnField};
+		});
+		return value;
+	};
+
 	toggleSectors = () => {
-		debugger;
 		this.strSectorFrom.current;
 		console.log('Changed SearchDetails', this.state.searchDetails);
 		this.props.setSearchDetails(
@@ -105,7 +115,9 @@ class SearchFlightForm extends Component {
 				<header id='header' className='cover' role='banner'>
 					<div id='search-flight-form'>
 						<Container>
-							<div className='text-white mb-2'>Search and book flights</div>
+							<div className='text-white mb-2'>
+								Find and book domestic flights within Nepal at best price.
+							</div>
 							<Formik
 								initialValues={searchDetails}
 								validationSchema={SearchFlightSchema}
@@ -149,7 +161,7 @@ class SearchFlightForm extends Component {
 									setFieldValue
 									/* and other goodies */
 								}) => (
-									<form onSubmit={handleSubmit} autocomplete='off'>
+									<form onSubmit={handleSubmit} autoComplete='off'>
 										<ButtonGroup className='d-none d-md-block' aria-label='Basic example'>
 											<Button
 												type='button'
@@ -177,7 +189,7 @@ class SearchFlightForm extends Component {
 										<div className='input-section'>
 											<div className='field-box'>
 												<label>Going from</label>
-												<IconInput icon='icon-arrow-right' iconPosition='left'>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														as='select'
 														name='strSectorFrom'
@@ -186,8 +198,9 @@ class SearchFlightForm extends Component {
 														onChange={handleChange}
 														value={values.strSectorFrom}
 														ref={this.strSectorFrom}
+														defaultValue=''
 													>
-														<option value='' disabled selected>
+														<option value='' disabled>
 															Going From
 														</option>
 														{this.state.cities.map(function(sector) {
@@ -203,11 +216,21 @@ class SearchFlightForm extends Component {
 														<ErrorMessage name='strSectorFrom' />
 													</Field>
 												</IconInput>
-												<i className='icon-switch' onClick={this.toggleSectors} />
+											</div>
+											<div>
+												<div className='toggle-sector'>
+													<i
+														className='icon-controller-fast-forward'
+														onClick={() => {
+															setFieldValue('strSectorTo', values.strSectorFrom);
+															setFieldValue('strSectorFrom', values.strSectorTo);
+														}}
+													/>
+												</div>
 											</div>
 											<div className='field-box'>
 												<label>Going To</label>
-												<IconInput icon='icon-arrow-left' iconPosition='left'>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														as='select'
 														name='strSectorTo'
@@ -216,8 +239,9 @@ class SearchFlightForm extends Component {
 														onChange={handleChange}
 														value={values.strSectorTo}
 														ref={this.strSectorTo}
+														defaultValue=''
 													>
-														<option value='' disabled selected>
+														<option value='' disabled>
 															Going To
 														</option>
 														{this.state.cities.map(function(sector) {
@@ -242,7 +266,7 @@ class SearchFlightForm extends Component {
 														name='strFlightDate'
 														className='form-control'
 														type='date'
-														date={new Date()}
+														date={values.strFlightDate}
 														minDate={new Date()}
 														format='dd-mm-YYYY'
 														onBlur={handleBlur}
@@ -253,6 +277,21 @@ class SearchFlightForm extends Component {
 												</IconInput>
 												<ErrorMessage name='strFlightDate' />
 											</div>
+											<div>
+												<div className='toggle-trip'>
+													<FormControlLabel
+														control={
+															<Switch
+																checked={this.state.tripType == 'R'}
+																onChange={() => {
+																	setFieldValue('strTripType', this.toggleTripType());
+																}}
+																value={this.state.tripType}
+															/>
+														}
+													/>
+												</div>
+											</div>
 											<div className={`field-box ${hideReturnField ? 'd-none' : ''}`}>
 												<label>Arrival Date</label>
 												<IconInput icon='icon-calendar' iconPosition='left'>
@@ -261,7 +300,7 @@ class SearchFlightForm extends Component {
 														className='form-control'
 														type='date'
 														format='dd-mm-YYYY'
-														date={new Date()}
+														date={values.strFlightDate}
 														minDate={new Date()}
 														onBlur={handleBlur}
 														onChange={(date) => setFieldValue('strReturnDate', date)}
@@ -275,7 +314,7 @@ class SearchFlightForm extends Component {
 											<div className='field-box'>
 												<label>Adult/Child</label>
 												<IconInput icon='icon-users' iconPosition='left'>
-													<Dropdown
+													<DropdownItem
 														title={`${values.intAdult + values.intChild} Traveller`}
 														className='text-field'
 													>
@@ -297,7 +336,7 @@ class SearchFlightForm extends Component {
 															onChange={(value) => setFieldValue('intChild', value)}
 															value={values.intChild}
 														/>
-													</Dropdown>
+													</DropdownItem>
 												</IconInput>
 												<ErrorMessage name='intAdult' />
 												<ErrorMessage name='intChild' />
@@ -311,6 +350,7 @@ class SearchFlightForm extends Component {
 														className='form-control'
 														onChange={handleChange}
 														value={values.strNationality}
+														defaultValue=''
 													>
 														<option value='' disabled>
 															Nationality
@@ -319,6 +359,7 @@ class SearchFlightForm extends Component {
 														<option value='IN'> Indian </option>
 													</Field>
 												</IconInput>
+
 												<ErrorMessage name='strNationality' />
 											</div>
 										</div>
