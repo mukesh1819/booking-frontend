@@ -98,7 +98,7 @@ class TransactionList extends Component{
 				)}
 			<ModalExample
                 title='Transaction Details'
-                buttonLabel='Details'
+                buttonLabel='close'
                 show={selectedTransaction !== null}
                 toggle={() => this.onTransactionSelect(null)}
                 onSuccess={() => this.onTransactionSelect(null)}

@@ -16,7 +16,6 @@ import SignInForm from './components/sessions/SignInForm';
 import SignUpForm from './components/sessions/SignUpForm';
 import EditUserForm from './components/users/EditUserForm';
 import BookingDetails from './components/bookings/BookingDetails';
-import Dashboard from './components/admin';
 import TicketDetails from './components/bookings/TicketDetails';
 import TransactionList from './components/admin/TransactionList';
 import CreateUser from './components/admin/CreateUser';
@@ -27,6 +26,7 @@ import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
+import Dashboard from './components/admin';
 import PrivateRoute from './components/PrivateRoute';
 
 function About() {
