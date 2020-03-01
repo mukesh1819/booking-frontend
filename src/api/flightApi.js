@@ -101,3 +101,14 @@ export function ignoreAdminTicket(id) {
 		}
 	});
 }
+
+export function getAdminDashboard(){
+	return axios({
+		method: 'get',
+		url: `/admin/dashboard`,
+		headers:{
+			'Content-Type': 'application/json',
+			Authorization: `Bearer $(LocalStorage.token)`
+		}
+	});
+}
