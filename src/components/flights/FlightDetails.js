@@ -12,12 +12,12 @@ const FlightDetails = (props) => {
 					{flight.Departure} - {flight.Arrival}
 				</div>
 				<span className='text-small text-muted'> {flight.FlightDate} </span>
-			</div>
-			<div className='body'>
 				<div class='text-center'>
 					{flight.DepartureTime} --------- <span class='text-small text-bold'>10h 10min</span> -----------
 					{flight.ArrivalTime}
 				</div>
+			</div>
+			<div className='body'>
 				<div className='text-center text-small text-muted'>
 					{flight.FlightNo}({flight.FlightClassCode})
 				</div>
