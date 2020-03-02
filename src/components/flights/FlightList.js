@@ -140,11 +140,11 @@ class FlightList extends Component {
 						Earliest
 					</Sort>
 				</div>
-				<div className='row'>
+				<div className='row m-0'>
 					<div className='col-sm-0 col-md-2 bg-white p-0'>
 						<div className='card filter-flights'>
 							<div className='card-header'>Filter</div>
-							<div className='card-body text-center'>
+							<div className='card-body'>
 								<DropdownItem title={`Cheapest`} className='text-field'>
 									<div className='p-2' onClick={() => this.onSort('PRICE')}>
 										Cheapest
@@ -159,7 +159,7 @@ class FlightList extends Component {
 							</div>
 						</div>
 					</div>
-					<div className='col-sm-12 col-md-10'>
+					<div className='col-sm-12 col-md-10 p-0'>
 						<TableView
 							values={reverseSortedList}
 							ChildComponent={component}

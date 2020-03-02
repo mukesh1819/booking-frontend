@@ -22,6 +22,7 @@ import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import moment from 'moment';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
@@ -270,7 +271,11 @@ class SearchFlightForm extends Component {
 														minDate={new Date()}
 														format='dd-mm-YYYY'
 														onBlur={handleBlur}
-														onChange={(date) => setFieldValue('strFlightDate', date)}
+														onChange={(date) =>
+															setFieldValue(
+																'strFlightDate',
+																moment(date).format('D MMM, YYYY')
+															)}
 														value={values.strFlightDate}
 														placeholder='Departure Date'
 													/>
@@ -304,7 +309,11 @@ class SearchFlightForm extends Component {
 														date={values.strFlightDate}
 														minDate={new Date()}
 														onBlur={handleBlur}
-														onChange={(date) => setFieldValue('strReturnDate', date)}
+														onChange={(date) =>
+															setFieldValue(
+																'strReturnDate',
+																moment(date).format('D MMM, YYYY')
+															)}
 														value={values.strReturnDate}
 														disabled={hideReturnField}
 														placeholder='Arrival Date'
@@ -333,7 +342,7 @@ class SearchFlightForm extends Component {
 															type='number'
 															className='m-1'
 															onBlur={handleBlur}
-															title={`${values.intChild} Adult`}
+															title={`${values.intChild} Child`}
 															onChange={(value) => setFieldValue('intChild', value)}
 															value={values.intChild}
 														/>

@@ -15,13 +15,13 @@ const initialState = {
     selectedOutboundFlight: null,
     searchDetails: {
         strTripType: 'O',
-        strFlightDate: '',
+        strFlightDate: tomorrow,
         strReturnDate: tomorrow,
-        strNationality: '',
+        strNationality: 'NP',
         intAdult: 1,
         intChild: 0,
-        strSectorFrom: '',
-        strSectorTo: ''
+        strSectorFrom: 'KTM',
+        strSectorTo: 'PKR'
     }
 };
 

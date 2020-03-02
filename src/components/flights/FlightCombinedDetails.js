@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import store from '../../redux/store';
 import {isRefundable} from '../../utils/helpers';
+import {connect} from 'react-redux';
 
-const FlightCombinedDetails = ({flight}) => {
+const FlightCombinedDetails = (props) => {
 	const inbound = flight.inbound;
 	const outbound = flight.outbound;
+	const {adult, child, flight} = props;
 	return (
 		<div className='flight-details'>
 			<div className='header text-center'>
@@ -26,12 +28,12 @@ const FlightCombinedDetails = ({flight}) => {
 				<div>
 					Fare Details:
 					<ul>
-						<li> Base Fare (1 Adult): {inbound.AdultFare} </li>
-						<li> Base Fare (1 Child): {inbound.ChildFare} </li>
+						{adult > 0 && <li> Base Fare (1 Adult): {inbound.AdultFare} </li>}
+						{child > 0 && <li> Base Fare (1 Child): {inbound.ChildFare} </li>}
 						<li> Fuel Surcharge: {inbound.FuelSurcharge} </li>
 						<li> Tax: {inbound.Tax} </li>
 					</ul>
-					<span class='text-bold'> Total: {outbound.total_fare} </span>
+					<span class='text-bold p-3'> Total: {outbound.total_fare} </span>
 					<div class='text-small text-muted'>({isRefundable(inbound.Refundable)})</div>
 				</div>
 			</div>
@@ -54,12 +56,12 @@ const FlightCombinedDetails = ({flight}) => {
 				<div>
 					Fare Details:
 					<ul>
-						<li> Base Fare (1 Adult): {outbound.AdultFare} </li>
-						<li> Base Fare (1 Child): {outbound.ChildFare} </li>
+						{adult > 0 && <li> Base Fare (1 Adult): {outbound.AdultFare} </li>}
+						{child > 0 && <li> Base Fare (1 Child): {outbound.ChildFare} </li>}
 						<li> Fuel Surcharge: {outbound.FuelSurcharge} </li>
 						<li> Tax: {outbound.Tax} </li>
 					</ul>
-					<span class='text-bold'> Total: {outbound.total_fare} </span>
+					<span class='text-bold p-3'> Total: {outbound.total_fare} </span>
 					<div class='text-small text-muted'>({isRefundable(outbound.Refundable)})</div>
 				</div>
 			</div>
@@ -67,4 +69,13 @@ const FlightCombinedDetails = ({flight}) => {
 	);
 };
 
-export default FlightCombinedDetails;
+const mapStateToProps = ({flightStore}) => {
+	return {
+		adult: flightStore.searchDetails.intAdult,
+		child: flightStore.searchDetails.intChild
+	};
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FlightCombinedDetails);

@@ -8,57 +8,58 @@ import axios from 'axios';
 import {getAdminDashboard} from '../../api/flightApi';
 
 class Dashboard extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
-		this.state= {
-			users:'',
-			bookings:'',
-			transactions:''
+		this.state = {
+			users: '',
+			bookings: '',
+			transactions: ''
 		};
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		passCsrfToken(document, axios);
 		this.fetchAdminDetails();
-
 	}
 
-	fetchAdminDetails(){
+	fetchAdminDetails() {
 		getAdminDashboard()
-		.then((response) => {
-			debugger;
-			console.log(response.data);
-			this.setState({
-				users: response.data.users_count,
-				bookings: response.data.bookings_count,
-				transactions: response.data.transactions_count
+			.then((response) => {
+				console.log(response.data);
+				this.setState({
+					users: response.data.users_count,
+					bookings: response.data.bookings_count,
+					transactions: response.data.transactions_count
+				});
 			})
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
-	render(){
+	render() {
+		const {users, bookings, transactions} = this.state;
 		return (
 			<div className='container mt-5'>
-				{/* <div className='card'>
-					<div className='card-body'> Dashboard </div> <UsersList />
-				</div>{' '} */}
+				<h5>Dashboard</h5>
 				<div className='row'>
-					<div className='col-4'>
+					<div className='col-sm-12 col-md-4'>
 						<div className='card'>
 							<div className='card-body'>
-								<div className='text-center'>{this.state.users} </div>
-								<Link to='/admin/users_list' className='d-flex justify-content-center pt-2 pb-2'>View all Users</Link> 
+								<div className='text-center'>{users} </div>
+								<Link to='/admin/users_list' className='d-flex justify-content-center pt-2 pb-2'>
+									View all Users
+								</Link>
 							</div>
 						</div>
 					</div>
 
-					<div className='col-4'>
+					<div className='col-sm-12 col-md-4'>
 						<div className='card'>
 							<div className='card-body'>
-								<div className='text-center'>{this.state.bookings}</div>
-								<Link to='/admin' className='d-flex justify-content-center pt-2 pb-2'>View all bookings</Link>
+								<div className='text-center'>{bookings}</div>
+								<Link to='/admin' className='d-flex justify-content-center pt-2 pb-2'>
+									View all bookings
+								</Link>
 								{/* <Link to=
 								{{
 									pathname:'/admin/booking_details',
@@ -71,20 +72,20 @@ class Dashboard extends Component {
 							</div>
 						</div>
 					</div>
-					
-					<div className='col-4'>
+
+					<div className='col-sm-12 col-md-4'>
 						<div className='card'>
 							<div className='card-body'>
-								<div className='text-center'>{this.state.transactions} </div>
-								<Link to='/' className='d-flex justify-content-center pt-2 pb-2'>View all transactions</Link> 
+								<div className='text-center'>{transactions} </div>
+								<Link to='/' className='d-flex justify-content-center pt-2 pb-2'>
+									View all transactions
+								</Link>
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		);
 	}
-
-};
+}
 export default Dashboard;

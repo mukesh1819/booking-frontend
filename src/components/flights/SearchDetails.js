@@ -5,6 +5,7 @@ import Tooltip from '../shared/Tooltip';
 import {isRefundable} from '../../utils/helpers';
 import {connect} from 'react-redux';
 import history from '../../history';
+import moment from 'moment';
 
 const SearchDetails = ({details}) => {
 	return (
@@ -16,7 +17,9 @@ const SearchDetails = ({details}) => {
 						<i className={details.strTripType === 'O' ? 'icon-arrow-right' : 'icon-arrow-right2'} />
 						{`${details.strSectorTo}`}
 					</div>
-					<div className='text-small text-muted'>{`${details.strFlightDate}`}</div>
+					<div className='text-small text-muted'>{`${moment(details.strFlightDate).format(
+						'Do MMMM, YYYY'
+					)}`}</div>
 				</div>
 				<div>
 					<i className='icon-edit' onClick={() => history.push('/')} />
