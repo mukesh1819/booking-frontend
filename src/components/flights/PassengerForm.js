@@ -26,6 +26,7 @@ import {passCsrfToken} from '../../utils/helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
+import Accordion from '../shared/Accordion';
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -109,7 +110,8 @@ class PassengerForm extends Component {
 		}
 
 		var content = (
-			<Container>
+			<Container className='p-0'>
+				<h3 className='p-2'>Add Passenger details</h3>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
@@ -178,16 +180,10 @@ class PassengerForm extends Component {
 								</div>
 							</div>
 
-
-							<h3 className='p-2'>Add Passenger details</h3>
-
 							{values.passengers.map((passenger, index) => {
 								return (
-									<div className='card' key={`${passenger.passenger_type} ${index + 1}`}>
-										<div className='card-body'>
-											<div className='text-primary text-bold'>
-												{passenger.passenger_type} {index + 1}
-											</div>
+									<div className='' key={`${passenger.passenger_type} ${index + 1}`}>
+										<Accordion title={`${passenger.passenger_type} ${index + 1}`}>
 											<div className='input-section'>
 												<div className='field-box'>
 													<label htmlFor=''>Title</label>
@@ -272,8 +268,8 @@ class PassengerForm extends Component {
 														<ErrorMessage name={`passengers[${index}].nationality`} />
 													</div>
 												</div>
-											</div>
-										</div>
+										</Accordion>
+									</div>
 								);
 							})}
 							<div className='text-center p-2'>
