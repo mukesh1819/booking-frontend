@@ -17,6 +17,7 @@ import SearchDetails from './SearchDetails';
 import EmptyContent from '../EmptyContent';
 import history from '../../history';
 import DropdownItem from '../shared/Dropdown';
+import {Form} from 'react-bootstrap';
 
 require('./flights.scss');
 
@@ -27,6 +28,21 @@ const SORTS = {
 	DURATION: (list) => sortBy(list, 'duration')
 	// DEPARTURE: (list) => sortBy(list, 'departure').reverse(),
 };
+
+const sorters = [
+	{
+		key: 'PRICE',
+		label: 'Cheapest'
+	},
+	{
+		key: 'TIME',
+		label: 'Quickest'
+	},
+	{
+		key: 'DURATION',
+		label: 'Earliest'
+	}
+];
 
 const Sort = ({sortKey, onSort, isActive, children}) => (
 	<Button variant='secondary' className={isActive ? 'active' : ''} onClick={() => onSort(sortKey)}>
@@ -130,32 +146,42 @@ class FlightList extends Component {
 				<SearchDetails />
 
 				<div class='bg-secondary text-center sorter d-md-none'>
-					<Sort sortKey={'PRICE'} onSort={this.onSort} isActive={sortKey == 'PRICE'}>
-						Cheapest
-					</Sort>
-					<Sort sortKey={'DURATION'} onSort={this.onSort} isActive={sortKey == 'DURATION'}>
-						Quickest
-					</Sort>
-					<Sort sortKey={'TIME'} onSort={this.onSort} isActive={sortKey == 'TIME'}>
-						Earliest
-					</Sort>
+					{sorters.map(({key, label}) => {
+						return (
+							<Sort sortKey={key} onSort={this.onSort} isActive={sortKey == key}>
+								{label}
+							</Sort>
+						);
+					})}
 				</div>
 				<div className='row m-0'>
-					<div className='col-sm-0 col-md-2 bg-white p-0'>
+					<div className='col-sm-0 col-md-2 bg-white p-0 d-none d-md-block'>
 						<div className='card filter-flights'>
 							<div className='card-header'>Filter</div>
 							<div className='card-body'>
-								<DropdownItem title={`Cheapest`} className='text-field'>
-									<div className='p-2' onClick={() => this.onSort('PRICE')}>
-										Cheapest
-									</div>
-									<div className='p-2' onClick={() => this.onSort('DURATION')}>
-										Quickest
-									</div>
-									<div className='p-2' onClick={() => this.onSort('TIME')}>
-										Earliest
-									</div>
+								<span className='text-bold'>Sort By</span>
+								<DropdownItem title={sortKey} className='text-field'>
+									{sorters.map(({key, label}) => {
+										return (
+											<div
+												className={`p-2 menu-item ${sortKey == key ? 'active' : ''}`}
+												onClick={() => this.onSort(key)}
+											>
+												{label}
+											</div>
+										);
+									})}
 								</DropdownItem>
+
+								<hr />
+
+								<span className='text-bold'>Airline</span>
+								<Form>
+									<div key={`checkbox`} className='mb-3'>
+										<Form.Check inline label='1' type='checkbox' id={`checkbox-1`} />
+										<Form.Check inline label='2' type='checkbox' id={`checkbox-2`} />
+									</div>
+								</Form>
 							</div>
 						</div>
 					</div>
