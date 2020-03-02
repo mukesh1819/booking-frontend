@@ -23,6 +23,7 @@ import {Input} from 'semantic-ui-react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
+import {getCountries} from '../../api/flightApi';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
@@ -35,7 +36,8 @@ class SearchFlightForm extends Component {
 			isSubmitted: false,
 			availableFlights: [],
 			searching: false,
-			tripType: 'O'
+			tripType: 'O',
+			countries: []
 		};
 		this.strSectorFrom = React.createRef();
 		this.strSectorTo = React.createRef();
@@ -47,6 +49,7 @@ class SearchFlightForm extends Component {
 			searchDetails: this.props.searchDetails
 		});
 		this.fetchCities();
+		this.fetchCountries();
 	}
 
 	fetchCities = () => {
@@ -64,6 +67,19 @@ class SearchFlightForm extends Component {
 				});
 			});
 	};
+
+	fetchCountries(){
+		getCountries()
+		.then((response) => {
+			console.log(response);
+			this.setState({
+				countries: response.data
+			})
+		})
+		.catch((error) => {
+			console.log(error);
+		})
+	}
 
 	changeTripType = (trip) => {
 		this.setState({
@@ -365,8 +381,16 @@ class SearchFlightForm extends Component {
 														<option value='' disabled>
 															Nationality
 														</option>
-														<option value='NP'> Nepali </option>
-														<option value='IN'> Indian </option>
+														{this.state.countries.map((country) => {
+															return(
+																<option
+																	key={country.id}
+																	value={country.country_char}
+																>
+																	{country.name}
+																</option>
+															);
+														})}
 													</Field>
 												</IconInput>
 

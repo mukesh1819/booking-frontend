@@ -13,6 +13,7 @@ import {setBooking} from '../../redux/actions/bookingActions';
 import ErrorMessage from '../ErrorMessage';
 import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
+import {getCountries} from '../../api/flightApi';
 
 import './flights.scss';
 
@@ -30,7 +31,8 @@ class PassengerForm extends Component {
 		this.state = {
 			redirect: false,
 			viewDetails: false,
-			passengers: []
+			passengers: [],
+			countries: []
 		};
 		this.toggleView = this.toggleView.bind(this);
 	}
@@ -41,10 +43,26 @@ class PassengerForm extends Component {
 		});
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.fetchCountries();
+	}
+
+	fetchCountries(){
+		getCountries()
+		.then((response) => {
+			console.log(response);
+			this.setState({
+				countries: response.data
+			})
+		})
+		.catch((error) => {
+			console.log(error);
+		})
+	}
 
 	render() {
 		const {adult, child} = this.props;
+		debugger;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
 				yup.object().shape({
@@ -189,8 +207,16 @@ class PassengerForm extends Component {
 															onChange={handleChange}
 															value={values.passengers[index].nationality}
 														>
-															<option value='NEP'> Nepali </option>
-															<option value='IND'> Indian </option>
+														{this.state.countries.map((country) => {
+															return(
+																<option
+																	key={country.id}
+																	value={country.country_char}
+																>
+																	{country.name}
+																</option>
+															);
+														})}
 														</Field>
 														<ErrorMessage name={`passengers[${index}].nationality`} />
 													</div>

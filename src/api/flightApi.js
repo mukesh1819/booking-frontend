@@ -112,3 +112,14 @@ export function getAdminDashboard(){
 		}
 	});
 }
+
+export function getCountries(){
+	return axios({
+		method: 'get',
+		url: '/api/countries',
+		headers:{
+			'Content-Type': 'application/json',
+			Authorization: `Bearer $(LocalStorage.token)`
+		}
+	});
+}
