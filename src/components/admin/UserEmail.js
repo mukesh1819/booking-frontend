@@ -5,7 +5,6 @@ import {sendUserEmail} from '../../api/userApi';
 import swal from 'sweetalert';
 
 const UserEmail = (props) =>{
-    debugger;
     const {user} = props.location.state;
     return(
         <div>
@@ -52,7 +51,6 @@ const UserEmail = (props) =>{
                 };
                 sendUserEmail(variables)
                 .then((response) => {
-                    debugger;
                     console.log(response);
                     swal({
                         title: 'Email Sent!',

@@ -69,10 +69,10 @@ export function cancelUserTickets(passengers) {
 	});
 }
 
-export function getAdminBookings() {
+export function getAdminBookings(params) {
 	return axios({
 		method: 'get',
-		url: `/admin/bookings?q[status_eq]=processing`,
+		url: `/admin/bookings?${params}`,
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer $(localStorage.token)`

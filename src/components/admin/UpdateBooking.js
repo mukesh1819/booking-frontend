@@ -18,11 +18,11 @@ class UpdateBooking extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchBookings();
+		this.fetchBookings(`q[status_eq]=verified`);
 	}
 
-	fetchBookings() {
-		getAdminBookings()
+	fetchBookings(params) {
+		getAdminBookings(params)
 			.then((response) => {
 				console.log(response);
 				this.setState({
@@ -146,8 +146,8 @@ class UpdateBooking extends Component {
 													{passenger.passenger_status === 'cancelled' && (
 														<td>
 															<p className='text-danger text-center font-weight-bolder text-lg mt-2'>
-																{' '}
-																Ticket Cancelled{' '}
+																
+																Ticket Cancelled
 															</p>
 														</td>
 													)}

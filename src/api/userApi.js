@@ -39,11 +39,10 @@ export function getBookings(params) {
     });
 }
 
-export function getUsers(params) {
+export function getUsers() {
     return axios({
         method: 'get',
         url: `${ADMIN_API_URL}/users`,
-        params: params,
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.token}`

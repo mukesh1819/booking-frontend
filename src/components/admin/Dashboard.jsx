@@ -57,18 +57,18 @@ class Dashboard extends Component {
 						<div className='card'>
 							<div className='card-body'>
 								<div className='text-center'>{bookings}</div>
-								<Link to='/admin' className='d-flex justify-content-center pt-2 pb-2'>
+								<Link to='/admin/dashboard_bookings' className='d-flex justify-content-center pt-2 pb-2'>
 									View all bookings
 								</Link>
 								{/* <Link to=
 								{{
-									pathname:'/admin/booking_details',
+									pathname:'/admin/dashboard_bookings',
 									className='d-flex justify-content-center pt-2 pb-2',
 									state:{
 										bookings:
 									}
 								}}
-								>Booking List</Link> */}
+								>View all bookings</Link> */}
 							</div>
 						</div>
 					</div>
@@ -77,7 +77,7 @@ class Dashboard extends Component {
 						<div className='card'>
 							<div className='card-body'>
 								<div className='text-center'>{transactions} </div>
-								<Link to='/' className='d-flex justify-content-center pt-2 pb-2'>
+								<Link to='/admin/transaction_list' className='d-flex justify-content-center pt-2 pb-2'>
 									View all transactions
 								</Link>
 							</div>

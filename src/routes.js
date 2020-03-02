@@ -26,6 +26,7 @@ import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
+import DashboardBookings from './components/admin/DashboardBookings'
 import Dashboard from './components/admin';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -60,6 +61,7 @@ const routing = (
 			<PrivateRoute path='/admin/create_user' component={CreateUser} />
 			<PrivateRoute path='/admin/users_list' component={UsersList} />
 			<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
+			<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} />
 			<PrivateRoute path='/admin/booking_details' component={AdminBookingDetails} />
 			<PrivateRoute path='/admin/email' component={UserEmail} />
 			<PrivateRoute path='/admin' component={Dashboard} />

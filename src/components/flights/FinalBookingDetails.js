@@ -42,7 +42,6 @@ class FinalBookingDetails extends Component {
 			})
 			.catch((error) => {
 				console.log(error);
-				debugger;
 			});
 	}
 
