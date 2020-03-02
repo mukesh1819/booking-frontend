@@ -22,7 +22,8 @@ const initialState = {
         intChild: 0,
         strSectorFrom: 'KTM',
         strSectorTo: 'PKR'
-    }
+    },
+    ttlTime: 0
 };
 
 export default function (state = initialState, action) {
@@ -65,6 +66,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 selectedOutboundFlight: null
+            }
+        }
+        case "SET_TIMEOUT": {
+            return {
+                ...state,
+                ttlTime: action.payload
             }
         }
         default:

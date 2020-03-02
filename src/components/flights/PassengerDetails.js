@@ -10,15 +10,6 @@ class PassengerDetails extends Component {
 		const {passengers} = this.props;
 		return (
 			<div className='passenger-details container p-0'>
-				<div className='p-2'>
-					<i
-						className='icon-circle-cross text-normal float-right'
-						onClick={() => {
-							toggle();
-						}}
-					/>
-					<span class='text-bold'>Passenger Details</span>
-				</div>
 				<table class='table'>
 					<thead>
 						<tr className='text-center'>

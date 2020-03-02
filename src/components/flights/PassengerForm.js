@@ -13,6 +13,8 @@ import {setBooking} from '../../redux/actions/bookingActions';
 import ErrorMessage from '../ErrorMessage';
 import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
+import Timer from '../shared/Timer';
+import {setTTLtime} from '../../redux/actions/flightActions';
 
 import './flights.scss';
 
@@ -41,7 +43,9 @@ class PassengerForm extends Component {
 		});
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.props.setTTLtime(15);
+	}
 
 	render() {
 		const {adult, child} = this.props;
@@ -85,129 +89,134 @@ class PassengerForm extends Component {
 			return <Redirect to='/' />;
 		}
 
+		var content = (
+			<Container>
+				<h3 className='p-2'>Add Passenger details</h3>
+				<Formik
+					initialValues={initialValues}
+					validationSchema={PassengerSchema}
+					onSubmit={(values, {setSubmitting, props}) => {
+						this.setState({
+							passengers: values.passengers,
+							viewDetails: true
+						});
+					}}
+				>
+					{({
+						values,
+						errors,
+						touched,
+						handleChange,
+						handleBlur,
+						handleSubmit,
+						isSubmitting,
+						setFieldValue
+					}) => (
+						<Form>
+							{values.passengers.map((passenger, index) => {
+								return (
+									<div className='card' key={`${passenger.passenger_type} ${index + 1}`}>
+										<div className='card-body'>
+											<div className='text-primary text-bold'>
+												{passenger.passenger_type} {index + 1}
+											</div>
+											<div className='input-section'>
+												<div className='field-box'>
+													<label htmlFor=''>Title</label>
+													<Field
+														as='select'
+														name={`passengers[${index}].title`}
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.passengers[index].title}
+													>
+														<option value='Mr'> Mr </option>
+														<option value='Mrs'> Mrs </option>
+													</Field>
+													<span class=''>
+														<ErrorMessage name={`passengers[${index}].title`} />
+													</span>
+												</div>
+
+												<div className='field-box'>
+													<label htmlFor=''>First Name</label>
+													<Field
+														name={`passengers[${index}].first_name`}
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.passengers[index].first_name}
+														placeholder='First Name'
+													/>
+													<ErrorMessage name={`passengers[${index}].first_name`} />
+												</div>
+												<div className='field-box'>
+													<label htmlFor=''>Last Name</label>
+													<Field
+														name={`passengers[${index}].last_name`}
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.passengers[index].last_name}
+														placeholder='Last Name'
+													/>
+													<ErrorMessage name={`passengers[${index}].last_name`} />
+												</div>
+												<div className='field-box'>
+													<label htmlFor=''>Gender</label>
+													<Field
+														as='select'
+														name={`passengers[${index}].gender`}
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.passengers[index].gender}
+													>
+														<option value='M'> Male </option>
+														<option value='F'> Female </option>
+													</Field>
+													<ErrorMessage name={`passengers[${index}].gender`} />
+												</div>
+												<div className='field-box'>
+													<label htmlFor=''>Nationality</label>
+													<Field
+														as='select'
+														name={`passengers[${index}].nationality`}
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.passengers[index].nationality}
+													>
+														<option value='NEP'> Nepali </option>
+														<option value='IND'> Indian </option>
+													</Field>
+													<ErrorMessage name={`passengers[${index}].nationality`} />
+												</div>
+											</div>
+										</div>
+									</div>
+								);
+							})}
+							<div className='text-center p-2'>
+								<button type='submit' class='btn btn-primary'>
+									Submit
+								</button>
+							</div>
+						</Form>
+					)}
+				</Formik>
+			</Container>
+		);
+
 		if (this.state.viewDetails) {
-			return <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} />;
+			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} />;
 		}
 
 		return (
 			<div id='passenger-form'>
-				<Container>
-					<div className='text-bold mb-2'>Add Passenger details</div>
-					<Formik
-						initialValues={initialValues}
-						validationSchema={PassengerSchema}
-						onSubmit={(values, {setSubmitting, props}) => {
-							this.setState({
-								passengers: values.passengers,
-								viewDetails: true
-							});
-						}}
-					>
-						{({
-							values,
-							errors,
-							touched,
-							handleChange,
-							handleBlur,
-							handleSubmit,
-							isSubmitting,
-							setFieldValue
-						}) => (
-							<Form>
-								{values.passengers.map((passenger, index) => {
-									return (
-										<div className='card' key={`${passenger.passenger_type} ${index + 1}`}>
-											<div className='card-body'>
-												<div>
-													{passenger.passenger_type} {index + 1}
-												</div>
-												<div className='input-section'>
-													<div className='field-box'>
-														<label htmlFor=''>Title</label>
-														<Field
-															as='select'
-															name={`passengers[${index}].title`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.passengers[index].title}
-														>
-															<option value='Mr'> Mr </option>
-															<option value='Mrs'> Mrs </option>
-														</Field>
-														<span class=''>
-															<ErrorMessage name={`passengers[${index}].title`} />
-														</span>
-													</div>
-
-													<div className='field-box'>
-														<label htmlFor=''>First Name</label>
-														<Field
-															name={`passengers[${index}].first_name`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.passengers[index].first_name}
-															placeholder='First Name'
-														/>
-														<ErrorMessage name={`passengers[${index}].first_name`} />
-													</div>
-													<div className='field-box'>
-														<label htmlFor=''>Last Name</label>
-														<Field
-															name={`passengers[${index}].last_name`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.passengers[index].last_name}
-															placeholder='Last Name'
-														/>
-														<ErrorMessage name={`passengers[${index}].last_name`} />
-													</div>
-													<div className='field-box'>
-														<label htmlFor=''>Gender</label>
-														<Field
-															as='select'
-															name={`passengers[${index}].gender`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.passengers[index].gender}
-														>
-															<option value='M'> Male </option>
-															<option value='F'> Female </option>
-														</Field>
-														<ErrorMessage name={`passengers[${index}].gender`} />
-													</div>
-													<div className='field-box'>
-														<label htmlFor=''>Nationality</label>
-														<Field
-															as='select'
-															name={`passengers[${index}].nationality`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.passengers[index].nationality}
-														>
-															<option value='NEP'> Nepali </option>
-															<option value='IND'> Indian </option>
-														</Field>
-														<ErrorMessage name={`passengers[${index}].nationality`} />
-													</div>
-												</div>
-											</div>
-										</div>
-									);
-								})}
-								<div className='text-center'>
-									<button type='submit' class='btn btn-primary'>
-										Submit
-									</button>
-								</div>
-							</Form>
-						)}
-					</Formik>
-				</Container>
+				{this.props.ttlTime > 0 && <Timer />}
+				{content}
 			</div>
 		);
 	}
@@ -220,11 +229,13 @@ const mapStateToProps = ({flightStore, bookingStore, userStore}) => {
 		booking: bookingStore.booking,
 		adult: flightStore.searchDetails.intAdult,
 		child: flightStore.searchDetails.intChild,
-		currentUser: userStore.currentUser
+		currentUser: userStore.currentUser,
+		ttlTime: flightStore.ttlTime
 	};
 };
 
 const mapDispatchToProps = {
+	setTTLtime,
 	setBooking
 };
 

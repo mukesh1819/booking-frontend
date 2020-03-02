@@ -21,3 +21,8 @@ export const selectOutboundFlight = flight => ({
 export const deselectFlight = flightType => ({
     type: flightType == "OUTBOUND" ? "DESELECT_OUTBOUND_FLIGHT" : "DESELECT_INBOUND_FLIGHT"
 })
+
+export const setTTLtime = time => ({
+    type: "SET_TIMEOUT",
+    payload: time
+})

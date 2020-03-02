@@ -7,7 +7,6 @@ import TabView from '../shared/TabView';
 import Sidebar from '../shared/Sidebar';
 import Banner from '../shared/Banner';
 import {Tabs, Tab} from 'react-bootstrap';
-
 export default class Flights extends Component {
 	constructor(props) {
 		super(props);
@@ -31,7 +30,7 @@ export default class Flights extends Component {
 					<Tab eventKey='flights' title='Flights'>
 						<SearchFlightForm />
 						<div className='container text-center'>
-							<h4 className='m-4'> Things to do </h4>
+							<h3 className='m-4'> Things to do </h3>
 							<PackageList />
 						</div>
 					</Tab>
