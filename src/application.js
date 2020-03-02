@@ -22,10 +22,8 @@ import 'stylesheets/index.css';
 import 'semantic-ui-css/semantic.min.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Provider} from 'react-redux';
-import store from './redux/store';
-import routing from './routes';
+import App from './App';
 
 document.addEventListener('DOMContentLoaded', () => {
-	ReactDOM.render(<Provider store={store}>{routing}</Provider>, document.getElementById('root'));
+	ReactDOM.render(<App />, document.getElementById('root'));
 });

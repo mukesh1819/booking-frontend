@@ -24,6 +24,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import {getCountries} from '../../api/flightApi';
+import {setTTLtime} from '../../redux/actions/flightActions';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
@@ -149,6 +150,7 @@ class SearchFlightForm extends Component {
 										.then((response) => {
 											setSubmitting(false);
 											this.props.setFlights(response.data.data);
+											this.props.setTTLtime(0);
 											this.setState({
 												searching: false,
 												availableFlights: response.data.data
@@ -342,7 +344,7 @@ class SearchFlightForm extends Component {
 												<IconInput icon='icon-users' iconPosition='left'>
 													<DropdownItem
 														title={`${values.intAdult + values.intChild} Traveller`}
-														className='text-field'
+														className='text-field px-3'
 													>
 														<Counter
 															id='intAdult'
@@ -431,7 +433,8 @@ const withLoading = (Component) => ({searching, ...rest}) => (searching ? <Loadi
 const mapStateToProps = ({flightStore}) => {
 	return {
 		flights: flightStore.flights,
-		searchDetails: flightStore.searchDetails
+		searchDetails: flightStore.searchDetails,
+		ttlTime: flightStore.ttlTime
 	};
 };
 

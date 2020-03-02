@@ -6,6 +6,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {getFlights} from '../../api/flightApi';
 import FlightList from './FlightList';
+import FlightDetails from './FlightDetails';
+import FlightCombinedDetails from './FlightCombinedDetails';
 import {createBooking, submitPassengers} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
@@ -45,6 +47,8 @@ class FinalBookingDetails extends Component {
 			});
 	}
 
+	componentDidMount() {}
+
 	render() {
 		const {passengers, toggle} = this.props;
 		console.log(passengers);
@@ -57,8 +61,9 @@ class FinalBookingDetails extends Component {
 							toggle();
 						}}
 					/>
-					<span class='text-bold'>Passenger Details</span>
 				</div>
+				<span class='text-bold'>Flight Details</span>
+				<FlightDetails flight={this.props.selectedOutboundFlight} />
 				<span class='text-bold'>Passenger Details</span>
 				<PassengerDetails passengers={passengers} />
 
@@ -84,7 +89,8 @@ const mapStateToProps = ({flightStore, bookingStore}) => {
 		selectedOutboundFlight: flightStore.selectedOutboundFlight,
 		booking: bookingStore.booking,
 		adult: flightStore.searchDetails.intAdult,
-		child: flightStore.searchDetails.intChild
+		child: flightStore.searchDetails.intChild,
+		ttlTime: flightStore.ttlTime
 	};
 };
 

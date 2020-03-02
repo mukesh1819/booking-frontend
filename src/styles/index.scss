@@ -14,6 +14,13 @@ $mediumFont : Gotham-Medium;
 $boldFont : Gotham-Bold;
 
 $font14 : 14px;
+$font16 : 16px;
+$font18 : 18px;
+$font20 : 20px;
+$font24 : 24px;
+$font28 : 28px;
+$font30 : 30px;
+$font40 : 40px;
 
 
 * {
@@ -29,6 +36,32 @@ body {
     font-family: $regularFont, Serif, Arial;
     font-size: $font14;
     overflow-x: hidden;
+}
+
+h1 {
+    font-size: $font24;
+
+    br {
+        display: none;
+    }
+
+}
+
+h2 {
+    line-height: $font20;
+}
+
+h3 {
+    font-size: $font18;
+}
+
+h4 {
+    font-size: $font16;
+}
+
+
+h5 {
+    font-size: $font14;
 }
 
 ul,
@@ -130,6 +163,10 @@ img {
     margin: 0 !important;
 }
 
+.card {
+    @include border-radius(0px)
+}
+
 .card-body {
     padding: 0.5rem;
 
@@ -172,8 +209,12 @@ img {
     color: red;
 }
 
-.full-height {
-    height: 100%;
+.timer {
+    span {
+        background-color: $primary;
+        padding: 8px;
+        z-index: 20;
+    }
 }
 
 .circular-icon {
