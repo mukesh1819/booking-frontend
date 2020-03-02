@@ -238,5 +238,19 @@ select {
         border: 1px solid;
     }
 
-    .custom-dropdown-menu {}
+    .custom-dropdown-menu {
+        border: 1px solid $gray;
+
+        .menu-item {
+            cursor: pointer;
+
+            &:hover {
+                background-color: $primary;
+            }
+        }
+
+        .active {
+            background-color: lightblue;
+        }
+    }
 }

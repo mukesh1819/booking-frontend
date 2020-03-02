@@ -440,7 +440,8 @@ const mapStateToProps = ({flightStore}) => {
 
 const mapDispatchToProps = {
 	setFlights,
-	setSearchDetails
+	setSearchDetails,
+	setTTLtime
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFlightForm);
