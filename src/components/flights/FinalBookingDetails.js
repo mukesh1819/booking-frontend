@@ -25,11 +25,16 @@ class FinalBookingDetails extends Component {
 	}
 
 	submit() {
+		const user = {};
+		user.contact_name = this.props.user.name;
+		user.mobile_no = this.props.user.phone_number;
+		user.email = this.props.user.email;
 		createBooking({
 			booking: {
 				outbound_flight: this.props.selectedOutboundFlight,
 				inbound_flight: this.props.selectedInboundFlight,
-				passengers_attributes: this.props.passengers
+				passengers_attributes: this.props.passengers,
+				...user
 			}
 		})
 			.then((response) => {

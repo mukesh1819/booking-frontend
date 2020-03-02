@@ -34,6 +34,7 @@ class PassengerForm extends Component {
 			redirect: false,
 			viewDetails: false,
 			passengers: [],
+			user: this.props.currentUser,
 			countries: []
 		};
 		this.toggleView = this.toggleView.bind(this);
@@ -64,8 +65,8 @@ class PassengerForm extends Component {
 	}
 
 	render() {
+		const {user} = this.state;
 		const {adult, child, currentUser} = this.props;
-		debugger;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
 				yup.object().shape({
@@ -87,10 +88,7 @@ class PassengerForm extends Component {
 		};
 		const initialValues = {
 			passengers: [],
-				name: currentUser.name,
-				phone_number: currentUser.phone_number,
-				email: currentUser.email
-
+			user: user
 		};
 
 		var i;
@@ -119,6 +117,7 @@ class PassengerForm extends Component {
 						this.setState({
 							passengers: values.passengers,
 							viewDetails: true,
+							user:values.user
 
 						});
 					}}
@@ -134,56 +133,52 @@ class PassengerForm extends Component {
 						setFieldValue
 					}) => (
 						<Form>
-
-							<div className='row'>
-								<div className='col-md-6 d-flex align-items-end'>
+							<h3 className='p-2'>Contact Information</h3>
+							<div className='input-section'>
+								<div className='col-2 d-flex align-items-end'>
 									<label>Contact Name</label>
 								</div>
-								<div className='col-md-6'>
+								<div className='col-2'>
 									<Field
 										type='text'
-										name='name'
+										name='user.name'
 										className='form-control'
 										onBlur={handleBlur}
 										onChange={handleChange}
-										value={values.name}
+										value={values.user.name}
 									/>
 								</div>
-							</div>
 
-							<div className='row'>
-								<div className='col-md-6 d-flex align-items-end'>
+								<div className='col-2 d-flex align-items-end'>
 									<label>Contact Phone</label>
 								</div>
-								<div className='col-md-6'>
+								<div className='col-2'>
 									<Field
 										type='text'
-										name='phone_number'
+										name='user.phone_number'
 										className='form-control'
 										onBlur={handleBlur}
 										onChange={handleChange}
-										value={values.phone_number}
+										value={values.user.phone_number}
 									/>
 								</div>
-							</div>
 
-							<div className='row'>
-								<div className='col-md-6 d-flex align-items-end'>
+								<div className='col-2 d-flex align-items-end'>
 									<label>Contact Email</label>
 								</div>
-								<div className='col-md-6'>
+								<div className='col-2'>
 									<Field
 										type='text'
-										name='email'
+										name='user.email'
 										className='form-control'
 										onBlur={handleBlur}
 										onChange={handleChange}
-										value={values.email}
+										value={values.user.email}
 									/>
 								</div>
 							</div>
 
-							
+
 							<h3 className='p-2'>Add Passenger details</h3>
 
 							{values.passengers.map((passenger, index) => {
@@ -293,7 +288,7 @@ class PassengerForm extends Component {
 		);
 
 		if (this.state.viewDetails) {
-			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} />;
+			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user = {this.state.user} />;
 		}
 
 		return (
