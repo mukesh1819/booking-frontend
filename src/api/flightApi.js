@@ -112,18 +112,7 @@ export function getAdminDashboard() {
 		}
 	});
 }
-
-export function getCountries() {
-	return axios({
-		method: 'get',
-		url: `/admin/dashboard`,
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer $(LocalStorage.token)`
-		}
-	});
-}
-
+	
 export function getCountries(){
 	return axios({
 		method: 'get',

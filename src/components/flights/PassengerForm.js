@@ -64,7 +64,7 @@ class PassengerForm extends Component {
 	}
 
 	render() {
-		const {adult, child} = this.props;
+		const {adult, child, currentUser} = this.props;
 		debugger;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -86,7 +86,11 @@ class PassengerForm extends Component {
 			nationality: 'NP'
 		};
 		const initialValues = {
-			passengers: []
+			passengers: [],
+				name: currentUser.name,
+				phone_number: currentUser.phone_number,
+				email: currentUser.email
+
 		};
 
 		var i;
@@ -108,14 +112,14 @@ class PassengerForm extends Component {
 
 		var content = (
 			<Container>
-				<h3 className='p-2'>Add Passenger details</h3>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
 						this.setState({
 							passengers: values.passengers,
-							viewDetails: true
+							viewDetails: true,
+
 						});
 					}}
 				>
@@ -130,6 +134,58 @@ class PassengerForm extends Component {
 						setFieldValue
 					}) => (
 						<Form>
+
+							<div className='row'>
+								<div className='col-md-6 d-flex align-items-end'>
+									<label>Contact Name</label>
+								</div>
+								<div className='col-md-6'>
+									<Field
+										type='text'
+										name='name'
+										className='form-control'
+										onBlur={handleBlur}
+										onChange={handleChange}
+										value={values.name}
+									/>
+								</div>
+							</div>
+
+							<div className='row'>
+								<div className='col-md-6 d-flex align-items-end'>
+									<label>Contact Phone</label>
+								</div>
+								<div className='col-md-6'>
+									<Field
+										type='text'
+										name='phone_number'
+										className='form-control'
+										onBlur={handleBlur}
+										onChange={handleChange}
+										value={values.phone_number}
+									/>
+								</div>
+							</div>
+
+							<div className='row'>
+								<div className='col-md-6 d-flex align-items-end'>
+									<label>Contact Email</label>
+								</div>
+								<div className='col-md-6'>
+									<Field
+										type='text'
+										name='email'
+										className='form-control'
+										onBlur={handleBlur}
+										onChange={handleChange}
+										value={values.email}
+									/>
+								</div>
+							</div>
+
+							
+							<h3 className='p-2'>Add Passenger details</h3>
+
 							{values.passengers.map((passenger, index) => {
 								return (
 									<div className='card' key={`${passenger.passenger_type} ${index + 1}`}>
