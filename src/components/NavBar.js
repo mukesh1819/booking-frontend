@@ -46,7 +46,7 @@ class NavBar extends Component {
 				icon: 'icon-user',
 				name: 'settings',
 				label: 'My Account',
-				details: 'currentUser.name',
+				details: currentUser.name,
 				value: '',
 				link: '/profile'
 			},
@@ -66,7 +66,7 @@ class NavBar extends Component {
 			}
 		];
 		return (
-			<div>
+			<React.Fragment>
 				<nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
 					<div className='container'>
 						<div className='navbar-header d-flex'>
@@ -195,7 +195,7 @@ class NavBar extends Component {
 					side='left'
 					onHide={() => this.toggleSidebar()}
 				/>
-			</div>
+			</React.Fragment>
 		);
 	}
 }

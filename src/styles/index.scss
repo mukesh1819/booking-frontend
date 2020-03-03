@@ -167,12 +167,20 @@ img {
     @include border-radius(0px)
 }
 
+.card-header {
+    background-color: white;
+}
+
 .card-body {
     padding: 0.5rem;
 
     @include desktop {
         padding: 1rem;
     }
+}
+
+.container {
+    padding: 0px;
 }
 
 .icon-input {
@@ -183,7 +191,7 @@ img {
         border: none;
         height: max-content;
         background-color: inherit;
-        color: black;
+        color: #565656;
     }
 }
 

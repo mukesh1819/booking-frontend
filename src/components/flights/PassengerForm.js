@@ -51,17 +51,17 @@ class PassengerForm extends Component {
 		this.fetchCountries();
 	}
 
-	fetchCountries(){
+	fetchCountries() {
 		getCountries()
-		.then((response) => {
-			console.log(response);
-			this.setState({
-				countries: response.data
+			.then((response) => {
+				console.log(response);
+				this.setState({
+					countries: response.data
+				});
 			})
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+			.catch((error) => {
+				console.log(error);
+			});
 		this.props.setTTLtime(15);
 	}
 
@@ -111,16 +111,15 @@ class PassengerForm extends Component {
 
 		var content = (
 			<Container className='p-0'>
-				<h3 className='p-2'>Add Passenger details</h3>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
+						debugger;
 						this.setState({
 							passengers: values.passengers,
 							viewDetails: true,
-							user:values.user
-
+							user: values.user
 						});
 					}}
 				>
@@ -137,10 +136,8 @@ class PassengerForm extends Component {
 						<Form>
 							<h3 className='p-2'>Contact Information</h3>
 							<div className='input-section'>
-								<div className='col-2 d-flex align-items-end'>
+								<div className='field-box'>
 									<label>Contact Name</label>
-								</div>
-								<div className='col-2'>
 									<Field
 										type='text'
 										name='user.name'
@@ -150,11 +147,8 @@ class PassengerForm extends Component {
 										value={values.user.name}
 									/>
 								</div>
-
-								<div className='col-2 d-flex align-items-end'>
+								<div className='field-box'>
 									<label>Contact Phone</label>
-								</div>
-								<div className='col-2'>
 									<Field
 										type='text'
 										name='user.phone_number'
@@ -164,11 +158,8 @@ class PassengerForm extends Component {
 										value={values.user.phone_number}
 									/>
 								</div>
-
-								<div className='col-2 d-flex align-items-end'>
+								<div className='field-box'>
 									<label>Contact Email</label>
-								</div>
-								<div className='col-2'>
 									<Field
 										type='text'
 										name='user.email'
@@ -179,6 +170,7 @@ class PassengerForm extends Component {
 									/>
 								</div>
 							</div>
+							<h3 className='p-2'>Passenger details</h3>
 
 							{values.passengers.map((passenger, index) => {
 								return (
@@ -227,47 +219,44 @@ class PassengerForm extends Component {
 													/>
 													<ErrorMessage name={`passengers[${index}].last_name`} />
 												</div>
-												
-													<div className='field-box'>
-														<label htmlFor=''>Gender</label>
-														<Field
-															as='select'
-															name={`passengers[${index}].gender`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.passengers[index].gender}
-														>
-															<option value='M'> Male </option>
-															<option value='F'> Female </option>
-														</Field>
-														<ErrorMessage name={`passengers[${index}].gender`} />
-													</div>
 
-													<div className='field-box'>
-														<label htmlFor=''>Nationality</label>
-														<Field
-															as='select'
-															name={`passengers[${index}].nationality`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.passengers[index].nationality}
-														>
+												<div className='field-box'>
+													<label htmlFor=''>Gender</label>
+													<Field
+														as='select'
+														name={`passengers[${index}].gender`}
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.passengers[index].gender}
+													>
+														<option value='M'> Male </option>
+														<option value='F'> Female </option>
+													</Field>
+													<ErrorMessage name={`passengers[${index}].gender`} />
+												</div>
+
+												<div className='field-box'>
+													<label htmlFor=''>Nationality</label>
+													<Field
+														as='select'
+														name={`passengers[${index}].nationality`}
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.passengers[index].nationality}
+													>
 														{this.state.countries.map((country) => {
-															return(
-																<option
-																	key={country.id}
-																	value={country.country_char}
-																>
+															return (
+																<option key={country.id} value={country.country_char}>
 																	{country.name}
 																</option>
 															);
 														})}
-														</Field>
-														<ErrorMessage name={`passengers[${index}].nationality`} />
-													</div>
+													</Field>
+													<ErrorMessage name={`passengers[${index}].nationality`} />
 												</div>
+											</div>
 										</Accordion>
 									</div>
 								);
@@ -284,7 +273,13 @@ class PassengerForm extends Component {
 		);
 
 		if (this.state.viewDetails) {
-			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user = {this.state.user} />;
+			content = (
+				<FinalBookingDetails
+					passengers={this.state.passengers}
+					toggle={this.toggleView}
+					user={this.state.user}
+				/>
+			);
 		}
 
 		return (

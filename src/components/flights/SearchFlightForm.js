@@ -69,17 +69,17 @@ class SearchFlightForm extends Component {
 			});
 	};
 
-	fetchCountries(){
+	fetchCountries() {
 		getCountries()
-		.then((response) => {
-			console.log(response);
-			this.setState({
-				countries: response.data
+			.then((response) => {
+				console.log(response);
+				this.setState({
+					countries: response.data
+				});
 			})
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 
 	changeTripType = (trip) => {
@@ -124,7 +124,7 @@ class SearchFlightForm extends Component {
 			strSectorFrom: yup.string().required('Required'),
 			strSectorTo: yup.string().required('Required'),
 			strNationality: yup.string().required('Required'),
-			intAdult: yup.number().min(0, 'Cannot be less than 0').required('Required'),
+			intAdult: yup.number().min(1, 'Cannot be less than 1').required('Required'),
 			intChild: yup.number().min(0, 'Cannot be less than 0').required('Required')
 		});
 
@@ -384,11 +384,8 @@ class SearchFlightForm extends Component {
 															Nationality
 														</option>
 														{this.state.countries.map((country) => {
-															return(
-																<option
-																	key={country.id}
-																	value={country.country_char}
-																>
+															return (
+																<option key={country.id} value={country.country_char}>
 																	{country.name}
 																</option>
 															);
