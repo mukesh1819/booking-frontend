@@ -9,18 +9,21 @@ function Sidebar({items = [], isVisible, onHide}) {
 			<div className='list-group'>
 				{items.map(({label, name, details, icon, value, link, ...rest}) => (
 					<div
-						className='list-group-item d-flex justify-content-between align-items-center'
+						className='list-group-item d-flex align-items-center'
 						key={name}
 						onClick={() => {
 							history.push(link);
 							onHide();
 						}}
 					>
-						<span>
-							<i className={`${icon} p-2 text-primary`} /> {label}
-							{details}
-						</span>
-						<span class='text-bold'>{value}</span>
+						<i className={`${icon} p-2 text-primary`} />
+						<div>
+							<span>{label}</span>
+							<span className='small text-muted' style={{display: 'table'}}>
+								{details}
+							</span>
+						</div>
+						<span class='text-bold ml-auto'>{value}</span>
 					</div>
 				))}
 				<hr />

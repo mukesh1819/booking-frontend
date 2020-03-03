@@ -115,6 +115,7 @@ class PassengerForm extends Component {
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
+						debugger;
 						this.setState({
 							passengers: values.passengers,
 							viewDetails: true,

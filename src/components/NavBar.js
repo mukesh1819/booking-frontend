@@ -46,7 +46,7 @@ class NavBar extends Component {
 				icon: 'icon-user',
 				name: 'settings',
 				label: 'My Account',
-				details: 'currentUser.name',
+				details: currentUser.name,
 				value: '',
 				link: '/profile'
 			},

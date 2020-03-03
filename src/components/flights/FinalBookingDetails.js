@@ -16,12 +16,16 @@ import PassengerDetails from './PassengerDetails';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
 import store from '../../redux/store';
-import {newPayment} from '../../api/paymentApi';
+// import {newPayment} from '../../api/paymentApi';
+import PaymentForm from '../payments/PaymentForm';
 
 class FinalBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.submit = this.submit.bind(this);
+		this.state = {
+			idx: null
+		};
 	}
 
 	submit() {
@@ -38,14 +42,17 @@ class FinalBookingDetails extends Component {
 			}
 		})
 			.then((response) => {
-				swal({
-					title: 'Booking Created!',
-					text: 'Continue to payment!',
-					icon: 'success',
-					button: 'Continue!'
-				});
+				// swal({
+				// 	title: 'Booking Created!',
+				// 	text: 'Continue to payment!',
+				// 	icon: 'success',
+				// 	button: 'Continue!'
+				// });
 				this.props.setBooking(response.data);
-				newPayment(response.data[0].booking_transaction.idx);
+				// newPayment(response.data[0].booking_transaction.idx);
+				this.setState({
+					idx: response.data[0].booking_transaction.idx
+				});
 			})
 			.catch((error) => {
 				console.log(error);
@@ -56,7 +63,12 @@ class FinalBookingDetails extends Component {
 
 	render() {
 		const {passengers, toggle} = this.props;
-		console.log(passengers);
+		const {idx} = this.state;
+
+		if (this.state.idx !== null) {
+			return <PaymentForm idx={idx} />;
+		}
+
 		return (
 			<div className='passenger-details container p-0'>
 				<div className='p-2'>
