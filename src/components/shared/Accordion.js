@@ -20,7 +20,7 @@ export default ({title, children}) => {
 				<Card.Header>
 					<CustomToggle eventKey='0'>{title}</CustomToggle>
 				</Card.Header>
-				<Accordion.Collapse eventKey='0'>
+				<Accordion.Collapse eventKey='0' className='collapse-sm'>
 					<Card.Body>{children}</Card.Body>
 				</Accordion.Collapse>
 			</Card>
