@@ -9,19 +9,23 @@ import {Formik, Form, Field} from 'formik';
 import * as yup from 'yup';
 import ErrorMessage from '../ErrorMessage';
 import history from '../../history';
+import {getCountries} from '../../api/flightApi';
+import {Redirect} from 'react-router-dom';
 
 class EditUserForm extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			userDetails: {}
+			userDetails: {},
+			countries: []
 		};
 	}
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
 		this.fetchDetails();
+		this.fetchCountries();
 	}
 
 	fetchDetails = () => {
@@ -40,10 +44,23 @@ class EditUserForm extends Component {
 			});
 	};
 
+	fetchCountries(){
+		getCountries()
+		.then((response) => {
+			console.log(response);
+			this.setState({
+				countries: response.data
+			})
+		})
+		.catch((error) => {
+			console.log(error);
+		})
+	}
+
+
 	render() {
 		// const { user } = this.props;
-		const {user} = this.props.location.state;
-
+		const {user} = this.props.location.state? this.props.location.state: '' ;
 		const UpdateSignupForm = yup.object().shape({
 			password: yup.string().required('Required'),
 			password_confirmation: yup
@@ -51,6 +68,10 @@ class EditUserForm extends Component {
 				.oneOf([yup.ref('password'), null], "Passwords don't match!")
 				.required('Required')
 		});
+
+		if (!user){
+			return <Redirect to = "/profile"></Redirect>;
+		} 
 
 		return (
 			<div className='container'>
@@ -65,7 +86,8 @@ class EditUserForm extends Component {
 									name: user.name,
 									email: user.email,
 									password: '',
-									password_confirmation: ''
+									password_confirmation: '',
+									currency: user.currency
 								}}
 								validationSchema={UpdateSignupForm}
 								onSubmit={(values, {setSubmitting, setStatus}) => {
@@ -74,6 +96,7 @@ class EditUserForm extends Component {
 											id: values.id,
 											name: values.name,
 											email: values.email,
+											currency:values.currency,
 											password: values.password,
 											password_confirmation: values.password_confirmation
 										}
@@ -137,6 +160,35 @@ class EditUserForm extends Component {
 													onChange={handleChange}
 													value={values.email}
 												/>
+											</div>
+										</div>
+
+										<div className='row'>
+											<div className='col-md-6 d-flex align-items-end'>
+												<label>Currency</label>
+											</div>
+											
+											<div className='col-md-6'>
+												<Field
+													as='select'
+													name='currency'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.currency}
+												>
+												{this.state.countries.map((country) => {
+													return(
+														country.currency_char !==null &&
+															<option
+																key={country.id}
+																value={country.currency_char}
+															>
+																{country.currency_char}
+															</option>
+													);
+												})}
+												</Field>
 											</div>
 										</div>
 

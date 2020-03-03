@@ -26,6 +26,12 @@ const UserDetailCard = (props) => {
                 <small>Email - </small>
                 {user.email}
             </p>
+
+            <p>
+                <small>Currency - </small>
+                {user.currency}
+            </p>
+
             <p>
                 <small>Mobile No - </small>
                 {user.phone_number}
