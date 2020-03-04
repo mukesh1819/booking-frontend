@@ -183,6 +183,14 @@ img {
     padding: 0px;
 }
 
+.select-countries{
+    max-height: 400px;
+
+    .list{
+        overflow-y: scroll;
+    }
+}
+
 .icon-input {
 
     input,
@@ -210,6 +218,10 @@ img {
     background: white;
     position: absolute;
     transform: translate(0px, 15px);
+}
+
+.right-0{
+    right: 0;
 }
 
 .validation-msg {

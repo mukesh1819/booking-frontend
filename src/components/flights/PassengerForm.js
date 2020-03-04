@@ -35,7 +35,6 @@ class PassengerForm extends Component {
 			redirect: false,
 			viewDetails: false,
 			passengers: [],
-			user: this.props.currentUser,
 			countries: []
 		};
 		this.toggleView = this.toggleView.bind(this);
@@ -66,7 +65,8 @@ class PassengerForm extends Component {
 	}
 
 	render() {
-		const {user} = this.state;
+		const user = this.props.currentUser;
+		user.code = user.country;
 		const {adult, child, currentUser} = this.props;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -146,6 +146,26 @@ class PassengerForm extends Component {
 										onChange={handleChange}
 										value={values.user.name}
 									/>
+								</div>
+								<div className='field-box'>
+									<label>Code</label>
+									<Field
+										type='text'
+										name='user.code'
+										className='form-control'
+										onBlur={handleBlur}
+										onChange={handleChange}
+										as='select'
+										value={values.user.code}
+									>
+										{this.state.countries.map((country) => {
+											return (
+												<option key={country.id} value={country.country_char}>
+													{country.country_code}
+												</option>
+											);
+										})}
+									</Field>
 								</div>
 								<div className='field-box'>
 									<label>Contact Phone</label>
@@ -277,7 +297,7 @@ class PassengerForm extends Component {
 				<FinalBookingDetails
 					passengers={this.state.passengers}
 					toggle={this.toggleView}
-					user={this.state.user}
+					user={user}
 				/>
 			);
 		}

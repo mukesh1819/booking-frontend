@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {logoutUser} from '../redux/actions/sessions';
+import {setCurrency} from '../redux/actions/bookingActions';
 import {connect} from 'react-redux';
 import store from '../redux/store';
 import {logout, userInitials} from '../utils/helpers';
@@ -10,6 +11,7 @@ import SignUpForm from './sessions/SignInForm';
 import Currencies from './users/Currencies';
 import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import history from '../history';
+import axios from 'axios';
 
 class NavBar extends Component {
 	constructor(props) {
@@ -22,6 +24,7 @@ class NavBar extends Component {
 	}
 
 	componentDidMount() {}
+
 
 	toggleSidebar() {
 		this.setState((prevState, props) => {
@@ -134,6 +137,21 @@ class NavBar extends Component {
 								<SignUpForm />
 							</Dropdown> */}
 
+							<li className="mx-3">
+									<Dropdown title={currency} className='text-white'>
+										<div className= "d-flex select-countries">
+											<div className= "pr-3"> 
+												<span>Languages</span> 
+												<Currencies requestData="languages"></Currencies>
+											</div>
+											{/* <div className="list"> <span>Coutries</span> <Currencies requestData="countries"></Currencies></div> */}
+											<div className=""> 
+												<span>Currencies</span>
+												<Currencies requestData="currencies"></Currencies>
+											</div>
+										</div>
+									</Dropdown>
+								</li>
 								<li className='mx-3'>
 									<Dropdown title={userInitials(currentUser)} className='text-white'>
 										<ul>
@@ -201,8 +219,7 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = ({userStore, bookingStore}) => ({
-	currentUser: userStore.currentUser,
-	currency: bookingStore.currency
+	currentUser: userStore.currentUser
 });
 
 const mapDispatchToProps = () => ({
