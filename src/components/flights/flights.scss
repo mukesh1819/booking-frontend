@@ -245,6 +245,8 @@ select {
 
         .menu-item {
             cursor: pointer;
+            display: flex;
+            align-items: center;
 
             &:hover {
                 background-color: $primary;
