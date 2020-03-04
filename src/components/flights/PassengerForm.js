@@ -66,6 +66,7 @@ class PassengerForm extends Component {
 
 	render() {
 		const user = this.props.currentUser;
+		const selectedOutboundFlight = this.props.selectedOutboundFlight;
 		user.code = user.country;
 		const {adult, child, currentUser} = this.props;
 		const PassengerSchema = yup.object().shape({
@@ -107,6 +108,10 @@ class PassengerForm extends Component {
 
 		if (initialValues.passengers.length == 0) {
 			return <Redirect to='/' />;
+		}
+
+		if (!selectedOutboundFlight){
+			return <Redirect to='/'></Redirect>;
 		}
 
 		var content = (
