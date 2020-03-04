@@ -16,6 +16,7 @@ import swal from 'sweetalert';
 import {getCountries} from '../../api/flightApi';
 import Timer from '../shared/Timer';
 import {setTTLtime} from '../../redux/actions/flightActions';
+import {Dropdown} from 'semantic-ui-react';
 
 import './flights.scss';
 
@@ -256,7 +257,7 @@ class PassengerForm extends Component {
 													<ErrorMessage name={`passengers[${index}].gender`} />
 												</div>
 
-												<div className='field-box'>
+												{/* <div className='field-box'>
 													<label htmlFor=''>Nationality</label>
 													<Field
 														as='select'
@@ -275,6 +276,34 @@ class PassengerForm extends Component {
 														})}
 													</Field>
 													<ErrorMessage name={`passengers[${index}].nationality`} />
+												</div> */}
+												<div className='field-box'>
+													<label htmlFor=''>Nationality</label>
+													<Dropdown
+														className='form-control'
+														name={`passengers[${index}].nationality`}
+														placeholder='Select Country'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															debugger;
+															setFieldValue(
+																`passengers[${index}].nationality`,
+																data.value
+															);
+														}}
+														value={values.passengers[index].nationality}
+														fluid
+														search
+														selection
+														options={this.state.countries.map(function(country) {
+															return {
+																key: country.id,
+																value: country.country_char,
+																flag: country.country_char.toLowerCase(),
+																text: country.name
+															};
+														})}
+													/>
 												</div>
 											</div>
 										</Accordion>
@@ -293,13 +322,7 @@ class PassengerForm extends Component {
 		);
 
 		if (this.state.viewDetails) {
-			content = (
-				<FinalBookingDetails
-					passengers={this.state.passengers}
-					toggle={this.toggleView}
-					user={user}
-				/>
-			);
+			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user={user} />;
 		}
 
 		return (
