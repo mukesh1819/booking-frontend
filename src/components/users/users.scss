@@ -57,3 +57,36 @@
         }
     }
 }
+
+.user-profile {
+
+    .field {
+        display: block;
+
+        @include tablet {
+            display: flex;
+
+            &:nth-child(even) {
+                background-color: gainsboro;
+            }
+        }
+    }
+
+    .label {
+        background-color: gainsboro;
+        width: 100%;
+        padding: 8px;
+        color: grey;
+
+        @include tablet {
+            background-color: white;
+            flex-grow: 1;
+        }
+    }
+
+    .value {
+        background-color: white;
+        width: 100%;
+        padding: 8px;
+    }
+}
