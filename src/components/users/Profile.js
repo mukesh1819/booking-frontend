@@ -1,55 +1,57 @@
-import React, { Component } from 'react';
-import { getUserDetails } from '../../api/userApi';
-import { Link, NavLink } from 'react-router-dom';
+import React, {Component} from 'react';
+import {getUserDetails} from '../../api/userApi';
+import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
-import { passCsrfToken } from '../../utils/helpers';
-import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from '../../constants';
+import {passCsrfToken} from '../../utils/helpers';
+import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
 import UserDetailCard from './UserDetailCard';
 import SocialButtonLinks from './SocialButtonLinks';
-
+import {updateUserDetails} from '../../api/userApi';
 
 class Profile extends Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
+	}
 
-        this.state = {
-            userDetails: {}
-        };
-    }
+	componentDidMount() {
+		passCsrfToken(document, axios);
+		this.fetchDetails();
+	}
 
-    componentDidMount() {
-        passCsrfToken(document, axios);
-        this.fetchDetails();
-    }
+	fetchDetails = () => {
+		getUserDetails()
+			.then((response) => {
+				this.setState({
+					userDetails: response.data.user
+				});
+				console.log(response.data.user);
+			})
+			.catch((error) => {
+				console.log(error);
+				this.setState({
+					error
+				});
+			});
+	};
 
-    fetchDetails = () => {
-        getUserDetails()
-            .then((response) => {
-                this.setState({
-                    userDetails: response.data.user
-                });
-                console.log(response.data.user);
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({
-                    error
-                });
-            });
-    };
-
-    render() {
-        return (
-            <div className='card'>
-				<div className='card-body'>
-					<UserDetailCard user = {this.state.userDetails}></UserDetailCard>
-					<SocialButtonLinks></SocialButtonLinks>
-				</div>
+	render() {
+		const {currentUser} = this.props;
+		return (
+			<div className=''>
+				<UserDetailCard user={currentUser} updateUserDetails={this.updateUserDetails} />
+				<SocialButtonLinks />
 			</div>
-        );
-    }
+		);
+	}
 }
 
-export default Profile;
+const mapStateToProps = ({userStore}) => ({
+	currentUser: userStore.currentUser
+});
+
+const mapDispatchToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

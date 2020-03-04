@@ -153,7 +153,7 @@ class NavBar extends Component {
 									</Dropdown>
 								</li>
 								<li className='mx-3'>
-									<Dropdown title={userInitials(currentUser)} className='text-white'>
+									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
 										<ul>
 											<li>
 												{loggedIn && (

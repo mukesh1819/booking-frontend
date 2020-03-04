@@ -4,9 +4,9 @@ import {isRefundable} from '../../utils/helpers';
 import {connect} from 'react-redux';
 
 const FlightCombinedDetails = (props) => {
+	const {adult, child, flight} = props;
 	const inbound = flight.inbound;
 	const outbound = flight.outbound;
-	const {adult, child, flight} = props;
 	return (
 		<div className='flight-details'>
 			<div className='header text-center'>
