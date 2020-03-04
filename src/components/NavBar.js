@@ -25,7 +25,6 @@ class NavBar extends Component {
 
 	componentDidMount() {}
 
-
 	toggleSidebar() {
 		this.setState((prevState, props) => {
 			return {sideBarIsVisible: !prevState.sideBarIsVisible};
@@ -34,7 +33,7 @@ class NavBar extends Component {
 
 	render() {
 		const {loggedIn} = this.state;
-		const {currentUser} = this.props;
+		const {currentUser, currency} = this.props;
 
 		const sideBarMenu = [
 			{icon: 'icon-home', name: 'home', label: 'Home', value: '', link: '/'},
@@ -57,7 +56,7 @@ class NavBar extends Component {
 				icon: 'icon-calculator',
 				name: 'currency',
 				label: 'Currency',
-				value: this.props.currency,
+				value: currency,
 				link: '/currency'
 			},
 			{
@@ -137,17 +136,17 @@ class NavBar extends Component {
 								<SignUpForm />
 							</Dropdown> */}
 
-							<li className="mx-3">
+								<li className='mx-3'>
 									<Dropdown title={currency} className='text-white'>
-										<div className= "d-flex select-countries">
-											<div className= "pr-3"> 
-												<span>Languages</span> 
-												<Currencies requestData="languages"></Currencies>
+										<div className='d-flex select-countries'>
+											<div className='pr-3'>
+												<span>Languages</span>
+												<Currencies requestData='languages' />
 											</div>
 											{/* <div className="list"> <span>Coutries</span> <Currencies requestData="countries"></Currencies></div> */}
-											<div className=""> 
+											<div className=''>
 												<span>Currencies</span>
-												<Currencies requestData="currencies"></Currencies>
+												<Currencies requestData='currencies' />
 											</div>
 										</div>
 									</Dropdown>
@@ -219,7 +218,8 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = ({userStore, bookingStore}) => ({
-	currentUser: userStore.currentUser
+	currentUser: userStore.currentUser,
+	currency: bookingStore.currency
 });
 
 const mapDispatchToProps = () => ({

@@ -13,7 +13,7 @@ export default ({className, title, value, onChange, ...rest}) => {
 			>
 				-
 			</span>
-			<span className='p-2 text-center' aria-label='' {...rest}>
+			<span className='p-2 text-center text-small' aria-label='' {...rest}>
 				{title}
 			</span>
 
