@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import {connect} from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
 import {Link} from 'react-router-dom';
+import {GoogleAPI, GoogleLogin, GoogleLogout} from 'react-google-oauth';
 
 class SocialLinks extends Component {
 	constructor(props) {
@@ -34,6 +35,21 @@ class SocialLinks extends Component {
 						Facebook
 					</a>
 				</div>
+				{/* <GoogleAPI
+					clientId='992913406489-fn9i74pm87a5iodelu298r1qh1fgl6vm.apps.googleusercontent.com'
+					onUpdateSigninStatus={this.responseGoogle}
+					onInitFailure={this.responseGoogle}
+					redirectUri='http://localhost:3000'
+				>
+					<div>
+						<div>
+							<GoogleLogin />
+						</div>
+						<div>
+							<GoogleLogout />
+						</div>
+					</div>
+				</GoogleAPI> */}
 			</div>
 		);
 	}
