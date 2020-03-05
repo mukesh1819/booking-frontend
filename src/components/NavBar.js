@@ -56,7 +56,7 @@ class NavBar extends Component {
 				name: 'currency',
 				label: 'Currency',
 				value: currency,
-				link: '/currency'
+				link: '/profile'
 			},
 			{
 				icon: 'icon-old-mobile',
