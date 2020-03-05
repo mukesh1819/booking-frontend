@@ -15,15 +15,6 @@ class SignInForm extends Component {
 	}
 
 	render() {
-		const {currentUser} = this.props;
-		if (currentUser.email !== undefined) {
-			var path = '/';
-			if (this.props.location.state !== undefined) {
-				path = this.props.location.state.from.pathname;
-			}
-			return <Redirect to={path} />;
-		}
-
 		return (
 			<React.Fragment>
 				<Formik
@@ -44,7 +35,11 @@ class SignInForm extends Component {
 								console.log('Logged In user', response);
 								this.props.loginUser(response.data.user);
 								localStorage.setItem('token', response.data.jwt);
-								history.push(this.props.location.state.from.pathname);
+								if (this.props.location.state !== undefined) {
+									history.push(this.props.location.state.from.pathname);
+								} else {
+									history.push('/');
+								}
 								NavBar.forceUpdate();
 								console.log(response.data);
 							})

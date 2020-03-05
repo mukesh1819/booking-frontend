@@ -121,7 +121,7 @@ export function getAdminDashboard() {
 		url: `/admin/dashboard`,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(LocalStorage.token)`
+			Authorization: `Bearer $(localStorage.token)`
 		}
 	});
 }

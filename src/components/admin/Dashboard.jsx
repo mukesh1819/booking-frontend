@@ -18,7 +18,6 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		passCsrfToken(document, axios);
 		this.fetchAdminDetails();
 	}
 
@@ -36,6 +35,7 @@ class Dashboard extends Component {
 				console.log(error);
 			});
 	}
+
 	render() {
 		const {users, bookings, transactions} = this.state;
 		return (
