@@ -18,7 +18,7 @@ class UpdateBooking extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchBookings(`q[status_eq]=verified`);
+		this.fetchBookings(`q[status_eq]=processing`);
 	}
 
 	fetchBookings(params) {

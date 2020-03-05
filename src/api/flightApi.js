@@ -60,7 +60,7 @@ export function cancelUserTickets(passengers) {
 	};
 	return axios({
 		method: 'put',
-		url: `/tickets/cancel_request`,
+		url: `/api/tickets/cancel_request`,
 		data: data,
 		headers: {
 			'Content-Type': 'application/json',

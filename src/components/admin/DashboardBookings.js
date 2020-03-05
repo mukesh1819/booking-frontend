@@ -19,8 +19,8 @@ class DashboardBookings extends Component {
         
     }
 
-    fetchBookings(){
-        getAdminBookings(null)
+    fetchBookings(params){
+        getAdminBookings(params)
         .then((response) => {
             console.log(response);
             this.setState({
@@ -35,7 +35,29 @@ class DashboardBookings extends Component {
 
     render(){
         return(
-            <BookingDetails bookings= {this.state.bookings}/>
+            <React.Fragment>
+                <button onClick={() => this.fetchBookings(`q[status_eq]=pending`)} >
+                pending
+			    </button>
+
+                <button onClick={() => this.fetchBookings(`q[status_eq]=verified`)} >
+                verified
+			    </button>
+
+                <button onClick={() => this.fetchBookings(`q[status_eq]=completed`)} >
+                completed
+			    </button>
+
+                <button onClick={() => this.fetchBookings(`q[status_eq]=processing`)} >
+                processing
+			    </button>
+
+                <button onClick={() => this.fetchBookings(`q[status_eq]=cancelled`)} >
+                cancelled
+			    </button>
+                <BookingDetails bookings= {this.state.bookings}/>
+            </React.Fragment>
+            
         );
     }
 }
