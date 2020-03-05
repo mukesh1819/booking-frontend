@@ -19,7 +19,7 @@ export function updateUserDetails(details) {
 	return axios({
 		method: 'put',
 		url: `/users`,
-		data: details,
+		data: {user: details},
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`

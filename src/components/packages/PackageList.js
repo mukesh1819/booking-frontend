@@ -37,9 +37,8 @@ class PackageList extends Component {
 				}
 			}
 		};
-		$(document).ready(function() {
-			$('.owl-carousel').owlCarousel(options);
-		});
+		console.log('Owl Carousel');
+		$('.owl-carousel').owlCarousel(options);
 	}
 
 	render() {
