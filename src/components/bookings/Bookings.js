@@ -9,9 +9,6 @@ import moment from 'moment';
 import EmptyContent from '../EmptyContent';
 import Badge from '../shared/Badge';
 
-const $ = require('jquery');
-// $.DataTable = require('datatables.net');
-
 class Bookings extends Component {
 	constructor(props) {
 		super(props);
@@ -25,7 +22,9 @@ class Bookings extends Component {
 		passCsrfToken(document, axios);
 		getBookings()
 			.then((response) => {
-				console.log(response, 'response');
+				debugger;
+				console.log(response, 'booking response');
+				console.log('Bookings List', response);
 				this.setState({
 					bookings: response.data
 				});
@@ -38,101 +37,61 @@ class Bookings extends Component {
 			});
 	}
 
-	componentWillUnmount() {
-		// $('.data-table-wrapper').find('table').DataTable().destroy(true);
-	}
-
-	setDataTable = (data) => {
-		// const columns = [
-		// 	{
-		// 		title: 'ID',
-		// 		width: 120,
-		// 		data: 'id'
-		// 	},
-		// 	{
-		// 		title: 'Created at',
-		// 		width: 180,
-		// 		data: 'date'
-		// 	},
-		// 	{
-		// 		title: 'Status',
-		// 		width: 180,
-		// 		data: 'status'
-		// 	},
-		// 	{
-		// 		title: 'Actions',
-		// 		width: 180,
-		// 		data: 'actions'
-		// 	}
-		// ];
-		// $(this.refs.main).DataTable({
-		// 	ordering: true,
-		// 	searching: true,
-		// 	paging: true
-		// });
-	};
+	componentWillUnmount() {}
 
 	render() {
 		const {bookings} = this.state;
-		console.log(this.state, 'state');
 		if (this.state.bookings.length == 0) {
 			return <EmptyContent>No bookings yet.</EmptyContent>;
 		}
 		return (
-			<div className='card'>
+			<div className='booking-list card'>
 				<div className='card-body'>
 					<h5>Bookings</h5>
-					<table className='table table-responsive table-striped table-hover table-sm' ref='main'>
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Created at</th>
-								<th>Status</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							{bookings.map(function(booking) {
-								return (
-									<tr>
-										<td>{booking.id}</td>
-										<td>{moment(booking.created_at, 'YYYYMMDD').fromNow()}</td>
-										<td>
+					{bookings.map(function(booking) {
+						return (
+							<div className='booking d-flex'>
+								<div className='mr-auto'>
+									<span> {booking.ruid}</span>
+									<div>
+										<span className='text-small text-muted'>
+											{moment(booking.created_at, 'YYYYMMDD').fromNow()}
+										</span>
+										<span>
 											<Badge type={booking.status} content={booking.status} />
-										</td>
-										<td>
-											<span className='mr-4 btn'>
-												<Link
-													to={{
-														pathname: '/ticket_details',
-														state: {
-															booking: booking
-														}
-													}}
-												>
-													Ticket
-												</Link>
-											</span>
+										</span>
+									</div>
+								</div>
+								<span>
+									<span className='btn'>
+										<Link
+											to={{
+												pathname: `/ticket/${booking.ruid}`,
+												state: {
+													booking: booking
+												}
+											}}
+										>
+											Ticket
+										</Link>
+									</span>
 
-											<span className='btn'>
-												<Link
-													to={{
-														pathname: '/booking_details',
-														state: {
-															booking: booking
-														}
-													}}
-												>
-													Edit
-												</Link>
-											</span>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
+									<span className='btn'>
+										<Link
+											to={{
+												pathname: '/booking_details',
+												state: {
+													booking: booking
+												}
+											}}
+										>
+											Edit
+										</Link>
+									</span>
+								</span>
+							</div>
+						);
+					})}
 				</div>
 			</div>
 		);

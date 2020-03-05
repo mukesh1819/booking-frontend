@@ -16,14 +16,24 @@ function update(details) {
 const UserDetailCard = (props) => {
 	const {user} = props;
 	return (
-		<div className='user-profile row  m-0'>
+		<div className='user-profile row'>
 			<div className='col-12 p-0'>
-				<Editable label='Name' value={user.name} onSubmit={(value) => update({name: value})} />
-				<Editable label='Email' value={user.email} onSubmit={(value) => update({email: value})} />
+				<Editable label='Name' value={user.name} onSubmit={(value) => update({id: user.id, name: value})} />
+				<Editable label='Email' value={user.email} onSubmit={(value) => update({id: user.id, email: value})} />
 				<Editable
 					label='Mobile No'
 					value={user.phone_number}
-					onSubmit={(value) => updateUserDetails({phone_number: value})}
+					onSubmit={(value) => updateUserDetails({id: user.id, phone_number: value})}
+				/>
+				<Editable
+					label='Currency'
+					value={user.currency}
+					onSubmit={(value) => updateUserDetails({id: user.id, currency: value})}
+				/>
+				<Editable
+					label='Nationality'
+					value={user.country}
+					onSubmit={(value) => updateUserDetails({id: user.id, country_id: value})}
 				/>
 			</div>
 		</div>

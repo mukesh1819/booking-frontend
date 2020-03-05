@@ -154,7 +154,7 @@ class FlightList extends Component {
 						);
 					})}
 				</div>
-				<div className='row m-0'>
+				<div className='row'>
 					<div className='col-sm-0 col-md-2 bg-white p-0 d-none d-md-block'>
 						<div className='card filter-flights'>
 							<div className='card-header'>Filter</div>
