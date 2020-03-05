@@ -14,14 +14,27 @@ export function getCities() {
 }
 
 export function getFlights(formData) {
-	setHeaders();
 	return axios({
 		method: 'get',
 		url: `${FLIGHT_API_URL}/search`,
 		params: formData,
 		config: {
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.token}`
+			}
+		}
+	});
+}
+
+export function getBookingDetails(ruid) {
+	return axios({
+		method: 'get',
+		url: `/api/bookings/${ruid}`,
+		config: {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.token}`
 			}
 		}
 	});
@@ -30,7 +43,7 @@ export function getFlights(formData) {
 export function createBooking(formData) {
 	return axios({
 		method: 'post',
-		url: `api/bookings`,
+		url: `/api/bookings`,
 		data: formData,
 		responseType: 'json',
 		headers: {
@@ -43,7 +56,7 @@ export function createBooking(formData) {
 export function submitPassengers(formData) {
 	return axios({
 		method: 'put',
-		url: `/bookings`,
+		url: `/api/bookings`,
 		data: formData,
 		headers: {
 			'Content-Type': 'application/json',
@@ -112,14 +125,29 @@ export function getAdminDashboard() {
 		}
 	});
 }
-	
-export function getCountries(){
+
+export function getCountries() {
 	return axios({
 		method: 'get',
 		url: '/api/countries',
-		headers:{
+		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer $(LocalStorage.token)`
 		}
+	});
+}
+
+export function downloadTicket(ruid) {
+	return axios({
+		url: `/${ruid}/download_ticket.pdf`,
+		method: 'GET',
+		responseType: 'blob' // important
+	}).then((response) => {
+		const url = window.URL.createObjectURL(new Blob([response.data]));
+		const link = document.createElement('a');
+		link.href = url;
+		link.setAttribute('download', 'file.pdf');
+		document.body.appendChild(link);
+		link.click();
 	});
 }

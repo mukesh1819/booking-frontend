@@ -79,13 +79,13 @@ class Bookings extends Component {
 									<span className='btn'>
 										<Link
 											to={{
-												pathname: '/booking_details',
+												pathname: `/booking_details/${booking.ruid}`,
 												state: {
 													booking: booking
 												}
 											}}
 										>
-											Edit
+											Cancel
 										</Link>
 									</span>
 								</span>
