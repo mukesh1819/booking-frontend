@@ -104,6 +104,7 @@ class FlightList extends Component {
 	}
 
 	componentDidMount(){
+		if(document.readyState !== "complete") return;
 		Tawk_API.hideWidget();
 	}
 
