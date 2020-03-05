@@ -103,6 +103,10 @@ class FlightList extends Component {
 		history.push('/book_flight');
 	}
 
+	componentDidMount(){
+		Tawk_API.hideWidget();
+	}
+
 	render() {
 		const {
 			outboundFlights,
