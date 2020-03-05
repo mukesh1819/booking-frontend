@@ -28,6 +28,7 @@ import {passCsrfToken} from '../../utils/helpers';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
 import Accordion from '../shared/Accordion';
+import {sortObjectBy} from '../../utils/helpers';
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -115,13 +116,20 @@ class PassengerForm extends Component {
 			return <Redirect to='/'></Redirect>;
 		}
 
+		var sortedCountries = this.state.countries.map((country) => {
+			return({
+				country_char:country.country_char, 
+				country_code:country.country_code
+			});
+		});
+		sortedCountries = sortObjectBy(sortedCountries, "country_code");
+
 		var content = (
 			<Container className='p-0'>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
-						debugger;
 						this.setState({
 							passengers: values.passengers,
 							viewDetails: true,
@@ -164,7 +172,7 @@ class PassengerForm extends Component {
 										as='select'
 										value={values.user.code}
 									>
-										{this.state.countries.map((country) => {
+										{sortedCountries.map((country) => {
 											return (
 												<option key={country.id} value={country.country_char}>
 													{country.country_code}
@@ -290,7 +298,6 @@ class PassengerForm extends Component {
 														placeholder='Select Country'
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															debugger;
 															setFieldValue(
 																`passengers[${index}].nationality`,
 																data.value
