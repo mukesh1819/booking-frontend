@@ -31,7 +31,7 @@ export function isRefundable(type) {
 
 export function userInitials(user) {
     if (user.name == undefined || user.name == "") {
-        return ""
+        return "Login"
     }
     return user.name[0].toUpperCase()
 }
