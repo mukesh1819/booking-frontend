@@ -36,7 +36,8 @@ class EditUserForm extends Component {
 
 		this.state = {
 			userDetails: {},
-			countries: []
+			countries: [],
+			updated: false
 		};
 	}
 

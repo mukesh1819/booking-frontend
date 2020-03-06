@@ -126,7 +126,6 @@ class SearchFlightForm extends Component {
 		const wrapper = document.createElement('div');
 		ReactDOM.render(<List />, wrapper);
 		const listEl = wrapper.firstChild;
-		debugger;
 
 		return (
 			<React.Fragment>

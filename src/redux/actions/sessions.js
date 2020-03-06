@@ -12,3 +12,10 @@ export const loginUser = (user) => ({
 export const logoutUser = () => ({
 	type: 'LOGOUT_USER'
 });
+
+export const updateUser = (user) => {
+	console.log('user =', user);
+	return {
+	type: 'UPDATE_USER',
+	payload: user
+}};
