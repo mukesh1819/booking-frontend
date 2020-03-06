@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
 import Tooltip from '../shared/Tooltip';
@@ -6,8 +6,15 @@ import {isRefundable} from '../../utils/helpers';
 import {connect} from 'react-redux';
 import history from '../../history';
 import moment from 'moment';
+import SearchBar from './SearchBar';
 
 const SearchDetails = ({details}) => {
+	const [searching, setSearch] = useState(false);
+
+	if (searching) {
+		return <SearchBar />;
+	}
+
 	return (
 		<div className='flight-card'>
 			<div className='d-flex justify-content-around align-items-center'>
@@ -22,7 +29,7 @@ const SearchDetails = ({details}) => {
 					)}`}</div>
 				</div>
 				<div>
-					<i className='icon-edit' onClick={() => history.push('/')} />
+					<i className='icon-edit' onClick={() => setSearch(true)} />
 				</div>
 			</div>
 		</div>

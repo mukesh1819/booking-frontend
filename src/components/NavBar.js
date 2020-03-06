@@ -12,6 +12,8 @@ import Currencies from './users/Currencies';
 import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import history from '../history';
 import axios from 'axios';
+import {Flag, Segment} from 'semantic-ui-react';
+
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
@@ -117,26 +119,26 @@ class NavBar extends Component {
 								>
 									Hotels
 								</NavLink>
-							</li> 
-							<li className='mx-3'>
-								<NavLink
-									className='navbar-font-style'
-									to='/packages'
-									activeStyle={{
-										textDecoration: 'none',
-										fontWeight: 'bold',
-										color: '#09C6AB'
-									}}
-								>
-									Packages
-								</NavLink>
 							</li> */}
+								<li className='mx-3'>
+									<Link
+										className='navbar-font-style'
+										to='/bookings'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold',
+											color: '#09C6AB'
+										}}
+									>
+										My Bookings
+									</Link>
+								</li>
 								{/* <Dropdown icon={'icon-user'} title={''}>
 								<SignUpForm />
 							</Dropdown> */}
 
 								<li className='mx-3'>
-									<Dropdown title={currency} className='text-white'>
+									<Dropdown icon='np flag' title={currency} className='text-white'>
 										<div className='d-flex select-countries'>
 											<div className='pr-3'>
 												<span>Languages</span>
@@ -150,6 +152,10 @@ class NavBar extends Component {
 										</div>
 									</Dropdown>
 								</li>
+							</ul>
+						</div>
+						<div>
+							<ul className='navbar-nav ml-auto align-items-center'>
 								<li className='mx-3'>
 									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
 										<ul>
@@ -157,13 +163,6 @@ class NavBar extends Component {
 												{loggedIn && (
 													<Link to='/profile' className='dropdown-item'>
 														Profile
-													</Link>
-												)}
-											</li>
-											<li>
-												{loggedIn && (
-													<Link to='/bookings' className='dropdown-item'>
-														My Bookings
 													</Link>
 												)}
 											</li>
