@@ -22,7 +22,6 @@ class Bookings extends Component {
 		passCsrfToken(document, axios);
 		getBookings()
 			.then((response) => {
-				debugger;
 				console.log(response, 'booking response');
 				console.log('Bookings List', response);
 				this.setState({

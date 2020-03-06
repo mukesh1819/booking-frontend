@@ -116,7 +116,6 @@ class PassengerForm extends Component {
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
-						debugger;
 						this.setState({
 							passengers: values.passengers,
 							viewDetails: true,
@@ -285,7 +284,6 @@ class PassengerForm extends Component {
 														placeholder='Select Country'
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															debugger;
 															setFieldValue(
 																`passengers[${index}].nationality`,
 																data.value

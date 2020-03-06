@@ -140,7 +140,6 @@ class SearchBar extends Component {
 		const wrapper = document.createElement('div');
 		ReactDOM.render(<List />, wrapper);
 		const listEl = wrapper.firstChild;
-		debugger;
 
 		return (
 			<div id='search-flight-form'>
@@ -418,14 +417,6 @@ class SearchBar extends Component {
 	}
 }
 
-const Loading = () => (
-	<div className='container text-center'>
-		{/* <img src={require('/assets/images/loading.gif')} /> */}
-		Loading...
-	</div>
-);
-
-const withLoading = (Component) => ({searching, ...rest}) => (searching ? <Loading /> : <Component {...rest} />);
 const mapStateToProps = ({flightStore}) => {
 	return {
 		flights: flightStore.flights,

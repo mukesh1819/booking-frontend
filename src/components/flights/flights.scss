@@ -195,6 +195,7 @@
 .toggle-trip {
     position: absolute;
     right: 0;
+    top: 85px;
     display: table;
 
     @include tablet {
