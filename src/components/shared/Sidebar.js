@@ -2,6 +2,7 @@ import React from 'react';
 import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import history from '../../history';
+import SocialLinks from '../sessions/SocialLinks';
 
 function Sidebar({items = [], isVisible, onHide}) {
 	return (
@@ -23,7 +24,7 @@ function Sidebar({items = [], isVisible, onHide}) {
 								{details}
 							</span>
 						</div>
-						<span class='text-bold ml-auto'>{value}</span>
+						<span className='text-bold ml-auto'>{value}</span>
 					</div>
 				))}
 				<hr />
@@ -38,6 +39,7 @@ function Sidebar({items = [], isVisible, onHide}) {
 					</span>
 				</div>
 			</div>
+			<SocialLinks />
 		</div>
 	);
 }

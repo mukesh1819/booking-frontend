@@ -26,6 +26,7 @@ import moment from 'moment';
 import {getCountries} from '../../api/flightApi';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
+import withLoading from '../shared/Loading';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -417,14 +418,6 @@ class SearchBar extends Component {
 	}
 }
 
-const Loading = () => (
-	<div className='container text-center'>
-		{/* <img src={require('/assets/images/loading.gif')} /> */}
-		Loading...
-	</div>
-);
-
-const withLoading = (Component) => ({searching, ...rest}) => (searching ? <Loading /> : <Component {...rest} />);
 const mapStateToProps = ({flightStore}) => {
 	return {
 		flights: flightStore.flights,

@@ -17,9 +17,7 @@ import {Flag, Segment} from 'semantic-ui-react';
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
 		this.state = {
-			loggedIn: localStorage.token !== undefined,
 			sideBarIsVisible: false
 		};
 	}
@@ -33,8 +31,8 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const {loggedIn} = this.state;
-		const {currentUser, currency} = this.props;
+		const {currentUser, currency, logoutUser} = this.props;
+		const loggedIn = currentUser.email !== undefined;
 
 		const sideBarMenu = [
 			{icon: 'icon-home', name: 'home', label: 'Home', value: '', link: '/'},
@@ -171,12 +169,9 @@ class NavBar extends Component {
 													<a
 														className='dropdown-item'
 														onClick={() => {
-															logout();
-															this.props.logoutUser();
-															this.setState({
-																loggedIn: false
-															});
+															logoutUser();
 															history.push('/login');
+															logout();
 														}}
 													>
 														Logout
@@ -220,8 +215,6 @@ const mapStateToProps = ({userStore, bookingStore}) => ({
 	currency: bookingStore.currency
 });
 
-const mapDispatchToProps = () => ({
-	logoutUser
-});
+const mapDispatchToProps = {logoutUser};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

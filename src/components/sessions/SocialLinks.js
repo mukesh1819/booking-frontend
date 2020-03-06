@@ -1,13 +1,7 @@
 import React, {Component} from 'react';
-import {Formik, Form, Field} from 'formik';
-import {createUser} from '../../api/sessions';
-import history from '../../history';
 import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
-import {loginUser} from '../../redux/actions/sessions';
-import * as yup from 'yup';
 import {connect} from 'react-redux';
-import ErrorMessage from '../ErrorMessage';
-import {Link} from 'react-router-dom';
+import '../../styles/index.scss';
 
 class SocialLinks extends Component {
 	constructor(props) {
