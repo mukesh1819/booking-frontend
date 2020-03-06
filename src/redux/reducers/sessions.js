@@ -3,6 +3,7 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
+	console.log(action, 'action--------------');
 	switch (action.type) {
 		case 'LOGIN_USER':
 			console.log(action, 'reduce');

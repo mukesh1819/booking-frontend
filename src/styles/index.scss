@@ -71,6 +71,28 @@ li {
     margin: 0;
 }
 
+.bg {
+    &-fb {
+        background-color: $fb-color;
+    }
+
+    &-accent {
+        background-color: $accent;
+    }
+
+    &-gray {
+        background-color: $gray;
+    }
+
+    &-gray-light {
+        background-color: $gray-light;
+    }
+
+    &-body {
+        background-color: $body-bg-color;
+    }
+}
+
 input {
     padding: 10px;
     border-radius: 5px;

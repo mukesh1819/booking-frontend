@@ -215,8 +215,6 @@ const mapStateToProps = ({userStore, bookingStore}) => ({
 	currency: bookingStore.currency
 });
 
-const mapDispatchToProps = () => ({
-	logoutUser
-});
+const mapDispatchToProps = {logoutUser};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

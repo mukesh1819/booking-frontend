@@ -45,6 +45,7 @@ class SignInForm extends Component {
 									console.log('Logged In user', response);
 									this.props.loginUser(response.data.user);
 									localStorage.setItem('token', response.data.jwt);
+									history.push(redirectUrl);
 								} else {
 									swal({
 										title: 'Sign In Failed!',
@@ -53,8 +54,6 @@ class SignInForm extends Component {
 										button: 'Try Again!'
 									});
 								}
-								console.log('Login RedirectUrl', redirectUrl);
-								history.push(redirectUrl);
 							})
 							.catch((error) => {
 								console.log('SIGN IN error', error);
