@@ -13,6 +13,37 @@ class SearchFlightForm extends Component {
 	componentDidMount() {}
 
 	render() {
+		const ListWithLoading = withLoading(FlightList);
+		const {hideReturnField} = this.state;
+		const {searchDetails} = this.props;
+		console.log('Search Details', searchDetails);
+
+		const SearchFlightSchema = yup.object().shape({
+			strFlightDate: yup.date().required('Required').default(function() {
+				return new Date();
+			}),
+			strReturnDate: yup.date().required('Required').default(function() {
+				return yup.ref('strFlightDate');
+			}),
+			strSectorFrom: yup.string().required('Required'),
+			strSectorTo: yup.string().required('Required'),
+			strNationality: yup.string().required('Required'),
+			intAdult: yup.number().min(1, 'Cannot be less than 1').required('Required'),
+			intChild: yup.number().min(0, 'Cannot be less than 0').required('Required')
+		});
+
+		const List = () => (
+			<ul>
+				<li>Item 1</li>
+				<li>Item 2</li>
+			</ul>
+		);
+
+		// Render it as a DOM node...
+		const wrapper = document.createElement('div');
+		ReactDOM.render(<List />, wrapper);
+		const listEl = wrapper.firstChild;
+
 		return (
 			<React.Fragment>
 				<header id='header' className='cover' role='banner'>

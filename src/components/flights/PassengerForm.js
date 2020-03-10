@@ -28,6 +28,7 @@ import {passCsrfToken} from '../../utils/helpers';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
 import Accordion from '../shared/Accordion';
+import {sortObjectBy} from '../../utils/helpers';
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -67,6 +68,7 @@ class PassengerForm extends Component {
 
 	render() {
 		const user = this.props.currentUser;
+		const selectedOutboundFlight = this.props.selectedOutboundFlight;
 		user.code = user.country;
 		const {adult, child, currentUser} = this.props;
 		const PassengerSchema = yup.object().shape({
@@ -109,6 +111,18 @@ class PassengerForm extends Component {
 		if (initialValues.passengers.length == 0) {
 			return <Redirect to='/' />;
 		}
+
+		if (!selectedOutboundFlight){
+			return <Redirect to='/'></Redirect>;
+		}
+
+		var sortedCountries = this.state.countries.map((country) => {
+			return({
+				country_char:country.country_char, 
+				country_code:country.country_code
+			});
+		});
+		sortedCountries = sortObjectBy(sortedCountries, "country_code");
 
 		var content = (
 			<Container className='p-0'>
@@ -158,7 +172,7 @@ class PassengerForm extends Component {
 										as='select'
 										value={values.user.code}
 									>
-										{this.state.countries.map((country) => {
+										{sortedCountries.map((country) => {
 											return (
 												<option key={country.id} value={country.country_char}>
 													{country.country_code}

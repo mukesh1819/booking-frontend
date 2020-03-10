@@ -1,10 +1,17 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import {Flag, Segment, Dropdown} from 'semantic-ui-react';
 
 const Editable = (props) => {
-	const {label, value, onSubmit} = props;
+	const {edit, label, value, name, type = "text", options, onSubmit} = props;
 	const [editMode, setEditMode] = useState(false);
 	const [fieldValue, setValue] = useState(value);
+
+	useEffect(() => {
+		if(edit){
+			setEditMode(false)
+		}
+	}, [edit])
 
 	return (
 		<div className='field'>
@@ -18,7 +25,7 @@ const Editable = (props) => {
 			</div>
 			<div className='d-flex value'>
 				{!editMode && <span className='mr-auto'>{value}</span>}
-				{editMode && (
+				{editMode && type == "text"&&  (
 					<input
 						className='form-control'
 						value={fieldValue}
@@ -27,6 +34,33 @@ const Editable = (props) => {
 						}}
 					/>
 				)}
+
+{editMode && type == "select" && 	<Dropdown
+						className='form-control'
+						name={name}
+						value={fieldValue}
+						onChange={(e,data) => {
+							setValue(data.value);
+						}}
+						fluid
+						search
+						selection
+						options={options}></Dropdown>	
+
+					// 	<select
+					// 	className='form-control'
+					// 	name={name}
+					// 	onChange={(e) => {
+					// 		setValue(e.target.value);
+					// 	}}
+				  	// >
+					// 	  {options.map((option) => {
+					// 		  return <option value={option.key}> <Flag name={option.flag} />
+					// 		  {option.value}</option>
+					// 		})}
+					  // </select>
+				}
+
 				{editMode && (
 					<span className='btn btn-sm btn-primary' onClick={() => onSubmit(fieldValue)}>
 						Update

@@ -103,6 +103,11 @@ class FlightList extends Component {
 		history.push('/book_flight');
 	}
 
+	componentDidMount(){
+		if(document.readyState !== "complete") return;
+		Tawk_API.hideWidget();
+	}
+
 	render() {
 		const {
 			outboundFlights,
@@ -128,18 +133,22 @@ class FlightList extends Component {
 		const sortedList = SORTS[sortKey](results);
 		const reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList;
 
-		if (reverseSortedList.length == 0) {
-			return (
-				<div className='container p-0'>
-					<EmptyContent>
-						No Flights found.<br />
-						<Link to='/' className='btn btn-primary'>
-							Try Again
-						</Link>
-					</EmptyContent>
-				</div>
-			);
-		}
+		if (reverseSortedList.length == 0){
+			return <Redirect to = "/"></Redirect>;
+		} 
+
+		// if (reverseSortedList.length == 0) {
+		// 	return (
+		// 		<div className='container p-0'>
+		// 			<EmptyContent>
+		// 				No Flights found.<br />
+		// 				<Link to='/' className='btn btn-primary'>
+		// 					Try Again
+		// 				</Link>
+		// 			</EmptyContent>
+		// 		</div>
+		// 	);
+		// }
 
 		return (
 			<div className='container p-0'>

@@ -1,3 +1,21 @@
+export function sortObjectBy(obj, key){
+    obj = obj.sort((a,b) => {
+        const bandA = a[key].toUpperCase();
+        const bandB = b[key].toUpperCase();
+      
+        let comparison = 0;
+        if (bandA > bandB) {
+          comparison = 1;
+        } else if (bandA < bandB) {
+          comparison = -1;
+        }
+        return comparison;
+    })
+
+    return obj;
+}
+
+
 function csrfToken(document) {
     return document.querySelector('[name="csrf-token"]') ? document.querySelector('[name="csrf-token"]').content : null;
 }
