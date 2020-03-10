@@ -249,16 +249,16 @@ class SearchBar extends Component {
 											<ErrorMessage name='strSectorFrom' />
 										</Field>
 									</IconInput>
-								</div>
-								<div>
-									<div className='toggle-sector'>
-										<i
-											className='icon-controller-fast-forward'
-											onClick={() => {
-												setFieldValue('strSectorTo', values.strSectorFrom);
-												setFieldValue('strSectorFrom', values.strSectorTo);
-											}}
-										/>
+									<div>
+										<div className='toggle-sector'>
+											<i
+												className='fas fa-exchange-alt'
+												onClick={() => {
+													setFieldValue('strSectorTo', values.strSectorFrom);
+													setFieldValue('strSectorFrom', values.strSectorTo);
+												}}
+											/>
+										</div>
 									</div>
 								</div>
 								<div className='field-box'>

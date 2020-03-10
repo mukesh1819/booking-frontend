@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import SearchBar from './SearchBar';
+import yetiImage from '../../images/yeti-banner.png';
+import buddhaImage from '../../images/buddha-banner.png';
+import shreeImage from '../../images/shree-banner.png';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
@@ -17,6 +20,12 @@ class SearchFlightForm extends Component {
 						<div className='text-white mb-2'>
 							Find and book domestic flights within Nepal at best price.
 						</div>
+						<div className='airline-logos d-none'>
+							<img src={yetiImage} alt='Image' className='img-responsive' />
+							<img src={buddhaImage} alt='Image' className='img-responsive' />
+							<img src={shreeImage} alt='Image' className='img-responsive' />
+						</div>
+
 						<SearchBar />
 					</Container>
 				</header>
