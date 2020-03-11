@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image} from 'react-bootstrap';
 import {getBookingDetails, downloadTicket} from '../../api/flightApi';
+import moment from 'moment';
 
 class TicketDetails extends Component {
 	constructor(props) {
@@ -33,9 +34,9 @@ class TicketDetails extends Component {
 		const {booking} = this.state;
 		return (
 			<React.Fragment>
-				<div className='container-fluid'>
-					<div className='col-md-6 ml-auto mr-auto' id='search-form pdf-mar'>
-						<div className='d-flex justify-content-between'>
+				<div className='container-fluid p-0'>
+					<div className='col-md-6 mx-auto bg-white' id='search-form pdf-mar'>
+						<div className='d-flex justify-content-between py-3'>
 							<div className=''>
 								<h3>Booking Nepal</h3>
 							</div>
@@ -44,52 +45,44 @@ class TicketDetails extends Component {
 							</div>
 							<div className=''>
 								<Image width='35px' height='37px' src={booking.airline_logo} />
-								<span className='booking-text '>airline </span>
+								<span className=' '>airline </span>
 							</div>
 						</div>
-						<h5 className='text-center text-info booking-text'>
-							Tickets operated and managed by Booking Nepal Travels and Tours Pvt. Ltd
-						</h5>
-						<h5 className='text-uppercase text-center booking-text'>
-							This <strong>electronic ticket</strong> is not transferable and must be present at check-in{' '}
-						</h5>
-						<h5 className='text-uppercase text-center booking-text'>
-							at check-in please present id card and all necessary travel documents.
-						</h5>
+						<div className='p-3'>
+							<h5 className='text-center text-info '>
+								Tickets operated and managed by Booking Nepal Travels and Tours Pvt. Ltd
+							</h5>
+							<h5 className='text-uppercase text-center '>
+								This <strong>electronic ticket</strong> is not transferable and must be present at
+								check-in. Please present id card and all necessary travel documents.
+							</h5>
+						</div>
 
 						{booking.booking_transaction !== undefined && (
-							<div className='row'>
-								<div>
-									<div className='col-6'>
-										<h5 className='d-inline booking-text'>
-											Transaction Invoice No -<span>{booking.booking_transaction.idx}</span>
-										</h5>
-									</div>
+							<div>
+								<div className=''>
+									Invoice No -<span>{booking.booking_transaction.idx}</span>
 								</div>
-
-								<div className='row'>
-									<div className='col-6'>
-										<h5 className='d-inline booking-text'>
-											Transaction Date -<span>{booking.booking_transaction.created_at}</span>
-										</h5>
-									</div>
+								<div className=''>
+									Date -<span>
+										{moment(booking.booking_transaction.created_at).format('D MMMM, YYYY')}
+									</span>
+								</div>
+								<div className=''>
+									Reporting Time - <span>{booking.flight_date}</span>
 								</div>
 							</div>
 						)}
 
-						<div className='row'>
-							<div className='col-6'>
-								<h5 className='d-inline booking-text'>
-									Outbound PNR No -<span>{booking.pnr_no}</span>
-								</h5>
-							</div>
-							<div className='col-6 d-flex justify-content-end'>
-								<h5 className='d-inline booking-text'>
-									Refundable -
-									{booking.refundable && <span>"Yes"</span>}
-									{!booking.refundable && <span> "No" </span>}
-								</h5>
-							</div>
+						<div className='d-flex justify-content-between py-3'>
+							<h5>
+								Outbound PNR No -<span>{booking.pnr_no}</span>
+							</h5>
+							<h5>
+								Refundable -
+								{booking.refundable && <span>"Yes"</span>}
+								{!booking.refundable && <span> "No" </span>}
+							</h5>
 						</div>
 
 						<table className='table table-bg table-bordered table-sm'>
@@ -119,8 +112,8 @@ class TicketDetails extends Component {
 						</table>
 					</div>
 					<div className='col-md-6 ml-auto mr-auto' id='search-form1'>
-						<h1 className='text-center booking-text'>Booking Details</h1>
-						<table className='table table-bg table-bordered table-sm'>
+						<h1 className='text-center '>Booking Details</h1>
+						<table className='table table-responsive table-bg table-bordered table-sm'>
 							<thead>
 								<tr>
 									<th>Sector</th>
@@ -144,9 +137,7 @@ class TicketDetails extends Component {
 						</table>
 					</div>
 
-					<h4 className='col-6 ml-auto mr-auto booking-text'>
-						Reporting Time - <span>{booking.flight_date}</span>
-					</h4>
+					<h4 className='col-6 ml-auto mr-auto ' />
 
 					<div className='text-center'>
 						<span onClick={() => downloadTicket(booking.ruid)} className='btn btn-success'>

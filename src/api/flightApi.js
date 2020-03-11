@@ -132,7 +132,7 @@ export function getCountries() {
 		url: '/api/countries',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(LocalStorage.token)`
+			Authorization: `Bearer $(localStorage.token)`
 		}
 	});
 }
@@ -141,7 +141,11 @@ export function downloadTicket(ruid) {
 	return axios({
 		url: `/${ruid}/download_ticket.pdf`,
 		method: 'GET',
-		responseType: 'blob' // important
+		responseType: 'blob',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer $(localStorage.token)`
+		}
 	}).then((response) => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');

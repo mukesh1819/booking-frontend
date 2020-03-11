@@ -44,51 +44,49 @@ class Bookings extends Component {
 			return <EmptyContent>No bookings yet.</EmptyContent>;
 		}
 		return (
-			<div className='booking-list card'>
+			<div className='booking-list container card'>
 				<div className='card-body'>
 					<h5>Bookings</h5>
 					{bookings.map(function(booking) {
+						console.log('Booking', booking);
 						return (
-							<div className='booking d-flex'>
-								<div className='mr-auto'>
-									<span> {booking.ruid}</span>
+							<Link
+								className='booking d-flex justify-content-between align-items-center p-3 '
+								to={{
+									pathname: `/booking_details/${booking.ruid}`,
+									state: {
+										booking: booking
+									}
+								}}
+							>
+								<div>
+									<div className=''>
+										<span className='px-2'>{`${booking.departure}`}</span>
+										<i className='fas fa-arrow-right' />
+										<span className='px-2'> {`${booking.arrival}`}</span>
+									</div>
 									<div>
-										<span className='text-small text-muted'>
-											{moment(booking.created_at, 'YYYYMMDD').fromNow()}
+										<span className='text-small text-muted px-2'>
+											<i class='fas fa-plane-departure' />&nbsp;
+											{`${moment(booking.flight_date).format('Do MMMM, YYYY')}`}
 										</span>
-										<span>
-											<Badge type={booking.status} content={booking.status} />
+										{booking.strTripType === 'R' && (
+											<span className='text-small text-muted px-2'>
+												<i class='fas fa-plane-arrival' />&nbsp;
+												{`${moment(booking.strReturnDate).format('Do MMMM, YYYY')}`}
+											</span>
+										)}
+										<span className='text-small text-muted px-2'>
+											<i class='fas fa-male' />&nbsp;
+											{booking.adult} Adult,
+											{booking.child} Child
 										</span>
 									</div>
 								</div>
-								<span>
-									<span className='btn'>
-										<Link
-											to={{
-												pathname: `/ticket/${booking.ruid}`,
-												state: {
-													booking: booking
-												}
-											}}
-										>
-											Ticket
-										</Link>
-									</span>
-
-									<span className='btn'>
-										<Link
-											to={{
-												pathname: `/booking_details/${booking.ruid}`,
-												state: {
-													booking: booking
-												}
-											}}
-										>
-											Cancel
-										</Link>
-									</span>
-								</span>
-							</div>
+								<div>
+									<Badge type={booking.status}>{booking.status}</Badge>
+								</div>
+							</Link>
 						);
 					})}
 				</div>

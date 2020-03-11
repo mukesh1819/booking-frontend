@@ -100,6 +100,8 @@
         align-items: center;
         padding: 4px;
 
+        text-decoration: none !important;
+
 
         &:nth-child(even) {
             background-color: rgba(220, 220, 220, 0.353);

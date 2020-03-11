@@ -28,7 +28,7 @@ const FlightDetails = (props) => {
 					<span className='text-center'>
 						{flight.DepartureTime} <div className='text-bold'>{flight.Departure}</div>
 					</span>
-					<span class='text-small text-muted'>{flight.duration} </span>
+					<span class='text-small text-muted'>{flight.duration} min</span>
 					<span className='text-center'>
 						{flight.ArrivalTime}
 						<div className='text-bold'>{flight.Arrival}</div>
@@ -38,16 +38,30 @@ const FlightDetails = (props) => {
 				<hr />
 				<div>
 					<span className='text-center p-3'>
-						<div className='text-bold'>Total Fare: {flight.total_fare}</div>
+						<div className='text-bold'>
+							Total Fare: {flight.Currency} {flight.total_fare}
+						</div>
 						<div className='text-small text-muted'>
 							({adult} Adult, {child} Child)
 						</div>
 					</span>
 					<ul className='text-muted text-small'>
-						{adult > 0 && <li> Base Fare (1 Adult): {flight.AdultFare} </li>}
-						{child > 0 && <li> Base Fare (1 Child): {flight.ChildFare} </li>}
-						<li> Fuel Surcharge: {flight.FuelSurcharge} </li>
-						<li> Tax: {flight.Tax} </li>
+						{adult > 0 && (
+							<li>
+								Base Fare (1 Adult): {flight.Currency} {flight.AdultFare} x ({adult})
+							</li>
+						)}
+						{child > 0 && (
+							<li>
+								Base Fare (1 Child): {flight.Currency} {flight.ChildFare} x ({child})
+							</li>
+						)}
+						<li>
+							Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({adult} + {child})
+						</li>
+						<li>
+							Tax: {flight.Currency} {flight.Tax} x ({adult} + {child})
+						</li>
 					</ul>
 				</div>
 			</div>

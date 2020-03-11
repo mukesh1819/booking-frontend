@@ -175,7 +175,8 @@ img {
 .modal {
     .modal-dialog {
         display: flex;
-        height: 100vh;
+        min-height: 100vh;
+        max-height: max-content;
         margin: auto;
 
         @include tablet {

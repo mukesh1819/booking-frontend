@@ -9,6 +9,8 @@ const FlightCombinedDetails = (props) => {
 	const outbound = flight.outbound;
 	return (
 		<div className='flight-details'>
+			<span className='text-bold'>Departure:</span>
+			<hr />
 			<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
 				<span>
 					<img src={inbound.AirlineLogo} className='p-2' />
@@ -30,7 +32,7 @@ const FlightCombinedDetails = (props) => {
 					<span className='text-center'>
 						{inbound.DepartureTime} <div className='text-bold'>{inbound.Departure}</div>
 					</span>
-					<span class='text-small text-muted'>{flight.duration} </span>
+					<span class='text-small text-muted'>{inbound.duration} min</span>
 					<span className='text-center'>
 						{inbound.ArrivalTime}
 						<div className='text-bold'>{inbound.Arrival}</div>
@@ -40,7 +42,9 @@ const FlightCombinedDetails = (props) => {
 				<hr />
 				<div>
 					<span className='text-center p-3'>
-						<div className='text-bold'>Total Fare: {inbound.total_fare}</div>
+						<div className='text-bold'>
+							Total Fare: {inbound.Currency} {inbound.total_fare}
+						</div>
 						<div className='text-small text-muted'>
 							({adult} Adult, {child} Child)
 						</div>
@@ -53,6 +57,9 @@ const FlightCombinedDetails = (props) => {
 					</ul>
 				</div>
 			</div>
+			<hr />
+			<span className='text-bold'>Arrival:</span>
+			<hr />
 			<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
 				<span>
 					<img src={outbound.AirlineLogo} className='p-2' />
@@ -74,7 +81,7 @@ const FlightCombinedDetails = (props) => {
 					<span className='text-center'>
 						{outbound.DepartureTime} <div className='text-bold'>{outbound.Departure}</div>
 					</span>
-					<span class='text-small text-muted'>{flight.duration} </span>
+					<span class='text-small text-muted'>{outbound.duration} min</span>
 					<span className='text-center'>
 						{outbound.ArrivalTime}
 						<div className='text-bold'>{outbound.Arrival}</div>
@@ -84,7 +91,9 @@ const FlightCombinedDetails = (props) => {
 				<hr />
 				<div>
 					<span className='text-center p-3'>
-						<div className='text-bold'>Total Fare: {outbound.total_fare}</div>
+						<div className='text-bold'>
+							Total Fare: {outbound.Currency}: {outbound.total_fare}
+						</div>
 						<div className='text-small text-muted'>
 							({adult} Adult, {child} Child)
 						</div>

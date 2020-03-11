@@ -1,12 +1,12 @@
 import React from 'react';
+import loading from '../../images/flight-loading.gif';
 
 const Loading = () => (
 	<div className='container text-center'>
-		{/* <img src={require('/assets/images/loading.gif')} /> */}
-		Loading...
+		<img src={loading} width='100' height='100' />
 	</div>
 );
 
-const withLoading = (Component) => ({searching, ...rest}) => (searching ? <Loading /> : <Component {...rest} />);
+// const withLoading = (Component) => ({searching, ...rest}) => (searching ? <Loading /> : <Component {...rest} />);
 
-export default withLoading;
+export default Loading;
