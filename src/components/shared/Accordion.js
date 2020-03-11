@@ -8,7 +8,7 @@ function CustomToggle({children, eventKey}) {
 	return (
 		<div className='d-flex text-primary text-bold align-items-center' onClick={decoratedOnClick}>
 			{children}
-			<i className='icon-arrow-bold-down ml-auto' />
+			<i className='icon-circle-with-minus ml-auto' />
 		</div>
 	);
 }

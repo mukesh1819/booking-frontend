@@ -70,7 +70,7 @@ class FinalBookingDetails extends Component {
 		}
 
 		return (
-			<div className='passenger-details container p-0'>
+			<div className='passenger-details container p-3 bg-white'>
 				<div className='p-2'>
 					<i
 						className='icon-circle-cross text-normal float-right'
@@ -80,7 +80,9 @@ class FinalBookingDetails extends Component {
 					/>
 				</div>
 				<span class='text-bold'>Flight Details</span>
-				<FlightDetails flight={this.props.selectedOutboundFlight} />
+				<div className='container'>
+					<FlightDetails flight={this.props.selectedOutboundFlight} />
+				</div>
 				<span class='text-bold'>Passenger Details</span>
 				<PassengerDetails passengers={passengers} />
 

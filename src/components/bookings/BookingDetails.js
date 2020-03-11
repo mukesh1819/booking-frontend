@@ -1,153 +1,205 @@
-import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { cancelUserTickets } from '../../api/flightApi';
+import React, {Component} from 'react';
+import {Link, NavLink} from 'react-router-dom';
+import {getBookingDetails, cancelUserTickets} from '../../api/flightApi';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
+import {isRefundable} from '../../utils/helpers';
+import PassengerDetails from '../flights/PassengerDetails';
 
 class BookingDetails extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			booking: {}
+		};
+	}
 
-    constructor(props) {
-        super(props);
-        this.state = {
+	cancelUserRequest(passengers) {
+		cancelUserTickets(passengers)
+			.then((repsonse) => {
+				console.log(repsonse);
+				swal({
+					title: 'Tickets cancellation!',
+					text: 'Your ticket cancellation is in process',
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.push('/booking_list');
+			})
+			.catch((error) => {
+				console.log(error);
+				swal({
+					title: 'Tickets cancellation!',
+					text: error.message,
+					icon: 'error',
+					button: 'Continue!'
+				});
+			});
+	}
 
-        };
-    }
+	componentDidMount() {
+		if (this.props.location.state !== undefined) {
+			this.setState({
+				booking: this.props.location.state.booking
+			});
+		} else {
+			getBookingDetails(this.props.match.params.id)
+				.then((response) => {
+					this.setState({
+						booking: response.data
+					});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}
 
-    cancelUserRequest(passengers) {
-        cancelUserTickets(passengers)
-            .then((repsonse) => {
-                console.log(repsonse);
-                swal({
-                    title: 'Tickets cancellation!',
-                    text: 'Your ticket cancellation is in process',
-                    icon: 'success',
-                    button: 'Continue!'
-                });
-                history.push('/booking_list');
-            })
-            .catch((error) => {
-                console.log(error);
-                swal({
-                    title: 'Tickets cancellation!',
-                    text: error.message,
-                    icon: 'error',
-                    button: 'Continue!'
-                });
-            });
-    }
+	render() {
+		const {booking} = this.state;
+		const flight = {};
+		return (
+			<React.Fragment>
+				<div className='container bg-white'>
+					<div className='d-flex justify-content-between p-2'>
+						<h3 className='text-center text-success'> Tickets Details </h3>
+						<span className='text-primary text-bold'> EDIT </span>
+					</div>
+					{booking.booking_transaction !== undefined && (
+						<div>
+							<div className=''>
+								<div> Outbound PNR No - {booking.pnr_no} </div>
+								<div> Invoice No - {booking.booking_transaction.idx} </div>
+								<div> Reporting Time - {booking.flight_date} </div>
+							</div>
+						</div>
+					)}
+					<div className='flight-details'>
+						<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
+							<span>
+								<img src={flight.AirlineLogo} className='p-2' />
 
-
-    render() {
-        const { booking } = this.props.location.state;
-        return (
-            <React.Fragment>
-    <div className="container-fluid">
-        <h3 className="text-center text-success">Tickets Details</h3>
-
-        <div className="row">
-            <div className="col-6">
-                <h5 className="d-inline booking-text">Transaction Invoice No -<span>{booking.booking_transaction.idx}</span></h5>
-            </div>
-        </div>
-
-        <div className="row">
-            <div className="col-6">
-                <h5 className="d-inline booking-text">Transaction Date -<span>{booking.booking_transaction.created_at}</span></h5>
-            </div>
-        </div>
-
-        <div className="col-md-6 ml-auto mr-auto" id="search-form">
-            <div className="row">
-                <div className="col-6">
-                    <h5 className="d-inline booking-text">Outbound PNR No -<span>{booking.pnr_no}</span></h5>
-                </div>
-
-                <div className="col-6 d-flex justify-content-end">
-                    <h5 className="d-inline booking-text">Refundable -
-                        {booking.refundable &&  <span>"Yes"</span>} 
-                        {!booking.refundable && <span> "No" </span>}
-                    </h5>
-                </div>
-
-            </div>
-            <table className="table table-bg table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>Passenger Name</th>
-                        <th>Nationality</th>
-                        <th>Passenger Type</th>
-                        <th>Ticket No</th>
-                        <th>Cancel ticket</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {booking.passengers.map((passenger) => {
-                        return(
-                            <tr>
-                                <td> {passenger.title + " " + passenger.first_name } </td>
-                                <td> {passenger.nationality} </td>
-                                <td> {passenger.passenger_type} </td>
-                                <td> {passenger.ticket_no} </td>
-                                { passenger.passenger_status === 'verified' && <td><span className="btn btn-danger d-flex align-items-end" onClick={() => this.cancelUserRequest([passenger])}>Cancel tickets</span></td> }
-                                { passenger.passenger_status !== 'verified' && <td> {passenger.passenger_status} </td>}
-                            </tr>
-                        );
-
-                    })}
-                </tbody>
-            </table>
-
-        </div>
-
-        <div className="col-md-6 ml-auto mr-auto" id="search-form1">
-            <h1 className="text-center booking-text">Booking Details</h1>
-            <table className="table table-bg table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>Sector</th>
-                        <th>Flight No</th>
-                        <th>Flight Time</th>
-                        <th>Class</th>
-                        <th>Flight Charge</th>
-                        <th>Cancel all tickets </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{booking.sector}</td>
-                        <td>{booking.flight_no}</td>
-                        <td>{booking.flight_date}</td>
-                        <td>{booking.class_code}</td>
-                        <td>{booking.total_fare}</td>
-                        { booking.status === 'verified' && <td><span className="btn btn-danger d-flex align-items-end" onClick={() => this.cancelUserRequest(booking.passengers)}>Cancel All tickets</span></td> }
-                        { booking.status !== 'verified' && <td>{booking.status}</td> }
-                    </tr>
-                </tbody>
-
-            </table>
-        </div>
-
-        <h4 className="col-6 ml-auto mr-auto booking-text">Reporting Time - <span>{booking.flight_date}</span></h4>
-        
-        <div className="offset-2 col-4 p-3">
-            <Link 
-                to={{
-                    pathname: '/ticket_details',
-                    state:{
-                        booking: booking
-                    }
-                }}
-            >
-                view ticket
-            </Link>
-        </div>
-
-    </div>
-</React.Fragment>
-        );
-    }
-
-};
+								<div className='text-center'>
+									{flight.FlightNo}({flight.FlightClassCode})
+								</div>
+							</span>
+							<span className=''> {flight.FlightDate} </span>
+							<span className='text-center'>
+								Class: {booking.class_code}
+								<div className='text-bold text-success'>{isRefundable(flight.Refundable)}</div>
+								<div>FreeBaggage: {flight.FreeBaggage}</div>
+							</span>
+						</div>
+						<hr />
+						<div className='body'>
+							<div class='d-flex justify-content-between align-items-center'>
+								<span className='text-center'>
+									{flight.DepartureTime} <div className='text-bold'>{flight.Departure}</div>
+								</span>
+								<span class='text-small text-muted'>{flight.duration} min</span>
+								<span className='text-center'>
+									{flight.ArrivalTime}
+									<div className='text-bold'>{flight.Arrival}</div>
+								</span>
+							</div>
+							<div className='text-center text-small text-muted' />
+							<hr />
+							<div>
+								<span className='text-center p-3'>
+									<div className='text-bold'>
+										Total Fare: {flight.Currency} {booking.total_fare}
+									</div>
+									<div className='text-small text-muted'>
+										({booking.adult} Adult, {booking.child} Child)
+									</div>
+								</span>
+								<ul className='text-muted text-small'>
+									{booking.adult > 0 && (
+										<li>
+											Base Fare (1 Adult): {flight.Currency} {flight.AdultFare} x ({booking.adult})
+										</li>
+									)}
+									{booking.child > 0 && (
+										<li>
+											Base Fare (1 Child): {flight.Currency} {flight.ChildFare} x ({booking.child})
+										</li>
+									)}
+									<li>
+										Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({booking.adult} +{' '}
+										{booking.child})
+									</li>
+									<li>
+										Tax: {flight.Currency} {flight.Tax} x ({booking.adult} + {booking.child})
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<h5 className='d-inline ' />
+					<div className='d-flex justify-content-between p-2'>
+						<span class='text-bold'>Passenger Details</span>
+						<span className='text-primary text-bold'> Cancel Tickets </span>
+					</div>
+					<div class='d-flex justify-content-end'>
+						<input
+							type='checkbox'
+							onChange={() => this.cancelUserRequest(booking.passengers)}
+							label='All'
+						/>
+						<label>All</label>
+					</div>
+					<div className='passenger-details container p-0'>
+						<table class='table'>
+							<thead>
+								<tr className='text-center'>
+									<th>Ticket</th>
+									<th>Name</th>
+									<th>Type</th>
+									<th>Nationality</th>
+									<th> Cancel </th>
+								</tr>
+							</thead>
+							<tbody>
+								{booking.passengers !== undefined &&
+									booking.passengers.map((passenger) => {
+										return (
+											<tr className='text-center'>
+												<td className=''>{passenger.ticket_no}</td>
+												<td className=''>
+													{passenger.title} {passenger.first_name} {passenger.last_name}
+												</td>
+												<td className=''>{passenger.passenger_type}</td>
+												<td className=''>{passenger.nationality}</td>
+												<td>
+													<input
+														type='checkbox'
+														onChange={() => this.cancelUserRequest([passenger])}
+														label='All'
+													/>
+												</td>
+											</tr>
+										);
+									})}
+							</tbody>
+						</table>
+					</div>
+					<div className='text-center'>
+						<Link
+							className='btn btn-primary'
+							to={{
+								pathname: `/ticket/${booking.ruid}`,
+								state: {
+									booking: booking
+								}
+							}}
+						>
+							View ticket
+						</Link>
+					</div>
+				</div>
+			</React.Fragment>
+		);
+	}
+}
 export default BookingDetails;

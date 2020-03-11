@@ -1,3 +1,21 @@
+export function sortObjectBy(obj, key) {
+    obj = obj.sort((a, b) => {
+        const bandA = a[key].toUpperCase();
+        const bandB = b[key].toUpperCase();
+
+        let comparison = 0;
+        if (bandA > bandB) {
+            comparison = 1;
+        } else if (bandA < bandB) {
+            comparison = -1;
+        }
+        return comparison;
+    })
+
+    return obj;
+}
+
+
 function csrfToken(document) {
     return document.querySelector('[name="csrf-token"]') ? document.querySelector('[name="csrf-token"]').content : null;
 }
@@ -30,10 +48,22 @@ export function isRefundable(type) {
 }
 
 export function userInitials(user) {
-    if (user.name == undefined || user.name == "") {
-        return ""
+    if (user.name === undefined) {
+        return "Login"
+    } else if (user.name === null) {
+        return "User"
+    } else {
+        return user.name.charAt(0).toUpperCase() + user.name.slice(1);
     }
-    return user.name[0].toUpperCase()
+}
+
+
+export function redirectUrl(state) {
+    var redirectUrl = '/';
+    if (state !== undefined) {
+        redirectUrl = this.props.location.state.from.pathname;
+    }
+    return redirectUrl
 }
 
 

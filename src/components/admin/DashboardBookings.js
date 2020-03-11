@@ -3,6 +3,8 @@ import {passCsrfToken} from '../../utils/helpers';
 import axios from 'axios';
 import {getAdminBookings} from '../../api/flightApi'
 import BookingDetails from './BookingDetails';
+import {Link} from 'react-router-dom';
+
 
 class DashboardBookings extends Component {
 
@@ -19,8 +21,8 @@ class DashboardBookings extends Component {
         
     }
 
-    fetchBookings(){
-        getAdminBookings(null)
+    fetchBookings(params){
+        getAdminBookings(params)
         .then((response) => {
             console.log(response);
             this.setState({
@@ -35,7 +37,37 @@ class DashboardBookings extends Component {
 
     render(){
         return(
-            <BookingDetails bookings= {this.state.bookings}/>
+            <React.Fragment>
+                <div className='row my-3'>
+                    <div className='col-7'>
+                        <button onClick={() => this.fetchBookings(`q[status_eq]=pending`)} className='btn btn-primary mr-1'>
+                        pending
+                        </button>
+
+                        <button onClick={() => this.fetchBookings(`q[status_eq]=verified`)} className='btn btn-primary mr-1'>
+                        verified
+                        </button>
+
+                        <button onClick={() => this.fetchBookings(`q[status_eq]=completed`)} className='btn btn-primary mr-1'>
+                        completed
+                        </button>
+
+                        <button onClick={() => this.fetchBookings(`q[status_eq]=processing`)} className='btn btn-primary mr-1'>
+                        processing
+                        </button>
+
+                        <button onClick={() => this.fetchBookings(`q[status_eq]=cancelled`)} className='btn btn-primary'>
+                        cancelled
+                        </button>
+                    </div>
+                    <div className='offset-3 col-2'>
+                        <Link to='/admin/update_booking' className='btn btn-danger'>Cancel Request</Link>
+                    </div>
+                </div>
+                
+                <BookingDetails bookings= {this.state.bookings}/>
+            </React.Fragment>
+            
         );
     }
 }

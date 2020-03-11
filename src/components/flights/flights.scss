@@ -1,7 +1,7 @@
 @import "../../styles/index.scss";
 
 #header {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)), url(../../images/flight.jpg);
+    background-image: linear-gradient(to bottom, rgba(29, 29, 29, 0.8), rgba(43, 42, 42, 0.408)), url(../../images/nepal-village.jpg);
     padding: 10px;
     height: 100vh;
 
@@ -195,6 +195,7 @@
 .toggle-trip {
     position: absolute;
     right: 0;
+    top: 85px;
     display: table;
 
     @include tablet {
@@ -211,13 +212,15 @@
 }
 
 .toggle-sector {
-    position: absolute;
-    right: 0;
-    padding: 0.5rem 0.6rem;
-    margin: 1.2rem 2rem 0rem 0rem;
-    transform: rotate(90deg);
     background: white;
-    border: 1px solid;
+    border: 1px solid grey;
+    cursor: pointer;
+    position: absolute;
+    margin: 1.2rem 2rem 0rem 0rem;
+    padding: 0.5rem 0.6rem;
+    right: 0;
+    top: 16px;
+    transform: rotate(90deg);
 
     @include tablet {
         display: none;
@@ -245,6 +248,8 @@ select {
 
         .menu-item {
             cursor: pointer;
+            display: flex;
+            align-items: center;
 
             &:hover {
                 background-color: $primary;
@@ -254,5 +259,18 @@ select {
         .active {
             background-color: lightblue;
         }
+    }
+}
+
+.airline-logos {
+    img {
+        width: 70px;
+        margin-right: 8px;
+    }
+}
+
+.counter {
+    .title {
+        white-space: nowrap;
     }
 }

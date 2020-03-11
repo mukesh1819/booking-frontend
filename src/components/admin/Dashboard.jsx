@@ -18,7 +18,6 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		passCsrfToken(document, axios);
 		this.fetchAdminDetails();
 	}
 
@@ -36,50 +35,51 @@ class Dashboard extends Component {
 				console.log(error);
 			});
 	}
+
 	render() {
 		const {users, bookings, transactions} = this.state;
 		return (
-			<div className='container mt-5'>
+			<div className='dashboard container mt-5'>
 				<h5>Dashboard</h5>
 				<div className='row'>
-					<div className='col-sm-12 col-md-4'>
+					<div className='widget col-sm-12 col-md-4'>
 						<div className='card'>
 							<div className='card-body'>
-								<div className='text-center'>{users} </div>
-								<Link to='/admin/users_list' className='d-flex justify-content-center pt-2 pb-2'>
-									View all Users
-								</Link>
+								<div className='text-center'>
+									<span className='count'>{users}</span>
+									<hr />
+									<Link to='/admin/users_list' className='action'>
+										View all Users
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className='col-sm-12 col-md-4'>
+					<div className='widget col-sm-12 col-md-4'>
 						<div className='card'>
 							<div className='card-body'>
-								<div className='text-center'>{bookings}</div>
-								<Link to='/admin/dashboard_bookings' className='d-flex justify-content-center pt-2 pb-2'>
-									View all bookings
-								</Link>
-								{/* <Link to=
-								{{
-									pathname:'/admin/dashboard_bookings',
-									className='d-flex justify-content-center pt-2 pb-2',
-									state:{
-										bookings:
-									}
-								}}
-								>View all bookings</Link> */}
+								<div className='text-center'>
+									<span className='count'>{bookings}</span>
+									<hr />
+									<Link to='/admin/dashboard_bookings' className='action'>
+										View all bookings
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className='col-sm-12 col-md-4'>
+					<div className='widget col-sm-12 col-md-4'>
 						<div className='card'>
 							<div className='card-body'>
-								<div className='text-center'>{transactions} </div>
-								<Link to='/admin/transaction_list' className='d-flex justify-content-center pt-2 pb-2'>
-									View all transactions
-								</Link>
+								<div className='text-center'>
+									<span className='count'>{transactions}</span>
+									<hr />
+									<Link to='/admin/transaction_list' className='action'>
+										View all transactions
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -48,7 +48,9 @@ const FlightCombination = ({
 							<span>{outboundFlight.ArrivalTime}</span>
 						</div>
 						<div className='d-flex justify-content-between'>
+							<span className='text-small text-muted'>{searchDetails.strSectorTo}</span>
 							<span className='text-small m-auto'>{outboundFlight.duration} min</span>
+							<span className='text-small text-muted'>{searchDetails.strSectorFrom}</span>
 						</div>
 					</div>
 				</div>
@@ -56,7 +58,7 @@ const FlightCombination = ({
 			<div className=''>
 				<div className='text-center'>
 					<div className='p-2'>
-						Npr:&nbsp;
+						{outboundFlight.Currency}:&nbsp;
 						<span className='text-strong '>{flight.total_fare}</span>
 						<div class='text-smaller text-muted'>{isRefundable(flight.Refundable)}</div>
 					</div>

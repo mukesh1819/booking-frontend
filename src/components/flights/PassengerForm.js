@@ -16,6 +16,7 @@ import swal from 'sweetalert';
 import {getCountries} from '../../api/flightApi';
 import Timer from '../shared/Timer';
 import {setTTLtime} from '../../redux/actions/flightActions';
+import {Dropdown} from 'semantic-ui-react';
 
 import './flights.scss';
 
@@ -27,6 +28,7 @@ import {passCsrfToken} from '../../utils/helpers';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
 import Accordion from '../shared/Accordion';
+import {sortObjectBy} from '../../utils/helpers';
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -35,7 +37,6 @@ class PassengerForm extends Component {
 			redirect: false,
 			viewDetails: false,
 			passengers: [],
-			user: this.props.currentUser,
 			countries: []
 		};
 		this.toggleView = this.toggleView.bind(this);
@@ -66,7 +67,9 @@ class PassengerForm extends Component {
 	}
 
 	render() {
-		const {user} = this.state;
+		const user = this.props.currentUser;
+		const selectedOutboundFlight = this.props.selectedOutboundFlight;
+		user.code = user.country;
 		const {adult, child, currentUser} = this.props;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -109,13 +112,24 @@ class PassengerForm extends Component {
 			return <Redirect to='/' />;
 		}
 
+		if (!selectedOutboundFlight){
+			return <Redirect to='/'></Redirect>;
+		}
+
+		var sortedCountries = this.state.countries.map((country) => {
+			return({
+				country_char:country.country_char, 
+				country_code:country.country_code
+			});
+		});
+		sortedCountries = sortObjectBy(sortedCountries, "country_code");
+
 		var content = (
 			<Container className='p-0'>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
-						debugger;
 						this.setState({
 							passengers: values.passengers,
 							viewDetails: true,
@@ -146,6 +160,26 @@ class PassengerForm extends Component {
 										onChange={handleChange}
 										value={values.user.name}
 									/>
+								</div>
+								<div className='field-box'>
+									<label>Code</label>
+									<Field
+										type='text'
+										name='user.code'
+										className='form-control'
+										onBlur={handleBlur}
+										onChange={handleChange}
+										as='select'
+										value={values.user.code}
+									>
+										{sortedCountries.map((country) => {
+											return (
+												<option key={country.id} value={country.country_char}>
+													{country.country_code}
+												</option>
+											);
+										})}
+									</Field>
 								</div>
 								<div className='field-box'>
 									<label>Contact Phone</label>
@@ -236,7 +270,7 @@ class PassengerForm extends Component {
 													<ErrorMessage name={`passengers[${index}].gender`} />
 												</div>
 
-												<div className='field-box'>
+												{/* <div className='field-box'>
 													<label htmlFor=''>Nationality</label>
 													<Field
 														as='select'
@@ -255,6 +289,33 @@ class PassengerForm extends Component {
 														})}
 													</Field>
 													<ErrorMessage name={`passengers[${index}].nationality`} />
+												</div> */}
+												<div className='field-box'>
+													<label htmlFor=''>Nationality</label>
+													<Dropdown
+														className='form-control'
+														name={`passengers[${index}].nationality`}
+														placeholder='Select Country'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(
+																`passengers[${index}].nationality`,
+																data.value
+															);
+														}}
+														value={values.passengers[index].nationality}
+														fluid
+														search
+														selection
+														options={this.state.countries.map(function(country) {
+															return {
+																key: country.id,
+																value: country.country_char,
+																flag: country.country_char.toLowerCase(),
+																text: country.name
+															};
+														})}
+													/>
 												</div>
 											</div>
 										</Accordion>
@@ -273,13 +334,7 @@ class PassengerForm extends Component {
 		);
 
 		if (this.state.viewDetails) {
-			content = (
-				<FinalBookingDetails
-					passengers={this.state.passengers}
-					toggle={this.toggleView}
-					user={this.state.user}
-				/>
-			);
+			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user={user} />;
 		}
 
 		return (

@@ -22,7 +22,7 @@ import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
-import DashboardBookings from './components/admin/DashboardBookings'
+import DashboardBookings from './components/admin/DashboardBookings';
 import Dashboard from './components/admin';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -42,22 +42,24 @@ const routing = (
 		<Route path='/about' component={About} />
 
 		<PrivateRoute path='/book_flight' component={PassengerForm} />
-		<PrivateRoute path='/booking_list' component={Bookings} />
+		<PrivateRoute path='/bookings' component={Bookings} />
 		<PrivateRoute path='/transactions' component={Users} />
 		<PrivateRoute path='/records' component={Users} />
 		<PrivateRoute path='/profile' component={Users} />
 		<PrivateRoute path='/users/edit' component={EditUserForm} />
-		<PrivateRoute path='/booking_details' component={BookingDetails} />
-		<PrivateRoute path='/ticket_details' component={TicketDetails} />
+		<PrivateRoute path='/booking_details/:id' component={BookingDetails} />
+		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
+
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} />
 		<PrivateRoute path='/admin/create_user' component={CreateUser} />
 		<PrivateRoute path='/admin/users_list' component={UsersList} />
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
 		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} />
-		<PrivateRoute path='/admin/booking_details' component={AdminBookingDetails} />
+		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} />
 		<PrivateRoute path='/admin/email' component={UserEmail} />
 		<PrivateRoute path='/admin' component={Dashboard} />
+
 		<Route component={PageNotFound} />
 	</Switch>
 );

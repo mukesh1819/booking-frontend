@@ -16,14 +16,13 @@ class SignInForm extends Component {
 
 	render() {
 		const {currentUser} = this.props;
-		if (currentUser.email !== undefined) {
-			var path = '/';
-			if (this.props.location.state !== undefined) {
-				path = this.props.location.state.from.pathname;
-			}
-			return <Redirect to={path} />;
+		var redirectUrl = '/';
+		if (this.props.location.state !== undefined) {
+			redirectUrl = this.props.location.state.from.pathname;
 		}
-
+		// if (currentUser.email !== undefined) {
+		// 	return <Redirect to={redirectUrl} />;
+		// }
 		return (
 			<React.Fragment>
 				<Formik
@@ -41,17 +40,28 @@ class SignInForm extends Component {
 						signIn(variables)
 							.then((response) => {
 								setSubmitting(false);
-								console.log('Logged In user', response);
-								this.props.loginUser(response.data.user);
-								localStorage.setItem('token', response.data.jwt);
-								history.push(this.props.location.state.from.pathname);
-								NavBar.forceUpdate();
-								console.log(response.data);
+								console.log('Sign IN response', response.data);
+								if (response.data.user !== undefined) {
+									console.log('Logged In user', response);
+									this.props.loginUser(response.data.user);
+									localStorage.setItem('token', response.data.jwt);
+									history.push(redirectUrl);
+								} else {
+									swal({
+										title: 'Sign In Failed!',
+										text: response.data.failure,
+										icon: 'error',
+										button: 'Try Again!'
+									});
+								}
 							})
 							.catch((error) => {
-								console.log(error);
-								this.setState({
-									error
+								console.log('SIGN IN error', error);
+								swal({
+									title: 'Something Went Wrong!',
+									text: '........!',
+									icon: 'error',
+									button: 'Try Again!'
 								});
 							});
 					}}

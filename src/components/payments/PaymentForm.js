@@ -35,7 +35,7 @@ class PaymentForm extends Component {
 			<div>
 				<div class='text-center p-5'>
 					<img src='/assets/loading.gif' width='50' height='50' />
-					<span>Redirecting to Payment Page......</span>
+					<div>Redirecting to Payment Page......</div>
 				</div>
 
 				<form id='pay-form' method='POST' action={action}>
@@ -43,7 +43,6 @@ class PaymentForm extends Component {
 						console.log(key);
 						return <input id={key} type='hidden' name={key} value={fields[key]} />;
 					})}
-					<input name='test' key='test' />
 				</form>
 			</div>
 		);

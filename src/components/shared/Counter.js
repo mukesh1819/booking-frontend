@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 export default ({className, title, value, onChange, ...rest}) => {
 	const min = 0;
 	return (
-		<div className={`d-flex justify-content-between align-items-center ${className}`}>
+		<div className={`counter d-flex justify-content-between align-items-center ${className}`}>
 			<span
 				className='btn btn-primary'
 				onClick={() => {
@@ -13,7 +13,7 @@ export default ({className, title, value, onChange, ...rest}) => {
 			>
 				-
 			</span>
-			<span className='p-2 text-center' aria-label='' {...rest}>
+			<span className='title p-2 text-center' aria-label='' {...rest}>
 				{title}
 			</span>
 

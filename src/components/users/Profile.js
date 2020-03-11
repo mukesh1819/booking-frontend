@@ -9,7 +9,6 @@ import {passCsrfToken} from '../../utils/helpers';
 import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
 import UserDetailCard from './UserDetailCard';
 import SocialButtonLinks from './SocialButtonLinks';
-import {updateUserDetails} from '../../api/userApi';
 
 class Profile extends Component {
 	constructor(props) {
@@ -41,7 +40,7 @@ class Profile extends Component {
 		const {currentUser} = this.props;
 		return (
 			<div className=''>
-				<UserDetailCard user={currentUser} updateUserDetails={this.updateUserDetails} />
+				<UserDetailCard user={currentUser} />
 				<SocialButtonLinks />
 			</div>
 		);

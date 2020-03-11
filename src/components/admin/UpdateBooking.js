@@ -18,7 +18,7 @@ class UpdateBooking extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchBookings(`q[status_eq]=verified`);
+		this.fetchBookings(`q[status_eq]=processing`);
 	}
 
 	fetchBookings(params) {
@@ -86,15 +86,12 @@ class UpdateBooking extends Component {
 				{this.state.bookings !== null && (
 					<div className='container-fluid'>
 						<div className='col-md-9 ml-auto mr-auto' id='search-form1'>
-							<h3 className='text-success'>Cancel Request</h3>
+							<h3 className='text-success'> Cancel Request </h3>
 							<table className='table table-striped table-sm'>
 								<thead>
 									<tr>
-										<th>Passenger Name</th>
-										<th>Nationality</th>
-										<th>Passenger Type</th>
-										<th>Ticket No</th>
-										<th>Cancel status</th>
+										<th> Passenger Name </th> <th> Nationality </th> <th> Passenger Type </th>
+										<th> Ticket No </th> <th> Cancel status </th>
 									</tr>
 								</thead>
 								<tbody>
@@ -108,7 +105,7 @@ class UpdateBooking extends Component {
 													<td>
 														<Link
 															to={{
-																pathname: '/booking_details',
+																pathname: '/bookings',
 																state: {
 																	booking: booking
 																}
@@ -117,10 +114,10 @@ class UpdateBooking extends Component {
 															{passenger.title + ' ' + passenger.first_name}
 														</Link>
 													</td>
-													<td>{passenger.nationality}</td>
-													<td>{passenger.passenger_type}</td>
-													<td>{passenger.ticket_no}</td>
-													<td>{passenger.passenger_status}</td>
+													<td> {passenger.nationality} </td>
+													<td> {passenger.passenger_type} </td>
+													<td> {passenger.ticket_no} </td>
+													<td> {passenger.passenger_status} </td>
 													{passenger.passenger_status === 'processing' && (
 														<td>
 															<div>
@@ -141,12 +138,9 @@ class UpdateBooking extends Component {
 															</div>
 														</td>
 													)}
-
-
 													{passenger.passenger_status === 'cancelled' && (
 														<td>
 															<p className='text-danger text-center font-weight-bolder text-lg mt-2'>
-																
 																Ticket Cancelled
 															</p>
 														</td>

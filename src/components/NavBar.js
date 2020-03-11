@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {logoutUser} from '../redux/actions/sessions';
+import {setCurrency} from '../redux/actions/bookingActions';
 import {connect} from 'react-redux';
 import store from '../redux/store';
 import {logout, userInitials} from '../utils/helpers';
@@ -10,13 +11,13 @@ import SignUpForm from './sessions/SignInForm';
 import Currencies from './users/Currencies';
 import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import history from '../history';
+import axios from 'axios';
+import {Flag, Segment} from 'semantic-ui-react';
 
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
 		this.state = {
-			loggedIn: localStorage.token !== undefined,
 			sideBarIsVisible: false
 		};
 	}
@@ -30,8 +31,8 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const {loggedIn} = this.state;
-		const {currentUser} = this.props;
+		const {currentUser, currency, logoutUser} = this.props;
+		const loggedIn = currentUser.email !== undefined;
 
 		const sideBarMenu = [
 			{icon: 'icon-home', name: 'home', label: 'Home', value: '', link: '/'},
@@ -54,8 +55,8 @@ class NavBar extends Component {
 				icon: 'icon-calculator',
 				name: 'currency',
 				label: 'Currency',
-				value: this.props.currency,
-				link: '/currency'
+				value: currency,
+				link: '/profile'
 			},
 			{
 				icon: 'icon-old-mobile',
@@ -116,24 +117,43 @@ class NavBar extends Component {
 								>
 									Hotels
 								</NavLink>
-							</li> 
-							<li className='mx-3'>
-								<NavLink
-									className='navbar-font-style'
-									to='/packages'
-									activeStyle={{
-										textDecoration: 'none',
-										fontWeight: 'bold',
-										color: '#09C6AB'
-									}}
-								>
-									Packages
-								</NavLink>
 							</li> */}
+								<li className='mx-3'>
+									<Link
+										className='navbar-font-style'
+										to='/bookings'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold',
+											color: '#09C6AB'
+										}}
+									>
+										My Bookings
+									</Link>
+								</li>
 								{/* <Dropdown icon={'icon-user'} title={''}>
 								<SignUpForm />
 							</Dropdown> */}
 
+								<li className='mx-3'>
+									<Dropdown icon='np flag' title={currency} className='text-white'>
+										<div className='d-flex select-countries'>
+											<div className='pr-3'>
+												<span>Languages</span>
+												<Currencies requestData='languages' />
+											</div>
+											{/* <div className="list"> <span>Coutries</span> <Currencies requestData="countries"></Currencies></div> */}
+											<div className=''>
+												<span>Currencies</span>
+												<Currencies requestData='currencies' />
+											</div>
+										</div>
+									</Dropdown>
+								</li>
+							</ul>
+						</div>
+						<div>
+							<ul className='navbar-nav ml-auto align-items-center'>
 								<li className='mx-3'>
 									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
 										<ul>
@@ -146,22 +166,12 @@ class NavBar extends Component {
 											</li>
 											<li>
 												{loggedIn && (
-													<Link to='/bookings' className='dropdown-item'>
-														My Bookings
-													</Link>
-												)}
-											</li>
-											<li>
-												{loggedIn && (
 													<a
 														className='dropdown-item'
 														onClick={() => {
-															logout();
-															this.props.logoutUser();
-															this.setState({
-																loggedIn: false
-															});
+															logoutUser();
 															history.push('/login');
+															logout();
 														}}
 													>
 														Logout
@@ -205,8 +215,6 @@ const mapStateToProps = ({userStore, bookingStore}) => ({
 	currency: bookingStore.currency
 });
 
-const mapDispatchToProps = () => ({
-	logoutUser
-});
+const mapDispatchToProps = {logoutUser};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

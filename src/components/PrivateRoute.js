@@ -10,7 +10,7 @@ class PrivateRoute extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.currentUser.email == undefined) {
+		if (localStorage.token !== undefined && this.props.currentUser.email == undefined) {
 			getUserDetails()
 				.then((response) => {
 					this.props.loginUser(response.data.user);
@@ -23,7 +23,7 @@ class PrivateRoute extends Component {
 
 	render() {
 		const {component: Component, currentUser, location, ...rest} = this.props;
-		const isLoggedIn = currentUser.email !== undefined;
+		const isLoggedIn = localStorage.token !== undefined;
 		return (
 			<Route
 				{...rest}

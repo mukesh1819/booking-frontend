@@ -76,6 +76,8 @@
         background-color: gainsboro;
         width: 100%;
         padding: 8px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
         color: grey;
 
         @include tablet {
@@ -88,5 +90,40 @@
         background-color: white;
         width: 100%;
         padding: 8px;
+    }
+}
+
+.booking-list {
+
+    .booking {
+        display: flex;
+        align-items: center;
+        padding: 4px;
+
+        text-decoration: none !important;
+
+
+        &:nth-child(even) {
+            background-color: rgba(220, 220, 220, 0.353);
+        }
+    }
+}
+
+.dashboard {
+    .widget {
+        .count {
+            font-size: 2rem;
+
+            @include tablet {
+                font-size: 4rem;
+            }
+        }
+
+        .action {
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
     }
 }

@@ -19,23 +19,23 @@ function useOutsideAlerter(ref, dropped) {
 	});
 }
 
-export default ({children, className, icon, title, ...rest}) => {
+export default ({children, className, icon, title, position = 'left', ...rest}) => {
 	const [dropped, setDrop] = useState(false);
 	const wrapperRef = useRef(null);
 	useOutsideAlerter(wrapperRef, dropped);
 
 	return (
-		<span>
+		<div style={{position: 'relative'}}>
 			{/* <Dropdown alignRight>
 				<Dropdown.Toggle id='dropdown-basic' className={`dropdown form-control ${className}`} />
 				<Dropdown.Menu className='p-1 dropdown-menu-right'>{children}</Dropdown.Menu>
 			</Dropdown> */}
 			<div className={`custom-dropdown ${className}`} onClick={() => setDrop(!dropped)}>
-				<i className={icon} /> {title}
+				<i className={`${icon} m-0`} /> {title} <i className='icon-chevron-down' />
 			</div>
-			<div ref={wrapperRef} className={`custom-dropdown-menu ${dropped ? 'open' : 'd-none'}`}>
+			<div ref={wrapperRef} className={`custom-dropdown-menu right-0 ${dropped ? 'open' : 'd-none'}`}>
 				{children}
 			</div>
-		</span>
+		</div>
 	);
 };
