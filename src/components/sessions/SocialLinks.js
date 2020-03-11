@@ -24,7 +24,7 @@ class SocialLinks extends Component {
 					<a className='btn bg-fb disabled'>
 						<i className='icon-facebook' />
 					</a>
-					<a className='btn bg-fb' href={FACEBOOK_AUTH_URL}>
+					<a className='btn bg-fb text-white' href={FACEBOOK_AUTH_URL}>
 						Facebook
 					</a>
 				</div>

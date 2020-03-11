@@ -30,12 +30,13 @@ function Sidebar({items = [], isVisible, onHide}) {
 				<hr />
 				<div className='list-group-item d-flex justify-content-between' key='flights'>
 					<span>
-						<i className='icon-paper-plane p-2 text-primary' /> {'Flights'}
+						<i class='fas fa-plane-departure  p-2 text-primary' /> {'Flights'}
 					</span>
 				</div>
 				<div className='list-group-item d-flex justify-content-between' key='packages'>
 					<span>
-						<i className='icon-paper-plane p-2 text-primary' /> {'Packages'}
+						<i class='fab fa-fort-awesome p-2 text-primary' />
+						{'Packages'}
 					</span>
 				</div>
 			</div>

@@ -8,8 +8,8 @@ import history from '../../history';
 import moment from 'moment';
 import SearchBar from './SearchBar';
 
-const SearchDetails = ({details}) => {
-	const [searching, setSearch] = useState(false);
+const SearchDetails = ({details, collapsed}) => {
+	const [searching, setSearch] = useState(!collapsed);
 
 	if (searching) {
 		return <SearchBar />;
@@ -17,16 +17,34 @@ const SearchDetails = ({details}) => {
 
 	return (
 		<div className='flight-card'>
-			<div className='d-flex justify-content-around align-items-center'>
+			<div className='d-flex justify-content-around align-items-center p-3'>
 				<div>
-					<div className='text-bold'>
-						{`${details.strSectorFrom}`}
-						<i className={details.strTripType === 'O' ? 'icon-arrow-right' : 'icon-arrow-right2'} />
-						{`${details.strSectorTo}`}
+					<div className=''>
+						<span className='text-bold px-2'>{`${details.strSectorFrom}`}</span>
+						<i
+							className={
+								details.strTripType === 'O' ? 'fas fa-arrow-circle-right' : 'fas fa-exchange-alt'
+							}
+						/>
+						<span className='text-bold px-2'> {`${details.strSectorTo}`}</span>
 					</div>
-					<div className='text-small text-muted'>{`${moment(details.strFlightDate).format(
-						'Do MMMM, YYYY'
-					)}`}</div>
+					<div>
+						<span className='text-small text-muted px-2'>
+							<i class='fas fa-plane-departure' />&nbsp;
+							{`${moment(details.strFlightDate).format('Do MMMM, YYYY')}`}
+						</span>
+						{details.strTripType === 'R' && (
+							<span className='text-small text-muted px-2'>
+								<i class='fas fa-plane-arrival' />&nbsp;
+								{`${moment(details.strReturnDate).format('Do MMMM, YYYY')}`}
+							</span>
+						)}
+						<span className='text-small text-muted px-2'>
+							<i class='fas fa-male' />&nbsp;
+							{details.intAdult} Adult,
+							{details.intChild} Child
+						</span>
+					</div>
 				</div>
 				<div>
 					<i className='icon-edit' onClick={() => setSearch(true)} />

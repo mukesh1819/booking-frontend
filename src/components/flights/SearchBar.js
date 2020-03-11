@@ -26,7 +26,8 @@ import moment from 'moment';
 import {getCountries} from '../../api/flightApi';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
-import withLoading from '../shared/Loading';
+import LoadingScreen from '../shared/Loading';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -111,8 +112,7 @@ class SearchBar extends Component {
 	};
 
 	render() {
-		const ListWithLoading = withLoading(FlightList);
-		const {hideReturnField} = this.state;
+		const {hideReturnField, searching} = this.state;
 		const {searchDetails} = this.props;
 		console.log('Search Details', searchDetails);
 
@@ -130,20 +130,13 @@ class SearchBar extends Component {
 			intChild: yup.number().min(0, 'Cannot be less than 0').required('Required')
 		});
 
-		const List = () => (
-			<ul>
-				<li>Item 1</li>
-				<li>Item 2</li>
-			</ul>
-		);
-
-		// Render it as a DOM node...
-		const wrapper = document.createElement('div');
-		ReactDOM.render(<List />, wrapper);
-		const listEl = wrapper.firstChild;
-
 		return (
 			<div id='search-flight-form'>
+				{searching && (
+					<SweetAlert showCancel={false} title='Searching Flights' onConfirm={console.log('Confirm')}>
+						<LoadingScreen />
+					</SweetAlert>
+				)}
 				<Formik
 					initialValues={searchDetails}
 					validationSchema={SearchFlightSchema}
@@ -151,14 +144,6 @@ class SearchBar extends Component {
 						this.setState({
 							isSubmitted: true,
 							searching: true
-						});
-						swal({
-							title: 'Searching flights!',
-							content: listEl,
-							showCancelButton: false,
-							showConfirmButton: false,
-							allowEscapeKey: false,
-							allowOutsideClick: false
 						});
 						console.log(values);
 						this.props.setSearchDetails(values);
@@ -177,6 +162,9 @@ class SearchBar extends Component {
 							.catch((error) => {
 								console.log('Search Flight Error', error);
 								setSubmitting(false);
+								this.setState({
+									searching: false
+								});
 								swal({
 									title: 'No Flights Found!',
 									text: 'Something went wrong',
@@ -300,9 +288,8 @@ class SearchBar extends Component {
 											minDate={new Date()}
 											format='dd-mm-YYYY'
 											onBlur={handleBlur}
-											onChange={(date) =>
-												setFieldValue('strFlightDate', moment(date).format('D MMM, YYYY'))}
-											value={values.strFlightDate}
+											onChange={(date) => setFieldValue('strFlightDate', date)}
+											value={moment(values.strFlightDate).format('D MMM, YYYY')}
 											placeholder='Departure Date'
 										/>
 									</IconInput>
@@ -335,9 +322,8 @@ class SearchBar extends Component {
 											date={values.strFlightDate}
 											minDate={new Date()}
 											onBlur={handleBlur}
-											onChange={(date) =>
-												setFieldValue('strReturnDate', moment(date).format('D MMM, YYYY'))}
-											value={values.strReturnDate}
+											onChange={(date) => setFieldValue('strReturnDate', date)}
+											value={moment(values.strReturnDate).format('D MMM, YYYY')}
 											disabled={hideReturnField}
 											placeholder='Arrival Date'
 										/>

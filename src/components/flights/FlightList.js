@@ -103,8 +103,8 @@ class FlightList extends Component {
 		history.push('/book_flight');
 	}
 
-	componentDidMount(){
-		if(document.readyState !== "complete") return;
+	componentDidMount() {
+		if (document.readyState !== 'complete') return;
 		Tawk_API.hideWidget();
 	}
 
@@ -133,26 +133,25 @@ class FlightList extends Component {
 		const sortedList = SORTS[sortKey](results);
 		const reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList;
 
-		if (reverseSortedList.length == 0){
-			return <Redirect to = "/"></Redirect>;
-		} 
+		const airlines = reverseSortedList.map((flight) => flight.Airline);
 
-		// if (reverseSortedList.length == 0) {
-		// 	return (
-		// 		<div className='container p-0'>
-		// 			<EmptyContent>
-		// 				No Flights found.<br />
-		// 				<Link to='/' className='btn btn-primary'>
-		// 					Try Again
-		// 				</Link>
-		// 			</EmptyContent>
-		// 		</div>
-		// 	);
-		// }
+		if (reverseSortedList.length == 0) {
+			return <Redirect to='/' />;
+			// 	return (
+			// 		<div className='container p-0'>
+			// 			<EmptyContent>
+			// 				No Flights found.<br />
+			// 				<Link to='/' className='btn btn-primary'>
+			// 					Try Again
+			// 				</Link>
+			// 			</EmptyContent>
+			// 		</div>
+			// 	);
+		}
 
 		return (
 			<div className='container p-0'>
-				<SearchDetails />
+				<SearchDetails collapsed={true} />
 
 				<div class='bg-secondary text-center sorter d-md-none'>
 					{sorters.map(({key, label}) => {
@@ -187,8 +186,9 @@ class FlightList extends Component {
 								<span className='text-bold'>Airline</span>
 								<Form>
 									<div key={`checkbox`} className='mb-3'>
-										<Form.Check inline label='1' type='checkbox' id={`checkbox-1`} />
-										<Form.Check inline label='2' type='checkbox' id={`checkbox-2`} />
+										{[...new Set(airlines)].map((airline) => (
+											<Form.Check label={airline} type='checkbox' id={airline} />
+										))}
 									</div>
 								</Form>
 							</div>
