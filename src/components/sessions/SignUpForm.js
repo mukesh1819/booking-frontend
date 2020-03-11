@@ -9,10 +9,38 @@ import {connect} from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
 import {Link} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
+import {passCsrfToken} from '../../utils/helpers';
+import axios from 'axios';
+import {getCountries} from '../../api/flightApi';
+import {sortObjectBy} from '../../utils/helpers';
+
+
 
 class SignUpForm extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			countries: []
+		}
+	}
+
+	componentDidMount(){
+		passCsrfToken(document, axios);
+		this.fetchCountries();
+		
+	}
+
+	fetchCountries(){
+		getCountries()
+		.then((response) => {
+			console.log(response);
+			this.setState({
+				countries: response.data
+			});
+		})
+		.catch((error) => {
+			console.log(error);
+		})
 	}
 
 	render() {
@@ -25,11 +53,14 @@ class SignUpForm extends Component {
 				.required('Required')
 		});
 
+		var sortedCountries = sortObjectBy(this.state.countries, 'country_code')
+
 		return (
 			<Formik
 				initialValues={{
 					name: '',
 					email: '',
+					code: '',
 					phone_number: '',
 					password: '',
 					password_confirmation: ''
@@ -40,6 +71,7 @@ class SignUpForm extends Component {
 						user: {
 							name: values.name,
 							email: values.email,
+							code: values.code,
 							phone_number: values.phone_number,
 							password: values.password,
 							password_confirmation: values.password_confirmation
@@ -49,6 +81,7 @@ class SignUpForm extends Component {
 					createUser(variables)
 						.then((response) => {
 							localStorage.setItem('token', response.data.jwt);
+							console.log(response);
 							this.props.loginUser(response.data.user);
 							setSubmitting(false);
 							history.push('/');
@@ -111,6 +144,28 @@ class SignUpForm extends Component {
 												value={values.email}
 												placeholder='Email'
 											/>
+										</div>
+
+										<div className='field'>
+											<label>Country Code</label>
+
+											<Field
+											type='text'
+											name='code'
+											className='form-control'
+											onBlur={handleBlur}
+											onChange={handleChange}
+											as='select'
+											value={values.code}
+											>
+											{sortedCountries.map((country) => {
+												return (
+													<option key={country.id} value={country.id}>
+														{country.country_code}
+													</option>
+												);
+											})}
+									</Field>
 										</div>
 
 										<div className='field'>
