@@ -25,7 +25,7 @@ export async function signOut(params) {
 export const createUser = (details) => {
 	return axios({
 		method: 'post',
-		url: '/users',
+		url: '/sign_up',
 		data: details,
 		config: {
 			headers: {
