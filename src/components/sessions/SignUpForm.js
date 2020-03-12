@@ -11,7 +11,6 @@ import {Link} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
 import {passCsrfToken} from '../../utils/helpers';
 import axios from 'axios';
-import {getCountries} from '../../api/flightApi';
 import {sortObjectBy} from '../../utils/helpers';
 
 
@@ -19,32 +18,16 @@ import {sortObjectBy} from '../../utils/helpers';
 class SignUpForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			countries: []
-		}
+		
 	}
 
 	componentDidMount(){
 		passCsrfToken(document, axios);
-		this.fetchCountries();
 		
 	}
 
-	fetchCountries(){
-		getCountries()
-		.then((response) => {
-			console.log(response);
-			this.setState({
-				countries: response.data
-			});
-		})
-		.catch((error) => {
-			console.log(error);
-		})
-	}
-
 	render() {
-		const {outboundFlights, inboundFlights, selectedInboundFlight, selectedOutboundFlight} = this.props;
+		const {outboundFlights, inboundFlights, selectedInboundFlight, selectedOutboundFlight, countries} = this.props;
 		const UsersSignupForm = yup.object().shape({
 			password: yup.string().required('Required'),
 			password_confirmation: yup
@@ -53,7 +36,7 @@ class SignUpForm extends Component {
 				.required('Required')
 		});
 
-		var sortedCountries = sortObjectBy(this.state.countries, 'country_code')
+		var sortedCountries = sortObjectBy(countries, 'country_code')
 
 		return (
 			<Formik
@@ -233,8 +216,9 @@ class SignUpForm extends Component {
 	}
 }
 
-const mapStateToProps = ({currentUser}) => {
+const mapStateToProps = ({currentUser, extras}) => {
 	return {
+		countries: extras.countries,
 		currentUser
 	};
 };
