@@ -18,7 +18,7 @@ export function getUserDetails(params) {
 export function updateUserDetails(details) {
 	return axios({
 		method: 'put',
-		url: `/users`,
+		url: `/api/members`,
 		data: {user: details},
 		headers: {
 			'Content-Type': 'application/json',

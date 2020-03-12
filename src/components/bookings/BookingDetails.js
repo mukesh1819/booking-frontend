@@ -25,7 +25,7 @@ class BookingDetails extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
-				history.push('/booking_list');
+				history.push('/bookings');
 			})
 			.catch((error) => {
 				console.log(error);
