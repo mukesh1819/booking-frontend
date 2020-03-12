@@ -30,7 +30,7 @@ export function getFlights(formData) {
 export function getBookingDetails(ruid) {
 	return axios({
 		method: 'get',
-		url: `/api/bookings/${ruid}`,
+		url: `/ticket_generation/${ruid}`,
 		config: {
 			headers: {
 				'Content-Type': 'application/json',
