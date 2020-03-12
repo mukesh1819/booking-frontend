@@ -1,6 +1,7 @@
 import flights from './flights';
 import bookings from './bookings';
 import sessions from './sessions';
+import extras from './extras';
 
 import {
 	combineReducers
@@ -9,5 +10,6 @@ import {
 export default combineReducers({
 	flightStore: flights,
 	bookingStore: bookings,
-	userStore: sessions
+	userStore: sessions,
+	extras: extras
 });
