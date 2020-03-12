@@ -10,7 +10,6 @@ import * as yup from 'yup';
 import ErrorMessage from '../ErrorMessage';
 import history from '../../history';
 import {Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 class EditUserForm extends Component {
 	constructor(props) {
