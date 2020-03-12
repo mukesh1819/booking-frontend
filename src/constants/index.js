@@ -1,5 +1,6 @@
-const BASE_URL = 'localhost:3000'
-export const API_URL = `/api`;
+const BASE_URL = process.env.BASE_URL
+console.log(process.env)
+export const API_URL = `${BASE_URL}/api`;
 
 export const FLIGHT_API_URL = `/api/flights`;
 export const USER_API_URL = `/api/members`
