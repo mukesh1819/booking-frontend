@@ -23,7 +23,6 @@ import {Input} from 'semantic-ui-react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
-import {getCountries} from '../../api/flightApi';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
@@ -40,8 +39,7 @@ class SearchBar extends Component {
 			isSubmitted: false,
 			availableFlights: [],
 			searching: false,
-			tripType: 'O',
-			countries: []
+			tripType: 'O'
 		};
 		this.strSectorFrom = React.createRef();
 		this.strSectorTo = React.createRef();
@@ -53,7 +51,6 @@ class SearchBar extends Component {
 			searchDetails: this.props.searchDetails
 		});
 		this.fetchCities();
-		this.fetchCountries();
 	}
 
 	fetchCities = () => {
@@ -71,19 +68,6 @@ class SearchBar extends Component {
 				});
 			});
 	};
-
-	fetchCountries() {
-		getCountries()
-			.then((response) => {
-				console.log(response);
-				this.setState({
-					countries: response.data
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
 
 	changeTripType = (trip) => {
 		this.setState({
@@ -113,7 +97,7 @@ class SearchBar extends Component {
 
 	render() {
 		const {hideReturnField, searching} = this.state;
-		const {searchDetails} = this.props;
+		const {searchDetails, countries} = this.props;
 		console.log('Search Details', searchDetails);
 
 		const SearchFlightSchema = yup.object().shape({
@@ -374,7 +358,7 @@ class SearchBar extends Component {
 											<option value='' disabled>
 												Nationality
 											</option>
-											{this.state.countries.map((country) => {
+											{countries.map((country) => {
 												return (
 													<option key={country.id} value={country.country_char}>
 														{country.name}
@@ -404,11 +388,12 @@ class SearchBar extends Component {
 	}
 }
 
-const mapStateToProps = ({flightStore}) => {
+const mapStateToProps = ({flightStore, extras}) => {
 	return {
 		flights: flightStore.flights,
 		searchDetails: flightStore.searchDetails,
-		ttlTime: flightStore.ttlTime
+		ttlTime: flightStore.ttlTime,
+		countries: extras.countries
 	};
 };
 
