@@ -113,6 +113,13 @@ img {
     max-width: 100%;
 }
 
+.react-datepicker__navigation--next {
+    background: url(../images/right-arrow.png) no-repeat;
+    width: 15px;
+    height: 15px;
+    border: none;
+}
+
 .navbar {
     .navbar-brand {
         font-size: 1rem;
@@ -242,6 +249,7 @@ img {
 
 .custom-dropdown {
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .custom-dropdown-menu {

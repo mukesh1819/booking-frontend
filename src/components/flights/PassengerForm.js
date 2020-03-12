@@ -13,7 +13,6 @@ import {setBooking} from '../../redux/actions/bookingActions';
 import ErrorMessage from '../ErrorMessage';
 import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
-import {getCountries} from '../../api/flightApi';
 import Timer from '../shared/Timer';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown} from 'semantic-ui-react';
@@ -36,8 +35,7 @@ class PassengerForm extends Component {
 		this.state = {
 			redirect: false,
 			viewDetails: false,
-			passengers: [],
-			countries: []
+			passengers: []
 		};
 		this.toggleView = this.toggleView.bind(this);
 	}
@@ -49,20 +47,6 @@ class PassengerForm extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchCountries();
-	}
-
-	fetchCountries() {
-		getCountries()
-			.then((response) => {
-				console.log(response);
-				this.setState({
-					countries: response.data
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 		this.props.setTTLtime(15);
 	}
 
@@ -112,17 +96,17 @@ class PassengerForm extends Component {
 			return <Redirect to='/' />;
 		}
 
-		if (!selectedOutboundFlight){
-			return <Redirect to='/'></Redirect>;
+		if (!selectedOutboundFlight) {
+			return <Redirect to='/' />;
 		}
 
-		var sortedCountries = this.state.countries.map((country) => {
-			return({
-				country_char:country.country_char, 
-				country_code:country.country_code
-			});
+		var sortedCountries = this.props.countries.map((country) => {
+			return {
+				country_char: country.country_char,
+				country_code: country.country_code
+			};
 		});
-		sortedCountries = sortObjectBy(sortedCountries, "country_code");
+		sortedCountries = sortObjectBy(sortedCountries, 'country_code');
 
 		var content = (
 			<Container className='p-0'>
@@ -307,7 +291,7 @@ class PassengerForm extends Component {
 														fluid
 														search
 														selection
-														options={this.state.countries.map(function(country) {
+														options={this.props.countries.map(function(country) {
 															return {
 																key: country.id,
 																value: country.country_char,
@@ -346,7 +330,7 @@ class PassengerForm extends Component {
 	}
 }
 
-const mapStateToProps = ({flightStore, bookingStore, userStore}) => {
+const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 	return {
 		selectedInboundFlight: flightStore.selectedInboundFlight,
 		selectedOutboundFlight: flightStore.selectedOutboundFlight,
@@ -354,7 +338,8 @@ const mapStateToProps = ({flightStore, bookingStore, userStore}) => {
 		adult: flightStore.searchDetails.intAdult,
 		child: flightStore.searchDetails.intChild,
 		currentUser: userStore.currentUser,
-		ttlTime: flightStore.ttlTime
+		ttlTime: flightStore.ttlTime,
+		countries: extras.countries
 	};
 };
 
