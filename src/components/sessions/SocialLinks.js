@@ -10,7 +10,6 @@ import {authorizeGoogle} from '../../api/userApi';
 import {loginUser} from '../../redux/actions/sessions';
 import {redirectUrl} from '../../utils/helpers';
 import history from '../../history';
-import FacebookLoginButton from '../shared/FacebookLoginButton';
 
 const FacebookButton = ({onClick}) => (
 	<div className='btn-group col-6' onClick={onClick}>
@@ -97,8 +96,6 @@ class SocialLinks extends Component {
 					component={FacebookButton}
 					onFailure={(data) => failureAuthorize(data)}
 				/>
-
-				<FacebookLoginButton onLogin={(data) => this.fbAuthorize(data)}>Facebook</FacebookLoginButton>
 			</div>
 		);
 	}
