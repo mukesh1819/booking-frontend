@@ -27,6 +27,8 @@ import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import {Dropdown} from 'semantic-ui-react';
+
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -343,32 +345,37 @@ class SearchBar extends Component {
 									<ErrorMessage name='intAdult' />
 									<ErrorMessage name='intChild' />
 								</div>
+								
 								<div className='field-box'>
-									<label>Nationality</label>
-									<IconInput icon='icon-flag' iconPosition='left'>
-										<Field
-											as='select'
-											name='strNationality'
-											className='form-control'
-											onChange={handleChange}
-											value={values.strNationality}
-											defaultValue=''
-										>
-											<option value='' disabled>
-												Nationality
-											</option>
-											{countries.map((country) => {
-												return (
-													<option key={country.id} value={country.country_char}>
-														{country.name}
-													</option>
-												);
-											})}
-										</Field>
-									</IconInput>
-
+									<label htmlFor=''>Nationality</label>
+									<Dropdown
+										className='form-control'
+										name='strNationality'
+										placeholder='Select Country'
+										onBlur={handleBlur}
+										onChange={(e, data) => {
+											setFieldValue(
+												`strNationality`,
+												data.value
+											);
+										}}
+										value={values.strNationality}
+										fluid
+										search
+										selection
+										options={countries.map(function(country) {
+											return {
+												key: country.id,
+												value: country.country_char,
+												flag: country.country_char.toLowerCase(),
+												text: country.name
+											};
+										})}
+									/>
 									<ErrorMessage name='strNationality' />
 								</div>
+
+
 							</div>
 							<div class='text-center'>
 								<button
