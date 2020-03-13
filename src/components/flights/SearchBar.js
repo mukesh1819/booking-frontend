@@ -133,7 +133,6 @@ class SearchBar extends Component {
 						this.props.setSearchDetails(values);
 						getFlights(values)
 							.then((response) => {
-								swal.close();
 								setSubmitting(false);
 								this.props.setFlights(response.data.data);
 								this.props.setTTLtime(0);
@@ -388,14 +387,12 @@ class SearchBar extends Component {
 	}
 }
 
-const mapStateToProps = ({flightStore, extras}) => {
-	return {
-		flights: flightStore.flights,
-		searchDetails: flightStore.searchDetails,
-		ttlTime: flightStore.ttlTime,
-		countries: extras.countries
-	};
-};
+const mapStateToProps = ({flightStore, extras}) => ({
+	flights: flightStore.flights,
+	searchDetails: flightStore.searchDetails,
+	ttlTime: flightStore.ttlTime,
+	countries: extras.countries
+});
 
 const mapDispatchToProps = {
 	setFlights,

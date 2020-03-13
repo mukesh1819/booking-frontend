@@ -1,11 +1,11 @@
 import axios from 'axios';
 import {handleResponse, handleError} from './apiUtils';
-import {USER_API_URL, GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../constants';
+import {USER_API_URL, GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL,  BASE_URL, API_URL} from '../constants';
 
 export function signIn(details) {
 	return axios({
 		method: 'post',
-		url: `/login`,
+		url: `${BASE_URL}/login`,
 		data: details,
 		config: {
 			headers: {
@@ -25,7 +25,7 @@ export async function signOut(params) {
 export const createUser = (details) => {
 	return axios({
 		method: 'post',
-		url: '/sign_up',
+		url: `${BASE_URL}/sign_up`,
 		data: details,
 		config: {
 			headers: {

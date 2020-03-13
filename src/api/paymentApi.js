@@ -9,7 +9,7 @@ import {PAYMENT_URL, API_URL} from '../constants';
 export function newPayment(idx) {
 	return axios({
 		method: 'get',
-		url: `/api/payments/new?idx=${idx}`,
+		url: `${API_URL}/payments/new?idx=${idx}`,
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer $(localStorage.token)`
