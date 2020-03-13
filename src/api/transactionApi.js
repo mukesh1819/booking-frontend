@@ -15,7 +15,8 @@ export function getUserTransaction(){
         method: 'get',
         url: `${API_URL}/payments`,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.token}`
         }
     });
 }

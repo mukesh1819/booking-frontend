@@ -12,7 +12,7 @@ export function newPayment(idx) {
 		url: `${API_URL}/payments/new?idx=${idx}`,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(localStorage.token)`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }

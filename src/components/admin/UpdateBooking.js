@@ -44,7 +44,7 @@ class UpdateBooking extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
-				window.location.reload();
+				this.fetchBookings(`q[status_eq]=processing`);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -67,7 +67,7 @@ class UpdateBooking extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
-				window.location.reload();
+				this.fetchBookings(`q[status_eq]=processing`);
 			})
 			.catch((error) => {
 				console.log(error);

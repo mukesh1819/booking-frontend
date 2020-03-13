@@ -89,7 +89,7 @@ export function getAdminBookings(params) {
 		url: `${BASE_URL}/admin/bookings?${params}`,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(localStorage.token)`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
@@ -100,7 +100,7 @@ export function cancelAdminTicket(id) {
 		url: `${BASE_URL}/admin/tickets/${id}/cancel`,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(localStorage.token)`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
@@ -111,7 +111,7 @@ export function ignoreAdminTicket(id) {
 		url: `${BASE_URL}/admin/tickets/${id}/ignore`,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(localStorage.token)`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
@@ -122,7 +122,7 @@ export function getAdminDashboard() {
 		url: `${BASE_URL}/admin/dashboard`,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(localStorage.token)`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
@@ -133,7 +133,7 @@ export function getCountries() {
 		url: `${API_URL}/countries`,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(localStorage.token)`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
@@ -145,7 +145,7 @@ export function downloadTicket(ruid) {
 		responseType: 'blob',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer $(localStorage.token)`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	}).then((response) => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
