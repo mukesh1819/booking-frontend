@@ -1,4 +1,4 @@
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = "http://localhost:3000"
 console.log(process.env)
 export const API_URL = `${BASE_URL}/api`;
 
