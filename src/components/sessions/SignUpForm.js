@@ -12,8 +12,7 @@ import SocialLinks from './SocialLinks';
 import {passCsrfToken} from '../../utils/helpers';
 import axios from 'axios';
 import {sortObjectBy} from '../../utils/helpers';
-
-
+import {Dropdown, Input} from 'semantic-ui-react';
 
 class SignUpForm extends Component {
 	constructor(props) {
@@ -129,7 +128,50 @@ class SignUpForm extends Component {
 											/>
 										</div>
 
-										<div className='field'>
+										<div className='field-box'>
+											<label>Mobile Number</label>
+											<Input
+											label={
+												<Dropdown  
+													className='dropdown'
+													defaultValue={values.code}
+													name='code'
+													placeholder='Select Code'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(
+															`code`,
+															data.value
+														);
+													}}
+													value={values.code}
+													fluid
+													search
+													selection
+													options= {sortedCountries.map((country) => {
+																return {
+																	key: country.id,
+																	value: country.country_code,
+																	text:country.country_code,
+																	flag: country.country_char.toLowerCase()
+
+																	
+																}
+															})}
+												/>}
+												labelPosition='left'
+												placeholder='Mobile Number'
+												type='text'
+												name='phone_number'
+												className= "semantic-input-group"
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.phone_number}
+											/>
+
+										</div>
+
+										{/* <div className='field'>
 											<label>Country Code</label>
 
 											<Field
@@ -163,7 +205,7 @@ class SignUpForm extends Component {
 												value={values.phone_number}
 												placeholder='Mobile Number'
 											/>
-										</div>
+										</div> */}
 
 										<div className='field'>
 											<label>Password</label>
