@@ -5,11 +5,10 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import {passCsrfToken} from '../../utils/helpers';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field, connect} from 'formik';
 import * as yup from 'yup';
 import ErrorMessage from '../ErrorMessage';
 import history from '../../history';
-import {getCountries} from '../../api/flightApi';
 import {Redirect} from 'react-router-dom';
 
 class EditUserForm extends Component {
@@ -18,7 +17,6 @@ class EditUserForm extends Component {
 
 		this.state = {
 			userDetails: {},
-			countries: [],
 			updated: false
 		};
 	}
@@ -26,7 +24,6 @@ class EditUserForm extends Component {
 	componentDidMount() {
 		passCsrfToken(document, axios);
 		this.fetchDetails();
-		this.fetchCountries();
 	}
 
 	fetchDetails = () => {
@@ -45,21 +42,9 @@ class EditUserForm extends Component {
 			});
 	};
 
-	fetchCountries() {
-		getCountries()
-			.then((response) => {
-				console.log(response);
-				this.setState({
-					countries: response.data
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-
 	render() {
 		// const { user } = this.props;
+		const {countries} = this.props;
 		const {user} = this.props.location.state ? this.props.location.state : '';
 		const UpdateSignupForm = yup.object().shape({
 			password: yup.string().required('Required'),
@@ -174,7 +159,7 @@ class EditUserForm extends Component {
 													onChange={handleChange}
 													value={values.currency}
 												>
-													{this.state.countries.map((country) => {
+													{countries.map((country) => {
 														return (
 															country.currency_char !== null && (
 																<option key={country.id} value={country.currency_char}>
@@ -247,4 +232,7 @@ class EditUserForm extends Component {
 	}
 }
 
-export default EditUserForm;
+const mapStateToProps = ({extras}) => ({
+	countries: extras.countries
+});
+export default connect(mapStateToProps)(EditUserForm);

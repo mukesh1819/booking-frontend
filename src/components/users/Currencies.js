@@ -2,22 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 import {setCurrency, setLanguage} from '../../redux/actions/bookingActions';
-import {getCountries} from '../../api/flightApi';
 import {Flag, Segment} from 'semantic-ui-react';
 
 const Currencies = (props) => {
-	const {currency, setCurrency, language, setLanguage, requestData} = props;
-	const [countries, setCountries] = useState([]);
-
-	useEffect(() => {
-		getCountries()
-			.then((response) => {
-				setCountries(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
+	const {currency, setCurrency, language, setLanguage, requestData, countries} = props;
 
 	var contents = null;
 	console.log('CURRENCY', currency);
@@ -89,10 +77,11 @@ const Currencies = (props) => {
 	return <ul>{contents}</ul>;
 };
 
-const mapStateToProps = ({bookingStore}) => {
+const mapStateToProps = ({bookingStore, extras}) => {
 	return {
 		currency: bookingStore.currency,
-		language: bookingStore.language
+		language: bookingStore.language,
+		countries: extras.countries
 	};
 };
 

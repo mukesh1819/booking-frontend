@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {handleResponse, handleError} from './apiUtils';
-import {API_URL, ADMIN_API_URL} from '../constants';
+import {API_URL, ADMIN_API_URL, BASE_URL} from '../constants';
 
 export function getUserDetails(params) {
 	const token = localStorage.token;
@@ -18,7 +18,7 @@ export function getUserDetails(params) {
 export function updateUserDetails(details) {
 	return axios({
 		method: 'put',
-		url: `/users`,
+		url: `${API_URL}/members`,
 		data: {user: details},
 		headers: {
 			'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export function getUsers() {
 export function sendUserEmail(data) {
 	return axios({
 		method: 'post',
-		url: `/admin/user_email`,
+		url: `${BASE_URL}/admin/user_email`,
 		data: data,
 		headers: {
 			'Content-Type': 'application/json',
