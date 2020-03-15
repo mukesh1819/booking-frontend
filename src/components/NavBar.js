@@ -118,19 +118,21 @@ class NavBar extends Component {
 									Hotels
 								</NavLink>
 							</li> */}
-								<li className='mx-3'>
-									<Link
-										className='navbar-font-style'
-										to='/bookings'
-										activeStyle={{
-											textDecoration: 'none',
-											fontWeight: 'bold',
-											color: '#09C6AB'
-										}}
-									>
-										My Bookings
-									</Link>
-								</li>
+								{loggedIn && (
+									<li className='mx-3'>
+										<Link
+											className='navbar-font-style'
+											to='/bookings'
+											activeStyle={{
+												textDecoration: 'none',
+												fontWeight: 'bold',
+												color: '#09C6AB'
+											}}
+										>
+											My Bookings
+										</Link>
+									</li>
+								)}
 								{/* <Dropdown icon={'icon-user'} title={''}>
 								<SignUpForm />
 							</Dropdown> */}
