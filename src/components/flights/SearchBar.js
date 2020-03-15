@@ -29,7 +29,6 @@ import LoadingScreen from '../shared/Loading';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import {Dropdown} from 'semantic-ui-react';
 
-
 class SearchBar extends Component {
 	constructor(props) {
 		super(props);
@@ -345,7 +344,7 @@ class SearchBar extends Component {
 									<ErrorMessage name='intAdult' />
 									<ErrorMessage name='intChild' />
 								</div>
-								
+
 								<div className='field-box'>
 									<label htmlFor=''>Nationality</label>
 									<Dropdown
@@ -354,10 +353,7 @@ class SearchBar extends Component {
 										placeholder='Select Country'
 										onBlur={handleBlur}
 										onChange={(e, data) => {
-											setFieldValue(
-												`strNationality`,
-												data.value
-											);
+											setFieldValue(`strNationality`, data.value);
 										}}
 										value={values.strNationality}
 										fluid
@@ -374,8 +370,6 @@ class SearchBar extends Component {
 									/>
 									<ErrorMessage name='strNationality' />
 								</div>
-
-
 							</div>
 							<div class='text-center'>
 								<button

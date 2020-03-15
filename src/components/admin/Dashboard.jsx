@@ -39,8 +39,7 @@ class Dashboard extends Component {
 	render() {
 		const {users, bookings, transactions} = this.state;
 		return (
-			<div className='dashboard container mt-5'>
-				<h5>Dashboard</h5>
+			<div className='dashboard container'>
 				<div className='row'>
 					<div className='widget col-sm-12 col-md-4'>
 						<div className='card'>

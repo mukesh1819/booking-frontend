@@ -118,6 +118,20 @@ class NavBar extends Component {
 									Hotels
 								</NavLink>
 							</li> */}
+
+								<li className='mx-3'>
+									<Link
+										className='navbar-font-style'
+										to='/partners/new'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold',
+											color: '#09C6AB'
+										}}
+									>
+										Become a partner
+									</Link>
+								</li>
 								{loggedIn && (
 									<li className='mx-3'>
 										<Link
