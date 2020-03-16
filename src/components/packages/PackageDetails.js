@@ -54,7 +54,7 @@ class PackageDetails extends Component {
 	render() {
 		const {aPackage} = this.state;
 		return (
-			<div className='package-details container'>
+			<div className='package-details'>
 				<div className='header card m-2'>
 					<img src={HotelImage} alt='Image' className='img-responsive' />
 
@@ -70,26 +70,27 @@ class PackageDetails extends Component {
 						</div>
 					</div>
 				</div>
-				<div className='row'>
-					<div className='col-9 p-0'>
-						<div className='card m-2'>
-							<div className='card-body'>
-								<div className='text-primary'>Description</div>
-								{aPackage.description}
+				<div className='container'>
+					<div className='row'>
+						<div className='col-md-9 p-0'>
+							<div className='card m-2'>
+								<div className='card-body'>
+									<div className='text-primary'>Description</div>
+									{aPackage.description}
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className='col-3 p-0'>
-						<div className='card m-2'>
-							<div className='card-body'>
-								<div className='card-header'>Similar Packages</div>
+						<div className='col-0 col-md-3 p-0'>
+							<div className='card m-2'>
+								<div className='card-body'>
+									<div className='card-header'>Similar Packages</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<ModalExample
 					title={aPackage.name}
-					buttonLabel='Cancel'
 					show={this.state.showInquiryForm}
 					toggle={this.onSelect}
 					onSuccess={this.onBook}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Package from './Package';
 
-import {getFlights} from '../../api/flightApi';
+import {getCategories} from '../../api/categoriesApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
@@ -11,6 +11,7 @@ import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import Counter from '../shared/Counter';
+import DatePicker from '../shared/Datepicker';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
@@ -26,21 +27,28 @@ class InquiryForm extends Component {
 		this.state = {};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.fetchDetails();
+	}
+
+	fetchDetails() {
+		getCategories().then((res) => {
+			console.log('TODO ', res);
+		});
+	}
 
 	render() {
 		const {countries} = this.props;
 		const inquiryDetails = {
-			name: 'Anup',
-			email_address: 'anup.singh2071@gmail.com',
-			nationality: 'nepal',
-			phone: '2309',
-			preferred_date: 'dfjl',
-			preferred_time: 'dfjl',
-			comments: 'djfla',
-			no_of_pax: 10,
-			user_id: 1,
-			package_id: 1
+			name: '',
+			email_address: '',
+			nationality: '',
+			phone: '',
+			preferred_date: new Date(),
+			preferred_time: '',
+			comments: '',
+			no_of_pax: 0,
+			package_id: null
 		};
 		return (
 			<div className='container p-4'>
@@ -83,7 +91,7 @@ class InquiryForm extends Component {
 						<form onSubmit={handleSubmit} autoComplete='off'>
 							<div className='input-section'>
 								<div className='field-box'>
-									<label>Going from</label>
+									<label>Name</label>
 									<IconInput icon='icon-paper-plane' iconPosition='left'>
 										<Field
 											name='name'
@@ -97,69 +105,63 @@ class InquiryForm extends Component {
 									<ErrorMessage name='name' />
 								</div>
 								<div className='field-box'>
-									<label>Going from</label>
+									<label>Email Address</label>
 									<IconInput icon='icon-paper-plane' iconPosition='left'>
 										<Field
-											name='name'
+											name='email_address'
 											className='form-control'
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={values.name}
+											value={values.email_address}
 											defaultValue=''
 										/>
 									</IconInput>
-									<ErrorMessage name='name' />
+									<ErrorMessage name='email_address' />
 								</div>
 								<div className='field-box'>
-									<label>Going from</label>
+									<label>Contact Number</label>
 									<IconInput icon='icon-paper-plane' iconPosition='left'>
 										<Field
-											name='name'
+											name='phone'
 											className='form-control'
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={values.name}
+											value={values.phone}
 											defaultValue=''
 										/>
 									</IconInput>
-									<ErrorMessage name='name' />
+									<ErrorMessage name='phone' />
 								</div>
 								<div className='field-box'>
-									<label>Going from</label>
+									<label>Preffered Date</label>
 									<IconInput icon='icon-paper-plane' iconPosition='left'>
-										<Field
-											name='name'
+										<DatePicker
+											name='preffered_date'
 											className='form-control'
+											type='date'
+											format='dd-mm-YYYY'
+											date={values.preferred_date}
+											minDate={new Date()}
 											onBlur={handleBlur}
-											onChange={handleChange}
-											value={values.name}
-											defaultValue=''
+											onChange={(date) => setFieldValue('preferred_date', date)}
+											value={moment(values.preferred_date).format('D MMM, YYYY')}
+											placeholder='Arrival Date'
 										/>
 									</IconInput>
-									<ErrorMessage name='name' />
+									<ErrorMessage name='preferred_date' />
 								</div>
+
 								<div className='field-box'>
-									<label>Going from</label>
-									<IconInput icon='icon-paper-plane' iconPosition='left'>
-										<Field
-											name='name'
-											className='form-control'
-											onBlur={handleBlur}
-											onChange={handleChange}
-											value={values.name}
-											defaultValue=''
-										/>
-									</IconInput>
-									<ErrorMessage name='name' />
+									<label htmlFor=''>Number of Person</label>
+									<Counter
+										id='no_of_pax'
+										type='number'
+										className='m-1'
+										title={`1 Person`}
+										onChange={(value) => setFieldValue('no_of_pax', value)}
+										value={values.no_of_pax}
+									/>
 								</div>
-								<Counter
-									id='intChild'
-									type='number'
-									className='m-1'
-									title={`1 Person`}
-									onChange={(value) => setFieldValue('intChild', value)}
-									value={1}
-								/>
 
 								<div className='field-box'>
 									<label htmlFor=''>Nationality</label>
@@ -185,6 +187,21 @@ class InquiryForm extends Component {
 										})}
 									/>
 									<ErrorMessage name='nationality' />
+								</div>
+
+								<div className='field-box'>
+									<label htmlFor=''>Queries</label>
+									<Field
+										className='form-control'
+										name='comments'
+										placeholder='Any Queries?'
+										onBlur={handleBlur}
+										onChange={(e, data) => {
+											setFieldValue(`comments`, data.value);
+										}}
+										value={values.comments}
+									/>
+									<ErrorMessage name='comments' />
 								</div>
 							</div>
 							<div class='text-center'>
