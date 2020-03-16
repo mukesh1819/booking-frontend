@@ -4,7 +4,6 @@ import Editable from '../shared/Editable';
 import {updateUserDetails} from '../../api/userApi';
 import axios from 'axios';
 import {passCsrfToken} from '../../utils/helpers';
-import {getCountries} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import swal from 'sweetalert';
 import {updateUser} from '../../redux/actions/sessions';
@@ -16,28 +15,13 @@ class UserDetailCard extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			countries:[],
 			updated: false
 		}
 	}
 
 	componentDidMount(){
 		passCsrfToken(document, axios);
-		this.fetchCountries();
 
-	}
-
-	fetchCountries() {
-		getCountries()
-		.then((response) => {
-			console.log(response);
-			this.setState({
-				countries: response.data
-			});
-		})
-		.catch((error) => {
-			console.log(error);
-		});
 	}
 
 	update(details) {
@@ -71,8 +55,7 @@ class UserDetailCard extends Component{
 
 	render(){
 		const {updated} = this.state;
-		const {user} = this.props;
-		console.log('country :', this.state.countries);
+		const {user, countries} = this.props;
 		return (
 			<div className='user-profile row'>
 				<div className='col-12 p-0'>
@@ -91,7 +74,7 @@ class UserDetailCard extends Component{
 						value={user.currency}
 						name="currency"
 						type = "select"
-						options =  {this.state.countries.filter((country)=> {return(country.currency_char !== null)} ).map((country) => {
+						options =  {countries.filter((country)=> {return(country.currency_char !== null)} ).map((country) => {
 										if (country.currency_char !== null) {
 											return({
 												key:country.id,
@@ -110,7 +93,7 @@ class UserDetailCard extends Component{
 						name='nationality'
 						value={user.country}
 						type = "select"
-						options =  {this.state.countries.map((country) => {
+						options =  {countries.map((country) => {
 										return({
 											key:country.id,
 											flag:country.country_char.toLowerCase(),
@@ -126,8 +109,9 @@ class UserDetailCard extends Component{
 	}
 	
 };
-const mapStateToProps = ({userStore}) => ({
-	user: userStore.currentUser
+const mapStateToProps = ({userStore, extras}) => ({
+	user: userStore.currentUser,
+	countries: extras.countries
 });
 
 const mapDispatchToProps = {

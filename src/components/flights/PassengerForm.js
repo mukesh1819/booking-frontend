@@ -15,7 +15,7 @@ import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
 import Timer from '../shared/Timer';
 import {setTTLtime} from '../../redux/actions/flightActions';
-import {Dropdown} from 'semantic-ui-react';
+import {Dropdown, Input} from 'semantic-ui-react';
 
 import './flights.scss';
 
@@ -28,6 +28,7 @@ import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
 import Accordion from '../shared/Accordion';
 import {sortObjectBy} from '../../utils/helpers';
+
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -145,6 +146,52 @@ class PassengerForm extends Component {
 										value={values.user.name}
 									/>
 								</div>
+
+								<div className='field-box'>
+									<label>Contact Phone</label>
+									<Input
+									label={
+										<Dropdown  
+											className='dropdown'
+											defaultValue={values.user.code}
+											name='user.code'
+											placeholder='Select Code'
+											onBlur={handleBlur}
+											onChange={(e, data) => {
+												setFieldValue(
+													`user.code`,
+													data.value
+												);
+											}}
+											value={values.user.code}
+											fluid
+											search
+											selection
+											options= {sortedCountries.map((country) => {
+														return {
+															 key: country.id,
+															 value: country.country_code,
+															 text:country.country_code,
+															 flag: country.country_char.toLowerCase()
+
+															
+														}
+													})}
+										/>}
+										labelPosition='left'
+										placeholder='Contact Phone'
+										type='text'
+										name='user.phone_number'
+										className= "semantic-input-group"
+										onBlur={handleBlur}
+										onChange={handleChange}
+										value={values.user.phone_number}
+									/>
+
+								</div>
+								
+
+{/* 
 								<div className='field-box'>
 									<label>Code</label>
 									<Field
@@ -164,8 +211,9 @@ class PassengerForm extends Component {
 											);
 										})}
 									</Field>
-								</div>
-								<div className='field-box'>
+								</div> */}
+
+								{/* <div className='field-box'>
 									<label>Contact Phone</label>
 									<Field
 										type='text'
@@ -175,7 +223,8 @@ class PassengerForm extends Component {
 										onChange={handleChange}
 										value={values.user.phone_number}
 									/>
-								</div>
+								</div> */}
+
 								<div className='field-box'>
 									<label>Contact Email</label>
 									<Field

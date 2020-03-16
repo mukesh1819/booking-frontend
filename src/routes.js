@@ -25,6 +25,8 @@ import UserEmail from './components/admin/UserEmail';
 import DashboardBookings from './components/admin/DashboardBookings';
 import Dashboard from './components/admin';
 import PrivateRoute from './components/PrivateRoute';
+import BecomePartnerForm from './components/partners/BecomePartnerForm';
+import PackageDetails from './components/packages/PackageDetails';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -39,6 +41,7 @@ const routing = (
 		<Route path='/flights' component={FlightList} />
 		<Route path='/hotels' component={HotelList} />
 		<Route path='/packages' component={Packages} />
+		<Route path='/package/:id' component={PackageDetails} />
 		<Route path='/about' component={About} />
 
 		<PrivateRoute path='/book_flight' component={PassengerForm} />
@@ -49,6 +52,7 @@ const routing = (
 		<PrivateRoute path='/users/edit' component={EditUserForm} />
 		<PrivateRoute path='/booking_details/:id' component={BookingDetails} />
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
+		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} />

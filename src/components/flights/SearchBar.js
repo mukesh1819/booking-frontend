@@ -23,11 +23,11 @@ import {Input} from 'semantic-ui-react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
-import {getCountries} from '../../api/flightApi';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import {Dropdown} from 'semantic-ui-react';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -40,8 +40,7 @@ class SearchBar extends Component {
 			isSubmitted: false,
 			availableFlights: [],
 			searching: false,
-			tripType: 'O',
-			countries: []
+			tripType: 'O'
 		};
 		this.strSectorFrom = React.createRef();
 		this.strSectorTo = React.createRef();
@@ -53,7 +52,6 @@ class SearchBar extends Component {
 			searchDetails: this.props.searchDetails
 		});
 		this.fetchCities();
-		this.fetchCountries();
 	}
 
 	fetchCities = () => {
@@ -71,19 +69,6 @@ class SearchBar extends Component {
 				});
 			});
 	};
-
-	fetchCountries() {
-		getCountries()
-			.then((response) => {
-				console.log(response);
-				this.setState({
-					countries: response.data
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
 
 	changeTripType = (trip) => {
 		this.setState({
@@ -113,7 +98,7 @@ class SearchBar extends Component {
 
 	render() {
 		const {hideReturnField, searching} = this.state;
-		const {searchDetails} = this.props;
+		const {searchDetails, countries} = this.props;
 		console.log('Search Details', searchDetails);
 
 		const SearchFlightSchema = yup.object().shape({
@@ -149,7 +134,6 @@ class SearchBar extends Component {
 						this.props.setSearchDetails(values);
 						getFlights(values)
 							.then((response) => {
-								swal.close();
 								setSubmitting(false);
 								this.props.setFlights(response.data.data);
 								this.props.setTTLtime(0);
@@ -360,30 +344,30 @@ class SearchBar extends Component {
 									<ErrorMessage name='intAdult' />
 									<ErrorMessage name='intChild' />
 								</div>
-								<div className='field-box'>
-									<label>Nationality</label>
-									<IconInput icon='icon-flag' iconPosition='left'>
-										<Field
-											as='select'
-											name='strNationality'
-											className='form-control'
-											onChange={handleChange}
-											value={values.strNationality}
-											defaultValue=''
-										>
-											<option value='' disabled>
-												Nationality
-											</option>
-											{this.state.countries.map((country) => {
-												return (
-													<option key={country.id} value={country.country_char}>
-														{country.name}
-													</option>
-												);
-											})}
-										</Field>
-									</IconInput>
 
+								<div className='field-box'>
+									<label htmlFor=''>Nationality</label>
+									<Dropdown
+										className='form-control'
+										name='strNationality'
+										placeholder='Select Country'
+										onBlur={handleBlur}
+										onChange={(e, data) => {
+											setFieldValue(`strNationality`, data.value);
+										}}
+										value={values.strNationality}
+										fluid
+										search
+										selection
+										options={countries.map(function(country) {
+											return {
+												key: country.id,
+												value: country.country_char,
+												flag: country.country_char.toLowerCase(),
+												text: country.name
+											};
+										})}
+									/>
 									<ErrorMessage name='strNationality' />
 								</div>
 							</div>
@@ -404,13 +388,12 @@ class SearchBar extends Component {
 	}
 }
 
-const mapStateToProps = ({flightStore}) => {
-	return {
-		flights: flightStore.flights,
-		searchDetails: flightStore.searchDetails,
-		ttlTime: flightStore.ttlTime
-	};
-};
+const mapStateToProps = ({flightStore, extras}) => ({
+	flights: flightStore.flights,
+	searchDetails: flightStore.searchDetails,
+	ttlTime: flightStore.ttlTime,
+	countries: extras.countries
+});
 
 const mapDispatchToProps = {
 	setFlights,
