@@ -20,8 +20,10 @@ const Package = (props) => (
 			</figure>
 		</a>
 		<div className='details-text'>
-			<h2>Kathmandu, Nepal</h2>
-			<div className='d-flex justify-content-between'>
+			<Link to='/package/1'>
+				<h2>Kathmandu, Nepal</h2>
+			</Link>
+			<div className='d-flex justify-content-between py-2'>
 				<span className='text-small'>
 					<strong>Rs: 14000</strong> onwards/pax
 				</span>

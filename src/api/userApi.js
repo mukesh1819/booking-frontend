@@ -60,3 +60,14 @@ export function sendUserEmail(data) {
 		}
 	});
 }
+
+export function authorizeGoogle(data) {
+	return axios({
+		method: 'post',
+		url: `/authorize_google`,
+		data: {user_details: data.uc},
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+}
