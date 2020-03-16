@@ -45,6 +45,19 @@ class PackageList extends Component {
 	render() {
 		return (
 			<div className='container p-4'>
+				{/* <div className='row'>
+					<div className='col-2'>
+						<div className='side-nav' />
+					</div>
+					<div className='col-10' />
+				</div> */}
+				<div className='d-flex flex-wrap justify-content-around'>
+					<Package />
+					<Package />
+					<Package />
+					<Package />
+				</div>
+
 				<div className='owl-carousel owl-theme'>
 					<Package />
 					<Package />

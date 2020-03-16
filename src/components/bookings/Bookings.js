@@ -8,13 +8,16 @@ import {passCsrfToken} from '../../utils/helpers';
 import moment from 'moment';
 import EmptyContent from '../EmptyContent';
 import Badge from '../shared/Badge';
+import Pagination from 'react-pagination-js';
+import 'react-pagination-js/dist/styles.css'; // import css
 
 class Bookings extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			bookings: []
+			bookings: [],
+			currentPage: 1
 		};
 	}
 
@@ -47,6 +50,12 @@ class Bookings extends Component {
 			<div className='booking-list container card'>
 				<div className='card-body'>
 					<h5>Bookings</h5>
+					<Pagination
+						currentPage={this.state.currentPage}
+						totalPages={10}
+						changeCurrentPage={this.changeCurrentPage}
+					/>
+					<h2>current Page:{this.state.currentPage}</h2>
 					{bookings.map(function(booking) {
 						console.log('Booking', booking);
 						return (

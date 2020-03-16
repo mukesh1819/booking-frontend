@@ -120,7 +120,6 @@
 
     .details-text {
         padding: 0px 10px 10px 20px;
-        text-align: center;
         box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.19);
 
         h2,
@@ -278,7 +277,7 @@ select {
 .semantic-input-group {
     width: 100% !important;
 
-    .dropdown{
+    .dropdown {
         width: max-content !important;
     }
 }

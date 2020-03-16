@@ -3,14 +3,13 @@ import {handleResponse, handleError} from './apiUtils';
 import {API_URL, ADMIN_API_URL, BASE_URL} from '../constants';
 
 export function getUserDetails(params) {
-	const token = localStorage.token;
 	return axios({
 		method: 'get',
 		url: `${API_URL}/user/profile`,
 		params: params,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
