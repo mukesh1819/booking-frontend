@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getPackageDetails} from '../../api/packageApi';
+import {showPackage} from '../../api/packageApi';
 import Package from './Package';
 import HotelImage from '../../images/flight.jpg';
 import {Link} from 'react-router-dom';
@@ -29,7 +29,6 @@ class PackageDetails extends Component {
 	}
 
 	onSelect() {
-		debugger;
 		this.setState((prevState, props) => {
 			return {showInquiryForm: !prevState.showInquiryForm};
 		});
@@ -40,7 +39,7 @@ class PackageDetails extends Component {
 	}
 
 	fetchDetails() {
-		getPackageDetails(this.props.match.params.id, {})
+		showPackage(this.props.match.params.id, {})
 			.then(function(response) {
 				this.setState({
 					aPackage: response.data

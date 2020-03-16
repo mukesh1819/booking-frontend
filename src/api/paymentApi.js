@@ -11,7 +11,7 @@ export function newPayment(idx) {
 		method: 'get',
 		url: `${API_URL}/payments/new?idx=${idx}`,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});

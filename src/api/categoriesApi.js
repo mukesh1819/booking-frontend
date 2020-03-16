@@ -9,7 +9,7 @@ export function getCategories(formData) {
 		params: formData,
 		config: {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-type': 'application/json',
 				Authorization: `Bearer ${localStorage.token}`
 			}
 		}

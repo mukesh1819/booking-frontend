@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CKEditor from 'ckeditor4-react';
-import {getCategories} from '../../api/categoriesApi';
+import {createPartner} from '../../api/partnerApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
@@ -33,12 +33,10 @@ class PartnerForm extends Component {
 
 	render() {
 		const {partnerIsValid} = this.state;
-		const {countries} = this.props;
+		const {countries, nextStep} = this.props;
 		const partnerDetails = {
 			name: '',
 			email: '',
-			company_name: '',
-			company_address: '',
 			contact_number: ''
 		};
 		return (
@@ -52,14 +50,14 @@ class PartnerForm extends Component {
 								searching: true
 							});
 							console.log(values);
-							this.props.setSearchDetails(values);
-							getFlights(values)
+							createPartner(values)
 								.then((response) => {
 									setSubmitting(false);
-									history.push('/');
+									console.log('Partner CREATED', response);
+									nextStep(response.data.partner);
 								})
 								.catch((error) => {
-									console.log('Search Flight Error', error);
+									console.log('Create Partner Error', error);
 									setSubmitting(false);
 									swal({
 										title: 'Sorry!',
@@ -121,39 +119,6 @@ class PartnerForm extends Component {
 											/>
 										</IconInput>
 										<ErrorMessage name='contact_number' />
-									</div>
-									<div className='field-box'>
-										<label>Preffered Date</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<DatePicker
-												name='preffered_date'
-												className='form-control'
-												type='date'
-												format='dd-mm-YYYY'
-												date={values.preferred_date}
-												minDate={new Date()}
-												onBlur={handleBlur}
-												onChange={(date) => setFieldValue('preferred_date', date)}
-												value={moment(values.preferred_date).format('D MMM, YYYY')}
-												placeholder='Arrival Date'
-											/>
-										</IconInput>
-										<ErrorMessage name='preferred_date' />
-									</div>
-
-									<div className='field-box'>
-										<label htmlFor=''>Queries</label>
-										<Field
-											className='form-control'
-											name='comments'
-											placeholder='Any Queries?'
-											onBlur={handleBlur}
-											onChange={(e, data) => {
-												setFieldValue(`comments`, data.value);
-											}}
-											value={values.comments}
-										/>
-										<ErrorMessage name='comments' />
 									</div>
 								</div>
 								<div class='text-center'>

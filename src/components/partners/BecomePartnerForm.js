@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CKEditor from 'ckeditor4-react';
-import {getCategories} from '../../api/categoriesApi';
+import {getCategories} from '../../api/categoryApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
@@ -27,33 +27,38 @@ class BecomePartnerForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			partnerIsValid: false,
+			partnerId: null,
 			step: 1
 		};
+		this.nextStep = this.nextStep.bind(this);
 	}
 
 	componentDidMount() {}
 
+	nextStep(data) {
+		this.setState((prevState) => {
+			return {
+				step: (prevState.step += 1),
+				partnerId: data.id
+			};
+		});
+	}
+
 	render() {
-		const {partnerIsValid, step} = this.state;
-		const {countries} = this.props;
-		const partnerDetails = {
-			name: '',
-			email: '',
-			company_name: '',
-			company_address: '',
-			contact_number: ''
-		};
+		const {partnerId, step} = this.state;
 		return (
 			<div className='container p-4'>
 				<div className='card'>
 					<div className='card-body'>
 						<Stepper step={step}>
-							{step == 1 && <PartnerForm />}
-							{step == 2 && <CompanyForm />}
-							{step == 3 && <PackageForm />}
+							{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
+							{step == 2 && (
+								<CompanyForm nextStep={(data) => this.nextStep(data)} partnerId={partnerId} />
+							)}
+							{step == 3 && (
+								<PackageForm nextStep={(data) => this.nextStep(data)} partnerId={partnerId} />
+							)}
 						</Stepper>
-						{partnerIsValid && <a href='btn btn-primary'>Add Packages</a>}
 					</div>
 				</div>
 			</div>

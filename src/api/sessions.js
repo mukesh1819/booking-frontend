@@ -9,7 +9,7 @@ export function signIn(details) {
 		data: details,
 		config: {
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-type': 'application/json'
 			}
 		}
 	});
@@ -29,7 +29,7 @@ export const createUser = (details) => {
 		data: details,
 		config: {
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-type': 'application/json'
 			}
 		}
 	});

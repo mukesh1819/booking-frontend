@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CKEditor from 'ckeditor4-react';
-import {getCategories} from '../../api/categoriesApi';
+import {updatePartner} from '../../api/partnerApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
@@ -30,7 +30,7 @@ class CompanyForm extends Component {
 	componentDidMount() {}
 
 	render() {
-		const {partnerId} = this.props;
+		const {partnerId, nextStep} = this.props;
 		const partnerDetails = {
 			company_name: '',
 			company_email: '',
@@ -48,14 +48,13 @@ class CompanyForm extends Component {
 									searching: true
 								});
 								console.log(values);
-								this.props.setSearchDetails(values);
-								getFlights(values)
+								updatePartner(partnerId, values)
 									.then((response) => {
 										setSubmitting(false);
-										history.push('/');
+										nextStep(response.data.partner);
 									})
 									.catch((error) => {
-										console.log('Search Flight Error', error);
+										console.log('Update Company Details Error', error);
 										setSubmitting(false);
 										swal({
 											title: 'Sorry!',

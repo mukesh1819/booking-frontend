@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CKEditor from 'ckeditor4-react';
-import {getCategories} from '../../api/categoriesApi';
+import {getCategories} from '../../api/categoryApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';

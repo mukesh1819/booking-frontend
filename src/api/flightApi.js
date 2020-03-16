@@ -2,7 +2,6 @@ import axios from 'axios';
 import {handleResponse, handleError} from './apiUtils';
 import {FLIGHT_API_URL, BASE_URL, API_URL} from '../constants/index.js';
 
-
 function setHeaders() {
 	const AUTH_TOKEN = localStorage.getItem('token');
 	if (AUTH_TOKEN) {
@@ -11,7 +10,7 @@ function setHeaders() {
 }
 
 export function getCities() {
-	return axios.get(`${FLIGHT_API_URL}/sectors`, {crossdomain: true, headers: {'Access-Control-Allow-Origin': "*"}});
+	return axios.get(`${FLIGHT_API_URL}/sectors`, {crossdomain: true, headers: {'Access-Control-Allow-Origin': '*'}});
 }
 
 export function getFlights(formData) {
@@ -21,7 +20,7 @@ export function getFlights(formData) {
 		params: formData,
 		config: {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-type': 'application/json',
 				Authorization: `Bearer ${localStorage.token}`
 			}
 		}
@@ -34,7 +33,7 @@ export function getBookingDetails(ruid) {
 		url: `${BASE_URL}/ticket_generation/${ruid}`,
 		config: {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-type': 'application/json',
 				Authorization: `Bearer ${localStorage.token}`
 			}
 		}
@@ -48,7 +47,7 @@ export function createBooking(formData) {
 		data: formData,
 		responseType: 'json',
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -60,7 +59,7 @@ export function submitPassengers(formData) {
 		url: `${API_URL}/bookings`,
 		data: formData,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -77,7 +76,7 @@ export function cancelUserTickets(passengers) {
 		url: `${API_URL}/tickets/cancel_request`,
 		data: data,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -88,7 +87,7 @@ export function getAdminBookings(params) {
 		method: 'get',
 		url: `${BASE_URL}/admin/bookings?${params}`,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -99,7 +98,7 @@ export function cancelAdminTicket(id) {
 		method: 'put',
 		url: `${BASE_URL}/admin/tickets/${id}/cancel`,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -110,7 +109,7 @@ export function ignoreAdminTicket(id) {
 		method: 'put',
 		url: `${BASE_URL}/admin/tickets/${id}/ignore`,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -121,7 +120,7 @@ export function getAdminDashboard() {
 		method: 'get',
 		url: `${BASE_URL}/admin/dashboard`,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -132,7 +131,7 @@ export function getCountries() {
 		method: 'get',
 		url: `${API_URL}/countries`,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -144,7 +143,7 @@ export function downloadTicket(ruid) {
 		method: 'GET',
 		responseType: 'blob',
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	}).then((response) => {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Package from './Package';
 
-import {getCategories} from '../../api/categoriesApi';
+import {getCategories} from '../../api/categoryApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';

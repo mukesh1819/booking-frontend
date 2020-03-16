@@ -8,7 +8,7 @@ export function getUserDetails(params) {
 		url: `${API_URL}/user/profile`,
 		params: params,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -20,7 +20,7 @@ export function updateUserDetails(details) {
 		url: `${API_URL}/members`,
 		data: {user: details},
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -32,7 +32,7 @@ export function getBookings(params) {
 		url: `${API_URL}/bookings`,
 		params: params,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -43,7 +43,7 @@ export function getUsers() {
 		method: 'get',
 		url: `${ADMIN_API_URL}/users`,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -55,7 +55,7 @@ export function sendUserEmail(data) {
 		url: `${BASE_URL}/admin/user_email`,
 		data: data,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
@@ -67,7 +67,7 @@ export function authorizeGoogle(data) {
 		url: `/authorize_google`,
 		data: {user_details: data.uc},
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-type': 'application/json'
 		}
 	});
 }

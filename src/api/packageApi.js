@@ -2,62 +2,60 @@ import axios from 'axios';
 import {handleResponse, handleError} from './apiUtils';
 import {API_URL, ADMIN_API_URL, BASE_URL} from '../constants';
 
-export function getPackageDetails(id, params) {
+export function showPackage(id) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/packages/${id}`,
-		params: params,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
 
-export function createPackage(data){
+export function createPackage(data) {
 	return axios({
 		method: 'post',
 		url: `${API_URL}/api/packages`,
-		data: data,
-		headers:{
-			'content-type': 'application/json',
+		data: {package: data},
+		headers: {
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
 
-export function updatePackage(data){
+export function updatePackage(id, data) {
 	return axios({
 		method: 'put',
-		url: `${API_URL}/packages/:id`,
-		data: data,
-		headers:{
-			'content-type': 'application/json',
+		url: `${API_URL}/packages/${id}`,
+		data: {package: data},
+		headers: {
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
 
-export function showPackage(params){
+export function getPackages(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/packages/:id`,
+		url: `${API_URL}/packages`,
+		params: params,
 		headers: {
-			'content-type': 'application/json',
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
 
-export function deletePackage(params){
+export function deletePackage(id) {
 	return axios({
 		method: 'delete',
-		url:`${API_URL}/packages/:id`,
-		params:params,
-		headers:{
-			'content-type': 'application/json',
+		url: `${API_URL}/packages/${id}`,
+		headers: {
+			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
-
 	});
 }
