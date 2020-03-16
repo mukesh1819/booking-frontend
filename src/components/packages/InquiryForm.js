@@ -99,7 +99,6 @@ class InquiryForm extends Component {
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={values.name}
-											defaultValue=''
 										/>
 									</IconInput>
 									<ErrorMessage name='name' />
@@ -113,7 +112,6 @@ class InquiryForm extends Component {
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={values.email_address}
-											defaultValue=''
 										/>
 									</IconInput>
 									<ErrorMessage name='email_address' />
@@ -127,7 +125,6 @@ class InquiryForm extends Component {
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={values.phone}
-											defaultValue=''
 										/>
 									</IconInput>
 									<ErrorMessage name='phone' />
@@ -192,6 +189,8 @@ class InquiryForm extends Component {
 								<div className='field-box'>
 									<label htmlFor=''>Queries</label>
 									<Field
+										component='textarea'
+										rows='2'
 										className='form-control'
 										name='comments'
 										placeholder='Any Queries?'
