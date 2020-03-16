@@ -16,7 +16,7 @@ export function showPackage(id) {
 export function createPackage(data) {
 	return axios({
 		method: 'post',
-		url: `${API_URL}/api/packages`,
+		url: `${API_URL}/packages`,
 		data: {package: data},
 		headers: {
 			'Content-type': 'application/json',

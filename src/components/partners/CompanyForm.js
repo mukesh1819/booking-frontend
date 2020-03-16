@@ -51,7 +51,7 @@ class CompanyForm extends Component {
 								updatePartner(partnerId, values)
 									.then((response) => {
 										setSubmitting(false);
-										nextStep(response.data.partner);
+										nextStep(response.data);
 									})
 									.catch((error) => {
 										console.log('Update Company Details Error', error);
