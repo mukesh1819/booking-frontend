@@ -13,6 +13,7 @@ const Editable = (props) => {
 		}
 	}, [edit])
 
+
 	return (
 		<div className='field'>
 			<div className='d-flex label align-items-center'>

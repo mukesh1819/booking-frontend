@@ -7,6 +7,7 @@ import {passCsrfToken} from '../../utils/helpers';
 import {connect} from 'react-redux';
 import swal from 'sweetalert';
 import {updateUser} from '../../redux/actions/sessions';
+import {sortObjectBy} from '../../utils/helpers';
 
 
 
@@ -56,12 +57,32 @@ class UserDetailCard extends Component{
 	render(){
 		const {updated} = this.state;
 		const {user, countries} = this.props;
+		const sortedCountries = sortObjectBy(countries, 'country_code');
+
 		return (
 			<div className='user-profile row'>
 				<div className='col-12 p-0'>
 					<Editable edit ={updated} label='Name' value={user.name} onSubmit={(value) => this.update({id: user.id, name: value})}>
 						</Editable>
 					<Editable label='Email' value={user.email} onSubmit={(value) => this.update({id: user.id, email: value})}/>
+
+					<Editable
+					edit ={updated}
+					label='code'
+						value={user.code}
+						name="code"
+						type = "select"
+						options =  {sortedCountries.map((country) => {
+											return({
+												key:country.id,
+												flag:country.country_char.toLowerCase(),
+												value:country.country_code,
+												text:country.country_code
+											});	
+									})}
+						onSubmit={(value) => this.update({id: user.id, code: value})}
+					/>
+
 					<Editable
 						edit ={updated}
 						label='Mobile No'
