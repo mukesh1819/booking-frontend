@@ -93,11 +93,11 @@ class BookingDetails extends Component {
 						</div>
 						<hr />
 						<div className='body'>
-							<div class='d-flex justify-content-between align-items-center'>
+							<div className='d-flex justify-content-between align-items-center'>
 								<span className='text-center'>
 									{flight.DepartureTime} <div className='text-bold'>{flight.Departure}</div>
 								</span>
-								<span class='text-small text-muted'>{flight.duration} min</span>
+								<span className='text-small text-muted'>{flight.duration} min</span>
 								<span className='text-center'>
 									{flight.ArrivalTime}
 									<div className='text-bold'>{flight.Arrival}</div>
@@ -138,10 +138,10 @@ class BookingDetails extends Component {
 					</div>
 					<h5 className='d-inline ' />
 					<div className='d-flex justify-content-between p-2'>
-						<span class='text-bold'>Passenger Details</span>
+						<span className='text-bold'>Passenger Details</span>
 						<span className='text-primary text-bold'> Cancel Tickets </span>
 					</div>
-					<div class='d-flex justify-content-end'>
+					<div className='d-flex justify-content-end'>
 						<input
 							type='checkbox'
 							onChange={() => this.cancelUserRequest(booking.passengers)}
@@ -150,7 +150,7 @@ class BookingDetails extends Component {
 						<label>All</label>
 					</div>
 					<div className='passenger-details container p-0'>
-						<table class='table'>
+						<table className='table'>
 							<thead>
 								<tr className='text-center'>
 									<th>Ticket</th>

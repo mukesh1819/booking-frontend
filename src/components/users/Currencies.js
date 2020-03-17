@@ -15,7 +15,7 @@ const Currencies = (props) => {
 			contents = countries.map((country) => {
 				if (country.currency_char !== null) {
 					return (
-						<li
+						<li key = {country.country_char}
 							className={`d-flex align-items-center p-1 menu-item ${country.currency_char == currency
 								? 'active'
 								: ''}`}
@@ -36,7 +36,7 @@ const Currencies = (props) => {
 			contents = countries.map((country) => {
 				if (country.country_code !== null) {
 					return (
-						<li className='p-1 menu-item d-flex align-items-center'>
+						<li key = {country.country_char} className='p-1 menu-item d-flex align-items-center'>
 							<i className='icon-flag' />
 							<span>{country.country_code}</span>
 						</li>
@@ -48,7 +48,7 @@ const Currencies = (props) => {
 			var languages = [{code: 'ENG', label: 'English'}, {code: 'ESP', label: 'Spanish'}];
 			contents = languages.map(({code, label}) => {
 				return (
-					<li
+					<li key = {code}
 						className='d-flex align-items-center p-1 menu-item'
 						onClick={() => {
 							setLanguage(code);
@@ -65,7 +65,7 @@ const Currencies = (props) => {
 			contents = countries.map((country) => {
 				if (country.name !== null) {
 					return (
-						<li className='p-1'>
+						<li key = {country.country_char} className='p-1'>
 							<i className='icon-flag' />
 							<span>{country.name}</span>
 						</li>
