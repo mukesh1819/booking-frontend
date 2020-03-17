@@ -11,7 +11,6 @@ import {setCountries} from './redux/actions/extraActions';
 import {getCountries} from './api/flightApi';
 
 function App(props) {
-	console.log("hello", process.env)
 	useEffect(() => {
 		console.log('Load App Component');
 		console.log('ENV VARIABLE', process.env);

@@ -1,3 +1,5 @@
+import {BASE_URL} from '../constants';
+
 export function sortObjectBy(obj, key) {
     obj = obj.sort((a, b) => {
         const bandA = a[key].toUpperCase();
@@ -64,6 +66,10 @@ export function redirectUrl(state) {
         redirectUrl = this.props.location.state.from.pathname;
     }
     return redirectUrl
+}
+
+export function imageUrl(path){
+    return `${BASE_URL}${path}`
 }
 
 

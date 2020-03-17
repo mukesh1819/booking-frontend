@@ -91,8 +91,8 @@ class NavBar extends Component {
 							<ul className='navbar-nav ml-auto align-items-center'>
 								{/* <Dropdown title={this.props.currency}>
 									<Currencies />
-								</Dropdown> */}
-								{/* <li className='mx-3'>
+								</Dropdown>
+								<li className='mx-3'>
 								<NavLink
 									className='navbar-font-style'
 									to='/flights'
@@ -120,7 +120,7 @@ class NavBar extends Component {
 							</li> */}
 
 								<li className='mx-3'>
-									<Link
+									<NavLink
 										className='navbar-font-style'
 										to='/partners/new'
 										activeStyle={{
@@ -130,11 +130,11 @@ class NavBar extends Component {
 										}}
 									>
 										Become a partner
-									</Link>
+									</NavLink>
 								</li>
 								{loggedIn && (
 									<li className='mx-3'>
-										<Link
+										<NavLink
 											className='navbar-font-style'
 											to='/bookings'
 											activeStyle={{
@@ -144,7 +144,7 @@ class NavBar extends Component {
 											}}
 										>
 											My Bookings
-										</Link>
+										</NavLink>
 									</li>
 								)}
 								{/* <Dropdown icon={'icon-user'} title={''}>
