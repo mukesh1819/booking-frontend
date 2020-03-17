@@ -54,7 +54,7 @@ class PartnerForm extends Component {
 								.then((response) => {
 									setSubmitting(false);
 									console.log('Partner CREATED', response);
-									nextStep(response.data.partner);
+									nextStep(response.data);
 								})
 								.catch((error) => {
 									console.log('Create Partner Error', error);
