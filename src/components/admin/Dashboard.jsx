@@ -82,6 +82,48 @@ class Dashboard extends Component {
 							</div>
 						</div>
 					</div>
+
+					<div className='widget col-sm-12 col-md-4'>
+						<div className='card'>
+							<div className='card-body'>
+								<div className='text-center'>
+									<span className='count'>{transactions}</span>
+									<hr />
+									<Link to='/admin/transaction_list' className='action'>
+										View all Partners
+									</Link>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className='widget col-sm-12 col-md-4'>
+						<div className='card'>
+							<div className='card-body'>
+								<div className='text-center'>
+									<span className='count'>{transactions}</span>
+									<hr />
+									<Link to='/admin/packages' className='action'>
+										View all Packages
+									</Link>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className='widget col-sm-12 col-md-4'>
+						<div className='card'>
+							<div className='card-body'>
+								<div className='text-center'>
+									<span className='count'>{transactions}</span>
+									<hr />
+									<Link to='/admin/transaction_list' className='action'>
+										View all Inquiries
+									</Link>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		);

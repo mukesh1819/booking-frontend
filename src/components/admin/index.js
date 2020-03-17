@@ -3,11 +3,11 @@ import Dashboard from './Dashboard';
 import Sidebar from './Sidebar';
 import UsersList from './UsersList';
 
-export default class Flights extends Component {
+export default class Admin extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			ActiveComponent: UsersList
+			ActiveComponent: null
 		};
 	}
 
@@ -46,7 +46,7 @@ export default class Flights extends Component {
 					</div>
 					<div className='col-12 col-md-10 p-4'>
 						<Dashboard />
-						<ActiveComponent />
+						{ActiveComponent && <ActiveComponent />}
 					</div>
 				</div>
 			</React.Fragment>
