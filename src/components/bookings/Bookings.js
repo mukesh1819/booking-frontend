@@ -50,12 +50,6 @@ class Bookings extends Component {
 			<div className='booking-list container card'>
 				<div className='card-body'>
 					<h5>Bookings</h5>
-					<Pagination
-						currentPage={this.state.currentPage}
-						totalPages={10}
-						changeCurrentPage={this.changeCurrentPage}
-					/>
-					<h2>current Page:{this.state.currentPage}</h2>
 					{bookings.map(function(booking) {
 						console.log('Booking', booking);
 						return (
@@ -98,6 +92,13 @@ class Bookings extends Component {
 							</Link>
 						);
 					})}
+				</div>
+				<div className='text-center'>
+					<Pagination
+						currentPage={this.state.currentPage}
+						totalPages={10}
+						changeCurrentPage={this.changeCurrentPage}
+					/>
 				</div>
 			</div>
 		);

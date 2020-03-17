@@ -20,6 +20,7 @@ import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
+import {createInquiry} from '../../api/inquiryApi';
 
 class InquiryForm extends Component {
 	constructor(props) {
@@ -60,10 +61,15 @@ class InquiryForm extends Component {
 						});
 						console.log(values);
 						this.props.setSearchDetails(values);
-						getFlights(values)
+						createInquiry(values)
 							.then((response) => {
 								setSubmitting(false);
-								history.push('/');
+								swal({
+									title: 'Inquiry Submitted!',
+									text: 'Your Inquiry have been submitted',
+									icon: 'Success',
+									button: 'Continue'
+								});
 							})
 							.catch((error) => {
 								console.log('Search Flight Error', error);

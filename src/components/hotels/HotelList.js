@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import InfoCard from './InfoCard';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
-// import 'owl.carousel/dist/assets/owl.carousel.css';
-// import 'owl.carousel/dist/assets/owl.theme.default.css';
-// import 'owl.carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import 'owl.carousel';
 
 class HotelList extends Component {
 	constructor(props) {

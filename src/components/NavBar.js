@@ -84,7 +84,7 @@ class NavBar extends Component {
 								<i className={this.state.sideBarIsVisible ? 'icon-cross' : 'icon-menu'} />
 							</button>
 							<Link to='/' className='navbar-brand animated bounce delay-2s'>
-								Booking Nepal
+								Visit all Nepal
 							</Link>
 						</div>
 						<div className='navbar-collapse collapse'>

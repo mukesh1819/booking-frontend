@@ -28,6 +28,7 @@ import PrivateRoute from './components/PrivateRoute';
 import BecomePartnerForm from './components/partners/BecomePartnerForm';
 import PackageDetails from './components/packages/PackageDetails';
 import PackagesList from './components/admin/PackagesList';
+import PartnerDetails from './components/admin/PartnerDetails';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -60,7 +61,7 @@ const routing = (
 		<PrivateRoute path='/admin/create_user' component={CreateUser} />
 		<PrivateRoute path='/admin/users_list' component={UsersList} />
 		<PrivateRoute path='/admin/packages' component={PackagesList} />
-		<PrivateRoute path='/partner/:id' component={PartnerDetails} />
+		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} />
 
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
 		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} />

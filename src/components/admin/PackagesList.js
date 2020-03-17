@@ -69,7 +69,7 @@ class PackagesList extends Component {
 													}
 												}}
 											>
-												<span className='px-1'>{aPackage.partner.name}</span>
+												<span className='px-1'>a{aPackage.partner.name}</span>
 											</Link>
 										</td>
 										<td>{aPackage.price}</td>

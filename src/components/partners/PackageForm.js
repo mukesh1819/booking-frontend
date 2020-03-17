@@ -136,7 +136,7 @@ class PackageForm extends Component {
 											<label>Price</label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
-													name='email'
+													name='price'
 													className='form-control'
 													onBlur={handleBlur}
 													onChange={handleChange}
@@ -147,9 +147,9 @@ class PackageForm extends Component {
 										</div>
 										<div className='field-box'>
 											<label>Location</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
+											<IconInput icon='fas fa-location' iconPosition='left'>
 												<Field
-													name='contact_number'
+													name='location'
 													className='form-control'
 													onBlur={handleBlur}
 													onChange={handleChange}

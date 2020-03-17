@@ -5,9 +5,9 @@ import HotelImage from '../../images/flight.jpg';
 import {imageUrl} from '../../utils/helpers';
 
 const Package = (props) => {
-	const {aPackage} = props
-	
-	return(
+	const {aPackage} = props;
+
+	return (
 		<div className='card-item '>
 			<a href={imageUrl(aPackage.images[0])} className='image-popup'>
 				<figure>
@@ -21,8 +21,6 @@ const Package = (props) => {
 						</Link>
 					</div>
 					<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
-					})}
-					
 				</figure>
 			</a>
 			<div className='details-text'>
@@ -42,6 +40,6 @@ const Package = (props) => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Package;

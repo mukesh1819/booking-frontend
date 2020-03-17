@@ -43,13 +43,13 @@ class PackageDetails extends Component {
 	fetchDetails() {
 		debugger;
 		showPackage(this.props.match.params.id)
-			.then((response)  => {
-				console.log("PAckage DEtails", response)
+			.then((response) => {
+				console.log('PAckage DEtails', response);
 				this.setState({
 					aPackage: response.data
 				});
 			})
-			.catch((response) =>  {
+			.catch((response) => {
 				console.log('PACKAGE DETAILS ERROR', response);
 			});
 	}
@@ -62,14 +62,15 @@ class PackageDetails extends Component {
 					<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
 
 					<div className='card-body'>
-						<span className='text-primary'>{aPackage.name}</span>
-					</div>
-					<div className='d-flex'>
-						<div className='ml-auto p-2'>
-							<strong>{aPackage.price}</strong>
-							<span onClick={this.onSelect} className='btn btn-primary'>
-								Book
-							</span>
+						<div className='d-flex container'>
+							<span className='text-primary'>{aPackage.name}</span>
+
+							<div className='ml-auto p-2'>
+								<strong>{aPackage.price}</strong>
+								<span onClick={this.onSelect} className='btn btn-primary'>
+									Book
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
