@@ -25,7 +25,7 @@ export default ({children, className, icon, title, position = 'left', ...rest}) 
 	useOutsideAlerter(wrapperRef, dropped);
 
 	return (
-		<div style={{position: 'relative'}}>
+		<div style={{position: 'relative', width: '100%'}}>
 			{/* <Dropdown alignRight>
 				<Dropdown.Toggle id='dropdown-basic' className={`dropdown form-control ${className}`} />
 				<Dropdown.Menu className='p-1 dropdown-menu-right'>{children}</Dropdown.Menu>

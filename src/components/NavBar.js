@@ -68,7 +68,7 @@ class NavBar extends Component {
 		];
 		return (
 			<React.Fragment>
-				<nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
+				<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 					<div className='container'>
 						<div className='navbar-header d-flex'>
 							<button
@@ -84,7 +84,7 @@ class NavBar extends Component {
 								<i className={this.state.sideBarIsVisible ? 'icon-cross' : 'icon-menu'} />
 							</button>
 							<Link to='/' className='navbar-brand animated bounce delay-2s'>
-								Visit all Nepal
+								visitallnepal.com
 							</Link>
 						</div>
 						<div className='navbar-collapse collapse'>
@@ -121,12 +121,11 @@ class NavBar extends Component {
 
 								<li className='mx-3'>
 									<NavLink
-										className='navbar-font-style'
+										className='text-white'
 										to='/partners/new'
 										activeStyle={{
 											textDecoration: 'none',
-											fontWeight: 'bold',
-											color: '#09C6AB'
+											fontWeight: 'bold'
 										}}
 									>
 										Become a partner
@@ -135,12 +134,11 @@ class NavBar extends Component {
 								{loggedIn && (
 									<li className='mx-3'>
 										<NavLink
-											className='navbar-font-style'
+											className='text-white'
 											to='/bookings'
 											activeStyle={{
 												textDecoration: 'none',
-												fontWeight: 'bold',
-												color: '#09C6AB'
+												fontWeight: 'bold'
 											}}
 										>
 											My Bookings

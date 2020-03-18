@@ -16,18 +16,17 @@ class SearchFlightForm extends Component {
 		return (
 			<React.Fragment>
 				<header id='header' className='cover' role='banner'>
-					<Container>
-						<div className='text-white mb-2'>
-							Find and book domestic flights within Nepal at best price.
-						</div>
+					<div className='container'>
+						<h1 className='text-center text-white text-large'>
+							Find and book domestic flights <br />within Nepal at best price.
+						</h1>
 						<div className='airline-logos d-none'>
 							<img src={yetiImage} alt='Image' className='img-responsive' />
 							<img src={buddhaImage} alt='Image' className='img-responsive' />
 							<img src={shreeImage} alt='Image' className='img-responsive' />
 						</div>
-
 						<SearchBar />
-					</Container>
+					</div>
 				</header>
 			</React.Fragment>
 		);

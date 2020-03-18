@@ -15,14 +15,20 @@ nav>.nav.nav-tabs {
     }
 }
 
+.nav-tabs {
+    background-color: $primary !important;
+
+}
+
 nav>a.nav-item.nav-link {
     border: none;
-    background-color: #272e38;
+    background-color: $secondary;
     border-radius: 0;
+    color: white;
 }
 
 nav>a.nav-item.nav-link.active {
-    background-color: #272e38 !important;
+    background-color: $primary !important;
     border-bottom: $primary 3px solid;
     color: #fff;
 }

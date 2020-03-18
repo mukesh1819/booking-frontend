@@ -30,19 +30,18 @@ class BecomePartnerForm extends Component {
 			partnerId: null,
 			step: 1
 		};
-		this.nextStep = this.nextStep.bind(this);
 	}
 
 	componentDidMount() {}
 
-	nextStep(data) {
+	nextStep = (data) => {
 		this.setState((prevState) => {
 			return {
 				step: (prevState.step += 1),
 				partnerId: data.id
 			};
 		});
-	}
+	};
 
 	render() {
 		const {partnerId, step} = this.state;

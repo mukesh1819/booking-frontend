@@ -32,8 +32,8 @@ const Package = (props) => {
 						<strong>{aPackage.price}</strong> onwards/pax
 					</span>
 					<span className='text-muted'>
-						<i className='fas fa-clock' />
-						{aPackage.name}
+						<i className='fas fa-money' />
+						{aPackage.price}
 					</span>
 				</div>
 				<p>{aPackage.description}</p>

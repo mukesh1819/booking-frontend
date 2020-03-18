@@ -56,7 +56,7 @@ class Categories extends Component {
 				{this.state.categories.map((category) => {
 					return (
 						<div>
-							<h4>{category.name}</h4>
+							<h3>{category.name}</h3>
 							<div className='owl-carousel owl-theme'>
 								{category.packages.length > 0 &&
 									category.packages.map((cPackage) => {

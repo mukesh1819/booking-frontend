@@ -28,6 +28,9 @@ import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import {Dropdown} from 'semantic-ui-react';
+import Modal from '../shared/Modal';
+import SemanticDatepicker from 'react-semantic-ui-datepickers';
+import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -118,9 +121,9 @@ class SearchBar extends Component {
 		return (
 			<div id='search-flight-form'>
 				{searching && (
-					<SweetAlert showCancel={false} title='Searching Flights' onConfirm={console.log('Confirm')}>
+					<Modal show={searching}>
 						<LoadingScreen />
-					</SweetAlert>
+					</Modal>
 				)}
 				<Formik
 					initialValues={searchDetails}
@@ -170,100 +173,93 @@ class SearchBar extends Component {
 						/* and other goodies */
 					}) => (
 						<form onSubmit={handleSubmit} autoComplete='off'>
-							<ButtonGroup className='d-none d-md-block' aria-label='Basic example'>
-								<Button
-									type='button'
-									variant='secondary'
-									className='btn btn-secondary btn-sm'
-									onClick={() => {
-										setFieldValue('strTripType', 'O');
-										this.changeTripType('O');
-									}}
-								>
-									One Way
-								</Button>
-								<Button
-									type='button'
-									variant='secondary'
-									className='btn btn-secondary btn-sm'
-									onClick={() => {
-										setFieldValue('strTripType', 'R');
-										this.changeTripType('R');
-									}}
-								>
-									Return
-								</Button>
-							</ButtonGroup>
 							<div className='input-section'>
-								<div className='field-box'>
-									<label>Going from</label>
-									<IconInput icon='icon-paper-plane' iconPosition='left'>
-										<Field
-											as='select'
+								<div className='d-none d-md-block select-trip'>
+									<span
+										onClick={() => {
+											setFieldValue('strTripType', 'O');
+											this.changeTripType('O');
+										}}
+									>
+										One-Way
+									</span>
+									<span
+										onClick={() => {
+											setFieldValue('strTripType', 'R');
+											this.changeTripType('R');
+										}}
+									>
+										Round Trip
+									</span>
+								</div>
+
+								<div className='input-section-inputs'>
+									<div className='field-box form-group'>
+										<label>Going from</label>
+										<Dropdown
 											name='strSectorFrom'
-											className='form-control'
 											onBlur={handleBlur}
-											onChange={handleChange}
+											className='icon btn-dropdown'
+											iconPosition='left'
+											icon='icon-paper-plane'
+											onChange={(e, data) => {
+												debugger;
+												setFieldValue(`strSectorFrom`, data.value);
+											}}
 											value={values.strSectorFrom}
-											ref={this.strSectorFrom}
-											defaultValue=''
-										>
-											<option value='' disabled>
-												Going From
-											</option>
-											{this.state.cities.map(function(sector) {
-												return (
-													<option key={sector.SectorCode} value={sector.SectorCode}>
-														{sector.SectorName}
-													</option>
-												);
+											fluid
+											search
+											selection
+											options={this.state.cities.map(function(sector) {
+												return {
+													key: sector.SectorCode,
+													value: sector.SectorCode,
+													text: sector.SectorName
+												};
 											})}
-											<ErrorMessage name='strSectorFrom' />
-										</Field>
-									</IconInput>
-									<div>
-										<div className='toggle-sector'>
-											<i
-												className='fas fa-exchange-alt'
-												onClick={() => {
-													setFieldValue('strSectorTo', values.strSectorFrom);
-													setFieldValue('strSectorFrom', values.strSectorTo);
-												}}
-											/>
+										/>
+										<ErrorMessage name='strSectorFrom' />
+										<div>
+											<div className='toggle-sector'>
+												<i
+													className='fas fa-exchange-alt'
+													onClick={() => {
+														setFieldValue('strSectorTo', values.strSectorFrom);
+														setFieldValue('strSectorFrom', values.strSectorTo);
+													}}
+												/>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div className='field-box'>
-									<label>Going To</label>
-									<IconInput icon='icon-paper-plane' iconPosition='left'>
-										<Field
-											as='select'
+									<div className='field-box form-group'>
+										<label>Going To</label>
+										<Dropdown
 											name='strSectorTo'
-											className='form-control'
 											onBlur={handleBlur}
-											onChange={handleChange}
-											value={values.strSectorTo}
-											ref={this.strSectorTo}
-											defaultValue=''
-										>
-											<option value='' disabled>
-												Going To
-											</option>
-											{this.state.cities.map(function(sector) {
-												return (
-													<option key={sector.SectorCode} value={sector.SectorCode}>
-														{sector.SectorName}
-													</option>
-												);
+											className='icon btn-dropdown'
+											iconPosition='left'
+											icon='icon-paper-plane'
+											onChange={(e, data) => {
+												setFieldValue(`strSectorTo`, data.value);
+											}}
+											fluid
+											search
+											selection
+											options={this.state.cities.map(function(sector) {
+												return {
+													key: sector.SectorCode,
+													value: sector.SectorCode,
+													text: sector.SectorName
+												};
 											})}
-										</Field>
-									</IconInput>
+										/>
 
-									<ErrorMessage name='strSectorTo' />
+										<ErrorMessage name='strSectorTo' />
+									</div>
 								</div>
-								<div className='field-box'>
-									<label>Departure Date</label>
-									<IconInput icon='icon-calendar' iconPosition='left'>
+								<div className='input-section-inputs'>
+									<div className='field-box form-group'>
+										<label>Departure Date</label>
 										<DatePicker
 											name='strFlightDate'
 											className='form-control'
@@ -276,109 +272,102 @@ class SearchBar extends Component {
 											value={moment(values.strFlightDate).format('D MMM, YYYY')}
 											placeholder='Departure Date'
 										/>
-									</IconInput>
-									<ErrorMessage name='strFlightDate' />
-								</div>
-								<div>
-									<div className='toggle-trip'>
-										<FormControlLabel
-											control={
-												<Switch
-													checked={this.state.tripType == 'R'}
-													onChange={() => {
-														setFieldValue('strTripType', this.toggleTripType());
-													}}
-													value={this.state.tripType}
+										<ErrorMessage name='strFlightDate' />
+										<div>
+											<div className='toggle-trip'>
+												<FormControlLabel
+													control={
+														<Switch
+															checked={this.state.tripType == 'R'}
+															onChange={() => {
+																setFieldValue('strTripType', this.toggleTripType());
+															}}
+															value={this.state.tripType}
+														/>
+													}
 												/>
-											}
-										/>
-										<span class='label'>Round Trip?</span>
+												<span class='label'>Round Trip?</span>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div className={`field-box ${hideReturnField ? 'd-none' : ''}`}>
-									<label>Arrival Date</label>
-									<IconInput icon='icon-calendar' iconPosition='left'>
+									<div className={`field-box form-group ${hideReturnField ? 'd-none' : ''}`}>
+										<label>Arrival Date</label>
 										<DatePicker
 											name='strReturnDate'
 											className='form-control'
 											type='date'
-											format='dd-mm-YYYY'
-											date={values.strFlightDate}
+											date={values.strReturnDate}
 											minDate={new Date()}
+											format='dd-mm-YYYY'
 											onBlur={handleBlur}
-											onChange={(date) => setFieldValue('strReturnDate', date)}
+											onChange={(date) => setFieldValue('strFlightDate', date)}
 											value={moment(values.strReturnDate).format('D MMM, YYYY')}
-											disabled={hideReturnField}
-											placeholder='Arrival Date'
+											placeholder='Departure Date'
 										/>
-									</IconInput>
-									<ErrorMessage name='strReturnDate' />
-								</div>
-								<div className='field-box'>
-									<label>Adult/Child</label>
-									<IconInput icon='icon-users' iconPosition='left'>
-										<DropdownItem
-											title={`${values.intAdult + values.intChild} Traveller`}
-											className='text-field px-3'
-										>
-											<Counter
-												id='intAdult'
-												type='number'
-												className='m-1'
-												onBlur={handleBlur}
-												title={`${values.intAdult} Adult`}
-												onChange={(value) => setFieldValue('intAdult', value)}
-												value={values.intAdult}
-											/>
-											<Counter
-												id='intChild'
-												type='number'
-												className='m-1'
-												onBlur={handleBlur}
-												title={`${values.intChild} Child`}
-												onChange={(value) => setFieldValue('intChild', value)}
-												value={values.intChild}
-											/>
-										</DropdownItem>
-									</IconInput>
-									<ErrorMessage name='intAdult' />
-									<ErrorMessage name='intChild' />
-								</div>
+										<ErrorMessage name='strReturnDate' />
+									</div>
+									<div className='field-box form-group'>
+										<label>Adult/Child</label>
+										<IconInput icon='icon-users' iconPosition='left'>
+											<DropdownItem
+												title={`${values.intAdult + values.intChild} Traveller`}
+												className='text-field px-3'
+											>
+												<Counter
+													id='intAdult'
+													type='number'
+													className='m-1'
+													onBlur={handleBlur}
+													title={`${values.intAdult} Adult`}
+													onChange={(value) => setFieldValue('intAdult', value)}
+													value={values.intAdult}
+												/>
+												<Counter
+													id='intChild'
+													type='number'
+													className='m-1'
+													onBlur={handleBlur}
+													title={`${values.intChild} Child`}
+													onChange={(value) => setFieldValue('intChild', value)}
+													value={values.intChild}
+												/>
+											</DropdownItem>
+										</IconInput>
+										<ErrorMessage name='intAdult' />
+										<ErrorMessage name='intChild' />
+									</div>
 
-								<div className='field-box'>
-									<label htmlFor=''>Nationality</label>
-									<Dropdown
-										className='form-control'
-										name='strNationality'
-										placeholder='Select Country'
-										onBlur={handleBlur}
-										onChange={(e, data) => {
-											setFieldValue(`strNationality`, data.value);
-										}}
-										value={values.strNationality}
-										fluid
-										search
-										selection
-										options={countries.map(function(country) {
-											return {
-												key: country.id,
-												value: country.country_char,
-												flag: country.country_char.toLowerCase(),
-												text: country.name
-											};
-										})}
-									/>
-									<ErrorMessage name='strNationality' />
+									<div className='field-box form-group'>
+										<label htmlFor=''>Nationality</label>
+										<Dropdown
+											className='form-control'
+											name='strNationality'
+											placeholder='Select Country'
+											onBlur={handleBlur}
+											onChange={(e, data) => {
+												setFieldValue(`strNationality`, data.value);
+											}}
+											value={values.strNationality}
+											fluid
+											search
+											selection
+											options={countries.map(function(country) {
+												return {
+													key: country.id,
+													value: country.country_char,
+													flag: country.country_char.toLowerCase(),
+													text: country.name
+												};
+											})}
+										/>
+										<ErrorMessage name='strNationality' />
+									</div>
+									<div class='text-center'>
+										<button className='btn-primary' type='submit' disabled={isSubmitting}>
+											Search
+										</button>
+									</div>
 								</div>
-							</div>
-							<div class='text-center'>
-								<button
-									className='search-btn btn btn-secondary m-2'
-									type='submit'
-									disabled={isSubmitting}
-								>
-									Search
-								</button>
 							</div>
 						</form>
 					)}

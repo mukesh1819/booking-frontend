@@ -7,44 +7,41 @@
 @import "./pdf";
 @import "material-ui";
 
-$fontColor : #252525;
-
-$regularFont : Gotham-Book;
-$mediumFont : Gotham-Medium;
-$boldFont : Gotham-Bold;
-
-$font14 : 14px;
-$font16 : 16px;
-$font18 : 18px;
-$font20 : 20px;
-$font24 : 24px;
-$font28 : 28px;
-$font30 : 30px;
-$font40 : 40px;
-
+$fontColor: #252525;
+$font14: 14px;
+$font16: 16px;
+$font18: 18px;
+$font20: 20px;
+$font24: 24px;
+$font28: 28px;
+$font30: 30px;
+$font40: 40px;
 
 * {
-    font-family: $font-family-sans-serif;
-
     &:focus {
         outline: none;
     }
 }
 
 body {
+    font-family: $font-secondary;
     color: $fontColor;
-    font-family: $regularFont, Serif, Arial;
-    font-size: $font14;
+    font-size: $font16;
     overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: $font-primary;
+    color: black;
+    margin-bottom: 1rem;
 }
 
 h1 {
     font-size: $font24;
-
-    br {
-        display: none;
-    }
-
 }
 
 h2 {
@@ -58,7 +55,6 @@ h3 {
 h4 {
     font-size: $font16;
 }
-
 
 h5 {
     font-size: $font14;
@@ -183,9 +179,20 @@ img {
     }
 }
 
+.form-group {
+    margin: 4px;
+
+    @include tablet {
+        margin-bottom: 30px;
+    }
+}
+
 .form-control {
     margin: 2px;
-    @include border-radius(0px)
+    @include border-radius(0px);
+    border: 1px solid #dddddd;
+    height: 44px;
+    border-radius: 3px;
 }
 
 .modal {
@@ -202,7 +209,7 @@ img {
 }
 
 .btn {
-    @include border-radius(0px)
+    @include border-radius(0px);
 }
 
 .no-padding {
@@ -211,7 +218,7 @@ img {
 }
 
 .card {
-    @include border-radius(0px)
+    @include border-radius(0px);
 }
 
 .card-header {
@@ -239,14 +246,20 @@ img {
 }
 
 .icon-input {
+    font-family: $font-secondary !important;
 
     input,
     select,
     button {
+        font-family: $font-secondary !important;
         border: none;
         height: max-content;
         background-color: inherit;
         color: #565656;
+
+        &:focus {
+            box-shadow: none;
+        }
     }
 }
 
@@ -259,6 +272,12 @@ img {
 .custom-dropdown {
     cursor: pointer;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+
+    i.icon-chevron-down {
+        float: right;
+    }
 }
 
 .custom-dropdown-menu {
@@ -267,6 +286,7 @@ img {
     position: absolute;
     transform: translate(0px, 15px);
     border: 1px solid lightgray;
+    min-width: 100%;
 }
 
 .right-0 {
@@ -422,7 +442,6 @@ img {
     }
 }
 
-
 .table {
     margin: 20px 0;
 }
@@ -476,5 +495,33 @@ img {
 
 .button-active {
     border-radius: 0;
-    border-bottom: 1px solid #38BB6C;
+    border-bottom: 1px solid #38bb6c;
+}
+
+button.owl-prev {
+    background: green !important;
+    padding: 10px !important;
+    padding: 5px 13px !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 2rem !important;
+    border-radius: 50% !important;
+    float: left !important;
+}
+
+button.owl-next {
+    background: green !important;
+    padding: 10px !important;
+    padding: 5px 13px !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 2rem !important;
+    border-radius: 50% !important;
+    float: left !important;
+}
+
+.owl-nav {
+    position: absolute;
+    top: 25%;
+    width: 100%;
 }

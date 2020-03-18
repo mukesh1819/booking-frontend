@@ -28,21 +28,20 @@ export default class Flights extends Component {
 		const tabs = [{name: 'flights', label: 'Flights'}, {name: 'packages', label: 'Packages'}];
 		return (
 			<React.Fragment>
-				<Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
-					<Tab eventKey='flights' title='Flights'>
-						<SearchFlightForm />
-						<div className='container text-center'>
-							<h3 className='m-4'> Things to do </h3>
-							<Categories />
-						</div>
-					</Tab>
+				<SearchFlightForm />
+				<div className='container'>
+					<h2 className='my-4 text-center'> Things to do </h2>
+					<Categories />
+				</div>
+				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
+					<Tab eventKey='flights' title='Flights' />
 					<Tab eventKey='packages' title='Packages'>
 						<div className='container'>
 							<h4> Popular Packages </h4>
 							<PackageList />
 						</div>
 					</Tab>
-				</Tabs>
+				</Tabs> */}
 			</React.Fragment>
 		);
 	}

@@ -1,9 +1,13 @@
 @import "../../styles/index.scss";
 
 #header {
-    background-image: linear-gradient(to bottom, rgba(29, 29, 29, 0.8), rgba(43, 42, 42, 0.408)), url(../../images/nepal-village.jpg);
+    // background-image: url(../../images/peace.jpg);
+    background-color: $primary;
+    background-size: cover;
+    background-position: center;
     padding: 10px;
     height: 100vh;
+    min-height: 550px;
 
     @include tablet {
         height: max-content;
@@ -12,12 +16,18 @@
     @include desktop {
         padding: 50px;
     }
+
+    // .tint-overlay {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     background-color: rgba(37, 63, 114, .9)
+    // }
 }
 
 #search-flight-form {
 
     form {
-        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
         position: relative;
         width: 100%;
         z-index: 2;
@@ -27,25 +37,87 @@
         }
     }
 
+    .select-trip {
+        padding: 10px 0px 20px;
+
+        span {
+            color: $primary;
+            font-weight: 700;
+            padding: 0px 10px;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            &:first-child {
+                padding-left: 0px;
+            }
+        }
+    }
+
 
     .input-section {
-        border-top: 5px solid $primary;
-        background-color: rgba(255, 255, 255, 0.486);
-        display: flex;
-        flex-wrap: wrap;
+        border-radius: 5px;
+        background-color: white;
         padding: 10px 0px;
 
+        &-inputs {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            @include tablet {
+                flex-wrap: nowrap;
+                margin: 0px;
+            }
+
+            .react-datepicker-wrapper {
+                width: 100%;
+            }
+
+            .field {
+                width: 100%;
+            }
+
+            .datepicker-input {
+                width: 100%;
+            }
+        }
 
         @include tablet {
-            flex-wrap: nowrap;
-            margin: 0px;
+            padding: 20px 30px;
         }
 
-        .react-datepicker-wrapper {
-            width: 100%;
+        input,
+        select,
+        .custom-dropdown {
+            font-size: 16px;
         }
 
+        input:focus,
+        select:focus {
+            outline: none !important;
+        }
+
+        .btn-dropdown {
+            font-weight: normal;
+
+            i {
+                float: left;
+            }
+        }
     }
+
+    .btn-primary {
+        padding: 8px 50px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: $secondary;
+        border-color: $secondary;
+    }
+}
+
+.form-control {
+    font-size: 16px;
 }
 
 #passenger-form {
@@ -80,13 +152,16 @@
 }
 
 .field-box {
-    margin: 0px 10px;
+    margin-right: 20px;
     width: -webkit-fill-available;
 
+    &:nth-child(2) {
+        margin-right: 0px;
+    }
+
     label {
-        font-size: 0.8rem;
-        text-transform: uppercase;
         display: none;
+        font-weight: 500;
 
         @include desktop {
             display: block;
@@ -172,13 +247,6 @@
     }
 }
 
-.search-btn {
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-top: 36px;
-    padding-bottom: 36px;
-    border-radius: 50%;
-}
 
 .modal-header {
     padding: 0.5rem 1rem !important;

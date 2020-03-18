@@ -20,8 +20,8 @@ const initialState = {
         strNationality: 'NP',
         intAdult: 1,
         intChild: 0,
-        strSectorFrom: 'KTM',
-        strSectorTo: 'PKR'
+        strSectorFrom: '',
+        strSectorTo: ''
     },
     ttlTime: 0
 };
