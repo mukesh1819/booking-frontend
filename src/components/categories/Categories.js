@@ -59,9 +59,8 @@ class Categories extends Component {
 							<h4>{category.name}</h4>
 							<div className='owl-carousel owl-theme'>
 								{category.packages.length > 0 &&
-									category.packages.map((cPackage) => {
-										return <Package aPackage={cPackage} />;
-									})}
+									<Package aPackages={category.packages} />
+								}
 							</div>
 						</div>
 					);
