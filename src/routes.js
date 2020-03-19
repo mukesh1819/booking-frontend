@@ -33,6 +33,10 @@ import PartnerProfile from './components/partners/PartnerProfile';
 import InquiryDetails from './components/admin/InquiryDetails'
 import PartnerDetails from './components/admin/PartnerDetails';
 import InquiryList from './components/admin/InquiryList';
+import CategoryList from './components/admin/CategoryList';
+import CategoryDetail from './components/admin/CategoryDetail';
+import CategoriesForm from './components/categories/CategoriesForm';
+
 
 function About() {
 	return <h2>About Us</h2>;
@@ -69,7 +73,10 @@ const routing = (
 		<PrivateRoute path='/admin/partner_profile' component={PartnerProfile} />
 		<PrivateRoute path='/admin/inquiry_details' component={InquiryDetails} />
 		<PrivateRoute path='/admin/inquiries' component={InquiryList} />
-		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} />
+		<PrivateRoute path='/admin/categories' component={CategoryList} />
+		<PrivateRoute path='/admin/category_details' component={CategoryDetail} />
+		<PrivateRoute path='/admin/categories/category_form' component={CategoriesForm} />
+		<PrivateRoute path='/admin/partner/:id' component={PartnerProfile} />
 
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
 		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} />

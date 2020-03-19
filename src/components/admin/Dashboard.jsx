@@ -31,7 +31,8 @@ class Dashboard extends Component {
 					transactions: response.data.transactions_count,
 					packages: response.data.packages_count,
 					partners: response.data.partners_count,
-					inquiries: response.data.inquiries_count
+					inquiries: response.data.inquiries_count,
+					categories: response.data.categories_count
 				});
 			})
 			.catch((error) => {
@@ -40,7 +41,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const {users, bookings, transactions, packages, partners, inquiries} = this.state;
+		const {users, bookings, transactions, packages, partners, inquiries, categories} = this.state;
 		return (
 			<div className='dashboard container'>
 				<div className='row'>
@@ -118,6 +119,20 @@ class Dashboard extends Component {
 						<div className='card'>
 							<div className='card-body'>
 								<div className='text-center'>
+									<span className='count'>{categories}</span>
+									<hr />
+									<Link to='/admin/categories' className='action'>
+										View all Categories
+									</Link>
+								</div>
+							</div>
+						</div>
+					</div>					
+
+					<div className='widget col-sm-12 col-md-4'>
+						<div className='card'>
+							<div className='card-body'>
+								<div className='text-center'>
 									<span className='count'>{inquiries}</span>
 									<hr />
 									<Link to='/admin/inquiries' className='action'>
@@ -129,6 +144,8 @@ class Dashboard extends Component {
 					</div>
 				</div>
 			</div>
+
+			
 		);
 	}
 }

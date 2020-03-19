@@ -1,9 +1,33 @@
-import React, {Component} from 'react';
-import Profile from '../users/Profile';
-import PartnerProfile from '../partners/PartnerProfile';
+// import React, {Component} from 'react';
+// import Profile from '../users/Profile';
+// import axios from 'axios';
+// import {passCsrfToken, toTableData} from '../../utils/helpers';
+// import PartnerProfile from '../partners/PartnerProfile';
 
-const PartnerDetails = () => {
-	return <PartnerProfile />;
-};
+// class PartnerDetails extends Component {
+// // 	constructor(props){
+// // 		super(props);
+// // 		this.state={
+// // 			partner: []
+// // 		}
+// // 	}
 
-export default PartnerDetails;
+// // 	componentDidMount(){
+// // 		passCsrfToken(document, axios);
+// // 		this.fetchPartner();
+// // 	}
+
+// // 	fetchPartner(){
+
+// // 	}
+
+// // 	render(){
+
+// // 		return(
+// // 			<PartnerProfile />
+// // 		);
+// // 	}
+// // };
+// return();
+// }
+// export default PartnerDetails;
