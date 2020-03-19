@@ -31,6 +31,7 @@ import {Dropdown} from 'semantic-ui-react';
 import Modal from '../shared/Modal';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
+import {Radio} from 'semantic-ui-react';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -203,9 +204,9 @@ class SearchBar extends Component {
 											iconPosition='left'
 											icon='icon-paper-plane'
 											onChange={(e, data) => {
-												debugger;
 												setFieldValue(`strSectorFrom`, data.value);
 											}}
+											placeholder={'Going From'}
 											value={values.strSectorFrom}
 											fluid
 											search
@@ -239,6 +240,7 @@ class SearchBar extends Component {
 											className='icon btn-dropdown'
 											iconPosition='left'
 											icon='icon-paper-plane'
+											placeholder={'Going To'}
 											onChange={(e, data) => {
 												setFieldValue(`strSectorTo`, data.value);
 											}}
@@ -273,21 +275,16 @@ class SearchBar extends Component {
 											placeholder='Departure Date'
 										/>
 										<ErrorMessage name='strFlightDate' />
-										<div>
-											<div className='toggle-trip'>
-												<FormControlLabel
-													control={
-														<Switch
-															checked={this.state.tripType == 'R'}
-															onChange={() => {
-																setFieldValue('strTripType', this.toggleTripType());
-															}}
-															value={this.state.tripType}
-														/>
-													}
-												/>
-												<span class='label'>Round Trip?</span>
-											</div>
+										<div className='toggle-trip'>
+											<Radio
+												toggle
+												checked={this.state.tripType == 'R'}
+												onChange={() => {
+													setFieldValue('strTripType', this.toggleTripType());
+												}}
+												value={this.state.tripType}
+											/>
+											<span class='label'>Round Trip?</span>
 										</div>
 									</div>
 									<div className={`field-box form-group ${hideReturnField ? 'd-none' : ''}`}>
@@ -300,15 +297,15 @@ class SearchBar extends Component {
 											minDate={new Date()}
 											format='dd-mm-YYYY'
 											onBlur={handleBlur}
-											onChange={(date) => setFieldValue('strFlightDate', date)}
+											onChange={(date) => setFieldValue('strReturnDate', date)}
 											value={moment(values.strReturnDate).format('D MMM, YYYY')}
-											placeholder='Departure Date'
+											placeholder='Arrival Date'
 										/>
 										<ErrorMessage name='strReturnDate' />
 									</div>
 									<div className='field-box form-group'>
 										<label>Adult/Child</label>
-										<IconInput icon='icon-users' iconPosition='left'>
+										{/* <IconInput icon='icon-users' iconPosition='left'>
 											<DropdownItem
 												title={`${values.intAdult + values.intChild} Traveller`}
 												className='text-field px-3'
@@ -332,7 +329,52 @@ class SearchBar extends Component {
 													value={values.intChild}
 												/>
 											</DropdownItem>
-										</IconInput>
+										</IconInput> */}
+										<Dropdown
+											name=''
+											placeholder='Select Country'
+											value=''
+											icon='icon-users'
+											className='icon btn-dropdown'
+											fluid
+											selection
+											closeOnChange={false}
+											placeholder={`${values.intAdult + values.intChild} Traveller(s)`}
+											onClick={(event, data) => {
+												event.preventDefault();
+											}}
+										>
+											<Dropdown.Menu>
+												<Dropdown.Item
+													value={`${values.intAdult + values.intChild} Traveller(s)`}
+													content={
+														<Counter
+															id='intAdult'
+															type='number'
+															className='m-1'
+															onBlur={handleBlur}
+															title={`${values.intAdult} Adult`}
+															onChange={(value) => setFieldValue('intAdult', value)}
+															value={values.intAdult}
+														/>
+													}
+												/>
+												<Dropdown.Item
+													value={`${values.intAdult + values.intChild} Traveller(s)`}
+													content={
+														<Counter
+															id='intChild'
+															type='number'
+															className='m-1'
+															onBlur={handleBlur}
+															title={`${values.intChild} Child`}
+															onChange={(value) => setFieldValue('intChild', value)}
+															value={values.intChild}
+														/>
+													}
+												/>
+											</Dropdown.Menu>
+										</Dropdown>
 										<ErrorMessage name='intAdult' />
 										<ErrorMessage name='intChild' />
 									</div>
@@ -340,7 +382,6 @@ class SearchBar extends Component {
 									<div className='field-box form-group'>
 										<label htmlFor=''>Nationality</label>
 										<Dropdown
-											className='form-control'
 											name='strNationality'
 											placeholder='Select Country'
 											onBlur={handleBlur}
@@ -362,8 +403,8 @@ class SearchBar extends Component {
 										/>
 										<ErrorMessage name='strNationality' />
 									</div>
-									<div class='text-center'>
-										<button className='btn-primary' type='submit' disabled={isSubmitting}>
+									<div class='field-box text-center'>
+										<button className='btn-secondary' type='submit' disabled={isSubmitting}>
 											Search
 										</button>
 									</div>

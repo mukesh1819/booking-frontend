@@ -21,6 +21,10 @@ $font40: 40px;
     &:focus {
         outline: none;
     }
+
+    a {
+        text-decoration: none;
+    }
 }
 
 body {
@@ -36,20 +40,22 @@ h3,
 h4,
 h5 {
     font-family: $font-primary;
-    color: black;
-    margin-bottom: 1rem;
+    color: $primary;
+    font-size: 36px;
+    margin-bottom: 50px;
 }
 
 h1 {
     font-size: $font24;
+    margin-bottom: 0px;
+    padding-top: 50px;
 }
 
-h2 {
-    line-height: $font20;
-}
+h2 {}
 
 h3 {
     font-size: $font18;
+    font-family: $font-secondary;
 }
 
 h4 {
@@ -58,6 +64,14 @@ h4 {
 
 h5 {
     font-size: $font14;
+}
+
+h2.border-btm:after {
+    border-bottom: 2px solid $secondary;
+    display: block;
+    content: ' ';
+    padding-bottom: 20px;
+    width: 50px;
 }
 
 ul,
@@ -87,6 +101,11 @@ li {
     &-body {
         background-color: $body-bg-color;
     }
+
+    &-none {
+        background-color: transaparent;
+        border: none;
+    }
 }
 
 input {
@@ -106,7 +125,8 @@ input:read-only {
 }
 
 img {
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .react-datepicker__navigation--next {
@@ -184,6 +204,7 @@ img {
 
     @include tablet {
         margin-bottom: 30px;
+        margin-right: 14px;
     }
 }
 
@@ -210,6 +231,63 @@ img {
 
 .btn {
     @include border-radius(0px);
+}
+
+.btn-primary {
+    padding: 8px 50px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &-inverted {
+        padding: 8px 50px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background: white;
+        color: $primary;
+        border-color: $primary;
+    }
+}
+
+.btn-outline-primary {
+    padding: 8px 50px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &-inverted {
+        padding: 8px 50px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-color: $primary;
+
+    }
+
+}
+
+.btn-secondary {
+    padding: 8px 50px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: $secondary;
+
+    &-inverted {
+        padding: 8px 50px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background: white;
+        color: $secondary;
+        border-color: $secondary;
+    }
+
+    &.bg-none {
+        background-color: transparent;
+        border: none;
+    }
 }
 
 .no-padding {
@@ -315,6 +393,8 @@ img {
 }
 
 .card-item {
+    min-width: 260px;
+    min-height: 275px;
     display: block;
     position: relative;
     background: $white;
@@ -324,14 +404,16 @@ img {
     margin-bottom: 30px;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
     width: min-content;
-    @include border-radius(10px);
+    @include border-radius(5px);
     @include transition(.3s);
 
     figure {
-        height: 240px;
-        overflow: hidden;
+        width: auto;
+        min-height: 190px;
+        max-height: 190px;
         z-index: 12;
         position: relative;
+        overflow: hidden;
 
         .overlay {
             opacity: 0;
@@ -342,7 +424,7 @@ img {
             right: 0;
             bottom: 0;
             position: absolute;
-            background: rgba(0, 0, 0, .4);
+            background: rgba(37, 63, 114, 0.7);
             @include transition(.7s);
 
             i {
@@ -362,8 +444,6 @@ img {
     img {
         z-index: 8;
         opacity: 1;
-        min-width: 240px;
-        max-width: 400px;
         @include transition(.3s);
     }
 
@@ -408,9 +488,9 @@ img {
 
     &:hover,
     &:focus {
-        bottom: 7px;
-        text-decoration: none;
+        bottom: 0;
         box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.19);
+        @include border-radius(5px);
 
         img {
             transform: scale(1.2);
@@ -496,32 +576,4 @@ img {
 .button-active {
     border-radius: 0;
     border-bottom: 1px solid #38bb6c;
-}
-
-button.owl-prev {
-    background: green !important;
-    padding: 10px !important;
-    padding: 5px 13px !important;
-    color: white !important;
-    font-weight: bold !important;
-    font-size: 2rem !important;
-    border-radius: 50% !important;
-    float: left !important;
-}
-
-button.owl-next {
-    background: green !important;
-    padding: 10px !important;
-    padding: 5px 13px !important;
-    color: white !important;
-    font-weight: bold !important;
-    font-size: 2rem !important;
-    border-radius: 50% !important;
-    float: left !important;
-}
-
-.owl-nav {
-    position: absolute;
-    top: 25%;
-    width: 100%;
 }

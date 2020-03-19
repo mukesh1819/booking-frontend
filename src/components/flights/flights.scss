@@ -26,7 +26,6 @@
 }
 
 #search-flight-form {
-
     form {
         position: relative;
         width: 100%;
@@ -53,11 +52,14 @@
         }
     }
 
-
     .input-section {
         border-radius: 5px;
         background-color: white;
         padding: 10px 0px;
+
+        .ui.input {
+            width: 100%;
+        }
 
         &-inputs {
             display: flex;
@@ -74,10 +76,6 @@
             }
 
             .field {
-                width: 100%;
-            }
-
-            .datepicker-input {
                 width: 100%;
             }
         }
@@ -103,16 +101,11 @@
             i {
                 float: left;
             }
-        }
-    }
 
-    .btn-primary {
-        padding: 8px 50px;
-        border-radius: 5px;
-        font-weight: bold;
-        text-transform: uppercase;
-        background-color: $secondary;
-        border-color: $secondary;
+            input {
+                padding-left: 38px;
+            }
+        }
     }
 }
 
@@ -131,13 +124,11 @@
         margin-bottom: 8px;
     }
 
-
     .input-section {
         background-color: rgba(255, 255, 255, 0.486);
         display: flex;
         flex-wrap: wrap;
         padding: 10px 0px;
-
 
         @include tablet {
             flex-wrap: nowrap;
@@ -152,10 +143,9 @@
 }
 
 .field-box {
-    margin-right: 20px;
     width: -webkit-fill-available;
 
-    &:nth-child(2) {
+    &:last-child {
         margin-right: 0px;
     }
 
@@ -247,7 +237,6 @@
     }
 }
 
-
 .modal-header {
     padding: 0.5rem 1rem !important;
     background-color: $primary;
@@ -261,8 +250,8 @@
 
 .toggle-trip {
     position: absolute;
-    right: 0;
-    top: 85px;
+    right: 4px;
+    top: 122px;
     display: table;
 
     @include tablet {
@@ -274,7 +263,7 @@
         position: relative;
         font-size: 0.6rem;
         bottom: 10px;
-        right: 4px;
+        right: 0;
     }
 }
 
@@ -288,6 +277,7 @@
     right: 0;
     top: 16px;
     transform: rotate(90deg);
+    z-index: 10;
 
     @include tablet {
         display: none;

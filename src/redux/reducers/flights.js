@@ -17,7 +17,7 @@ const initialState = {
         strTripType: 'O',
         strFlightDate: tomorrow,
         strReturnDate: tomorrow,
-        strNationality: 'NP',
+        strNationality: '',
         intAdult: 1,
         intChild: 0,
         strSectorFrom: '',

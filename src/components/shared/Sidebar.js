@@ -1,20 +1,19 @@
-import React from 'react';
-import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
-import {Link, NavLink} from 'react-router-dom';
+import React, {Component} from 'react';
 import history from '../../history';
-import SocialLinks from '../sessions/SocialLinks';
+import {Link} from 'react-router-dom';
 
-function Sidebar({items = [], isVisible, onHide}) {
+const SideBar = (props) => {
+	const {items} = props;
 	return (
-		<div className={`sidebar d-md-none ${isVisible ? 'show' : 'closed'}`}>
-			<div className='list-group'>
-				{items.map(({label, name, details, icon, value, link, ...rest}) => (
-					<div
-						className='list-group-item d-flex align-items-center'
-						key={name}
-						onClick={() => {
-							history.push(link);
-							onHide();
+		<div className='side-nav'>
+			{items.map(({label, name, details, icon, value, link, Component, ...rest}) => (
+				<div className='sidebar-item d-flex align-items-center' key={name}>
+					<Link
+						to={{
+							pathname: link,
+							state: {
+								ActiveComponent: Component
+							}
 						}}
 					>
 						<i className={`${icon} p-2 text-primary`} />
@@ -25,24 +24,11 @@ function Sidebar({items = [], isVisible, onHide}) {
 							</span>
 						</div>
 						<span className='text-bold ml-auto'>{value}</span>
-					</div>
-				))}
-				<hr />
-				<div className='list-group-item d-flex justify-content-between' key='flights'>
-					<span>
-						<i class='fas fa-plane-departure  p-2 text-primary' /> {'Flights'}
-					</span>
+					</Link>
 				</div>
-				<div className='list-group-item d-flex justify-content-between' key='packages'>
-					<span>
-						<i class='fab fa-fort-awesome p-2 text-primary' />
-						{'Packages'}
-					</span>
-				</div>
-			</div>
-			<SocialLinks />
+			))}
 		</div>
 	);
-}
+};
 
-export default Sidebar;
+export default SideBar;
