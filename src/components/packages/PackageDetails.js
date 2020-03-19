@@ -41,7 +41,6 @@ class PackageDetails extends Component {
 	}
 
 	fetchDetails() {
-		debugger;
 		showPackage(this.props.match.params.id)
 			.then((response) => {
 				console.log('PAckage DEtails', response);
@@ -99,7 +98,7 @@ class PackageDetails extends Component {
 					toggle={this.onSelect}
 					onSuccess={this.onBook}
 				>
-					{this.state.showInquiryForm && <InquiryForm />}
+					{this.state.showInquiryForm && <InquiryForm package_id= {aPackage.id} />}
 				</ModalExample>
 			</div>
 		);
