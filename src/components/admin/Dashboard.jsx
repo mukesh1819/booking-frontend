@@ -92,7 +92,7 @@ class Dashboard extends Component {
 								<div className='text-center'>
 									<span className='count'>{partners}</span>
 									<hr />
-									<Link to='/admin/transaction_list' className='action'>
+									<Link to='/admin/partners' className='action'>
 										View all Partners
 									</Link>
 								</div>
@@ -120,7 +120,7 @@ class Dashboard extends Component {
 								<div className='text-center'>
 									<span className='count'>{inquiries}</span>
 									<hr />
-									<Link to='/admin/transaction_list' className='action'>
+									<Link to='/admin/inquiries' className='action'>
 										View all Inquiries
 									</Link>
 								</div>
