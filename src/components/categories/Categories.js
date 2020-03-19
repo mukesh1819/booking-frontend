@@ -59,8 +59,8 @@ class Categories extends Component {
 							<h2 className='border-btm title'>{category.name}</h2>
 							<div className='owl-carousel owl-theme'>
 								{category.packages.length > 0 &&
-									category.packages.map((cPackage) => {
-										return <Package aPackage={cPackage} />;
+									category.packages.map((aPackage) => {
+										return <Package aPackage={aPackage} />;
 									})}
 							</div>
 						</div>

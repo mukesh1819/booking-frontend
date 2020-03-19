@@ -10,7 +10,7 @@ export function getInquiries(params) {
 		params: params,
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: `Bearer {localStorage.token}`
+			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
@@ -54,6 +54,17 @@ export function deleteInquiry(id) {
 	return axios({
 		method: 'delete',
 		url: `${API_URL}/inquiries/${id}`,
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: `Bearer ${localStorage.token}`
+		}
+	});
+}
+
+export function confirmInquiry(id) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/inquiries/${id}/confirm`,
 		headers: {
 			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`

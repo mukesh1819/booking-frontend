@@ -20,8 +20,6 @@ import DropdownItem from '../shared/Dropdown';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
@@ -404,7 +402,11 @@ class SearchBar extends Component {
 										<ErrorMessage name='strNationality' />
 									</div>
 									<div class='field-box text-center'>
-										<button className='btn-secondary' type='submit' disabled={isSubmitting}>
+										<button
+											className='btn btn-secondary search-btn'
+											type='submit'
+											disabled={isSubmitting}
+										>
 											Search
 										</button>
 									</div>

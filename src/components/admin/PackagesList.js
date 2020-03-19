@@ -40,7 +40,7 @@ class PackagesList extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Users</h5>
+					<h5>Packages</h5>
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
@@ -65,7 +65,7 @@ class PackagesList extends Component {
 												to={{
 													pathname: `/admin/partner/${aPackage.partner.id}`,
 													state: {
-														aPackage: aPackage
+														partner: aPackage.partner
 													}
 												}}
 											>

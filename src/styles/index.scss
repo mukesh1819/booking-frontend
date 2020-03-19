@@ -5,7 +5,6 @@
 @import "./typography";
 @import "./icomoon";
 @import "./pdf";
-@import "material-ui";
 
 $fontColor: #252525;
 $font14: 14px;
@@ -230,64 +229,22 @@ img {
 }
 
 .btn {
-    @include border-radius(0px);
-}
-
-.btn-primary {
-    padding: 8px 50px;
-    border-radius: 5px;
+    @include border-radius(5px);
     font-weight: bold;
     text-transform: uppercase;
-
-    &-inverted {
-        padding: 8px 50px;
-        border-radius: 5px;
-        font-weight: bold;
-        text-transform: uppercase;
-        background: white;
-        color: $primary;
-        border-color: $primary;
-    }
-}
-
-.btn-outline-primary {
-    padding: 8px 50px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-
-    &-inverted {
-        padding: 8px 50px;
-        border-radius: 5px;
-        font-weight: bold;
-        text-transform: uppercase;
-        border-color: $primary;
-
-    }
-
-}
-
-.btn-secondary {
-    padding: 8px 50px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-    background-color: $secondary;
-
-    &-inverted {
-        padding: 8px 50px;
-        border-radius: 5px;
-        font-weight: bold;
-        text-transform: uppercase;
-        background: white;
-        color: $secondary;
-        border-color: $secondary;
-    }
 
     &.bg-none {
         background-color: transparent;
         border: none;
     }
+}
+
+.search-btn {
+    padding: 8px 50px;
+}
+
+.btn-secondary {
+    padding: 8px 50px;
 }
 
 .no-padding {

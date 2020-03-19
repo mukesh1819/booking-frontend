@@ -37,9 +37,12 @@ section {
 
 .categories {
 
-    .title {}
-
     .owl-theme {
+        .owl-item {
+            display: flex;
+            justify-content: space-around;
+        }
+
         .owl-nav {
             position: absolute;
             top: 20%;

@@ -4,6 +4,7 @@ import Profile from './Profile';
 import Bookings from '../bookings/Bookings';
 import './users.scss';
 import '../shared/tab.scss';
+import Sidebar from '../shared/Sidebar';
 
 const Transactions = () => 'Transactions';
 const Reports = () => 'Reports';
@@ -24,11 +25,35 @@ export default class Users extends Component {
 	};
 
 	render() {
-		const {ActiveComponent} = this.state;
+		const {ActiveComponent} = this.props.location.state || this.state;
+		const sideBarMenu = [
+			{icon: 'icon-home', name: 'users', label: 'Users', value: '', link: '/'},
+			{
+				icon: 'icon-beamed-note',
+				name: 'bookings',
+				label: 'Bookings',
+				value: '',
+				link: '/profile',
+				Component: Profile
+			},
+			{
+				icon: 'icon-user',
+				name: 'transactions',
+				label: 'Transactions',
+				value: '',
+				link: '/bookings',
+				Component: Bookings
+			}
+		];
 		return (
-			<div className='container p-0'>
-				<h3> Profile </h3>
-				<nav className='nav nav-tabs'>
+			<div className='p-0'>
+				<div className='row'>
+					<div className='col-0 col-md-2 p-0'>
+						<Sidebar items={sideBarMenu} />
+					</div>
+					<div className='col-12 col-md-10'>{ActiveComponent && <ActiveComponent />}</div>
+				</div>
+				{/* <nav className='nav nav-tabs'>
 					<div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
 						<a
 							class='nav-item nav-link active'
@@ -54,34 +79,10 @@ export default class Users extends Component {
 						>
 							<i className='icon-dribbble' />Bookings
 						</a>
-						{/* <a
-							class='nav-item nav-link'
-							id='nav-transactions-tab'
-							data-toggle='tab'
-							href='#nav-transactions'
-							role='tab'
-							aria-controls='nav-home'
-							aria-selected='true'
-							onClick={() => this.activateTab(Transactions)}
-						>
-							<i className='icon-dribbble' />Transactions
-						</a>
-						<a
-							class='nav-item nav-link'
-							id='nav-details-tab'
-							data-toggle='tab'
-							href='#details'
-							role='tab'
-							aria-controls='nav-home'
-							aria-selected='true'
-							onClick={() => this.activateTab(Reports)}
-						>
-							<i className='icon-dribbble' />Reports
-						</a> */}
 					</div>
-				</nav>
+				</nav> */}
 
-				<div class='tab-content' id='nav-tabContent'>
+				{/* <div class='tab-content' id='nav-tabContent'>
 					<div
 						class='tab-pane fade show active'
 						id='nav-profile'
@@ -90,7 +91,7 @@ export default class Users extends Component {
 					/>
 					<div class='tab-pane fade' id='nav-bookings' role='tabpanel' aria-labelledby='nav-bookings-tab' />
 					<ActiveComponent />
-				</div>
+				</div> */}
 			</div>
 		);
 	}

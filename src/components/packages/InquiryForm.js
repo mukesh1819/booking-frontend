@@ -15,8 +15,6 @@ import DatePicker from '../shared/Datepicker';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
@@ -39,7 +37,7 @@ class InquiryForm extends Component {
 	}
 
 	render() {
-		const {countries} = this.props;
+		const {countries, package_id} = this.props;
 		const inquiryDetails = {
 			name: '',
 			email_address: '',
@@ -48,8 +46,8 @@ class InquiryForm extends Component {
 			preferred_date: new Date(),
 			preferred_time: '',
 			comments: '',
-			no_of_pax: 0,
-			package_id: null
+			no_of_pax: 1,
+			package_id: package_id
 		};
 		return (
 			<div className='container p-4'>
@@ -60,7 +58,6 @@ class InquiryForm extends Component {
 							searching: true
 						});
 						console.log(values);
-						this.props.setSearchDetails(values);
 						createInquiry(values)
 							.then((response) => {
 								setSubmitting(false);
@@ -70,6 +67,7 @@ class InquiryForm extends Component {
 									icon: 'Success',
 									button: 'Continue'
 								});
+								history.push();
 							})
 							.catch((error) => {
 								console.log('Search Flight Error', error);
