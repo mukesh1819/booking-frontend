@@ -34,10 +34,8 @@ class PackageForm extends Component {
 				console.log('CATEGORIES FETCH ERROR');
 			});
 
-		var params = {
-			partner_id_eq: this.props.partner_id
-		};
-		getPackages(params)
+		var partnerId = this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId
+		getPackages(`q[partner_id_eq]=${partnerId}`)
 			.then((res) => {
 				this.setState({
 					packages: res.data
@@ -57,7 +55,7 @@ class PackageForm extends Component {
 			location: '',
 			description: 'Your package Description',
 			images: [],
-			partner_id: this.props.partnerId,
+			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
 			category_id: null
 		};
 		return (
@@ -190,7 +188,7 @@ class PackageForm extends Component {
 													console.log('Editor is ready to use!', editor);
 												}}
 												onChange={(event, editor) => {
-													const data = editor.getData();
+													const data = event.editor.getData();
 													console.log({event, editor, data});
 												}}
 												onBlur={(event, editor) => {

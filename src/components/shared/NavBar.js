@@ -87,19 +87,38 @@ class NavBar extends Component {
 								visitallnepal.com
 							</Link>
 						</div>
+						
+						
 						<div className='navbar-collapse collapse'>
 							<ul className='navbar-nav ml-auto align-items-center'>
 								<li className='mx-3'>
-									<NavLink
-										className='text-white'
-										to='/partners/new'
-										activeStyle={{
-											textDecoration: 'none',
-											fontWeight: 'bold'
-										}}
-									>
-										Become a partner
-									</NavLink>
+									
+										{currentUser.partner &&
+											<NavLink
+											className='text-white'
+											to={`/partners/package_form/${currentUser.partner.id}`}
+											activeStyle={{
+												textDecoration: 'none',
+												fontWeight: 'bold'
+											}}
+										>
+											Add Packages
+											</NavLink>
+
+										}
+										{ !currentUser.partner &&
+											<NavLink
+											className='text-white'
+											to='/partners/new'
+											activeStyle={{
+												textDecoration: 'none',
+												fontWeight: 'bold'
+											}}
+										>
+											Become a partner
+											</NavLink>
+										}
+										
 								</li>
 								{loggedIn && (
 									<li className='mx-3'>
