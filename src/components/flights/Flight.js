@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
-import Tooltip from '../shared/Tooltip';
 import {isRefundable} from '../../utils/helpers';
 import {connect} from 'react-redux';
 
 const Flight = ({type, flight, selected, onFlightSelect, onFlightDeselect, onViewDetails, searchDetails}) => {
 	console.log(flight);
 	return (
-		<div className='flight-card' key={flight.FlightNo} onClick={() => onViewDetails('OUTBOUND', flight)}>
+		<div className='flight-card card' key={flight.FlightNo} onClick={() => onViewDetails('OUTBOUND', flight)}>
 			<div className='d-flex justify-content-between align-items-center'>
 				<div className='col-2 no-padding'>
 					<img src={flight.AirlineLogo} className='w-100 p-2' />
@@ -33,29 +31,6 @@ const Flight = ({type, flight, selected, onFlightSelect, onFlightDeselect, onVie
 					</div>
 				</div>
 			</div>
-			{/* <div className='d-flex justify-content-between'>
-				<span className='text-small text-muted'>
-					{flight.FlightNo}({flight.FlightClassCode})
-				</span>
-				<Tooltip message='Flight Details'>
-					<i className='icon-info circular-icon' onClick={() => onViewDetails(flight)} />
-				</Tooltip>
-				{!selected && (
-					<span
-						onClick={() => {
-							onFlightSelect(type, flight);
-						}}
-						className='btn d-none'
-					>
-						Book
-					</span>
-				)}
-				{selected && (
-					<Tooltip message='Deselect'>
-						<i className='icon-cross circular-icon' onClick={() => onFlightDeselect(type)} />
-					</Tooltip>
-				)}
-			</div> */}
 		</div>
 	);
 };

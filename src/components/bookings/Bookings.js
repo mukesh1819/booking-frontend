@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import {passCsrfToken} from '../../utils/helpers';
 import moment from 'moment';
 import EmptyContent from '../EmptyContent';
-import Badge from '../shared/Badge';
+import {Badge} from '../shared';
 import Pagination from 'react-pagination-js';
 import 'react-pagination-js/dist/styles.css'; // import css
 

@@ -9,15 +9,11 @@ import {connect} from 'react-redux';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import Counter from '../shared/Counter';
-import DatePicker from '../shared/Datepicker';
+import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper} from '../shared';
 
-import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import LoadingScreen from '../shared/Loading';
-import Stepper from '../shared/Stepper';
 
 class CompanyForm extends Component {
 	constructor(props) {

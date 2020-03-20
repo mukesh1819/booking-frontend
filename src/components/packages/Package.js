@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
-import HotelImage from '../../images/flight.jpg';
 import {imageUrl} from '../../utils/helpers';
 
 const Package = (props) => {
 	const {aPackage} = props;
 
 	return (
-		<div className='card-item '>
+		<div className='card-widget '>
 			<a href={imageUrl(aPackage.images[0])} className='image-popup'>
 				<figure>
 					<div className='overlay d-flex align-items-center justify-content-center'>
 						<div className='text-center'>
-							<Link to={`/package/${aPackage.id}`} className='btn btn-secondary'>
+							<Link to={`/package/${aPackage.id}`} className='btn btn-secondary btn-large'>
 								Book
 							</Link>
-							<Link to={`/package/${aPackage.id}`} className='btn btn-secondary bg-none'>
+							<Link to={`/package/${aPackage.id}`} className='btn btn-secondary btn-large bg-none'>
 								Details
 							</Link>
 						</div>
@@ -24,7 +22,7 @@ const Package = (props) => {
 					<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
 				</figure>
 			</a>
-			<div className='details-text'>
+			<div className='details'>
 				<Link to={`/package/${aPackage.id}`}>
 					<h3>{aPackage.name}</h3>
 				</Link>

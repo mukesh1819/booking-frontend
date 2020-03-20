@@ -6,11 +6,11 @@ import SocialLinks from '../sessions/SocialLinks';
 
 function Slidebar({items = [], isVisible, onHide}) {
 	return (
-		<div className={`sidebar d-md-none ${isVisible ? 'show' : 'closed'}`}>
+		<div className={`side-nav slide d-md-none ${isVisible ? 'show' : 'closed'}`}>
 			<div className='list-group'>
 				{items.map(({label, name, details, icon, value, link, ...rest}) => (
 					<div
-						className='list-group-item d-flex align-items-center'
+						className='sidebar-item d-flex align-items-center'
 						key={name}
 						onClick={() => {
 							history.push(link);
@@ -28,12 +28,12 @@ function Slidebar({items = [], isVisible, onHide}) {
 					</div>
 				))}
 				<hr />
-				<div className='list-group-item d-flex justify-content-between' key='flights'>
+				<div className='sidebar-item d-flex justify-content-between' key='flights'>
 					<span>
 						<i class='fas fa-plane-departure  p-2 text-primary' /> {'Flights'}
 					</span>
 				</div>
-				<div className='list-group-item d-flex justify-content-between' key='packages'>
+				<div className='sidebar-item d-flex justify-content-between' key='packages'>
 					<span>
 						<i class='fab fa-fort-awesome p-2 text-primary' />
 						{'Packages'}

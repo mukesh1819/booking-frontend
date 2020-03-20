@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {getCities, getFlight} from '../../api/flightApi';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import DatePicker from '../shared/Datepicker';
+import {DatePicker, Counter, Loading as LoadingScreen, Modal, IconInput, Dropdown as DropdownItem} from '../shared';
 import {getFlights} from '../../api/flightApi';
 import FlightList from './FlightList';
 import {Formik, Form, Field} from 'formik';
@@ -11,22 +11,14 @@ import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays} from '../../utils/helpers';
 import {connect} from 'react-redux';
 import {setFlights, setSearchDetails} from '../../redux/actions/flightActions';
-import store from '../../redux/store';
 import history from '../../history';
 import {Container, Segment} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import Counter from '../shared/Counter';
-import DropdownItem from '../shared/Dropdown';
-
-import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
-import LoadingScreen from '../shared/Loading';
-import SweetAlert from 'react-bootstrap-sweetalert';
 import {Dropdown} from 'semantic-ui-react';
-import Modal from '../shared/Modal';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Radio} from 'semantic-ui-react';
@@ -218,16 +210,14 @@ class SearchBar extends Component {
 											})}
 										/>
 										<ErrorMessage name='strSectorFrom' />
-										<div>
-											<div className='toggle-sector'>
-												<i
-													className='fas fa-exchange-alt'
-													onClick={() => {
-														setFieldValue('strSectorTo', values.strSectorFrom);
-														setFieldValue('strSectorFrom', values.strSectorTo);
-													}}
-												/>
-											</div>
+										<div className='toggle-sector'>
+											<i
+												className='fas fa-exchange-alt'
+												onClick={() => {
+													setFieldValue('strSectorTo', values.strSectorFrom);
+													setFieldValue('strSectorFrom', values.strSectorTo);
+												}}
+											/>
 										</div>
 									</div>
 									<div className='field-box form-group'>
@@ -403,7 +393,7 @@ class SearchBar extends Component {
 									</div>
 									<div class='field-box text-center'>
 										<button
-											className='btn btn-secondary search-btn'
+											className='btn btn-secondary btn-large'
 											type='submit'
 											disabled={isSubmitting}
 										>

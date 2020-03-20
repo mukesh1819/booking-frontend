@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
-import Tooltip from '../shared/Tooltip';
-import DataTable from '../shared/DataTable';
+import {DataTable} from '../shared';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../utils/helpers';
 import EditUserForm from '../users/EditUserForm';
 import {getUsers} from '../../api/userApi';
-
 
 class UsersList extends Component {
 	constructor(props) {
@@ -83,14 +80,16 @@ class UsersList extends Component {
 										</td>
 
 										<td>
-											<Link to=
-												{{
+											<Link
+												to={{
 													pathname: '/admin/email',
-													state:{
+													state: {
 														user: user
 													}
 												}}
-											>Contact</Link>
+											>
+												Contact
+											</Link>
 										</td>
 									</tr>
 								);

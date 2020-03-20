@@ -10,14 +10,11 @@ import {connect} from 'react-redux';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import Counter from '../shared/Counter';
-import DatePicker from '../shared/Datepicker';
+import {Counter, IconInput, Loading as LoadingScreen, DatePicker} from '../shared';
 
-import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import LoadingScreen from '../shared/Loading';
 import {createInquiry} from '../../api/inquiryApi';
 
 class InquiryForm extends Component {
@@ -208,11 +205,7 @@ class InquiryForm extends Component {
 								</div>
 							</div>
 							<div class='text-center'>
-								<button
-									className='search-btn btn btn-secondary m-2'
-									type='submit'
-									disabled={isSubmitting}
-								>
+								<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
 									Submit
 								</button>
 							</div>

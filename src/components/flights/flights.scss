@@ -84,17 +84,6 @@
             padding: 20px 30px;
         }
 
-        input,
-        select,
-        .custom-dropdown {
-            font-size: 16px;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none !important;
-        }
-
         .btn-dropdown {
             font-weight: normal;
 
@@ -109,10 +98,6 @@
     }
 }
 
-.form-control {
-    font-size: 16px;
-}
-
 #passenger-form {
     form {
         width: 100%;
@@ -120,7 +105,6 @@
     }
 
     .card {
-        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
         margin-bottom: 8px;
     }
 
@@ -137,13 +121,9 @@
     }
 }
 
-.page {
-    padding: 4px;
-    background-color: $gray-darker;
-}
-
 .field-box {
     width: -webkit-fill-available;
+    position: relative;
 
     &:last-child {
         margin-right: 0px;
@@ -157,21 +137,11 @@
             display: block;
         }
     }
-
-    &-40 {
-        width: 40rem;
-    }
 }
 
 .flight-card {
     width: 100%;
-    position: relative;
-    background: $white;
-    overflow: hidden;
-    z-index: 9;
-    bottom: 0;
     margin: 4px 0px;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 
     @include transition(.3s);
     // @include border-radius(10px);
@@ -183,63 +153,11 @@
         @include transition(.3s);
     }
 
-    .details-text {
-        padding: 0px 10px 10px 20px;
-        box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.19);
-
-        h2,
-        span {
-            text-decoration: none !important;
-        }
-
-        h2 {
-            font-size: 20px;
-            font-weight: 400;
-            margin: 0 0 10px 0;
-            color: $primary;
-        }
-
-        span {
-            color: lighten($black, 70%);
-            font-size: 16px;
-            font-weight: 400;
-        }
-
-        p {
-            color: $black;
-            @include transition(.5s);
-        }
-
-        span.btn {
-            opacity: 1;
-            visibility: visible;
-            bottom: 0;
-            background: lighten($black, 10%);
-            border: 2px solid lighten($black, 10%) !important;
-            // bottom: -20px;
-            position: relative;
-            @include transition(.5s);
-        }
-    }
-
     &:hover,
     &:focus {
         box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.08);
         -webkit-transition: all 0.3s ease;
-
-        span.btn {
-            opacity: 1;
-            visibility: visible;
-            bottom: 0px;
-            border: 2px solid lighten($primary, 5%) !important;
-            background: lighten($primary, 5%) !important;
-        }
     }
-}
-
-.modal-header {
-    padding: 0.5rem 1rem !important;
-    background-color: $primary;
 }
 
 .line-from-to {
@@ -251,7 +169,7 @@
 .toggle-trip {
     position: absolute;
     right: 4px;
-    top: 122px;
+    top: 5px;
     display: table;
 
     @include tablet {
@@ -284,22 +202,13 @@
     }
 }
 
-select::-ms-expand {
-    display: none;
-}
-
-select {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-}
-
 .filter-flights {
     .custom-dropdown {
         padding: 10px;
         border: 1px solid;
     }
 
-    .custom-dropdown-menu {
+    .menu {
         border: 1px solid $gray;
         z-index: 1020;
 
@@ -320,10 +229,8 @@ select {
 }
 
 .airline-logos {
-    img {
-        width: 70px;
-        margin-right: 8px;
-    }
+    width: 70px;
+    margin-right: 8px;
 }
 
 .counter {

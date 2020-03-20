@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
-import Tooltip from '../shared/Tooltip';
-import DataTable from '../shared/DataTable';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../utils/helpers';
-import EditUserForm from '../users/EditUserForm';
 import {getPackages} from '../../api/packageApi';
 
 class PackagesList extends Component {

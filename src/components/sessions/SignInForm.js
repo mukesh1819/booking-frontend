@@ -4,7 +4,7 @@ import {signIn} from '../../api/sessions';
 import history from '../../history';
 import {loginUser} from '../../redux/actions/sessions';
 import {connect} from 'react-redux';
-import NavBar from '../NavBar';
+import {NavBar} from '../shared';
 import {Link, Redirect} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
 

@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
-import Tooltip from '../shared/Tooltip';
+import {Tooltip} from '../shared';
 import Flight from './Flight';
 import {connect} from 'react-redux';
 import {isRefundable} from '../../utils/helpers';
@@ -18,7 +17,10 @@ const FlightCombination = ({
 	const inboundFlight = flight.inbound;
 	const outboundFlight = flight.outbound;
 	return (
-		<div className='flight-card d-flex align-items-center' onClick={() => onViewDetails('COMBINATION', flight)}>
+		<div
+			className='flight-card card d-flex align-items-center'
+			onClick={() => onViewDetails('COMBINATION', flight)}
+		>
 			<div className='flex-grow-1'>
 				<div className='d-flex justify-content-between align-items-center'>
 					<div className='no-padding'>
@@ -62,11 +64,6 @@ const FlightCombination = ({
 						<span className='text-strong '>{flight.total_fare}</span>
 						<div class='text-smaller text-muted'>{isRefundable(flight.Refundable)}</div>
 					</div>
-					{/* {selected && (
-					<Tooltip message='Deselect'>
-						<i className='icon-cross circular-icon' onClick={() => onFlightDeselect(type)} />
-					</Tooltip>
-				)} */}
 				</div>
 			</div>
 		</div>

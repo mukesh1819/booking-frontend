@@ -1,6 +1,5 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import './footer.scss';
 
 const Footer = () => (
 	<footer id='footer' role='contentinfo'>
@@ -32,7 +31,7 @@ const Footer = () => (
 				</div>
 				<div className=''>
 					<span className=''>
-						<ul className='footer-social-icons'>
+						<ul className='social-icons'>
 							<li>
 								<a href='#'>
 									<i className='icon-twitter' />
@@ -56,75 +55,6 @@ const Footer = () => (
 						</ul>
 					</span>
 				</div>
-
-				{/* <div className='col-md-4 col-md-push-1'>
-					<div className='footer-widget'>
-						<h3>Destination</h3>
-						<ul className='footer-links'>
-							<li>
-								<a href='#'>Pokhara</a>
-							</li>
-							<li>
-								<a href='#'>Lumbini</a>
-							</li>
-							<li>
-								<a href='#'>Mustang</a>
-							</li>
-							<li>
-								<a href='#'>Jiri</a>
-							</li>
-							<li>
-								<a href='#'>Rara</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div className='col-md-2 col-md-push-1'>
-					<div className='footer-widget'>
-						<h3>Hotels</h3>
-						<ul className='footer-links'>
-							<li>
-								<a href='#'>ABC Hotel</a>
-							</li>
-							<li>
-								<a href='#'>Everest Hotel</a>
-							</li>
-							<li>
-								<a href='#'>Hotel Annapurna</a>
-							</li>
-							<li>
-								<a href='#'>Deluxe Hotel</a>
-							</li>
-							<li>
-								<a href='#'>Summit Hotel</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div className='col-md-3 col-md-push-1'>
-					<div className='footer-widget'>
-						<h3>Get In Touch</h3>
-						<ul className='footer-quick-contact'>
-							<li>
-								<a href='#'>
-									<i className='icon-phone' /> +977 9818311488
-								</a>
-							</li>
-							<li>
-								<a href='#'>
-									<i className='icon-mail2' /> info@bookingnepal.com
-								</a>
-							</li>
-							<li>
-								<a href='#'>
-									<i className='icon-chat' /> Live Chat
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div> */}
 			</div>
 			<hr className='m-0' />
 			<div className='d-flex justify-content-between align-items-center p-1'>

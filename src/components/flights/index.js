@@ -3,9 +3,7 @@ import SearchFlightForm from './SearchFlightForm';
 import FlightList from './FlightList';
 import PackageList from '../packages/PackageList';
 import './flights.scss';
-import TabView from '../shared/TabView';
-import Slidebar from '../shared/Slidebar';
-import Banner from '../shared/Banner';
+import {TabView, Slidebar, Banner} from '../shared';
 import {Tabs, Tab} from 'react-bootstrap';
 import {Categories} from '../categories';
 

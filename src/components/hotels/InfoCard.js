@@ -5,14 +5,14 @@ import HotelImage from '../../images/flight.jpg';
 
 const InfoCard = (props) => (
 	<div className=''>
-		<a href={HotelImage} className='card-item image-popup'>
+		<a href={HotelImage} className='card-widget image-popup'>
 			<figure>
 				<div className='overlay'>
 					<i className='ti-plus' />
 				</div>
 				<img src={HotelImage} alt='Image' className='img-responsive' />
 			</figure>
-			<div className='details-text'>
+			<div className='details'>
 				<h2>Kathmandu, Nepal</h2>
 				<p>Far far away, behind the word mountains, far from the countries</p>
 				<p>

@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
-import Tooltip from '../shared/Tooltip';
-import UsersList from './UsersList';
-import {passCsrfToken} from '../../utils/helpers';
-import axios from 'axios';
 import {getAdminDashboard} from '../../api/flightApi';
 
 class Dashboard extends Component {
@@ -127,7 +122,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						</div>
-					</div>					
+					</div>
 
 					<div className='widget col-sm-12 col-md-4'>
 						<div className='card'>
@@ -144,8 +139,6 @@ class Dashboard extends Component {
 					</div>
 				</div>
 			</div>
-
-			
 		);
 	}
 }

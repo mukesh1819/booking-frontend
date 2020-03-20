@@ -2,22 +2,8 @@ import React, {Component} from 'react';
 import CKEditor from 'ckeditor4-react';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
-import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../utils/helpers';
 import {connect} from 'react-redux';
-import history from '../../history';
-import {Container, Segment, Dropdown} from 'semantic-ui-react';
-import {Button, ButtonGroup} from 'react-bootstrap';
-import Counter from '../shared/Counter';
-import DatePicker from '../shared/Datepicker';
-
-import IconInput from '../shared/IconInput';
-import {Input} from 'semantic-ui-react';
-import moment from 'moment';
-import ReactDOM from 'react-dom';
-import LoadingScreen from '../shared/Loading';
-import Stepper from '../shared/Stepper';
-import Thumb from '../shared/Thumb';
+import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb} from '../shared';
 import {createPackage} from '../../api/packageApi';
 import {getCategories} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
@@ -218,11 +204,7 @@ class PackageForm extends Component {
 										</div>
 									</div>
 									<div class='text-center'>
-										<button
-											className='search-btn btn btn-secondary m-2'
-											type='submit'
-											disabled={isSubmitting}
-										>
+										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
 											Submit
 										</button>
 									</div>

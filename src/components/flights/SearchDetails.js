@@ -1,10 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
-import Tooltip from '../shared/Tooltip';
-import {isRefundable} from '../../utils/helpers';
 import {connect} from 'react-redux';
-import history from '../../history';
 import moment from 'moment';
 import SearchBar from './SearchBar';
 
@@ -16,7 +11,7 @@ const SearchDetails = ({details, collapsed}) => {
 	}
 
 	return (
-		<div className='flight-card'>
+		<div className='card'>
 			<div className='d-flex justify-content-around align-items-center p-3'>
 				<div>
 					<div className=''>

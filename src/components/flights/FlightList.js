@@ -3,7 +3,7 @@ import Flight from './Flight';
 import FlightCombination from './FlightCombination';
 import {sortBy} from 'lodash';
 import {Button} from 'react-bootstrap';
-import ModalExample from '../shared/Modal';
+import {Modal as ModalExample} from '../shared';
 import FlightDetails from './FlightDetails';
 import FlightCombinedDetails from './FlightCombinedDetails';
 import TableView from '../TableView';
@@ -16,7 +16,7 @@ import SearchFlightForm from './SearchFlightForm';
 import SearchDetails from './SearchDetails';
 import EmptyContent from '../EmptyContent';
 import history from '../../history';
-import DropdownItem from '../shared/Dropdown';
+import {Dropdown as DropdownItem} from '../shared';
 import {Form} from 'react-bootstrap';
 
 require('./flights.scss');
@@ -45,7 +45,7 @@ const sorters = [
 ];
 
 const Sort = ({sortKey, onSort, isActive, children}) => (
-	<Button variant='secondary' className={isActive ? 'active' : ''} onClick={() => onSort(sortKey)}>
+	<Button variant='secondary' className={`rounded-0 ${isActive ? 'active' : ''}`} onClick={() => onSort(sortKey)}>
 		{children}
 	</Button>
 );

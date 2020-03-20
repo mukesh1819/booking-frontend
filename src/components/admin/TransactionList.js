@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {Button, ButtonToolbar, Modal} from 'react-bootstrap';
-import TransactionDetails from './TransactionDetails';
 import {getUserTransaction} from '../../api/transactionApi';
 import {passCsrfToken} from '../../utils/helpers';
 import axios from 'axios';
@@ -12,8 +10,7 @@ import {Tabs, Tab} from 'react-bootstrap';
 import UserDetailCard from '../users/UserDetailCard';
 import BookingDetails from './BookingDetails';
 import TransactionApiResponse from './TransactionApiResponse';
-import ModalExample from '../shared/Modal';
-import {ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup} from 'reactstrap';
+import {Modal as ModalExample} from '../shared';
 
 class TransactionList extends Component {
 	constructor(props) {

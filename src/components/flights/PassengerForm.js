@@ -13,7 +13,7 @@ import {setBooking} from '../../redux/actions/bookingActions';
 import ErrorMessage from '../ErrorMessage';
 import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
-import Timer from '../shared/Timer';
+import {Timer, Accordion} from '../shared';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown, Input} from 'semantic-ui-react';
 
@@ -26,9 +26,7 @@ import {passCsrfToken} from '../../utils/helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
-import Accordion from '../shared/Accordion';
 import {sortObjectBy} from '../../utils/helpers';
-
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -150,48 +148,42 @@ class PassengerForm extends Component {
 								<div className='field-box'>
 									<label>Contact Phone</label>
 									<Input
-									label={
-										<Dropdown  
-											className='dropdown'
-											defaultValue={values.user.code}
-											name='user.code'
-											placeholder='Select Code'
-											onBlur={handleBlur}
-											onChange={(e, data) => {
-												setFieldValue(
-													`user.code`,
-													data.value
-												);
-											}}
-											value={values.user.code}
-											fluid
-											search
-											selection
-											options= {sortedCountries.map((country) => {
-														return {
-															 key: country.id,
-															 value: country.country_code,
-															 text:country.country_code,
-															 flag: country.country_char.toLowerCase()
-
-															
-														}
-													})}
-										/>}
+										label={
+											<Dropdown
+												className='dropdown'
+												defaultValue={values.user.code}
+												name='user.code'
+												placeholder='Select Code'
+												onBlur={handleBlur}
+												onChange={(e, data) => {
+													setFieldValue(`user.code`, data.value);
+												}}
+												value={values.user.code}
+												fluid
+												search
+												selection
+												options={sortedCountries.map((country) => {
+													return {
+														key: country.id,
+														value: country.country_code,
+														text: country.country_code,
+														flag: country.country_char.toLowerCase()
+													};
+												})}
+											/>
+										}
 										labelPosition='left'
 										placeholder='Contact Phone'
 										type='text'
 										name='user.phone_number'
-										className= "semantic-input-group"
+										className='semantic-input-group'
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.user.phone_number}
 									/>
-
 								</div>
-								
 
-{/* 
+								{/* 
 								<div className='field-box'>
 									<label>Code</label>
 									<Field

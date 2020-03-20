@@ -4,7 +4,7 @@ import Profile from './Profile';
 import Bookings from '../bookings/Bookings';
 import './users.scss';
 import '../shared/tab.scss';
-import Sidebar from '../shared/Sidebar';
+import {Sidebar} from '../shared';
 
 const Transactions = () => 'Transactions';
 const Reports = () => 'Reports';

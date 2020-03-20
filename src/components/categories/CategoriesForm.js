@@ -6,16 +6,11 @@ import {passCsrfToken, subDays, addDays} from '../../utils/helpers';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import Counter from '../shared/Counter';
-import DatePicker from '../shared/Datepicker';
 
-import IconInput from '../shared/IconInput';
+import {Counter, DatePicker, IconInput, Loading as LoadingScreen, Stepper, Thumb} from '../shared';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import LoadingScreen from '../shared/Loading';
-import Stepper from '../shared/Stepper';
-import Thumb from '../shared/Thumb';
 import {createPackage} from '../../api/packageApi';
 import {getCategories, createCategory, updateCategory} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
@@ -136,7 +131,7 @@ class CategoriesForm extends Component {
 
 										<div class='text-center'>
 											<button
-												className='search-btn btn btn-secondary m-2'
+												className='btn btn-secondary m-2'
 												type='submit'
 												disabled={isSubmitting}
 											>

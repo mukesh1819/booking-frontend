@@ -9,15 +9,11 @@ import {connect} from 'react-redux';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import Counter from '../shared/Counter';
-import DatePicker from '../shared/Datepicker';
+import {Counter, DatePicker, IconInput, Loading as LoadingScreen, Stepper} from '../shared';
 
-import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import LoadingScreen from '../shared/Loading';
-import Stepper from '../shared/Stepper';
 import PartnerForm from './PartnerForm';
 import CompanyForm from './CompanyForm';
 import PackageForm from './PackageForm';

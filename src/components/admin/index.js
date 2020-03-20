@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Dashboard from './Dashboard';
-import Sidebar from '../shared/Sidebar';
-import UsersList from './UsersList';
+import {Sidebar} from '../shared';
 
 export default class Admin extends Component {
 	constructor(props) {

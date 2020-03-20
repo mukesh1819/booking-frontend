@@ -1,7 +1,7 @@
 import React from 'react';
 import {Placeholder} from 'semantic-ui-react';
 
-const Placeholder = () => (
+const PlaceholderDiv = () => (
 	<Placeholder>
 		<Placeholder.Header image>
 			<Placeholder.Line />
@@ -16,4 +16,4 @@ const Placeholder = () => (
 	</Placeholder>
 );
 
-export default Placeholder;
+export default PlaceholderDiv;

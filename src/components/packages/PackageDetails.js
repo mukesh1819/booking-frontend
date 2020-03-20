@@ -3,7 +3,7 @@ import {showPackage} from '../../api/packageApi';
 import Package from './Package';
 import HotelImage from '../../images/flight.jpg';
 import {Link} from 'react-router-dom';
-import ModalExample from '../shared/Modal';
+import {Modal as ModalExample} from '../shared';
 import InquiryForm from './InquiryForm';
 import {imageUrl} from '../../utils/helpers';
 

@@ -30,11 +30,11 @@ export default ({children, className, icon, title, position = 'left', ...rest}) 
 				<Dropdown.Toggle id='dropdown-basic' className={`dropdown form-control ${className}`} />
 				<Dropdown.Menu className='p-1 dropdown-menu-right'>{children}</Dropdown.Menu>
 			</Dropdown> */}
-			<div className={`custom-dropdown ${className}`} onClick={() => setDrop(!dropped)}>
+			<div className={`dropdown custom-dropdown ${className}`} onClick={() => setDrop(!dropped)}>
 				<i className={`${icon} m-0`} /> {title} <i className='icon-chevron-down' />
-			</div>
-			<div ref={wrapperRef} className={`custom-dropdown-menu right-0 ${dropped ? 'open' : 'd-none'}`}>
-				{children}
+				<div ref={wrapperRef} className={`menu right-0 ${dropped ? 'open' : 'd-none'}`}>
+					{children}
+				</div>
 			</div>
 		</div>
 	);

@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {logoutUser} from '../redux/actions/sessions';
-import {setCurrency} from '../redux/actions/bookingActions';
+import {logoutUser} from '../../redux/actions/sessions';
+import {setCurrency} from '../../redux/actions/bookingActions';
 import {connect} from 'react-redux';
-import store from '../redux/store';
-import {logout, userInitials} from '../utils/helpers';
-import Slidebar from './shared/Slidebar';
-import Dropdown from './shared/Dropdown';
-import SignUpForm from './sessions/SignInForm';
-import Currencies from './users/Currencies';
+import store from '../../redux/store';
+import {logout, userInitials} from '../../utils/helpers';
+import Slidebar from './Slidebar';
+import Dropdown from './Dropdown';
+import SignUpForm from '../sessions/SignInForm';
+import Currencies from '../users/Currencies';
 import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
-import history from '../history';
+import history from '../../history';
 import axios from 'axios';
 import {Flag, Segment} from 'semantic-ui-react';
 
