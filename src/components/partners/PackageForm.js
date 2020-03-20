@@ -13,8 +13,6 @@ import DatePicker from '../shared/Datepicker';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
@@ -157,20 +155,6 @@ class PackageForm extends Component {
 												/>
 											</IconInput>
 											<ErrorMessage name='location' />
-										</div>
-
-										<div className='field-box'>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													hidden
-													name='partner_id'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.partner_id}
-												/>
-											</IconInput>
-											<ErrorMessage name='partner_id' />
 										</div>
 
 										<div className='field-box'>

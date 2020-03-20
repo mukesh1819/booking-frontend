@@ -16,7 +16,7 @@ const FacebookButton = ({onClick}) => (
 		<a className='btn bg-fb disabled'>
 			<i className='icon-facebook' />
 		</a>
-		<span className='btn bg-fb text-white'>Facebook</span>
+		<span className='btn bg-fb text-white fb-auth-btn'>Facebook</span>
 	</div>
 );
 
@@ -63,39 +63,34 @@ class SocialLinks extends Component {
 	render() {
 		return (
 			<div className='row'>
-				<div className='btn-group col-6'>
-					<a className='btn btn-danger disabled'>
-						<i className='icon-google' />
-					</a>
-					<a className='btn btn-danger' href={GOOGLE_AUTH_URL}>
-						Google
-					</a>
-				</div>
-				<GoogleAPI
-					clientId='992913406489-fn9i74pm87a5iodelu298r1qh1fgl6vm.apps.googleusercontent.com'
-					onUpdateSigninStatus={(f) => console.log('f', f)}
-					onInitFailure={(data) => console.log('filed', data)}
-				>
-					<div>
+				<div className='col-6'>
+					<GoogleAPI
+						clientId='992913406489-fn9i74pm87a5iodelu298r1qh1fgl6vm.apps.googleusercontent.com'
+						onUpdateSigninStatus={(f) => console.log('f', f)}
+						onInitFailure={(data) => console.log('filed', data)}
+					>
 						<div>
-							<GoogleLogin
-								onLoginSuccess={(data) => this.googleAuthorize(data)}
-								onLoginFailure={(data) => failureAuthorize(data)}
-								onRequest={(data) => console.log('request', data)}
-							/>
-						</div>
-						<div>
+							<div>
+								<GoogleLogin
+									onLoginSuccess={(data) => this.googleAuthorize(data)}
+									onLoginFailure={(data) => failureAuthorize(data)}
+									onRequest={(data) => console.log('request', data)}
+								/>
+							</div>
+							{/* <div>
 							<GoogleLogout onLogoutSuccess={(data) => console.log('logout', data)} />
+						</div> */}
 						</div>
-					</div>
-				</GoogleAPI>
-
-				<FacebookAuth
-					appId='861581940937199'
-					callback={(data) => this.fbAuthorize(data)}
-					component={FacebookButton}
-					onFailure={(data) => failureAuthorize(data)}
-				/>
+					</GoogleAPI>
+				</div>
+				<div className='col-6'>
+					<FacebookAuth
+						appId='861581940937199'
+						callback={(data) => this.fbAuthorize(data)}
+						component={FacebookButton}
+						onFailure={(data) => failureAuthorize(data)}
+					/>
+				</div>
 			</div>
 		);
 	}

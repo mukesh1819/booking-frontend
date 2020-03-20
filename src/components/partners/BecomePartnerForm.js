@@ -14,8 +14,6 @@ import DatePicker from '../shared/Datepicker';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
@@ -30,19 +28,18 @@ class BecomePartnerForm extends Component {
 			partnerId: null,
 			step: 1
 		};
-		this.nextStep = this.nextStep.bind(this);
 	}
 
 	componentDidMount() {}
 
-	nextStep(data) {
+	nextStep = (data) => {
 		this.setState((prevState) => {
 			return {
 				step: (prevState.step += 1),
 				partnerId: data.id
 			};
 		});
-	}
+	};
 
 	render() {
 		const {partnerId, step} = this.state;

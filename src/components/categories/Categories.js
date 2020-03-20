@@ -20,7 +20,7 @@ class Categories extends Component {
 
 	fetchDetails() {
 		const options = {
-			margin: 20,
+			margin: 10,
 			loop: true,
 			touchDrag: true,
 			rewind: true,
@@ -28,7 +28,7 @@ class Categories extends Component {
 			responsive: {
 				0: {
 					items: 1,
-					nav: true
+					nav: false
 				},
 				600: {
 					items: 3,
@@ -36,7 +36,7 @@ class Categories extends Component {
 				},
 				1000: {
 					items: 4,
-					nav: true,
+					nav: false,
 					loop: false
 				}
 			}
@@ -56,11 +56,12 @@ class Categories extends Component {
 				{this.state.categories.map((category) => {
 					return (
 						<div>
-							<h4>{category.name}</h4>
+							<h2 className='border-btm title'>{category.name}</h2>
 							<div className='owl-carousel owl-theme'>
 								{category.packages.length > 0 &&
-									<Package aPackages={category.packages} />
-								}
+									category.packages.map((aPackage) => {
+										return <Package aPackage={aPackage} />;
+									})}
 							</div>
 						</div>
 					);

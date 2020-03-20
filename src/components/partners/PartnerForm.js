@@ -14,8 +14,6 @@ import DatePicker from '../shared/Datepicker';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
@@ -33,11 +31,11 @@ class PartnerForm extends Component {
 
 	render() {
 		const {partnerIsValid} = this.state;
-		const {countries, nextStep} = this.props;
+		const {countries, currentUser, nextStep} = this.props;
 		const partnerDetails = {
-			name: '',
-			email: '',
-			contact_number: ''
+			name: currentUser.name,
+			email: currentUser.email,
+			contact_number: currentUser.phone_number
 		};
 		return (
 			<div className='container'>
@@ -139,8 +137,9 @@ class PartnerForm extends Component {
 	}
 }
 
-const mapStateToProps = ({extras}) => ({
-	countries: extras.countries
+const mapStateToProps = ({extras, userStore}) => ({
+	countries: extras.countries,
+	currentUser: userStore.currentUser
 });
 
 const mapDispatchToProps = {};

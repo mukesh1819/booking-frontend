@@ -11,8 +11,6 @@ import DatePicker from '../shared/Datepicker';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
@@ -25,17 +23,16 @@ import {getPackages} from '../../api/packageApi';
 class CategoriesForm extends Component {
 	constructor(props) {
 		super(props);
-    }
-    
-	render() {
-        const {category} = this.props.location.state != null? this.props.location.state : {category:{}}
+	}
 
-        
-        const initialParams = {
-            name: category.name,
-            order: category.order
-        };
-		
+	render() {
+		const {category} = this.props.location.state != null ? this.props.location.state : {category: {}};
+
+		const initialParams = {
+			name: category.name,
+			order: category.order
+		};
+
 		return (
 			<div className='container'>
 				<div className='card'>
@@ -47,54 +44,52 @@ class CategoriesForm extends Component {
 								this.setState({
 									searching: true
 								});
-                                console.log(values);
-                                if(category.id != null){
-                                    updateCategory(category.id, values)
-                                    .then((response) => {
-										setSubmitting(false);
-                                        // nextStep(response.data);
-                                        swal({
-											title: 'Category updated Successful!',
-											text: response.data.message,
-											icon: 'success',
-											button: 'continue!'
+								console.log(values);
+								if (category.id != null) {
+									updateCategory(category.id, values)
+										.then((response) => {
+											setSubmitting(false);
+											// nextStep(response.data);
+											swal({
+												title: 'Category updated Successful!',
+												text: response.data.message,
+												icon: 'success',
+												button: 'continue!'
+											});
+										})
+										.catch((error) => {
+											console.log('Create Package Error', error);
+											setSubmitting(false);
+											swal({
+												title: 'Sorry!',
+												text: error.message,
+												icon: 'error',
+												button: 'Try Again!'
+											});
 										});
-									})
-									.catch((error) => {
-										console.log('Create Package Error', error);
-										setSubmitting(false);
-										swal({
-											title: 'Sorry!',
-											text: error.message,
-											icon: 'error',
-											button: 'Try Again!'
+								} else {
+									createCategory(values)
+										.then((response) => {
+											setSubmitting(false);
+											// nextStep(response.data);
+											swal({
+												title: 'Category created Success!',
+												text: response.data.message,
+												icon: 'success',
+												button: 'continue!'
+											});
+										})
+										.catch((error) => {
+											console.log('Create Package Error', error);
+											setSubmitting(false);
+											swal({
+												title: 'Sorry!',
+												text: error.message,
+												icon: 'error',
+												button: 'Try Again!'
+											});
 										});
-									});
-                                }
-                                else{
-                                    createCategory(values)
-									.then((response) => {
-										setSubmitting(false);
-                                        // nextStep(response.data);
-                                        swal({
-											title: 'Category created Success!',
-											text: response.data.message,
-											icon: 'success',
-											button: 'continue!'
-										});
-									})
-									.catch((error) => {
-										console.log('Create Package Error', error);
-										setSubmitting(false);
-										swal({
-											title: 'Sorry!',
-											text: error.message,
-											icon: 'error',
-											button: 'Try Again!'
-										});
-									});
-                                }
-								
+								}
 							}}
 						>
 							{({
@@ -139,16 +134,16 @@ class CategoriesForm extends Component {
 											<ErrorMessage name='order' />
 										</div>
 
-									<div class='text-center'>
-										<button
-											className='search-btn btn btn-secondary m-2'
-											type='submit'
-											disabled={isSubmitting}
-										>
-											Submit
-										</button>
+										<div class='text-center'>
+											<button
+												className='search-btn btn btn-secondary m-2'
+												type='submit'
+												disabled={isSubmitting}
+											>
+												Submit
+											</button>
+										</div>
 									</div>
-                                    </div>
 								</form>
 							)}
 						</Formik>
@@ -158,6 +153,5 @@ class CategoriesForm extends Component {
 		);
 	}
 }
-
 
 export default CategoriesForm;

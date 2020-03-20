@@ -57,7 +57,7 @@ class PackageDetails extends Component {
 		const {aPackage} = this.state;
 		return (
 			<div className='package-details'>
-				<div className='header card m-2'>
+				<div className='header card'>
 					<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
 
 					<div className='card-body'>
@@ -98,7 +98,7 @@ class PackageDetails extends Component {
 					toggle={this.onSelect}
 					onSuccess={this.onBook}
 				>
-					{this.state.showInquiryForm && <InquiryForm package_id= {aPackage.id} />}
+					{this.state.showInquiryForm && <InquiryForm package_id={aPackage.id} />}
 				</ModalExample>
 			</div>
 		);

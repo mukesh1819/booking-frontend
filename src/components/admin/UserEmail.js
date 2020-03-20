@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Formik, Form, Field} from 'formik';
-import TextField from '@material-ui/core/TextField';
+import {Formik} from 'formik';
+import {Form, TextArea} from 'semantic-ui-react';
 import {sendUserEmail} from '../../api/userApi';
 import swal from 'sweetalert';
 
@@ -80,45 +80,31 @@ const UserEmail = (props) => {
 				}) => (
 					<form onSubmit={handleSubmit}>
 						<div className='container mt-5 pt-5'>
-							<div className='row ml-5 pl-5'>
-								<label htmlFor='' className='font-weight-bold'>
-									subject
-								</label>
-							</div>
 							<div className='row'>
 								<div className='offset-1 col-9'>
-									<input
-										type='text'
-										name='subject'
-										label='subject'
-										className='mb-3 col-12'
-										placeholder='Email subject'
-										defaultValue='Email subject'
-										onChange={handleChange}
-										onBlur={handleBlur}
-										value={values.subject}
-									/>
-								</div>
-							</div>
-							<div className='row'>
-								<div className='offset-1 col-9'>
-									<TextField
-										type='text'
-										className='mb-3'
-										label='Description'
-										multiline
-										rows='4'
-										style={{width: '825px'}}
-										variant='outlined'
-										onChange={handleChange}
-										onBlur={handleBlur}
-										defaultValue='Email Text'
-										name='description'
-										value={values.description}
-									/>
-									<button type='submit' disabled={isSubmitting}>
-										Submit
-									</button>
+									<Form>
+										<Form.Field>
+											<label className='font-weight-bold'>Subject</label>
+											<input
+												name='subject'
+												placeholder='Subject'
+												onChange={handleChange}
+												onBlur={handleBlur}
+												value={values.subject}
+											/>
+										</Form.Field>
+										<TextArea
+											name='description'
+											onChange={handleChange}
+											onBlur={handleBlur}
+											placeholder='Message'
+											style={{minHeight: 100}}
+											value={values.description}
+										/>
+										<button className='btn btn-secondary' type='submit' disabled={isSubmitting}>
+											Submit
+										</button>
+									</Form>
 								</div>
 							</div>
 						</div>

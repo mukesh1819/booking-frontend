@@ -5,7 +5,7 @@ import {setCurrency} from '../redux/actions/bookingActions';
 import {connect} from 'react-redux';
 import store from '../redux/store';
 import {logout, userInitials} from '../utils/helpers';
-import Sidebar from './shared/Sidebar';
+import Slidebar from './shared/Slidebar';
 import Dropdown from './shared/Dropdown';
 import SignUpForm from './sessions/SignInForm';
 import Currencies from './users/Currencies';
@@ -68,7 +68,7 @@ class NavBar extends Component {
 		];
 		return (
 			<React.Fragment>
-				<nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
+				<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 					<div className='container'>
 						<div className='navbar-header d-flex'>
 							<button
@@ -84,49 +84,18 @@ class NavBar extends Component {
 								<i className={this.state.sideBarIsVisible ? 'icon-cross' : 'icon-menu'} />
 							</button>
 							<Link to='/' className='navbar-brand animated bounce delay-2s'>
-								Visit all Nepal
+								visitallnepal.com
 							</Link>
 						</div>
 						<div className='navbar-collapse collapse'>
 							<ul className='navbar-nav ml-auto align-items-center'>
-								{/* <Dropdown title={this.props.currency}>
-									<Currencies />
-								</Dropdown>
-								<li className='mx-3'>
-								<NavLink
-									className='navbar-font-style'
-									to='/flights'
-									activeStyle={{
-										textDecoration: 'none',
-										fontWeight: 'bold',
-										color: '#09C6AB'
-									}}
-								>
-									Flights
-								</NavLink>
-							</li>
-							 <li className='mx-3'>
-								<NavLink
-									className='navbar-font-style'
-									to='/hotels'
-									activeStyle={{
-										textDecoration: 'none',
-										fontWeight: 'bold',
-										color: '#09C6AB'
-									}}
-								>
-									Hotels
-								</NavLink>
-							</li> */}
-
 								<li className='mx-3'>
 									<NavLink
-										className='navbar-font-style'
+										className='text-white'
 										to='/partners/new'
 										activeStyle={{
 											textDecoration: 'none',
-											fontWeight: 'bold',
-											color: '#09C6AB'
+											fontWeight: 'bold'
 										}}
 									>
 										Become a partner
@@ -135,12 +104,11 @@ class NavBar extends Component {
 								{loggedIn && (
 									<li className='mx-3'>
 										<NavLink
-											className='navbar-font-style'
+											className='text-white'
 											to='/bookings'
 											activeStyle={{
 												textDecoration: 'none',
-												fontWeight: 'bold',
-												color: '#09C6AB'
+												fontWeight: 'bold'
 											}}
 										>
 											My Bookings
@@ -154,14 +122,9 @@ class NavBar extends Component {
 								<li className='mx-3'>
 									<Dropdown icon='np flag' title={currency} className='text-white'>
 										<div className='d-flex select-countries'>
-											<div className='pr-3'>
+											<div className=''>
 												<span>Languages</span>
 												<Currencies requestData='languages' />
-											</div>
-											{/* <div className="list"> <span>Coutries</span> <Currencies requestData="countries"></Currencies></div> */}
-											<div className=''>
-												<span>Currencies</span>
-												<Currencies requestData='currencies' />
 											</div>
 										</div>
 									</Dropdown>
@@ -215,7 +178,7 @@ class NavBar extends Component {
 						</div>
 					</div>
 				</nav>
-				<Sidebar
+				<Slidebar
 					isVisible={this.state.sideBarIsVisible}
 					items={sideBarMenu}
 					side='left'

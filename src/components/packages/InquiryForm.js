@@ -15,8 +15,6 @@ import DatePicker from '../shared/Datepicker';
 
 import IconInput from '../shared/IconInput';
 import {Input} from 'semantic-ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import LoadingScreen from '../shared/Loading';
@@ -208,7 +206,6 @@ class InquiryForm extends Component {
 									/>
 									<ErrorMessage name='comments' />
 								</div>
-
 							</div>
 							<div class='text-center'>
 								<button

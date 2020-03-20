@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
-
 const isSearched = (searchTerm) => (item) => item.Airline.toLowerCase().includes(searchTerm.toLowerCase());
 
 const Search = ({value, onChange, children}) => (
