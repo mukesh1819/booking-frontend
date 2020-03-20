@@ -113,7 +113,7 @@ class TicketDetails extends Component {
 					</div>
 					<div className='col-md-6 ml-auto mr-auto' id='search-form1'>
 						<h1 className='text-center '>Booking Details</h1>
-						<table className='table table-responsive table-bg table-bordered table-sm'>
+						<table className='table table-responsive table-bordered table-sm'>
 							<thead>
 								<tr>
 									<th>Sector</th>
