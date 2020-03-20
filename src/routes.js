@@ -36,6 +36,8 @@ import InquiryList from './components/admin/InquiryList';
 import CategoryList from './components/admin/CategoryList';
 import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
+import AddPackageForm from './components/partners/PackageForm';
+
 
 
 function About() {
@@ -63,7 +65,9 @@ const routing = (
 		<PrivateRoute path='/booking_details/:id' component={BookingDetails} />
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
 		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
+		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
 
+		
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} />
 		<PrivateRoute path='/admin/create_user' component={CreateUser} />
