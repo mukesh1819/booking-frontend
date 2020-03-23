@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Package from './Package';
 import {getPackages} from '../../api/packageApi';
+import {Checkbox, Dropdown} from 'semantic-ui-react';
 
 class PackageList extends Component {
 	constructor(props) {
@@ -32,16 +33,39 @@ class PackageList extends Component {
 	render() {
 		return (
 			<div className='container p-4'>
-				{/* <div className='row'>
-					<div className='col-2'>
-						<div className='side-nav' />
+				<div className='row'>
+					<div className='col-2 p-0'>
+						<div className='card'>
+							<div className='card-header'>
+								<h3>Filter</h3>
+							</div>
+							<div className='card-body'>
+								<Dropdown placeholder='Select Type' fluid selection options={[]} className='mb-4' />
+								<Checkbox
+									label='Cheapest'
+									onChange={console.log('Checkbox changed')}
+									className='d-block'
+								/>
+								<Checkbox
+									label='Quickest'
+									onChange={console.log('Checkbox changed')}
+									className='d-block'
+								/>
+								<Checkbox
+									label='Earliest'
+									onChange={console.log('Checkbox changed')}
+									className='d-block'
+								/>
+							</div>
+						</div>
 					</div>
-					<div className='col-10' />
-				</div> */}
-				<div className='d-flex flex-wrap justify-content-around'>
-					{this.state.packages.map((aPackage) => {
-						return <Package aPackage={aPackage} />;
-					})}
+					<div className='col-10'>
+						<div className='d-flex flex-wrap justify-content-around'>
+							{this.state.packages.map((aPackage) => {
+								return <Package aPackage={aPackage} />;
+							})}
+						</div>
+					</div>
 				</div>
 			</div>
 		);

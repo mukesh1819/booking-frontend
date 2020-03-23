@@ -18,6 +18,7 @@ import EmptyContent from '../EmptyContent';
 import history from '../../history';
 import {Dropdown as DropdownItem} from '../shared';
 import {Form} from 'react-bootstrap';
+import {checkbox} from 'semantic-ui-react';
 
 require('./flights.scss');
 
@@ -180,6 +181,9 @@ class FlightList extends Component {
 										);
 									})}
 								</DropdownItem>
+								<Checkbox label='Cheapest' />
+								<Checkbox label='Quickest' />
+								<Checkbox label='Earliest' />
 
 								<hr />
 

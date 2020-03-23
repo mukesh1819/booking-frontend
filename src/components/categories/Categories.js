@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {getCategories} from '../../api/categoryApi';
 import Package from '../packages/Package';
+import {Link} from 'react-router-dom';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import 'owl.carousel';
@@ -56,7 +57,12 @@ class Categories extends Component {
 				{this.state.categories.map((category) => {
 					return (
 						<div>
-							<h2 className='border-btm title'>{category.name}</h2>
+							<div className='d-flex justify-content-between align-items-center'>
+								<h2 className='title'>{category.name}</h2>
+								<Link to='/packages' className='btn btn-secondary bg-none text-primary'>
+									View All <i class='fas fa-angle-right' />
+								</Link>
+							</div>
 							<div className='owl-carousel owl-theme'>
 								{category.packages.length > 0 &&
 									category.packages.map((aPackage) => {

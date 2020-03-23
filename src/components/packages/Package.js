@@ -27,12 +27,13 @@ const Package = (props) => {
 					<h3>{aPackage.name}</h3>
 				</Link>
 				<div className='d-flex justify-content-between py-2'>
-					<span className='text-small'>
-						<strong>{aPackage.price}</strong> onwards/pax
+					<span className='text-small text-muted'>
+						<i class='fas fa-map-marker-alt' />&nbsp;
+						{aPackage.location}
 					</span>
-					<span className='text-muted'>
-						<i className='fas fa-money' />
-						{aPackage.price}
+					<span>
+						<span className='text-strong'>Rs. {aPackage.price}</span>{' '}
+						<span className='text-small text-muted'> / person</span>
 					</span>
 				</div>
 			</div>
