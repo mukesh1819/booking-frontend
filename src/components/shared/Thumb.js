@@ -16,7 +16,6 @@ export default class Thumb extends React.Component {
 			reader.onloadend = () => {
 				this.setState({loading: false, thumb: reader.result});
 			};
-
 			reader.readAsDataURL(nextProps.file);
 		});
 	}
@@ -33,6 +32,6 @@ export default class Thumb extends React.Component {
 			return <p>loading...</p>;
 		}
 
-		return <img src={thumb} alt={file.name} className='img-thumbnail mt-2' height={200} width={200} />;
+		return <img src={file} alt={file.name} className='img-thumbnail mt-2' height={200} width={200} />;
 	}
 }

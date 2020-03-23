@@ -4,7 +4,7 @@ import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import {connect} from 'react-redux';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb} from '../shared';
-import {createPackage} from '../../api/packageApi';
+import {createPackage, updatePackage} from '../../api/packageApi';
 import {getCategories} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
 import {getPartners} from '../../api/partnerApi';
@@ -60,16 +60,17 @@ class PackageForm extends Component {
 	}
 
 	render() {
+		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {}};
 		const {partnerIsValid, categories, packages, partners} = this.state;
 		const {countries, nextStep} = this.props;
 		const partnerDetails = {
-			name: '',
-			price: 0.0,
-			location: '',
-			description: 'Your package Description',
-			images: [],
+			name: aPackage.name,
+			price: aPackage.price,
+			location: aPackage.location,
+			description: aPackage.description,
+			images: aPackage.images != null ? aPackage.images: [],
 			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
-			category_id: null
+			category_id: aPackage.category != null ? aPackage.category.id : ''
 		};
 		return (
 			<div className='container'>
@@ -84,21 +85,53 @@ class PackageForm extends Component {
 									searching: true
 								});
 								console.log(values);
-								createPackage(values)
-									.then((response) => {
-										setSubmitting(false);
-										// nextStep(response.data);
-									})
-									.catch((error) => {
-										console.log('Create Package Error', error);
-										setSubmitting(false);
-										swal({
-											title: 'Sorry!',
-											text: error.errors,
-											icon: 'error',
-											button: 'Try Again!'
+								if (aPackage.id != null) {
+									updatePackage(aPackage.id, values)
+										.then((response) => {
+											setSubmitting(false);
+											// nextStep(response.data);
+											swal({
+												title: 'Package updated Successful!',
+												text: response.data.message,
+												icon: 'success',
+												button: 'continue!'
+											});
+										})
+										.catch((error) => {
+											console.log('Create Package Error', error);
+											setSubmitting(false);
+											swal({
+												title: 'Sorry!',
+												text: error.message,
+												icon: 'error',
+												button: 'Try Again!'
+											});
 										});
-									});
+								} else {
+									createPackage(values)
+										.then((response) => {
+											setSubmitting(false);
+											// nextStep(response.data);
+											swal({
+												title: 'Package created Success!',
+												text: response.data.message,
+												icon: 'success',
+												button: 'continue!'
+											});
+										})
+										.catch((error) => {
+											console.log('Create Package Error', error);
+											setSubmitting(false);
+											swal({
+												title: 'Sorry!',
+												text: error.message,
+												icon: 'error',
+												button: 'Try Again!'
+											});
+										});
+								}
+
+
 							}}
 						>
 							{({
@@ -214,7 +247,9 @@ class PackageForm extends Component {
 												className='form-control'
 												multiple
 											/>
-											<Thumb file={values.images[0]} />
+											
+											<Thumb file= {values.images[0]} />
+											
 										</div>
 
 										<div className='field-box'>

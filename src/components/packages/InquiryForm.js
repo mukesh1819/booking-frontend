@@ -153,10 +153,14 @@ class InquiryForm extends Component {
 									<label htmlFor=''>Number of Person</label>
 									<Counter
 										id='no_of_pax'
+										name='no_of_pax'
 										type='number'
 										className='m-1'
-										title={`1 Person`}
-										onChange={(value) => setFieldValue('no_of_pax', value)}
+										title={values.no_of_pax}
+										onChange={ (value) => {
+											setFieldValue('no_of_pax', value)
+										}
+									}
 										value={values.no_of_pax}
 									/>
 								</div>
@@ -197,7 +201,7 @@ class InquiryForm extends Component {
 										placeholder='Any Queries?'
 										onBlur={handleBlur}
 										onChange={(e, data) => {
-											setFieldValue(`comments`, data.value);
+											setFieldValue(`comments`, e.target.value);
 										}}
 										value={values.comments}
 									/>
