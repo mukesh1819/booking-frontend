@@ -36,7 +36,13 @@ class PackagesList extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Packages</h5>
+					
+
+					<div className='col-12 d-flex justify-content-between'>
+						<h5>Package List</h5>
+                        <Link to='/admin/partners/package_form'>add package</Link>
+                    </div>
+
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
@@ -65,7 +71,7 @@ class PackagesList extends Component {
 													}
 												}}
 											>
-												<span className='px-1'>a{aPackage.partner.name}</span>
+												<span className='px-1'>{aPackage.partner.name}</span>
 											</Link>
 										</td>
 										<td>{aPackage.price}</td>
@@ -73,7 +79,7 @@ class PackagesList extends Component {
 										<td>
 											<Link
 												to={{
-													pathname: '/packages/edit',
+													pathname: `/partners/package_form/${aPackage.partner.id}`,
 													state: {
 														aPackage: aPackage
 													}
