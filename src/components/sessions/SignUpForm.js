@@ -9,20 +9,18 @@ import {connect} from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
 import {Link} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
-import {passCsrfToken} from '../../utils/helpers';
+import {passCsrfToken} from '../../helpers/helpers';
 import axios from 'axios';
-import {sortObjectBy} from '../../utils/helpers';
+import {sortObjectBy} from '../../helpers/helpers';
 import {Dropdown, Input} from 'semantic-ui-react';
 
 class SignUpForm extends Component {
 	constructor(props) {
 		super(props);
-		
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		passCsrfToken(document, axios);
-		
 	}
 
 	render() {
@@ -35,7 +33,7 @@ class SignUpForm extends Component {
 				.required('Required')
 		});
 
-		var sortedCountries = sortObjectBy(countries, 'country_code')
+		var sortedCountries = sortObjectBy(countries, 'country_code');
 
 		return (
 			<Formik
@@ -131,44 +129,39 @@ class SignUpForm extends Component {
 										<div className='field-box'>
 											<label>Mobile Number</label>
 											<Input
-											label={
-												<Dropdown  
-													className='dropdown'
-													defaultValue={values.code}
-													name='code'
-													placeholder='Select Code'
-													onBlur={handleBlur}
-													onChange={(e, data) => {
-														setFieldValue(
-															`code`,
-															data.value
-														);
-													}}
-													value={values.code}
-													fluid
-													search
-													selection
-													options= {sortedCountries.map((country) => {
-																return {
-																	key: country.id,
-																	value: country.country_code,
-																	text:country.country_code,
-																	flag: country.country_char.toLowerCase()
-
-																	
-																}
-															})}
-												/>}
+												label={
+													<Dropdown
+														className='dropdown'
+														defaultValue={values.code}
+														name='code'
+														placeholder='Select Code'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(`code`, data.value);
+														}}
+														value={values.code}
+														fluid
+														search
+														selection
+														options={sortedCountries.map((country) => {
+															return {
+																key: country.id,
+																value: country.country_code,
+																text: country.country_code,
+																flag: country.country_char.toLowerCase()
+															};
+														})}
+													/>
+												}
 												labelPosition='left'
 												placeholder='Mobile Number'
 												type='text'
 												name='phone_number'
-												className= "semantic-input-group"
+												className='semantic-input-group'
 												onBlur={handleBlur}
 												onChange={handleChange}
 												value={values.phone_number}
 											/>
-
 										</div>
 
 										{/* <div className='field'>

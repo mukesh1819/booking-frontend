@@ -4,7 +4,7 @@ import {createPartner} from '../../api/partnerApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../utils/helpers';
+import {passCsrfToken, subDays, addDays} from '../../helpers/helpers';
 import {connect} from 'react-redux';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
@@ -35,93 +35,95 @@ class PartnerForm extends Component {
 		return (
 			<div className='container'>
 				<div className='card'>
-					<div className='card-body'>Become a Partner</div>
-					<Formik
-						initialValues={partnerDetails}
-						onSubmit={(values, {setSubmitting}) => {
-							this.setState({
-								searching: true
-							});
-							console.log(values);
-							createPartner(values)
-								.then((response) => {
-									setSubmitting(false);
-									console.log('Partner CREATED', response);
-									nextStep(response.data);
-								})
-								.catch((error) => {
-									console.log('Create Partner Error', error);
-									setSubmitting(false);
-									swal({
-										title: 'Sorry!',
-										text: 'Something went wrong',
-										icon: 'error',
-										button: 'Try Again!'
-									});
+					<div className='card-body'>
+						Become a Partner
+						<Formik
+							initialValues={partnerDetails}
+							onSubmit={(values, {setSubmitting}) => {
+								this.setState({
+									searching: true
 								});
-						}}
-					>
-						{({
-							values,
-							errors,
-							touched,
-							handleChange,
-							handleBlur,
-							handleSubmit,
-							isSubmitting,
-							setFieldValue
-							/* and other goodies */
-						}) => (
-							<form onSubmit={handleSubmit} autoComplete='off'>
-								<div className='input-section'>
-									<div className='field-box'>
-										<label>Name</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='name'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.name}
-											/>
-										</IconInput>
-										<ErrorMessage name='name' />
+								console.log(values);
+								createPartner(values)
+									.then((response) => {
+										setSubmitting(false);
+										console.log('Partner CREATED', response);
+										nextStep(response.data);
+									})
+									.catch((error) => {
+										console.log('Create Partner Error', error);
+										setSubmitting(false);
+										swal({
+											title: 'Sorry!',
+											text: 'Something went wrong',
+											icon: 'error',
+											button: 'Try Again!'
+										});
+									});
+							}}
+						>
+							{({
+								values,
+								errors,
+								touched,
+								handleChange,
+								handleBlur,
+								handleSubmit,
+								isSubmitting,
+								setFieldValue
+								/* and other goodies */
+							}) => (
+								<form onSubmit={handleSubmit} autoComplete='off'>
+									<div className='input-section'>
+										<div className='field-box'>
+											<label>Name</label>
+											<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<Field
+													name='name'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.name}
+												/>
+											</IconInput>
+											<ErrorMessage name='name' />
+										</div>
+										<div className='field-box'>
+											<label>Email Address</label>
+											<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<Field
+													name='email'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.email}
+												/>
+											</IconInput>
+											<ErrorMessage name='email' />
+										</div>
+										<div className='field-box'>
+											<label>Contact Number</label>
+											<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<Field
+													name='contact_number'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.contact_number}
+												/>
+											</IconInput>
+											<ErrorMessage name='contact_number' />
+										</div>
 									</div>
-									<div className='field-box'>
-										<label>Email Address</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='email'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.email}
-											/>
-										</IconInput>
-										<ErrorMessage name='email' />
+									<div class='text-center'>
+										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
+											Submit
+										</button>
 									</div>
-									<div className='field-box'>
-										<label>Contact Number</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='contact_number'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.contact_number}
-											/>
-										</IconInput>
-										<ErrorMessage name='contact_number' />
-									</div>
-								</div>
-								<div class='text-center'>
-									<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
-										Submit
-									</button>
-								</div>
-							</form>
-						)}
-					</Formik>
+								</form>
+							)}
+						</Formik>
+					</div>
 				</div>
 			</div>
 		);

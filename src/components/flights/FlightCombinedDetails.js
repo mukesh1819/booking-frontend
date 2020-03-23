@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import store from '../../redux/store';
-import {isRefundable} from '../../utils/helpers';
+import {isRefundable} from '../../helpers/helpers';
 import {connect} from 'react-redux';
 
 const FlightCombinedDetails = (props) => {

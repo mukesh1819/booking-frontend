@@ -1,38 +1,37 @@
 import React, {component, Component} from 'react';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../utils/helpers';
+import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import {getPartners} from '../../api/partnerApi';
 import {Link} from 'react-router-dom';
 
-class PartnerList extends Component{
+class PartnerList extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			partners: []
+		};
+	}
 
-    constructor(props){
-        super(props);
-        this.state={
-            partners:[]
-        }
-    }
-
-    componentDidMount(){
+	componentDidMount() {
 		passCsrfToken(document, axios);
 		this.fetchPartners();
-    }
+	}
 
-    fetchPartners(){
-        getPartners()
-        .then((response) => {
-            console.log('response', response.data);
-            this.setState({
-                partners: response.data
-            });
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+	fetchPartners() {
+		getPartners()
+			.then((response) => {
+				console.log('response', response.data);
+				this.setState({
+					partners: response.data
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
 
-    render(){
-        const {partners} = this.state;
+	render() {
+		const {partners} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
@@ -54,7 +53,7 @@ class PartnerList extends Component{
 									<tr>
 										<td>{partner.name}</td>
 										<td>{partner.email} </td>
-                                        <td>{partner.company_name}</td>
+										<td>{partner.company_name}</td>
 										<td>{partner.contact_number}</td>
 
 										<td>
@@ -79,6 +78,5 @@ class PartnerList extends Component{
 			</div>
 		);
 	}
-
 }
 export default PartnerList;

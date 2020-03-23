@@ -1,7 +1,7 @@
 import {
     subDays,
     addDays
-} from '../../utils/helpers';
+} from '../../helpers/helpers';
 
 const tomorrow = addDays(new Date(), 1);
 

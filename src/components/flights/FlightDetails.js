@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {isRefundable} from '../../utils/helpers';
+import {isRefundable} from '../../helpers/helpers';
 
 const FlightDetails = (props) => {
 	const {flight, adult, child} = props;

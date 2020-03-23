@@ -4,7 +4,8 @@ import {logoutUser} from '../../redux/actions/sessions';
 import {setCurrency} from '../../redux/actions/bookingActions';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {logout, userInitials} from '../../utils/helpers';
+import {logout, userInitials} from '../../helpers/helpers';
+import {isAdmin, isLoggedIn} from '../../helpers';
 import Slidebar from './Slidebar';
 import Dropdown from './Dropdown';
 import SignUpForm from '../sessions/SignInForm';
@@ -87,14 +88,12 @@ class NavBar extends Component {
 								visitallnepal.com
 							</Link>
 						</div>
-						
-						
+
 						<div className='navbar-collapse collapse'>
 							<ul className='navbar-nav ml-auto align-items-center'>
 								<li className='mx-3'>
-									
-										{currentUser.partner &&
-											<NavLink
+									{currentUser.partner && (
+										<NavLink
 											className='text-white'
 											to={`/partners/package_form/${currentUser.partner.id}`}
 											activeStyle={{
@@ -103,11 +102,10 @@ class NavBar extends Component {
 											}}
 										>
 											Add Packages
-											</NavLink>
-
-										}
-										{ !currentUser.partner &&
-											<NavLink
+										</NavLink>
+									)}
+									{!currentUser.partner && (
+										<NavLink
 											className='text-white'
 											to='/partners/new'
 											activeStyle={{
@@ -116,9 +114,8 @@ class NavBar extends Component {
 											}}
 										>
 											Become a partner
-											</NavLink>
-										}
-										
+										</NavLink>
+									)}
 								</li>
 								{loggedIn && (
 									<li className='mx-3'>
@@ -134,10 +131,23 @@ class NavBar extends Component {
 										</NavLink>
 									</li>
 								)}
+								{isAdmin(currentUser) && (
+									<li className='mx-3'>
+										<NavLink
+											className='text-white'
+											to='/bookings'
+											activeStyle={{
+												textDecoration: 'none',
+												fontWeight: 'bold'
+											}}
+										>
+											Admin
+										</NavLink>
+									</li>
+								)}
 								{/* <Dropdown icon={'icon-user'} title={''}>
 								<SignUpForm />
 							</Dropdown> */}
-
 								<li className='mx-3'>
 									<Dropdown icon='np flag' title={currency} className='text-white'>
 										<div className='d-flex select-countries'>

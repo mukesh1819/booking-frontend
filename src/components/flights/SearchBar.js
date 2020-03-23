@@ -8,7 +8,7 @@ import FlightList from './FlightList';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../utils/helpers';
+import {passCsrfToken, subDays, addDays} from '../../helpers/helpers';
 import {connect} from 'react-redux';
 import {setFlights, setSearchDetails} from '../../redux/actions/flightActions';
 import history from '../../history';

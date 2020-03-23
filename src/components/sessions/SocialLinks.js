@@ -8,7 +8,7 @@ import FacebookAuth from 'react-facebook-auth';
 import '../../styles/index.scss';
 import {authorizeGoogle} from '../../api/userApi';
 import {loginUser} from '../../redux/actions/sessions';
-import {redirectUrl} from '../../utils/helpers';
+import {redirectUrl} from '../../helpers/helpers';
 import history from '../../history';
 
 const FacebookButton = ({onClick}) => (

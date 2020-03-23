@@ -34,7 +34,7 @@ class PackageForm extends Component {
 				console.log('CATEGORIES FETCH ERROR');
 			});
 
-		var partnerId = this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId
+		var partnerId = this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId;
 		getPackages(`q[partner_id_eq]=${partnerId}`)
 			.then((res) => {
 				this.setState({

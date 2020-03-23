@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
-import {passCsrfToken} from '../../utils/helpers';
+import {passCsrfToken} from '../../helpers/helpers';
 import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
 import UserDetailCard from './UserDetailCard';
 import SocialButtonLinks from './SocialButtonLinks';
