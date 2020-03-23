@@ -35,7 +35,7 @@ class PartnerList extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Users</h5>
+					<h5>Partners</h5>
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>

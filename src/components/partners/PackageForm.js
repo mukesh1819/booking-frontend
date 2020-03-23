@@ -7,6 +7,8 @@ import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb
 import {createPackage} from '../../api/packageApi';
 import {getCategories} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
+import {getPartners} from '../../api/partnerApi';
+
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -14,7 +16,8 @@ class PackageForm extends Component {
 		this.state = {
 			partnerIsValid: false,
 			categories: [],
-			packages: []
+			packages: [],
+			partners: []
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
 	}
@@ -44,10 +47,21 @@ class PackageForm extends Component {
 			.catch((res) => {
 				console.log('PACKAGES FETCH ERROR');
 			});
+
+		getPartners()
+		.then((response) => {
+			console.log('Partners List', response.data);
+			this.setState({
+				partners: response.data
+			})
+		})
+		.catch((error) => {
+			console.log("PARTNER FETCH ERROR");
+		})
 	}
 
 	render() {
-		const {partnerIsValid, categories, packages} = this.state;
+		const {partnerIsValid, categories, packages, partners} = this.state;
 		const {countries, nextStep} = this.props;
 		const partnerDetails = {
 			name: '',
@@ -101,6 +115,33 @@ class PackageForm extends Component {
 							}) => (
 								<form onSubmit={handleSubmit} autoComplete='off'>
 									<div className='input-section'>
+
+										{partnerDetails.partner_id == null &&
+
+											<div className='field-box mt-3'>
+											<label>Partners List</label>
+											<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<Field
+													as='select'
+													name='partner_id'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.partner_id}
+													defaultValue=''
+												>
+													<option value=''>Select one</option>
+													{partners.map((partner) => (
+														<option key={partner.id} value={partner.id}>
+															{partner.name} ({partner.email})
+														</option>
+													))}
+												</Field>
+											</IconInput>
+											<ErrorMessage name='partner_id' />
+											</div>
+										}
+									
 										<div className='field-box'>
 											<label>Name</label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
@@ -188,8 +229,9 @@ class PackageForm extends Component {
 													console.log('Editor is ready to use!', editor);
 												}}
 												onChange={(event, editor) => {
-													const data = event.editor.getData();
-													console.log({event, editor, data});
+													setFieldValue('description', event.editor.getData());
+													// const data = event.editor.getData();
+													// console.log({event, editor, data});
 												}}
 												onBlur={(event, editor) => {
 													console.log('Blur.', editor);

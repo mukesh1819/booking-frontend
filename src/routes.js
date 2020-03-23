@@ -37,8 +37,7 @@ import CategoryList from './components/admin/CategoryList';
 import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
 import AddPackageForm from './components/partners/PackageForm';
-
-
+import NewPackageForm from './components/partners/PackageForm';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -66,6 +65,7 @@ const routing = (
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
 		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
+		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
 
 		
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
