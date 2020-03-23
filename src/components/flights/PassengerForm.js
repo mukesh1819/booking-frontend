@@ -22,11 +22,11 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken} from '../../utils/helpers';
+import {passCsrfToken} from '../../helpers/helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
-import {sortObjectBy} from '../../utils/helpers';
+import {sortObjectBy} from '../../helpers/helpers';
 
 class PassengerForm extends Component {
 	constructor(props) {

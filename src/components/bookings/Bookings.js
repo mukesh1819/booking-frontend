@@ -4,7 +4,7 @@ import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
-import {passCsrfToken} from '../../utils/helpers';
+import {passCsrfToken} from '../../helpers/helpers';
 import moment from 'moment';
 import EmptyContent from '../EmptyContent';
 import {Badge} from '../shared';

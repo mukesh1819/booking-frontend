@@ -20,7 +20,7 @@ $desktop-width: 1024px;
     transition: all $transition ease;
 }
 
-@mixin border-radius($radius: 100px) {
+@mixin border-radius($radius: $normal-border-radius) {
     border-radius: $radius;
     -moz-border-radius: $radius;
     -webkit-border-radius: $radius;

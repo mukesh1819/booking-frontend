@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {DataTable} from '../shared';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../utils/helpers';
+import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import EditUserForm from '../users/EditUserForm';
 import {getUsers} from '../../api/userApi';
 

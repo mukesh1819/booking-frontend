@@ -1,7 +1,7 @@
 // import React, {Component} from 'react';
 // import Profile from '../users/Profile';
 // import axios from 'axios';
-// import {passCsrfToken, toTableData} from '../../utils/helpers';
+// import {passCsrfToken, toTableData} from '../../helpers/helpers';
 // import PartnerProfile from '../partners/PartnerProfile';
 
 // class PartnerDetails extends Component {

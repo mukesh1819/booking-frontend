@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import Package from './Package';
-import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import 'owl.carousel';

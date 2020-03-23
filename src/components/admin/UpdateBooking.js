@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getAdminBookings} from '../../api/flightApi';
-import {passCsrfToken} from '../../utils/helpers';
+import {passCsrfToken} from '../../helpers/helpers';
 import axios from 'axios';
 import {cancelAdminTicket} from '../../api/flightApi';
 import {ignoreAdminTicket} from '../../api/flightApi';

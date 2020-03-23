@@ -1,40 +1,39 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../utils/helpers';
-import { getPackages } from '../../api/packageApi';
+import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {getPackages} from '../../api/packageApi';
 import Package from '../packages/Package';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
 // };
 
-class PartnerProfile extends Component{
-	constructor(props){
+class PartnerProfile extends Component {
+	constructor(props) {
 		super(props);
-		this.state ={
+		this.state = {
 			packages: []
-		}
+		};
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		passCsrfToken(document, axios);
 		this.fetchPackages();
 	}
 
-	fetchPackages(){
-		getPackages(`q[partner_id_eq]=${this.props.location.state.partner.id}`)
-		.then((response) => {
+	fetchPackages() {
+		getPackages(`q[partner_id_eq]=${this.props.location.state.partner.id}`).then((response) => {
 			console.log(response.data);
 			this.setState({
 				packages: response.data
 			});
-		})
+		});
 	}
 
-	render(){
+	render() {
 		const {partner} = this.props.location.state;
 		const {packages} = this.state;
-		return(
+		return (
 			<div className='container'>
 				<div className=''>
 					<h5>Parnter</h5>
@@ -61,11 +60,10 @@ class PartnerProfile extends Component{
 				<div>
 					<h5 className='m-3'>Packages</h5>
 					{packages.map((aPackage) => {
-						return <Package aPackage={aPackage}/>
+						return <Package aPackage={aPackage} />;
 					})}
 				</div>
 			</div>
-
 		);
 	}
 }

@@ -4,7 +4,7 @@ import {getBookingDetails, cancelUserTickets} from '../../api/flightApi';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
-import {isRefundable} from '../../utils/helpers';
+import {isRefundable} from '../../helpers/helpers';
 import PassengerDetails from '../flights/PassengerDetails';
 
 class BookingDetails extends Component {

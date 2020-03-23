@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../utils/helpers';
+import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import {getPackages} from '../../api/packageApi';
 
 class PackagesList extends Component {
@@ -21,7 +21,6 @@ class PackagesList extends Component {
 		getPackages()
 			.then((response) => {
 				console.log('List of Packages', response.data);
-				debugger;
 				this.setState({
 					packages: response.data
 				});
@@ -36,12 +35,10 @@ class PackagesList extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					
-
 					<div className='col-12 d-flex justify-content-between'>
 						<h5>Package List</h5>
-                        <Link to='/admin/partners/package_form'>add package</Link>
-                    </div>
+						<Link to='/admin/partners/package_form'>add package</Link>
+					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>

@@ -24,17 +24,16 @@ class PrivateRoute extends Component {
 	render() {
 		const {component: Component, currentUser, location, ...rest} = this.props;
 		const isLoggedIn = localStorage.token !== undefined;
-		return (
-			<Route
-				{...rest}
-				render={(props) =>
-					isLoggedIn ? (
-						<Component {...props} />
-					) : (
-						<Redirect to={{pathname: '/login', state: {from: location}}} />
-					)}
-			/>
-		);
+
+		if (!isLoggedIn) {
+			return <Redirect to={{pathname: '/login', state: {from: location}}} />;
+		}
+
+		// if (['Admin', 'Support'].indexOf(currentUser.role) === -1) {
+		// 	return <Redirect to={{pathname: '/'}} />;
+		// }
+
+		return <Route {...rest} render={(props) => <Component {...props} />} />;
 	}
 }
 
