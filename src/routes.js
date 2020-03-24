@@ -38,6 +38,8 @@ import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
 import AddPackageForm from './components/partners/PackageForm';
 import NewPackageForm from './components/partners/PackageForm';
+import PackageInquiryDetails from './components/packages/InquiryDetails';
+
 
 function About() {
 	return <h2>About Us</h2>;
@@ -66,6 +68,7 @@ const routing = (
 		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
+		<PrivateRoute path='/api/inquiry_details/:idx' component={PackageInquiryDetails} />
 
 		
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />

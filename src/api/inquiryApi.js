@@ -71,3 +71,14 @@ export function confirmInquiry(id) {
 		}
 	});
 }
+
+export function showPackageBooking(idx){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/package_bookings/${idx}`,
+		headers: {
+			'Content_type': 'application/json',
+			Authorization: `Bearer ${localStorage.token}`
+		}
+	});
+}
