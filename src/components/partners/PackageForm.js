@@ -9,7 +9,6 @@ import {getCategories} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
 import {getPartners} from '../../api/partnerApi';
 
-
 class PackageForm extends Component {
 	constructor(props) {
 		super(props);
@@ -49,15 +48,15 @@ class PackageForm extends Component {
 			});
 
 		getPartners()
-		.then((response) => {
-			console.log('Partners List', response.data);
-			this.setState({
-				partners: response.data
+			.then((response) => {
+				console.log('Partners List', response.data);
+				this.setState({
+					partners: response.data
+				});
 			})
-		})
-		.catch((error) => {
-			console.log("PARTNER FETCH ERROR");
-		})
+			.catch((error) => {
+				console.log('PARTNER FETCH ERROR');
+			});
 	}
 
 	render() {
@@ -148,33 +147,31 @@ class PackageForm extends Component {
 							}) => (
 								<form onSubmit={handleSubmit} autoComplete='off'>
 									<div className='input-section'>
-
-										{partnerDetails.partner_id == null &&
-
+										{partnerDetails.partner_id == null && (
 											<div className='field-box mt-3'>
-											<label>Partners List</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													as='select'
-													name='partner_id'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.partner_id}
-													defaultValue=''
-												>
-													<option value=''>Select one</option>
-													{partners.map((partner) => (
-														<option key={partner.id} value={partner.id}>
-															{partner.name} ({partner.email})
-														</option>
-													))}
-												</Field>
-											</IconInput>
-											<ErrorMessage name='partner_id' />
+												<label>Partners List</label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														as='select'
+														name='partner_id'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.partner_id}
+														defaultValue=''
+													>
+														<option value=''>Select one</option>
+														{partners.map((partner) => (
+															<option key={partner.id} value={partner.id}>
+																{partner.name} ({partner.email})
+															</option>
+														))}
+													</Field>
+												</IconInput>
+												<ErrorMessage name='partner_id' />
 											</div>
-										}
-									
+										)}
+
 										<div className='field-box'>
 											<label>Name</label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
