@@ -6,6 +6,10 @@ $font-secondary: 'Source Sans Pro';
         font-size: 2rem;
     }
 
+    &-medium {
+        font-size: 18px;
+    }
+
     &-large {
         font-size: 18px;
 
@@ -20,6 +24,10 @@ $font-secondary: 'Source Sans Pro';
 
     &-small {
         font-size: 0.8rem;
+
+        @include tablet {
+            font-size: 14px;
+        }
     }
 
     &-smaller {

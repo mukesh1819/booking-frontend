@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import yetiImage from '../../images/yeti-banner.png';
 import buddhaImage from '../../images/buddha-banner.png';
 import shreeImage from '../../images/shree-banner.png';
+import {TabView, Slidebar, Banner} from '../shared';
 
 class SearchFlightForm extends Component {
 	constructor(props) {
