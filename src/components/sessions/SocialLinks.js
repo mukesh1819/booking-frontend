@@ -57,7 +57,7 @@ class SocialLinks extends Component {
 	}
 
 	authorizeFailure(error) {
-		console.log('Google login', data);
+		console.log('AUTHORIZE FAILURE', error);
 	}
 
 	render() {
@@ -73,7 +73,7 @@ class SocialLinks extends Component {
 							<div>
 								<GoogleLogin
 									onLoginSuccess={(data) => this.googleAuthorize(data)}
-									onLoginFailure={(data) => failureAuthorize(data)}
+									onLoginFailure={(data) => this.authorizeFailure(data)}
 									onRequest={(data) => console.log('request', data)}
 									text='Google'
 								/>
@@ -89,7 +89,7 @@ class SocialLinks extends Component {
 						appId='861581940937199'
 						callback={(data) => this.fbAuthorize(data)}
 						component={FacebookButton}
-						onFailure={(data) => failureAuthorize(data)}
+						onFailure={(data) => this.authorizeFailure(data)}
 					/>
 				</div>
 			</div>
