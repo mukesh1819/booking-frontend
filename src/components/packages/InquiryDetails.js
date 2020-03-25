@@ -22,6 +22,7 @@ class InquiryDetails extends Component {
 	fetchDetails() {
 		showPackageBooking(this.props.match.params.idx)
 			.then((response) => {
+                console.log('inquiry detials', response.data);
 				this.setState({
 					packageBookingInfo: response.data
 				});
@@ -29,7 +30,7 @@ class InquiryDetails extends Component {
 			.catch((error) => {
 				swal({
 					title: 'Error fetching Inquiries Details!!!',
-					text: error.message,
+					text: error.response.data.message,
 					icon: 'error',
 					button: 'Continue!'
 				});
