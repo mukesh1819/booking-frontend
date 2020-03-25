@@ -30,7 +30,7 @@ import PackageDetails from './components/packages/PackageDetails';
 import PackagesList from './components/admin/PackagesList';
 import PartnerList from './components/admin/PartnerList';
 import PartnerProfile from './components/partners/PartnerProfile';
-import InquiryDetails from './components/admin/InquiryDetails'
+import InquiryDetails from './components/admin/InquiryDetails';
 import PartnerDetails from './components/admin/PartnerDetails';
 import InquiryList from './components/admin/InquiryList';
 import CategoryList from './components/admin/CategoryList';
@@ -39,7 +39,6 @@ import CategoriesForm from './components/categories/CategoriesForm';
 import AddPackageForm from './components/partners/PackageForm';
 import NewPackageForm from './components/partners/PackageForm';
 import PackageInquiryDetails from './components/packages/InquiryDetails';
-
 
 function About() {
 	return <h2>About Us</h2>;
@@ -68,9 +67,8 @@ const routing = (
 		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
-		<PrivateRoute path='/api/inquiry_details/:idx' component={PackageInquiryDetails} />
+		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
 
-		
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} />
 		<PrivateRoute path='/admin/create_user' component={CreateUser} />

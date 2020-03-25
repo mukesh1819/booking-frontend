@@ -12,8 +12,8 @@ import {redirectUrl} from '../../helpers/helpers';
 import history from '../../history';
 
 const FacebookButton = ({onClick}) => (
-	<div className='btn-group col-6' onClick={onClick}>
-		<a className='btn bg-fb disabled'>
+	<div className='btn-group' onClick={onClick}>
+		<a className='btn bg-fb'>
 			<i className='icon-facebook' />
 		</a>
 		<span className='btn bg-fb text-white fb-auth-btn'>Facebook</span>
@@ -75,6 +75,7 @@ class SocialLinks extends Component {
 									onLoginSuccess={(data) => this.googleAuthorize(data)}
 									onLoginFailure={(data) => failureAuthorize(data)}
 									onRequest={(data) => console.log('request', data)}
+									text='Google'
 								/>
 							</div>
 							{/* <div>

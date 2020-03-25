@@ -46,7 +46,7 @@ export default class Users extends Component {
 			}
 		];
 		return (
-			<div className='p-0'>
+			<div className='container p-0'>
 				<div className='row'>
 					<div className='col-0 col-md-2 p-0'>
 						<Sidebar items={sideBarMenu} />

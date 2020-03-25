@@ -201,6 +201,7 @@ class SearchBar extends Component {
 											fluid
 											search
 											selection
+											selectOnBlur={false}
 											options={this.state.cities.map(function(sector) {
 												return {
 													key: sector.SectorCode,
@@ -214,8 +215,9 @@ class SearchBar extends Component {
 											<i
 												className='fas fa-exchange-alt'
 												onClick={() => {
+													var sector = values.strSectorTo;
 													setFieldValue('strSectorTo', values.strSectorFrom);
-													setFieldValue('strSectorFrom', values.strSectorTo);
+													setFieldValue('strSectorFrom', sector);
 												}}
 											/>
 										</div>
@@ -235,6 +237,7 @@ class SearchBar extends Component {
 											fluid
 											search
 											selection
+											selectOnBlur={false}
 											options={this.state.cities.map(function(sector) {
 												return {
 													key: sector.SectorCode,
@@ -372,6 +375,9 @@ class SearchBar extends Component {
 										<Dropdown
 											name='strNationality'
 											placeholder='Select Country'
+											className='icon btn-dropdown'
+											iconPosition='left'
+											icon='icon-paper-plane'
 											onBlur={handleBlur}
 											onChange={(e, data) => {
 												setFieldValue(`strNationality`, data.value);
@@ -380,6 +386,7 @@ class SearchBar extends Component {
 											fluid
 											search
 											selection
+											selectOnBlur={false}
 											options={countries.map(function(country) {
 												return {
 													key: country.id,

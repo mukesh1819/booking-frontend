@@ -101,10 +101,10 @@ class PackageDetails extends Component {
 							</div>
 							<div className='card'>
 								<div className='card-body d-flex align-items-center justify-content-end'>
-									<strong className='p-2'>
-										Rs. {aPackage.price}
+									<span className='p-2'>
+										<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
 										<span className='text-muted text-small text-right'>/person</span>
-									</strong>
+									</span>
 									<span className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
 										Book
 									</span>

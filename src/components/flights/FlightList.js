@@ -18,7 +18,7 @@ import EmptyContent from '../EmptyContent';
 import history from '../../history';
 import {Dropdown as DropdownItem} from '../shared';
 import {Form} from 'react-bootstrap';
-import {checkbox} from 'semantic-ui-react';
+import {Checkbox} from 'semantic-ui-react';
 
 require('./flights.scss');
 

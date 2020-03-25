@@ -38,7 +38,7 @@ class NavBar extends Component {
 		const sideBarMenu = [
 			{icon: 'icon-home', name: 'home', label: 'Home', value: '', link: '/'},
 			{
-				icon: 'icon-beamed-note',
+				icon: 'fas fa-file-invoice',
 				name: 'my_bookings',
 				label: 'My Bookings',
 				value: '',
@@ -53,14 +53,14 @@ class NavBar extends Component {
 				link: '/profile'
 			},
 			{
-				icon: 'icon-calculator',
+				icon: 'fas fa-money-bill-alt',
 				name: 'currency',
 				label: 'Currency',
 				value: currency,
 				link: '/profile'
 			},
 			{
-				icon: 'icon-old-mobile',
+				icon: 'fas fa-blender-phone',
 				name: 'contact_us',
 				label: 'Contact Us',
 				value: '',

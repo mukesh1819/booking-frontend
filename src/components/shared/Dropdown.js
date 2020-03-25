@@ -31,7 +31,7 @@ export default ({children, className, icon, title, position = 'left', ...rest}) 
 				<Dropdown.Menu className='p-1 dropdown-menu-right'>{children}</Dropdown.Menu>
 			</Dropdown> */}
 			<div className={`dropdown custom-dropdown ${className}`} onClick={() => setDrop(!dropped)}>
-				<i className={`${icon} m-0`} /> {title} <i className='icon-chevron-down' />
+				<i className={`${icon} m-0`} />&nbsp;{title}&nbsp; <i className='icon-chevron-down' />
 				<div ref={wrapperRef} className={`menu right-0 ${dropped ? 'open' : 'd-none'}`}>
 					{children}
 				</div>

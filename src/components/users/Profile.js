@@ -41,7 +41,7 @@ class Profile extends Component {
 		return (
 			<div className=''>
 				<UserDetailCard user={currentUser} />
-				<SocialButtonLinks />
+				{/* <SocialButtonLinks /> */}
 			</div>
 		);
 	}
