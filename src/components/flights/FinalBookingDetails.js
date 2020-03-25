@@ -66,7 +66,7 @@ class FinalBookingDetails extends Component {
 		const {idx} = this.state;
 
 		if (this.state.idx !== null) {
-			return <PaymentForm idx={idx} />;
+			return <PaymentForm idx={idx} value="flightbooking" />;
 		}
 
 		return (

@@ -56,7 +56,7 @@ class InquiryDetails extends Component{
         const {packageBookingInfo} = this.state;
 
         if (this.state.showPaymentPage) {
-			return <PaymentForm idx={packageBookingInfo.idx} />;
+			return <PaymentForm idx={packageBookingInfo.idx} value="packagebooking"/>;
         }
         
         return(

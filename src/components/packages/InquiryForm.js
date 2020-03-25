@@ -60,7 +60,7 @@ class InquiryForm extends Component {
 								setSubmitting(false);
 								swal({
 									title: 'Inquiry Submitted!',
-									text: 'Your Inquiry have been submitted',
+									text: 'Your Inquiry have been submitted.Please check your email to continue booking',
 									icon: 'Success',
 									button: 'Continue'
 								});
