@@ -2,36 +2,46 @@ import React, {Component} from 'react';
 export default class Thumb extends React.Component {
 	state = {
 		loading: false,
-		thumb: undefined
+		thumb: []
 	};
 
 	componentWillReceiveProps(nextProps) {
-		if (!nextProps.file) {
+		if (nextProps.files.length == 0) {
 			return;
 		}
 
 		this.setState({loading: true}, () => {
-			let reader = new FileReader();
+			let thumbs = [];
 
-			reader.onloadend = () => {
-				this.setState({loading: false, thumb: reader.result});
-			};
-			reader.readAsDataURL(nextProps.file);
+			nextProps.files.forEach((file) => {
+				let reader = new FileReader();
+
+				reader.onloadend = () => {
+					thumbs << reader.result;
+					this.setState({loading: false, thumb: thumbs});
+				};
+				reader.readAsDataURL(file);
+			});
 		});
 	}
 
 	render() {
-		const {file} = this.props;
+		const {files} = this.props;
 		const {loading, thumb} = this.state;
+		let images = [];
+		files.forEach((file) => {
+			images.push(
+				<img src={file.name} alt={file.name} className='img-thumbnail mt-2' height={200} width={200} />
+			);
+		});
 
-		if (!file) {
+		if (files.length == 0) {
 			return null;
 		}
 
 		if (loading) {
 			return <p>loading...</p>;
 		}
-
-		return <img src={file} alt={file.name} className='img-thumbnail mt-2' height={200} width={200} />;
+		return <div>{images}</div>;
 	}
 }

@@ -17,7 +17,7 @@ import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
 import store from '../../redux/store';
 // import {newPayment} from '../../api/paymentApi';
-import PaymentForm from '../payments/PaymentForm';
+import {PaymentForm} from '../payments';
 
 class FinalBookingDetails extends Component {
 	constructor(props) {
@@ -66,7 +66,7 @@ class FinalBookingDetails extends Component {
 		const {idx} = this.state;
 
 		if (this.state.idx !== null) {
-			return <PaymentForm idx={idx} value="flightbooking" />;
+			return <PaymentForm idx={idx} value='flightbooking' />;
 		}
 
 		return (

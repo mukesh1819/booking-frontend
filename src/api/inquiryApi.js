@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {FLIGHT_API_URL, BASE_URL, API_URL} from '../constants/index.js';
+import {FLIGHT_API_URL, BASE_URL, API_URL} from '../constants';
 import {handleResponse, handleError} from './apiUtils';
 import {func} from 'prop-types';
 
@@ -72,12 +72,12 @@ export function confirmInquiry(id) {
 	});
 }
 
-export function showPackageBooking(idx){
+export function showPackageBooking(idx) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/package_bookings/${idx}`,
 		headers: {
-			'Content_type': 'application/json',
+			Content_type: 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});

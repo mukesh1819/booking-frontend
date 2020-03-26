@@ -17,12 +17,12 @@ const SideBar = (props) => {
 						}}
 					>
 						<i className={`${icon} p-2 text-primary`} />
-						<div>
+						<span>
 							<span>{label}</span>
 							<span className='small text-muted' style={{display: 'table'}}>
 								{details}
 							</span>
-						</div>
+						</span>
 						<span className='text-bold ml-auto'>{value}</span>
 					</Link>
 				</div>

@@ -8,6 +8,8 @@ import {createPackage, updatePackage} from '../../api/packageApi';
 import {getCategories} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
 import {getPartners} from '../../api/partnerApi';
+import {BASE_URL} from '../../constants';
+import Package from '../packages/Package';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -57,6 +59,29 @@ class PackageForm extends Component {
 			.catch((error) => {
 				console.log('PARTNER FETCH ERROR');
 			});
+		const options = {
+			margin: 10,
+			loop: true,
+			touchDrag: true,
+			rewind: true,
+			animateIn: true,
+			responsive: {
+				0: {
+					items: 1,
+					nav: false
+				},
+				600: {
+					items: 3,
+					nav: false
+				},
+				1000: {
+					items: 4,
+					nav: false,
+					loop: false
+				}
+			}
+		};
+		$('.owl-carousel').owlCarousel(options);
 	}
 
 	render() {
@@ -68,7 +93,7 @@ class PackageForm extends Component {
 			price: aPackage.price,
 			location: aPackage.location,
 			description: aPackage.description,
-			images: aPackage.images != null ? aPackage.images: [],
+			images: [],
 			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
 			category_id: aPackage.category != null ? aPackage.category.id : ''
 		};
@@ -76,8 +101,6 @@ class PackageForm extends Component {
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						Package Details
-						<strong>{packages.map((v) => v.name)}</strong>
 						<Formik
 							initialValues={partnerDetails}
 							onSubmit={(values, {setSubmitting}) => {
@@ -130,8 +153,6 @@ class PackageForm extends Component {
 											});
 										});
 								}
-
-
 							}}
 						>
 							{({
@@ -247,9 +268,16 @@ class PackageForm extends Component {
 												className='form-control'
 												multiple
 											/>
-											
-											<Thumb file= {values.images[0]} />
-											
+											<Thumb files={values.images} />
+											{aPackage.images.map((image) => (
+												<img
+													src={`${BASE_URL}/${image}`}
+													alt={image}
+													className='img-thumbnail mt-2'
+													height={200}
+													width={200}
+												/>
+											))}
 										</div>
 
 										<div className='field-box'>
@@ -284,6 +312,14 @@ class PackageForm extends Component {
 							)}
 						</Formik>
 						{partnerIsValid && <a href='btn btn-primary'>Add Packages</a>}
+					</div>
+					<h3> Your other packages</h3>
+					<div className='row'>
+						{packages.map((aPackage) => (
+							<div className='col-md-4'>
+								<Package aPackage={aPackage} />
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
