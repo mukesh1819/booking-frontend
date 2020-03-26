@@ -18,7 +18,9 @@ export function updateUserDetails(details) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/members`,
-		data: {user: details},
+		data: {
+			user: details
+		},
 		headers: {
 			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
@@ -64,8 +66,10 @@ export function sendUserEmail(data) {
 export function authorizeGoogle(data) {
 	return axios({
 		method: 'post',
-		url: `/authorize_google`,
-		data: {user_details: data.uc},
+		url: `${BASE_URL}/authorize_google`,
+		data: {
+			user_details: data.uc
+		},
 		headers: {
 			'Content-type': 'application/json'
 		}
