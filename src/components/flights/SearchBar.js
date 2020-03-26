@@ -120,6 +120,7 @@ class SearchBar extends Component {
 					initialValues={searchDetails}
 					validationSchema={SearchFlightSchema}
 					onSubmit={(values, {setSubmitting}) => {
+						history.push('/flights');
 						this.setState({
 							isSubmitted: true,
 							searching: true
@@ -135,7 +136,6 @@ class SearchBar extends Component {
 									searching: false,
 									availableFlights: response.data.data
 								});
-								history.push('/flights');
 							})
 							.catch((error) => {
 								console.log('Search Flight Error', error);

@@ -67,7 +67,7 @@ h5 {
     font-size: $font14;
 }
 
-h2.title:after {
+h2.category-title:after {
     border-bottom: 2px solid $secondary;
     display: block;
     content: ' ';
@@ -144,6 +144,11 @@ input {
 
 input:read-only {
     background-color: white;
+}
+
+.title {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
 

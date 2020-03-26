@@ -148,6 +148,18 @@
     }
 }
 
+.flight-list {
+
+    .flight-placeholder {
+        padding: 1rem;
+        background-color: white;
+
+        &:first-child {
+            margin-top: 0px;
+        }
+    }
+}
+
 .flight-card {
     width: 100%;
     margin: 4px 0px;
@@ -234,6 +246,18 @@
         .active {
             background-color: lightblue;
         }
+    }
+}
+
+
+.search-details {
+    position: relative;
+
+    .collapse-btn {
+        position: absolute;
+        right: 0;
+        z-index: 100;
+        cursor: pointer;
     }
 }
 
