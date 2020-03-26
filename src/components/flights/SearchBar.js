@@ -98,7 +98,7 @@ class SearchBar extends Component {
 	};
 
 	render() {
-		const {hideReturnField, searching} = this.state;
+		const {hideReturnField, searching, cities} = this.state;
 		const {searchDetails, countries} = this.props;
 		console.log('Search Details', searchDetails);
 
@@ -127,6 +127,7 @@ class SearchBar extends Component {
 					initialValues={searchDetails}
 					validationSchema={SearchFlightSchema}
 					onSubmit={(values, {setSubmitting}) => {
+						history.push('/flights');
 						this.setState({
 							isSubmitted: true,
 							searching: true
@@ -142,7 +143,6 @@ class SearchBar extends Component {
 									searching: false,
 									availableFlights: response.data.data
 								});
-								history.push('/flights');
 							})
 							.catch((error) => {
 								// console.log('Search Flight Error', error);
@@ -199,7 +199,7 @@ class SearchBar extends Component {
 											onBlur={handleBlur}
 											className='icon btn-dropdown'
 											iconPosition='left'
-											icon='icon-paper-plane'
+											icon='fas fa-plane departure'
 											onChange={(e, data) => {
 												setFieldValue(`strSectorFrom`, data.value);
 											}}
@@ -209,7 +209,7 @@ class SearchBar extends Component {
 											search
 											selection
 											selectOnBlur={false}
-											options={this.state.cities.map(function(sector) {
+											options={cities.map(function(sector) {
 												return {
 													key: sector.SectorCode,
 													value: sector.SectorCode,
@@ -222,9 +222,8 @@ class SearchBar extends Component {
 											<i
 												className='fas fa-exchange-alt'
 												onClick={() => {
-													var sector = values.strSectorTo;
 													setFieldValue('strSectorTo', values.strSectorFrom);
-													setFieldValue('strSectorFrom', sector);
+													setFieldValue('strSectorFrom', values.strSectorTo);
 												}}
 											/>
 										</div>
@@ -236,8 +235,9 @@ class SearchBar extends Component {
 											onBlur={handleBlur}
 											className='icon btn-dropdown'
 											iconPosition='left'
-											icon='icon-paper-plane'
+											icon='fas fa-plane arrival'
 											placeholder={'Going To'}
+											value={values.strSectorTo}
 											onChange={(e, data) => {
 												setFieldValue(`strSectorTo`, data.value);
 											}}
@@ -245,13 +245,15 @@ class SearchBar extends Component {
 											search
 											selection
 											selectOnBlur={false}
-											options={this.state.cities.map(function(sector) {
-												return {
-													key: sector.SectorCode,
-													value: sector.SectorCode,
-													text: sector.SectorName
-												};
-											})}
+											options={cities
+												.filter((v) => v.SectorCode !== values.strSectorFrom)
+												.map(function(sector) {
+													return {
+														key: sector.SectorCode,
+														value: sector.SectorCode,
+														text: sector.SectorName
+													};
+												})}
 										/>
 
 										<ErrorMessage name='strSectorTo' />
@@ -384,7 +386,7 @@ class SearchBar extends Component {
 											placeholder='Select Country'
 											className='icon btn-dropdown'
 											iconPosition='left'
-											icon='icon-paper-plane'
+											icon='fas fa-globe'
 											onBlur={handleBlur}
 											onChange={(e, data) => {
 												setFieldValue(`strNationality`, data.value);
@@ -407,7 +409,7 @@ class SearchBar extends Component {
 									</div>
 									<div className='field-box text-center'>
 										<button
-											className='btn btn-secondary btn-large'
+											className='search-btn btn btn-secondary btn-large'
 											type='submit'
 											disabled={isSubmitting}
 										>

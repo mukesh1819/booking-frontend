@@ -41,7 +41,7 @@ class PackageList extends Component {
 		return (
 			<div className='container p-4'>
 				<div className='row'>
-					<div className='col-2 p-0'>
+					<div className='d-none d-md-block col-0 col-md-2 p-0'>
 						<div className='card'>
 							<div className='card-header'>
 								<h3>Filter</h3>
@@ -66,7 +66,7 @@ class PackageList extends Component {
 							</div>
 						</div>
 					</div>
-					<div className='col-10'>
+					<div className='col-12 col-md-10'>
 						<div className='d-flex flex-wrap justify-content-around'>
 							{this.state.packages.map((aPackage) => {
 								return <Package aPackage={aPackage} />;

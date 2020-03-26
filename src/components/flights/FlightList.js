@@ -16,7 +16,7 @@ import SearchFlightForm from './SearchFlightForm';
 import SearchDetails from './SearchDetails';
 import EmptyContent from '../EmptyContent';
 import history from '../../history';
-import {Dropdown as DropdownItem} from '../shared';
+import {Dropdown as DropdownItem, Placeholder} from '../shared';
 import {Form} from 'react-bootstrap';
 import {Checkbox} from 'semantic-ui-react';
 
@@ -114,6 +114,7 @@ class FlightList extends Component {
 			outboundFlights,
 			inboundFlights,
 			combinations,
+			searchDetails,
 			selectedInboundFlight,
 			selectedOutboundFlight
 		} = this.props;
@@ -136,40 +137,49 @@ class FlightList extends Component {
 
 		const airlines = reverseSortedList.map((flight) => flight.Airline);
 
-		if (reverseSortedList.length == 0) {
-			return <Redirect to='/' />;
-			// 	return (
-			// 		<div className='container p-0'>
-			// 			<EmptyContent>
-			// 				No Flights found.<br />
-			// 				<Link to='/' className='btn btn-primary'>
-			// 					Try Again
-			// 				</Link>
-			// 			</EmptyContent>
-			// 		</div>
-			// 	);
-		}
+		const content =
+			reverseSortedList.length == 0 ? (
+				<div>
+					<Placeholder />
+					<Placeholder />
+					<Placeholder />
+					<Placeholder />
+				</div>
+			) : (
+				<TableView
+					values={reverseSortedList}
+					ChildComponent={component}
+					type={type}
+					onFlightSelect={this.onFlightSelect}
+					onViewDetails={this.onViewDetails}
+				/>
+			);
 
 		return (
 			<div className='container p-0'>
-				<SearchDetails collapsed={true} />
+				<div className='row mb-4'>
+					<div className='col-12 p-0'>
+						<SearchDetails collapsed={true} />
 
-				<div className='bg-secondary text-center sorter d-md-none'>
-					{sorters.map(({key, label}) => {
-						return (
-							<Sort sortKey={key} onSort={this.onSort} isActive={sortKey == key}>
-								{label}
-							</Sort>
-						);
-					})}
+						<div className='bg-secondary text-center sorter d-md-none'>
+							{sorters.map(({key, label}) => {
+								return (
+									<Sort sortKey={key} onSort={this.onSort} isActive={sortKey == key}>
+										{label}
+									</Sort>
+								);
+							})}
+						</div>
+					</div>
 				</div>
 				<div className='row'>
-					<div className='col-sm-0 col-md-2 bg-white p-0 d-none d-md-block'>
+					<div className='col-sm-0 col-md-2 d-none d-md-block pl-0'>
 						<div className='card filter-flights'>
-							<div className='card-header'>Filter</div>
+							<div className='card-header' />
 							<div className='card-body'>
-								<span className='text-bold'>Sort By</span>
-								<DropdownItem title={sortKey} className='text-field'>
+								<div className='sorters'>
+									<h4 className='title'>Sort</h4>
+									{/* <DropdownItem title={sortKey} className='text-field'>
 									{sorters.map(({key, label}) => {
 										return (
 											<div
@@ -180,33 +190,35 @@ class FlightList extends Component {
 											</div>
 										);
 									})}
-								</DropdownItem>
-								<Checkbox label='Cheapest' />
-								<Checkbox label='Quickest' />
-								<Checkbox label='Earliest' />
+								</DropdownItem> */}
+									{sorters.map(({key, label}) => {
+										return (
+											<Checkbox
+												label={label}
+												onChange={() => this.onSort(key)}
+												className='d-block'
+												checked={sortKey == key}
+											/>
+										);
+									})}
+								</div>
 
 								<hr />
 
-								<span className='text-bold'>Airline</span>
-								<Form>
-									<div key={`checkbox`} className='mb-3'>
-										{[...new Set(airlines)].map((airline) => (
-											<Form.Check label={airline} type='checkbox' id={airline} />
-										))}
-									</div>
-								</Form>
+								<h4 className='title'>Airline</h4>
+								<div key={`checkbox`} className='mb-3'>
+									{[...new Set(airlines)].map((airline) => (
+										<Checkbox
+											label={airline}
+											onChange={console.log('Airline selected', airline)}
+											className='d-block'
+										/>
+									))}
+								</div>
 							</div>
 						</div>
 					</div>
-					<div className='col-sm-12 col-md-10 p-0'>
-						<TableView
-							values={reverseSortedList}
-							ChildComponent={component}
-							type={type}
-							onFlightSelect={this.onFlightSelect}
-							onViewDetails={this.onViewDetails}
-						/>
-					</div>
+					<div className='col-sm-12 col-md-10 flight-list p-0'>{content}</div>
 				</div>
 
 				<ModalExample
@@ -228,6 +240,7 @@ const mapStateToProps = ({flightStore}) => {
 		outboundFlights: flightStore.flights.outbounds,
 		inboundFlights: flightStore.flights.inbounds,
 		combinations: flightStore.flights.combinations,
+		searchDetails: flightStore.searchDetails,
 		selectedInboundFlight: flightStore.selectedInboundFlight,
 		selectedOutboundFlight: flightStore.selectedOutboundFlight
 	};

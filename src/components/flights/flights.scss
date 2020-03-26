@@ -5,7 +5,7 @@
     background-color: $primary;
     background-size: cover;
     background-position: center;
-    padding: 10px;
+    padding: 14px;
     height: 100vh;
     min-height: 550px;
 
@@ -25,7 +25,7 @@
     // }
 
     h1 {
-        padding-bottom: 10px;
+        padding-bottom: 14px;
 
         @include desktop {
             padding-bottom: 50px;
@@ -59,6 +59,11 @@
                 padding-left: 0px;
             }
         }
+    }
+
+
+    .search-btn {
+        margin-top: 5px;
     }
 
     .input-section {
@@ -144,6 +149,18 @@
 
         @include desktop {
             display: block;
+        }
+    }
+}
+
+.flight-list {
+
+    .flight-placeholder {
+        padding: 1rem;
+        background-color: white;
+
+        &:first-child {
+            margin-top: 0px;
         }
     }
 }
@@ -237,6 +254,18 @@
     }
 }
 
+
+.search-details {
+    position: relative;
+
+    .collapse-btn {
+        position: absolute;
+        right: 0;
+        z-index: 100;
+        cursor: pointer;
+    }
+}
+
 .airline-logos {
     width: 70px;
     margin-right: 8px;
@@ -253,5 +282,16 @@
 
     .dropdown {
         width: max-content !important;
+    }
+}
+
+.fas {
+
+    &.departure {
+        transform: rotate(-40deg);
+    }
+
+    &.arrival {
+        transform: rotate(40deg);
     }
 }

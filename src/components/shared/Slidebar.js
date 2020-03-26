@@ -27,7 +27,7 @@ function Slidebar({items = [], isVisible, onHide}) {
 						<span className='text-bold ml-auto'>{value}</span>
 					</div>
 				))}
-				<hr />
+				<hr className='m-0' />
 				<div className='sidebar-item d-flex justify-content-between' key='flights'>
 					<span>
 						<i className='fas fa-plane-departure  p-2 text-primary' /> {'Flights'}

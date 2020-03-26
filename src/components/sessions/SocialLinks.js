@@ -16,7 +16,7 @@ import swal from 'sweetalert';
 const FacebookButton = ({onClick}) => (
 	<div className='btn-group' onClick={onClick}>
 		<a className='btn bg-fb'>
-			<i className='icon-facebook' />
+			<i className='icon-facebook text-white' />
 		</a>
 		<span className='btn bg-fb text-white fb-auth-btn'>Facebook</span>
 	</div>
