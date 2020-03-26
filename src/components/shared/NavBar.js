@@ -91,7 +91,7 @@ class NavBar extends Component {
 
 						<div className='navbar-collapse collapse'>
 							<ul className='navbar-nav ml-auto align-items-center'>
-								<li className='mx-3'>
+								<li>
 									{currentUser.partner && (
 										<NavLink
 											className='text-white'
@@ -118,7 +118,7 @@ class NavBar extends Component {
 									)}
 								</li>
 								{loggedIn && (
-									<li className='mx-3'>
+									<li>
 										<NavLink
 											className='text-white'
 											to='/bookings'
@@ -132,7 +132,7 @@ class NavBar extends Component {
 									</li>
 								)}
 								{isAdmin(currentUser) && (
-									<li className='mx-3'>
+									<li>
 										<NavLink
 											className='text-white'
 											to='/bookings'
@@ -148,7 +148,7 @@ class NavBar extends Component {
 								{/* <Dropdown icon={'icon-user'} title={''}>
 								<SignUpForm />
 							</Dropdown> */}
-								<li className='mx-3'>
+								<li>
 									<Dropdown icon='np flag' title={currency} className='text-white'>
 										<div className='d-flex select-countries'>
 											<div className=''>
@@ -162,7 +162,7 @@ class NavBar extends Component {
 						</div>
 						<div>
 							<ul className='navbar-nav ml-auto align-items-center'>
-								<li className='mx-3'>
+								<li>
 									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
 										<ul>
 											<li>

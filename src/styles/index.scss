@@ -188,10 +188,20 @@ section {
             width: 20px;
         }
     }
+
+    .navbar-nav {
+        li {
+            margin: 0px 1rem;
+
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+    }
 }
 
 .form-group {
-    margin: 4px;
+    margin: 5px;
 
     @include tablet {
         margin-bottom: 30px;

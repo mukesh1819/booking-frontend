@@ -1,60 +1,31 @@
 @import "../../styles/index.scss";
 
 nav {
-    background-color: #272e38;
+    background-color: $primary;
 }
 
-nav>.nav.nav-tabs {
+.nav.nav-tabs {
     border: none;
     color: #fff;
     border-radius: 0;
     width: 100%;
+    background-color: $primary;
+    border-bottom: 1px solid $primary;
 
     @include tablet {
         width: max-content;
     }
 }
 
-.nav-tabs {
-    background-color: $primary !important;
-
-}
-
-nav>a.nav-item.nav-link {
+.nav-item.nav-link {
     border: none;
-    background-color: $secondary;
+    background-color: $primary;
     border-radius: 0;
     color: white;
 }
 
-nav>a.nav-item.nav-link.active {
-    background-color: $primary !important;
-    border-bottom: $primary 3px solid;
+.nav-item.nav-link.active {
+    background-color: $primary;
+    border-bottom: $secondary 3px solid;
     color: #fff;
-}
-
-// nav>div a.nav-item.nav-link.active:after {
-//     content: "";
-//     position: relative;
-//     top: 45px;
-//     left: -10%;
-//     border: 15px solid transparent;
-//     border-top-color: $primary;
-// }
-
-nav>div a.nav-item.nav-link:hover,
-nav>div a.nav-item.nav-link:focus {
-    border-bottom: $primary 3px solid;
-    color: #fff;
-    border-radius: 0;
-    transition: background 0.20s linear;
-}
-
-
-.tab.segment {
-    border: none;
-    box-shadow: none;
-    margin: 0px;
-    padding-left: 0px;
-    padding-top: 0px;
 }
