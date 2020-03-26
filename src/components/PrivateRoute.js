@@ -3,6 +3,7 @@ import {Redirect, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getUserDetails} from '../api/userApi';
 import {loginUser} from '../redux/actions/sessions';
+import swal from 'sweetalert';
 
 class PrivateRoute extends Component {
 	constructor(props) {
@@ -16,7 +17,13 @@ class PrivateRoute extends Component {
 					this.props.loginUser(response.data.user);
 				})
 				.catch((error) => {
-					console.log(error);
+					// console.log(error);
+					swal({
+						title: 'User fetch error',
+						text: 'Something went wrong could not fetch user data. please try again',
+						icon: 'error',
+						button: 'Continue!'
+					});
 				});
 		}
 	}

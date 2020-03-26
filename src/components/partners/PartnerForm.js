@@ -13,6 +13,7 @@ import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
+import swal from 'sweetalert';
 
 class PartnerForm extends Component {
 	constructor(props) {
@@ -43,19 +44,19 @@ class PartnerForm extends Component {
 								this.setState({
 									searching: true
 								});
-								console.log(values);
+								// console.log(values);
 								createPartner(values)
 									.then((response) => {
 										setSubmitting(false);
-										console.log('Partner CREATED', response);
+										// console.log('Partner CREATED', response);
 										nextStep(response.data);
 									})
 									.catch((error) => {
-										console.log('Create Partner Error', error);
+										// console.log('Create Partner Error', error);
 										setSubmitting(false);
 										swal({
-											title: 'Sorry!',
-											text: 'Something went wrong',
+											title: 'Partner Create Error!',
+											text: 'could not able to create partner.. please try again or contact us',
 											icon: 'error',
 											button: 'Try Again!'
 										});

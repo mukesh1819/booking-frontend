@@ -10,6 +10,8 @@ import * as yup from 'yup';
 import ErrorMessage from '../ErrorMessage';
 import history from '../../history';
 import {Redirect} from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 class EditUserForm extends Component {
 	constructor(props) {
@@ -32,12 +34,18 @@ class EditUserForm extends Component {
 				this.setState({
 					userDetails: response.data.user
 				});
-				console.log(response.data.user);
+				// console.log(response.data.user);
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				this.setState({
 					error
+				});
+				swal({
+					title: 'User fetch error',
+					text: 'could not able to find user. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
 				});
 			});
 	};
@@ -92,14 +100,20 @@ class EditUserForm extends Component {
 											this.setState({
 												userDetails: response.data.user
 											});
-											console.log(response.data.user);
+											// console.log(response.data.user);
 											history.push('/profile');
 										})
 										.catch((error) => {
-											console.log(error);
+											// console.log(error);
 											setSubmitting(false);
 											this.setState({
 												error
+											});
+											swal({
+												title: 'User Update error',
+												text: 'could not able to update user.. please try again or contact us',
+												icon: 'error',
+												button: 'Try Again!'
 											});
 										});
 								}}

@@ -27,7 +27,7 @@ class UserDetailCard extends Component {
 		});
 		updateUserDetails(details)
 			.then((response) => {
-				console.log('details', response.data);
+				// console.log('details', response.data);
 				swal({
 					title: 'User Updates!',
 					text: 'user updated successfully',
@@ -40,10 +40,10 @@ class UserDetailCard extends Component {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				swal({
 					title: 'User Updates!',
-					text: error.message,
+					text: 'could not able to update user... please try again or contact us',
 					icon: 'error',
 					button: 'Continue!'
 				});

@@ -18,7 +18,7 @@ class BookingDetails extends Component {
 	cancelUserRequest(passengers) {
 		cancelUserTickets(passengers)
 			.then((repsonse) => {
-				console.log(repsonse);
+				// console.log(repsonse);
 				swal({
 					title: 'Tickets cancellation!',
 					text: 'Your ticket cancellation is in process',
@@ -28,10 +28,10 @@ class BookingDetails extends Component {
 				history.push('/bookings');
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				swal({
 					title: 'Tickets cancellation!',
-					text: error.message,
+					text: `${error.message}.. could not able to cancel ticket.. please try again or contact us`,
 					icon: 'error',
 					button: 'Continue!'
 				});
@@ -51,7 +51,13 @@ class BookingDetails extends Component {
 					});
 				})
 				.catch((error) => {
-					console.log(error);
+					// console.log(error);
+					swal({
+						title: 'Booking fetch error',
+						text: `could not able to fetch booking.. please try again or contact us`,
+						icon: 'error',
+						button: 'Continue!'
+					});
 				});
 		}
 	}

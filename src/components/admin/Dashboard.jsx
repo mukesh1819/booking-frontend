@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {getAdminDashboard} from '../../api/flightApi';
+import swal from 'sweetalert';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -19,7 +20,7 @@ class Dashboard extends Component {
 	fetchAdminDetails() {
 		getAdminDashboard()
 			.then((response) => {
-				console.log(response.data);
+				// console.log(response.data);
 				this.setState({
 					users: response.data.users_count,
 					bookings: response.data.bookings_count,
@@ -31,7 +32,13 @@ class Dashboard extends Component {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Dashboard fetch error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

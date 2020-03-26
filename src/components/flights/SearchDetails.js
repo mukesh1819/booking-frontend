@@ -30,12 +30,12 @@ const SearchDetails = ({details, collapsed}) => {
 						</span>
 						{details.strTripType === 'R' && (
 							<span className='text-small text-muted px-2'>
-								<i class='fas fa-plane-arrival' />&nbsp;
+								<i className='fas fa-plane-arrival' />&nbsp;
 								{`${moment(details.strReturnDate).format('Do MMMM, YYYY')}`}
 							</span>
 						)}
 						<span className='text-small text-muted px-2'>
-							<i class='fas fa-male' />&nbsp;
+							<i className='fas fa-male' />&nbsp;
 							{details.intAdult} Adult,
 							{details.intChild} Child
 						</span>

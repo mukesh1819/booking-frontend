@@ -3,6 +3,7 @@ import {getCategories} from '../../api/categoryApi';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class CategoryList extends Component {
 	constructor(props) {
@@ -20,13 +21,19 @@ class CategoryList extends Component {
 	fetchCategories() {
 		getCategories()
 			.then((response) => {
-				console.log('inquiries', response.data);
+				// console.log('inquiries', response.data);
 				this.setState({
 					categories: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'category fetch error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

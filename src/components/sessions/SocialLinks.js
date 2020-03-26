@@ -10,6 +10,8 @@ import {authorizeGoogle} from '../../api/userApi';
 import {loginUser} from '../../redux/actions/sessions';
 import {redirectUrl} from '../../helpers/helpers';
 import history from '../../history';
+import swal from 'sweetalert';
+
 
 const FacebookButton = ({onClick}) => (
 	<div className='btn-group' onClick={onClick}>
@@ -37,13 +39,19 @@ class SocialLinks extends Component {
 				localStorage.setItem('token', resp.data.jwt);
 				history.push(redirectUrl(this.props.location));
 			})
-			.catch((resp) => {
-				console.log(resp, 'API Failure');
+			.catch((error) => {
+				// console.log(resp, 'API Failure');
+				swal({
+					title: 'Google login error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 
 	fbAuthorize(data) {
-		console.log('Google login', data);
+		// console.log('Google login', data);
 		authorizeGoogle(data)
 			.then((resp) => {
 				console.log('Google Login Successfull', resp);
@@ -51,8 +59,14 @@ class SocialLinks extends Component {
 				localStorage.setItem('token', resp.data.jwt);
 				history.push(redirectUrl(this.props.location));
 			})
-			.catch((resp) => {
-				console.log(resp, 'API Failure');
+			.catch((error) => {
+				// console.log(resp, 'API Failure');
+				swal({
+					title: 'facebook login error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

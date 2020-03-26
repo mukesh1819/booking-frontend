@@ -17,7 +17,7 @@ class InquiryDetails extends Component{
     confirmUserPackage(id){
         confirmInquiry(id)
         .then((response) => {
-            console.log('inquiry response',response.data);
+            // console.log('inquiry response',response.data);
             swal({
                 title: 'User Package Response!',
                 text: `Your package is confirmed!!! ${response.data.message}`,
@@ -27,10 +27,10 @@ class InquiryDetails extends Component{
 
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
             swal({
                 title: 'User Package Response!',
-                text: error.message,
+                text: error.response.data.errors,
                 icon: 'error',
                 button: 'Continue!'
             });
@@ -69,7 +69,7 @@ class InquiryDetails extends Component{
                                     <td>{inquiry.status}</td>
                                     <td>{inquiry.package_name}</td>
                                     <td>{inquiry.status === 'pending' &&
-                                        <span class='btn btn-primary' onClick={() => this.confirmUserPackage(inquiry.id)}>Confirm</span>
+                                        <span className='btn btn-primary' onClick={() => this.confirmUserPackage(inquiry.id)}>Confirm</span>
                                         }
                                     </td>
                                 </tr>

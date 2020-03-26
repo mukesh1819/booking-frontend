@@ -7,7 +7,7 @@ const TransactionDetails = (props) => {
 	const [key, setKey] = React.useState('user');
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	console.log(transaction);
+	// console.log(transaction);
 	return (
 		<div>
 			<Button variant='primary'>Transaction Details</Button>

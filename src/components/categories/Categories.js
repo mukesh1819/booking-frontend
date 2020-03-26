@@ -43,12 +43,13 @@ class Categories extends Component {
 			}
 		};
 		getCategories().then((response) => {
-			console.log('CATEGORIES', response);
+			// console.log('CATEGORIES', response);
 			this.setState({
 				categories: response.data
 			});
 			$('.owl-carousel').owlCarousel(options);
 		});
+
 	}
 
 	render() {
@@ -60,7 +61,7 @@ class Categories extends Component {
 							<div className='d-flex justify-content-between align-items-center'>
 								<h2 className='title'>{category.name}</h2>
 								<Link to='/packages' className='btn btn-secondary bg-none text-primary'>
-									View All <i class='fas fa-angle-right' />
+									View All <i className='fas fa-angle-right' />
 								</Link>
 							</div>
 							<div className='owl-carousel owl-theme'>

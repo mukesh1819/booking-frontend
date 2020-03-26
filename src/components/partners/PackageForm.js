@@ -10,6 +10,7 @@ import {getPackages} from '../../api/packageApi';
 import {getPartners} from '../../api/partnerApi';
 import {BASE_URL} from '../../constants';
 import Package from '../packages/Package';
+import swal from 'sweetalert';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -34,8 +35,14 @@ class PackageForm extends Component {
 					categories: res.data
 				});
 			})
-			.catch((res) => {
-				console.log('CATEGORIES FETCH ERROR');
+			.catch((error) => {
+				// console.log('CATEGORIES FETCH ERROR');
+				swal({
+					title: 'Category fetch error!',
+					text: 'could not able to fetch categories. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			});
 
 		var partnerId = this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId;
@@ -45,19 +52,32 @@ class PackageForm extends Component {
 					packages: res.data
 				});
 			})
-			.catch((res) => {
-				console.log('PACKAGES FETCH ERROR');
+			.catch((error) => {
+				// console.log('PACKAGES FETCH ERROR');
+				swal({
+					title: 'Package fetch error!',
+					text: 'could not able to fetch package. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
+				});
+
 			});
 
 		getPartners()
 			.then((response) => {
-				console.log('Partners List', response.data);
+				// console.log('Partners List', response.data);
 				this.setState({
 					partners: response.data
 				});
 			})
 			.catch((error) => {
-				console.log('PARTNER FETCH ERROR');
+				// console.log('PARTNER FETCH ERROR');
+				swal({
+					title: 'Partner fetch error!',
+					text: 'could not able to fetch partner. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			});
 		const options = {
 			margin: 10,
@@ -107,7 +127,7 @@ class PackageForm extends Component {
 								this.setState({
 									searching: true
 								});
-								console.log(values);
+								// console.log(values);
 								if (aPackage.id != null) {
 									updatePackage(aPackage.id, values)
 										.then((response) => {
@@ -121,11 +141,11 @@ class PackageForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											// console.log('Create Package Error', error);
 											setSubmitting(false);
 											swal({
-												title: 'Sorry!',
-												text: error.message,
+												title: 'Package Update Error!',
+												text: `${error.message}.. please try again or contact us`,
 												icon: 'error',
 												button: 'Try Again!'
 											});
@@ -143,11 +163,11 @@ class PackageForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											// console.log('Create Package Error', error);
 											setSubmitting(false);
 											swal({
-												title: 'Sorry!',
-												text: error.message,
+												title: 'Package Create Error!',
+												text: `${error.message}.. please try again or contact us`,
 												icon: 'error',
 												button: 'Try Again!'
 											});

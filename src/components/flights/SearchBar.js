@@ -22,6 +22,7 @@ import {Dropdown} from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Radio} from 'semantic-ui-react';
+import swal from 'sweetalert';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -54,12 +55,18 @@ class SearchBar extends Component {
 				this.setState({
 					cities: response.data.Sector
 				});
-				console.log(response.data.Sector);
+				// console.log(response.data.Sector);
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				this.setState({
 					error
+				});
+				swal({
+					title: 'Sorry!',
+					text: 'Something went wrong. Please check your internet and try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
 				});
 			});
 	};
@@ -138,14 +145,14 @@ class SearchBar extends Component {
 								history.push('/flights');
 							})
 							.catch((error) => {
-								console.log('Search Flight Error', error);
+								// console.log('Search Flight Error', error);
 								setSubmitting(false);
 								this.setState({
 									searching: false
 								});
 								swal({
 									title: 'No Flights Found!',
-									text: 'Something went wrong',
+									text: `please check your internet and try again`,
 									icon: 'error',
 									button: 'Try Again!'
 								});
@@ -275,7 +282,7 @@ class SearchBar extends Component {
 												}}
 												value={this.state.tripType}
 											/>
-											<span class='label'>Round Trip?</span>
+											<span className='label'>Round Trip?</span>
 										</div>
 									</div>
 									<div className={`field-box form-group ${hideReturnField ? 'd-none' : ''}`}>
@@ -398,7 +405,7 @@ class SearchBar extends Component {
 										/>
 										<ErrorMessage name='strNationality' />
 									</div>
-									<div class='field-box text-center'>
+									<div className='field-box text-center'>
 										<button
 											className='btn btn-secondary btn-large'
 											type='submit'

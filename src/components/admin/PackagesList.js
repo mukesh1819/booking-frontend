@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import {getPackages} from '../../api/packageApi';
+import swal from 'sweetalert';
 
 class PackagesList extends Component {
 	constructor(props) {
@@ -20,13 +21,19 @@ class PackagesList extends Component {
 	fetchPackages = () => {
 		getPackages()
 			.then((response) => {
-				console.log('List of Packages', response.data);
+				// console.log('List of Packages', response.data);
 				this.setState({
 					packages: response.data
 				});
 			})
 			.catch((errors) => {
-				console.log('Fetch Package Error', errors);
+				// console.log('Fetch Package Error', errors);
+				swal({
+					title: 'Package fetch error',
+					text: 'could not able to fetch package. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	};
 

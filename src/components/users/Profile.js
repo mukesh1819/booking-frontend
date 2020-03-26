@@ -9,6 +9,8 @@ import {passCsrfToken} from '../../helpers/helpers';
 import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
 import UserDetailCard from './UserDetailCard';
 import SocialButtonLinks from './SocialButtonLinks';
+import swal from 'sweetalert';
+
 
 class Profile extends Component {
 	constructor(props) {
@@ -26,12 +28,18 @@ class Profile extends Component {
 				this.setState({
 					userDetails: response.data.user
 				});
-				console.log(response.data.user);
+				// console.log(response.data.user);
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				this.setState({
 					error
+				});
+				swal({
+					title: 'User fetch error',
+					text: 'Something went wrong could not fetch user data. please try again',
+					icon: 'error',
+					button: 'Continue!'
 				});
 			});
 	};
