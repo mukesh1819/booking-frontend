@@ -30,12 +30,12 @@ function Slidebar({items = [], isVisible, onHide}) {
 				<hr className='m-0' />
 				<div className='sidebar-item d-flex justify-content-between' key='flights'>
 					<span>
-						<i class='fas fa-plane-departure  p-2 text-primary' /> {'Flights'}
+						<i className='fas fa-plane-departure  p-2 text-primary' /> {'Flights'}
 					</span>
 				</div>
 				<div className='sidebar-item d-flex justify-content-between' key='packages'>
 					<span>
-						<i class='fab fa-fort-awesome p-2 text-primary' />
+						<i className='fab fa-fort-awesome p-2 text-primary' />
 						{'Packages'}
 					</span>
 				</div>

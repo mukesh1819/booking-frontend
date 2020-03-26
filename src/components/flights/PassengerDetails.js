@@ -10,7 +10,7 @@ class PassengerDetails extends Component {
 		const {passengers} = this.props;
 		return (
 			<div className='passenger-details container p-0'>
-				<table class='table'>
+				<table className='table'>
 					<thead>
 						<tr className='text-center'>
 							<th>Name</th>

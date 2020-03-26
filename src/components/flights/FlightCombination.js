@@ -62,7 +62,7 @@ const FlightCombination = ({
 					<div className='p-2'>
 						{outboundFlight.Currency}:&nbsp;
 						<span className='text-strong '>{flight.total_fare}</span>
-						<div class='text-smaller text-muted'>{isRefundable(flight.Refundable)}</div>
+						<div className='text-smaller text-muted'>{isRefundable(flight.Refundable)}</div>
 					</div>
 				</div>
 			</div>

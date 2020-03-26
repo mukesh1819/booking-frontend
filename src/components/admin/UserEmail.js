@@ -49,7 +49,7 @@ const UserEmail = (props) => {
 					};
 					sendUserEmail(variables)
 						.then((response) => {
-							console.log(response);
+							// console.log(response);
 							swal({
 								title: 'Email Sent!',
 								text: response.message,
@@ -58,10 +58,10 @@ const UserEmail = (props) => {
 							});
 						})
 						.catch((error) => {
-							console.log(error);
+							// console.log(error);
 							swal({
 								title: 'Tickets cancellation!',
-								text: error.message,
+								text: `${error.message}.. please check error message if not shown from backend`,
 								icon: 'error',
 								button: 'Continue!'
 							});

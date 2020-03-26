@@ -3,6 +3,7 @@ import {getInquiries} from '../../api/inquiryApi';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class InquiryList extends Component {
 	constructor(props) {
@@ -20,13 +21,19 @@ class InquiryList extends Component {
 	fetchInquiries() {
 		getInquiries()
 			.then((response) => {
-				console.log('inquiries', response.data);
+				// console.log('inquiries', response.data);
 				this.setState({
 					inquiries: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Inquiry fetch error',
+					text: 'could not able to fetch inquiry. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

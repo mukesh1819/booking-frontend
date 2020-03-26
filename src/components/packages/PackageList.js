@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Package from './Package';
 import {getPackages} from '../../api/packageApi';
 import {Checkbox, Dropdown} from 'semantic-ui-react';
+import swal from 'sweetalert';
 
 class PackageList extends Component {
 	constructor(props) {
@@ -17,16 +18,22 @@ class PackageList extends Component {
 	}
 
 	fetchDetails() {
-		console.log('Fetching all packages');
+		// console.log('Fetching all packages');
 		getPackages()
 			.then((response) => {
-				console.log(response.data);
+				// console.log(response.data);
 				this.setState({
 					packages: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Package fetch error',
+					text: `could not able to fetch package.. please try again or contact us`,
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

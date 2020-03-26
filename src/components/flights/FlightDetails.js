@@ -24,11 +24,11 @@ const FlightDetails = (props) => {
 			</div>
 			<hr />
 			<div className='body'>
-				<div class='d-flex justify-content-between align-items-center'>
+				<div className='d-flex justify-content-between align-items-center'>
 					<span className='text-center'>
 						{flight.DepartureTime} <div className='text-bold'>{flight.Departure}</div>
 					</span>
-					<span class='text-small text-muted'>{flight.duration} min</span>
+					<span className='text-small text-muted'>{flight.duration} min</span>
 					<span className='text-center'>
 						{flight.ArrivalTime}
 						<div className='text-bold'>{flight.Arrival}</div>

@@ -249,7 +249,7 @@ class PassengerForm extends Component {
 														<option value='Mr'> Mr </option>
 														<option value='Mrs'> Mrs </option>
 													</Field>
-													<span class=''>
+													<span className=''>
 														<ErrorMessage name={`passengers[${index}].title`} />
 													</span>
 												</div>

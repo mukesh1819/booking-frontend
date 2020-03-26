@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Image} from 'react-bootstrap';
 import {getBookingDetails, downloadTicket} from '../../api/flightApi';
 import moment from 'moment';
+import swal from 'sweetalert';
 
 class TicketDetails extends Component {
 	constructor(props) {
@@ -25,7 +26,13 @@ class TicketDetails extends Component {
 					});
 				})
 				.catch((error) => {
-					console.log(error);
+					// console.log(error);
+					swal({
+						title: 'Booking fetch error',
+						text: `could not able to fetch booking.. please try again or contact us`,
+						icon: 'error',
+						button: 'Continue!'
+					});
 				});
 		}
 	}

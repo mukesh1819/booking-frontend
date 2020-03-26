@@ -3,6 +3,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import {getPackages} from '../../api/packageApi';
 import {Package} from '../packages';
+import swal from 'sweetalert';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
@@ -22,12 +23,21 @@ class PartnerProfile extends Component {
 	}
 
 	fetchPackages() {
-		getPackages(`q[partner_id_eq]=${this.props.location.state.partner.id}`).then((response) => {
-			console.log(response.data);
-			this.setState({
-				packages: response.data
+		getPackages(`q[partner_id_eq]=${this.props.location.state.partner.id}`)
+			.then((response) => {
+				// console.log(response.data);
+				this.setState({
+					packages: response.data
+				});
+			})
+			.catch((error) => {
+				swal({
+					title: 'Package fetch Error!',
+					text: 'could not able to fetch package.. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			});
-		});
 	}
 
 	render() {

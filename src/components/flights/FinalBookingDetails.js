@@ -55,7 +55,13 @@ class FinalBookingDetails extends Component {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Booking Error',
+					text: 'Could not save your booking. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 
@@ -79,17 +85,17 @@ class FinalBookingDetails extends Component {
 						}}
 					/>
 				</div>
-				<span class='text-bold'>Flight Details</span>
+				<span className='text-bold'>Flight Details</span>
 				<div className='container'>
 					<FlightDetails flight={this.props.selectedOutboundFlight} />
 				</div>
-				<span class='text-bold'>Passenger Details</span>
+				<span className='text-bold'>Passenger Details</span>
 				<PassengerDetails passengers={passengers} />
 
 				<div className='text-center m-1'>
 					<button
 						type='button'
-						class='btn btn-primary'
+						className='btn btn-primary'
 						onClick={() => {
 							this.submit();
 						}}

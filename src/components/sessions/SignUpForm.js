@@ -13,6 +13,7 @@ import {passCsrfToken} from '../../helpers/helpers';
 import axios from 'axios';
 import {sortObjectBy} from '../../helpers/helpers';
 import {Dropdown, Input} from 'semantic-ui-react';
+import swal from 'sweetalert';
 
 class SignUpForm extends Component {
 	constructor(props) {
@@ -57,21 +58,20 @@ class SignUpForm extends Component {
 							password_confirmation: values.password_confirmation
 						}
 					};
-
 					createUser(variables)
 						.then((response) => {
 							localStorage.setItem('token', response.data.jwt);
-							console.log(response);
+							// console.log(response);
 							this.props.loginUser(response.data.user);
 							setSubmitting(false);
 							history.push('/');
 						})
 						.catch((error) => {
 							setSubmitting(false);
-							console.log(error);
+							// console.log(error);
 							swal({
-								title: 'Something went wrong!',
-								text: 'User was not created!',
+								title: 'Something went wrong! please try again or contact us',
+								text: error.response.data.errors.toString(),
 								icon: 'error',
 								button: 'Try Again!'
 							});
@@ -94,7 +94,7 @@ class SignUpForm extends Component {
 							<div className='login-form card p-2'>
 								<div className='card-body'>
 									<h4>Sign Up</h4>
-									<div class='text-small'>
+									<div className='text-small'>
 										Already have an account? <Link to='/login'>Sign In</Link>
 									</div>
 									<div className='input-section'>
@@ -238,7 +238,7 @@ class SignUpForm extends Component {
 										</button>
 
 										<hr />
-										<div class='text-center text-small mb-2'>Sign In with </div>
+										<div className='text-center text-small mb-2'>Sign In with </div>
 										<SocialLinks />
 									</div>
 								</div>

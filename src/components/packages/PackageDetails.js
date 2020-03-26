@@ -93,7 +93,7 @@ class PackageDetails extends Component {
 									<div className=''>
 										<h2 className='text-white font-secondary'>{aPackage.name}</h2>
 										<span className='text-white text-small'>
-											<i class='fas fa-map-marker-alt' />&nbsp;
+											<i className='fas fa-map-marker-alt' />&nbsp;
 											{aPackage.location}
 										</span>
 									</div>

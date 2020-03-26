@@ -54,9 +54,9 @@ export default class Users extends Component {
 					<div className='col-12 col-md-10'>{ActiveComponent && <ActiveComponent />}</div>
 				</div>
 				{/* <nav className='nav nav-tabs'>
-					<div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
+					<div className='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
 						<a
-							class='nav-item nav-link active'
+							className='nav-item nav-link active'
 							id='nav-profile-tab'
 							data-toggle='tab'
 							href='#nav-profile'
@@ -82,14 +82,14 @@ export default class Users extends Component {
 					</div>
 				</nav> */}
 
-				{/* <div class='tab-content' id='nav-tabContent'>
+				{/* <div className='tab-content' id='nav-tabContent'>
 					<div
-						class='tab-pane fade show active'
+						className='tab-pane fade show active'
 						id='nav-profile'
 						role='tabpanel'
 						aria-labelledby='nav-profile-tab'
 					/>
-					<div class='tab-pane fade' id='nav-bookings' role='tabpanel' aria-labelledby='nav-bookings-tab' />
+					<div className='tab-pane fade' id='nav-bookings' role='tabpanel' aria-labelledby='nav-bookings-tab' />
 					<ActiveComponent />
 				</div> */}
 			</div>

@@ -160,7 +160,7 @@ class FlightList extends Component {
 					<div className='col-12 p-0'>
 						<SearchDetails collapsed={true} />
 
-						<div class='bg-secondary text-center sorter d-md-none'>
+						<div className='bg-secondary text-center sorter d-md-none'>
 							{sorters.map(({key, label}) => {
 								return (
 									<Sort sortKey={key} onSort={this.onSort} isActive={sortKey == key}>

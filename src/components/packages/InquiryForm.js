@@ -208,7 +208,7 @@ class InquiryForm extends Component {
 									<ErrorMessage name='comments' />
 								</div>
 							</div>
-							<div class='text-center'>
+							<div className='text-center'>
 								<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
 									Submit
 								</button>

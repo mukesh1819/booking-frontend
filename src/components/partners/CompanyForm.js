@@ -10,7 +10,7 @@ import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper} from '../shared';
-
+import swal from 'sweetalert';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
@@ -41,18 +41,18 @@ class CompanyForm extends Component {
 								this.setState({
 									searching: true
 								});
-								console.log(values);
+								// console.log(values);
 								updatePartner(partnerId, values)
 									.then((response) => {
 										setSubmitting(false);
 										nextStep(response.data);
 									})
 									.catch((error) => {
-										console.log('Update Company Details Error', error);
+										// console.log('Update Company Details Error', error);
 										setSubmitting(false);
 										swal({
 											title: 'Sorry!',
-											text: 'Something went wrong',
+											text: 'could not able to update partner. please try again or contact us',
 											icon: 'error',
 											button: 'Try Again!'
 										});

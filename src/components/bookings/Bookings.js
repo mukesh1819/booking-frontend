@@ -10,6 +10,7 @@ import EmptyContent from '../EmptyContent';
 import {Badge} from '../shared';
 import Pagination from 'react-pagination-js';
 import 'react-pagination-js/dist/styles.css'; // import css
+import swal from 'sweetalert';
 
 class Bookings extends Component {
 	constructor(props) {
@@ -25,16 +26,23 @@ class Bookings extends Component {
 		passCsrfToken(document, axios);
 		getBookings()
 			.then((response) => {
-				console.log(response, 'booking response');
-				console.log('Bookings List', response);
+				// console.log(response, 'booking response');
+				// console.log('Bookings List', response);
 				this.setState({
 					bookings: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				this.setState({
 					error
+				});
+				
+				swal({
+					title: 'Booking fetch error',
+					text: `could not able to fetch booking.. please try again or contact us`,
+					icon: 'error',
+					button: 'Continue!'
 				});
 			});
 	}
