@@ -5,7 +5,7 @@ import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
 import {isRefundable} from '../../helpers/helpers';
-import PassengerDetails from '../flights/PassengerDetails';
+import {PassengerDetails} from '../flights';
 
 class BookingDetails extends Component {
 	constructor(props) {

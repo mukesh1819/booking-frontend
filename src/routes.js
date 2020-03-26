@@ -1,44 +1,39 @@
 import React from 'react';
 import {Router, Switch, Route} from 'react-router-dom';
-import PassengerForm from './components/flights/PassengerForm';
-import Flights from './components/flights';
+import HomePage from './components/HomePage';
+import {FlightList, FlightDetails, PassengerForm} from './components/flights';
 import App from './App';
 import PageNotFound from './components/PageNotFound';
-import FlightList from './components/flights/FlightList';
-import FlightDetails from './components/flights/FlightDetails';
-import HotelList from './components/hotels/HotelList';
-import Packages from './components/packages';
+import {HotelList} from './components/hotels';
+import {PackageList, PackageDetails, InquiryDetails as PackageInquiryDetails} from './components/packages';
 import Users from './components/users';
-import SignInForm from './components/sessions/SignInForm';
-import SignUpForm from './components/sessions/SignUpForm';
+import {SignInForm, SignUpForm} from './components/sessions';
 import EditUserForm from './components/users/EditUserForm';
-import BookingDetails from './components/bookings/BookingDetails';
-import TicketDetails from './components/bookings/TicketDetails';
+import {BookingDetails, Bookings, TicketDetails} from './components/bookings';
 import TransactionList from './components/admin/TransactionList';
 import CreateUser from './components/admin/CreateUser';
 import UsersList from './components/admin/UsersList';
-import Bookings from './components/bookings/Bookings';
 import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
 import DashboardBookings from './components/admin/DashboardBookings';
-import Dashboard from './components/admin';
+import Dashboard from './components/admin/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
-import BecomePartnerForm from './components/partners/BecomePartnerForm';
-import PackageDetails from './components/packages/PackageDetails';
-import PackagesList from './components/admin/PackagesList';
+import {
+	BecomePartnerForm,
+	PartnerProfile,
+	PackageForm as AddPackageForm,
+	PackageForm as NewPackageForm
+} from './components/partners';
 import PartnerList from './components/admin/PartnerList';
-import PartnerProfile from './components/partners/PartnerProfile';
+import PackagesList from './components/admin/PackagesList';
 import InquiryDetails from './components/admin/InquiryDetails';
 import PartnerDetails from './components/admin/PartnerDetails';
 import InquiryList from './components/admin/InquiryList';
 import CategoryList from './components/admin/CategoryList';
 import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
-import AddPackageForm from './components/partners/PackageForm';
-import NewPackageForm from './components/partners/PackageForm';
-import PackageInquiryDetails from './components/packages/InquiryDetails';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -46,13 +41,13 @@ function About() {
 
 const routing = (
 	<Switch>
-		<Route exact path='/' component={Flights} />
+		<Route exact path='/' component={HomePage} />
 
 		<Route path='/login' component={SignInForm} />
 		<Route path='/signup' component={SignUpForm} />
 		<Route path='/flights' component={FlightList} />
 		<Route path='/hotels' component={HotelList} />
-		<Route path='/packages' component={Packages} />
+		<Route path='/packages' component={PackageList} />
 		<Route path='/package/:id' component={PackageDetails} />
 		<Route path='/about' component={About} />
 

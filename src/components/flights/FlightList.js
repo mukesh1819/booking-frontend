@@ -12,7 +12,6 @@ import {getFlights} from '../../redux/selectors';
 import store from '../../redux/store';
 import {selectInboundFlight, selectOutboundFlight, deselectFlight} from '../../redux/actions/flightActions';
 import {Link, Redirect} from 'react-router-dom';
-import SearchFlightForm from './SearchFlightForm';
 import SearchDetails from './SearchDetails';
 import EmptyContent from '../EmptyContent';
 import history from '../../history';

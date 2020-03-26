@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers/helpers';
 import {getPackages} from '../../api/packageApi';
-import Package from '../packages/Package';
+import {Package} from '../packages';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getCategories} from '../../api/categoryApi';
-import Package from '../packages/Package';
+import {Package} from '../packages';
 import {Link} from 'react-router-dom';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';

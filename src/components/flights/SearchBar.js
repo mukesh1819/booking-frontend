@@ -297,7 +297,7 @@ class SearchBar extends Component {
 										<ErrorMessage name='strReturnDate' />
 									</div>
 									<div className='field-box form-group'>
-										<label>Adult/Child</label>
+										<label>Traveller(s)</label>
 										{/* <IconInput icon='icon-users' iconPosition='left'>
 											<DropdownItem
 												title={`${values.intAdult + values.intChild} Traveller`}
@@ -326,21 +326,19 @@ class SearchBar extends Component {
 										<Dropdown
 											name=''
 											placeholder='Select Country'
-											value=''
 											icon='icon-users'
-											className='icon btn-dropdown'
+											className='icon btn-dropdown travellers'
 											fluid
 											selection
 											closeOnChange={false}
-											placeholder={`${values.intAdult + values.intChild} Traveller(s)`}
+											placeholder={`${values.intAdult} Adult, ${values.intChild} Child`}
 											onClick={(event, data) => {
 												event.preventDefault();
 											}}
 										>
-											<Dropdown.Menu>
-												<Dropdown.Item
-													value={`${values.intAdult + values.intChild} Traveller(s)`}
-													content={
+											<Dropdown.Menu
+												content={
+													<div className='p-2'>
 														<Counter
 															id='intAdult'
 															type='number'
@@ -350,11 +348,6 @@ class SearchBar extends Component {
 															onChange={(value) => setFieldValue('intAdult', value)}
 															value={values.intAdult}
 														/>
-													}
-												/>
-												<Dropdown.Item
-													value={`${values.intAdult + values.intChild} Traveller(s)`}
-													content={
 														<Counter
 															id='intChild'
 															type='number'
@@ -364,9 +357,9 @@ class SearchBar extends Component {
 															onChange={(value) => setFieldValue('intChild', value)}
 															value={values.intChild}
 														/>
-													}
-												/>
-											</Dropdown.Menu>
+													</div>
+												}
+											/>
 										</Dropdown>
 										<ErrorMessage name='intAdult' />
 										<ErrorMessage name='intChild' />

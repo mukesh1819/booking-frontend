@@ -9,7 +9,7 @@ import {getCategories} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
 import {getPartners} from '../../api/partnerApi';
 import {BASE_URL} from '../../constants';
-import Package from '../packages/Package';
+import {Package} from '../packages';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -85,7 +85,7 @@ class PackageForm extends Component {
 	}
 
 	render() {
-		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {}};
+		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {images: []}};
 		const {partnerIsValid, categories, packages, partners} = this.state;
 		const {countries, nextStep} = this.props;
 		const partnerDetails = {

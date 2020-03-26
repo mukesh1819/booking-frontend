@@ -1,54 +1,39 @@
-import React, {Component} from 'react';
+import ApiResponse from './ApiResponse';
+import BookingDetails from './BookingDetails';
+import CategoryDetail from './CategoryDetail';
+import CategoryList from './CategoryList';
+import CreateUser from './CreateUser';
 import Dashboard from './Dashboard';
-import {Sidebar} from '../shared';
+import DashboardBookings from './DashboardBookings';
+import InquiryDetails from './InquiryDetails';
+import UsersList from './UsersList';
+import UserEmail from './UserEmail';
+import UserDetails from './UserDetails';
+import UpdateBooking from './UpdateBooking';
+import TransactionList from './TransactionList';
+import TransactionDetails from './TransactionDetails';
+import TransactionApiResponse from './TransactionApiResponse';
+import PartnerList from './PartnerDetails';
+import PackagesList from './PackagesList';
 
-export default class Admin extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			ActiveComponent: null
-		};
-	}
-
-	componentDidMount() {}
-
-	render() {
-		const {ActiveComponent} = this.state;
-		const sideBarMenu = [
-			{icon: 'icon-home', name: 'users', label: 'Users', value: '', link: '/'},
-			{
-				icon: 'icon-beamed-note',
-				name: 'bookings',
-				label: 'Bookings',
-				value: '',
-				link: '/bookings'
-			},
-			{
-				icon: 'icon-user',
-				name: 'transactions',
-				label: 'Transactions',
-				value: '',
-				link: '/transactions'
-			},
-			{
-				icon: 'icon-calculator',
-				name: 'inquiries',
-				label: 'Inquiries',
-				link: '/profile'
-			}
-		];
-		return (
-			<React.Fragment>
-				<div className='row'>
-					<div className='col-0 col-md-2 p-0'>
-						<Sidebar items={sideBarMenu} />
-					</div>
-					<div className='col-12 col-md-10 p-4'>
-						<Dashboard />
-						{ActiveComponent && <ActiveComponent />}
-					</div>
-				</div>
-			</React.Fragment>
-		);
-	}
-}
+export {
+	ApiResponse,
+	BookingDetails,
+	CategoryDetail,
+	CategoryList,
+	CreateUser,
+	Dashboard,
+	DashboardBookings,
+	InquiryDetails,
+	PartnerList,
+	PartnerDetails,
+	TransactionApiResponse,
+	TransactionDetails,
+	TransactionList,
+	UpdateBooking,
+	UserDetails,
+	UserEmail,
+	UsersList,
+	InquiryList,
+	PackagesList
+};

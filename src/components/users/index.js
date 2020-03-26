@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import Profile from './Profile';
-import Bookings from '../bookings/Bookings';
+import {Bookings} from '../bookings';
 import './users.scss';
 import '../shared/tab.scss';
 import {Sidebar} from '../shared';

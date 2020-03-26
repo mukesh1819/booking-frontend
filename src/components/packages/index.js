@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import SearchPackage from './SearchPackage';
+import InquiryDetails from './InquiryDetails';
+import InquiryForm from './InquiryForm';
+import Package from './Package';
+import PackageDetails from './PackageDetails';
 import PackageList from './PackageList';
+import SearchPackage from './SearchPackage';
 
-export default class Packages extends Component {
-	render() {
-		return (
-			<React.Fragment>
-				<PackageList />
-			</React.Fragment>
-		);
-	}
-}
+export {InquiryDetails, InquiryForm, Package, PackageDetails, PackageList, SearchPackage};

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Package from '../packages/Package';
+import {Package} from '../packages';
 
 const CategoryDetail = (props) => {
 	const {category} = props.location.state;
