@@ -3,20 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import SearchBar from './SearchBar';
 
-const SearchDetails = ({details, collapsed}) => {
-	const [searching, setSearch] = useState(!collapsed);
-
-	if (searching) {
-		return (
-			<div className='search-details'>
-				<span className='collapse-btn p-3' onClick={() => setSearch(false)}>
-					<i className='fas fa-times text-secondary' />
-				</span>
-				<SearchBar />
-			</div>
-		);
-	}
-
+const SearchDetails = ({details, onModify}) => {
 	return (
 		<div className='card'>
 			<div className='d-flex justify-content-around align-items-center p-3'>
@@ -45,10 +32,10 @@ const SearchDetails = ({details, collapsed}) => {
 					</div>
 				</div>
 				<div>
-					<span className='btn text-secondary bg-none d-none d-md-block' onClick={() => setSearch(true)}>
+					<span className='btn text-secondary bg-none d-none d-md-block' onClick={onModify}>
 						Modify
 					</span>
-					<i className='icon-edit text-secondary d-md-none' onClick={() => setSearch(true)} />
+					<i className='icon-edit text-secondary d-md-none' onClick={onModify} />
 				</div>
 			</div>
 		</div>

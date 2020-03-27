@@ -10,13 +10,12 @@ import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays} from '../../helpers/helpers';
 import {connect} from 'react-redux';
-import {setFlights, setSearchDetails} from '../../redux/actions/flightActions';
+import {setFlights, setSearchDetails, setTTLtime} from '../../redux/actions/flightActions';
 import history from '../../history';
 import {Container, Segment} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
-import {setTTLtime} from '../../redux/actions/flightActions';
 import ReactDOM from 'react-dom';
 import {Dropdown} from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
@@ -118,11 +117,11 @@ class SearchBar extends Component {
 
 		return (
 			<div id='search-flight-form'>
-				{searching && (
+				{/* {searching && (
 					<Modal show={searching}>
 						<LoadingScreen />
 					</Modal>
-				)}
+				)} */}
 				<Formik
 					initialValues={searchDetails}
 					validationSchema={SearchFlightSchema}
@@ -134,29 +133,7 @@ class SearchBar extends Component {
 						});
 						console.log(values);
 						this.props.setSearchDetails(values);
-						getFlights(values)
-							.then((response) => {
-								setSubmitting(false);
-								this.props.setFlights(response.data.data);
-								this.props.setTTLtime(0);
-								this.setState({
-									searching: false,
-									availableFlights: response.data.data
-								});
-							})
-							.catch((error) => {
-								// console.log('Search Flight Error', error);
-								setSubmitting(false);
-								this.setState({
-									searching: false
-								});
-								swal({
-									title: 'No Flights Found!',
-									text: `please check your internet and try again`,
-									icon: 'error',
-									button: 'Try Again!'
-								});
-							});
+						this.props.onSearch && this.props.onSearch();
 					}}
 				>
 					{({
