@@ -68,7 +68,7 @@ export function authorizeGoogle(data) {
 		method: 'post',
 		url: `${BASE_URL}/google/authorize`,
 		data: {
-			user_details: data.uc
+			user_details: data
 		},
 		headers: {
 			'Content-type': 'application/json'
