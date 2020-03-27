@@ -6,12 +6,11 @@ import {Link} from 'react-router-dom';
 import {GoogleAPI, GoogleLogin, GoogleLogout} from 'react-google-oauth';
 import FacebookAuth from 'react-facebook-auth';
 import '../../styles/index.scss';
-import {authorizeGoogle} from '../../api/userApi';
+import {authorizeGoogle, authorizeFb} from '../../api/userApi';
 import {loginUser} from '../../redux/actions/sessions';
 import {redirectUrl} from '../../helpers/helpers';
 import history from '../../history';
 import swal from 'sweetalert';
-
 
 const FacebookButton = ({onClick}) => (
 	<div className='btn-group' onClick={onClick}>
@@ -52,7 +51,7 @@ class SocialLinks extends Component {
 
 	fbAuthorize(data) {
 		// console.log('Google login', data);
-		authorizeGoogle(data)
+		authorizeFb(data)
 			.then((resp) => {
 				console.log('Google Login Successfull', resp);
 				this.props.loginUser(resp.data.user);

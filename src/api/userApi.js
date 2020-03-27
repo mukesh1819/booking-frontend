@@ -66,9 +66,22 @@ export function sendUserEmail(data) {
 export function authorizeGoogle(data) {
 	return axios({
 		method: 'post',
-		url: `${BASE_URL}/authorize_google`,
+		url: `${BASE_URL}/google/authorize`,
 		data: {
 			user_details: data.uc
+		},
+		headers: {
+			'Content-type': 'application/json'
+		}
+	});
+}
+
+export function authorizeFb(data) {
+	return axios({
+		method: 'post',
+		url: `${BASE_URL}/fb/authorize`,
+		data: {
+			user_details: data
 		},
 		headers: {
 			'Content-type': 'application/json'
