@@ -37,8 +37,10 @@ function App(props) {
 
 	return (
 		<Router history={history}>
-			<NavBar />
-			{routing}
+			<div id='content'>
+				<NavBar />
+				{routing}
+			</div>
 			<Footer />
 		</Router>
 	);
