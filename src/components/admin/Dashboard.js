@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {getAdminDashboard} from '../../api/flightApi';
 import {Sidebar} from '../shared';
+import swal from 'sweetalert';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -32,7 +33,13 @@ class Dashboard extends Component {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Dashboard fetch error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 
@@ -64,7 +71,7 @@ class Dashboard extends Component {
 		return (
 			<React.Fragment>
 				<div className='row'>
-					<div className='col-0 col-md-2 p-0'>
+					<div className='d-none d-md-block col-md-2 p-0'>
 						<Sidebar items={sideBarMenu} />
 					</div>
 					<div className='col-12 col-md-10 p-4'>

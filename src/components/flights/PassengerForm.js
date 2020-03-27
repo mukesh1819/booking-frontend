@@ -362,12 +362,7 @@ class PassengerForm extends Component {
 			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user={user} />;
 		}
 
-		return (
-			<div id='passenger-form'>
-				{this.props.ttlTime > 0 && <Timer />}
-				{content}
-			</div>
-		);
+		return <div id='passenger-form'>{content}</div>;
 	}
 }
 

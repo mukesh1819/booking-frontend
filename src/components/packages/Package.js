@@ -6,8 +6,7 @@ const Package = (props) => {
 	const {aPackage} = props;
 
 	return (
-		<div className='card-
-		widget '>
+		<div className='card-widget'>
 			<a href={imageUrl(aPackage.images[0])} className='image-popup'>
 				<figure>
 					<div className='overlay d-flex align-items-center justify-content-center'>
@@ -33,7 +32,7 @@ const Package = (props) => {
 						{aPackage.location}
 					</span>
 					<span>
-						<span className='text-strong'>Rs. {aPackage.price}</span>{' '}
+						<span className='text-strong'>Rs. {aPackage.price}</span>
 						<span className='text-small text-muted'> / person</span>
 					</span>
 				</div>

@@ -77,6 +77,7 @@ class FinalBookingDetails extends Component {
 
 		return (
 			<div className='passenger-details container p-3 bg-white'>
+				{this.props.ttlTime > 0 && <Timer />}
 				<div className='p-2'>
 					<i
 						className='icon-circle-cross text-normal float-right'

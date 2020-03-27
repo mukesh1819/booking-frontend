@@ -1,6 +1,8 @@
 @import "./overrides";
 @import "./mixins";
 @import "bootstrap";
+@import "./semantic";
+@import "./owl";
 @import "./typography";
 @import "./icomoon";
 
@@ -49,7 +51,11 @@ h1 {
 }
 
 h2 {
-    font-size: $font32;
+    font-size: $font24;
+
+    @include tablet {
+        font-size: $font32;
+    }
 }
 
 h3 {
@@ -220,6 +226,11 @@ section {
     .modal-header {
         padding: 0.5rem 1rem !important;
         background-color: $primary;
+
+        h5,
+        .close {
+            color: white;
+        }
     }
 
     .modal-dialog {
@@ -260,21 +271,56 @@ section {
 
 
 .side-nav {
+    display: flex;
+    overflow: scroll;
+    height: min-content;
+    background-color: white;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .item {
+        cursor: pointer;
+        flex-grow: 1;
+        padding: 0px 10px;
+        color: $secondary;
+        font-weight: 600;
+    }
+
+    i {
+        font-size: $font18;
+    }
+
+    @include tablet {
+        display: block;
+        padding: 8px;
+        background-color: white;
+        height: 100vh;
+
+        .item {
+            padding: 10px 10px;
+        }
+    }
+}
+
+.slide-nav {
+    display: block;
     padding: 8px;
     background-color: white;
     height: 100vh;
 
-    .sidebar-item {
+    .item {
+        cursor: pointer;
+        flex-grow: 1;
         padding: 10px 10px;
         border: 0px;
-        padding: 10px 10px;
 
         i {
             font-size: $font18;
         }
     }
 }
-
 
 .slide {
     position: fixed;

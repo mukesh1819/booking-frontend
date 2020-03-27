@@ -1,0 +1,37 @@
+.categories {
+
+    .owl-theme {
+        .owl-item {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .owl-nav {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+
+            .owl-prev,
+            .owl-next {
+                font-weight: bold;
+                font-size: 2.5rem;
+                position: absolute;
+                background-color: $body-bg-color;
+                z-index: 100;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .owl-prev {
+                left: -15px;
+            }
+
+            .owl-next {
+                right: -18px;
+            }
+        }
+    }
+}

@@ -26,6 +26,8 @@ import {
 	PackageForm as AddPackageForm,
 	PackageForm as NewPackageForm
 } from './components/partners';
+
+import {PaymentSuccess} from './components/payments';
 import PartnerList from './components/admin/PartnerList';
 import PackagesList from './components/admin/PackagesList';
 import InquiryDetails from './components/admin/InquiryDetails';
@@ -63,6 +65,7 @@ const routing = (
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
 		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
+		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} />

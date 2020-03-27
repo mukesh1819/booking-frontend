@@ -11,9 +11,8 @@ import {Counter, DatePicker, IconInput, Loading as LoadingScreen, Stepper, Thumb
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import {createPackage} from '../../api/packageApi';
+import {createPackage, getPackages} from '../../api/packageApi';
 import {getCategories, createCategory, updateCategory} from '../../api/categoryApi';
-import {getPackages} from '../../api/packageApi';
 
 class CategoriesForm extends Component {
 	constructor(props) {

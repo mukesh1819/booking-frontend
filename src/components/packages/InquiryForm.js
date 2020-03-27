@@ -60,7 +60,8 @@ class InquiryForm extends Component {
 								setSubmitting(false);
 								swal({
 									title: 'Inquiry Submitted!',
-									text: 'Your Inquiry have been submitted.Please check your email to continue booking',
+									text:
+										'Your Inquiry have been submitted.Please check your email to continue booking',
 									icon: 'Success',
 									button: 'Continue'
 								});
@@ -130,39 +131,40 @@ class InquiryForm extends Component {
 									</IconInput>
 									<ErrorMessage name='phone' />
 								</div>
-								<div className='field-box'>
-									<label>Preffered Date</label>
-									<IconInput icon='icon-paper-plane' iconPosition='left'>
-										<DatePicker
-											name='preffered_date'
-											className='form-control'
-											type='date'
-											format='dd-mm-YYYY'
-											date={values.preferred_date}
-											minDate={new Date()}
-											onBlur={handleBlur}
-											onChange={(date) => setFieldValue('preferred_date', date)}
-											value={moment(values.preferred_date).format('D MMM, YYYY')}
-											placeholder='Arrival Date'
-										/>
-									</IconInput>
-									<ErrorMessage name='preferred_date' />
-								</div>
+								<div className='d-flex'>
+									<div className='field-box'>
+										<label>Preffered Date</label>
+										<IconInput icon='icon-paper-plane' iconPosition='left'>
+											<DatePicker
+												name='preffered_date'
+												className='form-control'
+												type='date'
+												format='dd-mm-YYYY'
+												date={values.preferred_date}
+												minDate={new Date()}
+												onBlur={handleBlur}
+												onChange={(date) => setFieldValue('preferred_date', date)}
+												value={moment(values.preferred_date).format('D MMM, YYYY')}
+												placeholder='Arrival Date'
+											/>
+										</IconInput>
+										<ErrorMessage name='preferred_date' />
+									</div>
 
-								<div className='field-box'>
-									<label htmlFor=''>Number of Person</label>
-									<Counter
-										id='no_of_pax'
-										name='no_of_pax'
-										type='number'
-										className='m-1'
-										title={values.no_of_pax}
-										onChange={ (value) => {
-											setFieldValue('no_of_pax', value)
-										}
-									}
-										value={values.no_of_pax}
-									/>
+									<div className='field-box'>
+										<label htmlFor=''>Number of Person</label>
+										<Counter
+											id='no_of_pax'
+											name='no_of_pax'
+											type='number'
+											className='m-1'
+											title={values.no_of_pax}
+											onChange={(value) => {
+												setFieldValue('no_of_pax', value);
+											}}
+											value={values.no_of_pax}
+										/>
+									</div>
 								</div>
 
 								<div className='field-box'>

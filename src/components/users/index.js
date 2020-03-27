@@ -27,19 +27,18 @@ export default class Users extends Component {
 	render() {
 		const {ActiveComponent} = this.props.location.state || this.state;
 		const sideBarMenu = [
-			{icon: 'icon-home', name: 'users', label: 'Users', value: '', link: '/'},
 			{
 				icon: 'icon-beamed-note',
-				name: 'bookings',
-				label: 'Bookings',
+				name: 'profile',
+				label: 'Profile',
 				value: '',
 				link: '/profile',
 				Component: Profile
 			},
 			{
 				icon: 'icon-user',
-				name: 'transactions',
-				label: 'Transactions',
+				name: 'bookings',
+				label: 'My Bookings',
 				value: '',
 				link: '/bookings',
 				Component: Bookings
@@ -49,9 +48,9 @@ export default class Users extends Component {
 			<div className='container p-0'>
 				<div className='row'>
 					<div className='col-0 col-md-2 p-0'>
-						<Sidebar items={sideBarMenu} />
+						<Sidebar items={sideBarMenu} onItemSelect={(component) => this.activateTab(component)} />
 					</div>
-					<div className='col-12 col-md-10'>{ActiveComponent && <ActiveComponent />}</div>
+					<div className='col-12 col-md-10 p-0 pl-md-3'>{ActiveComponent && <ActiveComponent />}</div>
 				</div>
 				{/* <nav className='nav nav-tabs'>
 					<div className='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>

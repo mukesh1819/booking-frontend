@@ -37,8 +37,12 @@ class Categories extends Component {
 				},
 				1000: {
 					items: 4,
-					nav: false,
-					loop: false
+					nav: true,
+					navText: [
+						"<i class='fas fa-chevron-circle-left text-primary'></i>",
+						"<i class='fas fa-chevron-circle-right text-primary'></i>"
+					],
+					loop: true
 				}
 			}
 		};
@@ -49,7 +53,6 @@ class Categories extends Component {
 			});
 			$('.owl-carousel').owlCarousel(options);
 		});
-
 	}
 
 	render() {
@@ -58,7 +61,7 @@ class Categories extends Component {
 				{this.state.categories.map((category) => {
 					return (
 						<div className='categories-container'>
-							<div className='d-flex justify-content-between align-items-center'>
+							<div className='d-flex justify-content-between align-items-center px-3'>
 								<h2 className='category-title'>{category.name}</h2>
 								<Link to='/packages' className='btn btn-secondary bg-none text-primary'>
 									View All <i className='fas fa-angle-right' />
@@ -72,7 +75,7 @@ class Categories extends Component {
 							</div>
 						</div>
 					);
-				})};
+				})}
 			</React.Fragment>
 		);
 	}
