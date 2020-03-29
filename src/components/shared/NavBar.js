@@ -118,18 +118,16 @@ class NavBar extends Component {
 									)}
 								</li>
 								<li>
-									{!currentUser.partner && (
-										<NavLink
-											className='text-white'
-											to='/partners/new'
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											CUSTOMER SUPPORT
-										</NavLink>
-									)}
+									<NavLink
+										className='text-white'
+										to='/support'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
+									>
+										CUSTOMER SUPPORT
+									</NavLink>
 								</li>
 								{loggedIn && (
 									<li>
