@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {passCsrfToken, imageUrl} from '../../helpers/helpers';
+import {passCsrfToken, imageUrl} from '../../helpers';
 import {Link} from 'react-router-dom';
 import PaymentForm from '../payments/PaymentForm';
 import swal from 'sweetalert';

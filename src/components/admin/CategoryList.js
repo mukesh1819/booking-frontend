@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {getCategories} from '../../api/categoryApi';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 

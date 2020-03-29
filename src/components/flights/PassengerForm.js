@@ -9,7 +9,7 @@ import FlightList from './FlightList';
 import {createBooking, submitPassengers} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {setBooking} from '../../redux/actions/bookingActions';
+import {setBooking} from '../../redux/actions';
 import ErrorMessage from '../ErrorMessage';
 import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
@@ -22,11 +22,11 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
-import {sortObjectBy} from '../../helpers/helpers';
+import {sortObjectBy} from '../../helpers';
 
 class PassengerForm extends Component {
 	constructor(props) {

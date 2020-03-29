@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {logoutUser} from '../../redux/actions/sessions';
-import {setCurrency} from '../../redux/actions/bookingActions';
+import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {logout, userInitials} from '../../helpers/helpers';
-import {isAdmin, isLoggedIn} from '../../helpers';
+import {logout, userInitials, isAdmin, isLoggedIn, flagFor} from '../../helpers';
 import Slidebar from './Slidebar';
 import Dropdown from './Dropdown';
 import SignUpForm from '../sessions/SignInForm';
@@ -32,7 +30,7 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const {currentUser, currency, logoutUser} = this.props;
+		const {currentUser, language, logoutUser, currency} = this.props;
 		const loggedIn = currentUser.email !== undefined;
 
 		const sideBarMenu = [
@@ -104,6 +102,8 @@ class NavBar extends Component {
 											Add Packages
 										</NavLink>
 									)}
+								</li>
+								<li>
 									{!currentUser.partner && (
 										<NavLink
 											className='text-white'
@@ -113,7 +113,21 @@ class NavBar extends Component {
 												fontWeight: 'bold'
 											}}
 										>
-											Become a partner
+											BECOME A PARTNER
+										</NavLink>
+									)}
+								</li>
+								<li>
+									{!currentUser.partner && (
+										<NavLink
+											className='text-white'
+											to='/partners/new'
+											activeStyle={{
+												textDecoration: 'none',
+												fontWeight: 'bold'
+											}}
+										>
+											CUSTOMER SUPPORT
 										</NavLink>
 									)}
 								</li>
@@ -149,8 +163,12 @@ class NavBar extends Component {
 								<SignUpForm />
 							</Dropdown> */}
 								<li>
-									<Dropdown icon='np flag' title={currency} className='text-white'>
-										<div className='d-flex select-countries'>
+									<Dropdown
+										icon={`${flagFor(language)} flag`}
+										title={language}
+										className='text-white'
+									>
+										<div className='d-flex select-countries text-normal'>
 											<div className=''>
 												<span>Languages</span>
 												<Currencies requestData='languages' />
@@ -164,7 +182,7 @@ class NavBar extends Component {
 							<ul className='navbar-nav ml-auto align-items-center'>
 								<li>
 									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
-										<ul>
+										<ul class='text-normal'>
 											<li>
 												{loggedIn && (
 													<Link to='/profile' className='dropdown-item'>
@@ -218,9 +236,9 @@ class NavBar extends Component {
 	}
 }
 
-const mapStateToProps = ({userStore, bookingStore}) => ({
+const mapStateToProps = ({userStore, extras}) => ({
 	currentUser: userStore.currentUser,
-	currency: bookingStore.currency
+	language: extras.language
 });
 
 const mapDispatchToProps = {logoutUser};

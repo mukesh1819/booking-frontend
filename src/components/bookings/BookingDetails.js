@@ -4,7 +4,7 @@ import {getBookingDetails, cancelUserTickets} from '../../api/flightApi';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
-import {isRefundable} from '../../helpers/helpers';
+import {isRefundable, ifNotZero} from '../../helpers';
 import {PassengerDetails} from '../flights';
 
 class BookingDetails extends Component {
@@ -117,7 +117,7 @@ class BookingDetails extends Component {
 										Total Fare: {flight.Currency} {booking.total_fare}
 									</div>
 									<div className='text-small text-muted'>
-										({booking.adult} Adult, {booking.child} Child)
+										({booking.adult} Adult, {ifNotZero(booking.child, `, ${booking.child} Child`)})
 									</div>
 								</span>
 								<ul className='text-muted text-small'>
@@ -132,11 +132,12 @@ class BookingDetails extends Component {
 										</li>
 									)}
 									<li>
-										Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({booking.adult} +{' '}
-										{booking.child})
+										Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({booking.adult}
+										{ifNotZero(booking.child, ` + ${booking.child}`)})
 									</li>
 									<li>
-										Tax: {flight.Currency} {flight.Tax} x ({booking.adult} + {booking.child})
+										Tax: {flight.Currency} {flight.Tax} x ({booking.adult}
+										{ifNotZero(booking.child, ` + ${booking.child}`)})
 									</li>
 								</ul>
 							</div>

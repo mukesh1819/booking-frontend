@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Tooltip} from '../shared';
 import Flight from './Flight';
 import {connect} from 'react-redux';
-import {isRefundable} from '../../helpers/helpers';
+import {isRefundable} from '../../helpers';
 
 const FlightCombination = ({
 	type,

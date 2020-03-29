@@ -147,7 +147,10 @@
     position: relative;
 
     &:last-child {
-        margin-right: 0px;
+
+        @include desktop {
+            margin-right: 0px;
+        }
     }
 
     label {
@@ -234,33 +237,6 @@
         display: none;
     }
 }
-
-.filter-flights {
-    .custom-dropdown {
-        padding: 10px;
-        border: 1px solid;
-    }
-
-    .menu {
-        border: 1px solid $gray;
-        z-index: 1020;
-
-        .menu-item {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-
-            &:hover {
-                background-color: $primary;
-            }
-        }
-
-        .active {
-            background-color: lightblue;
-        }
-    }
-}
-
 
 .search-details {
     position: relative;

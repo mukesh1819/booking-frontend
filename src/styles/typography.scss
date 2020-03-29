@@ -3,7 +3,8 @@ $font-secondary: 'Source Sans Pro';
 
 .text {
     &-normal {
-        font-size: 2rem;
+        font-size: 1rem;
+        font-weight: normal;
     }
 
     &-medium {
@@ -19,7 +20,7 @@ $font-secondary: 'Source Sans Pro';
     }
 
     &-larger {
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
     &-small {

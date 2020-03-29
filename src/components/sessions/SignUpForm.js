@@ -3,15 +3,15 @@ import {Formik, Form, Field} from 'formik';
 import {createUser} from '../../api/sessions';
 import history from '../../history';
 import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
-import {loginUser} from '../../redux/actions/sessions';
+import {loginUser} from '../../redux/actions';
 import * as yup from 'yup';
 import {connect} from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
 import {Link} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
-import {sortObjectBy} from '../../helpers/helpers';
+import {sortObjectBy} from '../../helpers';
 import {Dropdown, Input} from 'semantic-ui-react';
 import swal from 'sweetalert';
 

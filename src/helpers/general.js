@@ -1,4 +1,6 @@
-import {BASE_URL} from '../constants';
+import {
+	BASE_URL
+} from '../constants';
 
 export function sortObjectBy(obj, key) {
 	obj = obj.sort((a, b) => {
@@ -17,14 +19,6 @@ export function sortObjectBy(obj, key) {
 	return obj;
 }
 
-function csrfToken(document) {
-	return document.querySelector('[name="csrf-token"]') ? document.querySelector('[name="csrf-token"]').content : null;
-}
-
-export function passCsrfToken(document, axios) {
-	axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken(document);
-}
-
 export function subDays(date, days) {
 	const finalDate = new Date(date);
 	finalDate.setDate(finalDate.getDate() - days);
@@ -35,10 +29,6 @@ export function addDays(date, days) {
 	const finalDate = new Date(date);
 	finalDate.setDate(finalDate.getDate() + days);
 	return finalDate;
-}
-
-export function logout() {
-	localStorage.removeItem('token');
 }
 
 export function isRefundable(type) {
@@ -72,8 +62,7 @@ export function imageUrl(path) {
 
 export function toTableData(data) {
 	const refData = {
-		columns: [
-			{
+		columns: [{
 				label: 'Name',
 				field: 'name',
 				sort: 'asc',
@@ -90,7 +79,7 @@ export function toTableData(data) {
 	if (data.length == 0) {
 		return refData;
 	}
-	var columns = Object.keys(data[0]).map(function(v) {
+	var columns = Object.keys(data[0]).map(function (v) {
 		return {
 			label: v.toUpperCase(),
 			field: v,
@@ -105,4 +94,12 @@ export function toTableData(data) {
 		columns: columns,
 		rows: data
 	};
+}
+
+export function ifNotZero(value, returnValue) {
+	if (value == 0) {
+		return ''
+	} else {
+		return returnValue
+	}
 }

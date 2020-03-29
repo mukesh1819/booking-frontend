@@ -1,5 +1,5 @@
 import React, {useEffect, useState, Component} from 'react';
-import {setTTLtime} from '../../redux/actions/flightActions';
+import {setTTLtime} from '../../redux/actions';
 import swal from 'sweetalert';
 import {connect} from 'react-redux';
 

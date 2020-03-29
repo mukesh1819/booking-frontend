@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {signIn} from '../../api/sessions';
 import history from '../../history';
-import {loginUser} from '../../redux/actions/sessions';
+import {loginUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import {NavBar} from '../shared';
 import {Link, Redirect} from 'react-router-dom';

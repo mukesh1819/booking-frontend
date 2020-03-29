@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {isRefundable} from '../../helpers/helpers';
+import {isRefundable} from '../../helpers';
 import {connect} from 'react-redux';
 
 const Flight = ({type, flight, selected, onFlightSelect, onFlightDeselect, onViewDetails, searchDetails}) => {

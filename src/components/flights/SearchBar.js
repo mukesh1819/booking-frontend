@@ -8,9 +8,9 @@ import FlightList from './FlightList';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../helpers/helpers';
+import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import {connect} from 'react-redux';
-import {setFlights, setSearchDetails, setTTLtime} from '../../redux/actions/flightActions';
+import {setFlights, setSearchDetails, setTTLtime} from '../../redux/actions';
 import history from '../../history';
 import {Container, Segment} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
@@ -245,10 +245,9 @@ class SearchBar extends Component {
 											type='date'
 											date={values.strFlightDate}
 											minDate={new Date()}
-											format='dd-mm-YYYY'
 											onBlur={handleBlur}
 											onChange={(date) => setFieldValue('strFlightDate', date)}
-											value={moment(values.strFlightDate).format('D MMM, YYYY')}
+											value={values.strFlightDate}
 											placeholder='Departure Date'
 										/>
 										<ErrorMessage name='strFlightDate' />
@@ -272,10 +271,9 @@ class SearchBar extends Component {
 											type='date'
 											date={values.strReturnDate}
 											minDate={new Date()}
-											format='dd-mm-YYYY'
 											onBlur={handleBlur}
 											onChange={(date) => setFieldValue('strReturnDate', date)}
-											value={moment(values.strReturnDate).format('D MMM, YYYY')}
+											value={values.strReturnDate}
 											placeholder='Arrival Date'
 										/>
 										<ErrorMessage name='strReturnDate' />
@@ -315,7 +313,10 @@ class SearchBar extends Component {
 											fluid
 											selection
 											closeOnChange={false}
-											placeholder={`${values.intAdult} Adult, ${values.intChild} Child`}
+											placeholder={`${values.intAdult} Adult${ifNotZero(
+												values.intChild,
+												`, ${values.intChild} Child`
+											)}`}
 											onClick={(event, data) => {
 												event.preventDefault();
 											}}

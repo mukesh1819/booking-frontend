@@ -1,7 +1,6 @@
 const initialState = {
     booking: null,
-    currency: 'NPR',
-    language: 'ENG'
+    currency: 'NPR'
 };
 
 export default function (state = initialState, action) {
@@ -16,12 +15,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currency: action.payload
-            }
-        }
-        case "SET_LANGUAGE": {
-            return {
-                ...state,
-                language: action.payload
             }
         }
         default:

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {imageUrl} from '../../helpers/helpers';
+import {imageUrl} from '../../helpers';
 
 const Package = (props) => {
 	const {aPackage} = props;

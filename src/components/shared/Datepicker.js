@@ -16,6 +16,10 @@ export default ({date, onChange, placeholder, ...rest}) => {
 			iconPosition='left'
 			minDate={new Date()}
 			placeholder={placeholder}
+			datePickerOnly
+			clearable={false}
+			format='D MMM, YYYY'
+			{...rest}
 		/>
 	);
 };

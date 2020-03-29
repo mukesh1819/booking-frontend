@@ -11,7 +11,7 @@ import FlightCombinedDetails from './FlightCombinedDetails';
 import {createBooking, submitPassengers} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {setBooking} from '../../redux/actions/bookingActions';
+import {setBooking} from '../../redux/actions';
 import PassengerDetails from './PassengerDetails';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
@@ -80,7 +80,7 @@ class FinalBookingDetails extends Component {
 				{this.props.ttlTime > 0 && <Timer />}
 				<div className='p-2'>
 					<i
-						className='icon-circle-cross text-normal float-right'
+						className='icon-circle-cross text-larger float-right'
 						onClick={() => {
 							toggle();
 						}}

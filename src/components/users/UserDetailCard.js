@@ -3,11 +3,11 @@ import {Link, NavLink} from 'react-router-dom';
 import {Editable} from '../shared';
 import {updateUserDetails} from '../../api/userApi';
 import axios from 'axios';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import {connect} from 'react-redux';
 import swal from 'sweetalert';
-import {updateUser} from '../../redux/actions/sessions';
-import {sortObjectBy} from '../../helpers/helpers';
+import {updateUser} from '../../redux/actions';
+import {sortObjectBy} from '../../helpers';
 
 class UserDetailCard extends Component {
 	constructor(props) {

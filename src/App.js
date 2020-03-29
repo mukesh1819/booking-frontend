@@ -5,8 +5,8 @@ import {NavBar, Footer} from './components/shared';
 import {Router, Switch, Route} from 'react-router-dom';
 import history from './history';
 import {getUserDetails} from './api/userApi';
-import {loginUser} from './redux/actions/sessions';
-import {setCountries} from './redux/actions/extraActions';
+import {loginUser} from './redux/actions';
+import {setCountries} from './redux/actions';
 import {getCountries} from './api/flightApi';
 
 function App(props) {

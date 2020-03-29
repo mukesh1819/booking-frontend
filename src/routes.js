@@ -1,15 +1,26 @@
 import React from 'react';
 import {Router, Switch, Route} from 'react-router-dom';
-import HomePage from './components/HomePage';
 import {FlightList, FlightDetails, PassengerForm} from './components/flights';
-import App from './App';
-import PageNotFound from './components/PageNotFound';
 import {HotelList} from './components/hotels';
 import {PackageList, PackageDetails, InquiryDetails as PackageInquiryDetails} from './components/packages';
 import Users from './components/users';
 import {SignInForm, SignUpForm} from './components/sessions';
-import EditUserForm from './components/users/EditUserForm';
 import {BookingDetails, Bookings, TicketDetails} from './components/bookings';
+import PrivateRoute from './components/PrivateRoute';
+import {
+	BecomePartnerForm,
+	PartnerProfile,
+	PackageForm as AddPackageForm,
+	PackageForm as NewPackageForm
+} from './components/partners';
+
+import HomePage from './components/pages/HomePage';
+import PageNotFound from './components/pages/PageNotFound';
+import {CustomerSupport} from './components/pages';
+import {PaymentSuccess} from './components/payments';
+
+import EditUserForm from './components/users/EditUserForm';
+
 import TransactionList from './components/admin/TransactionList';
 import CreateUser from './components/admin/CreateUser';
 import UsersList from './components/admin/UsersList';
@@ -19,15 +30,6 @@ import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
 import DashboardBookings from './components/admin/DashboardBookings';
 import Dashboard from './components/admin/Dashboard';
-import PrivateRoute from './components/PrivateRoute';
-import {
-	BecomePartnerForm,
-	PartnerProfile,
-	PackageForm as AddPackageForm,
-	PackageForm as NewPackageForm
-} from './components/partners';
-
-import {PaymentSuccess} from './components/payments';
 import PartnerList from './components/admin/PartnerList';
 import PackagesList from './components/admin/PackagesList';
 import InquiryDetails from './components/admin/InquiryDetails';
@@ -52,6 +54,7 @@ const routing = (
 		<Route path='/packages' component={PackageList} />
 		<Route path='/package/:id' component={PackageDetails} />
 		<Route path='/about' component={About} />
+		<Route path='/support' component={CustomerSupport} />
 
 		<PrivateRoute path='/book_flight' component={PassengerForm} />
 		<PrivateRoute path='/bookings' component={Bookings} />

@@ -196,12 +196,14 @@ section {
 }
 
 .navbar {
+
     .navbar-brand {
         font-size: 1rem;
-        padding: 0.3125rem 1rem;
+        padding: 0.5rem 1rem;
 
         @include desktop {
             font-size: 1.2rem;
+            padding: 0.5rem 0;
         }
     }
 
@@ -215,8 +217,11 @@ section {
     }
 
     .navbar-nav {
+        font-size: 12px;
+        font-weight: 600;
+
         li {
-            margin: 0px 1rem;
+            margin-left: 1.5rem;
 
             &:last-child {
                 margin-right: 0px;
@@ -226,7 +231,7 @@ section {
 }
 
 .form-group {
-    margin: 5px;
+    margin: 5px 10px;
 
     @include tablet {
         margin-bottom: 30px;
@@ -393,6 +398,14 @@ section {
         min-width: 100%;
         color: black;
     }
+
+    // &:hover .menu {
+    //     display: block;
+
+    //     &:hover {
+    //         display: block;
+    //     }
+    // }
 }
 
 .right-0 {

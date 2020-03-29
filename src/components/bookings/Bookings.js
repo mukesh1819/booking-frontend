@@ -4,9 +4,9 @@ import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken, ifNotZero} from '../../helpers';
 import moment from 'moment';
-import EmptyContent from '../EmptyContent';
+import {EmptyContent} from '../shared';
 import {Badge} from '../shared';
 import Pagination from 'react-pagination-js';
 import 'react-pagination-js/dist/styles.css'; // import css
@@ -37,7 +37,7 @@ class Bookings extends Component {
 				this.setState({
 					error
 				});
-				
+
 				swal({
 					title: 'Booking fetch error',
 					text: `could not able to fetch booking.. please try again or contact us`,
@@ -89,8 +89,8 @@ class Bookings extends Component {
 										)}
 										<span className='text-small text-muted px-2'>
 											<i className='fas fa-male' />&nbsp;
-											{booking.adult} Adult,
-											{booking.child} Child
+											{booking.adult} Adult
+											{ifNotZero(booking.child, `, ${booking.child} Child`)} Child
 										</span>
 									</div>
 								</div>
