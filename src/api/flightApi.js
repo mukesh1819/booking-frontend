@@ -1,6 +1,13 @@
 import axios from 'axios';
-import {handleResponse, handleError} from './apiUtils';
-import {FLIGHT_API_URL, BASE_URL, API_URL} from '../constants/index.js';
+import {
+	handleResponse,
+	handleError
+} from './apiUtils';
+import {
+	FLIGHT_API_URL,
+	BASE_URL,
+	API_URL
+} from '../constants/index.js';
 
 function setHeaders() {
 	const AUTH_TOKEN = localStorage.getItem('token');
@@ -10,7 +17,12 @@ function setHeaders() {
 }
 
 export function getCities() {
-	return axios.get(`${FLIGHT_API_URL}/sectors`, {crossdomain: true, headers: {'Access-Control-Allow-Origin': '*'}});
+	return axios.get(`${FLIGHT_API_URL}/sectors`, {
+		crossdomain: true,
+		headers: {
+			'Access-Control-Allow-Origin': '*'
+		}
+	});
 }
 
 export function getFlights(formData) {
@@ -65,16 +77,11 @@ export function submitPassengers(formData) {
 	});
 }
 
-export function cancelUserTickets(passengers) {
-	const data = {
-		ids: passengers.map((passenger) => {
-			return passenger.id;
-		})
-	};
+export function cancelUserTickets(ids) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/tickets/cancel_request`,
-		data: data,
+		data: ids,
 		headers: {
 			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`

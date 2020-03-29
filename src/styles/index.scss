@@ -276,7 +276,7 @@ section {
 }
 
 .card-header {
-    background-color: white;
+    background-color: rgba($primary, .1);
 }
 
 .card-body {
@@ -513,7 +513,7 @@ section {
 }
 
 footer {
-    background-color: $gray;
+    background-color: rgba($primary, .1);
     padding: 2em 0;
     clear: both;
 

@@ -97,7 +97,7 @@ class SearchBar extends Component {
 	};
 
 	render() {
-		const {hideReturnField, searching, cities} = this.state;
+		const {hideReturnField, searching, cities, minDate} = this.state;
 		const {searchDetails, countries} = this.props;
 		console.log('Search Details', searchDetails);
 
@@ -263,14 +263,16 @@ class SearchBar extends Component {
 											<span className='label'>Round Trip?</span>
 										</div>
 									</div>
-									<div className={`field-box form-group ${hideReturnField ? 'd-none' : ''}`}>
+									<div
+										className={`field-box form-group ${values.strTripType == 'O' ? 'd-none' : ''}`}
+									>
 										<label>Arrival Date</label>
 										<DatePicker
 											name='strReturnDate'
 											className='form-control'
 											type='date'
 											date={values.strReturnDate}
-											minDate={new Date()}
+											minDate={values.strFlightDate}
 											onBlur={handleBlur}
 											onChange={(date) => setFieldValue('strReturnDate', date)}
 											value={values.strReturnDate}

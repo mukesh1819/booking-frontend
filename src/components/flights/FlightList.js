@@ -242,7 +242,6 @@ class FlightList extends Component {
 				<div className='row'>
 					<div className='col-sm-0 col-md-2 d-none d-md-block pl-0'>
 						<div className='card filter-flights'>
-							<div className='card-header' />
 							<div className='card-body'>
 								<div className='sorters'>
 									<h4 className='title'> Sort </h4>

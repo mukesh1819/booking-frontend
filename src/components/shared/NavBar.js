@@ -89,8 +89,8 @@ class NavBar extends Component {
 
 						<div className='navbar-collapse collapse'>
 							<ul className='navbar-nav ml-auto align-items-center'>
-								<li>
-									{currentUser.partner && (
+								{currentUser.partner && (
+									<li>
 										<NavLink
 											className='text-white'
 											to={`/partners/package_form/${currentUser.partner.id}`}
@@ -101,10 +101,10 @@ class NavBar extends Component {
 										>
 											Add Packages
 										</NavLink>
-									)}
-								</li>
-								<li>
-									{!currentUser.partner && (
+									</li>
+								)}
+								{!currentUser.partner && (
+									<li>
 										<NavLink
 											className='text-white'
 											to='/partners/new'
@@ -115,8 +115,8 @@ class NavBar extends Component {
 										>
 											BECOME A PARTNER
 										</NavLink>
-									)}
-								</li>
+									</li>
+								)}
 								<li>
 									<NavLink
 										className='text-white'

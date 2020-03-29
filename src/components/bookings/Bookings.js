@@ -57,7 +57,7 @@ class Bookings extends Component {
 		return (
 			<div className='booking-list container card'>
 				<div className='card-body'>
-					<h5>Bookings</h5>
+					<h3 className='title'>Bookings</h3>
 					{bookings.map(function(booking) {
 						console.log('Booking', booking);
 						return (
