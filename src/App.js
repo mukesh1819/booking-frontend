@@ -8,6 +8,7 @@ import {getUserDetails} from './api/userApi';
 import {loginUser} from './redux/actions';
 import {setCountries} from './redux/actions';
 import {getCountries} from './api/flightApi';
+import {ScrollToTop} from './components/shared';
 
 function App(props) {
 	useEffect(() => {
@@ -37,6 +38,7 @@ function App(props) {
 
 	return (
 		<Router history={history}>
+			<ScrollToTop />
 			<div id='content'>
 				<NavBar />
 				{routing}

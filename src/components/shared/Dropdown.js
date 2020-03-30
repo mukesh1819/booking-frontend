@@ -25,15 +25,9 @@ export default ({children, className, icon, title, position = 'left', ...rest}) 
 	useOutsideAlerter(wrapperRef, dropped);
 
 	return (
-		<div style={{position: 'relative', width: '100%'}}>
-			{/* <Dropdown alignRight>
-				<Dropdown.Toggle id='dropdown-basic' className={`dropdown form-control ${className}`} />
-				<Dropdown.Menu className='p-1 dropdown-menu-right'>{children}</Dropdown.Menu>
-			</Dropdown> */}
-			<div className={`dropdown custom-dropdown ${className}`} onClick={() => setDrop(!dropped)}>
-				<i className={`${icon} m-0`} />&nbsp;{title}&nbsp; <i className='icon-chevron-down' />
-				<div className={`menu right-0`}>{children}</div>
-			</div>
+		<div className={`dropdown custom-dropdown ${className}`} onClick={() => setDrop(!dropped)}>
+			<i className={`${icon} m-0`} />&nbsp;{title}&nbsp; <i className='icon-chevron-down' />
+			<div className={`menu right-0`}>{children}</div>
 		</div>
 	);
 };

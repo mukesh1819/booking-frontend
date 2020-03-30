@@ -13,6 +13,7 @@ import Loading from './Loading';
 import Modal from './Modal';
 import NavBar from './NavBar';
 import Placeholder from './Placeholder';
+import ScrollToTop from './ScrollToTop';
 import Sidebar from './Sidebar';
 import Slidebar from './Slidebar';
 import Stepper from './Stepper';
@@ -37,6 +38,7 @@ export {
     Modal,
     NavBar,
     Placeholder,
+    ScrollToTop,
     Sidebar,
     Slidebar,
     Stepper,

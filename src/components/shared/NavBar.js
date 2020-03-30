@@ -68,8 +68,8 @@ class NavBar extends Component {
 		return (
 			<React.Fragment>
 				<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
-					<div className='container'>
-						<div className='navbar-header d-flex'>
+					<div className='container align-items-stretch'>
+						<div className='navbar-header d-flex align-items-center'>
 							<button
 								className='navbar-toggler'
 								type='button'
@@ -87,139 +87,124 @@ class NavBar extends Component {
 							</Link>
 						</div>
 
-						<div className='navbar-collapse collapse'>
-							<ul className='navbar-nav ml-auto align-items-center'>
+						<div className='navbar-collapse collapse align-items-stretch'>
+							<span className='navbar-nav ml-auto align-items-stretch'>
 								{currentUser.partner && (
-									<li>
-										<NavLink
-											className='text-white'
-											to={`/partners/package_form/${currentUser.partner.id}`}
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											Add Packages
-										</NavLink>
-									</li>
-								)}
-								{!currentUser.partner && (
-									<li>
-										<NavLink
-											className='text-white'
-											to='/partners/new'
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											BECOME A PARTNER
-										</NavLink>
-									</li>
-								)}
-								<li>
 									<NavLink
-										className='text-white'
-										to='/support'
+										className='link text-white'
+										to={`/partners/package_form/${currentUser.partner.id}`}
 										activeStyle={{
 											textDecoration: 'none',
 											fontWeight: 'bold'
 										}}
 									>
-										CUSTOMER SUPPORT
+										Add Packages
 									</NavLink>
-								</li>
+								)}
+								{!currentUser.partner && (
+									<NavLink
+										className='link text-white'
+										to='/partners/new'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
+									>
+										BECOME A PARTNER
+									</NavLink>
+								)}
+								<NavLink
+									className='link text-white'
+									to='/support'
+									activeStyle={{
+										textDecoration: 'none',
+										fontWeight: 'bold'
+									}}
+								>
+									CUSTOMER SUPPORT
+								</NavLink>
 								{loggedIn && (
-									<li>
-										<NavLink
-											className='text-white'
-											to='/bookings'
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											My Bookings
-										</NavLink>
-									</li>
+									<NavLink
+										className='link text-white'
+										to='/bookings'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
+									>
+										My Bookings
+									</NavLink>
 								)}
 								{isAdmin(currentUser) && (
-									<li>
-										<NavLink
-											className='text-white'
-											to='/bookings'
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											Admin
-										</NavLink>
-									</li>
-								)}
-								{/* <Dropdown icon={'icon-user'} title={''}>
-								<SignUpForm />
-							</Dropdown> */}
-								<li>
-									<Dropdown
-										icon={`${flagFor(language)} flag`}
-										title={language}
-										className='text-white'
+									<NavLink
+										className='link text-white'
+										to='/bookings'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
 									>
-										<div className='d-flex select-countries text-normal'>
-											<div className=''>
-												<span>Languages</span>
-												<Currencies requestData='languages' />
-											</div>
+										Admin
+									</NavLink>
+								)}
+								<Dropdown
+									icon={`${flagFor(language)} flag`}
+									title={language}
+									className='bg-primary-dark text-white px-3'
+								>
+									<div className='d-flex select-countries text-normal'>
+										<div className=''>
+											<span>Languages</span>
+											<Currencies requestData='languages' />
 										</div>
-									</Dropdown>
-								</li>
-							</ul>
+									</div>
+								</Dropdown>
+							</span>
 						</div>
-						<div>
-							<ul className='navbar-nav ml-auto align-items-center'>
-								<li>
-									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
-										<ul class='text-normal'>
-											<li className= "m-0">
-												{loggedIn && (
-													<Link to='/profile' className='dropdown-item'>
-														Profile
-													</Link>
-												)}
-											</li>
-											<li className= "m-0">
-												{loggedIn && (
-													<a
-														className='dropdown-item'
-														onClick={() => {
-															logoutUser();
-															history.push('/login');
-															logout();
-														}}
-													>
-														Logout
-													</a>
-												)}
-											</li>
-											<li className= "m-0">
-												{!loggedIn && (
-													<Link to='/login' className='dropdown-item'>
-														Login
-													</Link>
-												)}
-											</li>
-											<li className= "m-0">
-												{!loggedIn && (
-													<Link to='/signup' className='dropdown-item'>
-														Sign up
-													</Link>
-												)}
-											</li>
-										</ul>
-									</Dropdown>
-								</li>
-							</ul>
+						<div className='d-flex align-items-stretch'>
+							<Dropdown
+								icon='icon-user'
+								title={userInitials(currentUser)}
+								className='bg-primary-dark text-white px-3'
+							>
+								<ul class='text-normal'>
+									<li className='m-0'>
+										{loggedIn && (
+											<Link to='/profile' className='dropdown-item'>
+												Profile
+											</Link>
+										)}
+									</li>
+									<li className='m-0'>
+										{loggedIn && (
+											<a
+												className='dropdown-item'
+												onClick={() => {
+													logoutUser();
+													history.push('/login');
+													logout();
+												}}
+											>
+												Logout
+											</a>
+										)}
+									</li>
+									<li className='m-0'>
+										{!loggedIn && (
+											<Link to='/login' className='dropdown-item'>
+												Login
+											</Link>
+										)}
+									</li>
+									<li className='m-0'>
+										{!loggedIn && (
+											<Link to='/signup' className='dropdown-item'>
+												Sign up
+											</Link>
+										)}
+									</li>
+								</ul>
+							</Dropdown>
 						</div>
 					</div>
 				</nav>
