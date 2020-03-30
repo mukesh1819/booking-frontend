@@ -181,14 +181,14 @@ class NavBar extends Component {
 								<li>
 									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
 										<ul class='text-normal'>
-											<li>
+											<li className= "m-0">
 												{loggedIn && (
 													<Link to='/profile' className='dropdown-item'>
 														Profile
 													</Link>
 												)}
 											</li>
-											<li>
+											<li className= "m-0">
 												{loggedIn && (
 													<a
 														className='dropdown-item'
@@ -202,14 +202,14 @@ class NavBar extends Component {
 													</a>
 												)}
 											</li>
-											<li>
+											<li className= "m-0">
 												{!loggedIn && (
 													<Link to='/login' className='dropdown-item'>
 														Login
 													</Link>
 												)}
 											</li>
-											<li>
+											<li className= "m-0">
 												{!loggedIn && (
 													<Link to='/signup' className='dropdown-item'>
 														Sign up

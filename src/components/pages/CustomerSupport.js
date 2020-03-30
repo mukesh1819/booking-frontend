@@ -1,4 +1,5 @@
 import React from 'react';
+import {companyDetails} from '../../helpers';
 
 const CustomerSupport = () => (
 	<div className='text-center'>
@@ -32,8 +33,10 @@ const CustomerSupport = () => (
 		</section>
 		<section className='bg-gray'>
 			<h3 className='title'>Contact Us</h3>
-			<div>anup.singh2071@gmail.com</div>
-			<div className='btn btn-secondary btn-large m-2'>+977 9818311488</div>
+			<div>{companyDetails.email || 'anup.singh2071@gmail.com'}</div>
+			<a href={`tel:${companyDetails.contact}`} className='btn btn-secondary btn-large m-2'>
+				+977 {companyDetails.contact || '9818311488'}
+			</a>
 		</section>
 	</div>
 );

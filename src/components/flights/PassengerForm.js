@@ -113,11 +113,33 @@ class PassengerForm extends Component {
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
-						this.setState({
-							passengers: values.passengers,
-							viewDetails: true,
-							user: values.user
-						});
+						createBooking({
+							booking: {
+								outbound_flight: this.props.selectedOutboundFlight,
+								inbound_flight: this.props.selectedInboundFlight,
+								passengers_attributes: this.props.passengers,
+								contact_name: user.name,
+								mobile_no: user.phone_number,
+								email: user.email
+							}
+						})
+							.then((response) => {
+								this.setState({
+									passengers: values.passengers,
+									viewDetails: true,
+									user: values.user
+								});
+								this.props.setBooking(response.data);
+							})
+							.catch((error) => {
+								// console.log(error);
+								swal({
+									title: 'Booking Error',
+									text: 'Could not save your booking. please try again or contact us',
+									icon: 'error',
+									button: 'Continue!'
+								});
+							});
 					}}
 				>
 					{({
@@ -153,7 +175,7 @@ class PassengerForm extends Component {
 												className='dropdown'
 												defaultValue={values.user.code}
 												name='user.code'
-												placeholder='Select Code'
+												placeholder='Code'
 												onBlur={handleBlur}
 												onChange={(e, data) => {
 													setFieldValue(`user.code`, data.value);
@@ -359,7 +381,7 @@ class PassengerForm extends Component {
 		);
 
 		if (this.state.viewDetails) {
-			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user={user} />;
+			content = <FinalBookingDetails passengers={this.state.passengers} />;
 		}
 
 		return <div id='passenger-form'>{content}</div>;

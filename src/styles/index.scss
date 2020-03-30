@@ -384,28 +384,27 @@ section {
     white-space: nowrap;
     display: flex;
     align-items: center;
+    position: relative;
 
     i.icon-chevron-down {
         float: right;
     }
 
     .menu {
+        display: none;
         padding: 0.5rem;
         background: white;
         position: absolute;
-        transform: translate(0px, 65px);
         border: 1px solid lightgray;
+        top: 18px;
+        right: 0px;
         min-width: 100%;
         color: black;
     }
 
-    // &:hover .menu {
-    //     display: block;
-
-    //     &:hover {
-    //         display: block;
-    //     }
-    // }
+    &:hover .menu {
+        display: block;
+    }
 }
 
 .right-0 {
@@ -422,6 +421,7 @@ section {
         background-color: $primary;
         padding: 8px;
         z-index: 20;
+        color: white;
     }
 }
 

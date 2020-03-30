@@ -1,13 +1,6 @@
 import axios from 'axios';
-import {
-	handleResponse,
-	handleError
-} from './apiUtils';
-import {
-	FLIGHT_API_URL,
-	BASE_URL,
-	API_URL
-} from '../constants/index.js';
+import {handleResponse, handleError} from './apiUtils';
+import {FLIGHT_API_URL, BASE_URL, API_URL} from '../constants/index.js';
 
 function setHeaders() {
 	const AUTH_TOKEN = localStorage.getItem('token');

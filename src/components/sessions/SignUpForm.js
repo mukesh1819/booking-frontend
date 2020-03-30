@@ -134,7 +134,7 @@ class SignUpForm extends Component {
 														className='dropdown'
 														defaultValue={values.code}
 														name='code'
-														placeholder='Select Code'
+														placeholder='Code'
 														onBlur={handleBlur}
 														onChange={(e, data) => {
 															setFieldValue(`code`, data.value);

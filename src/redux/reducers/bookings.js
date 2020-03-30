@@ -1,11 +1,13 @@
 const initialState = {
-    booking: null,
+    booking: [{
+        booking_transaction: {}
+    }],
     currency: 'NPR'
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case "CREATE_BOOKING": {
+        case "SET_BOOKING": {
             return {
                 ...state,
                 booking: action.payload

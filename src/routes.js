@@ -38,6 +38,7 @@ import InquiryList from './components/admin/InquiryList';
 import CategoryList from './components/admin/CategoryList';
 import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
+import EditBooking from './components/flights/EditBooking';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -56,13 +57,14 @@ const routing = (
 		<Route path='/about' component={About} />
 		<Route path='/support' component={CustomerSupport} />
 
-		<PrivateRoute path='/book_flight' component={PassengerForm} />
+		<PrivateRoute path='/passengers' component={PassengerForm} />
 		<PrivateRoute path='/bookings' component={Bookings} />
 		<PrivateRoute path='/transactions' component={Users} />
 		<PrivateRoute path='/records' component={Users} />
 		<PrivateRoute path='/profile' component={Users} />
 		<PrivateRoute path='/users/edit' component={EditUserForm} />
 		<PrivateRoute path='/booking_details/:id' component={BookingDetails} />
+		<PrivateRoute path='/booking/:idx/edit' component={EditBooking} />
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
 		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />

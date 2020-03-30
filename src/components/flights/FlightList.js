@@ -104,7 +104,7 @@ class FlightList extends Component {
 	}
 
 	onBook() {
-		history.push('/book_flight');
+		history.push('/passengers');
 	}
 
 	componentDidMount() {

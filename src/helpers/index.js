@@ -11,7 +11,7 @@ import {
 	toTableData,
 	ifNotZero
 } from './general';
-import {flagFor} from './variables';
+import {flagFor, companyDetails} from './variables';
 
 export {
 	handleResponse,
@@ -29,5 +29,6 @@ export {
 	imageUrl,
 	toTableData,
 	ifNotZero,
-	flagFor
+	flagFor,
+	companyDetails
 };
