@@ -134,6 +134,30 @@ class SearchBar extends Component {
 						console.log(values);
 						this.props.setSearchDetails(values);
 						this.props.onSearch && this.props.onSearch();
+						getFlights(values)
+							.then((response) => {
+								setSubmitting(false);
+								this.props.setFlights(response.data.data);
+								this.props.setTTLtime(0);
+								this.setState({
+									searching: false,
+									availableFlights: response.data.data
+								});
+							})
+							.catch((error) => {
+								// console.log('Search Flight Error', error);
+								debugger;
+								setSubmitting(false);
+								this.setState({
+									searching: false
+								});
+								swal({
+									title: 'No Flights Found!',
+									text: error.response.data.message,
+									icon: 'error',
+									button: 'Try Again!'
+								});
+							});
 					}}
 				>
 					{({
