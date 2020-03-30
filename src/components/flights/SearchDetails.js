@@ -2,6 +2,7 @@ import React, {Component, useState} from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import SearchBar from './SearchBar';
+import {ifNotZero} from '../../helpers';
 
 const SearchDetails = ({details, onModify}) => {
 	return (
@@ -26,8 +27,8 @@ const SearchDetails = ({details, onModify}) => {
 						)}
 						<span className='text-small text-muted px-2'>
 							<i className='fas fa-male text-primary' />&nbsp;
-							{details.intAdult} Adult,
-							{details.intChild} Child
+							{details.intAdult} Adult
+							{ifNotZero(details.intChild, `, ${details.intChild} Child`)}
 						</span>
 					</div>
 				</div>

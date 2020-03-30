@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getUserDetails} from '../api/userApi';
-import {loginUser} from '../redux/actions/sessions';
+import {loginUser} from '../redux/actions';
 import swal from 'sweetalert';
 
 class PrivateRoute extends Component {

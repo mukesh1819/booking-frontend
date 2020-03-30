@@ -123,6 +123,15 @@
             display: flex;
             justify-content: center;
         }
+
+        .card-body::before {
+            content: "\f007";
+            font-size: 145px;
+            position: absolute;
+            top: -140px;
+            left: -35px;
+            color: rgba(158, 132, 91, 0.15);
+        }
     }
 }
 

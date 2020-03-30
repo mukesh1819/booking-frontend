@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getUserTransaction} from '../../api/transactionApi';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';

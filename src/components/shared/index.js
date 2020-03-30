@@ -6,6 +6,7 @@ import DataTable from './DataTable';
 import DatePicker from './Datepicker';
 import Dropdown from './Dropdown';
 import Editable from './Editable';
+import EmptyContent from './EmptyContent';
 import Footer from './Footer';
 import IconInput from './IconInput';
 import Loading from './Loading';
@@ -29,6 +30,7 @@ export {
     DatePicker,
     Dropdown,
     Editable,
+    EmptyContent,
     Footer,
     IconInput,
     Loading,

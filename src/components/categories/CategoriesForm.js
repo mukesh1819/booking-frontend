@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../helpers/helpers';
+import {passCsrfToken, subDays, addDays} from '../../helpers';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';

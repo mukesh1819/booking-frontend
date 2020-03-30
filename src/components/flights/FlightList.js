@@ -3,18 +3,17 @@ import Flight from './Flight';
 import FlightCombination from './FlightCombination';
 import {sortBy} from 'lodash';
 import {Button} from 'react-bootstrap';
-import {Modal as ModalExample} from '../shared';
+import {Modal as ModalExample, EmptyContent} from '../shared';
 import FlightDetails from './FlightDetails';
 import FlightCombinedDetails from './FlightCombinedDetails';
 import TableView from '../TableView';
 import {connect} from 'react-redux';
 import {getFlights} from '../../api/flightApi';
-import {setFlights, setSearchDetails, setTTLtime} from '../../redux/actions/flightActions';
+import {setFlights, setSearchDetails, setTTLtime} from '../../redux/actions';
 import store from '../../redux/store';
-import {selectInboundFlight, selectOutboundFlight, deselectFlight} from '../../redux/actions/flightActions';
+import {selectInboundFlight, selectOutboundFlight, deselectFlight} from '../../redux/actions';
 import {Link, Redirect} from 'react-router-dom';
 import SearchDetails from './SearchDetails';
-import EmptyContent from '../EmptyContent';
 import history from '../../history';
 import {Dropdown as DropdownItem, Placeholder} from '../shared';
 import {Form} from 'react-bootstrap';
@@ -105,7 +104,7 @@ class FlightList extends Component {
 	}
 
 	onBook() {
-		history.push('/book_flight');
+		history.push('/passengers');
 	}
 
 	componentDidMount() {
@@ -243,7 +242,6 @@ class FlightList extends Component {
 				<div className='row'>
 					<div className='col-sm-0 col-md-2 d-none d-md-block pl-0'>
 						<div className='card filter-flights'>
-							<div className='card-header' />
 							<div className='card-body'>
 								<div className='sorters'>
 									<h4 className='title'> Sort </h4>

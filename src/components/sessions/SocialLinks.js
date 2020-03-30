@@ -7,8 +7,8 @@ import {GoogleAPI, GoogleLogin, GoogleLogout} from 'react-google-oauth';
 import FacebookAuth from 'react-facebook-auth';
 import '../../styles/index.scss';
 import {authorizeGoogle, authorizeFb} from '../../api/userApi';
-import {loginUser} from '../../redux/actions/sessions';
-import {redirectUrl} from '../../helpers/helpers';
+import {loginUser} from '../../redux/actions';
+import {redirectUrl} from '../../helpers';
 import history from '../../history';
 import swal from 'sweetalert';
 

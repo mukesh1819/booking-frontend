@@ -5,7 +5,7 @@ import {getCategories} from '../../api/categoryApi';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../helpers/helpers';
+import {passCsrfToken, subDays, addDays} from '../../helpers';
 import {connect} from 'react-redux';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';

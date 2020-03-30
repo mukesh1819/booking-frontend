@@ -9,7 +9,7 @@ import FlightList from './FlightList';
 import {createBooking, submitPassengers} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {setBooking} from '../../redux/actions/bookingActions';
+import {setBooking} from '../../redux/actions';
 import ErrorMessage from '../ErrorMessage';
 import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
@@ -22,11 +22,11 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
-import {sortObjectBy} from '../../helpers/helpers';
+import {sortObjectBy} from '../../helpers';
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -113,11 +113,33 @@ class PassengerForm extends Component {
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
-						this.setState({
-							passengers: values.passengers,
-							viewDetails: true,
-							user: values.user
-						});
+						createBooking({
+							booking: {
+								outbound_flight: this.props.selectedOutboundFlight,
+								inbound_flight: this.props.selectedInboundFlight,
+								passengers_attributes: this.props.passengers,
+								contact_name: user.name,
+								mobile_no: user.phone_number,
+								email: user.email
+							}
+						})
+							.then((response) => {
+								this.setState({
+									passengers: values.passengers,
+									viewDetails: true,
+									user: values.user
+								});
+								this.props.setBooking(response.data);
+							})
+							.catch((error) => {
+								// console.log(error);
+								swal({
+									title: 'Booking Error',
+									text: 'Could not save your booking. please try again or contact us',
+									icon: 'error',
+									button: 'Continue!'
+								});
+							});
 					}}
 				>
 					{({
@@ -153,7 +175,7 @@ class PassengerForm extends Component {
 												className='dropdown'
 												defaultValue={values.user.code}
 												name='user.code'
-												placeholder='Select Code'
+												placeholder='Code'
 												onBlur={handleBlur}
 												onChange={(e, data) => {
 													setFieldValue(`user.code`, data.value);
@@ -359,7 +381,7 @@ class PassengerForm extends Component {
 		);
 
 		if (this.state.viewDetails) {
-			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user={user} />;
+			content = <FinalBookingDetails passengers={this.state.passengers} />;
 		}
 
 		return <div id='passenger-form'>{content}</div>;

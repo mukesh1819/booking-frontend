@@ -10,7 +10,12 @@ function setHeaders() {
 }
 
 export function getCities() {
-	return axios.get(`${FLIGHT_API_URL}/sectors`, {crossdomain: true, headers: {'Access-Control-Allow-Origin': '*'}});
+	return axios.get(`${FLIGHT_API_URL}/sectors`, {
+		crossdomain: true,
+		headers: {
+			'Access-Control-Allow-Origin': '*'
+		}
+	});
 }
 
 export function getFlights(formData) {
@@ -65,16 +70,11 @@ export function submitPassengers(formData) {
 	});
 }
 
-export function cancelUserTickets(passengers) {
-	const data = {
-		ids: passengers.map((passenger) => {
-			return passenger.id;
-		})
-	};
+export function cancelUserTickets(ids) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/tickets/cancel_request`,
-		data: data,
+		data: ids,
 		headers: {
 			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`

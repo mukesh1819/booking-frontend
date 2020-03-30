@@ -1,6 +1,6 @@
 import React, {component, Component} from 'react';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import {getPartners} from '../../api/partnerApi';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';

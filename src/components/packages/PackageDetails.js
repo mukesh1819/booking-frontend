@@ -5,7 +5,7 @@ import HotelImage from '../../images/flight.jpg';
 import {Link} from 'react-router-dom';
 import {Modal as ModalExample} from '../shared';
 import InquiryForm from './InquiryForm';
-import {imageUrl} from '../../helpers/helpers';
+import {imageUrl} from '../../helpers';
 import {Tab} from 'semantic-ui-react';
 
 class PackageDetails extends Component {

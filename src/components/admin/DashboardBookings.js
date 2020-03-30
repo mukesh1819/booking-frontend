@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import {getAdminBookings} from '../../api/flightApi';
 import BookingDetails from './BookingDetails';
