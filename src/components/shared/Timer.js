@@ -60,13 +60,13 @@ class Timer extends Component {
 }
 
 const mapStateToProps = ({flightStore}) => {
-	return {
-		ttlTime: flightStore.ttlTime
-	};
+	// return {
+	// 	ttlTime: flightStore.ttlTime
+	// };
 };
 
 const mapDispatchToProps = {
-	setTTLtime
+	// setTTLtime
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

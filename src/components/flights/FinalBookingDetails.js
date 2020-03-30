@@ -17,6 +17,40 @@ class FinalBookingDetails extends Component {
 	}
 
 	submit() {
+		const user = {};
+		user.contact_name = this.props.user.name;
+		user.mobile_no = this.props.user.phone_number;
+		user.email = this.props.user.email;
+		createBooking({
+			booking: {
+				outbound_flight: this.props.selectedOutboundFlight,
+				inbound_flight: this.props.selectedInboundFlight,
+				passengers_attributes: this.props.passengers,
+				...user
+			}
+		})
+			.then((response) => {
+				// swal({
+				// 	title: 'Booking Created!',
+				// 	text: 'Continue to payment!',
+				// 	icon: 'success',
+				// 	button: 'Continue!'
+				// });
+				this.props.setBooking(response.data);
+				// newPayment(response.data[0].booking_transaction.idx);
+				this.setState({
+					idx: response.data[0].booking_transaction.idx
+				});
+			})
+			.catch((error) => {
+				// console.log(error);
+				swal({
+					title: 'Booking Error',
+					text: 'Could not save your booking. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
+			});
 		this.setState({
 			redirectToPayment: true
 		});
@@ -34,7 +68,7 @@ class FinalBookingDetails extends Component {
 
 		return (
 			<div className='passenger-details container p-3 bg-white'>
-				{this.props.ttlTime > 0 && <Timer />}
+				{/* {this.props.ttlTime > 0 && <Timer />} */}
 				<div className='p-2'>
 					<Link to={`/booking/${booking.ruid}/edit`} className='btn bg-none text-secondary float-right'>
 						MODIFY
