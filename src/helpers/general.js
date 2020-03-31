@@ -40,7 +40,7 @@ export function isRefundable(type) {
 
 export function userInitials(user) {
 	if (user.name === undefined) {
-		return 'Login';
+		return 'LOGIN';
 	} else if (user.name === null) {
 		return 'User';
 	} else {

@@ -150,7 +150,7 @@ class NavBar extends Component {
 								<Dropdown
 									icon={`${flagFor(language)} flag`}
 									title={language}
-									className='bg-primary-dark text-white px-3'
+									className='text-white px-3'
 								>
 									<div className='d-flex select-countries text-normal'>
 										<div className=''>
@@ -162,11 +162,7 @@ class NavBar extends Component {
 							</span>
 						</div>
 						<div className='d-flex align-items-stretch'>
-							<Dropdown
-								icon='icon-user'
-								title={userInitials(currentUser)}
-								className='bg-primary-dark text-white px-3'
-							>
+							<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white pl-3'>
 								<ul class='text-normal'>
 									{loggedIn && (
 										<li className='m-0'>
