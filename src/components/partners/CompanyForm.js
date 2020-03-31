@@ -37,7 +37,7 @@ class CompanyForm extends Component {
 			company_name: '',
 			company_email: '',
 			company_address: '',
-			company_type: '',
+			company_type: [],
 			website: '',
 			company_contact_number: '',
 			subscription: false,
@@ -207,33 +207,46 @@ class CompanyForm extends Component {
 												</IconInput>
 												<ErrorMessage name='contact_address' />
 											</div>
-											<div className='field-box'>
-												<label> I, would like to subscribe to emails </label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
-													<Field
-														name='subscription'
-														className='form-control'
-														type='checkbox'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.subscription}
-													/>
-												</IconInput>
+
+											<div className="field-box">
+    											<div className="row mt-3">
+													<div>
+														<Field
+															name='subscription'
+															className=''
+															type='checkbox'
+															checked={values.subscription}
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.subscription}
+														/>
+													</div>
+													<div className="col-8 ml-0 pl-0 text-left d-flex align-top">
+														<label>I, would like to subscribe to emails</label>
+													</div>
+												</div>
 											</div>
-											<div className='field-box'>
-												<label> I agree to the Terms and Conditions as a vendor </label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
-													<Field
-														name='accept_terms'
-														className='form-control'
-														type='checkbox'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.accept_terms}
-													/>
-												</IconInput>
+
+											<div className="field-box">
+    											<div className="row mt-3">
+													<div>
+														<Field
+															name='accept_terms'
+															className=''
+															type='checkbox'
+															checked={values.accept_terms}
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.accept_terms}
+														/>
+													</div>
+													<div className="col-8 ml-0 pl-0 text-left d-flex align-top">
+														<label>I agree to the Terms and Conditions as a vendor</label>
+													</div>
+												</div>
 												<ErrorMessage name='accept_terms' />
 											</div>
+											
 										</div>
 										<div class='text-center'>
 											<button
