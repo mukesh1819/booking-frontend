@@ -403,7 +403,7 @@ section {
 
     .menu {
         display: none;
-        padding: 0.5rem;
+        padding: 0.75rem;
         background: white;
         position: absolute;
         border: 1px solid lightgray;
@@ -411,6 +411,10 @@ section {
         right: 0px;
         min-width: 100%;
         color: black;
+
+        li {
+            padding: 0.25rem;
+        }
     }
 
     &:hover .menu {

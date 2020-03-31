@@ -154,7 +154,7 @@ class NavBar extends Component {
 								>
 									<div className='d-flex select-countries text-normal'>
 										<div className=''>
-											<span>Languages</span>
+											<span className='text-bold'>Languages</span>
 											<Currencies requestData='languages' />
 										</div>
 									</div>
@@ -168,17 +168,17 @@ class NavBar extends Component {
 								className='bg-primary-dark text-white px-3'
 							>
 								<ul class='text-normal'>
-									<li className='m-0'>
-										{loggedIn && (
-											<Link to='/profile' className='dropdown-item'>
+									{loggedIn && (
+										<li className='m-0'>
+											<Link to='/profile' className='item text-bold'>
 												Profile
 											</Link>
-										)}
-									</li>
-									<li className='m-0'>
-										{loggedIn && (
+										</li>
+									)}
+									{loggedIn && (
+										<li className='m-0'>
 											<a
-												className='dropdown-item'
+												className='item text-bold'
 												onClick={() => {
 													logoutUser();
 													history.push('/login');
@@ -187,22 +187,22 @@ class NavBar extends Component {
 											>
 												Logout
 											</a>
-										)}
-									</li>
-									<li className='m-0'>
-										{!loggedIn && (
-											<Link to='/login' className='dropdown-item'>
+										</li>
+									)}
+									{!loggedIn && (
+										<li className='m-0'>
+											<Link to='/login' className='item text-bold'>
 												Login
 											</Link>
-										)}
-									</li>
-									<li className='m-0'>
-										{!loggedIn && (
-											<Link to='/signup' className='dropdown-item'>
+										</li>
+									)}
+									{!loggedIn && (
+										<li className='m-0'>
+											<Link to='/signup' className='item text-bold'>
 												Sign up
 											</Link>
-										)}
-									</li>
+										</li>
+									)}
 								</ul>
 							</Dropdown>
 						</div>
