@@ -49,7 +49,6 @@ class EditBooking extends Component {
 	}
 
 	fetchDetails = () => {
-		debugger;
 		getBookingDetails(this.props.match.params.idx)
 			.then((response) => {
 				this.setState({
