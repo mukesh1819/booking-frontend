@@ -30,7 +30,7 @@ class CompanyForm extends Component {
 			company_name: yup.string().required('Required'),
 			company_type: yup.string().required('Required'),
 			company_address: yup.string().required('Required'),
-			accept_terms: yup.bool().oneOf([true], 'Accept Terms & Conditions is required')
+			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions')
 		});
 
 		const partnerDetails = {
@@ -42,13 +42,12 @@ class CompanyForm extends Component {
 			company_contact_number: '',
 			subscription: false,
 			accept_terms: false
-
 		};
 		return (
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						Company Details{' '}
+						Company Details
 						<Formik
 							initialValues={partnerDetails}
 							validationSchema={PartnersSchema}
@@ -74,7 +73,6 @@ class CompanyForm extends Component {
 									});
 							}}
 						>
-							{' '}
 							{({
 								values,
 								errors,
@@ -90,20 +88,19 @@ class CompanyForm extends Component {
 									<form onSubmit={handleSubmit} autoComplete='off'>
 										<div className='input-section'>
 											<div className='field-box'>
-												<label> Company Name </label>{' '}
+												<label> Company Name </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
-												company_contact_number						<Field
+													<Field
 														name='company_name'
 														className='form-control'
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.company_name}
-													/>{' '}
-												</IconInput>{' '}
+													/>
+												</IconInput>
 												<ErrorMessage name='company_name' />
-											</div>{' '}
-
-											<div className='field-box'>
+											</div>
+											<div className='f1remield-box'>
 												<label htmlFor=''>Service Type</label>
 												<Dropdown
 													className='form-control'
@@ -111,61 +108,55 @@ class CompanyForm extends Component {
 													placeholder='Select Service'
 													onBlur={handleBlur}
 													onChange={(e, data) => {
-														setFieldValue(
-															`company_type`,
-															data.value
-														);
+														setFieldValue(`company_type`, data.value);
 													}}
 													value={values.company_type}
 													fluid
 													search
 													selection
-													options=
+													multiple
+													options={[
 														{
-															[
-																{
-																	key: {partnerId},
-																	value: 'vehicle rental',
-																	text: 'vehicle rental'
-																},
+															key: 1,
+															value: 'vehicle rental',
+															text: 'vehicle rental'
+														},
 
-																{
-																	key: {partnerId},
-																	value: 'bus transport',
-																	text: 'bus transport'
-																},
+														{
+															key: 2,
+															value: 'bus transport',
+															text: 'bus transport'
+														},
 
-																{
-																	key: {partnerId},
-																	value: 'paragliding',
-																	text: 'paragliding'
-																},
+														{
+															key: 3,
+															value: 'paragliding',
+															text: 'paragliding'
+														},
 
-																{
-																	key: {partnerId},
-																	value: 'bungee',
-																	text: 'bungee'
-																},
+														{
+															key: 4,
+															value: 'bungee',
+															text: 'bungee'
+														},
 
-																{
-																	key: {partnerId},
-																	value: 'sight seeing',
-																	text: 'vehicle rental'
-																},
+														{
+															key: 5,
+															value: 'sight seeing',
+															text: 'vehicle rental'
+														},
 
-																{
-																	key: {partnerId},
-																	value: 'others',
-																	text: 'others'
-																}
-															]
+														{
+															key: 6,
+															value: 'others',
+															text: 'others'
 														}
+													]}
 												/>
 												<ErrorMessage name='company_type' />
 											</div>
-
 											<div className='field-box'>
-												<label> Company Website </label>{' '}
+												<label> Company Website </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														name='website'
@@ -173,13 +164,12 @@ class CompanyForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.website}
-													/>{' '}
-												</IconInput>{' '}
+													/>
+												</IconInput>
 												<ErrorMessage name='website' />
-											</div>{' '}
-											
+											</div>
 											<div className='field-box'>
-												<label> Company Phone Number </label>{' '}
+												<label> Company Phone Number </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														name='company_contact_number'
@@ -187,14 +177,12 @@ class CompanyForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.company_contact_number}
-													/>{' '}
-												</IconInput>{' '}
+													/>
+												</IconInput>
 												<ErrorMessage name='company_contact_number' />
-											</div>{' '}
-
-
+											</div>
 											<div className='field-box'>
-												<label> Company Email Address </label>{' '}
+												<label> Company Email Address </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														name='company_email'
@@ -202,12 +190,12 @@ class CompanyForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.company_email}
-													/>{' '}
-												</IconInput>{' '}
+													/>
+												</IconInput>
 												<ErrorMessage name='company_email' />
-											</div>{' '}
+											</div>
 											<div className='field-box'>
-												<label> Company Address </label>{' '}
+												<label> Company Address </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														name='contact_address'
@@ -215,13 +203,12 @@ class CompanyForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.contact_address}
-													/>{' '}
-												</IconInput>{' '}
+													/>
+												</IconInput>
 												<ErrorMessage name='contact_address' />
-											</div>{' '}
-											
+											</div>
 											<div className='field-box'>
-												<label> I, would like to subscribe to emails </label>{' '}
+												<label> I, would like to subscribe to emails </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														name='subscription'
@@ -230,14 +217,11 @@ class CompanyForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.subscription}
-													/>{' '}
-												</IconInput>{' '}
-											</div>{' '}
-											
-
-
+													/>
+												</IconInput>
+											</div>
 											<div className='field-box'>
-												<label> I agree to the Terms and Conditions as a vendor </label>{' '}
+												<label> I agree to the Terms and Conditions as a vendor </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
 														name='accept_terms'
@@ -246,24 +230,26 @@ class CompanyForm extends Component {
 														onBlur={handleBlur}
 														onChange={handleChange}
 														value={values.accept_terms}
-													/>{' '}
-												</IconInput>{' '}
+													/>
+												</IconInput>
 												<ErrorMessage name='accept_terms' />
-											</div>{' '}
-
-										</div>{' '}
+											</div>
+										</div>
 										<div class='text-center'>
-											<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
-												Next{' '}
-											</button>{' '}
-										</div>{' '}
+											<button
+												className='btn btn-secondary m-2'
+												type='submit'
+												disabled={isSubmitting}
+											>
+												Next
+											</button>
+										</div>
 									</form>
 								</React.Fragment>
-								
-							)}{' '}
-						</Formik>{' '}
-					</div>{' '}
-				</div>{' '}
+							)}
+						</Formik>
+					</div>
+				</div>
 			</div>
 		);
 	}
