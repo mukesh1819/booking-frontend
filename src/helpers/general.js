@@ -1,6 +1,5 @@
-import {
-	BASE_URL
-} from '../constants';
+import {BASE_URL} from '../constants';
+import moment from 'moment';
 
 export function sortObjectBy(obj, key) {
 	obj = obj.sort((a, b) => {
@@ -29,6 +28,18 @@ export function addDays(date, days) {
 	const finalDate = new Date(date);
 	finalDate.setDate(finalDate.getDate() + days);
 	return finalDate;
+}
+
+export function getDuration(time) {
+	var currentTime = moment().format('YYYY MM DD HH:mm:ss');
+	var bookingTime = moment.utc(time).format('YYYY MM DD HH:mm:ss');
+	var start = moment.utc(currentTime, 'HH:mm:ss');
+	var end = moment.utc(bookingTime, 'HH:mm:ss');
+	var diff = moment.duration(end.diff(start));
+	console.log('START', start);
+	console.log('END', end);
+	console.log('DiFF', diff);
+	return diff;
 }
 
 export function isRefundable(type) {
@@ -62,7 +73,8 @@ export function imageUrl(path) {
 
 export function toTableData(data) {
 	const refData = {
-		columns: [{
+		columns: [
+			{
 				label: 'Name',
 				field: 'name',
 				sort: 'asc',
@@ -79,7 +91,7 @@ export function toTableData(data) {
 	if (data.length == 0) {
 		return refData;
 	}
-	var columns = Object.keys(data[0]).map(function (v) {
+	var columns = Object.keys(data[0]).map(function(v) {
 		return {
 			label: v.toUpperCase(),
 			field: v,
@@ -98,8 +110,8 @@ export function toTableData(data) {
 
 export function ifNotZero(value, returnValue) {
 	if (value == 0) {
-		return ''
+		return '';
 	} else {
-		return returnValue
+		return returnValue;
 	}
 }

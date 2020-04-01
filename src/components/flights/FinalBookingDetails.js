@@ -6,6 +6,7 @@ import PassengerDetails from './PassengerDetails';
 import {Timer} from '../shared';
 import {PaymentForm} from '../payments';
 import {Link} from 'react-router-dom';
+import {getDuration} from '../../helpers';
 
 class FinalBookingDetails extends Component {
 	constructor(props) {
@@ -27,14 +28,14 @@ class FinalBookingDetails extends Component {
 	render() {
 		const {passengers, toggle, booking, transaction, selectedOutboundFlight} = this.props;
 		const {redirectToPayment} = this.state;
-
+		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.reservation_time));
 		if (redirectToPayment) {
 			return <PaymentForm idx={transaction.idx} value='flightbooking' />;
 		}
 
 		return (
 			<div className='passenger-details container p-3 bg-white'>
-				{this.props.ttlTime > 0 && <Timer />}
+				{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.reservation_time)} />}
 				<div className='p-2'>
 					<Link to={`/booking/${booking.ruid}/edit`} className='btn bg-none text-secondary float-right'>
 						MODIFY
