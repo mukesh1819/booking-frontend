@@ -13,7 +13,6 @@ import {
 	PackageForm as AddPackageForm,
 	PackageForm as NewPackageForm
 } from './components/partners';
-
 import HomePage from './components/pages/HomePage';
 import PageNotFound from './components/pages/PageNotFound';
 import {CustomerSupport} from './components/pages';
@@ -66,7 +65,7 @@ const routing = (
 		<PrivateRoute path='/booking_details/:id' component={BookingDetails} />
 		<PrivateRoute path='/booking/:idx/edit' component={EditBooking} />
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
-		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
+		<Route path='/partners/new' component={BecomePartnerForm} />
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
 		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />

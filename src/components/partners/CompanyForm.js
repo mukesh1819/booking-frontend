@@ -25,18 +25,32 @@ class CompanyForm extends Component {
 
 	render() {
 		const {partnerId, nextStep} = this.props;
+
+		const PartnersSchema = yup.object().shape({
+			company_name: yup.string().required('Required'),
+			company_type: yup.string().required('Required'),
+			company_address: yup.string().required('Required'),
+			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions')
+		});
+
 		const partnerDetails = {
 			company_name: '',
 			company_email: '',
-			company_address: ''
+			company_address: '',
+			company_type: [],
+			website: '',
+			company_contact_number: '',
+			subscription: false,
+			accept_terms: false
 		};
 		return (
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						Company Details{' '}
+						Company Details
 						<Formik
 							initialValues={partnerDetails}
+							validationSchema={PartnersSchema}
 							onSubmit={(values, {setSubmitting}) => {
 								this.setState({
 									searching: true
@@ -59,7 +73,6 @@ class CompanyForm extends Component {
 									});
 							}}
 						>
-							{' '}
 							{({
 								values,
 								errors,
@@ -71,58 +84,185 @@ class CompanyForm extends Component {
 								setFieldValue
 								/* and other goodies */
 							}) => (
-								<form onSubmit={handleSubmit} autoComplete='off'>
-									<div className='input-section'>
-										<div className='field-box'>
-											<label> Name </label>{' '}
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='company_name'
+								<React.Fragment>
+									<form onSubmit={handleSubmit} autoComplete='off'>
+										<div className='input-section'>
+											<div className='field-box'>
+												<label> Company Name </label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='company_name'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.company_name}
+													/>
+												</IconInput>
+												<ErrorMessage name='company_name' />
+											</div>
+											<div className='f1remield-box'>
+												<label htmlFor=''>Service Type</label>
+												<Dropdown
 													className='form-control'
+													name='company_type'
+													placeholder='Select Service'
 													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.company_name}
-												/>{' '}
-											</IconInput>{' '}
-											<ErrorMessage name='company_name' />
-										</div>{' '}
-										<div className='field-box'>
-											<label> Email Address </label>{' '}
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='company_email'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.company_email}
-												/>{' '}
-											</IconInput>{' '}
-											<ErrorMessage name='company_email' />
-										</div>{' '}
-										<div className='field-box'>
-											<label> Company Address </label>{' '}
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='contact_address'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.contact_address}
-												/>{' '}
-											</IconInput>{' '}
-											<ErrorMessage name='contact_address' />
-										</div>{' '}
-									</div>{' '}
-									<div class='text-center'>
-										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
-											Next{' '}
-										</button>{' '}
-									</div>{' '}
-								</form>
-							)}{' '}
-						</Formik>{' '}
-					</div>{' '}
-				</div>{' '}
+													onChange={(e, data) => {
+														setFieldValue(`company_type`, data.value);
+													}}
+													value={values.company_type}
+													fluid
+													search
+													selection
+													multiple
+													options={[
+														{
+															key: 1,
+															value: 'vehicle rental',
+															text: 'vehicle rental'
+														},
+
+														{
+															key: 2,
+															value: 'bus transport',
+															text: 'bus transport'
+														},
+
+														{
+															key: 3,
+															value: 'paragliding',
+															text: 'paragliding'
+														},
+
+														{
+															key: 4,
+															value: 'bungee',
+															text: 'bungee'
+														},
+
+														{
+															key: 5,
+															value: 'sight seeing',
+															text: 'vehicle rental'
+														},
+
+														{
+															key: 6,
+															value: 'others',
+															text: 'others'
+														}
+													]}
+												/>
+												<ErrorMessage name='company_type' />
+											</div>
+											<div className='field-box'>
+												<label> Company Website </label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='website'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.website}
+													/>
+												</IconInput>
+												<ErrorMessage name='website' />
+											</div>
+											<div className='field-box'>
+												<label> Company Phone Number </label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='company_contact_number'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.company_contact_number}
+													/>
+												</IconInput>
+												<ErrorMessage name='company_contact_number' />
+											</div>
+											<div className='field-box'>
+												<label> Company Email Address </label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='company_email'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.company_email}
+													/>
+												</IconInput>
+												<ErrorMessage name='company_email' />
+											</div>
+											<div className='field-box'>
+												<label> Company Address </label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='contact_address'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.contact_address}
+													/>
+												</IconInput>
+												<ErrorMessage name='contact_address' />
+											</div>
+
+											<div className="field-box">
+    											<div className="row mt-3">
+													<div>
+														<Field
+															name='subscription'
+															className=''
+															type='checkbox'
+															checked={values.subscription}
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.subscription}
+														/>
+													</div>
+													<div className="col-8 ml-0 pl-0 text-left d-flex align-top">
+														<label>I, would like to subscribe to emails</label>
+													</div>
+												</div>
+											</div>
+
+											<div className="field-box">
+    											<div className="row mt-3">
+													<div>
+														<Field
+															name='accept_terms'
+															className=''
+															type='checkbox'
+															checked={values.accept_terms}
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.accept_terms}
+														/>
+													</div>
+													<div className="col-8 ml-0 pl-0 text-left d-flex align-top">
+														<label>I agree to the Terms and Conditions as a vendor</label>
+													</div>
+												</div>
+												<ErrorMessage name='accept_terms' />
+											</div>
+											
+										</div>
+										<div class='text-center'>
+											<button
+												className='btn btn-secondary m-2'
+												type='submit'
+												disabled={isSubmitting}
+											>
+												Next
+											</button>
+										</div>
+									</form>
+								</React.Fragment>
+							)}
+						</Formik>
+					</div>
+				</div>
 			</div>
 		);
 	}

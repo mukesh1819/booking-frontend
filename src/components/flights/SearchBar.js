@@ -146,7 +146,6 @@ class SearchBar extends Component {
 							})
 							.catch((error) => {
 								// console.log('Search Flight Error', error);
-								debugger;
 								setSubmitting(false);
 								this.setState({
 									searching: false
