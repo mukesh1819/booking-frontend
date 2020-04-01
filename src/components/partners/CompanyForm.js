@@ -59,7 +59,14 @@ class CompanyForm extends Component {
 								updatePartner(partnerId, values)
 									.then((response) => {
 										setSubmitting(false);
+										swal({
+											title: 'Partner Request!',
+											text: 'Your partnership request is being approved. We will contact you shortly',
+											icon: 'success',
+											button: 'Continue!'
+										});
 										nextStep(response.data);
+										
 									})
 									.catch((error) => {
 										// console.log('Update Company Details Error', error);

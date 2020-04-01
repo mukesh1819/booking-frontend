@@ -59,3 +59,14 @@ export function deletePartner(id) {
 		}
 	});
 }
+
+export function confirmPartner(id){
+	return axios({
+		method: 'put',
+		url: `${API_URL}/partners/${id}/confirm`,
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: `Bearer ${localStorage.token}`
+		}
+	})
+}
