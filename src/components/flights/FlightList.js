@@ -108,9 +108,9 @@ class FlightList extends Component {
 	}
 
 	componentDidMount() {
-		if (document.readyState == 'complete') {
-			Tawk_API.hideWidget();
-		}
+		// if (document.readyState == 'complete') {
+		// 	Tawk_API.hideWidget();
+		// }
 	}
 
 	componentWillReceiveProps(nextProps) {
