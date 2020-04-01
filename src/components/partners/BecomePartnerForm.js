@@ -48,9 +48,9 @@ class BecomePartnerForm extends Component {
 							{step == 2 && (
 								<CompanyForm nextStep={(data) => this.nextStep(data)} partnerId={partnerId} />
 							)}
-							{step == 3 && (
+							{/* {step == 3 && (
 								<PackageForm nextStep={(data) => this.nextStep(data)} partnerId={partnerId} />
-							)}
+							)} */}
 						</Stepper>
 					</div>
 				</div>

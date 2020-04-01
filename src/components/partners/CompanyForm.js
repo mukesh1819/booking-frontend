@@ -198,14 +198,14 @@ class CompanyForm extends Component {
 												<label> Company Address </label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
 													<Field
-														name='contact_address'
+														name='company_address'
 														className='form-control'
 														onBlur={handleBlur}
 														onChange={handleChange}
-														value={values.contact_address}
+														value={values.company_address}
 													/>
 												</IconInput>
-												<ErrorMessage name='contact_address' />
+												<ErrorMessage name='company_address' />
 											</div>
 
 											<div className="field-box">
