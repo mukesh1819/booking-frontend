@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 const Footer = () => (
 	<footer id='footer' role='contentinfo'>
-		<div className='container-fluid'>
+		<div className='container'>
 			<div className='d-flex justify-content-between align-items-center'>
 				<div className=''>
 					<div className='footer-widget footer-links'>

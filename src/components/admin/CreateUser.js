@@ -162,7 +162,7 @@ const CreateUser = () => {
 									</Field>
 								</div>
 
-								<button className='btn btn-primary m-2' type='submit' disabled={isSubmitting}>
+								<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
 									Submit
 								</button>
 							</div>

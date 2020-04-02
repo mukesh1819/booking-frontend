@@ -326,7 +326,7 @@ class EditBooking extends Component {
 									);
 								})}
 								<div className='text-center p-2'>
-									<button type='submit' class='btn btn-primary'>
+									<button type='submit' class='btn btn-secondary'>
 										Submit
 									</button>
 								</div>

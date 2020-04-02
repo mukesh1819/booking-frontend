@@ -107,12 +107,16 @@
         span {
             color: $primary;
             font-weight: 700;
-            padding: 0px 10px;
+            margin: 0px 10px;
             text-transform: uppercase;
             cursor: pointer;
 
             &:first-child {
-                padding-left: 0px;
+                margin-left: 0px;
+            }
+
+            &.active {
+                border-bottom: 1px solid $secondary;
             }
         }
     }
@@ -148,20 +152,31 @@
         }
     }
 
-    .toggle-sector {
-        background: white;
-        border: 1px solid grey;
-        cursor: pointer;
+    .toggle-sector-mobile {
         position: absolute;
-        margin: 1.2rem 2rem 0rem 0rem;
-        padding: 0.5rem 0.6rem;
+        padding: 0.5rem;
         right: 0;
-        top: 16px;
-        transform: rotate(90deg);
+        top: 50%;
         z-index: 10;
 
         @include tablet {
             display: none;
+        }
+
+        i {
+            transform: rotate(90deg);
+        }
+    }
+
+    .toggle-sector-desktop {
+        display: none;
+
+        i {
+            transform: translate(0px, 14px);
+        }
+
+        @include tablet {
+            display: block;
         }
     }
 
