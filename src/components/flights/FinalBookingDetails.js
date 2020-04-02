@@ -30,7 +30,7 @@ class FinalBookingDetails extends Component {
 		const {redirectToPayment} = this.state;
 		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.reservation_time));
 		if (redirectToPayment) {
-			return <PaymentForm idx={transaction.idx} value='flightbooking' />;
+			return <PaymentForm idx={transaction.idx} />;
 		}
 
 		return (

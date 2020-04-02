@@ -22,7 +22,7 @@ class InquiryDetails extends Component {
 	fetchDetails() {
 		showPackageBooking(this.props.match.params.idx)
 			.then((response) => {
-                // console.log('inquiry detials', response.data);
+				// console.log('inquiry detials', response.data);
 				this.setState({
 					packageBookingInfo: response.data
 				});
@@ -48,7 +48,7 @@ class InquiryDetails extends Component {
 		const {packageBookingInfo} = this.state;
 
 		if (this.state.showPaymentPage) {
-			return <PaymentForm idx={packageBookingInfo.idx} value="packagebooking" />;
+			return <PaymentForm idx={packageBookingInfo.idx} />;
 		}
 
 		return (

@@ -24,12 +24,12 @@ class CompanyForm extends Component {
 	componentDidMount() {}
 
 	render() {
-		const {partnerId, nextStep} = this.props;
+		const {nextStep} = this.props;
 
 		const PartnersSchema = yup.object().shape({
 			company_name: yup.string().required('Required'),
 			company_type: yup.string('String').required('Required'),
-			company_address: yup.string().required('Required'),
+			company_address: yup.string('String').required('Required'),
 			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions')
 		});
 
@@ -47,30 +47,12 @@ class CompanyForm extends Component {
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						Company Details
 						<Formik
 							initialValues={partnerDetails}
 							validationSchema={PartnersSchema}
 							onSubmit={(values, {setSubmitting}) => {
-								this.setState({
-									searching: true
-								});
-								// console.log(values);
-								updatePartner(partnerId, values)
-									.then((response) => {
-										setSubmitting(false);
-										nextStep(response.data);
-									})
-									.catch((error) => {
-										// console.log('Update Company Details Error', error);
-										setSubmitting(false);
-										swal({
-											title: 'Sorry!',
-											text: 'could not able to update partner. please try again or contact us',
-											icon: 'error',
-											button: 'Try Again!'
-										});
-									});
+								setSubmitting(true);
+								nextStep(values);
 							}}
 						>
 							{({
@@ -87,7 +69,7 @@ class CompanyForm extends Component {
 								<form onSubmit={handleSubmit} autoComplete='off'>
 									<div className='input-section'>
 										<div className='field-box'>
-											<label> Company Name </label>
+											<label> Name </label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
 													name='company_name'
@@ -156,7 +138,7 @@ class CompanyForm extends Component {
 											<ErrorMessage name='company_type' />
 										</div>
 										<div className='field-box'>
-											<label> Company Website </label>
+											<label> Website </label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
 													name='website'
@@ -169,7 +151,7 @@ class CompanyForm extends Component {
 											<ErrorMessage name='website' />
 										</div>
 										<div className='field-box'>
-											<label> Company Phone Number </label>
+											<label> Phone Number </label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
 													name='company_contact_number'
@@ -182,7 +164,7 @@ class CompanyForm extends Component {
 											<ErrorMessage name='company_contact_number' />
 										</div>
 										<div className='field-box'>
-											<label> Company Email Address </label>
+											<label> Email Address </label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
 													name='company_email'
@@ -195,17 +177,17 @@ class CompanyForm extends Component {
 											<ErrorMessage name='company_email' />
 										</div>
 										<div className='field-box'>
-											<label> Company Address </label>
+											<label> Address </label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
-													name='contact_address'
+													name='company_address'
 													className='form-control'
 													onBlur={handleBlur}
 													onChange={handleChange}
-													value={values.contact_address}
+													value={values.company_address}
 												/>
 											</IconInput>
-											<ErrorMessage name='contact_address' />
+											<ErrorMessage name='company_address' />
 										</div>
 
 										<div className='field-box'>

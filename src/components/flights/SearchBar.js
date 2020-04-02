@@ -170,7 +170,7 @@ class SearchBar extends Component {
 						setFieldValue
 						/* and other goodies */
 					}) => (
-						<form onSubmit={handleSubmit} autoComplete='off'>
+						<form onSubmit={handleSubmit} autoComplete='off' className='form-wrap'>
 							<div className='input-section'>
 								<div className='d-none d-md-block select-trip'>
 									<span

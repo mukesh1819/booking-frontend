@@ -12,7 +12,7 @@ class PaymentForm extends Component {
 	}
 
 	componentDidMount() {
-		newPayment(this.props.idx, this.props.value)
+		newPayment(this.props.idx)
 			.then((res) => {
 				this.setState({
 					action: res.data.action,

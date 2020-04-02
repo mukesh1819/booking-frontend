@@ -68,6 +68,7 @@ const routing = (
 		<Route path='/partners/new' component={BecomePartnerForm} />
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
+		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} />
 		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
 		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} />
 

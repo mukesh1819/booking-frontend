@@ -97,7 +97,7 @@ class SignUpForm extends Component {
 									<div className='text-small'>
 										Already have an account? <Link to='/login'>Sign In</Link>
 									</div>
-									<div className='input-section'>
+									<div className='fields'>
 										<div className='field'>
 											<label>Full Name</label>
 
@@ -228,19 +228,19 @@ class SignUpForm extends Component {
 											/>
 											<ErrorMessage name='password_confirmation' />
 										</div>
-
-										<button
-											className='btn btn-secondary my-2 w-100'
-											type='submit'
-											disabled={isSubmitting}
-										>
-											Submit
-										</button>
-
-										<hr />
-										<div className='text-center text-small mb-2'>Sign In with </div>
-										<SocialLinks />
 									</div>
+
+									<button
+										className='btn btn-secondary my-2 w-100'
+										type='submit'
+										disabled={isSubmitting}
+									>
+										Submit
+									</button>
+
+									<hr />
+									<div className='text-center text-small mb-2'>Sign In with </div>
+									<SocialLinks />
 								</div>
 							</div>
 						</div>

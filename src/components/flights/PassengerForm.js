@@ -148,7 +148,7 @@ class PassengerForm extends Component {
 						isSubmitting,
 						setFieldValue
 					}) => (
-						<Form>
+						<Form className='form-wrap'>
 							<h3 className='p-2'>Contact Information</h3>
 							<div className='input-section'>
 								<div className='input-section-inputs'>

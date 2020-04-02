@@ -16,12 +16,14 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import PartnerForm from './PartnerForm';
 import CompanyForm from './CompanyForm';
+import {createPartner} from '../../api/partnerApi';
+
 import PackageForm from './PackageForm';
 class BecomePartnerForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			partnerId: null,
+			values: {},
 			step: 1
 		};
 	}
@@ -32,25 +34,42 @@ class BecomePartnerForm extends Component {
 		this.setState((prevState) => {
 			return {
 				step: (prevState.step += 1),
-				partnerId: data.id
+				values: {...prevState.values, ...data}
 			};
 		});
+
+		if (this.state.step == 3) {
+			createPartner(this.state.values)
+				.then((response) => {
+					swal({
+						title: 'Partner Request!',
+						text: 'Your partnership request is being approved. We will contact you shortly',
+						icon: 'success',
+						button: 'Continue!'
+					});
+				})
+				.catch((error) => {
+					// console.log('Create Partner Error', error);
+					setSubmitting(false);
+					swal({
+						title: 'Partner Create Error!',
+						text: error.response.data.errors.toString(),
+						icon: 'error',
+						button: 'Try Again!'
+					});
+				});
+		}
 	};
 
 	render() {
-		const {partnerId, step} = this.state;
+		const {step} = this.state;
 		return (
 			<div className='container p-4'>
 				<div className='card'>
 					<div className='card-body'>
 						<Stepper step={step}>
 							{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
-							{step == 2 && (
-								<CompanyForm nextStep={(data) => this.nextStep(data)} partnerId={partnerId} />
-							)}
-							{step == 3 && (
-								<PackageForm nextStep={(data) => this.nextStep(data)} partnerId={partnerId} />
-							)}
+							{step == 2 && <CompanyForm nextStep={(data) => this.nextStep(data)} />}
 						</Stepper>
 					</div>
 				</div>

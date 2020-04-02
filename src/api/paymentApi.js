@@ -6,15 +6,13 @@ import {PAYMENT_URL, API_URL} from '../constants';
 // 	window.open(`payments/new?idx=${idx}`, '_blank');
 // }
 
-export function newPayment(idx, value) {
+export function newPayment(idx) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/payments/new?idx=${idx}&value=${value}`,
+		url: `${API_URL}/payments/new?idx=${idx}`,
 		headers: {
 			'Content-type': 'application/json',
 			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
-
-

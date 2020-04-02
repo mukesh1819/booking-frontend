@@ -69,16 +69,15 @@
     @include tablet {
         padding: 20px 30px;
     }
+}
 
-    .btn-dropdown {
-        font-weight: normal;
+.form-wrap {
+    label {
+        display: none;
+        font-weight: 500;
 
-        i {
-            float: left;
-        }
-
-        input {
-            padding-left: 38px;
+        @include desktop {
+            display: block;
         }
     }
 }
@@ -91,15 +90,6 @@
 
         @include desktop {
             margin-right: 0px;
-        }
-    }
-
-    label {
-        display: none;
-        font-weight: 500;
-
-        @include desktop {
-            display: block;
         }
     }
 }
@@ -172,6 +162,18 @@
 
         @include tablet {
             display: none;
+        }
+    }
+
+    .btn-dropdown {
+        font-weight: normal;
+
+        i {
+            float: left;
+        }
+
+        input {
+            padding-left: 38px;
         }
     }
 }

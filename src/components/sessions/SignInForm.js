@@ -85,7 +85,7 @@ class SignInForm extends Component {
 										Don't have an account? <Link to='/signup'>Create Account</Link>
 									</div>
 									<form onSubmit={handleSubmit} className='form-wrap'>
-										<div className='input-section'>
+										<div className='fields'>
 											<div className='field'>
 												<label>Email</label>
 
@@ -113,9 +113,9 @@ class SignInForm extends Component {
 													placeholder='Password'
 												/>
 											</div>
-										</div>
-										<div className='text-small'>
-											<Link to='/forgot'>Forgot Password?</Link>
+											<div className='text-small'>
+												<Link to='/forgot'>Forgot Password?</Link>
+											</div>
 										</div>
 										<button
 											className='btn btn-secondary my-2 w-100'
