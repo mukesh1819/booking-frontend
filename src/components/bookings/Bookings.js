@@ -51,6 +51,7 @@ class Bookings extends Component {
 
 	render() {
 		const {transactions} = this.state;
+		console.log('TRansactions', transactions);
 
 		if (this.state.transactions.length == 0) {
 			return <EmptyContent>No bookings yet.</EmptyContent>;
@@ -73,7 +74,7 @@ class Bookings extends Component {
 											key={booking.ruid}
 											className='booking d-flex justify-content-between align-items-center p-3'
 											to={{
-												pathname: `/booking_details/${booking.ruid}`,
+												pathname: `/booking/${booking.ruid}`,
 												state: {
 													booking: booking
 												}

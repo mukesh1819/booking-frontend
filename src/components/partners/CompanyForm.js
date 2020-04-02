@@ -29,6 +29,7 @@ class CompanyForm extends Component {
 		const PartnersSchema = yup.object().shape({
 			company_name: yup.string().required('Required'),
 			company_type: yup.string('String').required('Required'),
+			company_address: yup.string().required('Required'),
 			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions')
 		});
 

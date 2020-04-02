@@ -62,7 +62,7 @@ const routing = (
 		<PrivateRoute path='/records' component={Users} />
 		<PrivateRoute path='/profile' component={Users} />
 		<PrivateRoute path='/users/edit' component={EditUserForm} />
-		<PrivateRoute path='/booking_details/:id' component={BookingDetails} />
+		<PrivateRoute path='/booking/:id' component={BookingDetails} />
 		<PrivateRoute path='/booking/:idx/edit' component={EditBooking} />
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
 		<Route path='/partners/new' component={BecomePartnerForm} />

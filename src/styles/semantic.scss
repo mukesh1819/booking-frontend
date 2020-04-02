@@ -13,3 +13,11 @@
         font-weight: normal;
     }
 }
+
+.semantic-input-group {
+    width: 100% !important;
+
+    .dropdown {
+        width: max-content !important;
+    }
+}

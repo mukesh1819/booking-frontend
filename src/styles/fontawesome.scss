@@ -1,0 +1,10 @@
+.fas {
+
+    &.departure {
+        transform: rotate(-40deg);
+    }
+
+    &.arrival {
+        transform: rotate(40deg);
+    }
+}
