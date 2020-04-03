@@ -55,6 +55,7 @@ class PackageDetails extends Component {
 
 	render() {
 		const {aPackage} = this.state;
+		const dummyImages = [''];
 		const panes = [
 			{
 				menuItem: 'About',

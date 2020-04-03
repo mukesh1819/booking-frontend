@@ -20,27 +20,8 @@ class PartnerProfile extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		// this.fetchPackages();
 		this.fetchPartner();
 	}
-
-	// fetchPackages() {
-	// 	getPackages(`q[partner_id_eq]=${this.props.location.state.partner.id}`)
-	// 		.then((response) => {
-	// 			// console.log(response.data);
-	// 			this.setState({
-	// 				packages: response.data
-	// 			});
-	// 		})
-	// 		.catch((error) => {
-	// 			swal({
-	// 				title: 'Package fetch Error!',
-	// 				text: 'could not able to fetch package.. please try again or contact us',
-	// 				icon: 'error',
-	// 				button: 'Try Again!'
-	// 			});
-	// 		});
-	// }
 
 	fetchPartner() {
 		showPartner(this.props.match.params.id).then((response) => {
@@ -63,7 +44,7 @@ class PartnerProfile extends Component {
 			.catch((error) => {
 				swal({
 					title: 'Sorry!',
-					text: 'Partner request failure. could not able to create partner.please try again or contact us',
+					text: error.response.data.errors.toString(),
 					icon: 'error',
 					button: 'Try Again!'
 				});
@@ -77,8 +58,6 @@ class PartnerProfile extends Component {
 		} else {
 			partner = this.state.partner;
 		}
-
-		// const {packages} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
@@ -90,6 +69,7 @@ class PartnerProfile extends Component {
 								<th>Email</th>
 								<th>Company Name</th>
 								<th>Contact Number</th>
+								<th>Status</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -102,24 +82,26 @@ class PartnerProfile extends Component {
 								<td>{partner.email} </td>
 								<td>{partner.company_name}</td>
 								<td>{partner.contact_number}</td>
-								<td>
-									<span
-										className='btn btn-primary'
-										onClick={() => this.callPartnerConfirm(partner.id)}
-									>
-										Confirm
-									</span>
-								</td>
+								<td>{partner.status}</td>
+								{partner.status === 'approved' && (
+									<td>
+										<span className='text-info'>Partner Created</span>
+									</td>
+								)}
+								{partner.status === 'processing' && (
+									<td>
+										<span
+											className='btn btn-primary'
+											onClick={() => this.callPartnerConfirm(partner.id)}
+										>
+											Confirm
+										</span>
+									</td>
+								)}
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				{/* <div>
-					<h5 className='m-3'>Packages</h5>
-					{packages.map((aPackage) => {
-						return <Package aPackage={aPackage} />;
-					})}
-				</div> */}
 			</div>
 		);
 	}

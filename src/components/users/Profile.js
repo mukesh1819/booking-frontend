@@ -31,6 +31,7 @@ class Profile extends Component {
 				// console.log(response.data.user);
 			})
 			.catch((error) => {
+				debugger;
 				// console.log(error);
 				this.setState({
 					error

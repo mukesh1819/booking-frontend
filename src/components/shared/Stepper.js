@@ -5,8 +5,7 @@ const Stepper = (props) => {
 	const {step, children} = props;
 	const steps = [
 		{level: 1, title: 'Partner Details', description: 'Enter your details', icon: 'user'},
-		{level: 2, title: 'Company Details', description: 'Enter your Enter your company information', icon: 'company'},
-		{level: 3, title: 'Add Packages', description: 'Enter package Details', icon: 'package'}
+		{level: 2, title: 'Company Details', description: 'Enter your Enter your company information', icon: 'company'}
 	];
 	return (
 		<div>
