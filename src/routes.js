@@ -83,7 +83,7 @@ const routing = (
 		<PrivateRoute path='/admin/inquiries' component={InquiryList} />
 		<PrivateRoute path='/admin/categories' component={CategoryList} />
 		<PrivateRoute path='/admin/category_details' component={CategoryDetail} />
-		<PrivateRoute path='/admin/categories/category_form' component={CategoriesForm} />
+		<PrivateRoute path='/admin/category_form' component={CategoriesForm} />
 		<PrivateRoute path='/admin/partner/:id' component={PartnerProfile} />
 
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />

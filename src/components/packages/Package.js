@@ -12,9 +12,9 @@ const Package = (props) => {
 					<div className='overlay d-flex align-items-center justify-content-center'>
 						<div className='text-center'>
 							<Link to={`/package/${aPackage.id}`} className='btn btn-secondary btn-large'>
-								Book
+								Submit Query
 							</Link>
-							<Link to={`/package/${aPackage.id}`} className='btn btn-secondary btn-large bg-none'>
+							<Link to={`/package/${aPackage.id}`} className='btn btn-large bg-none text-white'>
 								Details
 							</Link>
 						</div>
@@ -26,15 +26,28 @@ const Package = (props) => {
 				<Link to={`/package/${aPackage.id}`}>
 					<h3>{aPackage.name}</h3>
 				</Link>
-				<div className='d-flex justify-content-between py-2'>
+				<div className='d-flex justify-content-between align-items-center py-2'>
 					<span className='text-small text-muted'>
 						<i class='fas fa-map-marker-alt' />&nbsp;
 						{aPackage.location}
 					</span>
-					<span>
-						<span className='text-strong'>Rs. {aPackage.price}</span>
-						<span className='text-small text-muted'> / person</span>
+					<span className='text-small text-muted'>
+						<i class='fas fa-clock' />&nbsp;
+						{`6 days`}
 					</span>
+				</div>
+				{aPackage.offer_price && (
+					<div>
+						<span className='text-muted'>
+							Rs. <del>{30000}</del>
+						</span>
+
+						<span className='text-success'> 5000 off</span>
+					</div>
+				)}
+				<div>
+					<span className='text-bold text-large'>Rs. 25000</span>
+					<span className='text-small text-muted'>/ person</span>
 				</div>
 			</div>
 		</div>

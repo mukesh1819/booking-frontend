@@ -1,18 +1,12 @@
 import axios from 'axios';
-import {handleResponse, handleError} from './apiUtils';
+import {handleResponse, handleError, useInterceptor} from './apiUtils';
 import {PAYMENT_URL, API_URL} from '../constants';
 
-// export function newPayment(idx) {
-// 	window.open(`payments/new?idx=${idx}`, '_blank');
-// }
+useInterceptor(axios);
 
 export function newPayment(idx) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/payments/new?idx=${idx}`,
-		headers: {
-			'Content-type': 'application/json',
-			Authorization: `Bearer ${localStorage.token}`
-		}
+		url: `${API_URL}/payments/new?idx=${idx}`
 	});
 }

@@ -84,6 +84,12 @@ class PackageDetails extends Component {
 			<div className='package-details'>
 				<div className='container'>
 					<div className='header'>
+						<div className='owl-carousel owl-theme'>
+							{category.packages.length > 0 &&
+								category.packages.map((aPackage) => {
+									return <Package aPackage={aPackage} />;
+								})}
+						</div>
 						<div className='img-container'>
 							<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
 						</div>

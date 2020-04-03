@@ -42,44 +42,42 @@ class PartnerProfile extends Component {
 	// 		});
 	// }
 
-	fetchPartner(){
-		showPartner(this.props.match.params.id)
-		.then((response) => {
+	fetchPartner() {
+		showPartner(this.props.match.params.id).then((response) => {
 			this.setState({
 				partner: response.data
-			})
-		})
+			});
+		});
 	}
 
-	callPartnerConfirm(id){
+	callPartnerConfirm(id) {
 		confirmPartner(id)
-		.then((response) => {
-			swal({
-				title: 'Partner Approval Request!',
-				text: 'partnership request is approved and email sent to partners',
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'Partner Approval Request!',
+					text: 'partnership request is approved and email sent to partners',
+					icon: 'success',
+					button: 'Continue!'
+				});
+			})
+			.catch((error) => {
+				swal({
+					title: 'Sorry!',
+					text: 'Partner request failure. could not able to create partner.please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			});
-		})
-		.catch((error) => {
-			swal({
-				title: 'Sorry!',
-				text: 'Partner request failure. could not able to create partner.please try again or contact us',
-				icon: 'error',
-				button: 'Try Again!'
-			});
-		})
 	}
 
 	render() {
-		var partner = {}
-		if(this.props.location.state){
-			 partner = this.props.location.state.partner;
-		}
-		else{
+		var partner = {};
+		if (this.props.location.state) {
+			partner = this.props.location.state.partner;
+		} else {
 			partner = this.state.partner;
 		}
-		
+
 		// const {packages} = this.state;
 		return (
 			<div className='container'>
@@ -98,11 +96,20 @@ class PartnerProfile extends Component {
 
 						<tbody>
 							<tr>
-								<td>{partner.first_name} {partner.last_name}</td>
+								<td>
+									{partner.first_name} {partner.last_name}
+								</td>
 								<td>{partner.email} </td>
 								<td>{partner.company_name}</td>
 								<td>{partner.contact_number}</td>
-								<td><span className="btn btn-primary" onClick={() => this.callPartnerConfirm(partner.id)}>Confirm</span></td>
+								<td>
+									<span
+										className='btn btn-primary'
+										onClick={() => this.callPartnerConfirm(partner.id)}
+									>
+										Confirm
+									</span>
+								</td>
 							</tr>
 						</tbody>
 					</table>

@@ -10,7 +10,7 @@ import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import {connect} from 'react-redux';
-import {setFlights, setSearchDetails, setTTLtime} from '../../redux/actions';
+import {setFlights, setSearchDetails, setTTLtime, setError} from '../../redux/actions';
 import history from '../../history';
 import {Container, Segment} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
@@ -54,19 +54,9 @@ class SearchBar extends Component {
 				this.setState({
 					cities: response.data.Sector
 				});
-				// console.log(response.data.Sector);
 			})
 			.catch((error) => {
-				// console.log(error);
-				this.setState({
-					error
-				});
-				swal({
-					title: 'Sorry!',
-					text: 'Something went wrong. Please check your internet and try again or contact us',
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				this.props.setError('Cant fetch cities');
 			});
 	};
 
@@ -98,7 +88,7 @@ class SearchBar extends Component {
 
 	render() {
 		const {hideReturnField, searching, cities, minDate} = this.state;
-		const {searchDetails, countries} = this.props;
+		const {searchDetails, countries, setError} = this.props;
 		console.log('Search Details', searchDetails);
 
 		const SearchFlightSchema = yup.object().shape({
@@ -134,29 +124,7 @@ class SearchBar extends Component {
 						console.log(values);
 						this.props.setSearchDetails(values);
 						this.props.onSearch && this.props.onSearch();
-						getFlights(values)
-							.then((response) => {
-								setSubmitting(false);
-								this.props.setFlights(response.data.data);
-								this.props.setTTLtime(0);
-								this.setState({
-									searching: false,
-									availableFlights: response.data.data
-								});
-							})
-							.catch((error) => {
-								// console.log('Search Flight Error', error);
-								setSubmitting(false);
-								this.setState({
-									searching: false
-								});
-								swal({
-									title: 'No Flights Found!',
-									text: error.response.data.message,
-									icon: 'error',
-									button: 'Try Again!'
-								});
-							});
+						setSubmitting(false);
 					}}
 				>
 					{({
@@ -443,7 +411,8 @@ const mapStateToProps = ({flightStore, extras}) => ({
 const mapDispatchToProps = {
 	setFlights,
 	setSearchDetails,
-	setTTLtime
+	setTTLtime,
+	setError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

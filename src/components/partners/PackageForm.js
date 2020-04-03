@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import CKEditor from 'ckeditor4-react';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
-import {connect} from 'react-redux';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb} from '../shared';
 import {createPackage, updatePackage} from '../../api/packageApi';
 import {getCategories} from '../../api/categoryApi';
@@ -11,6 +11,7 @@ import {getPartners} from '../../api/partnerApi';
 import {BASE_URL} from '../../constants';
 import {Package} from '../packages';
 import swal from 'sweetalert';
+import {setError} from '../../redux/actions';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -53,13 +54,7 @@ class PackageForm extends Component {
 				});
 			})
 			.catch((error) => {
-				// console.log('PACKAGES FETCH ERROR');
-				swal({
-					title: 'Package fetch error!',
-					text: 'could not able to fetch package. please try again or contact us',
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				this.props.setError('could not able to fetch package. please try again or contact us');
 			});
 
 		getPartners()
@@ -350,6 +345,8 @@ const mapStateToProps = ({extras}) => ({
 	countries: extras.countries
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	setError
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PackageForm);

@@ -9,6 +9,7 @@ import {loginUser} from './redux/actions';
 import {setCountries} from './redux/actions';
 import {getCountries} from './api/flightApi';
 import {ScrollToTop} from './components/shared';
+import {swal} from 'sweetalert';
 
 function App(props) {
 	useEffect(() => {
@@ -34,6 +35,12 @@ function App(props) {
 					console.log(error);
 				});
 		}
+
+		// if (props.error !== '') {
+		// 	swal({
+		// 		title: props.error
+		// 	});
+		// }
 	});
 
 	return (
@@ -51,7 +58,8 @@ function App(props) {
 const mapStateToProps = ({userStore, extras}) => {
 	return {
 		currentUser: userStore.currentUser,
-		countries: extras.countries
+		countries: extras.countries,
+		error: extras.error
 	};
 };
 

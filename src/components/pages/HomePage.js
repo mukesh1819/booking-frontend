@@ -55,7 +55,7 @@ class SearchFlightForm extends Component {
 					>
 						<header id='header' className='cover' role='banner'>
 							<div className='container'>
-								<h1 className='text-white text-large'>
+								<h1 className='text-white text-larger'>
 									Find and book domestic flights <br />within Nepal at best price.
 								</h1>
 								<div className='airline-logos d-none'>

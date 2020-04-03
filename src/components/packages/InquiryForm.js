@@ -139,7 +139,6 @@ class InquiryForm extends Component {
 												name='preffered_date'
 												className='form-control'
 												type='date'
-												format='dd-mm-YYYY'
 												date={values.preferred_date}
 												minDate={new Date()}
 												onBlur={handleBlur}

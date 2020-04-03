@@ -1,5 +1,5 @@
 import {setBooking, setCurrency} from './bookingActions';
-import {setCountries, setLanguage} from './extraActions';
+import {setCountries, setLanguage, setError} from './extraActions';
 import {
 	setSearchDetails,
 	setFlights,
@@ -23,5 +23,6 @@ export {
 	setTTLtime,
 	loginUser,
 	logoutUser,
-	updateUser
+	updateUser,
+	setError
 };
