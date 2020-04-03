@@ -32,6 +32,7 @@ import Dashboard from './components/admin/Dashboard';
 import PartnerList from './components/admin/PartnerList';
 import PackagesList from './components/admin/PackagesList';
 import InquiryDetails from './components/admin/InquiryDetails';
+import InquiryForm from './components/packages/InquiryForm';
 import PartnerDetails from './components/admin/PartnerDetails';
 import InquiryList from './components/admin/InquiryList';
 import CategoryList from './components/admin/CategoryList';
@@ -70,6 +71,7 @@ const routing = (
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
 		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} />
 		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
+		<PrivateRoute path='/inquiry_form' component={InquiryForm} />
 		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
