@@ -51,7 +51,6 @@ class InquiryForm extends Component {
 				return new Date();
 			}),
 			head_traveller_name: yup.string().required('Required')
-
 		});
 
 		const inquiryDetails = {
@@ -75,7 +74,7 @@ class InquiryForm extends Component {
 			<div className='container p-4'>
 				<Formik
 					initialValues={inquiryDetails}
-					validationSchema = {InquiriesSchema}
+					validationSchema={InquiriesSchema}
 					onSubmit={(values, {setSubmitting}) => {
 						this.setState({
 							searching: true
@@ -86,7 +85,7 @@ class InquiryForm extends Component {
 								setSubmitting(false);
 								swal({
 									title: 'Inquiry Submitted!',
-									text:response.data.message,
+									text: response.data.message,
 									icon: 'Success',
 									button: 'Continue'
 								});
@@ -115,9 +114,11 @@ class InquiryForm extends Component {
 						setFieldValue
 						/* and other goodies */
 					}) => (
-					
 						<div>
-							<h3>Kindly submit the query form below to book your trip and we will contact you with the confirmed itinerary.</h3>
+							<h3>
+								Kindly submit the query form below to book your trip and we will contact you with the
+								confirmed itinerary.
+							</h3>
 							<form onSubmit={handleSubmit} autoComplete='off'>
 								<div className='input-section'>
 									<div className='field-box'>
@@ -243,7 +244,7 @@ class InquiryForm extends Component {
 											/>
 										</IconInput>
 									</div>
-									
+
 									<div className='field-box'>
 										<div className='row mt-3'>
 											<div>
@@ -262,7 +263,7 @@ class InquiryForm extends Component {
 											</div>
 										</div>
 									</div>
-									
+
 									<div className='field-box'>
 										<label>Head Traveller Name</label>
 										<IconInput icon='icon-paper-plane' iconPosition='left'>
@@ -305,7 +306,8 @@ class InquiryForm extends Component {
 															className='m-1'
 															onBlur={handleBlur}
 															title={`${values.number_of_adult} Adult`}
-															onChange={(value) => setFieldValue('number_of_adult', value)}
+															onChange={(value) =>
+																setFieldValue('number_of_adult', value)}
 															value={values.number_of_adult}
 														/>
 														<Counter
@@ -314,7 +316,8 @@ class InquiryForm extends Component {
 															className='m-1'
 															onBlur={handleBlur}
 															title={`${values.number_of_child} Child`}
-															onChange={(value) => setFieldValue('number_of_child', value)}
+															onChange={(value) =>
+																setFieldValue('number_of_child', value)}
 															value={values.number_of_child}
 														/>
 													</div>
@@ -325,28 +328,30 @@ class InquiryForm extends Component {
 										<ErrorMessage name='number_of_child' />
 									</div>
 
-										<div className='field-box'>
-											<label>Preferred date of activity</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<div className='col-12'>
-													<DatePicker
-														name='preferred_date'
-														className='form-control'
-														type='date'
-														date={values.preferred_date}
-														minDate={new Date()}
-														onBlur={handleBlur}
-														onChange={(date) => setFieldValue('preferred_date', date)}
-														value={moment(values.preferred_date).format('D MMM, YYYY')}
-														placeholder='Arrival Date'
-													/>
-												</div>
-											</IconInput>
-											<ErrorMessage name='preferred_date' />
-										</div>
+									<div className='field-box'>
+										<label>Preferred date of activity</label>
+										<IconInput icon='icon-paper-plane' iconPosition='left'>
+											<div className='col-12'>
+												<DatePicker
+													name='preferred_date'
+													className='form-control'
+													type='date'
+													date={values.preferred_date}
+													minDate={new Date()}
+													onBlur={handleBlur}
+													onChange={(date) => setFieldValue('preferred_date', date)}
+													value={values.preferred_date}
+													placeholder='Arrival Date'
+												/>
+											</div>
+										</IconInput>
+										<ErrorMessage name='preferred_date' />
+									</div>
 
 									<div className='field-box'>
-										<label htmlFor=''>Special Request Please fill in case you have any special request / query.</label>
+										<label htmlFor=''>
+											Special Request Please fill in case you have any special request / query.
+										</label>
 										<Field
 											component='textarea'
 											rows='2'
@@ -369,7 +374,6 @@ class InquiryForm extends Component {
 								</div>
 							</form>
 						</div>
-						
 					)}
 				</Formik>
 			</div>

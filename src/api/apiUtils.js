@@ -40,9 +40,12 @@ export function useInterceptor(axios) {
 			return response;
 		},
 		function (error) {
+			
 			const originalRequest = error.config;
 			if (error.message === "Network Error") {
-				setError(error.message);
+				swal({
+					title: error.message
+				})
 			} else if (error.response.status === 401) {
 				history.push('/');
 			} else {}

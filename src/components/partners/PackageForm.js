@@ -182,7 +182,7 @@ class PackageForm extends Component {
 							}) => (
 								<form onSubmit={handleSubmit} autoComplete='off'>
 									<div className='input-section'>
-										{partnerDetails.partner_id == null && (
+										{/* {partnerDetails.partner_id == null && (
 											<div className='field-box mt-3'>
 												<label>Partners List</label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
@@ -205,7 +205,7 @@ class PackageForm extends Component {
 												</IconInput>
 												<ErrorMessage name='partner_id' />
 											</div>
-										)}
+										)} */}
 
 										<div className='field-box'>
 											<label>Name</label>
