@@ -44,7 +44,7 @@ class CategoryList extends Component {
 				<div className=''>
 					<div className='col-12 d-flex justify-content-between'>
 						<h5>Category List</h5>
-						<Link to='/admin/categories/category_form'>new category</Link>
+						<Link to='/admin/category_form'>new category</Link>
 					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
@@ -78,7 +78,7 @@ class CategoryList extends Component {
 
 											<Link
 												to={{
-													pathname: '/categories/category_form',
+													pathname: '/admin/category_form',
 													state: {
 														category: category
 													}

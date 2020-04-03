@@ -93,7 +93,7 @@ class SignUpForm extends Component {
 						<div className='login-page'>
 							<div className='login-form card p-2'>
 								<div className='card-body'>
-									<h4>Sign Up</h4>
+									<h3>Sign Up</h3>
 									<div className='text-small'>
 										Already have an account? <Link to='/login'>Sign In</Link>
 									</div>

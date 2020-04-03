@@ -51,7 +51,7 @@ class FinalBookingDetails extends Component {
 				<div className='text-center m-1'>
 					<button
 						type='button'
-						className='btn btn-primary'
+						className='btn btn-secondary'
 						onClick={() => {
 							this.submit();
 						}}

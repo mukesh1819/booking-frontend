@@ -80,7 +80,7 @@ class SignInForm extends Component {
 						<div className='login-page'>
 							<div className='login-form card p-2'>
 								<div className='card-body'>
-									<h4>Log in</h4>
+									<h3>Log in</h3>
 									<div className='text-small'>
 										Don't have an account? <Link to='/signup'>Create Account</Link>
 									</div>

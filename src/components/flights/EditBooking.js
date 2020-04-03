@@ -5,7 +5,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import FlightList from './FlightList';
-import {getFlights, createBooking, submitPassengers, getBookingDetails} from '../../api/flightApi';
+import {getFlights, createBooking, getBookingDetails} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions';
@@ -326,7 +326,7 @@ class EditBooking extends Component {
 									);
 								})}
 								<div className='text-center p-2'>
-									<button type='submit' class='btn btn-primary'>
+									<button type='submit' class='btn btn-secondary'>
 										Submit
 									</button>
 								</div>

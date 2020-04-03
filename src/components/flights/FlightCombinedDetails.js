@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import store from '../../redux/store';
 import {isRefundable, ifNotZero} from '../../helpers';
 import {connect} from 'react-redux';
+import FlightDetails from './FlightDetails';
 
 const FlightCombinedDetails = (props) => {
 	const {adult, child, flight} = props;
@@ -11,107 +12,11 @@ const FlightCombinedDetails = (props) => {
 		<div className='flight-details'>
 			<span className='text-bold'>Departure:</span>
 			<hr />
-			<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
-				<span>
-					<img src={inbound.AirlineLogo} className='p-2' />
-
-					<div className='text-center'>
-						{inbound.FlightNo}({inbound.FlightClassCode})
-					</div>
-				</span>
-				<span className=''> {inbound.FlightDate} </span>
-				<span className='text-center'>
-					Class: {inbound.FlightClassCode}
-					<div className='text-bold text-success'>{isRefundable(inbound.Refundable)}</div>
-					<div>FreeBaggage: {inbound.FreeBaggage}</div>
-				</span>
-			</div>
-			<hr />
-			<div className='body'>
-				<div className='d-flex justify-content-between align-items-center'>
-					<span className='text-center'>
-						{inbound.DepartureTime} <div className='text-bold'>{inbound.Departure}</div>
-					</span>
-					<span className='text-small text-muted'>{inbound.duration} min</span>
-					<span className='text-center'>
-						{inbound.ArrivalTime}
-						<div className='text-bold'>{inbound.Arrival}</div>
-					</span>
-				</div>
-				<div className='text-center text-small text-muted' />
-				<hr />
-				<div>
-					<span className='text-center p-3'>
-						<div className='text-bold'>
-							Total Fare: {inbound.Currency} {inbound.total_fare}
-						</div>
-						<div className='text-small text-muted'>
-							({adult} Adult, {child} Child)
-						</div>
-					</span>
-					<ul className='text-muted text-small'>
-						{adult > 0 && <li> Base Fare (1 Adult): {inbound.AdultFare} </li>}
-						{child > 0 && <li> Base Fare (1 Child): {inbound.ChildFare} </li>}
-						<li> Fuel Surcharge: {inbound.FuelSurcharge} </li>
-						<li> Tax: {inbound.Tax} </li>
-					</ul>
-				</div>
-			</div>
+			<FlightDetails flight={outbound} />
 			<hr />
 			<span className='text-bold'>Arrival:</span>
 			<hr />
-			<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
-				<span>
-					<img src={outbound.AirlineLogo} className='p-2' />
-
-					<div className='text-center'>
-						{outbound.FlightNo}({outbound.FlightClassCode})
-					</div>
-				</span>
-				<span className=''> {inbound.FlightDate} </span>
-				<span className='text-center'>
-					Class: {outbound.FlightClassCode}
-					<div className='text-bold text-success'>{isRefundable(outbound.Refundable)}</div>
-					<div>FreeBaggage: {inbound.FreeBaggage}</div>
-				</span>
-			</div>
-			<hr />
-			<div className='body'>
-				<div className='d-flex justify-content-between align-items-center'>
-					<span className='text-center'>
-						{outbound.DepartureTime} <div className='text-bold'>{outbound.Departure}</div>
-					</span>
-					<span className='text-small text-muted'>{outbound.duration} min</span>
-					<span className='text-center'>
-						{outbound.ArrivalTime}
-						<div className='text-bold'>{outbound.Arrival}</div>
-					</span>
-				</div>
-				<div className='text-center text-small text-muted' />
-				<hr />
-				<div>
-					<span className='text-center p-3'>
-						<div className='text-bold'>
-							Total Fare: {outbound.Currency}: {outbound.total_fare}
-						</div>
-						<div className='text-small text-muted'>
-							({adult} Adult{ifNotZero(child, `, ${child} Child`)})
-						</div>
-					</span>
-					<ul className='text-muted text-small'>
-						<li> Fuel Surcharge: {outbound.FuelSurcharge} </li>
-						<li> Tax: {outbound.Tax} </li>
-						<li>
-							Fuel Surcharge: {outbound.Currency} {outbound.FuelSurcharge} x ({adult}
-							{ifNotZero(child, ` + ${child}`)})
-						</li>
-						<li>
-							Tax: {outbound.Currency} {outbound.Tax} x ({adult}
-							{ifNotZero(child, ` + ${child}`)})
-						</li>
-					</ul>
-				</div>
-			</div>
+			<FlightDetails flight={inbound} />
 		</div>
 	);
 };

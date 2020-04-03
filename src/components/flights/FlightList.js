@@ -286,7 +286,7 @@ class FlightList extends Component {
 				</div>
 				<ModalExample
 					title='Flight Details'
-					buttonLabel='Book'
+					buttonLabel='Continue'
 					show={this.state.selectedFlight !== null}
 					toggle={this.onViewDetails}
 					onSuccess={this.onBook}

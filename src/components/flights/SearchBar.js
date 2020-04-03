@@ -174,6 +174,7 @@ class SearchBar extends Component {
 							<div className='input-section'>
 								<div className='d-none d-md-block select-trip'>
 									<span
+										className={values.strTripType == 'O' ? 'active' : ''}
 										onClick={() => {
 											setFieldValue('strTripType', 'O');
 											this.changeTripType('O');
@@ -182,6 +183,7 @@ class SearchBar extends Component {
 										One-Way
 									</span>
 									<span
+										className={values.strTripType == 'R' ? 'active' : ''}
 										onClick={() => {
 											setFieldValue('strTripType', 'R');
 											this.changeTripType('R');
@@ -193,7 +195,7 @@ class SearchBar extends Component {
 
 								<div className='input-section-inputs'>
 									<div className='field-box form-group'>
-										<label>Going from</label>
+										<label>Leaving From</label>
 										<Dropdown
 											name='strSectorFrom'
 											onBlur={handleBlur}
@@ -203,7 +205,7 @@ class SearchBar extends Component {
 											onChange={(e, data) => {
 												setFieldValue(`strSectorFrom`, data.value);
 											}}
-											placeholder={'Going From'}
+											placeholder={'Leaving From'}
 											value={values.strSectorFrom}
 											fluid
 											search
@@ -218,7 +220,7 @@ class SearchBar extends Component {
 											})}
 										/>
 										<ErrorMessage name='strSectorFrom' />
-										<div className='toggle-sector'>
+										<div className='toggle-sector-mobile'>
 											<i
 												className='fas fa-exchange-alt'
 												onClick={() => {
@@ -227,6 +229,15 @@ class SearchBar extends Component {
 												}}
 											/>
 										</div>
+									</div>
+									<div className='toggle-sector-desktop form-group'>
+										<i
+											className='menu fas fa-exchange-alt'
+											onClick={() => {
+												setFieldValue('strSectorTo', values.strSectorFrom);
+												setFieldValue('strSectorFrom', values.strSectorTo);
+											}}
+										/>
 									</div>
 									<div className='field-box form-group'>
 										<label>Going To</label>

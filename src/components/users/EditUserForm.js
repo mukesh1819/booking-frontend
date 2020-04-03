@@ -12,7 +12,6 @@ import history from '../../history';
 import {Redirect} from 'react-router-dom';
 import swal from 'sweetalert';
 
-
 class EditUserForm extends Component {
 	constructor(props) {
 		super(props);
@@ -219,7 +218,7 @@ class EditUserForm extends Component {
 										</div>
 										<br />
 										<button
-											className='btn btn-primary m-2 btn-block'
+											className='btn btn-secondary m-2 btn-block'
 											type='submit'
 											disabled={isSubmitting}
 										>

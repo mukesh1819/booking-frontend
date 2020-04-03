@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {getFlights} from '../../api/flightApi';
 import FlightList from './FlightList';
-import {createBooking, submitPassengers} from '../../api/flightApi';
+import {createBooking} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions';
@@ -50,10 +50,9 @@ class PassengerForm extends Component {
 	}
 
 	render() {
-		const user = this.props.currentUser;
 		const selectedOutboundFlight = this.props.selectedOutboundFlight;
-		user.code = user.country;
-		const {adult, child, currentUser} = this.props;
+		const {adult, child, nationality, currentUser} = this.props;
+		currentUser.code = currentUser.country;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
 				yup.object().shape({
@@ -71,11 +70,11 @@ class PassengerForm extends Component {
 			last_name: '',
 			passenger_type: '',
 			gender: 'M',
-			nationality: 'NP'
+			nationality: nationality
 		};
 		const initialValues = {
 			passengers: [],
-			user: user
+			user: currentUser
 		};
 
 		var i;
@@ -114,9 +113,9 @@ class PassengerForm extends Component {
 								outbound_flight: this.props.selectedOutboundFlight,
 								inbound_flight: this.props.selectedInboundFlight,
 								passengers_attributes: this.props.passengers,
-								contact_name: user.name,
-								mobile_no: user.phone_number,
-								email: user.email
+								contact_name: values.user.name,
+								mobile_no: values.user.phone_number,
+								email: values.user.email
 							}
 						})
 							.then((response) => {
@@ -149,7 +148,7 @@ class PassengerForm extends Component {
 						setFieldValue
 					}) => (
 						<Form className='form-wrap'>
-							<h3 className='p-2'>Contact Information</h3>
+							<h3 className='p-2 title'>Contact Information</h3>
 							<div className='input-section'>
 								<div className='input-section-inputs'>
 									<div className='field-box form-group'>
@@ -249,13 +248,13 @@ class PassengerForm extends Component {
 									</div>
 								</div>
 							</div>
-							<h3 className='p-2'>Passenger details</h3>
+							<h3 className='p-2 title'>Passenger details</h3>
 
 							{values.passengers.map((passenger, index) => {
 								return (
 									<div className='' key={`${passenger.passenger_type} ${index + 1}`}>
 										{/* <Accordion title={`${passenger.passenger_type} ${index + 1}`} /> */}
-										<h3 className='title p-2'>{`${passenger.passenger_type} ${index + 1}`}</h3>
+										<h3 className='p-2'>{`${passenger.passenger_type} ${index + 1}`}</h3>
 										<div className='input-section bg-white'>
 											<div className='input-section-inputs'>
 												<div className='field-box form-group'>
@@ -426,7 +425,7 @@ class PassengerForm extends Component {
 								);
 							})}
 							<div className='text-center p-2'>
-								<button type='submit' class='btn btn-primary'>
+								<button type='submit' class='btn btn-secondary'>
 									Submit
 								</button>
 							</div>
@@ -451,6 +450,7 @@ const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 		booking: bookingStore.booking,
 		adult: flightStore.searchDetails.intAdult,
 		child: flightStore.searchDetails.intChild,
+		nationality: flightStore.searchDetails.strNationality,
 		currentUser: userStore.currentUser,
 		ttlTime: flightStore.ttlTime,
 		countries: extras.countries
