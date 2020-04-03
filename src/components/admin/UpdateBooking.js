@@ -97,8 +97,12 @@ class UpdateBooking extends Component {
 							<table className='table table-striped table-sm'>
 								<thead>
 									<tr>
-										<th> Passenger Name </th> <th> Nationality </th> <th> Passenger Type </th>
-										<th> Ticket No </th> <th> Cancel status </th>
+										<th> Passenger Name </th>
+										<th> Nationality </th>
+										<th> Passenger Type </th>
+										<th> Ticket No </th>
+										<th> Status </th>
+										<th> </th>
 									</tr>
 								</thead>
 								<tbody>
@@ -129,14 +133,14 @@ class UpdateBooking extends Component {
 														<td>
 															<div>
 																<span
-																	className='btn  btn-danger'
+																	className='btn  bg-none text-danger'
 																	onClick={() =>
 																		this.adminCancelRequest(passenger.id)}
 																>
 																	cancel
 																</span>
 																<span
-																	className='btn btn-secondary'
+																	className='btn bg-none text-secondary'
 																	onClick={() =>
 																		this.adminIgnoreRequest(passenger.id)}
 																>

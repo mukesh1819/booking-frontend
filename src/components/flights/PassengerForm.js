@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {getFlights} from '../../api/flightApi';
 import FlightList from './FlightList';
-import {createBooking, submitPassengers} from '../../api/flightApi';
+import {createBooking} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions';
