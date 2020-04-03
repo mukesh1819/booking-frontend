@@ -53,7 +53,6 @@ class PackagesList extends Component {
 								<th>ID</th>
 								<th>Name</th>
 								<th>Category</th>
-								<th>Partner</th>
 								<th>Price</th>
 								<th>Actions</th>
 							</tr>
@@ -66,24 +65,12 @@ class PackagesList extends Component {
 										<td>{aPackage.id}</td>
 										<td>{aPackage.name}</td>
 										<td>{aPackage.category.name} </td>
-										<td>
-											<Link
-												to={{
-													pathname: `/admin/partner/${aPackage.partner.id}`,
-													state: {
-														partner: aPackage.partner
-													}
-												}}
-											>
-												<span className='px-1'>{aPackage.partner.name}</span>
-											</Link>
-										</td>
 										<td>{aPackage.price}</td>
 
 										<td>
 											<Link
 												to={{
-													pathname: `/partners/package_form/${aPackage.partner.id}`,
+													pathname: `/partners/package_form/${aPackage.id}`,
 													state: {
 														aPackage: aPackage
 													}

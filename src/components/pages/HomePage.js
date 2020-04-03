@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import SearchBar from '../flights/SearchBar';
-import yetiImage from '../../images/yeti-banner.png';
-import buddhaImage from '../../images/buddha-banner.png';
-import shreeImage from '../../images/shree-banner.png';
+import {yetiImage, buddhaImage, shreeImage} from '../../images';
 import {TabView, Slidebar, Banner} from '../shared';
 import {PackageList} from '../packages';
 import {Categories} from '../categories';
