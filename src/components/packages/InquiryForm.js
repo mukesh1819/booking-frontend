@@ -16,7 +16,7 @@ import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import {createInquiry} from '../../api/inquiryApi';
+import {createInquiry, updateInquiry} from '../../api/inquiryApi';
 
 class InquiryForm extends Component {
 	constructor(props) {
@@ -38,6 +38,7 @@ class InquiryForm extends Component {
 
 	render() {
 		const {countries, package_id} = this.props;
+		const {inquiry} = this.props.location.state != null ? this.props.location.state : {inquiry: {}};
 
 		const InquiriesSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
@@ -54,21 +55,21 @@ class InquiryForm extends Component {
 		});
 
 		const inquiryDetails = {
-			first_name: '',
-			last_name: '',
-			email_address: '',
-			nationality: '',
-			phone: '',
-			address: '',
-			city: '',
-			zip_code: 977,
-			preferred_date: new Date(),
-			traveller: false,
-			query: '',
-			number_of_adult: 1,
-			number_of_child: 0,
-			head_traveller_name: '',
-			package_id: package_id
+			first_name: inquiry.first_name,
+			last_name: inquiry.last_name,
+			email_address: inquiry.email_address,
+			nationality: inquiry.nationality,
+			phone: inquiry.phone,
+			address: inquiry.address,
+			city: inquiry.city,
+			zip_code: inquiry.zip_code,
+			preferred_date: inquiry.preferred_date == null ? new Date() : new Date(inquiry.preferred_date),
+			traveller: inquiry.head_traveller_name == null ? false : true,
+			query: inquiry.query,
+			number_of_adult: inquiry.number_of_adult == null ? 1 : inquiry.number_of_adult,
+			number_of_child: inquiry.number_of_child == null ? 0 : inquiry.number_of_child,
+			head_traveller_name: inquiry.head_traveller_name,
+			package_id: inquiry.package != null ? inquiry.package.id : package_id
 		};
 		return (
 			<div className='container p-4'>
@@ -79,8 +80,31 @@ class InquiryForm extends Component {
 						this.setState({
 							searching: true
 						});
-						console.log(values);
-						createInquiry(values)
+						// console.log(values);
+						if (inquiry.id != null){
+							updateInquiry(inquiry.id, values)
+							.then((response) => {
+								setSubmitting(false);
+								swal({
+									title: 'Inquiry updated!',
+									text: response.data.message,
+									icon: 'Success',
+									button: 'Continue'
+								});
+								history.push();
+							})
+							.catch((error) => {
+								setSubmitting(false);
+								swal({
+									title: 'Sorry!',
+									text: 'something went wrong',
+									icon: 'error',
+									button: 'Try Again!'
+								});
+							})
+						}
+						else{
+							createInquiry(values)
 							.then((response) => {
 								setSubmitting(false);
 								swal({
@@ -92,15 +116,17 @@ class InquiryForm extends Component {
 								history.push();
 							})
 							.catch((error) => {
-								console.log('Search Flight Error', error);
+								// console.log('inquiry create error', error);
 								setSubmitting(false);
 								swal({
 									title: 'Sorry!',
-									text: 'Something went wrong',
+									text: 'something went wrong',
 									icon: 'error',
 									button: 'Try Again!'
 								});
 							});
+						}
+						
 					}}
 				>
 					{({

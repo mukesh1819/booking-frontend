@@ -59,15 +59,16 @@ class InquiryList extends Component {
 
 						<tbody>
 							{inquiries.map((inquiry) => {
+								var total_passenger = inquiry.number_of_adult + inquiry.number_of_child;
 								return (
 									<tr>
-										<td>{inquiry.name}</td>
+										<td>{inquiry.first_name} {inquiry.last_name}</td>
 										<td>{inquiry.email_address} </td>
 										<td>{inquiry.phone}</td>
 										<td>{inquiry.preferred_date}</td>
-										<td>{inquiry.no_of_pax}</td>
+										<td>{total_passenger}</td>
 										<td>{inquiry.status}</td>
-										<td>{inquiry.package_id}</td>
+										<td>{inquiry.package_name}</td>
 										<td>
 											<Link
 												to={{

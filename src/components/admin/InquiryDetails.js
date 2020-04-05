@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import swal from 'sweetalert';
 import {confirmInquiry} from '../../api/inquiryApi';
+import {Link} from 'react-router-dom';
 
 class InquiryDetails extends Component {
 	constructor(props) {
@@ -49,7 +50,7 @@ class InquiryDetails extends Component {
 
 	render() {
 		const {inquiry} = this.props.location.state;
-
+		const totalAmount = (inquiry.number_of_adult + inquiry.number_of_child) * inquiry.package.price;
 		return (
 			<div className='container'>
 				<div className=''>
@@ -72,6 +73,7 @@ class InquiryDetails extends Component {
 								<th>No of Child</th>
 								<th>Status</th>
 								<th>Package Name</th>
+								<th>Package Price</th>
 								<th>Total Price</th>
 								<th>Actions</th>
 							</tr>
@@ -94,13 +96,14 @@ class InquiryDetails extends Component {
 								<td>{inquiry.number_of_child}</td>
 								<td>{inquiry.status}</td>
 								<td>{inquiry.package_name}</td>
-								<td>{inquiry.total_amount}</td>
+								<td>{inquiry.package.price}</td>
+								<td>{totalAmount}</td>
 								<td>
 									{inquiry.status === 'pending' && (
 										<div>
 											<span>
 												<Link to={{
-													pathname:'/packages/inquiry_form',
+													pathname:'/inquiry_form',
 													className:'btn btn-secondary',
 													state: {
 														inquiry: inquiry
