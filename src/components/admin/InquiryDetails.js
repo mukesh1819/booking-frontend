@@ -72,6 +72,7 @@ class InquiryDetails extends Component {
 								<th>No of Child</th>
 								<th>Status</th>
 								<th>Package Name</th>
+								<th>Total Price</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -93,6 +94,7 @@ class InquiryDetails extends Component {
 								<td>{inquiry.number_of_child}</td>
 								<td>{inquiry.status}</td>
 								<td>{inquiry.package_name}</td>
+								<td>{inquiry.total_amount}</td>
 								<td>
 									{inquiry.status === 'pending' && (
 										<div>

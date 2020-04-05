@@ -66,30 +66,62 @@ class InquiryDetails extends Component {
 											<div>
 												<div>
 													<strong>Name: </strong>{' '}
-													<span>{packageBookingInfo.inquiry.name}</span>
+													<span>{packageBookingInfo.inquiry.first_name}  {packageBookingInfo.inquiry.last_name}</span>
 												</div>
 												<div>
 													<strong>Email: </strong>
-													<span>{packageBookingInfo.inquiry.email_address} </span>
+ 													<span>{packageBookingInfo.inquiry.email_address} </span>
 												</div>
 												<div>
 													<strong>Nationality: </strong>{' '}
 													<span>{packageBookingInfo.inquiry.nationality} </span>
 												</div>
 												<div>
+													<strong>Address: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.address} </span>
+												</div>
+												<div>
+													<strong>City: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.city} </span>
+												</div>
+												<div>
+													<strong>Zip Code: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.zip_code} </span>
+												</div>
+												<div>
+													<strong>Query: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.query} </span>
+												</div>
+												<div>
 													<strong>Phone Number: </strong>{' '}
 													<span>{packageBookingInfo.inquiry.phone}</span>
 												</div>
 												<div>
-													<strong>Date/Time: </strong>{' '}
+													<strong>Head Traveller: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.head_traveller_name} </span>
+												</div>
+												<div>
+													<strong>Date: </strong>{' '}
 													<span>
-														{packageBookingInfo.inquiry.preferred_date}/{packageBookingInfo.inquiry.preferred_time}
+														{packageBookingInfo.inquiry.preferred_date}
 													</span>
 													<span />
 												</div>
 												<div>
-													<strong>No. of passengers: </strong>{' '}
-													<span>{packageBookingInfo.inquiry.no_of_pax}</span>
+													<strong>No. of Adult: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.number_of_adult}</span>
+												</div>
+												<div>
+													<strong>No. of Child: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.number_of_child} </span>
+												</div>
+												<div>
+													<strong>Status: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.status} </span>
+												</div>
+												<div>
+													<strong>Package Name: </strong>{' '}
+													<span>{packageBookingInfo.inquiry.package_name} </span>
 												</div>
 												<div>
 													<strong>Total Amount: </strong>
