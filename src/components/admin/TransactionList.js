@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getUserTransaction} from '../../api/transactionApi';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
@@ -11,6 +11,7 @@ import UserDetailCard from '../users/UserDetailCard';
 import BookingDetails from './BookingDetails';
 import TransactionApiResponse from './TransactionApiResponse';
 import {Modal as ModalExample} from '../shared';
+import swal from 'sweetalert';
 
 class TransactionList extends Component {
 	constructor(props) {
@@ -42,13 +43,19 @@ class TransactionList extends Component {
 	fetchUserTransaction() {
 		getUserTransaction()
 			.then((response) => {
-				console.log(response);
+				// console.log(response);
 				this.setState({
 					transactions: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Transaction fetch error',
+					text: 'could not able to fetch user transaction. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

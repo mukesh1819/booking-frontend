@@ -1,95 +1,57 @@
 import React, {Component} from 'react';
-import {getCities, getFlight} from '../../api/flightApi';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {getFlights} from '../../api/flightApi';
-import FlightList from './FlightList';
 import FlightDetails from './FlightDetails';
-import FlightCombinedDetails from './FlightCombinedDetails';
-import {createBooking, submitPassengers} from '../../api/flightApi';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
-import {setBooking} from '../../redux/actions/bookingActions';
 import PassengerDetails from './PassengerDetails';
-import ErrorMessage from '../ErrorMessage';
-import swal from 'sweetalert';
-import store from '../../redux/store';
-// import {newPayment} from '../../api/paymentApi';
-import PaymentForm from '../payments/PaymentForm';
+import {Timer} from '../shared';
+import {PaymentForm} from '../payments';
+import {Link} from 'react-router-dom';
+import {getDuration} from '../../helpers';
 
 class FinalBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.submit = this.submit.bind(this);
 		this.state = {
-			idx: null
+			redirectToPayment: false
 		};
 	}
 
 	submit() {
-		const user = {};
-		user.contact_name = this.props.user.name;
-		user.mobile_no = this.props.user.phone_number;
-		user.email = this.props.user.email;
-		createBooking({
-			booking: {
-				outbound_flight: this.props.selectedOutboundFlight,
-				inbound_flight: this.props.selectedInboundFlight,
-				passengers_attributes: this.props.passengers,
-				...user
-			}
-		})
-			.then((response) => {
-				// swal({
-				// 	title: 'Booking Created!',
-				// 	text: 'Continue to payment!',
-				// 	icon: 'success',
-				// 	button: 'Continue!'
-				// });
-				this.props.setBooking(response.data);
-				// newPayment(response.data[0].booking_transaction.idx);
-				this.setState({
-					idx: response.data[0].booking_transaction.idx
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		this.setState({
+			redirectToPayment: true
+		});
 	}
 
 	componentDidMount() {}
 
 	render() {
-		const {passengers, toggle} = this.props;
-		const {idx} = this.state;
-
-		if (this.state.idx !== null) {
-			return <PaymentForm idx={idx} value="flightbooking" />;
+		const {passengers, toggle, booking, transaction, selectedOutboundFlight} = this.props;
+		const {redirectToPayment} = this.state;
+		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.reservation_time));
+		if (redirectToPayment) {
+			return <PaymentForm idx={transaction.idx} />;
 		}
 
 		return (
 			<div className='passenger-details container p-3 bg-white'>
+				{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.reservation_time)} />}
 				<div className='p-2'>
-					<i
-						className='icon-circle-cross text-normal float-right'
-						onClick={() => {
-							toggle();
-						}}
-					/>
+					<Link to={`/booking/${booking.ruid}/edit`} className='btn bg-none text-secondary float-right'>
+						MODIFY
+					</Link>
 				</div>
-				<span class='text-bold'>Flight Details</span>
+				<span className='text-bold'>Flight Details</span>
 				<div className='container'>
-					<FlightDetails flight={this.props.selectedOutboundFlight} />
+					<FlightDetails flight={selectedOutboundFlight} />
 				</div>
-				<span class='text-bold'>Passenger Details</span>
+				<span className='text-bold'>Passenger Details</span>
 				<PassengerDetails passengers={passengers} />
 
 				<div className='text-center m-1'>
 					<button
 						type='button'
-						class='btn btn-primary'
+						className='btn btn-secondary'
 						onClick={() => {
 							this.submit();
 						}}
@@ -104,17 +66,13 @@ class FinalBookingDetails extends Component {
 
 const mapStateToProps = ({flightStore, bookingStore}) => {
 	return {
-		selectedInboundFlight: flightStore.selectedInboundFlight,
-		selectedOutboundFlight: flightStore.selectedOutboundFlight,
-		booking: bookingStore.booking,
-		adult: flightStore.searchDetails.intAdult,
-		child: flightStore.searchDetails.intChild,
-		ttlTime: flightStore.ttlTime
+		booking: bookingStore.booking[0],
+		transaction: bookingStore.booking[0].booking_transaction,
+		ttlTime: flightStore.ttlTime,
+		selectedOutboundFlight: flightStore.selectedOutboundFlight
 	};
 };
 
-const mapDispatchToProps = {
-	setBooking
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinalBookingDetails);

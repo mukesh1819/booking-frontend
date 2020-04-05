@@ -1,22 +1,12 @@
 import axios from 'axios';
-import {handleResponse, handleError} from './apiUtils';
 import {TRANSACTION_API_URL, BASE_URL, API_URL} from '../constants/index.js';
+import {handleResponse, handleError, useInterceptor} from './apiUtils';
 
-function setHeaders() {
-	const AUTH_TOKEN = localStorage.getItem('token');
-	if (AUTH_TOKEN) {
-		axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-	}
-}
+useInterceptor(axios);
 
-export function getUserTransaction(){
-    setHeaders();
-    return axios({
-        method: 'get',
-        url: `${API_URL}/payments`,
-        headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${localStorage.token}`
-        }
-    });
+export function getUserTransaction() {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/payments`
+	});
 }

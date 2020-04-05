@@ -6,15 +6,16 @@ import {Link} from 'react-router-dom';
 import {GoogleAPI, GoogleLogin, GoogleLogout} from 'react-google-oauth';
 import FacebookAuth from 'react-facebook-auth';
 import '../../styles/index.scss';
-import {authorizeGoogle} from '../../api/userApi';
-import {loginUser} from '../../redux/actions/sessions';
-import {redirectUrl} from '../../helpers/helpers';
+import {authorizeGoogle, authorizeFb} from '../../api/userApi';
+import {loginUser} from '../../redux/actions';
+import {redirectUrl} from '../../helpers';
 import history from '../../history';
+import swal from 'sweetalert';
 
 const FacebookButton = ({onClick}) => (
 	<div className='btn-group' onClick={onClick}>
 		<a className='btn bg-fb'>
-			<i className='icon-facebook' />
+			<i className='icon-facebook text-white' />
 		</a>
 		<span className='btn bg-fb text-white fb-auth-btn'>Facebook</span>
 	</div>
@@ -37,22 +38,34 @@ class SocialLinks extends Component {
 				localStorage.setItem('token', resp.data.jwt);
 				history.push(redirectUrl(this.props.location));
 			})
-			.catch((resp) => {
-				console.log(resp, 'API Failure');
+			.catch((error) => {
+				// console.log(resp, 'API Failure');
+				swal({
+					title: 'Google login error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 
 	fbAuthorize(data) {
-		console.log('Google login', data);
-		authorizeGoogle(data)
+		// console.log('Google login', data);
+		authorizeFb(data)
 			.then((resp) => {
 				console.log('Google Login Successfull', resp);
 				this.props.loginUser(resp.data.user);
 				localStorage.setItem('token', resp.data.jwt);
 				history.push(redirectUrl(this.props.location));
 			})
-			.catch((resp) => {
-				console.log(resp, 'API Failure');
+			.catch((error) => {
+				// console.log(resp, 'API Failure');
+				swal({
+					title: 'facebook login error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

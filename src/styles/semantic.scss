@@ -1,0 +1,23 @@
+.ui {
+    &.menu {
+        margin: 0px;
+    }
+
+    &.segment {
+        margin-top: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .default {
+        font-weight: normal;
+    }
+}
+
+.semantic-input-group {
+    width: 100% !important;
+
+    .dropdown {
+        width: max-content !important;
+    }
+}

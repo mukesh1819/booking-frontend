@@ -6,10 +6,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {getFlights} from '../../api/flightApi';
 import FlightList from './FlightList';
-import {createBooking, submitPassengers} from '../../api/flightApi';
+import {createBooking} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {setBooking} from '../../redux/actions/bookingActions';
+import {setBooking} from '../../redux/actions';
 import ErrorMessage from '../ErrorMessage';
 import FinalBookingDetails from './FinalBookingDetails';
 import swal from 'sweetalert';
@@ -22,11 +22,11 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
-import {sortObjectBy} from '../../helpers/helpers';
+import {sortObjectBy} from '../../helpers';
 
 class PassengerForm extends Component {
 	constructor(props) {
@@ -50,10 +50,9 @@ class PassengerForm extends Component {
 	}
 
 	render() {
-		const user = this.props.currentUser;
 		const selectedOutboundFlight = this.props.selectedOutboundFlight;
-		user.code = user.country;
-		const {adult, child, currentUser} = this.props;
+		const {adult, child, nationality, currentUser} = this.props;
+		currentUser.code = currentUser.country;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
 				yup.object().shape({
@@ -71,11 +70,11 @@ class PassengerForm extends Component {
 			last_name: '',
 			passenger_type: '',
 			gender: 'M',
-			nationality: 'NP'
+			nationality: nationality
 		};
 		const initialValues = {
 			passengers: [],
-			user: user
+			user: currentUser
 		};
 
 		var i;
@@ -91,11 +90,7 @@ class PassengerForm extends Component {
 			initialValues.passengers.push(a);
 		}
 
-		if (initialValues.passengers.length == 0) {
-			return <Redirect to='/' />;
-		}
-
-		if (!selectedOutboundFlight) {
+		if (initialValues.passengers.length == 0 || !selectedOutboundFlight) {
 			return <Redirect to='/' />;
 		}
 
@@ -113,11 +108,33 @@ class PassengerForm extends Component {
 					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
-						this.setState({
-							passengers: values.passengers,
-							viewDetails: true,
-							user: values.user
-						});
+						createBooking({
+							booking: {
+								outbound_flight: this.props.selectedOutboundFlight,
+								inbound_flight: this.props.selectedInboundFlight,
+								passengers_attributes: this.props.passengers,
+								contact_name: values.user.name,
+								mobile_no: values.user.phone_number,
+								email: values.user.email
+							}
+						})
+							.then((response) => {
+								this.setState({
+									passengers: values.passengers,
+									viewDetails: true,
+									user: values.user
+								});
+								this.props.setBooking(response.data);
+							})
+							.catch((error) => {
+								// console.log(error);
+								swal({
+									title: 'Booking Error',
+									text: 'Could not save your booking. please try again or contact us',
+									icon: 'error',
+									button: 'Continue!'
+								});
+							});
 					}}
 				>
 					{({
@@ -130,61 +147,62 @@ class PassengerForm extends Component {
 						isSubmitting,
 						setFieldValue
 					}) => (
-						<Form>
-							<h3 className='p-2'>Contact Information</h3>
+						<Form className='form-wrap'>
+							<h3 className='p-2 title'>Contact Information</h3>
 							<div className='input-section'>
-								<div className='field-box'>
-									<label>Contact Name</label>
-									<Field
-										type='text'
-										name='user.name'
-										className='form-control'
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.user.name}
-									/>
-								</div>
+								<div className='input-section-inputs'>
+									<div className='field-box form-group'>
+										<label>Name</label>
+										<Field
+											type='text'
+											name='user.name'
+											className='form-control'
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={values.user.name}
+										/>
+									</div>
 
-								<div className='field-box'>
-									<label>Contact Phone</label>
-									<Input
-										label={
-											<Dropdown
-												className='dropdown'
-												defaultValue={values.user.code}
-												name='user.code'
-												placeholder='Select Code'
-												onBlur={handleBlur}
-												onChange={(e, data) => {
-													setFieldValue(`user.code`, data.value);
-												}}
-												value={values.user.code}
-												fluid
-												search
-												selection
-												options={sortedCountries.map((country) => {
-													return {
-														key: country.id,
-														value: country.country_code,
-														text: country.country_code,
-														flag: country.country_char.toLowerCase()
-													};
-												})}
-											/>
-										}
-										labelPosition='left'
-										placeholder='Contact Phone'
-										type='text'
-										name='user.phone_number'
-										className='semantic-input-group'
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.user.phone_number}
-									/>
-								</div>
+									<div className='field-box form-group'>
+										<label>Phone</label>
+										<Input
+											label={
+												<Dropdown
+													className='dropdown'
+													defaultValue={values.user.code}
+													name='user.code'
+													placeholder='Code'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(`user.code`, data.value);
+													}}
+													value={values.user.code}
+													fluid
+													search
+													selection
+													options={sortedCountries.map((country) => {
+														return {
+															key: country.id,
+															value: country.country_code,
+															text: country.country_code,
+															flag: country.country_char.toLowerCase()
+														};
+													})}
+												/>
+											}
+											labelPosition='left'
+											placeholder='Contact Phone'
+											type='text'
+											name='user.phone_number'
+											className='semantic-input-group'
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={values.user.phone_number}
+										/>
+									</div>
 
-								{/* 
-								<div className='field-box'>
+									{/* 
+								<div className='field-box form-group'>
 									<label>Code</label>
 									<Field
 										type='text'
@@ -205,7 +223,7 @@ class PassengerForm extends Component {
 									</Field>
 								</div> */}
 
-								{/* <div className='field-box'>
+									{/* <div className='field-box form-group'>
 									<label>Contact Phone</label>
 									<Field
 										type='text'
@@ -217,28 +235,31 @@ class PassengerForm extends Component {
 									/>
 								</div> */}
 
-								<div className='field-box'>
-									<label>Contact Email</label>
-									<Field
-										type='text'
-										name='user.email'
-										className='form-control'
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.user.email}
-									/>
+									<div className='field-box form-group'>
+										<label>Email</label>
+										<Field
+											type='text'
+											name='user.email'
+											className='form-control'
+											onBlur={handleBlur}
+											onChange={handleChange}
+											value={values.user.email}
+										/>
+									</div>
 								</div>
 							</div>
-							<h3 className='p-2'>Passenger details</h3>
+							<h3 className='p-2 title'>Passenger details</h3>
 
 							{values.passengers.map((passenger, index) => {
 								return (
 									<div className='' key={`${passenger.passenger_type} ${index + 1}`}>
-										<Accordion title={`${passenger.passenger_type} ${index + 1}`}>
-											<div className='input-section'>
-												<div className='field-box'>
+										{/* <Accordion title={`${passenger.passenger_type} ${index + 1}`} /> */}
+										<h3 className='p-2'>{`${passenger.passenger_type} ${index + 1}`}</h3>
+										<div className='input-section bg-white'>
+											<div className='input-section-inputs'>
+												<div className='field-box form-group'>
 													<label htmlFor=''>Title</label>
-													<Field
+													{/* <Field
 														as='select'
 														name={`passengers[${index}].title`}
 														className='form-control'
@@ -248,13 +269,41 @@ class PassengerForm extends Component {
 													>
 														<option value='Mr'> Mr </option>
 														<option value='Mrs'> Mrs </option>
-													</Field>
-													<span class=''>
+													</Field> */}
+													<Dropdown
+														className='form-control'
+														name={`passengers[${index}].title`}
+														placeholder=''
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(
+																`passengers[${index}].nationality`,
+																data.value
+															);
+														}}
+														value={values.passengers[index].title}
+														fluid
+														search
+														selection
+														options={[
+															{
+																key: 'Mr',
+																value: 'Mr',
+																text: 'Mr'
+															},
+															{
+																key: 'Mrs',
+																value: 'Mrs',
+																text: 'Mrs'
+															}
+														]}
+													/>
+													<span className=''>
 														<ErrorMessage name={`passengers[${index}].title`} />
 													</span>
 												</div>
 
-												<div className='field-box'>
+												<div className='field-box form-group'>
 													<label htmlFor=''>First Name</label>
 													<Field
 														name={`passengers[${index}].first_name`}
@@ -266,7 +315,7 @@ class PassengerForm extends Component {
 													/>
 													<ErrorMessage name={`passengers[${index}].first_name`} />
 												</div>
-												<div className='field-box'>
+												<div className='field-box form-group'>
 													<label htmlFor=''>Last Name</label>
 													<Field
 														name={`passengers[${index}].last_name`}
@@ -279,9 +328,9 @@ class PassengerForm extends Component {
 													<ErrorMessage name={`passengers[${index}].last_name`} />
 												</div>
 
-												<div className='field-box'>
+												<div className='field-box form-group'>
 													<label htmlFor=''>Gender</label>
-													<Field
+													{/* <Field
 														as='select'
 														name={`passengers[${index}].gender`}
 														className='form-control'
@@ -291,11 +340,39 @@ class PassengerForm extends Component {
 													>
 														<option value='M'> Male </option>
 														<option value='F'> Female </option>
-													</Field>
+													</Field> */}
+													<Dropdown
+														className='form-control'
+														name={`passengers[${index}].gender`}
+														placeholder=''
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(
+																`passengers[${index}].nationality`,
+																data.value
+															);
+														}}
+														value={values.passengers[index].gender}
+														fluid
+														search
+														selection
+														options={[
+															{
+																key: 'M',
+																value: 'M',
+																text: 'Male'
+															},
+															{
+																key: 'F',
+																value: 'F',
+																text: 'Female'
+															}
+														]}
+													/>
 													<ErrorMessage name={`passengers[${index}].gender`} />
 												</div>
 
-												{/* <div className='field-box'>
+												{/* <div className='field-box form-group'>
 													<label htmlFor=''>Nationality</label>
 													<Field
 														as='select'
@@ -315,7 +392,7 @@ class PassengerForm extends Component {
 													</Field>
 													<ErrorMessage name={`passengers[${index}].nationality`} />
 												</div> */}
-												<div className='field-box'>
+												<div className='field-box form-group'>
 													<label htmlFor=''>Nationality</label>
 													<Dropdown
 														className='form-control'
@@ -343,12 +420,12 @@ class PassengerForm extends Component {
 													/>
 												</div>
 											</div>
-										</Accordion>
+										</div>
 									</div>
 								);
 							})}
 							<div className='text-center p-2'>
-								<button type='submit' class='btn btn-primary'>
+								<button type='submit' class='btn btn-secondary'>
 									Submit
 								</button>
 							</div>
@@ -359,15 +436,10 @@ class PassengerForm extends Component {
 		);
 
 		if (this.state.viewDetails) {
-			content = <FinalBookingDetails passengers={this.state.passengers} toggle={this.toggleView} user={user} />;
+			content = <FinalBookingDetails passengers={this.state.passengers} />;
 		}
 
-		return (
-			<div id='passenger-form'>
-				{this.props.ttlTime > 0 && <Timer />}
-				{content}
-			</div>
-		);
+		return <div id='passenger-form'>{content}</div>;
 	}
 }
 
@@ -378,6 +450,7 @@ const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 		booking: bookingStore.booking,
 		adult: flightStore.searchDetails.intAdult,
 		child: flightStore.searchDetails.intChild,
+		nationality: flightStore.searchDetails.strNationality,
 		currentUser: userStore.currentUser,
 		ttlTime: flightStore.ttlTime,
 		countries: extras.countries

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import {getAdminBookings} from '../../api/flightApi';
 import BookingDetails from './BookingDetails';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class DashboardBookings extends Component {
 	constructor(props) {
@@ -21,13 +22,19 @@ class DashboardBookings extends Component {
 	fetchBookings(params) {
 		getAdminBookings(params)
 			.then((response) => {
-				console.log(response);
+				// console.log(response);
 				this.setState({
 					bookings: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Booking fetch error',
+					text: 'Could not fetch booking. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

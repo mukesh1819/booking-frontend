@@ -1,4 +1,5 @@
 import {BASE_URL} from '../constants';
+import moment from 'moment';
 
 export function sortObjectBy(obj, key) {
 	obj = obj.sort((a, b) => {
@@ -17,14 +18,6 @@ export function sortObjectBy(obj, key) {
 	return obj;
 }
 
-function csrfToken(document) {
-	return document.querySelector('[name="csrf-token"]') ? document.querySelector('[name="csrf-token"]').content : null;
-}
-
-export function passCsrfToken(document, axios) {
-	axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken(document);
-}
-
 export function subDays(date, days) {
 	const finalDate = new Date(date);
 	finalDate.setDate(finalDate.getDate() - days);
@@ -37,8 +30,16 @@ export function addDays(date, days) {
 	return finalDate;
 }
 
-export function logout() {
-	localStorage.removeItem('token');
+export function getDuration(time) {
+	var currentTime = moment().format('YYYY MM DD HH:mm:ss');
+	var bookingTime = moment.utc(time).format('YYYY MM DD HH:mm:ss');
+	var start = moment.utc(currentTime, 'HH:mm:ss');
+	var end = moment.utc(bookingTime, 'HH:mm:ss');
+	var diff = moment.duration(end.diff(start));
+	console.log('START', start);
+	console.log('END', end);
+	console.log('DiFF', diff);
+	return diff;
 }
 
 export function isRefundable(type) {
@@ -50,7 +51,7 @@ export function isRefundable(type) {
 
 export function userInitials(user) {
 	if (user.name === undefined) {
-		return 'Login';
+		return 'LOGIN';
 	} else if (user.name === null) {
 		return 'User';
 	} else {
@@ -105,4 +106,12 @@ export function toTableData(data) {
 		columns: columns,
 		rows: data
 	};
+}
+
+export function ifNotZero(value, returnValue) {
+	if (value == 0) {
+		return '';
+	} else {
+		return returnValue;
+	}
 }

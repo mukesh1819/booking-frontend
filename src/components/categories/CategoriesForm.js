@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../helpers/helpers';
+import {passCsrfToken, subDays, addDays} from '../../helpers';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
@@ -11,9 +11,8 @@ import {Counter, DatePicker, IconInput, Loading as LoadingScreen, Stepper, Thumb
 import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import {createPackage} from '../../api/packageApi';
+import {createPackage, getPackages} from '../../api/packageApi';
 import {getCategories, createCategory, updateCategory} from '../../api/categoryApi';
-import {getPackages} from '../../api/packageApi';
 
 class CategoriesForm extends Component {
 	constructor(props) {
@@ -129,7 +128,7 @@ class CategoriesForm extends Component {
 											<ErrorMessage name='order' />
 										</div>
 
-										<div class='text-center'>
+										<div className='text-center'>
 											<button
 												className='btn btn-secondary m-2'
 												type='submit'

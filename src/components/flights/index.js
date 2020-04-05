@@ -1,50 +1,24 @@
-import React, {Component} from 'react';
-import SearchFlightForm from './SearchFlightForm';
+import Flight from './Flight';
 import FlightList from './FlightList';
-import PackageList from '../packages/PackageList';
+import FlightCombination from './FlightCombination';
+import FlightCombinedDetails from './FlightCombinedDetails';
+import FlightDetails from './FlightDetails';
+import PassengerDetails from './PassengerDetails';
+import PassengerFields from './PassengerFields';
+import PassengerForm from './PassengerForm';
+import SearchBar from './SearchBar';
+import SearchDetails from './SearchDetails';
 import './flights.scss';
-import {TabView, Slidebar, Banner} from '../shared';
-import {Tabs, Tab} from 'react-bootstrap';
-import {Categories} from '../categories';
 
-export default class Flights extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			key: 'flights'
-		};
-	}
-
-	setKey(key) {
-		this.setState({
-			key: key
-		});
-	}
-
-	render() {
-		const {key} = this.state;
-		const tabs = [{name: 'flights', label: 'Flights'}, {name: 'packages', label: 'Packages'}];
-		return (
-			<React.Fragment>
-				<SearchFlightForm />
-				<section className='categories'>
-					<div className='container'>
-						{/* <div className='title'>
-							<h2 className='text-center'> Things to do </h2>
-						</div> */}
-						<Categories />
-					</div>
-				</section>
-				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
-					<Tab eventKey='flights' title='Flights' />
-					<Tab eventKey='packages' title='Packages'>
-						<div className='container'>
-							<h4> Popular Packages </h4>
-							<PackageList />
-						</div>
-					</Tab>
-				</Tabs> */}
-			</React.Fragment>
-		);
-	}
-}
+export {
+	FlightList,
+	Flight,
+	FlightCombination,
+	FlightCombinedDetails,
+	FlightDetails,
+	PassengerDetails,
+	PassengerFields,
+	PassengerForm,
+	SearchBar,
+	SearchDetails
+};

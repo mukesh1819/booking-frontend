@@ -3,7 +3,8 @@ $font-secondary: 'Source Sans Pro';
 
 .text {
     &-normal {
-        font-size: 2rem;
+        font-size: 1rem;
+        font-weight: normal;
     }
 
     &-medium {
@@ -11,6 +12,10 @@ $font-secondary: 'Source Sans Pro';
     }
 
     &-large {
+        font-size: 20px;
+    }
+
+    &-larger {
         font-size: 18px;
 
         @include tablet {
@@ -18,12 +23,8 @@ $font-secondary: 'Source Sans Pro';
         }
     }
 
-    &-larger {
-        font-size: 3rem;
-    }
-
     &-small {
-        font-size: 0.8rem;
+        font-size: 14px;
 
         @include tablet {
             font-size: 14px;

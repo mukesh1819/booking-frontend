@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {getInquiries} from '../../api/inquiryApi';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class InquiryList extends Component {
 	constructor(props) {
@@ -20,13 +21,19 @@ class InquiryList extends Component {
 	fetchInquiries() {
 		getInquiries()
 			.then((response) => {
-				console.log('inquiries', response.data);
+				// console.log('inquiries', response.data);
 				this.setState({
 					inquiries: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Inquiry fetch error',
+					text: 'could not able to fetch inquiry. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 
@@ -52,15 +59,16 @@ class InquiryList extends Component {
 
 						<tbody>
 							{inquiries.map((inquiry) => {
+								var total_passenger = inquiry.number_of_adult + inquiry.number_of_child;
 								return (
 									<tr>
-										<td>{inquiry.name}</td>
+										<td>{inquiry.first_name} {inquiry.last_name}</td>
 										<td>{inquiry.email_address} </td>
 										<td>{inquiry.phone}</td>
 										<td>{inquiry.preferred_date}</td>
-										<td>{inquiry.no_of_pax}</td>
+										<td>{total_passenger}</td>
 										<td>{inquiry.status}</td>
-										<td>{inquiry.package_id}</td>
+										<td>{inquiry.package_name}</td>
 										<td>
 											<Link
 												to={{

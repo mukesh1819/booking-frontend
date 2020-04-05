@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackages} from '../../api/packageApi';
-import Package from '../packages/Package';
+import {Package} from '../packages';
+import swal from 'sweetalert';
+import {confirmPartner, showPartner} from '../../api/partnerApi';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
@@ -12,27 +14,50 @@ class PartnerProfile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			packages: []
+			partner: {}
 		};
 	}
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchPackages();
+		this.fetchPartner();
 	}
 
-	fetchPackages() {
-		getPackages(`q[partner_id_eq]=${this.props.location.state.partner.id}`).then((response) => {
-			console.log(response.data);
+	fetchPartner() {
+		showPartner(this.props.match.params.id).then((response) => {
 			this.setState({
-				packages: response.data
+				partner: response.data
 			});
 		});
 	}
 
+	callPartnerConfirm(id) {
+		confirmPartner(id)
+			.then((response) => {
+				swal({
+					title: 'Partner Approval Request!',
+					text: 'partnership request is approved and email sent to partners',
+					icon: 'success',
+					button: 'Continue!'
+				});
+			})
+			.catch((error) => {
+				swal({
+					title: 'Sorry!',
+					text: error.response.data.errors.toString(),
+					icon: 'error',
+					button: 'Try Again!'
+				});
+			});
+	}
+
 	render() {
-		const {partner} = this.props.location.state;
-		const {packages} = this.state;
+		var partner = {};
+		if (this.props.location.state) {
+			partner = this.props.location.state.partner;
+		} else {
+			partner = this.state.partner;
+		}
 		return (
 			<div className='container'>
 				<div className=''>
@@ -44,24 +69,38 @@ class PartnerProfile extends Component {
 								<th>Email</th>
 								<th>Company Name</th>
 								<th>Contact Number</th>
+								<th>Status</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr>
-								<td>{partner.name}</td>
+								<td>
+									{partner.first_name} {partner.last_name}
+								</td>
 								<td>{partner.email} </td>
 								<td>{partner.company_name}</td>
 								<td>{partner.contact_number}</td>
+								<td>{partner.status}</td>
+								{partner.status === 'approved' && (
+									<td>
+										<span className='text-info'>Partner Created</span>
+									</td>
+								)}
+								{partner.status === 'processing' && (
+									<td>
+										<span
+											className='btn btn-primary'
+											onClick={() => this.callPartnerConfirm(partner.id)}
+										>
+											Confirm
+										</span>
+									</td>
+								)}
 							</tr>
 						</tbody>
 					</table>
-				</div>
-				<div>
-					<h5 className='m-3'>Packages</h5>
-					{packages.map((aPackage) => {
-						return <Package aPackage={aPackage} />;
-					})}
 				</div>
 			</div>
 		);

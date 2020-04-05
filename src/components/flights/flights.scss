@@ -5,7 +5,7 @@
     background-color: $primary;
     background-size: cover;
     background-position: center;
-    padding: 10px;
+    padding: 14px;
     height: 100vh;
     min-height: 550px;
 
@@ -25,7 +25,7 @@
     // }
 
     h1 {
-        padding-bottom: 10px;
+        padding-bottom: 14px;
 
         @include desktop {
             padding-bottom: 50px;
@@ -35,6 +35,62 @@
     i {
         color: $primary;
         opacity: 1;
+    }
+}
+
+.input-section {
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px 0px;
+
+    .ui.input {
+        width: 100%;
+    }
+
+    &-inputs {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        @include tablet {
+            flex-wrap: nowrap;
+            margin: 0px;
+        }
+
+        .react-datepicker-wrapper {
+            width: 100%;
+        }
+
+        .field {
+            width: 100%;
+        }
+    }
+
+    @include tablet {
+        padding: 20px 30px;
+    }
+}
+
+.form-wrap {
+    label {
+        display: none;
+        font-weight: 500;
+
+        @include desktop {
+            display: block;
+        }
+    }
+}
+
+.field-box {
+    width: -webkit-fill-available;
+    position: relative;
+
+    &:last-child {
+
+        @include desktop {
+            margin-right: 0px;
+        }
     }
 }
 
@@ -51,58 +107,88 @@
         span {
             color: $primary;
             font-weight: 700;
-            padding: 0px 10px;
+            margin: 0px 10px;
             text-transform: uppercase;
             cursor: pointer;
 
             &:first-child {
-                padding-left: 0px;
+                margin-left: 0px;
+            }
+
+            &.active {
+                border-bottom: 1px solid $secondary;
             }
         }
     }
 
-    .input-section {
-        border-radius: 5px;
-        background-color: white;
-        padding: 10px 0px;
 
-        .ui.input {
-            width: 100%;
+    .search-btn {
+        margin-top: 5px;
+    }
+
+    .travellers .default {
+
+        &.text {
+            color: rgba(0, 0, 0, .87);
+        }
+    }
+
+    .toggle-trip {
+        position: absolute;
+        right: 4px;
+        top: 5px;
+        display: table;
+
+        @include tablet {
+            display: none;
         }
 
-        &-inputs {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
+        .label {
+            display: table;
+            position: relative;
+            font-size: 0.6rem;
+            bottom: 10px;
+            right: 0;
+        }
+    }
 
-            @include tablet {
-                flex-wrap: nowrap;
-                margin: 0px;
-            }
+    .toggle-sector-mobile {
+        position: absolute;
+        padding: 0.5rem;
+        right: 0;
+        top: 50%;
+        z-index: 10;
 
-            .react-datepicker-wrapper {
-                width: 100%;
-            }
+        @include tablet {
+            display: none;
+        }
 
-            .field {
-                width: 100%;
-            }
+        i {
+            transform: rotate(90deg);
+        }
+    }
+
+    .toggle-sector-desktop {
+        display: none;
+
+        i {
+            transform: translate(0px, 14px);
         }
 
         @include tablet {
-            padding: 20px 30px;
+            display: block;
+        }
+    }
+
+    .btn-dropdown {
+        font-weight: normal;
+
+        i {
+            float: left;
         }
 
-        .btn-dropdown {
-            font-weight: normal;
-
-            i {
-                float: left;
-            }
-
-            input {
-                padding-left: 38px;
-            }
+        input {
+            padding-left: 38px;
         }
     }
 }
@@ -116,34 +202,16 @@
     .card {
         margin-bottom: 8px;
     }
-
-    .input-section {
-        background-color: rgba(255, 255, 255, 0.486);
-        display: flex;
-        flex-wrap: wrap;
-        padding: 10px 0px;
-
-        @include tablet {
-            flex-wrap: nowrap;
-            margin: 0px;
-        }
-    }
 }
 
-.field-box {
-    width: -webkit-fill-available;
-    position: relative;
+.flight-list {
 
-    &:last-child {
-        margin-right: 0px;
-    }
+    .flight-placeholder {
+        padding: 1rem;
+        background-color: white;
 
-    label {
-        display: none;
-        font-weight: 500;
-
-        @include desktop {
-            display: block;
+        &:first-child {
+            margin-top: 0px;
         }
     }
 }
@@ -173,67 +241,17 @@
     border-bottom: 1px solid;
     flex-grow: 1;
     color: #80808040;
+    margin: 0 1rem;
 }
 
-.toggle-trip {
-    position: absolute;
-    right: 4px;
-    top: 5px;
-    display: table;
+.search-details {
+    position: relative;
 
-    @include tablet {
-        display: none;
-    }
-
-    .label {
-        display: table;
-        position: relative;
-        font-size: 0.6rem;
-        bottom: 10px;
+    .collapse-btn {
+        position: absolute;
         right: 0;
-    }
-}
-
-.toggle-sector {
-    background: white;
-    border: 1px solid grey;
-    cursor: pointer;
-    position: absolute;
-    margin: 1.2rem 2rem 0rem 0rem;
-    padding: 0.5rem 0.6rem;
-    right: 0;
-    top: 16px;
-    transform: rotate(90deg);
-    z-index: 10;
-
-    @include tablet {
-        display: none;
-    }
-}
-
-.filter-flights {
-    .custom-dropdown {
-        padding: 10px;
-        border: 1px solid;
-    }
-
-    .menu {
-        border: 1px solid $gray;
-        z-index: 1020;
-
-        .menu-item {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-
-            &:hover {
-                background-color: $primary;
-            }
-        }
-
-        .active {
-            background-color: lightblue;
-        }
+        z-index: 100;
+        cursor: pointer;
     }
 }
 
@@ -245,13 +263,5 @@
 .counter {
     .title {
         white-space: nowrap;
-    }
-}
-
-.semantic-input-group {
-    width: 100% !important;
-
-    .dropdown {
-        width: max-content !important;
     }
 }

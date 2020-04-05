@@ -3,16 +3,17 @@ import {Formik, Form, Field} from 'formik';
 import {createUser} from '../../api/sessions';
 import history from '../../history';
 import {GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL} from '../../constants';
-import {loginUser} from '../../redux/actions/sessions';
+import {loginUser} from '../../redux/actions';
 import * as yup from 'yup';
 import {connect} from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
 import {Link} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
-import {sortObjectBy} from '../../helpers/helpers';
+import {sortObjectBy} from '../../helpers';
 import {Dropdown, Input} from 'semantic-ui-react';
+import swal from 'sweetalert';
 
 class SignUpForm extends Component {
 	constructor(props) {
@@ -57,21 +58,20 @@ class SignUpForm extends Component {
 							password_confirmation: values.password_confirmation
 						}
 					};
-
 					createUser(variables)
 						.then((response) => {
 							localStorage.setItem('token', response.data.jwt);
-							console.log(response);
+							// console.log(response);
 							this.props.loginUser(response.data.user);
 							setSubmitting(false);
 							history.push('/');
 						})
 						.catch((error) => {
 							setSubmitting(false);
-							console.log(error);
+							// console.log(error);
 							swal({
-								title: 'Something went wrong!',
-								text: 'User was not created!',
+								title: 'Something went wrong! please try again or contact us',
+								text: error.response.data.errors.toString(),
 								icon: 'error',
 								button: 'Try Again!'
 							});
@@ -93,11 +93,11 @@ class SignUpForm extends Component {
 						<div className='login-page'>
 							<div className='login-form card p-2'>
 								<div className='card-body'>
-									<h4>Sign Up</h4>
-									<div class='text-small'>
+									<h3>Sign Up</h3>
+									<div className='text-small'>
 										Already have an account? <Link to='/login'>Sign In</Link>
 									</div>
-									<div className='input-section'>
+									<div className='fields'>
 										<div className='field'>
 											<label>Full Name</label>
 
@@ -134,7 +134,7 @@ class SignUpForm extends Component {
 														className='dropdown'
 														defaultValue={values.code}
 														name='code'
-														placeholder='Select Code'
+														placeholder='Code'
 														onBlur={handleBlur}
 														onChange={(e, data) => {
 															setFieldValue(`code`, data.value);
@@ -228,19 +228,19 @@ class SignUpForm extends Component {
 											/>
 											<ErrorMessage name='password_confirmation' />
 										</div>
-
-										<button
-											className='btn btn-secondary my-2 w-100'
-											type='submit'
-											disabled={isSubmitting}
-										>
-											Submit
-										</button>
-
-										<hr />
-										<div class='text-center text-small mb-2'>Sign In with </div>
-										<SocialLinks />
 									</div>
+
+									<button
+										className='btn btn-secondary my-2 w-100'
+										type='submit'
+										disabled={isSubmitting}
+									>
+										Submit
+									</button>
+
+									<hr />
+									<div className='text-center text-small mb-2'>Sign In with </div>
+									<SocialLinks />
 								</div>
 							</div>
 						</div>

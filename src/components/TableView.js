@@ -41,7 +41,7 @@ class TableView extends Component {
 		return (
 			<React.Fragment>
 				{/* <Search value={searchTerm} onChange={this.onSearchChange} /> */}
-				<div className=''>{filteredList.map((value) => <ChildComponent {...rest} flight={value} />)}</div>
+				<div>{filteredList.map((value) => <ChildComponent {...rest} flight={value} />)}</div>
 			</React.Fragment>
 		);
 	}

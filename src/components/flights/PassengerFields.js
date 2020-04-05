@@ -9,7 +9,7 @@ import FlightList from './FlightList';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 

@@ -1,8 +1,9 @@
 import React, {component, Component} from 'react';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import {getPartners} from '../../api/partnerApi';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class PartnerList extends Component {
 	constructor(props) {
@@ -20,13 +21,19 @@ class PartnerList extends Component {
 	fetchPartners() {
 		getPartners()
 			.then((response) => {
-				console.log('response', response.data);
+				// console.log('response', response.data);
 				this.setState({
 					partners: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Partner fetch error',
+					text: 'could not able to fetch partner. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 

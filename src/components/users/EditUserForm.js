@@ -4,12 +4,13 @@ import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import {Formik, Form, Field, connect} from 'formik';
 import * as yup from 'yup';
 import ErrorMessage from '../ErrorMessage';
 import history from '../../history';
 import {Redirect} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class EditUserForm extends Component {
 	constructor(props) {
@@ -32,12 +33,18 @@ class EditUserForm extends Component {
 				this.setState({
 					userDetails: response.data.user
 				});
-				console.log(response.data.user);
+				// console.log(response.data.user);
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				this.setState({
 					error
+				});
+				swal({
+					title: 'User fetch error',
+					text: 'could not able to find user. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
 				});
 			});
 	};
@@ -92,14 +99,20 @@ class EditUserForm extends Component {
 											this.setState({
 												userDetails: response.data.user
 											});
-											console.log(response.data.user);
+											// console.log(response.data.user);
 											history.push('/profile');
 										})
 										.catch((error) => {
-											console.log(error);
+											// console.log(error);
 											setSubmitting(false);
 											this.setState({
 												error
+											});
+											swal({
+												title: 'User Update error',
+												text: 'could not able to update user.. please try again or contact us',
+												icon: 'error',
+												button: 'Try Again!'
 											});
 										});
 								}}
@@ -205,7 +218,7 @@ class EditUserForm extends Component {
 										</div>
 										<br />
 										<button
-											className='btn btn-primary m-2 btn-block'
+											className='btn btn-secondary m-2 btn-block'
 											type='submit'
 											disabled={isSubmitting}
 										>

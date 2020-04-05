@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {showPackage} from '../../api/packageApi';
 import Package from './Package';
-import HotelImage from '../../images/flight.jpg';
 import {Link} from 'react-router-dom';
 import {Modal as ModalExample} from '../shared';
 import InquiryForm from './InquiryForm';
-import {imageUrl} from '../../helpers/helpers';
+import {imageUrl} from '../../helpers';
 import {Tab} from 'semantic-ui-react';
+import {HotelImage, nepalVillage, peace} from '../../images';
 
 class PackageDetails extends Component {
 	constructor(props) {
@@ -41,12 +41,32 @@ class PackageDetails extends Component {
 	}
 
 	fetchDetails() {
+		const options = {
+			margin: 10,
+			loop: true,
+			touchDrag: true,
+			rewind: true,
+			animateIn: true,
+			items: 1,
+			nav: false,
+			responsive: {
+				1000: {
+					nav: true,
+					navText: [
+						"<i class='fas fa-chevron-circle-left text-primary'></i>",
+						"<i class='fas fa-chevron-circle-right text-primary'></i>"
+					],
+					loop: true
+				}
+			}
+		};
 		showPackage(this.props.match.params.id)
 			.then((response) => {
 				console.log('PAckage DEtails', response);
 				this.setState({
 					aPackage: response.data
 				});
+				$('.owl-carousel').owlCarousel(options);
 			})
 			.catch((response) => {
 				console.log('PACKAGE DETAILS ERROR', response);
@@ -55,6 +75,7 @@ class PackageDetails extends Component {
 
 	render() {
 		const {aPackage} = this.state;
+		const dummyImages = [HotelImage, nepalVillage, peace, peace, HotelImage];
 		const panes = [
 			{
 				menuItem: 'About',
@@ -84,8 +105,10 @@ class PackageDetails extends Component {
 			<div className='package-details'>
 				<div className='container'>
 					<div className='header'>
-						<div className='img-container'>
+						<div className='img-container  owl-carousel owl-theme'>
 							<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+							{dummyImages.length > 0 &&
+								dummyImages.map((v) => <img src={v} alt='Image' className='img-responsive' />)}
 						</div>
 						<div className='card bg-none title'>
 							<div className='card-body'>
@@ -93,7 +116,7 @@ class PackageDetails extends Component {
 									<div className=''>
 										<h2 className='text-white font-secondary'>{aPackage.name}</h2>
 										<span className='text-white text-small'>
-											<i class='fas fa-map-marker-alt' />&nbsp;
+											<i className='fas fa-map-marker-alt' />&nbsp;
 											{aPackage.location}
 										</span>
 									</div>

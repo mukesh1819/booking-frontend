@@ -4,19 +4,21 @@ import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken, ifNotZero, getDuration} from '../../helpers';
 import moment from 'moment';
-import EmptyContent from '../EmptyContent';
+import {EmptyContent} from '../shared';
 import {Badge} from '../shared';
 import Pagination from 'react-pagination-js';
 import 'react-pagination-js/dist/styles.css'; // import css
+import swal from 'sweetalert';
+import {Timer} from '../shared';
 
 class Bookings extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			bookings: [],
+			transactions: [],
 			currentPage: 1
 		};
 	}
@@ -25,16 +27,22 @@ class Bookings extends Component {
 		passCsrfToken(document, axios);
 		getBookings()
 			.then((response) => {
-				console.log(response, 'booking response');
 				console.log('Bookings List', response);
 				this.setState({
-					bookings: response.data
+					transactions: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				this.setState({
 					error
+				});
+
+				swal({
+					title: 'Booking fetch error',
+					text: `could not able to fetch booking.. please try again or contact us`,
+					icon: 'error',
+					button: 'Continue!'
 				});
 			});
 	}
@@ -42,54 +50,70 @@ class Bookings extends Component {
 	componentWillUnmount() {}
 
 	render() {
-		const {bookings} = this.state;
-		if (this.state.bookings.length == 0) {
+		const {transactions} = this.state;
+		console.log('TRansactions', transactions);
+
+		if (this.state.transactions.length == 0) {
 			return <EmptyContent>No bookings yet.</EmptyContent>;
 		}
+
 		return (
 			<div className='booking-list container card'>
 				<div className='card-body'>
-					<h5>Bookings</h5>
-					{bookings.map(function(booking) {
-						console.log('Booking', booking);
+					<h3 className='title'>Bookings</h3>
+					{transactions.map((transaction) => {
 						return (
-							<Link
-								className='booking d-flex justify-content-between align-items-center p-3 '
-								to={{
-									pathname: `/booking_details/${booking.ruid}`,
-									state: {
-										booking: booking
+							<div className='transaction'>
+								{transaction.bookings.map(function(booking) {
+									if (booking.reservation_time == null) {
+										return;
 									}
-								}}
-							>
-								<div>
-									<div className=''>
-										<span className='px-2'>{`${booking.departure}`}</span>
-										<i className='fas fa-arrow-right' />
-										<span className='px-2'> {`${booking.arrival}`}</span>
-									</div>
-									<div>
-										<span className='text-small text-muted px-2'>
-											<i className='fas fa-plane-departure' />&nbsp;
-											{`${moment(booking.flight_date).format('Do MMMM, YYYY')}`}
-										</span>
-										{booking.strTripType === 'R' && (
-											<span className='text-small text-muted px-2'>
-												<i className='fas fa-plane-arrival' />&nbsp;
-												{`${moment(booking.strReturnDate).format('Do MMMM, YYYY')}`}
-											</span>
-										)}
-										<span className='text-small text-muted px-2'>
-											<i className='fas fa-male' />&nbsp;
-											{booking.adult} Adult,
-											{booking.child} Child
-										</span>
-									</div>
-								</div>
-								<div>
-									<Badge type={booking.status}>{booking.status}</Badge>
-								</div>
-							</Link>
+
+									return (
+										<Link
+											key={booking.ruid}
+											className='booking d-flex justify-content-between align-items-center p-3'
+											to={{
+												pathname: `/booking/${booking.ruid}`,
+												state: {
+													booking: booking
+												}
+											}}
+										>
+											<div>
+												<div className=''>
+													<span className='px-2'>{`${booking.departure}`}</span>
+													<i className='fas fa-arrow-right' />
+													<span className='px-2'> {`${booking.arrival}`}</span>
+												</div>
+												<div>
+													<span className='text-small text-muted px-2'>
+														<i className='fas fa-plane-departure' />&nbsp;
+														{`${moment(booking.flight_date).format('Do MMMM, YYYY')}`}
+													</span>
+													{booking.strTripType === 'R' && (
+														<span className='text-small text-muted px-2'>
+															<i className='fas fa-plane-arrival' />&nbsp;
+															{`${moment(booking.strReturnDate).format('Do MMMM, YYYY')}`}
+														</span>
+													)}
+													<span className='text-small text-muted px-2'>
+														<i className='fas fa-male' />&nbsp;
+														{booking.adult} Adult
+														{ifNotZero(booking.child, `, ${booking.child} Child`)} Child
+													</span>
+												</div>
+											</div>
+											<div className='text-danger'>
+												<Timer ttlTime={getDuration(booking.reservation_time)} />
+											</div>
+											<div>
+												<Badge type={booking.status}>{booking.status}</Badge>
+											</div>
+										</Link>
+									);
+								})}
+							</div>
 						);
 					})}
 				</div>

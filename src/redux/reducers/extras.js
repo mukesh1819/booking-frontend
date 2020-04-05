@@ -1,5 +1,7 @@
 const initialState = {
-    countries: []
+    countries: [],
+    language: 'ENG',
+    error: ''
 };
 
 export default function (state = initialState, action) {
@@ -8,6 +10,20 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 countries: action.payload
+            };
+        }
+
+        case "SET_LANGUAGE": {
+            return {
+                ...state,
+                language: action.payload
+            };
+        }
+
+        case "SET_ERROR": {
+            return {
+                ...state,
+                error: action.payload
             };
         }
         default:

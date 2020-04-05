@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import CKEditor from 'ckeditor4-react';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
-import {connect} from 'react-redux';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb} from '../shared';
 import {createPackage, updatePackage} from '../../api/packageApi';
 import {getCategories} from '../../api/categoryApi';
 import {getPackages} from '../../api/packageApi';
 import {getPartners} from '../../api/partnerApi';
+import {BASE_URL} from '../../constants';
+import {Package} from '../packages';
+import swal from 'sweetalert';
+import {setError} from '../../redux/actions';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -32,8 +36,14 @@ class PackageForm extends Component {
 					categories: res.data
 				});
 			})
-			.catch((res) => {
-				console.log('CATEGORIES FETCH ERROR');
+			.catch((error) => {
+				// console.log('CATEGORIES FETCH ERROR');
+				swal({
+					title: 'Category fetch error!',
+					text: 'could not able to fetch categories. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			});
 
 		var partnerId = this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId;
@@ -43,24 +53,53 @@ class PackageForm extends Component {
 					packages: res.data
 				});
 			})
-			.catch((res) => {
-				console.log('PACKAGES FETCH ERROR');
+			.catch((error) => {
+				this.props.setError('could not able to fetch package. please try again or contact us');
 			});
 
 		getPartners()
 			.then((response) => {
-				console.log('Partners List', response.data);
+				// console.log('Partners List', response.data);
 				this.setState({
 					partners: response.data
 				});
 			})
 			.catch((error) => {
-				console.log('PARTNER FETCH ERROR');
+				// console.log('PARTNER FETCH ERROR');
+				swal({
+					title: 'Partner fetch error!',
+					text: 'could not able to fetch partner. please try again or contact us',
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			});
+		const options = {
+			margin: 10,
+			loop: true,
+			touchDrag: true,
+			rewind: true,
+			animateIn: true,
+			responsive: {
+				0: {
+					items: 1,
+					nav: false
+				},
+				600: {
+					items: 3,
+					nav: false
+				},
+				1000: {
+					items: 4,
+					nav: false,
+					loop: false
+				}
+			}
+		};
+		$('.owl-carousel').owlCarousel(options);
 	}
 
 	render() {
-		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {}};
+		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {images: []}};
 		const {partnerIsValid, categories, packages, partners} = this.state;
 		const {countries, nextStep} = this.props;
 		const partnerDetails = {
@@ -68,7 +107,7 @@ class PackageForm extends Component {
 			price: aPackage.price,
 			location: aPackage.location,
 			description: aPackage.description,
-			images: aPackage.images != null ? aPackage.images: [],
+			images: [],
 			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
 			category_id: aPackage.category != null ? aPackage.category.id : ''
 		};
@@ -76,15 +115,13 @@ class PackageForm extends Component {
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						Package Details
-						<strong>{packages.map((v) => v.name)}</strong>
 						<Formik
 							initialValues={partnerDetails}
 							onSubmit={(values, {setSubmitting}) => {
 								this.setState({
 									searching: true
 								});
-								console.log(values);
+								// console.log(values);
 								if (aPackage.id != null) {
 									updatePackage(aPackage.id, values)
 										.then((response) => {
@@ -98,11 +135,11 @@ class PackageForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											// console.log('Create Package Error', error);
 											setSubmitting(false);
 											swal({
-												title: 'Sorry!',
-												text: error.message,
+												title: 'Package Update Error!',
+												text: `${error.message}.. please try again or contact us`,
 												icon: 'error',
 												button: 'Try Again!'
 											});
@@ -120,18 +157,16 @@ class PackageForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											// console.log('Create Package Error', error);
 											setSubmitting(false);
 											swal({
-												title: 'Sorry!',
-												text: error.message,
+												title: 'Package Create Error!',
+												text: `${error.message}.. please try again or contact us`,
 												icon: 'error',
 												button: 'Try Again!'
 											});
 										});
 								}
-
-
 							}}
 						>
 							{({
@@ -147,7 +182,7 @@ class PackageForm extends Component {
 							}) => (
 								<form onSubmit={handleSubmit} autoComplete='off'>
 									<div className='input-section'>
-										{partnerDetails.partner_id == null && (
+										{/* {partnerDetails.partner_id == null && (
 											<div className='field-box mt-3'>
 												<label>Partners List</label>
 												<IconInput icon='icon-paper-plane' iconPosition='left'>
@@ -170,7 +205,7 @@ class PackageForm extends Component {
 												</IconInput>
 												<ErrorMessage name='partner_id' />
 											</div>
-										)}
+										)} */}
 
 										<div className='field-box'>
 											<label>Name</label>
@@ -247,9 +282,16 @@ class PackageForm extends Component {
 												className='form-control'
 												multiple
 											/>
-											
-											<Thumb file= {values.images[0]} />
-											
+											<Thumb files={values.images} />
+											{aPackage.images.map((image) => (
+												<img
+													src={`${BASE_URL}/${image}`}
+													alt={image}
+													className='img-thumbnail mt-2'
+													height={200}
+													width={200}
+												/>
+											))}
 										</div>
 
 										<div className='field-box'>
@@ -285,6 +327,14 @@ class PackageForm extends Component {
 						</Formik>
 						{partnerIsValid && <a href='btn btn-primary'>Add Packages</a>}
 					</div>
+					<h3> Your other packages</h3>
+					<div className='row'>
+						{packages.map((aPackage) => (
+							<div className='col-md-4'>
+								<Package aPackage={aPackage} />
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		);
@@ -295,6 +345,8 @@ const mapStateToProps = ({extras}) => ({
 	countries: extras.countries
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	setError
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PackageForm);

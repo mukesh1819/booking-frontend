@@ -1,44 +1,44 @@
 import React from 'react';
 import {Router, Switch, Route} from 'react-router-dom';
-import PassengerForm from './components/flights/PassengerForm';
-import Flights from './components/flights';
-import App from './App';
-import PageNotFound from './components/PageNotFound';
-import FlightList from './components/flights/FlightList';
-import FlightDetails from './components/flights/FlightDetails';
-import HotelList from './components/hotels/HotelList';
-import Packages from './components/packages';
+import {FlightList, FlightDetails, PassengerForm} from './components/flights';
+import {HotelList} from './components/hotels';
+import {PackageList, PackageDetails, InquiryDetails as PackageInquiryDetails} from './components/packages';
 import Users from './components/users';
-import SignInForm from './components/sessions/SignInForm';
-import SignUpForm from './components/sessions/SignUpForm';
+import {SignInForm, SignUpForm} from './components/sessions';
+import {BookingDetails, Bookings, TicketDetails} from './components/bookings';
+import PrivateRoute from './components/PrivateRoute';
+import {
+	BecomePartnerForm,
+	PartnerProfile,
+	PackageForm as AddPackageForm,
+	PackageForm as NewPackageForm
+} from './components/partners';
+import HomePage from './components/pages/HomePage';
+import PageNotFound from './components/pages/PageNotFound';
+import {CustomerSupport} from './components/pages';
+import {PaymentSuccess} from './components/payments';
+
 import EditUserForm from './components/users/EditUserForm';
-import BookingDetails from './components/bookings/BookingDetails';
-import TicketDetails from './components/bookings/TicketDetails';
+
 import TransactionList from './components/admin/TransactionList';
 import CreateUser from './components/admin/CreateUser';
 import UsersList from './components/admin/UsersList';
-import Bookings from './components/bookings/Bookings';
 import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
 import DashboardBookings from './components/admin/DashboardBookings';
-import Dashboard from './components/admin';
-import PrivateRoute from './components/PrivateRoute';
-import BecomePartnerForm from './components/partners/BecomePartnerForm';
-import PackageDetails from './components/packages/PackageDetails';
-import PackagesList from './components/admin/PackagesList';
+import Dashboard from './components/admin/Dashboard';
 import PartnerList from './components/admin/PartnerList';
-import PartnerProfile from './components/partners/PartnerProfile';
+import PackagesList from './components/admin/PackagesList';
 import InquiryDetails from './components/admin/InquiryDetails';
+import InquiryForm from './components/packages/InquiryForm';
 import PartnerDetails from './components/admin/PartnerDetails';
 import InquiryList from './components/admin/InquiryList';
 import CategoryList from './components/admin/CategoryList';
 import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
-import AddPackageForm from './components/partners/PackageForm';
-import NewPackageForm from './components/partners/PackageForm';
-import PackageInquiryDetails from './components/packages/InquiryDetails';
+import EditBooking from './components/flights/EditBooking';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -46,28 +46,33 @@ function About() {
 
 const routing = (
 	<Switch>
-		<Route exact path='/' component={Flights} />
+		<Route exact path='/' component={HomePage} />
 
 		<Route path='/login' component={SignInForm} />
 		<Route path='/signup' component={SignUpForm} />
 		<Route path='/flights' component={FlightList} />
 		<Route path='/hotels' component={HotelList} />
-		<Route path='/packages' component={Packages} />
+		<Route path='/packages' component={PackageList} />
 		<Route path='/package/:id' component={PackageDetails} />
 		<Route path='/about' component={About} />
+		<Route path='/support' component={CustomerSupport} />
 
-		<PrivateRoute path='/book_flight' component={PassengerForm} />
+		<PrivateRoute path='/passengers' component={PassengerForm} />
 		<PrivateRoute path='/bookings' component={Bookings} />
 		<PrivateRoute path='/transactions' component={Users} />
 		<PrivateRoute path='/records' component={Users} />
 		<PrivateRoute path='/profile' component={Users} />
 		<PrivateRoute path='/users/edit' component={EditUserForm} />
-		<PrivateRoute path='/booking_details/:id' component={BookingDetails} />
+		<PrivateRoute path='/booking/:id' component={BookingDetails} />
+		<PrivateRoute path='/booking/:idx/edit' component={EditBooking} />
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
-		<PrivateRoute path='/partners/new' component={BecomePartnerForm} />
+		<Route path='/partners/new' component={BecomePartnerForm} />
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
-		<PrivateRoute path='/api/inquiry_details/:idx' component={PackageInquiryDetails} />
+		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} />
+		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
+		<PrivateRoute path='/inquiry_form' component={InquiryForm} />
+		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} />
@@ -80,7 +85,7 @@ const routing = (
 		<PrivateRoute path='/admin/inquiries' component={InquiryList} />
 		<PrivateRoute path='/admin/categories' component={CategoryList} />
 		<PrivateRoute path='/admin/category_details' component={CategoryDetail} />
-		<PrivateRoute path='/admin/categories/category_form' component={CategoriesForm} />
+		<PrivateRoute path='/admin/category_form' component={CategoriesForm} />
 		<PrivateRoute path='/admin/partner/:id' component={PartnerProfile} />
 
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />

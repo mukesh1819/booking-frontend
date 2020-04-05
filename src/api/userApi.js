@@ -1,16 +1,14 @@
 import axios from 'axios';
-import {handleResponse, handleError} from './apiUtils';
 import {API_URL, ADMIN_API_URL, BASE_URL} from '../constants';
+import {handleResponse, handleError, useInterceptor} from './apiUtils';
+
+useInterceptor(axios);
 
 export function getUserDetails(params) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/user/profile`,
-		params: params,
-		headers: {
-			'Content-type': 'application/json',
-			Authorization: `Bearer ${localStorage.token}`
-		}
+		params: params
 	});
 }
 
@@ -20,10 +18,6 @@ export function updateUserDetails(details) {
 		url: `${API_URL}/members`,
 		data: {
 			user: details
-		},
-		headers: {
-			'Content-type': 'application/json',
-			Authorization: `Bearer ${localStorage.token}`
 		}
 	});
 }
@@ -32,22 +26,14 @@ export function getBookings(params) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/bookings`,
-		params: params,
-		headers: {
-			'Content-type': 'application/json',
-			Authorization: `Bearer ${localStorage.token}`
-		}
+		params: params
 	});
 }
 
 export function getUsers() {
 	return axios({
 		method: 'get',
-		url: `${ADMIN_API_URL}/users`,
-		headers: {
-			'Content-type': 'application/json',
-			Authorization: `Bearer ${localStorage.token}`
-		}
+		url: `${ADMIN_API_URL}/users`
 	});
 }
 
@@ -55,23 +41,26 @@ export function sendUserEmail(data) {
 	return axios({
 		method: 'post',
 		url: `${BASE_URL}/admin/user_email`,
-		data: data,
-		headers: {
-			'Content-type': 'application/json',
-			Authorization: `Bearer ${localStorage.token}`
-		}
+		data: data
 	});
 }
 
 export function authorizeGoogle(data) {
 	return axios({
 		method: 'post',
-		url: `${BASE_URL}/authorize_google`,
+		url: `${BASE_URL}/google/authorize`,
 		data: {
-			user_details: data.uc
-		},
-		headers: {
-			'Content-type': 'application/json'
+			user_details: data
+		}
+	});
+}
+
+export function authorizeFb(data) {
+	return axios({
+		method: 'post',
+		url: `${BASE_URL}/fb/authorize`,
+		data: {
+			user_details: data
 		}
 	});
 }

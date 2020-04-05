@@ -1,7 +1,10 @@
 @import "./overrides";
 @import "./mixins";
 @import "bootstrap";
+@import "./semantic";
+@import "./owl";
 @import "./typography";
+@import "./icons";
 @import "./icomoon";
 
 $fontColor: #252525;
@@ -25,11 +28,30 @@ $font40: 40px;
     }
 }
 
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     font-family: $font-secondary;
     color: $fontColor;
     font-size: $font16;
     overflow-x: hidden;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1 0 auto;
+}
+
+#footer {
+    flex-shrink: 0;
 }
 
 h1,
@@ -49,7 +71,11 @@ h1 {
 }
 
 h2 {
-    font-size: $font32;
+    font-size: $font24;
+
+    @include tablet {
+        font-size: $font32;
+    }
 }
 
 h3 {
@@ -67,7 +93,7 @@ h5 {
     font-size: $font14;
 }
 
-h2.title:after {
+h2.category-title:after {
     border-bottom: 2px solid $secondary;
     display: block;
     content: ' ';
@@ -113,6 +139,10 @@ li {
             background: none;
         }
     }
+
+    &-primary-dark {
+        background-color: darken($primary, 5%);
+    }
 }
 
 .row {
@@ -146,6 +176,11 @@ input:read-only {
     background-color: white;
 }
 
+.title {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
 
 // select::-ms-expand {
 //     display: none;
@@ -166,12 +201,23 @@ section {
 }
 
 .navbar {
+    padding: 0px 0px;
+
+    .navbar-header {
+        padding: 0.5rem 14px;
+
+        @include desktop {
+            padding: 0.5rem 0;
+        }
+    }
+
     .navbar-brand {
         font-size: 1rem;
-        padding: 0.3125rem 1rem;
+        padding: 0 1rem;
 
         @include desktop {
             font-size: 1.2rem;
+            padding: 0.5rem 0;
         }
     }
 
@@ -183,10 +229,20 @@ section {
             width: 20px;
         }
     }
+
+    .navbar-nav {
+        font-weight: 600;
+
+        .link {
+            display: flex;
+            align-items: center;
+            margin: 0rem 1rem;
+        }
+    }
 }
 
 .form-group {
-    margin: 4px;
+    margin: 5px 10px;
 
     @include tablet {
         margin-bottom: 30px;
@@ -205,6 +261,11 @@ section {
     .modal-header {
         padding: 0.5rem 1rem !important;
         background-color: $primary;
+
+        h5,
+        .close {
+            color: white;
+        }
     }
 
     .modal-dialog {
@@ -226,7 +287,7 @@ section {
 }
 
 .card-header {
-    background-color: white;
+    background-color: rgba($primary, .1);
 }
 
 .card-body {
@@ -245,21 +306,56 @@ section {
 
 
 .side-nav {
+    display: flex;
+    overflow: scroll;
+    height: min-content;
+    background-color: white;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .item {
+        cursor: pointer;
+        flex-grow: 1;
+        padding: 0px 10px;
+        color: $secondary;
+        font-weight: 600;
+    }
+
+    i {
+        font-size: $font18;
+    }
+
+    @include tablet {
+        display: block;
+        padding: 8px;
+        background-color: white;
+        height: 100vh;
+
+        .item {
+            padding: 10px 10px;
+        }
+    }
+}
+
+.slide-nav {
+    display: block;
     padding: 8px;
     background-color: white;
     height: 100vh;
 
-    .sidebar-item {
+    .item {
+        cursor: pointer;
+        flex-grow: 1;
         padding: 10px 10px;
         border: 0px;
-        padding: 10px 10px;
 
         i {
             font-size: $font18;
         }
     }
 }
-
 
 .slide {
     position: fixed;
@@ -299,19 +395,30 @@ section {
     white-space: nowrap;
     display: flex;
     align-items: center;
+    position: relative;
 
     i.icon-chevron-down {
         float: right;
     }
 
     .menu {
-        padding: 0.5rem;
+        display: none;
+        padding: 0.75rem;
         background: white;
         position: absolute;
-        transform: translate(0px, 65px);
         border: 1px solid lightgray;
+        top: 100%;
+        right: 0px;
         min-width: 100%;
         color: black;
+
+        li {
+            padding: 0.25rem;
+        }
+    }
+
+    &:hover .menu {
+        display: block;
     }
 }
 
@@ -329,6 +436,7 @@ section {
         background-color: $primary;
         padding: 8px;
         z-index: 20;
+        color: white;
     }
 }
 
@@ -417,10 +525,14 @@ section {
             margin-top: -6rem;
         }
     }
+
+    .title {
+        z-index: 1050;
+    }
 }
 
 footer {
-    background-color: #d6d6d6;
+    background-color: rgba($primary, .1);
     padding: 2em 0;
     clear: both;
 

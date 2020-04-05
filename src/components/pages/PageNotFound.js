@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '../images/404.jpg';
+import image from '../../images/404.jpg';
 
 const PageNotFound = () => (
 	<div className='text-center'>

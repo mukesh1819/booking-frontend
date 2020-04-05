@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {newPayment} from '../../api/paymentApi';
+import swal from 'sweetalert';
 
 class PaymentForm extends Component {
 	constructor(props) {
@@ -11,7 +12,7 @@ class PaymentForm extends Component {
 	}
 
 	componentDidMount() {
-		newPayment(this.props.idx, this.props.value)
+		newPayment(this.props.idx)
 			.then((res) => {
 				this.setState({
 					action: res.data.action,
@@ -19,7 +20,13 @@ class PaymentForm extends Component {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Payment Page Error',
+					text: `Could not open payment page. please try again or contact us`,
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			});
 	}
 
@@ -33,7 +40,7 @@ class PaymentForm extends Component {
 		const {action, fields} = this.state;
 		return (
 			<div>
-				<div class='text-center p-5'>
+				<div className='text-center p-5'>
 					<img src='/assets/loading.gif' width='50' height='50' />
 					<div>Redirecting to Payment Page......</div>
 				</div>

@@ -5,9 +5,11 @@ import {NavBar, Footer} from './components/shared';
 import {Router, Switch, Route} from 'react-router-dom';
 import history from './history';
 import {getUserDetails} from './api/userApi';
-import {loginUser} from './redux/actions/sessions';
-import {setCountries} from './redux/actions/extraActions';
+import {loginUser} from './redux/actions';
+import {setCountries} from './redux/actions';
 import {getCountries} from './api/flightApi';
+import {ScrollToTop} from './components/shared';
+import {swal} from 'sweetalert';
 
 function App(props) {
 	useEffect(() => {
@@ -33,12 +35,21 @@ function App(props) {
 					console.log(error);
 				});
 		}
+
+		// if (props.error !== '') {
+		// 	swal({
+		// 		title: props.error
+		// 	});
+		// }
 	});
 
 	return (
 		<Router history={history}>
-			<NavBar />
-			{routing}
+			<ScrollToTop />
+			<div id='content'>
+				<NavBar />
+				{routing}
+			</div>
 			<Footer />
 		</Router>
 	);
@@ -47,7 +58,8 @@ function App(props) {
 const mapStateToProps = ({userStore, extras}) => {
 	return {
 		currentUser: userStore.currentUser,
-		countries: extras.countries
+		countries: extras.countries,
+		error: extras.error
 	};
 };
 

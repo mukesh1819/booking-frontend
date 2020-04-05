@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {DataTable} from '../shared';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import EditUserForm from '../users/EditUserForm';
 import {getUsers} from '../../api/userApi';
+import swal from 'sweetalert';
 
 class UsersList extends Component {
 	constructor(props) {
@@ -24,15 +25,21 @@ class UsersList extends Component {
 	fetchUsers = () => {
 		getUsers()
 			.then((response) => {
-				console.log('List of Users', response.data);
+				// console.log('List of Users', response.data);
 				this.setState({
 					users: response.data
 				});
 			})
 			.catch((errors) => {
-				console.log(errors);
+				// console.log(errors);
 				this.setState({
 					errors
+				});
+				swal({
+					title: 'User fetch error',
+					text: 'could not able to fetch users. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
 				});
 			});
 	};

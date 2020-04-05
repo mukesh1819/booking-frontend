@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {getCategories} from '../../api/categoryApi';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class CategoryList extends Component {
 	constructor(props) {
@@ -20,13 +21,19 @@ class CategoryList extends Component {
 	fetchCategories() {
 		getCategories()
 			.then((response) => {
-				console.log('inquiries', response.data);
+				// console.log('inquiries', response.data);
 				this.setState({
 					categories: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'category fetch error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 
@@ -37,7 +44,7 @@ class CategoryList extends Component {
 				<div className=''>
 					<div className='col-12 d-flex justify-content-between'>
 						<h5>Category List</h5>
-						<Link to='/admin/categories/category_form'>new category</Link>
+						<Link to='/admin/category_form'>new category</Link>
 					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
@@ -71,7 +78,7 @@ class CategoryList extends Component {
 
 											<Link
 												to={{
-													pathname: '/categories/category_form',
+													pathname: '/admin/category_form',
 													state: {
 														category: category
 													}

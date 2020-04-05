@@ -40,7 +40,7 @@ const CreateUser = () => {
 				createUser(variables)
 					.then((response) => {
 						setSubmitting(false);
-						console.log(response.data.message);
+						// console.log(response.data.message);
 						swal({
 							title: 'User Created!',
 							text: 'User created successfully!',
@@ -51,7 +51,13 @@ const CreateUser = () => {
 					})
 					.catch((error) => {
 						setSubmitting(false);
-						console.log(error);
+						swal({
+							title: 'User create error',
+							text: 'could not able to create user. please try again or contact us',
+							icon: 'error',
+							button: 'Continue!'
+						});
+						// console.log(error);
 						// this.setState({
 						// 	error
 						// });
@@ -156,7 +162,7 @@ const CreateUser = () => {
 									</Field>
 								</div>
 
-								<button className='btn btn-primary m-2' type='submit' disabled={isSubmitting}>
+								<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
 									Submit
 								</button>
 							</div>

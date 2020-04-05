@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {signIn} from '../../api/sessions';
 import history from '../../history';
-import {loginUser} from '../../redux/actions/sessions';
+import {loginUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import {NavBar} from '../shared';
 import {Link, Redirect} from 'react-router-dom';
@@ -40,9 +40,9 @@ class SignInForm extends Component {
 						signIn(variables)
 							.then((response) => {
 								setSubmitting(false);
-								console.log('Sign IN response', response.data);
+								// console.log('Sign IN response', response.data);
 								if (response.data.user !== undefined) {
-									console.log('Logged In user', response);
+									// console.log('Logged In user', response);
 									this.props.loginUser(response.data.user);
 									localStorage.setItem('token', response.data.jwt);
 									history.push(redirectUrl);
@@ -56,7 +56,7 @@ class SignInForm extends Component {
 								}
 							})
 							.catch((error) => {
-								console.log('SIGN IN error', error);
+								// console.log('SIGN IN error', error);
 								swal({
 									title: 'Something Went Wrong!',
 									text: '........!',
@@ -80,12 +80,12 @@ class SignInForm extends Component {
 						<div className='login-page'>
 							<div className='login-form card p-2'>
 								<div className='card-body'>
-									<h4>Log in</h4>
-									<div class='text-small'>
+									<h3>Log in</h3>
+									<div className='text-small'>
 										Don't have an account? <Link to='/signup'>Create Account</Link>
 									</div>
 									<form onSubmit={handleSubmit} className='form-wrap'>
-										<div className='input-section'>
+										<div className='fields'>
 											<div className='field'>
 												<label>Email</label>
 
@@ -113,9 +113,9 @@ class SignInForm extends Component {
 													placeholder='Password'
 												/>
 											</div>
-										</div>
-										<div class='text-small'>
-											<Link to='/forgot'>Forgot Password?</Link>
+											<div className='text-small'>
+												<Link to='/forgot'>Forgot Password?</Link>
+											</div>
 										</div>
 										<button
 											className='btn btn-secondary my-2 w-100'
@@ -125,7 +125,7 @@ class SignInForm extends Component {
 											Sign In
 										</button>
 										<hr />
-										<div class='text-center text-small mb-2'>Sign In with </div>
+										<div className='text-center text-small mb-2'>Sign In with </div>
 										<SocialLinks />
 									</form>
 								</div>

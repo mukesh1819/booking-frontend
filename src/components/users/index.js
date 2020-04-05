@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import Profile from './Profile';
-import Bookings from '../bookings/Bookings';
+import {Bookings} from '../bookings';
 import './users.scss';
 import '../shared/tab.scss';
 import {Sidebar} from '../shared';
@@ -27,19 +27,18 @@ export default class Users extends Component {
 	render() {
 		const {ActiveComponent} = this.props.location.state || this.state;
 		const sideBarMenu = [
-			{icon: 'icon-home', name: 'users', label: 'Users', value: '', link: '/'},
 			{
 				icon: 'icon-beamed-note',
-				name: 'bookings',
-				label: 'Bookings',
+				name: 'profile',
+				label: 'Profile',
 				value: '',
 				link: '/profile',
 				Component: Profile
 			},
 			{
 				icon: 'icon-user',
-				name: 'transactions',
-				label: 'Transactions',
+				name: 'bookings',
+				label: 'My Bookings',
 				value: '',
 				link: '/bookings',
 				Component: Bookings
@@ -49,14 +48,14 @@ export default class Users extends Component {
 			<div className='container p-0'>
 				<div className='row'>
 					<div className='col-0 col-md-2 p-0'>
-						<Sidebar items={sideBarMenu} />
+						<Sidebar items={sideBarMenu} onItemSelect={(component) => this.activateTab(component)} />
 					</div>
-					<div className='col-12 col-md-10'>{ActiveComponent && <ActiveComponent />}</div>
+					<div className='col-12 col-md-10 p-0 pl-md-3'>{ActiveComponent && <ActiveComponent />}</div>
 				</div>
 				{/* <nav className='nav nav-tabs'>
-					<div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
+					<div className='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
 						<a
-							class='nav-item nav-link active'
+							className='nav-item nav-link active'
 							id='nav-profile-tab'
 							data-toggle='tab'
 							href='#nav-profile'
@@ -82,14 +81,14 @@ export default class Users extends Component {
 					</div>
 				</nav> */}
 
-				{/* <div class='tab-content' id='nav-tabContent'>
+				{/* <div className='tab-content' id='nav-tabContent'>
 					<div
-						class='tab-pane fade show active'
+						className='tab-pane fade show active'
 						id='nav-profile'
 						role='tabpanel'
 						aria-labelledby='nav-profile-tab'
 					/>
-					<div class='tab-pane fade' id='nav-bookings' role='tabpanel' aria-labelledby='nav-bookings-tab' />
+					<div className='tab-pane fade' id='nav-bookings' role='tabpanel' aria-labelledby='nav-bookings-tab' />
 					<ActiveComponent />
 				</div> */}
 			</div>

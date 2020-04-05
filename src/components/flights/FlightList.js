@@ -3,22 +3,22 @@ import Flight from './Flight';
 import FlightCombination from './FlightCombination';
 import {sortBy} from 'lodash';
 import {Button} from 'react-bootstrap';
-import {Modal as ModalExample} from '../shared';
+import {Modal as ModalExample, EmptyContent} from '../shared';
 import FlightDetails from './FlightDetails';
 import FlightCombinedDetails from './FlightCombinedDetails';
 import TableView from '../TableView';
 import {connect} from 'react-redux';
-import {getFlights} from '../../redux/selectors';
+import {getFlights} from '../../api/flightApi';
+import {setFlights, setSearchDetails, setTTLtime} from '../../redux/actions';
 import store from '../../redux/store';
-import {selectInboundFlight, selectOutboundFlight, deselectFlight} from '../../redux/actions/flightActions';
+import {selectInboundFlight, selectOutboundFlight, deselectFlight} from '../../redux/actions';
 import {Link, Redirect} from 'react-router-dom';
-import SearchFlightForm from './SearchFlightForm';
 import SearchDetails from './SearchDetails';
-import EmptyContent from '../EmptyContent';
 import history from '../../history';
-import {Dropdown as DropdownItem} from '../shared';
+import {Dropdown as DropdownItem, Placeholder} from '../shared';
 import {Form} from 'react-bootstrap';
 import {Checkbox} from 'semantic-ui-react';
+import SearchBar from './SearchBar';
 
 require('./flights.scss');
 
@@ -58,13 +58,16 @@ class FlightList extends Component {
 		this.state = {
 			selectedFlight: null,
 			sortKey: 'PRICE',
-			isSortReverse: false
+			isSortReverse: false,
+			loading: true
 		};
 
 		// this.onFlightSelect = this.onFlightSelect.bind(this);
 		this.onFlightDeselect = this.onFlightDeselect.bind(this);
 		this.onViewDetails = this.onViewDetails.bind(this);
 		this.onSort = this.onSort.bind(this);
+		this.setSearch = this.setSearch.bind(this);
+		this.setLoading = this.setLoading.bind(this);
 	}
 
 	onSort(sortKey) {
@@ -101,12 +104,58 @@ class FlightList extends Component {
 	}
 
 	onBook() {
-		history.push('/book_flight');
+		history.push('/passengers');
 	}
 
 	componentDidMount() {
-		if (document.readyState !== 'complete') return;
-		Tawk_API.hideWidget();
+		// if (document.readyState == 'complete') {
+		// 	Tawk_API.hideWidget();
+		// }
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (!nextProps.searchDetails.strSectorFrom) {
+			this.setState({
+				loading: false
+			});
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.state.loading) {
+			getFlights(this.props.searchDetails)
+				.then((response) => {
+					this.props.setFlights(response.data.data);
+					this.props.setTTLtime(0);
+					this.setState({
+						loading: false
+					});
+				})
+				.catch((error) => {
+					// console.log('Search Flight Error', error);
+					this.setState({
+						loading: false
+					});
+					swal({
+						title: 'No Flights Found!',
+						text: `please check your internet and try again`,
+						icon: 'error',
+						button: 'Try Again!'
+					});
+				});
+		}
+	}
+
+	setSearch(status) {
+		this.setState({
+			searching: status
+		});
+	}
+
+	setLoading(status) {
+		this.setState({
+			loading: status
+		});
 	}
 
 	render() {
@@ -114,11 +163,12 @@ class FlightList extends Component {
 			outboundFlights,
 			inboundFlights,
 			combinations,
+			searchDetails,
 			selectedInboundFlight,
 			selectedOutboundFlight
 		} = this.props;
 
-		const {sortKey, isSortReverse} = this.state;
+		const {sortKey, isSortReverse, searching, loading} = this.state;
 
 		var results = outboundFlights;
 		var type = 'OUTBOUND';
@@ -136,82 +186,107 @@ class FlightList extends Component {
 
 		const airlines = reverseSortedList.map((flight) => flight.Airline);
 
-		if (reverseSortedList.length == 0) {
+		if (reverseSortedList.length == 0 && !loading) {
 			return <Redirect to='/' />;
-			// 	return (
-			// 		<div className='container p-0'>
-			// 			<EmptyContent>
-			// 				No Flights found.<br />
-			// 				<Link to='/' className='btn btn-primary'>
-			// 					Try Again
-			// 				</Link>
-			// 			</EmptyContent>
-			// 		</div>
-			// 	);
 		}
+
+		const content =
+			loading || reverseSortedList.length == 0 ? (
+				<div>
+					<Placeholder />
+					<Placeholder />
+					<Placeholder />
+					<Placeholder />
+					<Placeholder />
+				</div>
+			) : (
+				<TableView
+					values={reverseSortedList}
+					ChildComponent={component}
+					type={type}
+					onFlightSelect={this.onFlightSelect}
+					onViewDetails={this.onViewDetails}
+				/>
+			);
 
 		return (
 			<div className='container p-0'>
-				<SearchDetails collapsed={true} />
-
-				<div class='bg-secondary text-center sorter d-md-none'>
-					{sorters.map(({key, label}) => {
-						return (
-							<Sort sortKey={key} onSort={this.onSort} isActive={sortKey == key}>
-								{label}
-							</Sort>
-						);
-					})}
+				<div className='row mb-4'>
+					<div className='col-12 p-0'>
+						{searching ? (
+							<div className='search-details'>
+								<span className='collapse-btn p-3' onClick={() => this.setSearch(false)}>
+									<i className='fas fa-times text-secondary' />
+								</span>
+								<SearchBar
+									onSearch={() => {
+										this.setLoading(true);
+										this.setSearch(false);
+									}}
+								/>
+							</div>
+						) : (
+							<SearchDetails onModify={() => this.setSearch(true)} />
+						)}
+						<div className='bg-secondary text-center sorter d-md-none'>
+							{sorters.map(({key, label}) => {
+								return (
+									<Sort sortKey={key} onSort={this.onSort} isActive={sortKey == key}>
+										{label}
+									</Sort>
+								);
+							})}
+						</div>
+					</div>
 				</div>
 				<div className='row'>
-					<div className='col-sm-0 col-md-2 bg-white p-0 d-none d-md-block'>
+					<div className='col-sm-0 col-md-2 d-none d-md-block pl-0'>
 						<div className='card filter-flights'>
-							<div className='card-header'>Filter</div>
 							<div className='card-body'>
-								<span className='text-bold'>Sort By</span>
-								<DropdownItem title={sortKey} className='text-field'>
+								<div className='sorters'>
+									<h4 className='title'> Sort </h4>
+									{/* <DropdownItem title={sortKey} className='text-field'>
+													{sorters.map(({key, label}) => {
+														return (
+															<div
+																className={`p-2 menu-item ${sortKey == key ? 'active' : ''}`}
+																onClick={() => this.onSort(key)}
+															>
+																{label}
+															</div>
+														);
+													})}
+												</DropdownItem> */}
 									{sorters.map(({key, label}) => {
 										return (
-											<div
-												className={`p-2 menu-item ${sortKey == key ? 'active' : ''}`}
-												onClick={() => this.onSort(key)}
-											>
-												{label}
-											</div>
+											<Checkbox
+												label={label}
+												onChange={() => this.onSort(key)}
+												className='d-block'
+												checked={sortKey == key}
+											/>
 										);
 									})}
-								</DropdownItem>
-								<Checkbox label='Cheapest' />
-								<Checkbox label='Quickest' />
-								<Checkbox label='Earliest' />
-
+								</div>
 								<hr />
-
-								<span className='text-bold'>Airline</span>
-								<Form>
-									<div key={`checkbox`} className='mb-3'>
-										{[...new Set(airlines)].map((airline) => (
-											<Form.Check label={airline} type='checkbox' id={airline} />
-										))}
-									</div>
-								</Form>
+								<h4 className='title'> Airline </h4>
+								<div key={`checkbox`} className='mb-3'>
+									{[...new Set(airlines)].map((airline) => (
+										<Checkbox
+											label={airline}
+											onChange={console.log('Airline selected', airline)}
+											className='d-block'
+										/>
+									))}
+								</div>
 							</div>
 						</div>
 					</div>
-					<div className='col-sm-12 col-md-10 p-0'>
-						<TableView
-							values={reverseSortedList}
-							ChildComponent={component}
-							type={type}
-							onFlightSelect={this.onFlightSelect}
-							onViewDetails={this.onViewDetails}
-						/>
-					</div>
+					<div className='col-sm-12 col-md-10 flight-list p-0'> {content} </div>
 				</div>
-
 				<ModalExample
 					title='Flight Details'
-					buttonLabel='Book'
+					buttonLabel='Continue'
 					show={this.state.selectedFlight !== null}
 					toggle={this.onViewDetails}
 					onSuccess={this.onBook}
@@ -228,6 +303,7 @@ const mapStateToProps = ({flightStore}) => {
 		outboundFlights: flightStore.flights.outbounds,
 		inboundFlights: flightStore.flights.inbounds,
 		combinations: flightStore.flights.combinations,
+		searchDetails: flightStore.searchDetails,
 		selectedInboundFlight: flightStore.selectedInboundFlight,
 		selectedOutboundFlight: flightStore.selectedOutboundFlight
 	};
@@ -236,7 +312,9 @@ const mapStateToProps = ({flightStore}) => {
 const mapDispatchToProps = {
 	selectInboundFlight,
 	selectOutboundFlight,
-	deselectFlight
+	deselectFlight,
+	setFlights,
+	setTTLtime
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlightList);

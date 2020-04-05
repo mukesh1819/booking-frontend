@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {isRefundable} from '../../helpers/helpers';
+import {isRefundable, ifNotZero} from '../../helpers';
+import FareDetails from './FareDetails';
 
 const FlightDetails = (props) => {
 	const {flight, adult, child} = props;
@@ -15,20 +16,26 @@ const FlightDetails = (props) => {
 						{flight.FlightNo}({flight.FlightClassCode})
 					</div>
 				</span>
-				<span className=''> {flight.FlightDate} </span>
 				<span className='text-center'>
-					Class: {flight.FlightClassCode}
-					<div className='text-bold text-success'>{isRefundable(flight.Refundable)}</div>
+					<i className='fas fa-plane fa-2x departure text-primary' />
+					<div>{flight.FlightDate}</div>
+				</span>
+				<span className='text-right'>
+					Class: {flight.FlightClassCode} |{' '}
+					<span className='text-info'> {isRefundable(flight.Refundable)}</span>
 					<div>FreeBaggage: {flight.FreeBaggage}</div>
 				</span>
 			</div>
 			<hr />
 			<div className='body'>
-				<div class='d-flex justify-content-between align-items-center'>
+				<div className='d-flex justify-content-between align-items-center'>
 					<span className='text-center'>
 						{flight.DepartureTime} <div className='text-bold'>{flight.Departure}</div>
 					</span>
-					<span class='text-small text-muted'>{flight.duration} min</span>
+					<span className='text-small text-muted text-center'>
+						<i className='fas fa-clock text-primary' />
+						<div>{flight.duration} min</div>
+					</span>
 					<span className='text-center'>
 						{flight.ArrivalTime}
 						<div className='text-bold'>{flight.Arrival}</div>
@@ -36,34 +43,7 @@ const FlightDetails = (props) => {
 				</div>
 				<div className='text-center text-small text-muted' />
 				<hr />
-				<div>
-					<span className='text-center p-3'>
-						<div className='text-bold'>
-							Total Fare: {flight.Currency} {flight.total_fare}
-						</div>
-						<div className='text-small text-muted'>
-							({adult} Adult, {child} Child)
-						</div>
-					</span>
-					<ul className='text-muted text-small'>
-						{adult > 0 && (
-							<li>
-								Base Fare (1 Adult): {flight.Currency} {flight.AdultFare} x ({adult})
-							</li>
-						)}
-						{child > 0 && (
-							<li>
-								Base Fare (1 Child): {flight.Currency} {flight.ChildFare} x ({child})
-							</li>
-						)}
-						<li>
-							Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({adult} + {child})
-						</li>
-						<li>
-							Tax: {flight.Currency} {flight.Tax} x ({adult} + {child})
-						</li>
-					</ul>
-				</div>
+				<FareDetails flight={flight} adult={adult} child={child} />
 			</div>
 		</div>
 	);

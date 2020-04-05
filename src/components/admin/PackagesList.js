@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import {passCsrfToken, toTableData} from '../../helpers/helpers';
+import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackages} from '../../api/packageApi';
+import swal from 'sweetalert';
 
 class PackagesList extends Component {
 	constructor(props) {
@@ -20,13 +21,19 @@ class PackagesList extends Component {
 	fetchPackages = () => {
 		getPackages()
 			.then((response) => {
-				console.log('List of Packages', response.data);
+				// console.log('List of Packages', response.data);
 				this.setState({
 					packages: response.data
 				});
 			})
 			.catch((errors) => {
-				console.log('Fetch Package Error', errors);
+				// console.log('Fetch Package Error', errors);
+				swal({
+					title: 'Package fetch error',
+					text: 'could not able to fetch package. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	};
 
@@ -46,7 +53,6 @@ class PackagesList extends Component {
 								<th>ID</th>
 								<th>Name</th>
 								<th>Category</th>
-								<th>Partner</th>
 								<th>Price</th>
 								<th>Actions</th>
 							</tr>
@@ -59,24 +65,12 @@ class PackagesList extends Component {
 										<td>{aPackage.id}</td>
 										<td>{aPackage.name}</td>
 										<td>{aPackage.category.name} </td>
-										<td>
-											<Link
-												to={{
-													pathname: `/admin/partner/${aPackage.partner.id}`,
-													state: {
-														partner: aPackage.partner
-													}
-												}}
-											>
-												<span className='px-1'>{aPackage.partner.name}</span>
-											</Link>
-										</td>
 										<td>{aPackage.price}</td>
 
 										<td>
 											<Link
 												to={{
-													pathname: `/partners/package_form/${aPackage.partner.id}`,
+													pathname: `/partners/package_form/${aPackage.id}`,
 													state: {
 														aPackage: aPackage
 													}

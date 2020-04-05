@@ -1,5 +1,5 @@
 import React, {useEffect, useState, Component} from 'react';
-import {setTTLtime} from '../../redux/actions/flightActions';
+import {setTTLtime} from '../../redux/actions';
 import swal from 'sweetalert';
 import {connect} from 'react-redux';
 
@@ -7,13 +7,13 @@ class Timer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			minutes: this.props.ttlTime,
-			seconds: 0
+			minutes: props.ttlTime.minutes(),
+			seconds: props.ttlTime.seconds()
 		};
 	}
 
 	componentDidMount() {
-		this.myInterval = setInterval(() => {
+		this.interval = setInterval(() => {
 			const {seconds, minutes} = this.state;
 			if (seconds > 0) {
 				this.setState(({seconds}) => ({
@@ -22,7 +22,7 @@ class Timer extends Component {
 			}
 			if (seconds === 0) {
 				if (minutes === 0) {
-					clearInterval(this.myInterval);
+					clearInterval(this.interval);
 					swal({
 						title: 'Time Ended!',
 						text: 'Your flight Reservation time has ended. Please try Again',
@@ -40,7 +40,7 @@ class Timer extends Component {
 	}
 
 	componentWillUnmount() {
-		clearInterval(this.myInterval);
+		clearInterval(this.interval);
 	}
 
 	render() {
@@ -60,13 +60,15 @@ class Timer extends Component {
 }
 
 const mapStateToProps = ({flightStore}) => {
-	return {
-		ttlTime: flightStore.ttlTime
-	};
+	// return {
+	// 	ttlTime: flightStore.ttlTime
+	// };
+
+	return {};
 };
 
 const mapDispatchToProps = {
-	setTTLtime
+	// setTTLtime
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

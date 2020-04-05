@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 const Footer = () => (
 	<footer id='footer' role='contentinfo'>
-		<div className='container-fluid'>
+		<div className='container'>
 			<div className='d-flex justify-content-between align-items-center'>
 				<div className=''>
 					<div className='footer-widget footer-links'>
@@ -12,7 +12,7 @@ const Footer = () => (
 								<a href='#'> About Us</a>
 							</li>
 							<li className='d-md-inline px-2'>
-								<a href='#'>Privacy Policy</a>
+								<a href='https://visit-all-nepal.flycricket.io/privacy.html'>Privacy Policy</a>
 							</li>
 							<li className='d-md-inline px-2'>
 								<a href='#'>Terms & Conditions</a>
@@ -24,7 +24,7 @@ const Footer = () => (
 								<a href='#'>Blogs</a>
 							</li>
 							<li className='d-md-inline px-2'>
-								<a href='#'>Contact Us</a>
+								<a href='/support'>Contact Us</a>
 							</li>
 						</ul>
 					</div>

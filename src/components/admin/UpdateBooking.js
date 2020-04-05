@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {getAdminBookings} from '../../api/flightApi';
-import {passCsrfToken} from '../../helpers/helpers';
+import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import {cancelAdminTicket} from '../../api/flightApi';
 import {ignoreAdminTicket} from '../../api/flightApi';
 import {Link, NavLink} from 'react-router-dom';
 import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
+import swal from 'sweetalert';
 
 class UpdateBooking extends Component {
 	constructor(props) {
@@ -24,20 +25,26 @@ class UpdateBooking extends Component {
 	fetchBookings(params) {
 		getAdminBookings(params)
 			.then((response) => {
-				console.log(response);
+				// console.log(response);
 				this.setState({
 					bookings: response.data
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
+				swal({
+					title: 'Booking fetch error',
+					text: 'could not able to fetch booking. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
 	}
 
 	adminCancelRequest(passenger_id) {
 		cancelAdminTicket(passenger_id)
 			.then((response) => {
-				console.log(response);
+				// console.log(response);
 				swal({
 					title: 'Tickets cancellation!',
 					text: 'Your ticket is cancelled',
@@ -47,10 +54,10 @@ class UpdateBooking extends Component {
 				this.fetchBookings(`q[status_eq]=processing`);
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				swal({
 					title: 'Tickets cancellation!',
-					text: error.message,
+					text: `${error.message}.. please check error message if not shown from backend`,
 					icon: 'error',
 					button: 'Continue!'
 				});
@@ -60,7 +67,7 @@ class UpdateBooking extends Component {
 	adminIgnoreRequest(passenger_id) {
 		ignoreAdminTicket(passenger_id)
 			.then((response) => {
-				console.log(response);
+				// console.log(response);
 				swal({
 					title: 'Tickets Ignored!',
 					text: response.data.message,
@@ -70,10 +77,10 @@ class UpdateBooking extends Component {
 				this.fetchBookings(`q[status_eq]=processing`);
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error);
 				swal({
 					title: 'Tickets cancellation!',
-					text: error.message,
+					text: `${error.message}.. please check error message if not shown from backend`,
 					icon: 'error',
 					button: 'Continue!'
 				});
@@ -90,8 +97,12 @@ class UpdateBooking extends Component {
 							<table className='table table-striped table-sm'>
 								<thead>
 									<tr>
-										<th> Passenger Name </th> <th> Nationality </th> <th> Passenger Type </th>
-										<th> Ticket No </th> <th> Cancel status </th>
+										<th> Passenger Name </th>
+										<th> Nationality </th>
+										<th> Passenger Type </th>
+										<th> Ticket No </th>
+										<th> Status </th>
+										<th> </th>
 									</tr>
 								</thead>
 								<tbody>
@@ -122,14 +133,14 @@ class UpdateBooking extends Component {
 														<td>
 															<div>
 																<span
-																	className='btn  btn-danger'
+																	className='btn  bg-none text-danger'
 																	onClick={() =>
 																		this.adminCancelRequest(passenger.id)}
 																>
 																	cancel
 																</span>
 																<span
-																	className='btn btn-secondary'
+																	className='btn bg-none text-secondary'
 																	onClick={() =>
 																		this.adminIgnoreRequest(passenger.id)}
 																>

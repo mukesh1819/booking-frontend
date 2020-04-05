@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {logoutUser} from '../../redux/actions/sessions';
-import {setCurrency} from '../../redux/actions/bookingActions';
+import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {logout, userInitials} from '../../helpers/helpers';
-import {isAdmin, isLoggedIn} from '../../helpers';
+import {logout, userInitials, isAdmin, isLoggedIn, flagFor} from '../../helpers';
 import Slidebar from './Slidebar';
 import Dropdown from './Dropdown';
 import SignUpForm from '../sessions/SignInForm';
@@ -32,7 +30,7 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const {currentUser, currency, logoutUser} = this.props;
+		const {currentUser, language, logoutUser, currency} = this.props;
 		const loggedIn = currentUser.email !== undefined;
 
 		const sideBarMenu = [
@@ -70,8 +68,8 @@ class NavBar extends Component {
 		return (
 			<React.Fragment>
 				<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
-					<div className='container'>
-						<div className='navbar-header d-flex'>
+					<div className='container align-items-stretch'>
+						<div className='navbar-header d-flex align-items-center'>
 							<button
 								className='navbar-toggler'
 								type='button'
@@ -89,121 +87,120 @@ class NavBar extends Component {
 							</Link>
 						</div>
 
-						<div className='navbar-collapse collapse'>
-							<ul className='navbar-nav ml-auto align-items-center'>
-								<li className='mx-3'>
-									{currentUser.partner && (
-										<NavLink
-											className='text-white'
-											to={`/partners/package_form/${currentUser.partner.id}`}
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											Add Packages
-										</NavLink>
-									)}
-									{!currentUser.partner && (
-										<NavLink
-											className='text-white'
-											to='/partners/new'
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											Become a partner
-										</NavLink>
-									)}
-								</li>
+						<div className='navbar-collapse collapse align-items-stretch'>
+							<span className='navbar-nav ml-auto align-items-stretch'>
+								{currentUser.partner && (
+									<NavLink
+										className='link text-white'
+										to={`/partners/package_form/${currentUser.partner.id}`}
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
+									>
+										Add Packages
+									</NavLink>
+								)}
+								{!currentUser.partner && (
+									<NavLink
+										className='link text-white'
+										to='/partners/new'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
+									>
+										BECOME A PARTNER
+									</NavLink>
+								)}
+								<NavLink
+									className='link text-white'
+									to='/support'
+									activeStyle={{
+										textDecoration: 'none',
+										fontWeight: 'bold'
+									}}
+								>
+									CUSTOMER SUPPORT
+								</NavLink>
 								{loggedIn && (
-									<li className='mx-3'>
-										<NavLink
-											className='text-white'
-											to='/bookings'
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											My Bookings
-										</NavLink>
-									</li>
+									<NavLink
+										className='link text-white'
+										to='/bookings'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
+									>
+										My Bookings
+									</NavLink>
 								)}
 								{isAdmin(currentUser) && (
-									<li className='mx-3'>
-										<NavLink
-											className='text-white'
-											to='/bookings'
-											activeStyle={{
-												textDecoration: 'none',
-												fontWeight: 'bold'
-											}}
-										>
-											Admin
-										</NavLink>
-									</li>
+									<NavLink
+										className='link text-white'
+										to='/bookings'
+										activeStyle={{
+											textDecoration: 'none',
+											fontWeight: 'bold'
+										}}
+									>
+										Admin
+									</NavLink>
 								)}
-								{/* <Dropdown icon={'icon-user'} title={''}>
-								<SignUpForm />
-							</Dropdown> */}
-								<li className='mx-3'>
-									<Dropdown icon='np flag' title={currency} className='text-white'>
-										<div className='d-flex select-countries'>
-											<div className=''>
-												<span>Languages</span>
-												<Currencies requestData='languages' />
-											</div>
+								<Dropdown
+									icon={`${flagFor(language)} flag`}
+									title={language}
+									className='text-white px-3'
+								>
+									<div className='d-flex select-countries text-normal'>
+										<div className=''>
+											<span className='text-bold'>Languages</span>
+											<Currencies requestData='languages' />
 										</div>
-									</Dropdown>
-								</li>
-							</ul>
+									</div>
+								</Dropdown>
+							</span>
 						</div>
-						<div>
-							<ul className='navbar-nav ml-auto align-items-center'>
-								<li className='mx-3'>
-									<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white'>
-										<ul>
-											<li>
-												{loggedIn && (
-													<Link to='/profile' className='dropdown-item'>
-														Profile
-													</Link>
-												)}
-											</li>
-											<li>
-												{loggedIn && (
-													<a
-														className='dropdown-item'
-														onClick={() => {
-															logoutUser();
-															history.push('/login');
-															logout();
-														}}
-													>
-														Logout
-													</a>
-												)}
-											</li>
-											<li>
-												{!loggedIn && (
-													<Link to='/login' className='dropdown-item'>
-														Login
-													</Link>
-												)}
-											</li>
-											<li>
-												{!loggedIn && (
-													<Link to='/signup' className='dropdown-item'>
-														Sign up
-													</Link>
-												)}
-											</li>
-										</ul>
-									</Dropdown>
-								</li>
-							</ul>
+						<div className='d-flex align-items-stretch'>
+							<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white pl-3'>
+								<ul class='text-normal'>
+									{loggedIn && (
+										<li className='m-0'>
+											<Link to='/profile' className='item text-bold'>
+												Profile
+											</Link>
+										</li>
+									)}
+									{loggedIn && (
+										<li className='m-0'>
+											<a
+												className='item text-bold'
+												onClick={() => {
+													logoutUser();
+													history.push('/login');
+													logout();
+												}}
+											>
+												Logout
+											</a>
+										</li>
+									)}
+									{!loggedIn && (
+										<li className='m-0'>
+											<Link to='/login' className='item text-bold'>
+												Login
+											</Link>
+										</li>
+									)}
+									{!loggedIn && (
+										<li className='m-0'>
+											<Link to='/signup' className='item text-bold'>
+												Sign up
+											</Link>
+										</li>
+									)}
+								</ul>
+							</Dropdown>
 						</div>
 					</div>
 				</nav>
@@ -218,9 +215,9 @@ class NavBar extends Component {
 	}
 }
 
-const mapStateToProps = ({userStore, bookingStore}) => ({
+const mapStateToProps = ({userStore, extras}) => ({
 	currentUser: userStore.currentUser,
-	currency: bookingStore.currency
+	language: extras.language
 });
 
 const mapDispatchToProps = {logoutUser};

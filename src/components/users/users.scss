@@ -16,42 +16,16 @@
 .login-form {
     form {
         position: relative;
-        margin-top: 1.5rem;
         width: 100%;
         z-index: 2;
 
         @include desktop {
             padding: 10px;
-            margin: 0px;
         }
     }
 
-    .input-section {
-        .card-body {
-            padding: 0.25rem;
-
-            @include tablet {
-                padding: 1rem;
-            }
-        }
-
-        label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            display: none;
-
-            @include tablet {
-                display: block;
-            }
-        }
-
-        .form-control {
-            margin-bottom: 8px;
-
-            @include tablet {
-                margin: 2px;
-            }
-        }
+    .fields {
+        margin: 1.5rem 0;
     }
 }
 
@@ -92,17 +66,16 @@
 
 .booking-list {
 
+    .transaction:nth-child(even) {
+        background-color: rgba(220, 220, 220, 0.353);
+    }
+
     .booking {
         display: flex;
         align-items: center;
         padding: 4px;
 
         text-decoration: none !important;
-
-
-        &:nth-child(even) {
-            background-color: rgba(220, 220, 220, 0.353);
-        }
     }
 }
 
@@ -122,6 +95,15 @@
             text-transform: uppercase;
             display: flex;
             justify-content: center;
+        }
+
+        .card-body::before {
+            content: "\f007";
+            font-size: 145px;
+            position: absolute;
+            top: -140px;
+            left: -35px;
+            color: rgba(158, 132, 91, 0.15);
         }
     }
 }

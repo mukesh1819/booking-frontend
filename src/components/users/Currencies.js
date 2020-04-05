@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
-import {setCurrency, setLanguage} from '../../redux/actions/bookingActions';
+import {setCurrency, setLanguage} from '../../redux/actions';
 import {Flag, Segment} from 'semantic-ui-react';
 
 const Currencies = (props) => {
@@ -15,7 +15,8 @@ const Currencies = (props) => {
 			contents = countries.map((country) => {
 				if (country.currency_char !== null) {
 					return (
-						<li key = {country.country_char}
+						<li
+							key={country.country_char}
 							className={`d-flex align-items-center p-1 menu-item ${country.currency_char == currency
 								? 'active'
 								: ''}`}
@@ -36,7 +37,7 @@ const Currencies = (props) => {
 			contents = countries.map((country) => {
 				if (country.country_code !== null) {
 					return (
-						<li key = {country.country_char} className='p-1 menu-item d-flex align-items-center'>
+						<li key={country.country_char} className='p-1 menu-item d-flex align-items-center'>
 							<i className='icon-flag' />
 							<span>{country.country_code}</span>
 						</li>
@@ -45,16 +46,17 @@ const Currencies = (props) => {
 			});
 			break;
 		case 'languages':
-			var languages = [{code: 'ENG', label: 'English'}, {code: 'ESP', label: 'Spanish'}];
-			contents = languages.map(({code, label}) => {
+			var languages = [{flag: 'us', code: 'ENG', label: 'English'}, {flag: 'es', code: 'ESP', label: 'Spanish'}];
+			contents = languages.map(({flag, code, label}) => {
 				return (
-					<li key = {code}
-						className='d-flex align-items-center p-1 menu-item'
+					<li
+						key={code}
+						className='d-flex align-items-center p-1 menu-item m-0'
 						onClick={() => {
 							setLanguage(code);
 						}}
 					>
-						<i className='icon-flag' />
+						<Flag name={flag} />
 						<span>{label}</span>
 						{code == language && <i className='icon-check ml-2' />}
 					</li>
@@ -65,7 +67,7 @@ const Currencies = (props) => {
 			contents = countries.map((country) => {
 				if (country.name !== null) {
 					return (
-						<li key = {country.country_char} className='p-1'>
+						<li key={country.country_char} className='p-1'>
 							<i className='icon-flag' />
 							<span>{country.name}</span>
 						</li>

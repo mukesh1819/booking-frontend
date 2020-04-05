@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getCategories} from '../../api/categoryApi';
-import Package from '../packages/Package';
+import {Package} from '../packages';
 import {Link} from 'react-router-dom';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -37,18 +37,24 @@ class Categories extends Component {
 				},
 				1000: {
 					items: 4,
-					nav: false,
-					loop: false
+					nav: true,
+					navText: [
+						"<i class='fas fa-chevron-circle-left text-primary'></i>",
+						"<i class='fas fa-chevron-circle-right text-primary'></i>"
+					],
+					loop: true
 				}
 			}
 		};
-		getCategories().then((response) => {
-			console.log('CATEGORIES', response);
-			this.setState({
-				categories: response.data
-			});
-			$('.owl-carousel').owlCarousel(options);
-		});
+		getCategories()
+			.then((response) => {
+				// console.log('CATEGORIES', response);
+				this.setState({
+					categories: response.data
+				});
+				$('.owl-carousel').owlCarousel(options);
+			})
+			.catch((error) => {});
 	}
 
 	render() {
@@ -56,11 +62,11 @@ class Categories extends Component {
 			<React.Fragment>
 				{this.state.categories.map((category) => {
 					return (
-						<div>
-							<div className='d-flex justify-content-between align-items-center'>
-								<h2 className='title'>{category.name}</h2>
+						<div className='categories-container'>
+							<div className='d-flex justify-content-between align-items-center px-3'>
+								<h2 className='category-title'> {category.name} </h2>
 								<Link to='/packages' className='btn btn-secondary bg-none text-primary'>
-									View All <i class='fas fa-angle-right' />
+									View All <i className='fas fa-angle-right' />
 								</Link>
 							</div>
 							<div className='owl-carousel owl-theme'>
@@ -71,7 +77,7 @@ class Categories extends Component {
 							</div>
 						</div>
 					);
-				})};
+				})}
 			</React.Fragment>
 		);
 	}
