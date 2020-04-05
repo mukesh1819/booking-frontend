@@ -56,3 +56,10 @@ export function showPackageBooking(idx) {
 		url: `${API_URL}/package_bookings/${idx}`
 	});
 }
+
+export function rejectInquiry(id){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/inquiries/${id}/reject`
+	});
+}
