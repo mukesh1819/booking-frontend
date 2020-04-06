@@ -38,7 +38,7 @@ class InquiryForm extends Component {
 
 	render() {
 		const {countries, package_id} = this.props;
-		const {inquiry} = this.props.location.state != null ? this.props.location.state : {inquiry: {}};
+		const {inquiry} = this.props.location != null ? this.props.location.state : {inquiry: {}};
 
 		const InquiriesSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
