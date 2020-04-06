@@ -38,7 +38,6 @@ class InquiryForm extends Component {
 
 	render() {
 		const {countries, package_id} = this.props;
-		debugger;
 		const {inquiry} = this.props.location != null ? this.props.location.state : {inquiry: {}};
 
 		const InquiriesSchema = yup.object().shape({
