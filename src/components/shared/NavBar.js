@@ -163,7 +163,7 @@ class NavBar extends Component {
 						</div>
 						<div className='d-flex align-items-stretch'>
 							<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white pl-3'>
-								<ul class='text-normal'>
+								<ul className='text-normal'>
 									{loggedIn && (
 										<li className='m-0'>
 											<Link to='/profile' className='item text-bold'>

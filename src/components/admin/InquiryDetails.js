@@ -32,20 +32,20 @@ class InquiryDetails extends Component {
 				});
 			});
 	}
-	
-	rejectUserPackage(id){
+
+	rejectUserPackage(id) {
 		rejectInquiry(id)
-		.then((response) => {
-			swal({
-				title: 'User Package Rejection Response!',
-				text: `${response.data.message}`,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'User Package Rejection Response!',
+					text: `${response.data.message}`,
+					icon: 'success',
+					button: 'Continue!'
+				});
+			})
+			.catch((error) => {
+				console.log(error);
 			});
-		})
-		.catch((error) => {
-			console.log(error);
-		})
 	}
 
 	render() {
@@ -55,7 +55,7 @@ class InquiryDetails extends Component {
 			<div className='container'>
 				<div className=''>
 					<h5>Inquiry</h5>
-					<table className='table table-striped table-hover table-sm' ref='main'>
+					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
 						<thead>
 							<tr>
 								<th>Inquiry id</th>
@@ -82,7 +82,9 @@ class InquiryDetails extends Component {
 						<tbody>
 							<tr>
 								<td>{inquiry.id}</td>
-								<td>{inquiry.first_name} {inquiry.last_name}</td>
+								<td>
+									{inquiry.first_name} {inquiry.last_name}
+								</td>
 								<td>{inquiry.email_address} </td>
 								<td>{inquiry.nationality}</td>
 								<td>{inquiry.address}</td>
@@ -102,15 +104,18 @@ class InquiryDetails extends Component {
 									{inquiry.status === 'pending' && (
 										<div>
 											<span>
-												<Link to={{
-													pathname:'/inquiry_form',
-													className:'btn btn-secondary',
-													state: {
-														inquiry: inquiry
-													}
-												}}
-												> Edit
-												</Link> 
+												<Link
+													to={{
+														pathname: '/inquiry_form',
+														className: 'btn btn-secondary',
+														state: {
+															inquiry: inquiry
+														}
+													}}
+												>
+													{' '}
+													Edit
+												</Link>
 											</span>
 
 											<span
@@ -120,14 +125,13 @@ class InquiryDetails extends Component {
 												Confirm
 											</span>
 
-											<span 
+											<span
 												className='btn btn-secondary'
 												onClick={() => this.rejectUserPackage(inquiry.id)}
 											>
 												Reject
 											</span>
 										</div>
-										
 									)}
 								</td>
 							</tr>
