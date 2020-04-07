@@ -11,7 +11,6 @@ import UserDetailCard from './UserDetailCard';
 import SocialButtonLinks from './SocialButtonLinks';
 import swal from 'sweetalert';
 
-
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -31,7 +30,6 @@ class Profile extends Component {
 				// console.log(response.data.user);
 			})
 			.catch((error) => {
-				
 				// console.log(error);
 				this.setState({
 					error
@@ -48,7 +46,7 @@ class Profile extends Component {
 	render() {
 		const {currentUser} = this.props;
 		return (
-			<div className=''>
+			<div className='user-profile'>
 				<UserDetailCard user={currentUser} />
 				{/* <SocialButtonLinks /> */}
 			</div>

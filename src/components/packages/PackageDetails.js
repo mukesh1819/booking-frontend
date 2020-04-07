@@ -7,6 +7,7 @@ import InquiryForm from './InquiryForm';
 import {imageUrl} from '../../helpers';
 import {Tab} from 'semantic-ui-react';
 import {HotelImage, nepalVillage, peace} from '../../images';
+import Gallery from './Gallery';
 
 class PackageDetails extends Component {
 	constructor(props) {
@@ -94,7 +95,11 @@ class PackageDetails extends Component {
 			},
 			{
 				menuItem: 'Gallery',
-				render: () => <Tab.Pane attached={false}>Gallery</Tab.Pane>
+				render: () => (
+					<Tab.Pane attached={false}>
+						<Gallery images={dummyImages} />
+					</Tab.Pane>
+				)
 			},
 			{
 				menuItem: 'Contact',
@@ -108,13 +113,13 @@ class PackageDetails extends Component {
 						<div className='img-container  owl-carousel owl-theme'>
 							<a href={imageUrl(aPackage.images[0])} className='image-popup'>
 								<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+								{dummyImages.length > 0 &&
+									dummyImages.map((v) => (
+										<a href={v} className='image-popup'>
+											<img src={v} alt='Image' className='img-responsive' />
+										</a>
+									))}
 							</a>
-							{dummyImages.length > 0 &&
-								dummyImages.map((v) => (
-									<a href={v} className='image-popup'>
-										<img src={v} alt='Image' className='img-responsive' />
-									</a>
-								))}
 						</div>
 						<div className='card bg-none title'>
 							<div className='card-body'>

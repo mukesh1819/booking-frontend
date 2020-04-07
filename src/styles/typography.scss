@@ -32,7 +32,11 @@ $font-secondary: 'Source Sans Pro';
     }
 
     &-smaller {
-        font-size: 0.5rem;
+        font-size: 0.7rem;
+
+        @include tablet {
+            font-size: 1rem;
+        }
     }
 
     &-strong {

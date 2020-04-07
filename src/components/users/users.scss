@@ -31,36 +31,33 @@
 
 .user-profile {
 
-    .field {
-        display: block;
+    .edit-action {
+        display: none;
+        cursor: pointer;
+    }
 
-        @include tablet {
-            display: flex;
-
-            &:nth-child(even) {
-                background-color: gainsboro;
-            }
+    .list:hover {
+        .edit-action {
+            display: inherit;
         }
     }
 
-    .label {
-        background-color: gainsboro;
-        width: 100%;
-        padding: 8px;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        color: grey;
+    // .label {
+    //     background-color: gainsboro;
+    //     width: 100%;
+    //     padding: 8px;
+    //     font-size: 0.8rem;
+    //     text-transform: uppercase;
+    //     color: grey;
 
-        @include tablet {
-            background-color: white;
-            flex-grow: 1;
-        }
-    }
+    //     @include tablet {
+    //         background-color: white;
+    //         flex-grow: 1;
+    //     }
+    // }
 
     .value {
-        background-color: white;
-        width: 100%;
-        padding: 8px;
+        display: inherit;
     }
 }
 
