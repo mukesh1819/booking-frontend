@@ -17,6 +17,7 @@ import HomePage from './components/pages/HomePage';
 import PageNotFound from './components/pages/PageNotFound';
 import {CustomerSupport} from './components/pages';
 import {PaymentSuccess} from './components/payments';
+import PartnerDashboard from './components/partners/Dashboard';
 
 import EditUserForm from './components/users/EditUserForm';
 
@@ -83,19 +84,18 @@ const routing = (
 		<PrivateRoute path='/admin/users_list' component={UsersList} />
 		<PrivateRoute path='/admin/packages' component={PackagesList} />
 		<PrivateRoute path='/admin/partners' component={PartnerList} />
-		<PrivateRoute path='/admin/partner_profile' component={PartnerProfile} />
 		<PrivateRoute path='/admin/inquiry_details' component={InquiryDetails} />
 		<PrivateRoute path='/admin/inquiries' component={InquiryList} />
 		<PrivateRoute path='/admin/categories' component={CategoryList} />
 		<PrivateRoute path='/admin/category_details' component={CategoryDetail} />
 		<PrivateRoute path='/admin/category_form' component={CategoriesForm} />
-		<PrivateRoute path='/admin/partner/:id' component={PartnerProfile} />
-
+		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} />
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
 		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} />
 		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} />
 		<PrivateRoute path='/admin/email' component={UserEmail} />
 		<PrivateRoute path='/admin' component={Dashboard} />
+		<PrivateRoute path='/partner' component={PartnerDashboard} />
 
 		<Route component={PageNotFound} />
 	</Switch>

@@ -106,9 +106,15 @@ class PackageDetails extends Component {
 				<div className='container'>
 					<div className='header'>
 						<div className='img-container  owl-carousel owl-theme'>
-							<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+							<a href={imageUrl(aPackage.images[0])} className='image-popup'>
+								<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+							</a>
 							{dummyImages.length > 0 &&
-								dummyImages.map((v) => <img src={v} alt='Image' className='img-responsive' />)}
+								dummyImages.map((v) => (
+									<a href={v} className='image-popup'>
+										<img src={v} alt='Image' className='img-responsive' />
+									</a>
+								))}
 						</div>
 						<div className='card bg-none title'>
 							<div className='card-body'>
@@ -129,7 +135,7 @@ class PackageDetails extends Component {
 										<span className='text-muted text-small text-right'>/person</span>
 									</span>
 									<span className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
-										Book
+										Submit Query
 									</span>
 								</div>
 							</div>

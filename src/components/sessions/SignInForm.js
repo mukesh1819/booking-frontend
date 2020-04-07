@@ -126,7 +126,7 @@ class SignInForm extends Component {
 										</button>
 										<hr />
 										<div className='text-center text-small mb-2'>Sign In with </div>
-										<SocialLinks />
+										<SocialLinks redirectUrl={redirectUrl} />
 									</form>
 								</div>
 							</div>

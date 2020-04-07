@@ -12,17 +12,17 @@ class InquiryDetails extends Component {
 	
 	rejectUserPackage(id){
 		rejectInquiry(id)
-		.then((response) => {
-			swal({
-				title: 'User Package Rejection Response!',
-				text: `${response.data.message}`,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'User Package Rejection Response!',
+					text: `${response.data.message}`,
+					icon: 'success',
+					button: 'Continue!'
+				});
+			})
+			.catch((error) => {
+				console.log(error);
 			});
-		})
-		.catch((error) => {
-			console.log(error);
-		})
 	}
 
 	render() {
@@ -32,7 +32,7 @@ class InquiryDetails extends Component {
 			<div className='container'>
 				<div className=''>
 					<h5>Inquiry</h5>
-					<table className='table table-striped table-hover table-sm' ref='main'>
+					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
 						<thead>
 							<tr>
 								<th>Inquiry id</th>
@@ -59,7 +59,9 @@ class InquiryDetails extends Component {
 						<tbody>
 							<tr>
 								<td>{inquiry.id}</td>
-								<td>{inquiry.first_name} {inquiry.last_name}</td>
+								<td>
+									{inquiry.first_name} {inquiry.last_name}
+								</td>
 								<td>{inquiry.email_address} </td>
 								<td>{inquiry.nationality}</td>
 								<td>{inquiry.address}</td>
@@ -97,7 +99,6 @@ class InquiryDetails extends Component {
 												Reject
 											</span>
 										</div>
-										
 									)}
 								</td>
 							</tr>

@@ -514,10 +514,10 @@ section {
         .img-container:after {
             content: "";
             position: absolute;
-            height: 180px;
+            height: 80px;
             width: 100%;
             display: block;
-            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.86));
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.582));
             bottom: 0;
         }
 
@@ -528,6 +528,30 @@ section {
 
     .title {
         z-index: 1050;
+    }
+}
+
+.list-view {
+    .list {
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .label {
+            font-weight: bold;
+        }
+
+        &:nth-child(even) {
+            background-color: #e2e2e238;
+        }
+    }
+}
+
+.partner-profile {
+    .user-icon {
+        font-size: 5rem;
+        padding: 10px;
+        color: #6c757d;
     }
 }
 

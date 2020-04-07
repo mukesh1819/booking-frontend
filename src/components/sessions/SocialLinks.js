@@ -8,7 +8,6 @@ import FacebookAuth from 'react-facebook-auth';
 import '../../styles/index.scss';
 import {authorizeGoogle, authorizeFb} from '../../api/userApi';
 import {loginUser} from '../../redux/actions';
-import {redirectUrl} from '../../helpers';
 import history from '../../history';
 import swal from 'sweetalert';
 
@@ -36,7 +35,7 @@ class SocialLinks extends Component {
 				console.log('Google Login Successfull', resp);
 				this.props.loginUser(resp.data.user);
 				localStorage.setItem('token', resp.data.jwt);
-				history.push(redirectUrl(this.props.location));
+				history.push(this.props.redirectUrl);
 			})
 			.catch((error) => {
 				// console.log(resp, 'API Failure');
@@ -56,7 +55,7 @@ class SocialLinks extends Component {
 				console.log('Google Login Successfull', resp);
 				this.props.loginUser(resp.data.user);
 				localStorage.setItem('token', resp.data.jwt);
-				history.push(redirectUrl(this.props.location));
+				history.push(this.props.redirectUrl);
 			})
 			.catch((error) => {
 				// console.log(resp, 'API Failure');

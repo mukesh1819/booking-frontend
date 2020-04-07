@@ -28,11 +28,11 @@ const Package = (props) => {
 				</Link>
 				<div className='d-flex justify-content-between align-items-center py-2'>
 					<span className='text-small text-muted'>
-						<i class='fas fa-map-marker-alt' />&nbsp;
+						<i className='fas fa-map-marker-alt' />&nbsp;
 						{aPackage.location}
 					</span>
 					<span className='text-small text-muted'>
-						<i class='fas fa-clock' />&nbsp;
+						<i className='fas fa-clock' />&nbsp;
 						{`6 days`}
 					</span>
 				</div>

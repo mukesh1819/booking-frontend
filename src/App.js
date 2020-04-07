@@ -12,36 +12,39 @@ import {ScrollToTop} from './components/shared';
 import {swal} from 'sweetalert';
 
 function App(props) {
-	useEffect(() => {
-		console.log('Load App Component');
-		console.log('ENV VARIABLE', process.env);
-		if (localStorage.token !== undefined && props.currentUser.email == undefined) {
-			getUserDetails()
-				.then((response) => {
-					props.loginUser(response.data.user);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
+	useEffect(
+		() => {
+			console.log('Load App Component');
+			console.log('ENV VARIABLE', process.env);
+			if (localStorage.token !== undefined && props.currentUser.email == undefined) {
+				getUserDetails()
+					.then((response) => {
+						props.loginUser(response.data.user);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
 
-		if (props.countries.length == 0) {
-			getCountries()
-				.then((response) => {
-					console.log('Contries', response);
-					props.setCountries(response.data);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
+			if (props.countries.length == 0) {
+				getCountries()
+					.then((response) => {
+						console.log('Contries', response);
+						props.setCountries(response.data);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
 
-		// if (props.error !== '') {
-		// 	swal({
-		// 		title: props.error
-		// 	});
-		// }
-	});
+			// if (props.error !== '') {
+			// 	swal({
+			// 		title: props.error
+			// 	});
+			// }
+		},
+		[props.countries, props.currentUser.email]
+	);
 
 	return (
 		<Router history={history}>
