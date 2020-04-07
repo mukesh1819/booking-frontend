@@ -12,46 +12,10 @@ import {Badge, Sidebar} from '../shared';
 class PartnerProfile extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			partner: {}
-		};
-	}
-
-	componentDidMount() {
-		passCsrfToken(document, axios);
-		// this.fetchPartner();
-	}
-
-	fetchPartner() {
-		showPartner(this.props.match.params.id).then((response) => {
-			this.setState({
-				partner: response.data
-			});
-		});
-	}
-
-	callPartnerConfirm(id) {
-		confirmPartner(id)
-			.then((response) => {
-				swal({
-					title: 'Partner Approval Request!',
-					text: 'partnership request is approved and email sent to partners',
-					icon: 'success',
-					button: 'Continue!'
-				});
-			})
-			.catch((error) => {
-				swal({
-					title: 'Sorry!',
-					text: error.response.data.errors.toString(),
-					icon: 'error',
-					button: 'Try Again!'
-				});
-			});
 	}
 
 	render() {
-		var partner = {};
+		const {partner} = this.props;
 		const sideBarMenu = [
 			{icon: 'icon-home', name: 'profile', label: 'Profile', value: '', link: '/'},
 			{
@@ -62,11 +26,6 @@ class PartnerProfile extends Component {
 				link: '/bookings'
 			}
 		];
-		if (this.props.location.state) {
-			partner = this.props.location.state.partner;
-		} else {
-			partner = this.state.partner;
-		}
 		return (
 			<div className='container partner-profile'>
 				<div className='card'>
@@ -145,19 +104,6 @@ class PartnerProfile extends Component {
 						</div>
 						<div className='row'>
 							<div className='col-12 col-md-8 offset-md-2' />
-						</div>
-						<div className='row text-center'>
-							<div className='col-12 p-4'>
-								{partner.status === 'approved' && <span className='text-info'>Partner Created</span>}
-								{partner.status === 'processing' && (
-									<span
-										className='btn btn-secondary'
-										onClick={() => this.callPartnerConfirm(partner.id)}
-									>
-										Confirm
-									</span>
-								)}
-							</div>
 						</div>
 					</div>
 				</div>

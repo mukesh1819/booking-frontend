@@ -327,14 +327,6 @@ class PackageForm extends Component {
 						</Formik>
 						{partnerIsValid && <a href='btn btn-primary'>Add Packages</a>}
 					</div>
-					<h3> Your other packages</h3>
-					<div className='row'>
-						{packages.map((aPackage) => (
-							<div className='col-md-4'>
-								<Package aPackage={aPackage} />
-							</div>
-						))}
-					</div>
 				</div>
 			</div>
 		);
