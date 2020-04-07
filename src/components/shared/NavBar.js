@@ -162,45 +162,45 @@ class NavBar extends Component {
 							</span>
 						</div>
 						<div className='d-flex align-items-stretch'>
-							<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white pl-3'>
-								<ul className='text-normal'>
-									{loggedIn && (
-										<li className='m-0'>
-											<Link to='/profile' className='item text-bold'>
-												Profile
-											</Link>
-										</li>
-									)}
-									{loggedIn && (
-										<li className='m-0'>
-											<a
-												className='item text-bold'
-												onClick={() => {
-													logoutUser();
-													history.push('/login');
-													logout();
-												}}
-											>
-												Logout
-											</a>
-										</li>
-									)}
-									{!loggedIn && (
-										<li className='m-0'>
-											<Link to='/login' className='item text-bold'>
-												Login
-											</Link>
-										</li>
-									)}
-									{!loggedIn && (
-										<li className='m-0'>
-											<Link to='/signup' className='item text-bold'>
-												Sign up
-											</Link>
-										</li>
-									)}
-								</ul>
-							</Dropdown>
+							{loggedIn && (
+								<Dropdown
+									icon='icon-user'
+									title={userInitials(currentUser)}
+									className='text-white pl-3'
+								>
+									<ul className='text-normal'>
+										{loggedIn && (
+											<li className='m-0'>
+												<Link to='/profile' className='item text-bold'>
+													Profile
+												</Link>
+											</li>
+										)}
+										{loggedIn && (
+											<li className='m-0'>
+												<a
+													className='item text-bold'
+													onClick={() => {
+														logoutUser();
+														history.push('/login');
+														logout();
+													}}
+												>
+													Logout
+												</a>
+											</li>
+										)}
+									</ul>
+								</Dropdown>
+							)}
+
+							{!loggedIn && (
+								<div className='d-flex align-items-center'>
+									<Link to='/login' className='text-bold text-white pl-3'>
+										LOGIN
+									</Link>
+								</div>
+							)}
 						</div>
 					</div>
 				</nav>

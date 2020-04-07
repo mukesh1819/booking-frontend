@@ -57,7 +57,7 @@ class UserDetailCard extends Component {
 
 		return (
 			<div className='user-profile row'>
-				<div className='col-12 p-0'>
+				<div className='col-12 p-0 list-view'>
 					<Editable
 						edit={updated}
 						label='Name'
