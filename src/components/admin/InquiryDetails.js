@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import swal from 'sweetalert';
-import {confirmInquiry} from '../../api/inquiryApi';
 import {Link} from 'react-router-dom';
 
 class InquiryDetails extends Component {
@@ -10,30 +9,8 @@ class InquiryDetails extends Component {
 	}
 
 	componentDidMount() {}
-
-	confirmUserPackage(id) {
-		confirmInquiry(id)
-			.then((response) => {
-				// console.log('inquiry response',response.data);
-				swal({
-					title: 'User Package Response!',
-					text: `Your package is confirmed!!! ${response.data.message}`,
-					icon: 'success',
-					button: 'Continue!'
-				});
-			})
-			.catch((error) => {
-				// console.log(error);
-				swal({
-					title: 'User Package Response!',
-					text: error.response.data.errors,
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
-	}
-
-	rejectUserPackage(id) {
+	
+	rejectUserPackage(id){
 		rejectInquiry(id)
 			.then((response) => {
 				swal({
@@ -104,28 +81,18 @@ class InquiryDetails extends Component {
 									{inquiry.status === 'pending' && (
 										<div>
 											<span>
-												<Link
-													to={{
-														pathname: '/inquiry_form',
-														className: 'btn btn-secondary',
-														state: {
-															inquiry: inquiry
-														}
-													}}
-												>
-													{' '}
-													Edit
-												</Link>
+												<Link to={{
+													pathname:'/admin/edit_inquiry',
+													className:'btn btn-secondary',
+													state: {
+														inquiry: inquiry
+													}
+												}}
+												> Edit
+												</Link> 
 											</span>
 
-											<span
-												className='btn btn-secondary'
-												onClick={() => this.confirmUserPackage(inquiry.id)}
-											>
-												Confirm
-											</span>
-
-											<span
+											<span 
 												className='btn btn-secondary'
 												onClick={() => this.rejectUserPackage(inquiry.id)}
 											>
@@ -137,6 +104,7 @@ class InquiryDetails extends Component {
 							</tr>
 						</tbody>
 					</table>
+
 				</div>
 			</div>
 		);

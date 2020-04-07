@@ -43,10 +43,11 @@ export function deleteInquiry(id) {
 	});
 }
 
-export function confirmInquiry(id) {
+export function confirmInquiry(id, values) {
 	return axios({
 		method: 'put',
-		url: `${API_URL}/inquiries/${id}/confirm`
+		url: `${API_URL}/inquiries/${id}/confirm`,
+		params: values
 	});
 }
 
