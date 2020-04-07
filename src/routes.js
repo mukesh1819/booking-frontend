@@ -39,6 +39,7 @@ import CategoryList from './components/admin/CategoryList';
 import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
 import EditBooking from './components/flights/EditBooking';
+import EditInquiry from './components/admin/EditInquiry';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -72,6 +73,8 @@ const routing = (
 		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} />
 		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
 		<PrivateRoute path='/inquiry_form' component={InquiryForm} />
+		<PrivateRoute path='/admin/edit_inquiry' component={EditInquiry} />
+
 		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />

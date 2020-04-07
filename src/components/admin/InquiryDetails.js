@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import swal from 'sweetalert';
-import {confirmInquiry} from '../../api/inquiryApi';
 import {Link} from 'react-router-dom';
 
 class InquiryDetails extends Component {
@@ -10,28 +9,6 @@ class InquiryDetails extends Component {
 	}
 
 	componentDidMount() {}
-
-	confirmUserPackage(id) {
-		confirmInquiry(id)
-			.then((response) => {
-				// console.log('inquiry response',response.data);
-				swal({
-					title: 'User Package Response!',
-					text: `Your package is confirmed!!! ${response.data.message}`,
-					icon: 'success',
-					button: 'Continue!'
-				});
-			})
-			.catch((error) => {
-				// console.log(error);
-				swal({
-					title: 'User Package Response!',
-					text: error.response.data.errors,
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
-	}
 	
 	rejectUserPackage(id){
 		rejectInquiry(id)
@@ -103,7 +80,7 @@ class InquiryDetails extends Component {
 										<div>
 											<span>
 												<Link to={{
-													pathname:'/inquiry_form',
+													pathname:'/admin/edit_inquiry',
 													className:'btn btn-secondary',
 													state: {
 														inquiry: inquiry
@@ -111,13 +88,6 @@ class InquiryDetails extends Component {
 												}}
 												> Edit
 												</Link> 
-											</span>
-
-											<span
-												className='btn btn-secondary'
-												onClick={() => this.confirmUserPackage(inquiry.id)}
-											>
-												Confirm
 											</span>
 
 											<span 
@@ -133,6 +103,7 @@ class InquiryDetails extends Component {
 							</tr>
 						</tbody>
 					</table>
+
 				</div>
 			</div>
 		);

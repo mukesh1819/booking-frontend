@@ -38,7 +38,7 @@ class InquiryForm extends Component {
 
 	render() {
 		const {countries, package_id} = this.props;
-		const {inquiry} = this.props.location != null ? this.props.location.state : {inquiry: {}};
+		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
 
 		const InquiriesSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
@@ -80,11 +80,11 @@ class InquiryForm extends Component {
 						this.setState({
 							searching: true
 						});
+						setSubmitting(false);
 						// console.log(values);
 						if (inquiry.id != null){
 							updateInquiry(inquiry.id, values)
 							.then((response) => {
-								setSubmitting(false);
 								swal({
 									title: 'Inquiry updated!',
 									text: response.data.message,
@@ -94,7 +94,6 @@ class InquiryForm extends Component {
 								history.push();
 							})
 							.catch((error) => {
-								setSubmitting(false);
 								swal({
 									title: 'Sorry!',
 									text: 'something went wrong',
