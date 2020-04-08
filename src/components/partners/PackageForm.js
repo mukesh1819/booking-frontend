@@ -105,8 +105,11 @@ class PackageForm extends Component {
 		const partnerDetails = {
 			name: aPackage.name,
 			price: aPackage.price,
+			offer_price: aPackage.offer_price,
 			location: aPackage.location,
 			description: aPackage.description,
+			inclusions: aPackage.inclusions,
+			exclusions: aPackage.exclusions,
 			images: [],
 			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
 			category_id: aPackage.category != null ? aPackage.category.id : ''
@@ -234,6 +237,19 @@ class PackageForm extends Component {
 											<ErrorMessage name='price' />
 										</div>
 										<div className='field-box'>
+											<label>Offer Price</label>
+											<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<Field
+													name='offer_price'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.offer_price}
+												/>
+											</IconInput>
+											<ErrorMessage name='offer_price' />
+										</div>
+										<div className='field-box'>
 											<label>Location</label>
 											<IconInput icon='fas fa-location' iconPosition='left'>
 												<Field
@@ -246,7 +262,36 @@ class PackageForm extends Component {
 											</IconInput>
 											<ErrorMessage name='location' />
 										</div>
-
+										<div className='field-box'>
+											<label>Inclusions</label>
+											<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<Field
+													name='inclusions'
+													component='textarea'
+													rows='2'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.inclusions}
+												/>
+											</IconInput>
+											<ErrorMessage name='inclusions' />
+										</div>
+										<div className='field-box'>
+											<label>Exclusions</label>
+											<IconInput icon='icon-paper-plane' iconPosition='left'>
+												<Field
+													name='exclusions'
+													component='textarea'
+													rows='2'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.exclusions}
+												/>
+											</IconInput>
+											<ErrorMessage name='exclusions' />
+										</div>
 										<div className='field-box'>
 											<label>Category</label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>

@@ -24,6 +24,7 @@ import EditUserForm from './components/users/EditUserForm';
 import TransactionList from './components/admin/TransactionList';
 import CreateUser from './components/admin/CreateUser';
 import UsersList from './components/admin/UsersList';
+import PackageBookingList from './components/admin/PackageBookingList';
 import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
@@ -32,6 +33,7 @@ import DashboardBookings from './components/admin/DashboardBookings';
 import Dashboard from './components/admin/Dashboard';
 import PartnerList from './components/admin/PartnerList';
 import PackagesList from './components/admin/PackagesList';
+import PackageBookingDetails from './components/admin/PackageBookingDetails';
 import InquiryDetails from './components/admin/InquiryDetails';
 import InquiryForm from './components/packages/InquiryForm';
 import PartnerDetails from './components/admin/PartnerDetails';
@@ -41,6 +43,7 @@ import CategoryDetail from './components/admin/CategoryDetail';
 import CategoriesForm from './components/categories/CategoriesForm';
 import EditBooking from './components/flights/EditBooking';
 import EditInquiry from './components/admin/EditInquiry';
+import AdminPackageDetails from './components/admin/PackageDetails';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -75,7 +78,7 @@ const routing = (
 		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
 		<PrivateRoute path='/inquiry_form' component={InquiryForm} />
 		<PrivateRoute path='/admin/edit_inquiry' component={EditInquiry} />
-
+		<PrivateRoute path='/admin/package_booking_details/:id' component={PackageBookingDetails} />
 		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
@@ -83,15 +86,17 @@ const routing = (
 		<PrivateRoute path='/admin/create_user' component={CreateUser} />
 		<PrivateRoute path='/admin/users_list' component={UsersList} />
 		<PrivateRoute path='/admin/packages' component={PackagesList} />
+		<PrivateRoute path='/admin/package_details' component={AdminPackageDetails} />
 		<PrivateRoute path='/admin/partners' component={PartnerList} />
 		<PrivateRoute path='/admin/inquiry_details' component={InquiryDetails} />
 		<PrivateRoute path='/admin/inquiries' component={InquiryList} />
 		<PrivateRoute path='/admin/categories' component={CategoryList} />
+		<PrivateRoute path='/admin/package_booking' component={PackageBookingList} />
 		<PrivateRoute path='/admin/category_details' component={CategoryDetail} />
 		<PrivateRoute path='/admin/category_form' component={CategoriesForm} />
 		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} />
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
-		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} />
+		<PrivateRoute path='/admin/dashboard_bookings/admin/package_booking' component={DashboardBookings} />
 		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} />
 		<PrivateRoute path='/admin/email' component={UserEmail} />
 		<PrivateRoute path='/admin' component={Dashboard} />

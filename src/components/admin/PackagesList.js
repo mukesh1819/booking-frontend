@@ -67,8 +67,16 @@ class PackagesList extends Component {
 										<td>{aPackage.category.name} </td>
 										<td>{aPackage.price}</td>
 
-										<td>
-											<Link
+										<td><Link 
+												to={{
+													pathname: `/admin/package_details`,
+													state: {
+														aPackage: aPackage
+													}
+												}}
+											>	View
+											</Link>
+											{/* <Link
 												to={{
 													pathname: `/partners/package_form/${aPackage.id}`,
 													state: {
@@ -78,7 +86,7 @@ class PackagesList extends Component {
 											>
 												<i className='fas fa-contact' />
 												<span className='px-1'>Edit</span>
-											</Link>
+											</Link> */}
 										</td>
 									</tr>
 								);

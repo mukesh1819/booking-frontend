@@ -21,9 +21,9 @@ export function createPackage(data) {
 
 export function updatePackage(id, data) {
 	return axios({
-		method: 'put',
+		method: 'patch',
 		url: `${API_URL}/packages/${id}`,
-		data: {package: data}
+		data: {published: data}
 	});
 }
 

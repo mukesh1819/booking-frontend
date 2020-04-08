@@ -19,7 +19,6 @@ class PartnerDetails extends Component {
 	}
 
 	fetchPartner = () => {
-		debugger;
 		showPartner(this.props.match.params.id).then((response) => {
 			this.setState({
 				partner: response.data

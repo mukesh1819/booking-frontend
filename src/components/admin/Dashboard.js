@@ -29,7 +29,8 @@ class Dashboard extends Component {
 					packages: response.data.packages_count,
 					partners: response.data.partners_count,
 					inquiries: response.data.inquiries_count,
-					categories: response.data.categories_count
+					categories: response.data.categories_count,
+					packageBooking: response.data.package_booking_count
 				});
 			})
 			.catch((error) => {
@@ -44,7 +45,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const {users, bookings, transactions, packages, partners, inquiries, categories} = this.state;
+		const {users, bookings, transactions, packages, partners, inquiries, categories, packageBooking} = this.state;
 		const sideBarMenu = [
 			{icon: 'icon-home', name: 'users', label: 'Users', value: '', link: '/'},
 			{
@@ -174,6 +175,21 @@ class Dashboard extends Component {
 										</div>
 									</div>
 								</div>
+
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'>{packageBooking}</span>
+												<hr />
+												<Link to='/admin/package_booking' className='action'>
+													View all Package Bookings
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>
