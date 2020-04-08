@@ -11,7 +11,11 @@ const ModalExample = (props) => {
 	return (
 		<div>
 			<Modal size='lg' isOpen={show} toggle={toggle} className={className} backdrop={true}>
-				{title && <ModalHeader toggle={toggle}> {title} </ModalHeader>}
+				{title && (
+					<ModalHeader toggle={toggle}>
+						<h3 className='text-white'>{title}</h3>
+					</ModalHeader>
+				)}
 				<ModalBody style={{display: 'block'}}>{children}</ModalBody>
 				{buttonLabel !== undefined && (
 					<ModalFooter>

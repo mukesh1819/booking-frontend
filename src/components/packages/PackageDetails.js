@@ -76,7 +76,7 @@ class PackageDetails extends Component {
 
 	render() {
 		const {aPackage} = this.state;
-		const dummyImages = [HotelImage, nepalVillage, peace, peace, HotelImage];
+		const dummyImages = [HotelImage, nepalVillage, peace];
 		const panes = [
 			{
 				menuItem: 'About',
@@ -113,13 +113,14 @@ class PackageDetails extends Component {
 						<div className='img-container  owl-carousel owl-theme'>
 							<a href={imageUrl(aPackage.images[0])} className='image-popup'>
 								<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
-								{dummyImages.length > 0 &&
-									dummyImages.map((v) => (
-										<a href={v} className='image-popup'>
-											<img src={v} alt='Image' className='img-responsive' />
-										</a>
-									))}
 							</a>
+
+							{dummyImages.length > 0 &&
+								dummyImages.map((v) => (
+									<a href={v} className='image-popup'>
+										<img src={v} alt='Image' className='img-responsive' />
+									</a>
+								))}
 						</div>
 						<div className='card bg-none title'>
 							<div className='card-body'>
@@ -163,12 +164,13 @@ class PackageDetails extends Component {
 					</div>
 				</div>
 				<ModalExample
-					title={aPackage.name}
+					title={`Kindly submit the query form below to book your trip and we will contact you
+										with the confirmed itinerary.`}
 					show={this.state.showInquiryForm}
 					toggle={this.onSelect}
 					onSuccess={this.onBook}
 				>
-					{this.state.showInquiryForm && <InquiryForm package_id={aPackage.id} />}
+					{this.state.showInquiryForm && <InquiryForm aPackage={aPackage} />}
 				</ModalExample>
 			</div>
 		);

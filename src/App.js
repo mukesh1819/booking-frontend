@@ -9,7 +9,7 @@ import {loginUser} from './redux/actions';
 import {setCountries} from './redux/actions';
 import {getCountries} from './api/flightApi';
 import {ScrollToTop} from './components/shared';
-import {swal} from 'sweetalert';
+import swal from 'sweetalert';
 
 function App(props) {
 	useEffect(

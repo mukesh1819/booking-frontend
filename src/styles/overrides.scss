@@ -13,6 +13,8 @@ $gray-light: lighten($gray, 20.7%) !default;
 $gray-lighter: lighten($gray, 46.5%) !default;
 $white: #fff;
 
+$primary-light: rgba($primary, .1);
+
 $fb-color: #4267B2;
 $google-color: #53A1DB;
 $accent: #09C6AB;

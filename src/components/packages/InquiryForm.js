@@ -37,7 +37,7 @@ class InquiryForm extends Component {
 	}
 
 	render() {
-		const {countries, package_id} = this.props;
+		const {countries, aPackage} = this.props;
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
 
 		const InquiriesSchema = yup.object().shape({
@@ -69,10 +69,10 @@ class InquiryForm extends Component {
 			number_of_adult: inquiry.number_of_adult == null ? 1 : inquiry.number_of_adult,
 			number_of_child: inquiry.number_of_child == null ? 0 : inquiry.number_of_child,
 			head_traveller_name: inquiry.head_traveller_name,
-			package_id: inquiry.package != null ? inquiry.package.id : package_id
+			package_id: inquiry.package != null ? inquiry.package.id : aPackage.id
 		};
 		return (
-			<div className='container p-4'>
+			<div className='container'>
 				<Formik
 					initialValues={inquiryDetails}
 					validationSchema={InquiriesSchema}
@@ -82,50 +82,48 @@ class InquiryForm extends Component {
 						});
 						setSubmitting(false);
 						// console.log(values);
-						if (inquiry.id != null){
+						if (inquiry.id != null) {
 							updateInquiry(inquiry.id, values)
-							.then((response) => {
-								swal({
-									title: 'Inquiry updated!',
-									text: response.data.message,
-									icon: 'Success',
-									button: 'Continue'
+								.then((response) => {
+									swal({
+										title: 'Inquiry updated!',
+										text: response.data.message,
+										icon: 'Success',
+										button: 'Continue'
+									});
+									history.push();
+								})
+								.catch((error) => {
+									swal({
+										title: 'Sorry!',
+										text: 'something went wrong',
+										icon: 'error',
+										button: 'Try Again!'
+									});
 								});
-								history.push();
-							})
-							.catch((error) => {
-								swal({
-									title: 'Sorry!',
-									text: 'something went wrong',
-									icon: 'error',
-									button: 'Try Again!'
-								});
-							})
-						}
-						else{
+						} else {
 							createInquiry(values)
-							.then((response) => {
-								setSubmitting(false);
-								swal({
-									title: 'Inquiry Submitted!',
-									text: response.data.message,
-									icon: 'Success',
-									button: 'Continue'
+								.then((response) => {
+									setSubmitting(false);
+									swal({
+										title: 'Inquiry Submitted!',
+										text: response.data.message,
+										icon: 'Success',
+										button: 'Continue'
+									});
+									history.push();
+								})
+								.catch((error) => {
+									// console.log('inquiry create error', error);
+									setSubmitting(false);
+									swal({
+										title: 'Sorry!',
+										text: 'something went wrong',
+										icon: 'error',
+										button: 'Try Again!'
+									});
 								});
-								history.push();
-							})
-							.catch((error) => {
-								// console.log('inquiry create error', error);
-								setSubmitting(false);
-								swal({
-									title: 'Sorry!',
-									text: 'something went wrong',
-									icon: 'error',
-									button: 'Try Again!'
-								});
-							});
 						}
-						
 					}}
 				>
 					{({
@@ -139,263 +137,332 @@ class InquiryForm extends Component {
 						setFieldValue
 						/* and other goodies */
 					}) => (
-						<div>
-							<h3>
-								Kindly submit the query form below to book your trip and we will contact you with the
-								confirmed itinerary.
-							</h3>
+						<div className='inquiry-form'>
+							<div className='row'>
+								<div className='col-12'>
+									{/* <h3>
+										Kindly submit the query form below to book your trip and we will contact you
+										with the confirmed itinerary.
+									</h3> */}
+								</div>
+							</div>
 							<form onSubmit={handleSubmit} autoComplete='off'>
-								<div className='input-section'>
-									<div className='field-box'>
-										<label>First Name</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='first_name'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.first_name}
-											/>
-										</IconInput>
-										<ErrorMessage name='first_name' />
-									</div>
-
-									<div className='field-box'>
-										<label>Last Name</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='last_name'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.last_name}
-											/>
-										</IconInput>
-										<ErrorMessage name='last_name' />
-									</div>
-
-									<div className='field-box'>
-										<label>Email Address</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='email_address'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.email_address}
-											/>
-										</IconInput>
-										<ErrorMessage name='email_address' />
-									</div>
-
-									<div className='field-box'>
-										<label>Mobile Number</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='phone'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.phone}
-											/>
-										</IconInput>
-										<ErrorMessage name='phone' />
-									</div>
-
-									<div className='field-box'>
-										<label htmlFor=''>Country</label>
-										<Dropdown
-											className='form-control'
-											name='nationality'
-											placeholder='Select Country'
-											onBlur={handleBlur}
-											onChange={(e, data) => {
-												setFieldValue(`nationality`, data.value);
-											}}
-											value={values.nationality}
-											fluid
-											search
-											selection
-											options={countries.map(function(country) {
-												return {
-													key: country.id,
-													value: country.country_char,
-													flag: country.country_char.toLowerCase(),
-													text: country.name
-												};
-											})}
-										/>
-										<ErrorMessage name='nationality' />
-									</div>
-
-									<div className='field-box'>
-										<label>Address</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='address'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.address}
-											/>
-										</IconInput>
-										<ErrorMessage name='address' />
-									</div>
-
-									<div className='field-box'>
-										<label>City</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='city'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.city}
-											/>
-										</IconInput>
-										<ErrorMessage name='city' />
-									</div>
-
-									<div className='field-box'>
-										<label>Zip Code</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='zip_code'
-												type='number'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.zip_code}
-											/>
-										</IconInput>
-									</div>
-
-									<div className='field-box'>
-										<div className='row mt-3'>
-											<div>
-												<Field
-													name='traveller'
-													className=''
-													type='checkbox'
-													checked={values.traveller}
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.traveller}
-												/>
-											</div>
-											<div className='col-8 ml-0 pl-0 text-left d-flex align-top'>
-												<label>I am one of the traveller</label>
-											</div>
+								<div className='input-section bg-body'>
+									<div className='row'>
+										<div className='col-12'>
+											<span className=''>Package Name: </span>&nbsp;
+											<span className='text-primary title'>{aPackage.name}</span>
 										</div>
-									</div>
-
-									<div className='field-box'>
-										<label>Head Traveller Name</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='head_traveller_name'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.head_traveller_name}
-											/>
-										</IconInput>
-										<ErrorMessage name='head_traveller_name' />
-									</div>
-
-									<div className='field-box form-group'>
-										<label htmlFor=''>Number of Travellers (Adult ,Child)</label>
-										<Dropdown
-											name=''
-											placeholder='Select traveller'
-											icon='icon-users'
-											className='icon btn-dropdown travellers'
-											iconPosition='left'
-											fluid
-											selection
-											closeOnChange={false}
-											placeholder={`${values.number_of_adult} Adult${ifNotZero(
-												values.number_of_child,
-												`, ${values.number_of_child} Child`
-											)}`}
-											onClick={(event, data) => {
-												event.preventDefault();
-											}}
-										>
-											<Dropdown.Menu
-												content={
-													<div className='p-2'>
-														<Counter
-															id='number_of_adult'
-															type='number'
-															className='m-1'
-															onBlur={handleBlur}
-															title={`${values.number_of_adult} Adult`}
-															onChange={(value) =>
-																setFieldValue('number_of_adult', value)}
-															value={values.number_of_adult}
-														/>
-														<Counter
-															id='number_of_child'
-															type='number'
-															className='m-1'
-															onBlur={handleBlur}
-															title={`${values.number_of_child} Child`}
-															onChange={(value) =>
-																setFieldValue('number_of_child', value)}
-															value={values.number_of_child}
-														/>
-													</div>
-												}
-											/>
-										</Dropdown>
-										<ErrorMessage name='number_of_adult' />
-										<ErrorMessage name='number_of_child' />
-									</div>
-
-									<div className='field-box'>
-										<label>Preferred date of activity</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<div className='col-12'>
+										{aPackage.activities && (
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Select Activity</label>
+													<Dropdown
+														className='form-control'
+														name='nationality'
+														placeholder='Select Country'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(`nationality`, data.value);
+														}}
+														value={values.nationality}
+														fluid
+														search
+														selection
+														options={countries.map(function(country) {
+															return {
+																key: country.id,
+																value: country.country_char,
+																flag: country.country_char.toLowerCase(),
+																text: country.name
+															};
+														})}
+													/>
+													<ErrorMessage name='preferred_date' />
+												</div>
+											</div>
+										)}
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label className='d-block'>Preferred date</label>
 												<DatePicker
 													name='preferred_date'
-													className='form-control'
+													className='form-control w-100'
 													type='date'
 													date={values.preferred_date}
 													minDate={new Date()}
+													maxDate={addDays(new Date(), 45)}
 													onBlur={handleBlur}
 													onChange={(date) => setFieldValue('preferred_date', date)}
 													value={values.preferred_date}
 													placeholder='Arrival Date'
 												/>
+												<ErrorMessage name='preferred_date' />
 											</div>
-										</IconInput>
-										<ErrorMessage name='preferred_date' />
+										</div>
 									</div>
+								</div>
+								<div className='inquirer-details '>
+									<div className='input-section  bg-primary-light'>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>First Name</label>
+													<Field
+														name='first_name'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.first_name}
+														placeholder='First Name'
+													/>
+													<ErrorMessage name='first_name' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Last Name</label>
+													<Field
+														name='last_name'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.last_name}
+														placeholder='Last Name'
+													/>
+													<ErrorMessage name='last_name' />
+												</div>
+											</div>
+										</div>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Email Address</label>
+													<Field
+														name='email_address'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.email_address}
+														placeholder='Email Address'
+													/>
+													<ErrorMessage name='email_address' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Mobile Number</label>
+													<Field
+														name='phone'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.phone}
+														placeholder='Mobile Number'
+													/>
+													<ErrorMessage name='phone' />
+												</div>
+											</div>
+										</div>
 
-									<div className='field-box'>
-										<label htmlFor=''>
-											Special Request Please fill in case you have any special request / query.
-										</label>
-										<Field
-											component='textarea'
-											rows='2'
-											className='form-control'
-											name='query'
-											placeholder='Any Queries?'
-											onBlur={handleBlur}
-											onChange={(e, data) => {
-												setFieldValue(`query`, e.target.value);
-											}}
-											value={values.query}
-										/>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label htmlFor=''>Country</label>
+													<Dropdown
+														className='form-control'
+														name='nationality'
+														placeholder='Select Country'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(`nationality`, data.value);
+														}}
+														value={values.nationality}
+														fluid
+														search
+														selection
+														options={countries.map(function(country) {
+															return {
+																key: country.id,
+																value: country.country_char,
+																flag: country.country_char.toLowerCase(),
+																text: country.name
+															};
+														})}
+													/>
+													<ErrorMessage name='nationality' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>City</label>
+													<Field
+														name='city'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.city}
+														placeholder='City'
+													/>
+													<ErrorMessage name='city' />
+												</div>
+											</div>
+										</div>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Address</label>
+													<Field
+														name='address'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.address}
+														placeholder='Address'
+													/>
+													<ErrorMessage name='address' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Zip Code</label>
+													<Field
+														name='zip_code'
+														type='number'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.zip_code}
+														placeholder='Zip Code'
+													/>
+												</div>
+											</div>
+										</div>
+										<div className='col-12'>
+											<div className='field-box'>
+												<div className='row mt-3'>
+													<div>
+														<Field
+															name='traveller'
+															className=''
+															type='checkbox'
+															checked={values.traveller}
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.traveller}
+														/>
+													</div>
+													<div className='col-8 ml-0 pl-0 text-left d-flex align-top'>
+														<label>I am one of the traveller</label>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 
-								<div className='text-center'>
-									<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
-										Submit
-									</button>
+								<div className='traveller-details '>
+									<div className='input-section bg-body'>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label htmlFor=''>Number of Travellers (Adult ,Child)</label>
+													<Dropdown
+														name=''
+														placeholder='Select traveller'
+														icon='icon-users'
+														className='icon btn-dropdown travellers'
+														iconPosition='left'
+														fluid
+														selection
+														closeOnChange={false}
+														placeholder={`${values.number_of_adult} Adult${ifNotZero(
+															values.number_of_child,
+															`, ${values.number_of_child} Child`
+														)}`}
+														onClick={(event, data) => {
+															event.preventDefault();
+														}}
+													>
+														<Dropdown.Menu
+															content={
+																<div className='p-2'>
+																	<Counter
+																		id='number_of_adult'
+																		type='number'
+																		className='m-1'
+																		onBlur={handleBlur}
+																		title={`${values.number_of_adult} Adult`}
+																		onChange={(value) =>
+																			setFieldValue('number_of_adult', value)}
+																		value={values.number_of_adult}
+																	/>
+																	<Counter
+																		id='number_of_child'
+																		type='number'
+																		className='m-1'
+																		onBlur={handleBlur}
+																		title={`${values.number_of_child} Child`}
+																		onChange={(value) =>
+																			setFieldValue('number_of_child', value)}
+																		value={values.number_of_child}
+																	/>
+																</div>
+															}
+														/>
+													</Dropdown>
+													<ErrorMessage name='number_of_adult' />
+													<ErrorMessage name='number_of_child' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												{!values.traveller && (
+													<div className='field-box'>
+														<label>Head Traveller Name</label>
+														<Field
+															name='head_traveller_name'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.head_traveller_name}
+															placeholder='Name of Head Traveller'
+														/>
+														<ErrorMessage name='head_traveller_name' />
+													</div>
+												)}
+											</div>
+											<div className='col-12'>
+												<div className='field-box'>
+													<label htmlFor=''>Special Request</label>
+													<label className='small d-block'>
+														Please fill in case you have any special request / query.
+													</label>
+													<Field
+														component='textarea'
+														rows='2'
+														className='form-control'
+														name='query'
+														placeholder='Any Queries?'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(`query`, e.target.value);
+														}}
+														value={values.query}
+													/>
+												</div>
+
+												<div className='text-center'>
+													<button
+														className='btn btn-secondary m-2'
+														type='submit'
+														disabled={isSubmitting}
+													>
+														Submit
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</form>
 						</div>

@@ -109,6 +109,11 @@ li {
 }
 
 .bg {
+
+    &-primary-light {
+        background-color: $primary-light;
+    }
+
     &-fb {
         background-color: $fb-color;
     }
@@ -207,7 +212,7 @@ section {
 
 .navbar {
     padding: 0px 0px;
-    z-index: 1060;
+    z-index: 1050;
 
     .navbar-header {
         padding: 0.5rem 14px;
@@ -291,6 +296,10 @@ section {
         @include tablet {
             height: auto;
         }
+    }
+
+    .modal-body {
+        padding: 0px;
     }
 }
 
@@ -541,7 +550,7 @@ section {
     }
 
     .title {
-        z-index: 1050;
+        z-index: 1040;
     }
 }
 
@@ -571,8 +580,34 @@ section {
     }
 }
 
+
+.image-selector {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 60px;
+
+    img {
+        width: 50px;
+        height: 50px;
+        border: 1px solid white;
+        cursor: pointer;
+
+        &:hover {
+            width: 50px;
+            height: 50px;
+        }
+
+        &.active {
+            width: 60px;
+            height: 60px;
+            @include transition(.5s);
+        }
+    }
+}
+
 footer {
-    background-color: rgba($primary, .1);
+    background-color: $primary-light;
     padding: 2em 0;
     clear: both;
 

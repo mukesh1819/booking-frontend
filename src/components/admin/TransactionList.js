@@ -107,17 +107,19 @@ class TransactionList extends Component {
 					onSuccess={() => this.onTransactionSelect(null)}
 				>
 					{selectedTransaction !== null && (
-						<Tabs id='controlled-tab-example' activeKey={key} onSelect={(k) => this.setKey(k)}>
-							<Tab eventKey='user' title='user'>
-								<UserDetailCard user={selectedTransaction.user} />
-							</Tab>
-							<Tab eventKey='bookings' title='bookings'>
-								<BookingDetails bookings={selectedTransaction.bookings} />
-							</Tab>
-							<Tab eventKey='response' title='response'>
-								<TransactionApiResponse response={selectedTransaction.response} />
-							</Tab>
-						</Tabs>
+						<div className='p-3'>
+							<Tabs id='controlled-tab-example' activeKey={key} onSelect={(k) => this.setKey(k)}>
+								<Tab eventKey='user' title='user'>
+									<UserDetailCard user={selectedTransaction.user} />
+								</Tab>
+								<Tab eventKey='bookings' title='bookings'>
+									<BookingDetails bookings={selectedTransaction.bookings} />
+								</Tab>
+								<Tab eventKey='response' title='response'>
+									<TransactionApiResponse response={selectedTransaction.response} />
+								</Tab>
+							</Tabs>
+						</div>
 					)}
 				</ModalExample>
 			</React.Fragment>
