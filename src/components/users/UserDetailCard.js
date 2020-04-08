@@ -56,7 +56,7 @@ class UserDetailCard extends Component {
 		const sortedCountries = sortObjectBy(countries, 'country_code');
 
 		return (
-			<div className='user-profile row'>
+			<div className='row'>
 				<div className='col-12 p-0 list-view'>
 					<Editable
 						edit={updated}
@@ -70,7 +70,7 @@ class UserDetailCard extends Component {
 						onSubmit={(value) => this.update({id: user.id, email: value})}
 					/>
 
-					<Editable
+					{/* <Editable
 						edit={updated}
 						label='code'
 						value={user.code}
@@ -85,12 +85,12 @@ class UserDetailCard extends Component {
 							};
 						})}
 						onSubmit={(value) => this.update({id: user.id, code: value})}
-					/>
+					/> */}
 
 					<Editable
 						edit={updated}
-						label='Mobile No'
-						value={user.phone_number}
+						label='Contact No'
+						value={`${user.code == null ? '' : user.code} ${user.phone_number}`}
 						onSubmit={(value) => this.update({id: user.id, phone_number: value})}
 					/>
 					<Editable

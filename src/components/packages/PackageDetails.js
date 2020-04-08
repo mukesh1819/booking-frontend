@@ -7,6 +7,7 @@ import InquiryForm from './InquiryForm';
 import {imageUrl} from '../../helpers';
 import {Tab} from 'semantic-ui-react';
 import {HotelImage, nepalVillage, peace} from '../../images';
+import Gallery from './Gallery';
 
 class PackageDetails extends Component {
 	constructor(props) {
@@ -75,7 +76,7 @@ class PackageDetails extends Component {
 
 	render() {
 		const {aPackage} = this.state;
-		const dummyImages = [HotelImage, nepalVillage, peace, peace, HotelImage];
+		const dummyImages = [HotelImage, nepalVillage, peace];
 		const panes = [
 			{
 				menuItem: 'About',
@@ -94,7 +95,11 @@ class PackageDetails extends Component {
 			},
 			{
 				menuItem: 'Gallery',
-				render: () => <Tab.Pane attached={false}>Gallery</Tab.Pane>
+				render: () => (
+					<Tab.Pane attached={false}>
+						<Gallery images={dummyImages} />
+					</Tab.Pane>
+				)
 			},
 			{
 				menuItem: 'Contact',
@@ -109,6 +114,7 @@ class PackageDetails extends Component {
 							<a href={imageUrl(aPackage.images[0])} className='image-popup'>
 								<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
 							</a>
+
 							{dummyImages.length > 0 &&
 								dummyImages.map((v) => (
 									<a href={v} className='image-popup'>
@@ -158,12 +164,13 @@ class PackageDetails extends Component {
 					</div>
 				</div>
 				<ModalExample
-					title={aPackage.name}
+					title={`Kindly submit the query form below to book your trip and we will contact you
+										with the confirmed itinerary.`}
 					show={this.state.showInquiryForm}
 					toggle={this.onSelect}
 					onSuccess={this.onBook}
 				>
-					{this.state.showInquiryForm && <InquiryForm package_id={aPackage.id} />}
+					{this.state.showInquiryForm && <InquiryForm aPackage={aPackage} />}
 				</ModalExample>
 			</div>
 		);

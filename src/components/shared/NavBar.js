@@ -195,7 +195,7 @@ class NavBar extends Component {
 							)}
 
 							{!loggedIn && (
-								<div className='d-flex align-items-center'>
+								<div className='d-flex align-items-center login'>
 									<Link to='/login' className='text-bold text-white pl-3'>
 										LOGIN
 									</Link>

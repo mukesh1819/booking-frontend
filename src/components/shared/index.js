@@ -21,6 +21,7 @@ import TabView from './TabView';
 import Thumb from './Thumb';
 import Timer from './Timer';
 import Tooltip from './Tooltip';
+import MailBox from './MailBox';
 
 export {
     Accordion,
@@ -45,5 +46,6 @@ export {
     TabView,
     Thumb,
     Timer,
-    Tooltip
+    Tooltip,
+    MailBox
 }

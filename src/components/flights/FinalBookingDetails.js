@@ -7,6 +7,7 @@ import {Timer} from '../shared';
 import {PaymentForm} from '../payments';
 import {Link} from 'react-router-dom';
 import {getDuration} from '../../helpers';
+import history from '../../history';
 
 class FinalBookingDetails extends Component {
 	constructor(props) {
@@ -30,7 +31,8 @@ class FinalBookingDetails extends Component {
 		const {redirectToPayment} = this.state;
 		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.reservation_time));
 		if (redirectToPayment) {
-			return <PaymentForm idx={transaction.idx} />;
+			// return <PaymentForm idx={transaction.idx} />;
+			history.push(`/payment_success/${booking.ruid}`);
 		}
 
 		return (

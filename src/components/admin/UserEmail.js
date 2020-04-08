@@ -3,6 +3,7 @@ import {Formik} from 'formik';
 import {Form, TextArea} from 'semantic-ui-react';
 import {sendUserEmail} from '../../api/userApi';
 import swal from 'sweetalert';
+import MailBox from '../shared/MailBox';
 
 const UserEmail = (props) => {
 	const {user} = props.location.state;
@@ -32,85 +33,19 @@ const UserEmail = (props) => {
 					</tbody>
 				</table>
 			</div>
-
-			<Formik
-				initialValues={{
-					description: '',
-					subject: '',
-					email: user.email
-				}}
-				onSubmit={(values, {setSubmitting}) => {
-					const variables = {
-						user: {
-							email: values.email,
-							description: values.description,
-							subject: values.subject
-						}
-					};
-					sendUserEmail(variables)
-						.then((response) => {
-							// console.log(response);
-							swal({
-								title: 'Email Sent!',
-								text: response.message,
-								icon: 'success',
-								button: 'Continue!'
-							});
-						})
-						.catch((error) => {
-							// console.log(error);
-							swal({
-								title: 'Tickets cancellation!',
-								text: `${error.message}.. please check error message if not shown from backend`,
-								icon: 'error',
-								button: 'Continue!'
-							});
-						});
-				}}
-			>
-				{({
-					values,
-					errors,
-					touched,
-					handleChange,
-					handleBlur,
-					handleSubmit,
-					isSubmitting
-					/* and other goodies */
-				}) => (
-					<form onSubmit={handleSubmit}>
-						<div className='container mt-5 pt-5'>
-							<div className='row'>
-								<div className='offset-1 col-9'>
-									<Form>
-										<Form.Field>
-											<label className='font-weight-bold'>Subject</label>
-											<input
-												name='subject'
-												placeholder='Subject'
-												onChange={handleChange}
-												onBlur={handleBlur}
-												value={values.subject}
-											/>
-										</Form.Field>
-										<TextArea
-											name='description'
-											onChange={handleChange}
-											onBlur={handleBlur}
-											placeholder='Message'
-											style={{minHeight: 100}}
-											value={values.description}
-										/>
-										<button className='btn btn-secondary' type='submit' disabled={isSubmitting}>
-											Submit
-										</button>
-									</Form>
-								</div>
-							</div>
-						</div>
-					</form>
-				)}
-			</Formik>
+			<div className='container mt-5 pt-5'>
+				<div className='row'>
+					<div className='offset-1 col-9'>
+						<MailBox
+							values={{
+								description: '',
+								subject: '',
+								email: user.email
+							}}
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };

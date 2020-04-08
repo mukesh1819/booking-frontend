@@ -33,7 +33,8 @@ export default class Users extends Component {
 				label: 'Profile',
 				value: '',
 				link: '/profile',
-				Component: Profile
+				Component: Profile,
+				active: true
 			},
 			{
 				icon: 'icon-user',
@@ -41,18 +42,24 @@ export default class Users extends Component {
 				label: 'My Bookings',
 				value: '',
 				link: '/bookings',
-				Component: Bookings
+				Component: Bookings,
+				active: false
 			}
 		];
 		return (
 			<div className='container p-0'>
-				<div className='row'>
-					<div className='col-0 col-md-2 p-0'>
-						<Sidebar items={sideBarMenu} onItemSelect={(component) => this.activateTab(component)} />
-					</div>
-					<div className='col-12 col-md-10 p-0 pl-md-3'>{ActiveComponent && <ActiveComponent />}</div>
-				</div>
-				{/* <nav className='nav nav-tabs'>
+				<div className='card'>
+					<div className='card-body'>
+						<div className='row'>
+							<div className='col-0 col-md-2 p-0'>
+								<Sidebar
+									items={sideBarMenu}
+									onItemSelect={(component) => this.activateTab(component)}
+								/>
+							</div>
+							<div className='col-12 col-md-10 p-0 pl-md-3'>{ActiveComponent && <ActiveComponent />}</div>
+						</div>
+						{/* <nav className='nav nav-tabs'>
 					<div className='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
 						<a
 							className='nav-item nav-link active'
@@ -81,7 +88,7 @@ export default class Users extends Component {
 					</div>
 				</nav> */}
 
-				{/* <div className='tab-content' id='nav-tabContent'>
+						{/* <div className='tab-content' id='nav-tabContent'>
 					<div
 						className='tab-pane fade show active'
 						id='nav-profile'
@@ -91,6 +98,8 @@ export default class Users extends Component {
 					<div className='tab-pane fade' id='nav-bookings' role='tabpanel' aria-labelledby='nav-bookings-tab' />
 					<ActiveComponent />
 				</div> */}
+					</div>
+				</div>
 			</div>
 		);
 	}
