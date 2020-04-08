@@ -546,13 +546,14 @@ section {
 }
 
 .list-view {
+    margin-bottom: 1rem;
+
     .list {
         padding: 10px;
         display: flex;
         justify-content: space-between;
 
         .label {
-            font-weight: bold;
             color: $primary;
         }
 

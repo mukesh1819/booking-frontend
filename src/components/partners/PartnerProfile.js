@@ -36,15 +36,24 @@ class PartnerProfile extends Component {
 							</div> */}
 							<div className='col-12 col-md-2 offset-md-2 '>
 								{/* <img src='' /> */}
-								<div className='text-center'>
+								<div className=''>
 									<i className='fas fa-user user-icon' />
-									<h3 className='value'>
+									<h3 className='title'>
 										{partner.first_name}&nbsp;
 										{partner.last_name}
 									</h3>
-									<div className='text-small text-muted'> {partner.email}</div>
-									<div className='text-small text-muted'> {partner.contact_number}</div>
-									<div className='text-small text-muted'> {partner.address}</div>
+									<div className='text-small text-muted'>
+										<i className='fas fa-envelope' />&nbsp;
+										{partner.email}
+									</div>
+									<div className='text-small text-muted'>
+										<i className='fas fa-phone-volume' />&nbsp;
+										{partner.contact_number}
+									</div>
+									<div className='text-small text-muted'>
+										<i className='fas fa-address-card' />&nbsp;
+										{partner.address}
+									</div>
 									<div className=''>
 										<Badge type={partner.status}>{partner.status}</Badge>
 									</div>
