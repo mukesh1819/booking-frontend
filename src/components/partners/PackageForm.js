@@ -21,7 +21,7 @@ class PackageForm extends Component {
 			categories: [],
 			packages: [],
 			partners: [],
-			activities: []
+			activities_attributes: []
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
 	}
@@ -91,8 +91,7 @@ class PackageForm extends Component {
 				},
 				1000: {
 					items: 4,
-					nav: false,duration
-					loop: false
+					nav: false
 				}
 			}
 		};
@@ -101,14 +100,13 @@ class PackageForm extends Component {
 
 	render() {
 		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {images: []}};
-		const {partnerIsValid, categories, packages, partners, activities} = this.state;
+		const {partnerIsValid, categories, packages, partners, activities_attributes} = this.state;
 		const {countries, nextStep} = this.props;
 
 		const activity = {
 			description: '',
 			duration: '',
-			price: 100.00,
-			activity_id: 1
+			price: 100.00
 		}
 
 		const partnerDetails = {
@@ -122,7 +120,7 @@ class PackageForm extends Component {
 			images: [],
 			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
 			category_id: aPackage.category != null ? aPackage.category.id : '',
-			activities: [activity]
+			activities_attributes: [activity]
 		};
 		return (
 			<div className='container'>
@@ -385,9 +383,9 @@ class PackageForm extends Component {
 														className='btn btn-primary'
 														onClick={() =>
 															setFieldValue(
-																'activities',
+																'activities_attributes',
 																[
-																	...values.activities,
+																	...values.activities_attributes,
 																	activity
 																]
 															)}
@@ -396,19 +394,19 @@ class PackageForm extends Component {
 													</span>
 												</div>
 											</div>
-											{values.activities.map(
+											{values.activities_attributes.map(
 												(activity, index) => (
 													<div className='col-12 py-2 my-2 bg-body'>
 														<div
 															className='text-right'
 															onClick={() => {
-																values.activities.splice(
+																values.activities_attributes.splice(
 																	index,
 																	1
 																);
 																setFieldValue(
-																	'activities',
-																	values.activities
+																	'activities_attributes',
+																	values.activities_attributes
 																);
 															}}
 														>
@@ -420,21 +418,21 @@ class PackageForm extends Component {
 															</label>
 
 															<Field
-																name={`activities[${index}].description`}
+																name={`activities_attributes[${index}].description`}
 																className='form-control'
 																onBlur={handleBlur}
 																onChange={
 																	handleChange
 																}
 																value={
-																	values.activities[
+																	values.activities_attributes[
 																		index
 																	].description
 																}
 															/>
 
 															<ErrorMessage
-																name={`activities[${index}].description`}
+																name={`activities_attributes[${index}].description`}
 															/>
 														</div>
 
@@ -444,21 +442,21 @@ class PackageForm extends Component {
 															</label>
 
 															<Field
-																name={`activities[${index}].duration`}
+																name={`activities_attributes[${index}].duration`}
 																className='form-control'
 																onBlur={handleBlur}
 																onChange={
 																	handleChange
 																}
 																value={
-																	values.activities[
+																	values.activities_attributes[
 																		index
 																	].duration
 																}
 															/>
 
 															<ErrorMessage
-																name={`activities[${index}].duration`}
+																name={`activities_attributes[${index}].duration`}
 															/>
 														</div>
 
@@ -468,7 +466,7 @@ class PackageForm extends Component {
 															</label>
 
 															<Field
-																name={`activities[${index}].price`}
+																name={`activities_attributes[${index}].price`}
 																type='number'
 																className='form-control'
 																onBlur={handleBlur}
@@ -476,14 +474,14 @@ class PackageForm extends Component {
 																	handleChange
 																}
 																value={
-																	values.activities[
+																	values.activities_attributes[
 																		index
 																	].price
 																}
 															/>
 
 															<ErrorMessage
-																name={`activities[${index}].price`}
+																name={`activities_attributes[${index}].price`}
 															/>
 														</div>
 
