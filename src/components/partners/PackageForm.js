@@ -20,7 +20,8 @@ class PackageForm extends Component {
 			partnerIsValid: false,
 			categories: [],
 			packages: [],
-			partners: []
+			partners: [],
+			activities: []
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
 	}
@@ -90,7 +91,7 @@ class PackageForm extends Component {
 				},
 				1000: {
 					items: 4,
-					nav: false,
+					nav: false,duration
 					loop: false
 				}
 			}
@@ -100,8 +101,16 @@ class PackageForm extends Component {
 
 	render() {
 		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {images: []}};
-		const {partnerIsValid, categories, packages, partners} = this.state;
+		const {partnerIsValid, categories, packages, partners, activities} = this.state;
 		const {countries, nextStep} = this.props;
+
+		const activity = {
+			description: '',
+			duration: '',
+			price: 100.00,
+			activity_id: 1
+		}
+
 		const partnerDetails = {
 			name: aPackage.name,
 			price: aPackage.price,
@@ -112,7 +121,8 @@ class PackageForm extends Component {
 			exclusions: aPackage.exclusions,
 			images: [],
 			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
-			category_id: aPackage.category != null ? aPackage.category.id : ''
+			category_id: aPackage.category != null ? aPackage.category.id : '',
+			activities: [activity]
 		};
 		return (
 			<div className='container'>
@@ -362,6 +372,128 @@ class PackageForm extends Component {
 											<ErrorMessage name='description' />
 										</div>
 									</div>
+
+
+									<div className='input-section'>
+										<div className='row'>
+											<div className='col-12'>
+												<div className='d-flex justify-content-between'>
+													<h3 className='title'>
+														Assign Activity Details
+													</h3>
+													<span
+														className='btn btn-primary'
+														onClick={() =>
+															setFieldValue(
+																'activities',
+																[
+																	...values.activities,
+																	activity
+																]
+															)}
+													>
+														Add
+													</span>
+												</div>
+											</div>
+											{values.activities.map(
+												(activity, index) => (
+													<div className='col-12 py-2 my-2 bg-body'>
+														<div
+															className='text-right'
+															onClick={() => {
+																values.activities.splice(
+																	index,
+																	1
+																);
+																setFieldValue(
+																	'activities',
+																	values.activities
+																);
+															}}
+														>
+															<i className='fas fa-times' />
+														</div>
+														<div className='field-box'>
+															<label>
+																 Description
+															</label>
+
+															<Field
+																name={`activities[${index}].description`}
+																className='form-control'
+																onBlur={handleBlur}
+																onChange={
+																	handleChange
+																}
+																value={
+																	values.activities[
+																		index
+																	].description
+																}
+															/>
+
+															<ErrorMessage
+																name={`activities[${index}].description`}
+															/>
+														</div>
+
+														<div className='field-box'>
+															<label>
+																 Duration
+															</label>
+
+															<Field
+																name={`activities[${index}].duration`}
+																className='form-control'
+																onBlur={handleBlur}
+																onChange={
+																	handleChange
+																}
+																value={
+																	values.activities[
+																		index
+																	].duration
+																}
+															/>
+
+															<ErrorMessage
+																name={`activities[${index}].duration`}
+															/>
+														</div>
+
+														<div className='field-box'>
+															<label>
+																 Price
+															</label>
+
+															<Field
+																name={`activities[${index}].price`}
+																type='number'
+																className='form-control'
+																onBlur={handleBlur}
+																onChange={
+																	handleChange
+																}
+																value={
+																	values.activities[
+																		index
+																	].price
+																}
+															/>
+
+															<ErrorMessage
+																name={`activities[${index}].price`}
+															/>
+														</div>
+
+													</div>
+												)
+											)}
+										</div>
+									</div>
+
+
 									<div class='text-center'>
 										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
 											Submit
@@ -377,6 +509,7 @@ class PackageForm extends Component {
 		);
 	}
 }
+
 
 const mapStateToProps = ({extras}) => ({
 	countries: extras.countries

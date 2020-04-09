@@ -100,8 +100,7 @@ class EditInquiry extends Component {
 									initialValues={inquiryDetails}
 									validationSchema={InquiriesSchema}
 									onSubmit={(values, {setSubmitting}) => {
-										debugger;
-										console.log('VALUES', values);
+										// console.log('VALUES', values);
 										setSubmitting(false);
 										confirmInquiry(inquiry.id, values)
 											.then((response) => {
