@@ -91,7 +91,7 @@ class PackageForm extends Component {
 				},
 				1000: {
 					items: 4,
-					nav: false,duration
+					nav: false,
 					loop: false
 				}
 			}
@@ -107,9 +107,9 @@ class PackageForm extends Component {
 		const activity = {
 			description: '',
 			duration: '',
-			price: 100.00,
+			price: 100.0,
 			activity_id: 1
-		}
+		};
 
 		const partnerDetails = {
 			name: aPackage.name,
@@ -131,10 +131,7 @@ class PackageForm extends Component {
 						<Formik
 							initialValues={partnerDetails}
 							onSubmit={(values, {setSubmitting}) => {
-								this.setState({
-									searching: true
-								});
-								// console.log(values);
+								debugger;
 								if (aPackage.id != null) {
 									updatePackage(aPackage.id, values)
 										.then((response) => {
@@ -198,7 +195,7 @@ class PackageForm extends Component {
 										{/* {partnerDetails.partner_id == null && (
 											<div className='field-box mt-3'>
 												<label>Partners List</label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
+												
 													<Field
 														as='select'
 														name='partner_id'
@@ -215,113 +212,113 @@ class PackageForm extends Component {
 															</option>
 														))}
 													</Field>
-												</IconInput>
+												
 												<ErrorMessage name='partner_id' />
 											</div>
 										)} */}
 
 										<div className='field-box'>
 											<label>Name</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='name'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.name}
-												/>
-											</IconInput>
+
+											<Field
+												name='name'
+												className='form-control'
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.name}
+											/>
+
 											<ErrorMessage name='name' />
 										</div>
 										<div className='field-box'>
 											<label>Price</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='price'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.price}
-												/>
-											</IconInput>
+
+											<Field
+												name='price'
+												className='form-control'
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.price}
+											/>
+
 											<ErrorMessage name='price' />
 										</div>
 										<div className='field-box'>
 											<label>Offer Price</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='offer_price'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.offer_price}
-												/>
-											</IconInput>
+
+											<Field
+												name='offer_price'
+												className='form-control'
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.offer_price}
+											/>
+
 											<ErrorMessage name='offer_price' />
 										</div>
 										<div className='field-box'>
 											<label>Location</label>
-											<IconInput icon='fas fa-location' iconPosition='left'>
-												<Field
-													name='location'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.location}
-												/>
-											</IconInput>
+
+											<Field
+												name='location'
+												className='form-control'
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.location}
+											/>
+
 											<ErrorMessage name='location' />
 										</div>
 										<div className='field-box'>
 											<label>Inclusions</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='inclusions'
-													component='textarea'
-													rows='2'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.inclusions}
-												/>
-											</IconInput>
+
+											<Field
+												name='inclusions'
+												component='textarea'
+												rows='2'
+												className='form-control'
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.inclusions}
+											/>
+
 											<ErrorMessage name='inclusions' />
 										</div>
 										<div className='field-box'>
 											<label>Exclusions</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													name='exclusions'
-													component='textarea'
-													rows='2'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.exclusions}
-												/>
-											</IconInput>
+
+											<Field
+												name='exclusions'
+												component='textarea'
+												rows='2'
+												className='form-control'
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.exclusions}
+											/>
+
 											<ErrorMessage name='exclusions' />
 										</div>
 										<div className='field-box'>
 											<label>Category</label>
-											<IconInput icon='icon-paper-plane' iconPosition='left'>
-												<Field
-													as='select'
-													name='category_id'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.category_id}
-													defaultValue=''
-												>
-													<option value=''>Select one</option>
-													{categories.map((category) => (
-														<option key={category.id} value={category.id}>
-															{category.name}
-														</option>
-													))}
-												</Field>
-											</IconInput>
+
+											<Field
+												as='select'
+												name='category_id'
+												className='form-control'
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.category_id}
+												defaultValue=''
+											>
+												<option value=''>Select one</option>
+												{categories.map((category) => (
+													<option key={category.id} value={category.id}>
+														{category.name}
+													</option>
+												))}
+											</Field>
+
 											<ErrorMessage name='category_id' />
 										</div>
 
@@ -373,126 +370,80 @@ class PackageForm extends Component {
 										</div>
 									</div>
 
-
 									<div className='input-section'>
 										<div className='row'>
 											<div className='col-12'>
 												<div className='d-flex justify-content-between'>
-													<h3 className='title'>
-														Assign Activity Details
-													</h3>
+													<h3 className='title'>Assign Activity Details</h3>
 													<span
 														className='btn btn-primary'
 														onClick={() =>
-															setFieldValue(
-																'activities',
-																[
-																	...values.activities,
-																	activity
-																]
-															)}
+															setFieldValue('activities', [
+																...values.activities,
+																activity
+															])}
 													>
 														Add
 													</span>
 												</div>
 											</div>
-											{values.activities.map(
-												(activity, index) => (
-													<div className='col-12 py-2 my-2 bg-body'>
-														<div
-															className='text-right'
-															onClick={() => {
-																values.activities.splice(
-																	index,
-																	1
-																);
-																setFieldValue(
-																	'activities',
-																	values.activities
-																);
-															}}
-														>
-															<i className='fas fa-times' />
-														</div>
-														<div className='field-box'>
-															<label>
-																 Description
-															</label>
-
-															<Field
-																name={`activities[${index}].description`}
-																className='form-control'
-																onBlur={handleBlur}
-																onChange={
-																	handleChange
-																}
-																value={
-																	values.activities[
-																		index
-																	].description
-																}
-															/>
-
-															<ErrorMessage
-																name={`activities[${index}].description`}
-															/>
-														</div>
-
-														<div className='field-box'>
-															<label>
-																 Duration
-															</label>
-
-															<Field
-																name={`activities[${index}].duration`}
-																className='form-control'
-																onBlur={handleBlur}
-																onChange={
-																	handleChange
-																}
-																value={
-																	values.activities[
-																		index
-																	].duration
-																}
-															/>
-
-															<ErrorMessage
-																name={`activities[${index}].duration`}
-															/>
-														</div>
-
-														<div className='field-box'>
-															<label>
-																 Price
-															</label>
-
-															<Field
-																name={`activities[${index}].price`}
-																type='number'
-																className='form-control'
-																onBlur={handleBlur}
-																onChange={
-																	handleChange
-																}
-																value={
-																	values.activities[
-																		index
-																	].price
-																}
-															/>
-
-															<ErrorMessage
-																name={`activities[${index}].price`}
-															/>
-														</div>
-
+											{values.activities.map((activity, index) => (
+												<div className='col-12 py-2 my-2 bg-body'>
+													<div
+														className='text-right'
+														onClick={() => {
+															values.activities.splice(index, 1);
+															setFieldValue('activities', values.activities);
+														}}
+													>
+														<i className='fas fa-times' />
 													</div>
-												)
-											)}
+													<div className='field-box'>
+														<label>Description</label>
+
+														<Field
+															name={`activities[${index}].description`}
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.activities[index].description}
+														/>
+
+														<ErrorMessage name={`activities[${index}].description`} />
+													</div>
+
+													<div className='field-box'>
+														<label>Duration</label>
+
+														<Field
+															name={`activities[${index}].duration`}
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.activities[index].duration}
+														/>
+
+														<ErrorMessage name={`activities[${index}].duration`} />
+													</div>
+
+													<div className='field-box'>
+														<label>Price</label>
+
+														<Field
+															name={`activities[${index}].price`}
+															type='number'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.activities[index].price}
+														/>
+
+														<ErrorMessage name={`activities[${index}].price`} />
+													</div>
+												</div>
+											))}
 										</div>
 									</div>
-
 
 									<div class='text-center'>
 										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
@@ -509,7 +460,6 @@ class PackageForm extends Component {
 		);
 	}
 }
-
 
 const mapStateToProps = ({extras}) => ({
 	countries: extras.countries
