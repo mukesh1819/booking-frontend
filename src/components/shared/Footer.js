@@ -24,7 +24,7 @@ const Footer = () => (
 								<a href='#'>Blogs</a>
 							</li>
 							<li className='d-md-inline px-2'>
-								<a href='/support'>Contact Us</a>
+								<a href='/support'>Customer Support</a>
 							</li>
 						</ul>
 					</div>
