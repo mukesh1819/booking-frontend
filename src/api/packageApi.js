@@ -12,10 +12,20 @@ export function showPackage(id) {
 }
 
 export function createPackage(data) {
+	var formData = new FormData();
+	for (let i = 0; i < data.images.length; i++) {
+		formData.append('images[]', data.images[i]);
+	}
+
 	return axios({
 		method: 'post',
 		url: `${API_URL}/packages`,
-		data: {package: data}
+		data: {
+			package: data
+		},
+		headers: {
+			'Content-Type': 'multipart/form-data'
+		}
 	});
 }
 
@@ -23,7 +33,9 @@ export function updatePackage(id, data) {
 	return axios({
 		method: 'patch',
 		url: `${API_URL}/packages/${id}`,
-		data: {published: data}
+		data: {
+			published: data
+		}
 	});
 }
 

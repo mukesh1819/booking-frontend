@@ -71,7 +71,7 @@ class EditInquiry extends Component {
 			details: yup.string()
 		});
 
-		const partner = {
+		const partner_service = {
 			partner_id: 1,
 			name: '',
 			details: ''
@@ -86,7 +86,7 @@ class EditInquiry extends Component {
 			drop_off_location: '',
 			meals_included: false,
 			remarks: '',
-			partners: [partner]
+			partner_services_attributes: [partner_service]
 		};
 
 		return (
@@ -149,14 +149,10 @@ class EditInquiry extends Component {
 																render: () => (
 																	<Tab.Pane attached={false}>
 																		<div className=''>
-																			<div className='text-primary'>
-																				{' '}
-																				Inquiry Details{' '}
-																			</div>
-																			{/* <InquiryForm
+																			<InquiryForm
 																				inquiry={inquiry}
 																				aPackage={inquiry.package}
-																			/> */}
+																			/>
 																		</div>
 																	</Tab.Pane>
 																)
@@ -327,10 +323,10 @@ class EditInquiry extends Component {
 																							className='btn btn-primary'
 																							onClick={() =>
 																								setFieldValue(
-																									'partners',
+																									'partner_services_attributes',
 																									[
-																										...values.partners,
-																										partner
+																										...values.partner_services_attributes,
+																										partner_service
 																									]
 																								)}
 																						>
@@ -338,19 +334,19 @@ class EditInquiry extends Component {
 																						</span>
 																					</div>
 																				</div>
-																				{values.partners.map(
-																					(partner, index) => (
+																				{values.partner_services_attributes.map(
+																					(partner_service, index) => (
 																						<div className='col-12 py-2 my-2 bg-body'>
 																							<div
 																								className='text-right'
 																								onClick={() => {
-																									values.partners.splice(
+																									values.partner_services_attributes.splice(
 																										index,
 																										1
 																									);
 																									setFieldValue(
 																										'partners',
-																										values.partners
+																										values.partner_services_attributes
 																									);
 																								}}
 																							>
@@ -362,7 +358,7 @@ class EditInquiry extends Component {
 																								</label>
 
 																								<Field
-																									name={`partners[${index}].name`}
+																									name={`partner_services_attributes[${index}].name`}
 																									className='form-control'
 																									type='text'
 																									onBlur={handleBlur}
@@ -370,14 +366,15 @@ class EditInquiry extends Component {
 																										handleChange
 																									}
 																									value={
-																										values.partners[
+																										values
+																											.partner_services_attributes[
 																											index
 																										].name
 																									}
 																								/>
 
 																								<ErrorMessage
-																									name={`partners[${index}].name`}
+																									name={`partner_services_attributes[${index}].name`}
 																								/>
 																							</div>
 
@@ -387,7 +384,7 @@ class EditInquiry extends Component {
 																								</label>
 																								<Dropdown
 																									className='form-control'
-																									name={`partners[${index}].partner_id`}
+																									name={`partner_services_attributes[${index}].partner_id`}
 																									placeholder='Select Partner'
 																									onBlur={handleBlur}
 																									onChange={(
@@ -395,12 +392,13 @@ class EditInquiry extends Component {
 																										data
 																									) => {
 																										setFieldValue(
-																											`partners[${index}].partner_id`,
+																											`partner_services_attributes[${index}].partner_id`,
 																											data.value
 																										);
 																									}}
 																									value={
-																										values.partners[
+																										values
+																											.partner_services_attributes[
 																											index
 																										].partner_id
 																									}
@@ -426,7 +424,7 @@ class EditInquiry extends Component {
 																									)}
 																								/>
 																								<ErrorMessage
-																									name={`partners[${index}].partner_id`}
+																									name={`partner_services_attributes[${index}].partner_id`}
 																								/>
 																							</div>
 
@@ -438,7 +436,7 @@ class EditInquiry extends Component {
 																								<Field
 																									component='textarea'
 																									rows='4'
-																									name={`partners[${index}].details`}
+																									name={`partner_services_attributes[${index}].details`}
 																									className='form-control'
 																									onBlur={handleBlur}
 																									onChange={(
@@ -446,20 +444,21 @@ class EditInquiry extends Component {
 																										data
 																									) => {
 																										setFieldValue(
-																											`partners[${index}].details`,
+																											`partner_services_attributes[${index}].details`,
 																											e.target
 																												.value
 																										);
 																									}}
 																									value={
-																										values.partners[
+																										values
+																											.partner_services_attributes[
 																											index
 																										].details
 																									}
 																								/>
 
 																								<ErrorMessage
-																									name={`partners[${index}].details`}
+																									name={`partner_services_attributes[${index}].details`}
 																								/>
 																							</div>
 																						</div>

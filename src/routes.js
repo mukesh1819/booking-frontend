@@ -44,6 +44,10 @@ import CategoriesForm from './components/categories/CategoriesForm';
 import EditBooking from './components/flights/EditBooking';
 import EditInquiry from './components/admin/EditInquiry';
 import AdminPackageDetails from './components/admin/PackageDetails';
+import UserLayout from './components/layouts/UserLayout';
+import AdminLayout from './components/layouts/AdminLayout';
+import AppRoute from './components/AppRoute';
+import PartnerLayout from './components/layouts/PartnerLayout';
 
 function About() {
 	return <h2>About Us</h2>;
@@ -51,58 +55,62 @@ function About() {
 
 const routing = (
 	<Switch>
-		<Route exact path='/' component={HomePage} />
+		<AppRoute exact path='/' component={HomePage} layout={UserLayout} />
 
-		<Route path='/login' component={SignInForm} />
-		<Route path='/signup' component={SignUpForm} />
-		<Route path='/flights' component={FlightList} />
-		<Route path='/hotels' component={HotelList} />
-		<Route path='/packages' component={PackageList} />
-		<Route path='/package/:id' component={PackageDetails} />
-		<Route path='/about' component={About} />
-		<Route path='/support' component={CustomerSupport} />
+		<AppRoute path='/login' component={SignInForm} layout={UserLayout} />
+		<AppRoute path='/signup' component={SignUpForm} layout={UserLayout} />
+		<AppRoute path='/flights' component={FlightList} layout={UserLayout} />
+		<AppRoute path='/hotels' component={HotelList} layout={UserLayout} />
+		<AppRoute path='/packages' component={PackageList} layout={UserLayout} />
+		<AppRoute path='/package/:id' component={PackageDetails} layout={UserLayout} />
+		<AppRoute path='/about' component={About} layout={UserLayout} />
+		<AppRoute path='/support' component={CustomerSupport} layout={UserLayout} />
 
-		<PrivateRoute path='/passengers' component={PassengerForm} />
-		<PrivateRoute path='/bookings' component={Bookings} />
-		<PrivateRoute path='/transactions' component={Users} />
-		<PrivateRoute path='/records' component={Users} />
-		<PrivateRoute path='/profile' component={Users} />
-		<PrivateRoute path='/users/edit' component={EditUserForm} />
-		<PrivateRoute path='/booking/:id' component={BookingDetails} />
-		<PrivateRoute path='/booking/:idx/edit' component={EditBooking} />
-		<PrivateRoute path='/ticket/:id' component={TicketDetails} />
-		<Route path='/partners/new' component={BecomePartnerForm} />
-		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} />
-		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} />
-		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} />
-		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} />
-		<PrivateRoute path='/inquiry_form' component={InquiryForm} />
-		<PrivateRoute path='/admin/edit_inquiry' component={EditInquiry} />
-		<PrivateRoute path='/admin/package_booking_details/:id' component={PackageBookingDetails} />
-		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} />
+		<PrivateRoute path='/passengers' component={PassengerForm} layout={UserLayout} />
+		<PrivateRoute path='/bookings' component={Bookings} layout={UserLayout} />
+		<PrivateRoute path='/transactions' component={Users} layout={UserLayout} />
+		<PrivateRoute path='/records' component={Users} layout={UserLayout} />
+		<PrivateRoute path='/profile' component={Users} layout={UserLayout} />
+		<PrivateRoute path='/users/edit' component={EditUserForm} layout={UserLayout} />
+		<PrivateRoute path='/booking/:id' component={BookingDetails} layout={UserLayout} />
+		<PrivateRoute path='/booking/:idx/edit' component={EditBooking} layout={UserLayout} />
+		<PrivateRoute path='/ticket/:id' component={TicketDetails} layout={UserLayout} />
+		<AppRoute path='/partners/new' component={BecomePartnerForm} layout={UserLayout} />
+		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} layout={UserLayout} />
+		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} layout={UserLayout} />
+		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} layout={UserLayout} />
+		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} layout={UserLayout} />
+		<PrivateRoute path='/inquiry_form' component={InquiryForm} layout={UserLayout} />
+		<PrivateRoute path='/admin/edit_inquiry' component={EditInquiry} layout={UserLayout} />
+		<PrivateRoute path='/admin/package_booking_details/:id' component={PackageBookingDetails} layout={UserLayout} />
+		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} layout={UserLayout} />
 
-		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} />
-		<PrivateRoute path='/admin/transaction_list' component={TransactionList} />
-		<PrivateRoute path='/admin/create_user' component={CreateUser} />
-		<PrivateRoute path='/admin/users_list' component={UsersList} />
-		<PrivateRoute path='/admin/packages' component={PackagesList} />
-		<PrivateRoute path='/admin/package_details' component={AdminPackageDetails} />
-		<PrivateRoute path='/admin/partners' component={PartnerList} />
-		<PrivateRoute path='/admin/inquiry_details' component={InquiryDetails} />
-		<PrivateRoute path='/admin/inquiries' component={InquiryList} />
-		<PrivateRoute path='/admin/categories' component={CategoryList} />
-		<PrivateRoute path='/admin/package_booking' component={PackageBookingList} />
-		<PrivateRoute path='/admin/category_details' component={CategoryDetail} />
-		<PrivateRoute path='/admin/category_form' component={CategoriesForm} />
-		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} />
-		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} />
-		<PrivateRoute path='/admin/dashboard_bookings/admin/package_booking' component={DashboardBookings} />
-		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} />
-		<PrivateRoute path='/admin/email' component={UserEmail} />
-		<PrivateRoute path='/admin' component={Dashboard} />
-		<PrivateRoute path='/partner' component={PartnerDashboard} />
+		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} layout={AdminLayout} />
+		<PrivateRoute path='/admin/transaction_list' component={TransactionList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/create_user' component={CreateUser} layout={AdminLayout} />
+		<PrivateRoute path='/admin/users_list' component={UsersList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/packages' component={PackagesList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/package_details' component={AdminPackageDetails} layout={AdminLayout} />
+		<PrivateRoute path='/admin/partners' component={PartnerList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/inquiry_details' component={InquiryDetails} layout={AdminLayout} />
+		<PrivateRoute path='/admin/inquiries' component={InquiryList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/categories' component={CategoryList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/package_booking' component={PackageBookingList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/category_details' component={CategoryDetail} layout={AdminLayout} />
+		<PrivateRoute path='/admin/category_form' component={CategoriesForm} layout={AdminLayout} />
+		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} layout={AdminLayout} />
+		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} layout={AdminLayout} />
+		<PrivateRoute
+			path='/admin/dashboard_bookings/admin/package_booking'
+			component={DashboardBookings}
+			layout={UserLayout}
+		/>
+		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} layout={AdminLayout} />
+		<PrivateRoute path='/admin/email' component={UserEmail} layout={AdminLayout} />
+		<PrivateRoute path='/admin' component={Dashboard} layout={AdminLayout} />
+		<PrivateRoute path='/partner' component={PartnerDashboard} layout={PartnerLayout} />
 
-		<Route component={PageNotFound} />
+		<AppRoute component={PageNotFound} layout={UserLayout} />
 	</Switch>
 );
 

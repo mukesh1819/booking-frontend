@@ -49,10 +49,7 @@ function App(props) {
 	return (
 		<Router history={history}>
 			<ScrollToTop />
-			<div id='content'>
-				<NavBar />
-				{routing}
-			</div>
+			{routing}
 			<Footer />
 		</Router>
 	);
