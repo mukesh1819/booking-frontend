@@ -17,11 +17,10 @@ class PackageForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			partnerIsValid: false,
 			categories: [],
 			packages: [],
 			partners: [],
-			activities: []
+			activities_attributes: []
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
 	}
@@ -91,8 +90,7 @@ class PackageForm extends Component {
 				},
 				1000: {
 					items: 4,
-					nav: false,
-					loop: false
+					nav: false
 				}
 			}
 		};
@@ -101,14 +99,13 @@ class PackageForm extends Component {
 
 	render() {
 		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {images: []}};
-		const {partnerIsValid, categories, packages, partners, activities} = this.state;
+		const {categories, packages, partners, activities_attributes} = this.state;
 		const {countries, nextStep} = this.props;
 
 		const activity = {
 			description: '',
 			duration: '',
-			price: 100.0,
-			activity_id: 1
+			price: 100.0
 		};
 
 		const partnerDetails = {
@@ -122,7 +119,7 @@ class PackageForm extends Component {
 			images: [],
 			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
 			category_id: aPackage.category != null ? aPackage.category.id : '',
-			activities: [activity]
+			activities_attributes: [activity]
 		};
 		return (
 			<div className='container'>
@@ -155,7 +152,7 @@ class PackageForm extends Component {
 											});
 										});
 								} else {
-									createPackage(values)
+									createPackage({...values, images: document.querySelector('[type=file]').files})
 										.then((response) => {
 											setSubmitting(false);
 											// nextStep(response.data);
@@ -329,12 +326,18 @@ class PackageForm extends Component {
 												name='images'
 												type='file'
 												onChange={(event) => {
-													setFieldValue('images', event.currentTarget.files);
+													var file = event.target.files[0];
+													var reader = new FileReader();
+													reader.onload = function(item) {
+														setFieldValue('images', item.target.result);
+													};
+													reader.readAsDataURL(file);
 												}}
 												className='form-control'
 												multiple
 											/>
-											<Thumb files={values.images} />
+											<img src={values.images} />
+											{/* <Thumb files={values.images} /> */}
 											{aPackage.images.map((image) => (
 												<img
 													src={`${BASE_URL}/${image}`}
@@ -344,6 +347,7 @@ class PackageForm extends Component {
 													width={200}
 												/>
 											))}
+											<ErrorMessage name='images' />
 										</div>
 
 										<div className='field-box'>
@@ -378,8 +382,8 @@ class PackageForm extends Component {
 													<span
 														className='btn btn-primary'
 														onClick={() =>
-															setFieldValue('activities', [
-																...values.activities,
+															setFieldValue('activities_attributes', [
+																...values.activities_attributes,
 																activity
 															])}
 													>
@@ -387,13 +391,16 @@ class PackageForm extends Component {
 													</span>
 												</div>
 											</div>
-											{values.activities.map((activity, index) => (
+											{values.activities_attributes.map((activity, index) => (
 												<div className='col-12 py-2 my-2 bg-body'>
 													<div
 														className='text-right'
 														onClick={() => {
-															values.activities.splice(index, 1);
-															setFieldValue('activities', values.activities);
+															values.activities_attributes.splice(index, 1);
+															setFieldValue(
+																'activities_attributes',
+																values.activities_attributes
+															);
 														}}
 													>
 														<i className='fas fa-times' />
@@ -402,43 +409,47 @@ class PackageForm extends Component {
 														<label>Description</label>
 
 														<Field
-															name={`activities[${index}].description`}
+															name={`activities_attributes[${index}].description`}
 															className='form-control'
 															onBlur={handleBlur}
 															onChange={handleChange}
-															value={values.activities[index].description}
+															value={values.activities_attributes[index].description}
 														/>
 
-														<ErrorMessage name={`activities[${index}].description`} />
+														<ErrorMessage
+															name={`activities_attributes[${index}].description`}
+														/>
 													</div>
 
 													<div className='field-box'>
 														<label>Duration</label>
 
 														<Field
-															name={`activities[${index}].duration`}
+															name={`activities_attributes[${index}].duration`}
 															className='form-control'
 															onBlur={handleBlur}
 															onChange={handleChange}
-															value={values.activities[index].duration}
+															value={values.activities_attributes[index].duration}
 														/>
 
-														<ErrorMessage name={`activities[${index}].duration`} />
+														<ErrorMessage
+															name={`activities_attributes[${index}].duration`}
+														/>
 													</div>
 
 													<div className='field-box'>
 														<label>Price</label>
 
 														<Field
-															name={`activities[${index}].price`}
+															name={`activities_attributes[${index}].price`}
 															type='number'
 															className='form-control'
 															onBlur={handleBlur}
 															onChange={handleChange}
-															value={values.activities[index].price}
+															value={values.activities_attributes[index].price}
 														/>
 
-														<ErrorMessage name={`activities[${index}].price`} />
+														<ErrorMessage name={`activities_attributes[${index}].price`} />
 													</div>
 												</div>
 											))}
@@ -453,7 +464,6 @@ class PackageForm extends Component {
 								</form>
 							)}
 						</Formik>
-						{partnerIsValid && <a href='btn btn-primary'>Add Packages</a>}
 					</div>
 				</div>
 			</div>

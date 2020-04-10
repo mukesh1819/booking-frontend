@@ -6,6 +6,7 @@ import swal from 'sweetalert';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
 import {Badge, Sidebar} from '../shared';
 import PartnerProfile from './PartnerProfile';
+import Services from './Services';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
@@ -25,16 +26,27 @@ class Dashboard extends Component {
 	}
 
 	fetchPartner = () => {
-		showPartner(1).then((response) => {
-			this.setState({
-				partner: response.data
-			});
-		});
+		showPartner(1)
+			.then((response) => {
+				this.setState({
+					partner: response.data
+				});
+			})
+			.catch((error) => console.log(error));
 	};
 
 	render() {
 		const {partner} = this.state;
-		return <PartnerProfile partner={partner} />;
+		return (
+			<div>
+				<div>
+					<PartnerProfile partner={partner} />
+				</div>
+				<div className='my-3'>
+					<Services partner={partner} />
+				</div>
+			</div>
+		);
 	}
 }
 

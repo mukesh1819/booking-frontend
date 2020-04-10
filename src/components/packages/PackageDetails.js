@@ -83,7 +83,7 @@ class PackageDetails extends Component {
 				render: () => (
 					<Tab.Pane attached={false}>
 						<div className=''>
-							<div className='text-primary'> Description</div>
+							<h3> Description</h3>
 							<div
 								dangerouslySetInnerHTML={{
 									__html: aPackage.description
@@ -152,6 +152,24 @@ class PackageDetails extends Component {
 							<div className='card m-2'>
 								<div className='card-body'>
 									<Tab menu={{secondary: true}} panes={panes} />
+								</div>
+							</div>
+							<div className='card my-3 mx-2'>
+								<div className='card-body'>
+									<div className='row'>
+										{aPackage.inclusions && (
+											<div className='col-12 col-md-6'>
+												<h3 className='title'>Inclusions</h3>
+												{aPackage.inclusions}
+											</div>
+										)}
+										{aPackage.exclusions && (
+											<div className='col-12 col-md-6'>
+												<h3 className='title'>Exclusions</h3>
+												{aPackage.exclusions}
+											</div>
+										)}
+									</div>
 								</div>
 							</div>
 						</div>

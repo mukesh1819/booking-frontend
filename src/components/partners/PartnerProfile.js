@@ -47,12 +47,12 @@ class PartnerProfile extends Component {
 										{partner.email}
 									</div>
 									<div className='text-small text-muted'>
-										<i className='fas fa-phone-volume' />&nbsp;
-										{partner.contact_number}
-									</div>
-									<div className='text-small text-muted'>
 										<i className='fas fa-address-card' />&nbsp;
 										{partner.address}
+									</div>
+									<div className='text-small text-muted'>
+										<i className='fas fa-phone-volume' />&nbsp;
+										{partner.contact_number}
 									</div>
 									<div className=''>
 										<Badge type={partner.status}>{partner.status}</Badge>
