@@ -6,7 +6,7 @@ import {TabView, Slidebar, Banner} from '../shared';
 import {PackageList} from '../packages';
 import {Categories} from '../categories';
 
-class SearchFlightForm extends Component {
+class HomePage extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -73,7 +73,7 @@ class SearchFlightForm extends Component {
 				</div>
 				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
 					<Tab eventKey='flights' title='Flights'>
-						<SearchFlightForm />
+						<HomePage />
 					</Tab>
 					<Tab eventKey='packages' title='Packages'>
 						<div className='container'>
@@ -95,4 +95,4 @@ class SearchFlightForm extends Component {
 	}
 }
 
-export default SearchFlightForm;
+export default HomePage;

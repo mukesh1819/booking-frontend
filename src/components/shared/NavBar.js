@@ -120,19 +120,7 @@ class NavBar extends Component {
 											fontWeight: 'bold'
 										}}
 									>
-										My Bookings
-									</NavLink>
-								)}
-								{isAdmin(currentUser) && (
-									<NavLink
-										className='link text-white'
-										to='/bookings'
-										activeStyle={{
-											textDecoration: 'none',
-											fontWeight: 'bold'
-										}}
-									>
-										Admin
+										MY BOOKINGS
 									</NavLink>
 								)}
 								<Dropdown
