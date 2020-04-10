@@ -48,3 +48,10 @@ export function confirmPartner(id) {
 		url: `${API_URL}/partners/${id}/confirm`
 	});
 }
+
+export function partner_details(id){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/users/partner_details/${id}`
+	});
+}
