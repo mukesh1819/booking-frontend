@@ -22,21 +22,27 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchPartner();
 	}
 
+	componentDidUpdate(prevProps, prevState) { 
+		if(this.props.currentUser.email != null  && prevState.partner.id == null){
+			this.fetchPartner();
+		}
+	 } 
+
 	fetchPartner = () => {
-		showPartner(1)
-			.then((response) => {
-				this.setState({
-					partner: response.data
-				});
-			})
-			.catch((error) => console.log(error));
+		showPartner(this.props.currentUser.partner.id)
+		.then((response) => {
+			this.setState({
+				partner: response.data
+			});
+		})
+		.catch((error) => console.log(error));
 	};
 
 	render() {
 		const {partner} = this.state;
+		const {user} = this.props.currentUser;
 		return (
 			<div>
 				<div>
@@ -47,6 +53,7 @@ class Dashboard extends Component {
 				</div>
 			</div>
 		);
+		
 	}
 }
 
