@@ -22,17 +22,22 @@ class Services extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchDetails();
 	}
+
+	componentDidUpdate(prevProps, prevState) { 
+		if(this.props.partner.id != null  && prevState.services[0] == null){
+			this.fetchDetails();
+		}
+	} 
 
 	fetchDetails = () => {
 		getPartnerServices(`q[partner_id_eq]=${this.props.partner.id}`)
-			.then((response) => {
-				this.setState({
-					services: response.data
-				});
-			})
-			.catch((error) => console.log(error));
+		.then((response) => {
+			this.setState({
+				services: response.data
+			});
+		})
+		.catch((error) => console.log(error));
 	};
 
 	render() {
