@@ -64,3 +64,10 @@ export function authorizeFb(data) {
 		}
 	});
 }
+
+export function verifyEmail(token) {
+	return axios({
+		method: 'get',
+		url: `${BASE_URL}/verify/${token}`
+	});
+}

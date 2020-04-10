@@ -1,8 +1,6 @@
 import history from '../history';
 import swal from 'sweetalert';
-import {
-	setError
-} from '../redux/actions';
+import {setError} from '../redux/actions';
 
 export async function handleResponse(response) {
 	if (response.ok) return response.json();
@@ -39,16 +37,18 @@ export function useInterceptor(axios) {
 		(response) => {
 			return response;
 		},
-		function (error) {
-			
+		function(error) {
 			const originalRequest = error.config;
-			if (error.message === "Network Error") {
+			if (error.message === 'Network Error') {
 				swal({
 					title: error.message
-				})
+				});
 			} else if (error.response.status === 401) {
 				history.push('/');
-			} else {}
+			} else if (error.response.status === 343) {
+				history.push('/not_verified');
+			} else {
+			}
 		}
 	);
 }

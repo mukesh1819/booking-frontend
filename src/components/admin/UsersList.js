@@ -49,7 +49,7 @@ class UsersList extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Users</h5>
+					<h3 className='title'>Users</h3>
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
@@ -80,13 +80,10 @@ class UsersList extends Component {
 														user: user
 													}
 												}}
+												className='btn bg-none text-primary'
 											>
-												{' '}
-												Edit{' '}
+												Edit
 											</Link>
-										</td>
-
-										<td>
 											<Link
 												to={{
 													pathname: '/admin/email',
@@ -94,6 +91,7 @@ class UsersList extends Component {
 														user: user
 													}
 												}}
+												className='btn bg-none text-primary'
 											>
 												Contact
 											</Link>
@@ -104,7 +102,7 @@ class UsersList extends Component {
 						</tbody>
 					</table>
 				</div>
-				<DataTable data={toTableData(users)} />
+				{/* <DataTable data={toTableData(users)} /> */}
 			</div>
 		);
 	}

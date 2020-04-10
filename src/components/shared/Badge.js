@@ -13,6 +13,9 @@ export default ({type = 'light', content, children}) => {
 		case 'verified':
 			design = 'success';
 			break;
+		case 'confirmed':
+			design = 'success';
+			break;
 		case 'cancelled':
 			design = 'danger';
 			break;

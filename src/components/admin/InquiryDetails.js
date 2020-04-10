@@ -34,28 +34,22 @@ class InquiryDetails extends Component {
 				<div className='card'>
 					<div className='card-body'>
 						<Inquiry inquiry={inquiry} aPackage={inquiry.package} />
-						<div className=''>
+						<div className='text-right'>
+							<Link
+								to={{
+									pathname: '/admin/edit_inquiry',
+									state: {
+										inquiry: inquiry
+									}
+								}}
+								className='btn btn-secondary m-2'
+							>
+								Edit
+							</Link>
 							{inquiry.status === 'pending' && (
-								<div className='text-right'>
-									<Link
-										to={{
-											pathname: '/admin/edit_inquiry',
-											state: {
-												inquiry: inquiry
-											}
-										}}
-										className='btn btn-secondary m-2'
-									>
-										Edit
-									</Link>
-
-									<span
-										className='btn btn-danger m-2'
-										onClick={() => this.rejectUserPackage(inquiry.id)}
-									>
-										Reject
-									</span>
-								</div>
+								<span className='btn btn-danger m-2' onClick={() => this.rejectUserPackage(inquiry.id)}>
+									Reject
+								</span>
 							)}
 						</div>
 					</div>

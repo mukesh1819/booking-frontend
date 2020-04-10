@@ -378,7 +378,7 @@ class PackageForm extends Component {
 										<div className='row'>
 											<div className='col-12'>
 												<div className='d-flex justify-content-between'>
-													<h3 className='title'>Assign Activity Details</h3>
+													<h3 className='title'>Activities</h3>
 													<span
 														className='btn btn-primary'
 														onClick={() =>

@@ -136,10 +136,23 @@ class PackageDetails extends Component {
 							</div>
 							<div className='card'>
 								<div className='card-body d-flex align-items-center justify-content-end'>
-									<span className='p-2'>
-										<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
-										<span className='text-muted text-small text-right'>/person</span>
-									</span>
+									<div className='pr-2 text-center'>
+										{aPackage.offer_price && (
+											<div className='d-block text-small'>
+												<span className='text-muted'>
+													Rs. <del>{aPackage.price}</del>
+												</span>
+
+												<span className='text-success'>
+													{aPackage.price - aPackage.offer_price} off
+												</span>
+											</div>
+										)}
+										<span>
+											<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
+											<span className='text-muted text-small text-right'>/person</span>
+										</span>
+									</div>
 									<span className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
 										Submit Query
 									</span>

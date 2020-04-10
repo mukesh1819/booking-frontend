@@ -39,10 +39,10 @@ const Package = (props) => {
 				{aPackage.offer_price && (
 					<div>
 						<span className='text-muted'>
-							Rs. <del>{30000}</del>
+							Rs. <del>{aPackage.price}</del>
 						</span>
 
-						<span className='text-success'> 5000 off</span>
+						<span className='text-success'> {aPackage.price - aPackage.offer_price} off</span>
 					</div>
 				)}
 				<div>

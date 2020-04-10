@@ -47,27 +47,27 @@ class Dashboard extends Component {
 	render() {
 		const {users, bookings, transactions, packages, partners, inquiries, categories, packageBooking} = this.state;
 		const sideBarMenu = [
-			{icon: 'icon-home', name: 'users', label: 'Users', value: '', link: '/'},
 			{
-				icon: 'icon-beamed-note',
-				name: 'bookings',
-				label: 'Bookings',
+				icon: 'fas fa-plane departure',
+				name: 'flights',
+				label: 'Flights',
 				value: '',
 				link: '/bookings'
 			},
 			{
-				icon: 'icon-user',
+				icon: 'fas fa-briefcase',
+				name: 'packages',
+				label: 'Packages',
+				link: '/profile'
+			},
+			{
+				icon: 'fas fa-money',
 				name: 'transactions',
 				label: 'Transactions',
 				value: '',
 				link: '/transactions'
 			},
-			{
-				icon: 'icon-calculator',
-				name: 'inquiries',
-				label: 'Inquiries',
-				link: '/profile'
-			}
+			{icon: 'fas fa-users', name: 'users', label: 'Users', value: '', link: '/'}
 		];
 		return (
 			<React.Fragment>
@@ -189,7 +189,6 @@ class Dashboard extends Component {
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>

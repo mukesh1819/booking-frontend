@@ -43,8 +43,10 @@ class PackagesList extends Component {
 			<div className='container'>
 				<div className=''>
 					<div className='col-12 d-flex justify-content-between'>
-						<h5>Package List</h5>
-						<Link to='/admin/partners/package_form'>add package</Link>
+						<h3>Package List</h3>
+						<Link to='/admin/partners/package_form' className='btn bg-none text-secondary'>
+							add package
+						</Link>
 					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
@@ -67,14 +69,17 @@ class PackagesList extends Component {
 										<td>{aPackage.category.name} </td>
 										<td>{aPackage.price}</td>
 
-										<td><Link 
+										<td>
+											<Link
 												to={{
 													pathname: `/admin/package_details`,
 													state: {
 														aPackage: aPackage
 													}
 												}}
-											>	View
+											>
+												{' '}
+												View
 											</Link>
 											{/* <Link
 												to={{
