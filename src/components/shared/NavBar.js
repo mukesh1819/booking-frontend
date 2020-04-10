@@ -89,18 +89,6 @@ class NavBar extends Component {
 
 						<div className='navbar-collapse collapse align-items-stretch'>
 							<span className='navbar-nav ml-auto align-items-stretch'>
-								{currentUser.partner && (
-									<NavLink
-										className='link text-white'
-										to={`/partners/package_form/${currentUser.partner.id}`}
-										activeStyle={{
-											textDecoration: 'none',
-											fontWeight: 'bold'
-										}}
-									>
-										Add Packages
-									</NavLink>
-								)}
 								{!currentUser.partner && (
 									<NavLink
 										className='link text-white'
