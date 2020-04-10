@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Link, NavLink} from 'react-router-dom';
 import {Dropdown} from '../shared';
 import {logout, userInitials} from '../../helpers';
+import history from '../../history';
 
 const AdminLayout = ({currentUser, children}) => {
 	const loggedIn = currentUser.email !== undefined;
