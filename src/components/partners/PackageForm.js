@@ -128,7 +128,6 @@ class PackageForm extends Component {
 						<Formik
 							initialValues={partnerDetails}
 							onSubmit={(values, {setSubmitting}) => {
-								debugger;
 								if (aPackage.id != null) {
 									updatePackage(aPackage.id, values)
 										.then((response) => {
