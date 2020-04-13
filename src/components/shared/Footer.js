@@ -48,8 +48,14 @@ const Footer = () => (
 								</a>
 							</li>
 							<li>
-								<a href='#'>
-									<i className='icon-dribbble' />
+								<a
+									href='#'
+									onClick={(event) => {
+										event.preventDefault();
+										Tawk_API.popup();
+									}}
+								>
+									<i className='fas fa-envelope' />
 								</a>
 							</li>
 						</ul>
