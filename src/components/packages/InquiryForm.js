@@ -69,6 +69,7 @@ class InquiryForm extends Component {
 			number_of_adult: inquiry.number_of_adult == null ? 1 : inquiry.number_of_adult,
 			number_of_child: inquiry.number_of_child == null ? 0 : inquiry.number_of_child,
 			head_traveller_name: inquiry.head_traveller_name,
+			activity_id: null,
 			package_id: inquiry.package != null ? inquiry.package.id : aPackage.id
 		};
 		return (
@@ -159,22 +160,21 @@ class InquiryForm extends Component {
 													<label>Select Activity</label>
 													<Dropdown
 														className='form-control'
-														name='nationality'
-														placeholder='Select Country'
+														name='activity_id'
+														placeholder='Select activities'
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															setFieldValue(`nationality`, data.value);
+															setFieldValue(`activity_id`, data.value);
 														}}
-														value={values.nationality}
+														value={values.activity_id}
 														fluid
 														search
 														selection
-														options={countries.map(function(country) {
+														options={aPackage.activities.map(function(activity) {
 															return {
-																key: country.id,
-																value: country.country_char,
-																flag: country.country_char.toLowerCase(),
-																text: country.name
+																key: activity.id,
+																value: activity.id,
+																text: activity.description
 															};
 														})}
 													/>

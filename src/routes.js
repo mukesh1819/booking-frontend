@@ -105,7 +105,7 @@ const routing = (
 		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} layout={AdminLayout} />
 		<PrivateRoute
-			path='/admin/dashboard_bookings/admin/package_booking'
+			path='/admin/dashboard_bookings'
 			component={DashboardBookings}
 			layout={UserLayout}
 		/>
