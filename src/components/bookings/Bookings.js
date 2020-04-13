@@ -99,8 +99,8 @@ class Bookings extends Component {
 													)}
 													<span className='text-small text-muted px-2'>
 														<i className='fas fa-male' />&nbsp;
-														{booking.adult} Adult
-														{ifNotZero(booking.child, `, ${booking.child} Child`)} Child
+														{booking.no_of_adult} Adult
+														{ifNotZero(booking.no_of_child, `, ${booking.no_of_child} Child`)}
 													</span>
 												</div>
 											</div>
