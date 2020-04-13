@@ -111,21 +111,14 @@ class PackageDetails extends Component {
 			<div className='package-details'>
 				<div className='container'>
 					<div className='header'>
-						<div className='img-container  owl-carousel owl-theme'>
+						<div className='img-container'>
 							<a href={imageUrl(aPackage.images[0])} className='image-popup'>
 								<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
 							</a>
-
-							{dummyImages.length > 0 &&
-								dummyImages.map((v) => (
-									<a href={v} className='image-popup'>
-										<img src={v} alt='Image' className='img-responsive' />
-									</a>
-								))}
 						</div>
 						<div className='card bg-none title'>
 							<div className='card-body'>
-								<div className='d-flex align-items-center'>
+								<div className='d-flex align-items-center justify-content-between'>
 									<div className=''>
 										<h2 className='text-white font-secondary'>{aPackage.name}</h2>
 										<span className='text-white text-small'>
@@ -136,39 +129,41 @@ class PackageDetails extends Component {
 								</div>
 							</div>
 							<div className='card'>
-								<div className='card-body d-flex align-items-center justify-content-end'>
-									<div className='pr-2 text-center'>
-										{aPackage.offer_price && (
-											<div className='d-block text-small'>
+								<div className='card-body d-flex align-items-center justify-content-between'>
+									<div className='pr-2'>
+										{
+											<div className='text-small'>
 												<span className='text-muted'>
 													Rs. <del>{aPackage.price}</del>
 												</span>
 
 												<span className='text-success'>
-													{aPackage.price - aPackage.offer_price} off
+													&nbsp;{aPackage.price - aPackage.offer_price} off
 												</span>
 											</div>
-										)}
+										}
 										<span>
 											<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
 											<span className='text-muted text-small text-right'>/person</span>
 										</span>
 									</div>
-									<span className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
-										Submit Query
-									</span>
+									<div className='d-inline-block'>
+										<div className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
+											Submit Query
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div className='row'>
-						<div className='col-md-9 p-0'>
-							<div className='card m-2'>
+						<div className='col-12 p-0'>
+							<div className='card mb-2'>
 								<div className='card-body'>
 									<Tab menu={{secondary: true}} panes={panes} />
 								</div>
 							</div>
-							<div className='card my-3 mx-2'>
+							<div className='card my-3'>
 								<div className='card-body'>
 									<div className='row'>
 										{aPackage.inclusions && (
@@ -187,11 +182,17 @@ class PackageDetails extends Component {
 								</div>
 							</div>
 						</div>
-						<div className='col-0 col-md-3'>
+						<div className='col-12'>
 							<div className='header'>
 								<h3 className='py-3'>Similar Packages</h3>
 							</div>
-							<Package aPackage={aPackage} />
+							<div className='owl-carousel owl-theme'>
+								<Package aPackage={aPackage} />
+								<Package aPackage={aPackage} />
+								<Package aPackage={aPackage} />
+								<Package aPackage={aPackage} />
+								<Package aPackage={aPackage} />
+							</div>
 						</div>
 					</div>
 				</div>

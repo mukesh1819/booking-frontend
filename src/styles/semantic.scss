@@ -5,8 +5,9 @@
 
     &.segment {
         margin-top: 0;
-        border: none;
+        border: none !important;
         box-shadow: none;
+        padding: 0;
     }
 
     .default {

@@ -69,7 +69,7 @@ class CompanyForm extends Component {
 								<form onSubmit={handleSubmit} autoComplete='off'>
 									<div className='input-section'>
 										<div className='field-box'>
-											<label> Name </label>
+											<label> Company Name </label>
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
 													name='company_name'
@@ -231,7 +231,7 @@ class CompanyForm extends Component {
 									</div>
 									<div class='text-center'>
 										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
-											Next
+											Submit
 										</button>
 									</div>
 								</form>

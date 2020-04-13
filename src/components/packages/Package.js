@@ -11,10 +11,7 @@ const Package = (props) => {
 				<figure>
 					<div className='overlay d-flex align-items-center justify-content-center'>
 						<div className='text-center'>
-							<Link to={`/package/${aPackage.id}`} className='btn btn-secondary btn-large'>
-								Submit Query
-							</Link>
-							<Link to={`/package/${aPackage.id}`} className='btn btn-large bg-none text-white'>
+							<Link to={`/package/${aPackage.id}`} className='btn btn-large btn-primary text-white'>
 								Details
 							</Link>
 						</div>
