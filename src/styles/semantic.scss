@@ -21,3 +21,11 @@
         width: max-content !important;
     }
 }
+
+[title~=Next],
+[title~=Previous] {
+
+    &[title~=year] {
+        display: none !important;
+    }
+}

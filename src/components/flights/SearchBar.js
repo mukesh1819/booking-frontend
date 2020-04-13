@@ -247,7 +247,7 @@ class SearchBar extends Component {
 											type='date'
 											date={values.strFlightDate}
 											minDate={new Date()}
-											maxDate={addDays(new Date(), 45)}
+											maxDate={addDays(new Date(), 365)}
 											onBlur={handleBlur}
 											onChange={(date) => setFieldValue('strFlightDate', date)}
 											value={values.strFlightDate}
@@ -276,7 +276,7 @@ class SearchBar extends Component {
 											type='date'
 											date={values.strReturnDate}
 											minDate={values.strFlightDate}
-											maxDate={addDays(new Date(), 45)}
+											maxDate={addDays(new Date(), 365)}
 											onBlur={handleBlur}
 											onChange={(date) => setFieldValue('strReturnDate', date)}
 											value={values.strReturnDate}

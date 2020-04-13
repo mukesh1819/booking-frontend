@@ -8,6 +8,7 @@ import {imageUrl} from '../../helpers';
 import {Tab} from 'semantic-ui-react';
 import {HotelImage, nepalVillage, peace} from '../../images';
 import Gallery from './Gallery';
+import {Redirect} from 'react-router-dom';
 
 class PackageDetails extends Component {
 	constructor(props) {
@@ -194,15 +195,14 @@ class PackageDetails extends Component {
 						</div>
 					</div>
 				</div>
-				<ModalExample
+				{/* <ModalExample
 					title={`Kindly submit the query form below to book your trip and we will contact you
 										with the confirmed itinerary.`}
 					show={this.state.showInquiryForm}
 					toggle={this.onSelect}
 					onSuccess={this.onBook}
-				>
-					{this.state.showInquiryForm && <InquiryForm aPackage={aPackage} />}
-				</ModalExample>
+				/> */}
+				{this.state.showInquiryForm && <Redirect to={{pathname: '/inqiury', state: {aPackage: aPackage}}} />}
 			</div>
 		);
 	}

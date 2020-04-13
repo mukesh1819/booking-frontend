@@ -64,8 +64,10 @@ const routing = (
 		<AppRoute path='/packages' component={PackageList} layout={UserLayout} />
 		<AppRoute path='/package/:id' component={PackageDetails} layout={UserLayout} />
 		<AppRoute path='/about' component={About} layout={UserLayout} />
+		<AppRoute path='/partners/new' component={BecomePartnerForm} layout={UserLayout} />
 		<AppRoute path='/support' component={CustomerSupport} layout={UserLayout} />
 		<AppRoute path='/not_verified' component={UserNotVerified} layout={UserLayout} />
+		<AppRoute path='/inquiry' component={InquiryForm} layout={UserLayout} />
 
 		<PrivateRoute path='/verify/:token' component={VerifyUser} layout={UserLayout} />
 		<PrivateRoute path='/passengers' component={PassengerForm} layout={UserLayout} />
@@ -77,7 +79,7 @@ const routing = (
 		<PrivateRoute path='/booking/:id' component={BookingDetails} layout={UserLayout} />
 		<PrivateRoute path='/booking/:idx/edit' component={EditBooking} layout={UserLayout} />
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} layout={UserLayout} />
-		<AppRoute path='/partners/new' component={BecomePartnerForm} layout={UserLayout} />
+
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} layout={UserLayout} />
 		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} layout={UserLayout} />
 		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} layout={UserLayout} />

@@ -201,7 +201,7 @@ class PartnerForm extends Component {
 								</div>
 								<div class='text-center'>
 									<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
-										Submit
+										Continue
 									</button>
 								</div>
 							</form>
