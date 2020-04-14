@@ -37,8 +37,9 @@ class InquiryForm extends Component {
 	}
 
 	render() {
-		const {countries, aPackage} = this.props;
+		const {countries} = this.props;
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
+		const aPackage = inquiry.package != null ? inquiry.package : this.props.location.state.aPackage;
 
 		const InquiriesSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
@@ -73,7 +74,7 @@ class InquiryForm extends Component {
 			package_id: inquiry.package != null ? inquiry.package.id : aPackage.id
 		};
 		return (
-			<div className='container'>
+			<div className='container bg-white'>
 				<Formik
 					initialValues={inquiryDetails}
 					validationSchema={InquiriesSchema}
@@ -92,7 +93,6 @@ class InquiryForm extends Component {
 										icon: 'Success',
 										button: 'Continue'
 									});
-									history.push();
 								})
 								.catch((error) => {
 									swal({
@@ -111,8 +111,9 @@ class InquiryForm extends Component {
 										text: response.data.message,
 										icon: 'Success',
 										button: 'Continue'
+									}).then((value) => {
+										history.push('/');
 									});
-									history.push();
 								})
 								.catch((error) => {
 									// console.log('inquiry create error', error);
@@ -148,7 +149,7 @@ class InquiryForm extends Component {
 								</div>
 							</div>
 							<form onSubmit={handleSubmit} autoComplete='off'>
-								<div className='input-section bg-body'>
+								<div className='input-section bg-white'>
 									<div className='row'>
 										<div className='col-12'>
 											<span className=''>Package Name: </span>&nbsp;
@@ -362,7 +363,7 @@ class InquiryForm extends Component {
 								</div>
 
 								<div className='traveller-details '>
-									<div className='input-section bg-body'>
+									<div className='input-section bg-white'>
 										<div className='row'>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>

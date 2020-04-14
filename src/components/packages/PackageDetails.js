@@ -198,7 +198,7 @@ class PackageDetails extends Component {
 					toggle={this.onSelect}
 					onSuccess={this.onBook}
 				/> */}
-				{this.state.showInquiryForm && <Redirect to={{pathname: '/inqiury', state: {aPackage: aPackage}}} />}
+				{this.state.showInquiryForm && <Redirect to={{pathname: '/inquiry', state: {aPackage: aPackage}}} />}
 			</div>
 		);
 	}
