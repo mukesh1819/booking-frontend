@@ -66,27 +66,22 @@ class BookingDetails extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.location.state !== undefined) {
-			this.setState({
-				booking: this.props.location.state.booking
-			});
-		} else {
-			getBookingDetails(this.props.match.params.id)
-				.then((response) => {
-					this.setState({
-						booking: response.data
-					});
-				})
-				.catch((error) => {
-					// console.log(error);
-					swal({
-						title: 'Booking fetch error',
-						text: `could not able to fetch booking.. please try again or contact us`,
-						icon: 'error',
-						button: 'Continue!'
-					});
+		getBookingDetails(this.props.match.params.id)
+			.then((response) => {
+				this.setState({
+					booking: response.data
 				});
-		}
+				console.log('BOOOOking', response.data);
+			})
+			.catch((error) => {
+				// console.log(error);
+				swal({
+					title: 'Booking fetch error',
+					text: `could not able to fetch booking.. please try again or contact us`,
+					icon: 'error',
+					button: 'Continue!'
+				});
+			});
 	}
 
 	render() {

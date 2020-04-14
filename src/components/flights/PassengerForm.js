@@ -112,7 +112,7 @@ class PassengerForm extends Component {
 							booking: {
 								outbound_flight: this.props.selectedOutboundFlight,
 								inbound_flight: this.props.selectedInboundFlight,
-								passengers_attributes: this.props.passengers,
+								passengers_attributes: values.passengers,
 								contact_name: values.user.name,
 								mobile_no: values.user.phone_number,
 								email: values.user.email

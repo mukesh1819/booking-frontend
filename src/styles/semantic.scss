@@ -9,10 +9,6 @@
         box-shadow: none;
         padding: 0;
     }
-
-    .default {
-        font-weight: normal;
-    }
 }
 
 .semantic-input-group {
@@ -28,5 +24,20 @@
 
     &[title~=year] {
         display: none !important;
+    }
+}
+
+.field-box {
+    .multiple {
+        display: flex !important;
+
+        .label {
+            display: flex !important;
+            align-items: center !important;
+        }
+    }
+
+    .default {
+        font-weight: normal;
     }
 }

@@ -30,14 +30,12 @@ const SearchDetails = ({details, onModify}) => {
 							{details.intAdult} Adult
 							{ifNotZero(details.intChild, `, ${details.intChild} Child`)}
 						</span>
+						<span className='btn text-primary bg-none' onClick={onModify}>
+							<i className='icon-edit' onClick={onModify} />&nbsp;Modify
+						</span>
 					</div>
 				</div>
-				<div>
-					<span className='btn text-secondary bg-none d-none d-md-block' onClick={onModify}>
-						Modify
-					</span>
-					<i className='icon-edit text-secondary d-md-none' onClick={onModify} />
-				</div>
+				<div />
 			</div>
 		</div>
 	);

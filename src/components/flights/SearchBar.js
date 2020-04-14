@@ -199,6 +199,7 @@ class SearchBar extends Component {
 										</div>
 									</div>
 									<div className='toggle-sector-desktop form-group'>
+										<label htmlFor=''>&nbsp;</label>
 										<i
 											className='menu fas fa-exchange-alt'
 											onClick={() => {
@@ -385,8 +386,9 @@ class SearchBar extends Component {
 										<ErrorMessage name='strNationality' />
 									</div>
 									<div className='field-box text-center'>
+										<label>&nbsp;</label>
 										<button
-											className='search-btn btn btn-secondary btn-large'
+											className='search-btn btn btn-primary btn-large'
 											type='submit'
 											disabled={isSubmitting}
 										>

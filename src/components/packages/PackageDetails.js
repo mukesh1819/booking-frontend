@@ -25,7 +25,6 @@ class PackageDetails extends Component {
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
 		this.onSelect = this.onSelect.bind(this);
-		this.onBook = this.onBook.bind(this);
 	}
 
 	componentDidMount() {
@@ -38,10 +37,6 @@ class PackageDetails extends Component {
 		});
 	}
 
-	onBook() {
-		console.log('TODO: On Package Book');
-	}
-
 	fetchDetails() {
 		const options = {
 			margin: 10,
@@ -49,10 +44,10 @@ class PackageDetails extends Component {
 			touchDrag: true,
 			rewind: true,
 			animateIn: true,
-			items: 1,
 			nav: false,
 			responsive: {
 				1000: {
+					items: 4,
 					nav: true,
 					navText: [
 						"<i class='fas fa-chevron-circle-left text-primary'></i>",
@@ -182,7 +177,7 @@ class PackageDetails extends Component {
 								</div>
 							</div>
 						</div>
-						<div className='col-12'>
+						<div className='col-12 p-0'>
 							<div className='header'>
 								<h3 className='py-3'>Similar Packages</h3>
 							</div>

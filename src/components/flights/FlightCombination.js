@@ -26,9 +26,9 @@ const FlightCombination = ({
 						</div>
 						<div className='flex-grow-1'>
 							<div className='d-flex no-padding'>
-								<span className=''>{inboundFlight.DepartureTime}</span>
+								<span className='text-bold'>{inboundFlight.DepartureTime}</span>
 								<span className='line-from-to' />
-								<span>{inboundFlight.ArrivalTime}</span>
+								<span className='text-bold'>{inboundFlight.ArrivalTime}</span>
 							</div>
 							<div className='d-flex justify-content-between'>
 								<span className='text-small text-muted'>{searchDetails.strSectorFrom}</span>
