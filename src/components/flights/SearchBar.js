@@ -10,7 +10,7 @@ import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import {connect} from 'react-redux';
-import {setFlights, setSearchDetails, setTTLtime, setError} from '../../redux/actions';
+import {setFlights, setSearchDetails, setTTLtime, setError, clearFlights} from '../../redux/actions';
 import history from '../../history';
 import {Container, Segment} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
@@ -116,6 +116,7 @@ class SearchBar extends Component {
 					initialValues={searchDetails}
 					validationSchema={SearchFlightSchema}
 					onSubmit={(values, {setSubmitting}) => {
+						this.props.clearFlights();
 						history.push('/flights');
 						this.setState({
 							isSubmitted: true,
@@ -414,6 +415,7 @@ const mapStateToProps = ({flightStore, extras}) => ({
 
 const mapDispatchToProps = {
 	setFlights,
+	clearFlights,
 	setSearchDetails,
 	setTTLtime,
 	setError

@@ -111,6 +111,9 @@ class FlightList extends Component {
 		// if (document.readyState == 'complete') {
 		// 	Tawk_API.hideWidget();
 		// }
+		this.setState({
+			loading: true
+		});
 	}
 
 	componentWillReceiveProps(nextProps) {

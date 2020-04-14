@@ -46,7 +46,7 @@ class BecomePartnerForm extends Component {
 						text: 'Your partnership request is being approved. We will contact you shortly',
 						icon: 'success',
 						button: 'Continue!'
-					});
+					}).then((value) => history.push('/'));
 				})
 				.catch((error) => {
 					// console.log('Create Partner Error', error);

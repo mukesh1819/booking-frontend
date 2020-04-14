@@ -92,9 +92,6 @@ class BookingDetails extends Component {
 				<div className='container bg-white'>
 					<div className='d-flex justify-content-between p-2'>
 						<h3 className='text-center text-success'> Tickets Details </h3>
-						<span className='btn btn-outline-secondary' onClick={this.toggleEdit}>
-							EDIT
-						</span>
 					</div>
 
 					<div className='row'>
@@ -298,7 +295,7 @@ class BookingDetails extends Component {
 					</div>
 					<div className='text-center p-4'>
 						<Link
-							className='btn btn-secondary btn-large'
+							className='btn btn-primary btn-large'
 							to={{
 								pathname: `/ticket/${booking.ruid}`,
 								state: {

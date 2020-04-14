@@ -317,7 +317,7 @@ class EditInquiry extends Component {
 																							onChange={(event, data) =>
 																								setFieldValue(
 																									'meals_included',
-																									data.value
+																									data.checked
 																								)}
 																							onBlur={handleBlur}
 																							className=''

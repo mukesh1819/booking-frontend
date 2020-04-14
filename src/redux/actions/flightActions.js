@@ -8,6 +8,10 @@ export const setFlights = flights => ({
     payload: flights
 });
 
+export const clearFlights = () => ({
+    type: "CLEAR_FLIGHTS",
+});
+
 export const selectInboundFlight = flight => ({
     type: "SELECT_INBOUND_FLIGHT",
     payload: flight

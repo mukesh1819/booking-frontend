@@ -204,7 +204,7 @@ class TicketDetails extends Component {
 						</div>
 					</div>
 					<div className='text-center py-4'>
-						<span onClick={() => downloadTicket(booking.ruid)} className='btn btn-secondary btn-large'>
+						<span onClick={() => downloadTicket(booking.ruid)} className='btn btn-primary btn-large'>
 							Print ticket
 						</span>
 					</div>

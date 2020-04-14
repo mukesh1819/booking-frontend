@@ -218,7 +218,7 @@ class CompanyForm extends Component {
 											className=''
 											onBlur={handleBlur}
 											onChange={(event, data) => {
-												setFieldValue('subscription', data.value);
+												setFieldValue('subscription', data.checked);
 											}}
 											checked={values.subscription}
 											label={{children: 'I, would like to subscribe to emails'}}
@@ -233,7 +233,7 @@ class CompanyForm extends Component {
 											className=''
 											onBlur={handleBlur}
 											onChange={(event, data) => {
-												setFieldValue('accept_terms', data.value);
+												setFieldValue('accept_terms', data.checked);
 											}}
 											checked={values.accept_terms}
 											label={{

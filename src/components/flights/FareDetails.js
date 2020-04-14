@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {isRefundable, ifNotZero} from '../../helpers';
+import {isRefundable, ifNotZero, ifGreaterThanOne} from '../../helpers';
 
 const FareDetails = (props) => {
 	const {flight, adult, child} = props;
@@ -27,12 +27,12 @@ const FareDetails = (props) => {
 					</li>
 				)}
 				<li>
-					Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({adult}
-					{ifNotZero(child, ` + ${child}`)})
+					Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x
+					{ifGreaterThanOne(adult + child, ` (${adult} + ${child})`)}
 				</li>
 				<li>
-					Tax: {flight.Currency} {flight.Tax} x ({adult}
-					{ifNotZero(child, ` + ${child}`)})
+					Tax: {flight.Currency} {flight.Tax} x
+					{ifGreaterThanOne(adult + child, ` (${adult} + ${child})`)}
 				</li>
 			</ul>
 		</div>

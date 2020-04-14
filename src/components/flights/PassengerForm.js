@@ -276,10 +276,7 @@ class PassengerForm extends Component {
 														placeholder=''
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															setFieldValue(
-																`passengers[${index}].nationality`,
-																data.value
-															);
+															setFieldValue(`passengers[${index}].title`, data.value);
 														}}
 														value={values.passengers[index].title}
 														fluid
@@ -347,10 +344,7 @@ class PassengerForm extends Component {
 														placeholder=''
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															setFieldValue(
-																`passengers[${index}].nationality`,
-																data.value
-															);
+															setFieldValue(`passengers[${index}].gender`, data.value);
 														}}
 														value={values.passengers[index].gender}
 														fluid
