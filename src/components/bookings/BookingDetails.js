@@ -138,28 +138,28 @@ class BookingDetails extends Component {
 													Total Fare: {flight.Currency} {booking.total_fare}
 												</div>
 												<div className='text-small text-muted'>
-													({booking.adult} Adult
-													{ifNotZero(booking.child, `, ${booking.child} Child`)})
+													({booking.no_of_adult} Adult
+													{ifNotZero(booking.no_of_child, `, ${booking.no_of_child} Child`)})
 												</div>
 											</span>
 											<ul className='text-muted text-small'>
-												{booking.adult > 0 && (
+												{booking.no_of_adult > 0 && (
 													<li>
-														Base Fare (1 Adult): {flight.Currency} {flight.AdultFare} x ({booking.adult})
+														Base Fare (1 Adult): {flight.Currency} {booking.adult_fare} x ({booking.no_of_adult})
 													</li>
 												)}
-												{booking.child > 0 && (
+												{booking.no_of_child > 0 && (
 													<li>
-														Base Fare (1 Child): {flight.Currency} {flight.ChildFare} x ({booking.child})
+														Base Fare (1 Child): {flight.Currency} {booking.child_fare} x ({booking.no_of_child})
 													</li>
 												)}
 												<li>
-													Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({booking.adult}
-													{ifNotZero(booking.child, ` + ${booking.child}`)})
+													Fuel Surcharge: {flight.Currency} {booking.fuel_surcharge} x ({booking.no_of_adult}
+													{ifNotZero(booking.no_of_child, ` + ${booking.no_of_child}`)})
 												</li>
 												<li>
-													Tax: {flight.Currency} {flight.Tax} x ({booking.adult}
-													{ifNotZero(booking.child, ` + ${booking.child}`)})
+													Tax: {flight.Currency} {booking.tax} x ({booking.no_of_adult}
+													{ifNotZero(booking.no_of_child, ` + ${booking.no_of_child}`)})
 												</li>
 											</ul>
 										</div>
