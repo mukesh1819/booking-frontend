@@ -20,7 +20,7 @@ const Package = (props) => {
 				</figure>
 			</a>
 			<div className='details'>
-				<Link to={`/package/${aPackage.id}`}>
+				<Link to={`/package/${aPackage.idx}`}>
 					<h3>{aPackage.name}</h3>
 				</Link>
 				<div className='d-flex justify-content-between align-items-center py-2'>

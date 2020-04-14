@@ -66,7 +66,7 @@ class PartnerList extends Component {
 										<td>
 											<Link
 												to={{
-													pathname: `/admin/partner/${partner.id}`,
+													pathname: `/admin/partner/${partner.idx}`,
 													state: {
 														partner: partner
 													}

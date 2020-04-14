@@ -40,7 +40,7 @@ class CategoriesForm extends Component {
 								});
 								console.log(values);
 								if (category.id != null) {
-									updateCategory(category.id, values)
+									updateCategory(category.idx, values)
 										.then((response) => {
 											setSubmitting(false);
 											// nextStep(response.data);

@@ -129,7 +129,7 @@ class PackageForm extends Component {
 							initialValues={partnerDetails}
 							onSubmit={(values, {setSubmitting}) => {
 								if (aPackage.id != null) {
-									updatePackage(aPackage.id, values)
+									updatePackage(aPackage.idx, values)
 										.then((response) => {
 											setSubmitting(false);
 											// nextStep(response.data);

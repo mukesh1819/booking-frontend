@@ -80,7 +80,7 @@ class PackageBookingDetails extends Component {
                                 <td>{packageBooking.meals_included}</td>
                                 <td>{packageBooking.remarks}</td>
 								<td>
-                                    <span className='btn btn-secondary' onClick={() => this.onConfirmPackageBooking(packageBooking.id)}>confirm</span>
+                                    <span className='btn btn-secondary' onClick={() => this.onConfirmPackageBooking(packageBooking.idx)}>confirm</span>
 								</td>
 							</tr>
 						</tbody>

@@ -102,7 +102,7 @@ class EditInquiry extends Component {
 									onSubmit={(values, {setSubmitting}) => {
 										// console.log('VALUES', values);
 										setSubmitting(false);
-										confirmInquiry(inquiry.id, values)
+										confirmInquiry(inquiry.idx, values)
 											.then((response) => {
 												// console.log('inquiry response',response.data);
 												swal({

@@ -31,7 +31,7 @@ class Dashboard extends Component {
 	 } 
 
 	fetchPartner = () => {
-		showPartner(this.props.currentUser.partner.id)
+		showPartner(this.props.currentUser.partner.idx)
 		.then((response) => {
 			this.setState({
 				partner: response.data

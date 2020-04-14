@@ -47,7 +47,7 @@ class InquiryDetails extends Component {
 								Edit
 							</Link>
 							{inquiry.status === 'pending' && (
-								<span className='btn btn-danger m-2' onClick={() => this.rejectUserPackage(inquiry.id)}>
+								<span className='btn btn-danger m-2' onClick={() => this.rejectUserPackage(inquiry.idx)}>
 									Reject
 								</span>
 							)}

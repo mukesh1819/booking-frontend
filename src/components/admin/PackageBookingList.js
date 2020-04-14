@@ -94,7 +94,7 @@ class PackageBookingList extends Component {
                                             <td>
                                                 <Link
                                                     to={{
-                                                        pathname: `/admin/package_booking_details/${packageBooking.id}`,
+                                                        pathname: `/admin/package_booking_details/${packageBooking.idx}`,
                                                         state: {
                                                             packageBooking: packageBooking
                                                         }

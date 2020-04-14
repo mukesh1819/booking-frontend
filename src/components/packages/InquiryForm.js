@@ -85,7 +85,7 @@ class InquiryForm extends Component {
 						setSubmitting(false);
 						// console.log(values);
 						if (inquiry.id != null) {
-							updateInquiry(inquiry.id, values)
+							updateInquiry(inquiry.idx, values)
 								.then((response) => {
 									swal({
 										title: 'Inquiry updated!',

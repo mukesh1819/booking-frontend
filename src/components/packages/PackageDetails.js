@@ -59,7 +59,7 @@ class PackageDetails extends Component {
 		};
 		showPackage(this.props.match.params.id)
 			.then((response) => {
-				console.log('PAckage DEtails', response);
+				console.log('Package Details', response);
 				this.setState({
 					aPackage: response.data
 				});
