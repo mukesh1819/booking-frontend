@@ -25,6 +25,8 @@ import TransactionList from './components/admin/TransactionList';
 import CreateUser from './components/admin/CreateUser';
 import UsersList from './components/admin/UsersList';
 import PackageBookingList from './components/admin/PackageBookingList';
+import FaqList from './components/admin/FaqList';
+import FaqForm from './components/admin/FaqForm';
 import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
@@ -87,7 +89,6 @@ const routing = (
 		<PrivateRoute path='/inquiry_form' component={InquiryForm} layout={UserLayout} />
 		<PrivateRoute path='/admin/edit_inquiry' component={EditInquiry} layout={UserLayout} />
 		<PrivateRoute path='/admin/package_booking_details/:id' component={PackageBookingDetails} layout={UserLayout} />
-		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} layout={UserLayout} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} layout={AdminLayout} />
@@ -100,8 +101,13 @@ const routing = (
 		<PrivateRoute path='/admin/inquiries' component={InquiryList} layout={AdminLayout} />
 		<PrivateRoute path='/admin/categories' component={CategoryList} layout={AdminLayout} />
 		<PrivateRoute path='/admin/package_booking' component={PackageBookingList} layout={AdminLayout} />
+		<PrivateRoute path='/admin/faqs' component={FaqList} layout={AdminLayout} />
 		<PrivateRoute path='/admin/category_details' component={CategoryDetail} layout={AdminLayout} />
 		<PrivateRoute path='/admin/category_form' component={CategoriesForm} layout={AdminLayout} />
+		<PrivateRoute path='/admin/faq/faq_form' component={FaqForm} layout={AdminLayout} />
+		<PrivateRoute path='/admin/faq/edit/:id' component={FaqForm} layout={AdminLayout} />
+		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} layout={AdminLayout} />
+
 		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} layout={AdminLayout} />
 		<PrivateRoute

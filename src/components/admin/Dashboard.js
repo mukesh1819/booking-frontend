@@ -30,7 +30,8 @@ class Dashboard extends Component {
 					partners: response.data.partners_count,
 					inquiries: response.data.inquiries_count,
 					categories: response.data.categories_count,
-					packageBooking: response.data.package_booking_count
+					packageBooking: response.data.package_booking_count,
+					faq: response.data.faq_count
 				});
 			})
 			.catch((error) => {
@@ -45,7 +46,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const {users, bookings, transactions, packages, partners, inquiries, categories, packageBooking} = this.state;
+		const {users, bookings, transactions, packages, partners, inquiries, categories, packageBooking, faq} = this.state;
 		const sideBarMenu = [
 			{
 				icon: 'fas fa-plane departure',
@@ -189,6 +190,21 @@ class Dashboard extends Component {
 										</div>
 									</div>
 								</div>
+
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'>{faq}</span>
+												<hr />
+												<Link to='/admin/faqs' className='action'>
+													View all Faqs
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>

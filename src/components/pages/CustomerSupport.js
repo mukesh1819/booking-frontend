@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {companyDetails} from '../../helpers';
 import {MailBox} from '../shared';
 import {Tab} from 'semantic-ui-react';
+import axios from 'axios';
+import {passCsrfToken, toTableData} from '../../helpers';
 import swal from 'sweetalert';
 import {getFaqs} from '../../api/supportApi';
 
@@ -11,6 +13,11 @@ class CustomerSupport extends Component  {
 		this.state={
 			faqs: []
 		}
+	}
+
+	componentDidMount(){
+		passCsrfToken(document, axios);
+		this.fetchFaqs();
 	}
 
 	fetchFaqs(params){
@@ -32,6 +39,7 @@ class CustomerSupport extends Component  {
 	
 
 	render(){
+		const {faqs} = this.state;
 		const panes = [
 			{
 				menuItem: 'Email Us',
@@ -102,6 +110,13 @@ class CustomerSupport extends Component  {
 					<div className='card'>
 						<div className='card-body'>
 							<h3 className='title'> Frequently Asked Questions.</h3>
+							{faqs.map((faq) => {
+								return(
+									<div className='row'>
+										<div>{faq.question}</div>
+									</div>
+								);
+							})}
 						</div>
 					</div>
 				</div>
