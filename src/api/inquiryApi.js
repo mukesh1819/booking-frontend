@@ -51,10 +51,10 @@ export function confirmInquiry(id, values) {
 	});
 }
 
-export function showPackageBooking(idx) {
+export function showPackageBooking(id) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/package_bookings/${idx}`
+		url: `${API_URL}/package_bookings/${id}`
 	});
 }
 
