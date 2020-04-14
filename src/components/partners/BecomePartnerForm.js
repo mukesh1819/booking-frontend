@@ -24,7 +24,7 @@ class BecomePartnerForm extends Component {
 		super(props);
 		this.state = {
 			values: {},
-			step: 1
+			step: 2
 		};
 	}
 
@@ -46,7 +46,7 @@ class BecomePartnerForm extends Component {
 						text: 'Your partnership request is being approved. We will contact you shortly',
 						icon: 'success',
 						button: 'Continue!'
-					});
+					}).then((value) => history.push('/'));
 				})
 				.catch((error) => {
 					// console.log('Create Partner Error', error);
@@ -61,6 +61,14 @@ class BecomePartnerForm extends Component {
 		}
 	};
 
+	prevStep = () => {
+		this.setState((prevState) => {
+			return {
+				step: (prevState.step -= 1)
+			};
+		});
+	};
+
 	render() {
 		const {step} = this.state;
 		return (
@@ -69,7 +77,9 @@ class BecomePartnerForm extends Component {
 					<div className='card-body'>
 						<Stepper step={step}>
 							{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
-							{step == 2 && <CompanyForm nextStep={(data) => this.nextStep(data)} />}
+							{step == 2 && (
+								<CompanyForm prevStep={this.prevStep} nextStep={(data) => this.nextStep(data)} />
+							)}
 						</Stepper>
 					</div>
 				</div>

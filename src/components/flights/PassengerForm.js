@@ -112,7 +112,7 @@ class PassengerForm extends Component {
 							booking: {
 								outbound_flight: this.props.selectedOutboundFlight,
 								inbound_flight: this.props.selectedInboundFlight,
-								passengers_attributes: this.props.passengers,
+								passengers_attributes: values.passengers,
 								contact_name: values.user.name,
 								mobile_no: values.user.phone_number,
 								email: values.user.email
@@ -276,10 +276,7 @@ class PassengerForm extends Component {
 														placeholder=''
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															setFieldValue(
-																`passengers[${index}].nationality`,
-																data.value
-															);
+															setFieldValue(`passengers[${index}].title`, data.value);
 														}}
 														value={values.passengers[index].title}
 														fluid
@@ -347,10 +344,7 @@ class PassengerForm extends Component {
 														placeholder=''
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															setFieldValue(
-																`passengers[${index}].nationality`,
-																data.value
-															);
+															setFieldValue(`passengers[${index}].gender`, data.value);
 														}}
 														value={values.passengers[index].gender}
 														fluid

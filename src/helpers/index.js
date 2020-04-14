@@ -10,7 +10,8 @@ import {
 	redirectUrl,
 	imageUrl,
 	toTableData,
-	ifNotZero
+	ifNotZero,
+	ifGreaterThanOne
 } from './general';
 import {flagFor, companyDetails} from './variables';
 
@@ -32,5 +33,6 @@ export {
 	toTableData,
 	ifNotZero,
 	flagFor,
-	companyDetails
+	companyDetails,
+	ifGreaterThanOne
 };

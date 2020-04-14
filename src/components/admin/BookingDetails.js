@@ -12,6 +12,9 @@ const BookingDetails = (props) => {
 					{bookings.map((booking) => {
 						return (
 							<React.Fragment>
+								{/* <span className='btn btn-outline-secondary' onClick={this.toggleEdit}>
+									EDIT
+								</span> */}
 								<div className='row'>
 									<div className='col-3'>
 										Flight Id - <p>{booking.flight_id}</p>

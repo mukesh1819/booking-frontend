@@ -116,3 +116,11 @@ export function ifNotZero(value, returnValue) {
 		return returnValue;
 	}
 }
+
+export function ifGreaterThanOne(value, returnValue) {
+	if (value > 1) {
+		return '';
+	} else {
+		return returnValue;
+	}
+}

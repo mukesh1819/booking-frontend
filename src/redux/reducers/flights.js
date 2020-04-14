@@ -1,4 +1,7 @@
-import {subDays, addDays} from '../../helpers';
+import {
+	subDays,
+	addDays
+} from '../../helpers';
 
 const tomorrow = addDays(new Date(), 1);
 
@@ -23,7 +26,7 @@ const initialState = {
 	ttlTime: 0
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
 	switch (action.type) {
 		case 'SET_SEARCH_DETAILS': {
 			return {
@@ -41,6 +44,18 @@ export default function(state = initialState, action) {
 				})
 			};
 		}
+
+		case 'CLEAR_FLIGHTS': {
+			return {
+				...state,
+				flights: Object.assign({}, state.flights, {
+					outbounds: [],
+					inboutnds: [],
+					combinations: []
+				})
+			};
+		}
+
 		case 'SELECT_INBOUND_FLIGHT': {
 			return {
 				...state,

@@ -11,10 +11,7 @@ const FlightDetails = (props) => {
 			<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
 				<span>
 					<img src={flight.AirlineLogo} className='p-2' />
-
-					<div className='text-center'>
-						{flight.FlightNo}({flight.FlightClassCode})
-					</div>
+					<div className='text-center'>{flight.FlightNo}</div>
 				</span>
 				<span className='text-center'>
 					<i className='fas fa-plane fa-2x departure text-primary' />
@@ -24,6 +21,9 @@ const FlightDetails = (props) => {
 					Class: {flight.FlightClassCode} |{' '}
 					<span className='text-info'> {isRefundable(flight.Refundable)}</span>
 					<div>FreeBaggage: {flight.FreeBaggage}</div>
+					<div>
+						{flight.FlightNo}({flight.FlightClassCode})
+					</div>
 				</span>
 			</div>
 			<hr />

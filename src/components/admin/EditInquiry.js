@@ -14,7 +14,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
 import {confirmInquiry} from '../../api/inquiryApi';
-import {Tab} from 'semantic-ui-react';
+import {Tab, Checkbox} from 'semantic-ui-react';
 
 class EditInquiry extends Component {
 	constructor(props) {
@@ -162,147 +162,190 @@ class EditInquiry extends Component {
 																render: () => (
 																	<Tab.Pane attached={false}>
 																		<div className='input-section bg-body'>
-																			<div className='field-box'>
-																				<label>Start Date</label>
+																			<div className='row'>
+																				<div className='col-12 col-md-6'>
+																					<div className='field-box'>
+																						<label className='d-block'>
+																							Start Date
+																						</label>
 
-																				<DatePicker
-																					name='start_date'
-																					className='form-control'
-																					type='date'
-																					date={values.start_date}
-																					minDate={new Date()}
-																					onBlur={handleBlur}
-																					onChange={(date) =>
-																						setFieldValue(
-																							'start_date',
-																							date
-																						)}
-																					value={values.start_date}
-																					placeholder='Arrival Date'
-																				/>
+																						<DatePicker
+																							name='start_date'
+																							className='form-control'
+																							type='date'
+																							date={values.start_date}
+																							minDate={new Date()}
+																							onBlur={handleBlur}
+																							onChange={(date) =>
+																								setFieldValue(
+																									'start_date',
+																									date
+																								)}
+																							value={values.start_date}
+																							placeholder='Arrival Date'
+																						/>
 
-																				<ErrorMessage name='start_date' />
+																						<ErrorMessage name='start_date' />
+																					</div>
+																				</div>
+																				<div className='col-12 col-md-6'>
+																					<div className='field-box'>
+																						<label className='d-block'>
+																							End Date
+																						</label>
+
+																						<DatePicker
+																							name='end_date'
+																							className='form-control'
+																							type='date'
+																							date={values.end_date}
+																							minDate={new Date()}
+																							onBlur={handleBlur}
+																							onChange={(date) =>
+																								setFieldValue(
+																									'end_date',
+																									date
+																								)}
+																							value={values.end_date}
+																							placeholder='Return Date'
+																						/>
+
+																						<ErrorMessage name='end_date' />
+																					</div>
+																				</div>
+																			</div>
+																			<div className='row'>
+																				<div className='col-12 col-md-6'>
+																					<div className='field-box'>
+																						<label className='d-block'>
+																							Pickup Date
+																						</label>
+
+																						<DatePicker
+																							name='pickup_date'
+																							className='form-control'
+																							type='date'
+																							date={values.pickup_date}
+																							minDate={new Date()}
+																							onBlur={handleBlur}
+																							onChange={(date) =>
+																								setFieldValue(
+																									'pickup_date',
+																									date
+																								)}
+																							value={values.pickup_date}
+																							placeholder='Pickup Date'
+																						/>
+
+																						<ErrorMessage name='pickup_date' />
+																					</div>
+																				</div>
+																				<div className='col-12 col-md-6'>
+																					<div className='field-box'>
+																						<label className='d-block'>
+																							Drop off Date
+																						</label>
+
+																						<DatePicker
+																							name='drop_off_date'
+																							className='form-control'
+																							type='date'
+																							date={values.drop_off_date}
+																							minDate={new Date()}
+																							onBlur={handleBlur}
+																							onChange={(date) =>
+																								setFieldValue(
+																									'drop_off_date',
+																									date
+																								)}
+																							value={values.drop_off_date}
+																							placeholder='Drop off Date'
+																						/>
+
+																						<ErrorMessage name='drop_off_date' />
+																					</div>
+																				</div>
+																			</div>
+																			<div className='row'>
+																				<div className='col-12 col-md-6'>
+																					<div className='field-box'>
+																						<label className='d-block'>
+																							Pickup location
+																						</label>
+
+																						<Field
+																							name='pickup_location'
+																							className='form-control'
+																							onBlur={handleBlur}
+																							onChange={handleChange}
+																							value={
+																								values.pickup_location
+																							}
+																						/>
+
+																						<ErrorMessage name='pickup_location' />
+																					</div>
+																				</div>
+																				<div className='col-12 col-md-6'>
+																					<div className='field-box'>
+																						<label className='d-block'>
+																							Drop off location
+																						</label>
+
+																						<Field
+																							name='drop_off_location'
+																							className='form-control'
+																							onBlur={handleBlur}
+																							onChange={handleChange}
+																							value={
+																								values.drop_off_location
+																							}
+																						/>
+
+																						<ErrorMessage name='drop_off_location' />
+																					</div>
+																				</div>
 																			</div>
 
-																			<div className='field-box'>
-																				<label className='d-block'>
-																					End Date
-																				</label>
-
-																				<DatePicker
-																					name='end_date'
-																					className='form-control'
-																					type='date'
-																					date={values.end_date}
-																					minDate={new Date()}
-																					onBlur={handleBlur}
-																					onChange={(date) =>
-																						setFieldValue('end_date', date)}
-																					value={values.end_date}
-																					placeholder='Return Date'
-																				/>
-
-																				<ErrorMessage name='end_date' />
+																			<div className='row'>
+																				<div className='col-12'>
+																					<div className='field-box'>
+																						<Checkbox
+																							name='meals_included'
+																							className=''
+																							label={'Meals Included?'}
+																							onChange={(event, data) =>
+																								setFieldValue(
+																									'meals_included',
+																									data.checked
+																								)}
+																							onBlur={handleBlur}
+																							className=''
+																							checked={
+																								values.meals_included
+																							}
+																						/>
+																						<ErrorMessage name='meals_included' />
+																					</div>
+																				</div>
 																			</div>
 
-																			<div className='field-box'>
-																				<label>Pickup Date</label>
+																			<div className='row'>
+																				<div className='col-12'>
+																					<div className='field-box'>
+																						<label>Remarks</label>
 
-																				<DatePicker
-																					name='pickup_date'
-																					className='form-control'
-																					type='date'
-																					date={values.pickup_date}
-																					minDate={new Date()}
-																					onBlur={handleBlur}
-																					onChange={(date) =>
-																						setFieldValue(
-																							'pickup_date',
-																							date
-																						)}
-																					value={values.pickup_date}
-																					placeholder='Pickup Date'
-																				/>
+																						<Field
+																							name='remarks'
+																							className='form-control'
+																							onBlur={handleBlur}
+																							onChange={handleChange}
+																							value={values.remarks}
+																						/>
 
-																				<ErrorMessage name='pickup_date' />
-																			</div>
-
-																			<div className='field-box'>
-																				<label>Pickup location</label>
-
-																				<Field
-																					name='pickup_location'
-																					className='form-control'
-																					onBlur={handleBlur}
-																					onChange={handleChange}
-																					value={values.pickup_location}
-																				/>
-
-																				<ErrorMessage name='pickup_location' />
-																			</div>
-
-																			<div className='field-box'>
-																				<label>Drop off Date</label>
-
-																				<DatePicker
-																					name='drop_off_date'
-																					className='form-control'
-																					type='date'
-																					date={values.drop_off_date}
-																					minDate={new Date()}
-																					onBlur={handleBlur}
-																					onChange={(date) =>
-																						setFieldValue(
-																							'drop_off_date',
-																							date
-																						)}
-																					value={values.drop_off_date}
-																					placeholder='Drop off Date'
-																				/>
-
-																				<ErrorMessage name='drop_off_date' />
-																			</div>
-
-																			<div className='field-box'>
-																				<label>Drop off location</label>
-
-																				<Field
-																					name='drop_off_location'
-																					className='form-control'
-																					onBlur={handleBlur}
-																					onChange={handleChange}
-																					value={values.drop_off_location}
-																				/>
-
-																				<ErrorMessage name='drop_off_location' />
-																			</div>
-
-																			<div className='field-box'>
-																				<label>Meals Included</label>
-																				<Field
-																					name='meals_included'
-																					className=''
-																					type='checkbox'
-																					checked={values.meals_included}
-																					onBlur={handleBlur}
-																					onChange={handleChange}
-																					value={values.meals_included}
-																				/>
-																				<ErrorMessage name='meals_included' />
-																			</div>
-
-																			<div className='field-box'>
-																				<label>Remarks</label>
-
-																				<Field
-																					name='remarks'
-																					className='form-control'
-																					onBlur={handleBlur}
-																					onChange={handleChange}
-																					value={values.remarks}
-																				/>
-
-																				<ErrorMessage name='remarks' />
+																						<ErrorMessage name='remarks' />
+																					</div>
+																				</div>
 																			</div>
 																		</div>
 																	</Tab.Pane>

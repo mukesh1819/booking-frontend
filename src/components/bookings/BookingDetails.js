@@ -66,27 +66,22 @@ class BookingDetails extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.location.state !== undefined) {
-			this.setState({
-				booking: this.props.location.state.booking
-			});
-		} else {
-			getBookingDetails(this.props.match.params.id)
-				.then((response) => {
-					this.setState({
-						booking: response.data
-					});
-				})
-				.catch((error) => {
-					// console.log(error);
-					swal({
-						title: 'Booking fetch error',
-						text: `could not able to fetch booking.. please try again or contact us`,
-						icon: 'error',
-						button: 'Continue!'
-					});
+		getBookingDetails(this.props.match.params.id)
+			.then((response) => {
+				this.setState({
+					booking: response.data
 				});
-		}
+				console.log('BOOOOking', response.data);
+			})
+			.catch((error) => {
+				// console.log(error);
+				swal({
+					title: 'Booking fetch error',
+					text: `could not able to fetch booking.. please try again or contact us`,
+					icon: 'error',
+					button: 'Continue!'
+				});
+			});
 	}
 
 	render() {
@@ -97,9 +92,6 @@ class BookingDetails extends Component {
 				<div className='container bg-white'>
 					<div className='d-flex justify-content-between p-2'>
 						<h3 className='text-center text-success'> Tickets Details </h3>
-						<span className='btn btn-outline-secondary' onClick={this.toggleEdit}>
-							EDIT
-						</span>
 					</div>
 
 					<div className='row'>
@@ -303,7 +295,7 @@ class BookingDetails extends Component {
 					</div>
 					<div className='text-center p-4'>
 						<Link
-							className='btn btn-secondary btn-large'
+							className='btn btn-primary btn-large'
 							to={{
 								pathname: `/ticket/${booking.ruid}`,
 								state: {

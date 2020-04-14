@@ -13,9 +13,9 @@ const Flight = ({type, flight, selected, onFlightSelect, onFlightDeselect, onVie
 				</div>
 				<div className='col-6 no-padding'>
 					<div className='d-flex justify-content-between'>
-						<span>{flight.DepartureTime}</span>
+						<span className='text-bold'>{flight.DepartureTime}</span>
 						<span className='line-from-to' />
-						<span>{flight.ArrivalTime}</span>
+						<span className='text-bold'>{flight.ArrivalTime}</span>
 					</div>
 					<div className='d-flex justify-content-between'>
 						<span className='text-small text-muted'>{searchDetails.strSectorFrom}</span>

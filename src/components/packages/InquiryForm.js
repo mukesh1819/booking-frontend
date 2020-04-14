@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Package from './Package';
 
 import {getCategories} from '../../api/categoryApi';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
@@ -13,7 +13,7 @@ import {Button, ButtonGroup} from 'react-bootstrap';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker} from '../shared';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import {Input} from 'semantic-ui-react';
+import {Input, Form, Checkbox} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {createInquiry, updateInquiry} from '../../api/inquiryApi';
@@ -37,8 +37,9 @@ class InquiryForm extends Component {
 	}
 
 	render() {
-		const {countries, aPackage} = this.props;
+		const {countries} = this.props;
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
+		const aPackage = inquiry.package != null ? inquiry.package : this.props.location.state.aPackage;
 
 		const InquiriesSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
@@ -73,7 +74,7 @@ class InquiryForm extends Component {
 			package_id: inquiry.package != null ? inquiry.package.id : aPackage.id
 		};
 		return (
-			<div className='container'>
+			<div className='container bg-white'>
 				<Formik
 					initialValues={inquiryDetails}
 					validationSchema={InquiriesSchema}
@@ -92,7 +93,6 @@ class InquiryForm extends Component {
 										icon: 'Success',
 										button: 'Continue'
 									});
-									history.push();
 								})
 								.catch((error) => {
 									swal({
@@ -111,8 +111,9 @@ class InquiryForm extends Component {
 										text: response.data.message,
 										icon: 'Success',
 										button: 'Continue'
+									}).then((value) => {
+										history.push('/');
 									});
-									history.push();
 								})
 								.catch((error) => {
 									// console.log('inquiry create error', error);
@@ -148,7 +149,7 @@ class InquiryForm extends Component {
 								</div>
 							</div>
 							<form onSubmit={handleSubmit} autoComplete='off'>
-								<div className='input-section bg-body'>
+								<div className='input-section bg-white'>
 									<div className='row'>
 										<div className='col-12'>
 											<span className=''>Package Name: </span>&nbsp;
@@ -207,29 +208,33 @@ class InquiryForm extends Component {
 										<div className='row'>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label>First Name</label>
-													<Field
-														name='first_name'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.first_name}
-														placeholder='First Name'
-													/>
+													<Form.Field>
+														<label>First Name</label>
+														<input
+															name='first_name'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.first_name}
+															placeholder='First Name'
+														/>
+													</Form.Field>
 													<ErrorMessage name='first_name' />
 												</div>
 											</div>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label>Last Name</label>
-													<Field
-														name='last_name'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.last_name}
-														placeholder='Last Name'
-													/>
+													<Form.Field>
+														<label>Last Name</label>
+														<input
+															name='last_name'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.last_name}
+															placeholder='Last Name'
+														/>
+													</Form.Field>
 													<ErrorMessage name='last_name' />
 												</div>
 											</div>
@@ -237,15 +242,17 @@ class InquiryForm extends Component {
 										<div className='row'>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label>Email Address</label>
-													<Field
-														name='email_address'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.email_address}
-														placeholder='Email Address'
-													/>
+													<Form.Field>
+														<label>Email Address</label>
+														<input
+															name='email_address'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.email_address}
+															placeholder='Email Address'
+														/>
+													</Form.Field>
 													<ErrorMessage name='email_address' />
 												</div>
 											</div>
@@ -295,15 +302,17 @@ class InquiryForm extends Component {
 											</div>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label>City</label>
-													<Field
-														name='city'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.city}
-														placeholder='City'
-													/>
+													<Form.Field>
+														<label>City</label>
+														<input
+															name='city'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.city}
+															placeholder='City'
+														/>
+													</Form.Field>
 													<ErrorMessage name='city' />
 												</div>
 											</div>
@@ -311,58 +320,55 @@ class InquiryForm extends Component {
 										<div className='row'>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label>Address</label>
-													<Field
-														name='address'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.address}
-														placeholder='Address'
-													/>
+													<Form.Field>
+														<label>Address</label>
+														<input
+															name='address'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.address}
+															placeholder='Address'
+														/>
+													</Form.Field>
 													<ErrorMessage name='address' />
 												</div>
 											</div>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label>Zip Code</label>
-													<Field
-														name='zip_code'
-														type='number'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.zip_code}
-														placeholder='Zip Code'
-													/>
+													<Form.Field>
+														<label>Zip Code</label>
+														<input
+															name='zip_code'
+															type='number'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.zip_code}
+															placeholder='Zip Code'
+														/>
+													</Form.Field>
 												</div>
 											</div>
 										</div>
 										<div className='col-12'>
 											<div className='field-box'>
-												<div className='row mt-3'>
-													<div>
-														<Field
-															name='traveller'
-															className=''
-															type='checkbox'
-															checked={values.traveller}
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.traveller}
-														/>
-													</div>
-													<div className='col-8 ml-0 pl-0 text-left d-flex align-top'>
-														<label>I am one of the traveller</label>
-													</div>
-												</div>
+												<Checkbox
+													label={'I am one of the traveller'}
+													onChange={(event, data) => setFieldValue('traveller', data.checked)}
+													name='traveller'
+													className=''
+													type='checkbox'
+													checked={values.traveller}
+													onBlur={handleBlur}
+												/>
 											</div>
 										</div>
 									</div>
 								</div>
 
 								<div className='traveller-details '>
-									<div className='input-section bg-body'>
+									<div className='input-section bg-white'>
 										<div className='row'>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
