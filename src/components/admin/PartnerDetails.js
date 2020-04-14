@@ -55,7 +55,7 @@ class PartnerDetails extends Component {
 				<div className='col-12 p-4'>
 					{partner.status === 'approved' && <span className='text-info'>Partner Created</span>}
 					{partner.status === 'processing' && (
-						<span className='btn btn-secondary' onClick={() => this.callPartnerConfirm(partner.id)}>
+						<span className='btn btn-secondary' onClick={() => this.callPartnerConfirm(partner.idx)}>
 							Confirm
 						</span>
 					)}

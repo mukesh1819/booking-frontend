@@ -135,14 +135,14 @@ class UpdateBooking extends Component {
 																<span
 																	className='btn  bg-none text-danger'
 																	onClick={() =>
-																		this.adminCancelRequest(passenger.id)}
+																		this.adminCancelRequest(passenger.idx)}
 																>
 																	cancel
 																</span>
 																<span
 																	className='btn bg-none text-secondary'
 																	onClick={() =>
-																		this.adminIgnoreRequest(passenger.id)}
+																		this.adminIgnoreRequest(passenger.idx)}
 																>
 																	ignore
 																</span>
