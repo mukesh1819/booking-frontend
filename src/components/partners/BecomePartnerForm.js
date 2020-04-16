@@ -24,7 +24,7 @@ class BecomePartnerForm extends Component {
 		super(props);
 		this.state = {
 			values: {},
-			step: 2
+			step: 1
 		};
 	}
 

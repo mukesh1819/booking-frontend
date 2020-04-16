@@ -114,7 +114,7 @@ class CustomerSupport extends Component {
 						<div className='text-center'>
 							<div>{companyDetails.email}</div>
 							<a href={`tel:${companyDetails.contact}`} className='btn btn-secondary btn-large m-2'>
-								+977 {companyDetails.contact}
+								{companyDetails.contact}
 							</a>
 						</div>
 					</Tab.Pane>

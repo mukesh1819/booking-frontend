@@ -103,7 +103,7 @@ class InquiryDetails extends Component {
 							</div>
 						</div>
 						<div className='text-center'>
-							<span className=' btn btn-secondary m-3' onClick={() => this.paymentPage()}>
+							<span className=' btn btn-primary m-3' onClick={() => this.paymentPage()}>
 								Continue to Payment
 							</span>
 						</div>

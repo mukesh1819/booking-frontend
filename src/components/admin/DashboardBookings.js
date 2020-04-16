@@ -5,14 +5,24 @@ import {getAdminBookings} from '../../api/flightApi';
 import BookingDetails from './BookingDetails';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
+import {Pagination} from 'semantic-ui-react';
+import moment from 'moment';
+import {ifNotZero} from '../../helpers';
+import {Badge} from '../shared';
 
 class DashboardBookings extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			bookings: []
+			bookings: [],
+			currentPage: 1
 		};
 	}
+
+	changeCurrentPage = (e, {activePage}) => {
+		this.setState({currentPage: activePage});
+		this.fetchBookings(`page=${activePage}`);
+	};
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
@@ -39,8 +49,9 @@ class DashboardBookings extends Component {
 	}
 
 	render() {
+		const {bookings} = this.state;
 		return (
-			<React.Fragment>
+			<div className='container'>
 				<div className='row my-3'>
 					<div className='col-7'>
 						<button
@@ -79,14 +90,26 @@ class DashboardBookings extends Component {
 						</button>
 					</div>
 					<div className='offset-3 col-2'>
-						<Link to='/admin/update_booking' className='btn btn-danger'>
+						<Link to='/admin/cancel_requests' className='btn btn-danger'>
 							Cancel Request
 						</Link>
 					</div>
 				</div>
+				<div>
+					{bookings.map((booking) => {
+						return <BookingDetails booking={booking} />;
+					})}
+				</div>
 
-				<BookingDetails bookings={this.state.bookings} />
-			</React.Fragment>
+				<div className='text-center'>
+					<Pagination
+						activePage={this.state.currentPage}
+						sizePerPage={5}
+						onPageChange={this.changeCurrentPage}
+						totalPages={this.state.bookings.length}
+					/>
+				</div>
+			</div>
 		);
 	}
 }

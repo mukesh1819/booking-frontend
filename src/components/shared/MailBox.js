@@ -67,7 +67,7 @@ export default ({values}) => {
 							style={{minHeight: 100}}
 							value={values.description}
 						/>
-						<button className='btn btn-secondary' type='submit' disabled={isSubmitting}>
+						<button className='btn btn-primary' type='submit' disabled={isSubmitting}>
 							Submit
 						</button>
 					</Form>

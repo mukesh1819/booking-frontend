@@ -109,12 +109,8 @@ const routing = (
 		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} layout={AdminLayout} />
 
 		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} layout={AdminLayout} />
-		<PrivateRoute path='/admin/update_booking' component={UpdateBooking} layout={AdminLayout} />
-		<PrivateRoute
-			path='/admin/dashboard_bookings'
-			component={DashboardBookings}
-			layout={UserLayout}
-		/>
+		<PrivateRoute path='/admin/cancel_requests' component={UpdateBooking} layout={AdminLayout} />
+		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} layout={UserLayout} />
 		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/email' component={UserEmail} layout={AdminLayout} />
 		<PrivateRoute path='/admin' component={Dashboard} layout={AdminLayout} />

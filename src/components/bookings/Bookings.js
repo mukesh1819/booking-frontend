@@ -8,8 +8,6 @@ import {passCsrfToken, ifNotZero, getDuration} from '../../helpers';
 import moment from 'moment';
 import {EmptyContent} from '../shared';
 import {Badge} from '../shared';
-import Pagination from 'react-pagination-js';
-import 'react-pagination-js/dist/styles.css'; // import css
 import swal from 'sweetalert';
 import {Timer} from '../shared';
 
@@ -18,8 +16,7 @@ class Bookings extends Component {
 		super(props);
 
 		this.state = {
-			transactions: [],
-			currentPage: 1
+			transactions: []
 		};
 	}
 
@@ -125,13 +122,6 @@ class Bookings extends Component {
 							</div>
 						);
 					})}
-				</div>
-				<div className='text-center'>
-					<Pagination
-						currentPage={this.state.currentPage}
-						totalPages={10}
-						changeCurrentPage={this.changeCurrentPage}
-					/>
 				</div>
 			</div>
 		);

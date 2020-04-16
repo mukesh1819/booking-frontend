@@ -221,7 +221,7 @@ class CompanyForm extends Component {
 												setFieldValue('subscription', data.checked);
 											}}
 											checked={values.subscription}
-											label={{children: 'I, would like to subscribe to emails'}}
+											label={{children: 'I would like to subscribe to emails'}}
 										/>
 										<ErrorMessage name='subscription' />
 									</div>

@@ -7,18 +7,16 @@ const Package = (props) => {
 
 	return (
 		<div className='card-widget'>
-			<a href={imageUrl(aPackage.images[0])} className='image-popup'>
-				<figure>
-					<div className='overlay d-flex align-items-center justify-content-center'>
-						<div className='text-center'>
-							<Link to={`/package/${aPackage.id}`} className='btn btn-large btn-primary text-white'>
-								Details
-							</Link>
-						</div>
+			<figure>
+				<div className='overlay d-flex align-items-center justify-content-center'>
+					<div className='text-center'>
+						<Link to={`/package/${aPackage.id}`} className='btn btn-large btn-primary text-white'>
+							Details
+						</Link>
 					</div>
-					<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
-				</figure>
-			</a>
+				</div>
+				<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+			</figure>
 			<div className='details'>
 				<Link to={`/package/${aPackage.idx}`}>
 					<h3>{aPackage.name}</h3>

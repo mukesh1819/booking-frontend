@@ -459,7 +459,7 @@ class InquiryForm extends Component {
 
 												<div className='text-center'>
 													<button
-														className='btn btn-secondary m-2'
+														className='btn btn-primary m-2'
 														type='submit'
 														disabled={isSubmitting}
 													>

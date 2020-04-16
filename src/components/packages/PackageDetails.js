@@ -164,13 +164,17 @@ class PackageDetails extends Component {
 										{aPackage.inclusions && (
 											<div className='col-12 col-md-6'>
 												<h3 className='title'>Inclusions</h3>
-												{aPackage.inclusions}
+												{aPackage.inclusions
+													.split('\n')
+													.map((item, i) => <p key={i}>{item}</p>)}
 											</div>
 										)}
 										{aPackage.exclusions && (
 											<div className='col-12 col-md-6'>
 												<h3 className='title'>Exclusions</h3>
-												{aPackage.exclusions}
+												{aPackage.exclusions
+													.split('\n')
+													.map((item, i) => <p key={i}>{item}</p>)}
 											</div>
 										)}
 									</div>

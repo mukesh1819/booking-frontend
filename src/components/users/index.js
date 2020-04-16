@@ -28,7 +28,7 @@ export default class Users extends Component {
 		const {ActiveComponent} = this.props.location.state || this.state;
 		const sideBarMenu = [
 			{
-				icon: 'icon-beamed-note',
+				icon: 'fas fa-user',
 				name: 'profile',
 				label: 'Profile',
 				value: '',
@@ -37,7 +37,7 @@ export default class Users extends Component {
 				active: true
 			},
 			{
-				icon: 'icon-user',
+				icon: 'fas fa-book',
 				name: 'bookings',
 				label: 'My Bookings',
 				value: '',
