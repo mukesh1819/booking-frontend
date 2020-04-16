@@ -55,7 +55,7 @@ class InquiryDetails extends Component {
 										<div className='card-header'>
 											<h3>Your Inquiry Details </h3>
 										</div>
-										<div className='card-body d-flex justify-content-around flex-wrap'>
+										<div className='card-body'>
 											{packageBookingInfo.inquiry !== null && (
 												<Inquiry
 													inquiry={packageBookingInfo.inquiry}

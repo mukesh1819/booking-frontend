@@ -46,7 +46,7 @@ class Timer extends Component {
 	render() {
 		const {minutes, seconds} = this.state;
 		return (
-			<div className='timer'>
+			<div>
 				{minutes === 0 && seconds === 0 ? (
 					<span>Time's up!</span>
 				) : (

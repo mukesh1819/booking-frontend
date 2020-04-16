@@ -400,6 +400,10 @@ section {
     padding: 8px 50px;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .select-countries {
     max-height: 400px;
 
@@ -460,6 +464,15 @@ section {
         padding: 8px;
         z-index: 20;
         color: white;
+    }
+}
+
+.widget {
+
+    i {
+        &.active {
+            color: $primary;
+        }
     }
 }
 
@@ -636,5 +649,13 @@ footer {
 
             }
         }
+    }
+}
+
+
+// Customer Support
+.search-faq {
+    .input {
+        width: 100%;
     }
 }

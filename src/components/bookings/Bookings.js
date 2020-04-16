@@ -100,19 +100,28 @@ class Bookings extends Component {
 													<span className='text-small text-muted px-2'>
 														<i className='fas fa-male' />&nbsp;
 														{booking.no_of_adult} Adult
-														{ifNotZero(booking.no_of_child, `, ${booking.no_of_child} Child`)}
+														{ifNotZero(
+															booking.no_of_child,
+															`, ${booking.no_of_child} Child`
+														)}
 													</span>
 												</div>
-											</div>
-											<div className='text-danger'>
-												<Timer ttlTime={getDuration(booking.reservation_time)} />
-											</div>
-											<div>
-												<Badge type={booking.status}>{booking.status}</Badge>
 											</div>
 										</Link>
 									);
 								})}
+								{transaction.bookings[0] !== undefined && (
+									<div>
+										<div className='text-danger'>
+											<Timer ttlTime={getDuration(transaction.bookings[0].reservation_time)} />
+										</div>
+										<div>
+											<Badge type={transaction.bookings[0].status}>
+												{transaction.bookings[0].status}
+											</Badge>
+										</div>
+									</div>
+								)}
 							</div>
 						);
 					})}
