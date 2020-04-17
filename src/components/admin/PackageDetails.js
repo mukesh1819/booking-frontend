@@ -38,7 +38,6 @@ class PackageDetails extends Component {
 	render() {
 		const {aPackage} = this.props.location.state;
 		const {published} = this.state;
-
 		return (
 			<div className='container'>
 				<div className=''>
@@ -80,7 +79,7 @@ class PackageDetails extends Component {
 								<td>{aPackage.inclusions}</td>
 								<td>{aPackage.exclusions}</td>
 								<td>
-									<Checkbox checked={published} onChange={this.handleChange} />
+									{aPackage.published === false && <Checkbox checked={published} onChange={this.handleChange} />}
 								</td>
 								<td>
 									<Link

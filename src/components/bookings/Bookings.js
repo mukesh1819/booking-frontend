@@ -22,7 +22,7 @@ class Bookings extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		getBookings()
+		getBookings(`q[booking_type_eq]=FLIGHT`)
 			.then((response) => {
 				console.log('Bookings List', response);
 				this.setState({

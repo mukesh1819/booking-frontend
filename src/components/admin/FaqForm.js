@@ -20,6 +20,13 @@ class FaqForm extends Component{
 
     render(){
         const {faq} = this.props.location.state != null ? this.props.location.state : {faq: {}};
+
+        const FaqSchema = yup.object().shape({
+			question: yup.string().required('Required'),
+			answer: yup.string().required('Required'),
+			category: yup.string().required('Required')
+		});
+
         const faqDetails = {
 			question: faq.question,
             answer: faq.answer,
@@ -28,7 +35,8 @@ class FaqForm extends Component{
         return(
             <div className='container'>
 				<Formik
-					initialValues={faqDetails}
+                    initialValues={faqDetails}
+                    validationSchema={FaqSchema}
     					onSubmit={(values, {setSubmitting}) => {
 						this.setState({
 							searching: true
