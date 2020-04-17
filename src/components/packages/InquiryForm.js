@@ -288,14 +288,7 @@ class InquiryForm extends Component {
 														fluid
 														search
 														selection
-														options={countries.map(function(country) {
-															return {
-																key: country.id,
-																value: country.country_char,
-																flag: country.country_char.toLowerCase(),
-																text: country.name
-															};
-														})}
+														options={countries}
 													/>
 													<ErrorMessage name='nationality' />
 												</div>

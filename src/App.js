@@ -30,7 +30,17 @@ function App(props) {
 				getCountries()
 					.then((response) => {
 						console.log('Contries', response);
-						props.setCountries(response.data);
+						var countries = response.data.map(function(country) {
+							return {
+								key: country.id,
+								value: country.country_char,
+								flag: country.country_char.toLowerCase(),
+								text: country.name,
+								currency: country.currency_char,
+								code: country.country_code
+							};
+						});
+						props.setCountries(countries);
 					})
 					.catch((error) => {
 						console.log(error);

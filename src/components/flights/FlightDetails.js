@@ -21,9 +21,7 @@ const FlightDetails = (props) => {
 					Class: {flight.FlightClassCode} |{' '}
 					<span className='text-info'> {isRefundable(flight.Refundable)}</span>
 					<div>Check-in Baggage: {flight.FreeBaggage}</div>
-					<div>
-						Flight: {flight.FlightNo}({flight.FlightClassCode})
-					</div>
+					<div>Flight: {flight.FlightNo}</div>
 				</span>
 			</div>
 			<hr />

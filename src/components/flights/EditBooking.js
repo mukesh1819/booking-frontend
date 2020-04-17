@@ -310,14 +310,7 @@ class EditBooking extends Component {
 															fluid
 															search
 															selection
-															options={this.props.countries.map(function(country) {
-																return {
-																	key: country.id,
-																	value: country.country_char,
-																	flag: country.country_char.toLowerCase(),
-																	text: country.name
-																};
-															})}
+															options={this.props.countries}
 														/>
 													</div>
 												</div>

@@ -53,7 +53,7 @@ class UserDetailCard extends Component {
 	render() {
 		const {updated} = this.state;
 		const {user, countries} = this.props;
-		const sortedCountries = sortObjectBy(countries, 'country_code');
+		const sortedCountries = sortObjectBy(countries, 'value');
 
 		return (
 			<div className='row'>
@@ -93,42 +93,34 @@ class UserDetailCard extends Component {
 						value={`${user.code == null ? '' : user.code} ${user.phone_number}`}
 						onSubmit={(value) => this.update({id: user.id, phone_number: value})}
 					/>
-					<Editable
+					{/* <Editable
 						edit={updated}
 						label='Currency'
 						value={user.currency}
 						name='currency'
 						type='select'
-						options={countries
+						options={sortedCountries
 							.filter((country) => {
 								return country.currency_char !== null;
 							})
 							.map((country) => {
 								if (country.currency_char !== null) {
 									return {
-										key: country.id,
-										flag: country.country_char.toLowerCase(),
-										value: country.currency_char,
-										text: country.currency_char
+										...country,
+										value: country.currency,
+										text: country.currency
 									};
 								}
 							})}
 						onSubmit={(value) => this.update({id: user.id, currency: value})}
-					/>
+					/> */}
 					<Editable
 						edit={updated}
 						label='Nationality'
 						name='nationality'
 						value={user.country}
 						type='select'
-						options={countries.map((country) => {
-							return {
-								key: country.id,
-								flag: country.country_char.toLowerCase(),
-								value: country.name,
-								text: country.name
-							};
-						})}
+						options={countries}
 						onSubmit={(value) => this.update({id: user.id, country: value})}
 					/>
 				</div>

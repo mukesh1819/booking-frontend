@@ -44,7 +44,17 @@ class PackageDetails extends Component {
 				<div className=''>
 					<div className='d-flex justify-content-between'>
 						<h3>Details</h3>
-						<span className='btn btn-outline-primary'>Edit</span>
+						<Link
+							to={{
+								pathname: `/admin/package_form`,
+								state: {
+									aPackage: aPackage
+								}
+							}}
+							className='btn btn-outline-primary'
+						>
+							Edit
+						</Link>
 					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
@@ -62,7 +72,6 @@ class PackageDetails extends Component {
 								<th>Inclusions</th>
 								<th>Exclusions</th>
 								<th>Published</th>
-								<th>Actions</th>
 							</tr>
 						</thead>
 
@@ -81,20 +90,6 @@ class PackageDetails extends Component {
 								<td>{aPackage.exclusions}</td>
 								<td>
 									<Checkbox checked={published} onChange={this.handleChange} />
-								</td>
-								<td>
-									<Link
-										to={{
-											pathname: `/admin/partners/package_form`,
-											state: {
-												aPackage: aPackage
-											}
-										}}
-									>
-										{' '}
-										Edit
-									</Link>
-									
 								</td>
 							</tr>
 						</tbody>

@@ -94,13 +94,7 @@ class PassengerForm extends Component {
 			return <Redirect to='/' />;
 		}
 
-		var sortedCountries = this.props.countries.map((country) => {
-			return {
-				country_char: country.country_char,
-				country_code: country.country_code
-			};
-		});
-		sortedCountries = sortObjectBy(sortedCountries, 'country_code');
+		var sortedCountries = sortObjectBy(this.props.countries, 'code');
 
 		var content = (
 			<Container className='p-0'>
@@ -182,10 +176,9 @@ class PassengerForm extends Component {
 													selection
 													options={sortedCountries.map((country) => {
 														return {
-															key: country.id,
-															value: country.country_code,
-															text: country.country_code,
-															flag: country.country_char.toLowerCase()
+															...country,
+															value: country.code,
+															text: country.code
 														};
 													})}
 												/>
@@ -403,14 +396,7 @@ class PassengerForm extends Component {
 														fluid
 														search
 														selection
-														options={this.props.countries.map(function(country) {
-															return {
-																key: country.id,
-																value: country.country_char,
-																flag: country.country_char.toLowerCase(),
-																text: country.name
-															};
-														})}
+														options={this.props.countries}
 													/>
 												</div>
 											</div>

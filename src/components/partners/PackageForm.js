@@ -67,15 +67,19 @@ class PackageForm extends Component {
 	}
 
 	render() {
-		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {images: []}};
-		const {categories, activities_attributes} = this.state;
-		const {countries, nextStep} = this.props;
-
 		const activity = {
 			description: '',
 			duration: '',
 			price: 100.0
 		};
+
+		const {aPackage} =
+			this.props.location.state != null
+				? this.props.location.state
+				: {aPackage: {images: [], activities: [activity]}};
+		console.log('Package Details', aPackage);
+		const {categories, activities_attributes} = this.state;
+		const {countries, nextStep} = this.props;
 
 		const packageDetails = {
 			name: aPackage.name,
@@ -87,7 +91,7 @@ class PackageForm extends Component {
 			exclusions: aPackage.exclusions,
 			images: [],
 			category_id: aPackage.category != null ? aPackage.category.id : '',
-			activities_attributes: [activity]
+			activities_attributes: aPackage.activities
 		};
 
 		const PackageSchema = yup.object().shape({

@@ -39,13 +39,13 @@ class UserLayout extends Component {
 				value: '',
 				link: '/profile'
 			},
-			{
-				icon: 'fas fa-money-bill-alt',
-				name: 'currency',
-				label: 'Currency',
-				value: currency,
-				link: '/profile'
-			},
+			// {
+			// 	icon: 'fas fa-money-bill-alt',
+			// 	name: 'currency',
+			// 	label: 'Currency',
+			// 	value: currency,
+			// 	link: '/profile'
+			// },
 			{
 				icon: 'icon-user',
 				name: 'settings',

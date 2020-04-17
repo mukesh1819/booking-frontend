@@ -303,7 +303,7 @@ class SearchBar extends Component {
 										</IconInput> */}
 										<Dropdown
 											name=''
-											placeholder='Select Country'
+											placeholder=''
 											icon='icon-users'
 											className='icon btn-dropdown travellers'
 											fluid
@@ -363,14 +363,7 @@ class SearchBar extends Component {
 											search
 											selection
 											selectOnBlur={false}
-											options={countries.map(function(country) {
-												return {
-													key: country.id,
-													value: country.country_char,
-													flag: country.country_char.toLowerCase(),
-													text: country.name
-												};
-											})}
+											options={countries}
 										/>
 										<ErrorMessage name='strNationality' />
 									</div>

@@ -294,7 +294,7 @@ class BookingDetails extends Component {
 						</div>
 					</div>
 					<div className='text-center p-4'>
-						{boooking.status == 'confirmed' && (
+						{booking.status == 'confirmed' && (
 							<Link
 								className='btn btn-primary btn-large'
 								to={{
@@ -308,7 +308,7 @@ class BookingDetails extends Component {
 							</Link>
 						)}
 
-						{boooking.status == 'pending' && (
+						{booking.status == 'pending' && (
 							<Link
 								className='btn btn-primary btn-large'
 								to={{

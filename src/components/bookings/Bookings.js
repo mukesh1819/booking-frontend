@@ -59,7 +59,8 @@ class Bookings extends Component {
 				<div className='card-body'>
 					<h3 className='title'>Bookings</h3>
 					{transactions.map((transaction) => {
-						var bookings = [transaction.bookings];
+						var bookings = transaction.bookings;
+						console.log('Bookings', bookings);
 						return (
 							<div className='transaction'>
 								{bookings.map(function(booking) {
@@ -68,17 +69,8 @@ class Bookings extends Component {
 									}
 
 									return (
-										<Link
-											key={booking.ruid}
-											className='booking d-flex justify-content-between align-items-center p-3'
-											to={{
-												pathname: `/booking/${booking.ruid}`,
-												state: {
-													booking: booking
-												}
-											}}
-										>
-											<div>
+										<div className='booking d-flex justify-content-between align-items-center p-3'>
+											<div key={booking.ruid} className=''>
 												<div className=''>
 													<span className='px-2'>{`${booking.departure}`}</span>
 													<i className='fas fa-arrow-right' />
@@ -105,21 +97,53 @@ class Bookings extends Component {
 													</span>
 												</div>
 											</div>
-										</Link>
+											{transaction.bookings[0] !== undefined && (
+												<div>
+													{transaction.bookings[0].status == 'pending' && (
+														<Link
+															to={{
+																pathname: `/ticket/${transaction.bookings[0].ruid}`,
+																state: {
+																	booking: booking
+																}
+															}}
+															className='btn bg-none text-primary'
+														>
+															Continue to Payment
+														</Link>
+													)}
+
+													{transaction.bookings[0].status == 'confirmed' && (
+														<Link
+															to={{
+																pathname: `/ticket/${transaction.bookings[0].ruid}`,
+																state: {
+																	booking: booking
+																}
+															}}
+															className='btn bg-none text-primary'
+														>
+															View Ticket
+														</Link>
+													)}
+
+													<div className='text-danger text-center'>
+														<Timer
+															ttlTime={getDuration(
+																transaction.bookings[0].reservation_time
+															)}
+														/>
+													</div>
+													{/* <div>
+														<Badge type={transaction.bookings[0].status}>
+															{transaction.bookings[0].status}
+														</Badge>
+													</div> */}
+												</div>
+											)}
+										</div>
 									);
 								})}
-								{transaction.bookings[0] !== undefined && (
-									<div>
-										<div className='text-danger'>
-											<Timer ttlTime={getDuration(transaction.bookings[0].reservation_time)} />
-										</div>
-										<div>
-											<Badge type={transaction.bookings[0].status}>
-												{transaction.bookings[0].status}
-											</Badge>
-										</div>
-									</div>
-								)}
 							</div>
 						);
 					})}
