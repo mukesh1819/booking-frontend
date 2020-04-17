@@ -83,12 +83,13 @@ const routing = (
 		<PrivateRoute path='/ticket/:id' component={TicketDetails} layout={UserLayout} />
 
 		<PrivateRoute path='/partners/package_form/:partnerId' component={AddPackageForm} layout={UserLayout} />
-		<PrivateRoute path='/admin/partners/package_form' component={NewPackageForm} layout={UserLayout} />
+		<PrivateRoute path='/admin/package_form' component={NewPackageForm} layout={UserLayout} />
 		<PrivateRoute path='/admin/partners/:id' component={PartnerProfile} layout={UserLayout} />
 		<PrivateRoute path='/inquiry_details/:idx' component={PackageInquiryDetails} layout={UserLayout} />
 		<PrivateRoute path='/inquiry_form' component={InquiryForm} layout={UserLayout} />
 		<PrivateRoute path='/admin/edit_inquiry' component={EditInquiry} layout={UserLayout} />
 		<PrivateRoute path='/admin/package_booking_details/:id' component={PackageBookingDetails} layout={UserLayout} />
+		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} layout={UserLayout} />
 
 		<PrivateRoute path='/admin/transaction_details' component={TransactionDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/transaction_list' component={TransactionList} layout={AdminLayout} />
@@ -106,7 +107,6 @@ const routing = (
 		<PrivateRoute path='/admin/category_form' component={CategoriesForm} layout={AdminLayout} />
 		<PrivateRoute path='/admin/faq/faq_form' component={FaqForm} layout={AdminLayout} />
 		<PrivateRoute path='/admin/faq/edit/:id' component={FaqForm} layout={AdminLayout} />
-		<PrivateRoute path='/payment_success/:idx' component={PaymentSuccess} layout={AdminLayout} />
 
 		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/cancel_requests' component={UpdateBooking} layout={AdminLayout} />

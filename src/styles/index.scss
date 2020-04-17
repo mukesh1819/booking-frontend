@@ -108,6 +108,10 @@ li {
     margin: 0;
 }
 
+label {
+    margin-top: 0.5rem;
+}
+
 .bg {
 
     &-primary-light {
@@ -300,6 +304,11 @@ section {
 
     .modal-body {
         padding: 0px;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
     }
 }
 

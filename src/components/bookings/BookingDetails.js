@@ -294,17 +294,33 @@ class BookingDetails extends Component {
 						</div>
 					</div>
 					<div className='text-center p-4'>
-						<Link
-							className='btn btn-primary btn-large'
-							to={{
-								pathname: `/ticket/${booking.ruid}`,
-								state: {
-									booking: booking
-								}
-							}}
-						>
-							View ticket
-						</Link>
+						{boooking.status == 'confirmed' && (
+							<Link
+								className='btn btn-primary btn-large'
+								to={{
+									pathname: `/ticket/${booking.ruid}`,
+									state: {
+										booking: booking
+									}
+								}}
+							>
+								View ticket
+							</Link>
+						)}
+
+						{boooking.status == 'pending' && (
+							<Link
+								className='btn btn-primary btn-large'
+								to={{
+									pathname: `/ticket/${booking.ruid}`,
+									state: {
+										booking: booking
+									}
+								}}
+							>
+								Continue to Payment
+							</Link>
+						)}
 					</div>
 				</div>
 			</React.Fragment>

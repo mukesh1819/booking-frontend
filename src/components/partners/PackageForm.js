@@ -6,10 +6,7 @@ import ErrorMessage from '../ErrorMessage';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb} from '../shared';
 import {createPackage, updatePackage} from '../../api/packageApi';
 import {getCategories} from '../../api/categoryApi';
-import {getPackages} from '../../api/packageApi';
-import {getPartners} from '../../api/partnerApi';
 import {BASE_URL} from '../../constants';
-import {Package} from '../packages';
 import swal from 'sweetalert';
 import {setError} from '../../redux/actions';
 
@@ -18,8 +15,6 @@ class PackageForm extends Component {
 		super(props);
 		this.state = {
 			categories: [],
-			packages: [],
-			partners: [],
 			activities_attributes: []
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
@@ -46,33 +41,6 @@ class PackageForm extends Component {
 				});
 			});
 
-		var partnerId = this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId;
-		getPackages(`q[partner_id_eq]=${partnerId}`)
-			.then((res) => {
-				this.setState({
-					packages: res.data
-				});
-			})
-			.catch((error) => {
-				this.props.setError('could not able to fetch package. please try again or contact us');
-			});
-
-		getPartners()
-			.then((response) => {
-				// console.log('Partners List', response.data);
-				this.setState({
-					partners: response.data
-				});
-			})
-			.catch((error) => {
-				// console.log('PARTNER FETCH ERROR');
-				swal({
-					title: 'Partner fetch error!',
-					text: 'could not able to fetch partner. please try again or contact us',
-					icon: 'error',
-					button: 'Try Again!'
-				});
-			});
 		const options = {
 			margin: 10,
 			loop: true,
@@ -99,7 +67,7 @@ class PackageForm extends Component {
 
 	render() {
 		const {aPackage} = this.props.location.state != null ? this.props.location.state : {aPackage: {images: []}};
-		const {categories, packages, partners, activities_attributes} = this.state;
+		const {categories, activities_attributes} = this.state;
 		const {countries, nextStep} = this.props;
 
 		const activity = {
@@ -108,7 +76,7 @@ class PackageForm extends Component {
 			price: 100.0
 		};
 
-		const partnerDetails = {
+		const packageDetails = {
 			name: aPackage.name,
 			price: aPackage.price,
 			offer_price: aPackage.offer_price,
@@ -117,7 +85,6 @@ class PackageForm extends Component {
 			inclusions: aPackage.inclusions,
 			exclusions: aPackage.exclusions,
 			images: [],
-			partner_id: this.props.partnerId ? this.props.partnerId : this.props.match.params.partnerId,
 			category_id: aPackage.category != null ? aPackage.category.id : '',
 			activities_attributes: [activity]
 		};
@@ -126,7 +93,7 @@ class PackageForm extends Component {
 				<div className='card'>
 					<div className='card-body'>
 						<Formik
-							initialValues={partnerDetails}
+							initialValues={packageDetails}
 							onSubmit={(values, {setSubmitting}) => {
 								if (aPackage.id != null) {
 									updatePackage(aPackage.idx, values)
@@ -188,134 +155,131 @@ class PackageForm extends Component {
 							}) => (
 								<form onSubmit={handleSubmit} autoComplete='off'>
 									<div className='input-section'>
-										{/* {partnerDetails.partner_id == null && (
-											<div className='field-box mt-3'>
-												<label>Partners List</label>
-												
+										<div className='row'>
+											<div className='col-12'>
+												<div className='field-box'>
+													<label>Name</label>
+
 													<Field
-														as='select'
-														name='partner_id'
+														name='name'
 														className='form-control'
 														onBlur={handleBlur}
 														onChange={handleChange}
-														value={values.partner_id}
+														value={values.name}
+													/>
+
+													<ErrorMessage name='name' />
+												</div>
+											</div>
+										</div>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Price</label>
+
+													<Field
+														name='price'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.price}
+													/>
+
+													<ErrorMessage name='price' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Offer Price</label>
+
+													<Field
+														name='offer_price'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.offer_price}
+													/>
+
+													<ErrorMessage name='offer_price' />
+												</div>
+											</div>
+										</div>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Location</label>
+
+													<Field
+														name='location'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.location}
+													/>
+
+													<ErrorMessage name='location' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Category</label>
+
+													<Field
+														as='select'
+														name='category_id'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.category_id}
 														defaultValue=''
 													>
 														<option value=''>Select one</option>
-														{partners.map((partner) => (
-															<option key={partner.id} value={partner.id}>
-																{partner.name} ({partner.email})
+														{categories.map((category) => (
+															<option key={category.id} value={category.id}>
+																{category.name}
 															</option>
 														))}
 													</Field>
-												
-												<ErrorMessage name='partner_id' />
+
+													<ErrorMessage name='category_id' />
+												</div>
 											</div>
-										)} */}
-
-										<div className='field-box'>
-											<label>Name</label>
-
-											<Field
-												name='name'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.name}
-											/>
-
-											<ErrorMessage name='name' />
 										</div>
-										<div className='field-box'>
-											<label>Price</label>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Inclusions</label>
 
-											<Field
-												name='price'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.price}
-											/>
+													<Field
+														name='inclusions'
+														component='textarea'
+														rows='2'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.inclusions}
+													/>
 
-											<ErrorMessage name='price' />
-										</div>
-										<div className='field-box'>
-											<label>Offer Price</label>
+													<ErrorMessage name='inclusions' />
+												</div>
+											</div>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Exclusions</label>
 
-											<Field
-												name='offer_price'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.offer_price}
-											/>
+													<Field
+														name='exclusions'
+														component='textarea'
+														rows='2'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.exclusions}
+													/>
 
-											<ErrorMessage name='offer_price' />
-										</div>
-										<div className='field-box'>
-											<label>Location</label>
-
-											<Field
-												name='location'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.location}
-											/>
-
-											<ErrorMessage name='location' />
-										</div>
-										<div className='field-box'>
-											<label>Inclusions</label>
-
-											<Field
-												name='inclusions'
-												component='textarea'
-												rows='2'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.inclusions}
-											/>
-
-											<ErrorMessage name='inclusions' />
-										</div>
-										<div className='field-box'>
-											<label>Exclusions</label>
-
-											<Field
-												name='exclusions'
-												component='textarea'
-												rows='2'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.exclusions}
-											/>
-
-											<ErrorMessage name='exclusions' />
-										</div>
-										<div className='field-box'>
-											<label>Category</label>
-
-											<Field
-												as='select'
-												name='category_id'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.category_id}
-												defaultValue=''
-											>
-												<option value=''>Select one</option>
-												{categories.map((category) => (
-													<option key={category.id} value={category.id}>
-														{category.name}
-													</option>
-												))}
-											</Field>
-
-											<ErrorMessage name='category_id' />
+													<ErrorMessage name='exclusions' />
+												</div>
+											</div>
 										</div>
 
 										<div>
@@ -348,7 +312,6 @@ class PackageForm extends Component {
 											))}
 											<ErrorMessage name='images' />
 										</div>
-
 										<div className='field-box'>
 											<label htmlFor=''>Description</label>
 											<CKEditor
