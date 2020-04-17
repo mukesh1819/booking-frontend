@@ -63,7 +63,7 @@ class Bookings extends Component {
 						return (
 							<div className='transaction'>
 								{bookings.map(function(booking) {
-									if ( booking.id == null || booking.reservation_time == null) {
+									if (booking.reservation_time == null) {
 										return;
 									}
 
