@@ -25,7 +25,7 @@ class PackageDetails extends Component {
 					published: data.checked
 				});
 				updatePackage(this.props.location.state.aPackage.idx, this.state.published).then((response) => {
-					swal('Poof! Your package has been published', {
+					swal('Your package has been published', {
 						icon: 'success'
 					});
 				});

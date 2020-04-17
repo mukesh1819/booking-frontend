@@ -54,7 +54,7 @@ const BookingDetails = ({booking}) => {
 						<div>{booking.airline}</div>
 						<div>{booking.flight_no}</div>
 						<div>Class code - {booking.class_code}</div>
-						<div>Baggage - {booking.free_baggage}</div>
+						<div>Check-in Baggage - {booking.free_baggage}</div>
 					</div>
 					<div>
 						<h5>Booking Details</h5>

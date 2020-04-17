@@ -185,7 +185,7 @@ class BookingDetails extends Component {
 													<div className='text-bold text-success'>
 														{isRefundable(booking.refundable)}
 													</div>
-													<div>FreeBaggage: {booking.free_baggage}</div>
+													<div>Check-in Baggage: {booking.free_baggage}</div>
 												</span>
 											</div>
 											<hr />

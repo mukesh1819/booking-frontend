@@ -97,10 +97,6 @@ class PackageDetails extends Component {
 						<Gallery images={dummyImages} />
 					</Tab.Pane>
 				)
-			},
-			{
-				menuItem: 'Contact',
-				render: () => <Tab.Pane attached={false}>Contact Details</Tab.Pane>
 			}
 		];
 		return (
