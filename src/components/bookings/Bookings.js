@@ -59,10 +59,11 @@ class Bookings extends Component {
 				<div className='card-body'>
 					<h3 className='title'>Bookings</h3>
 					{transactions.map((transaction) => {
+						var bookings = [transaction.bookings];
 						return (
 							<div className='transaction'>
-								{transaction.bookings.map(function(booking) {
-									if (booking.reservation_time == null) {
+								{bookings.map(function(booking) {
+									if ( booking.id == null || booking.reservation_time == null) {
 										return;
 									}
 
