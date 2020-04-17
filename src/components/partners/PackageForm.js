@@ -9,6 +9,7 @@ import {getCategories} from '../../api/categoryApi';
 import {BASE_URL} from '../../constants';
 import swal from 'sweetalert';
 import {setError} from '../../redux/actions';
+import * as yup from 'yup';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -88,12 +89,22 @@ class PackageForm extends Component {
 			category_id: aPackage.category != null ? aPackage.category.id : '',
 			activities_attributes: [activity]
 		};
+
+		const PackageSchema = yup.object().shape({
+			name: yup.string().required('Required'),
+			price: yup.string().required('Required'),
+			location: yup.string().required('Required'),
+			description: yup.string().required('Required'),
+			category_id: yup.string().required('Required')
+		});
+
 		return (
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
 						<Formik
 							initialValues={packageDetails}
+							validationSchema={PackageSchema}
 							onSubmit={(values, {setSubmitting}) => {
 								if (aPackage.id != null) {
 									updatePackage(aPackage.idx, values)
