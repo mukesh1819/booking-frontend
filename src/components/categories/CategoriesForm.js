@@ -22,6 +22,11 @@ class CategoriesForm extends Component {
 	render() {
 		const {category} = this.props.location.state != null ? this.props.location.state : {category: {}};
 
+		const CategoriesSchema = yup.object().shape({
+			name: yup.string().required('Required'),
+			order: yup.number().required('Required')
+		});
+
 		const initialParams = {
 			name: category.name,
 			order: category.order
@@ -34,6 +39,7 @@ class CategoriesForm extends Component {
 						Category Form
 						<Formik
 							initialValues={initialParams}
+							validationSchema={CategoriesSchema}
 							onSubmit={(values, {setSubmitting}) => {
 								this.setState({
 									searching: true

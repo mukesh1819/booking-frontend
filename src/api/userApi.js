@@ -25,8 +25,7 @@ export function updateUserDetails(details) {
 export function getBookings(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/bookings`,
-		params: params
+		url: `${API_URL}/bookings?${params}`
 	});
 }
 
