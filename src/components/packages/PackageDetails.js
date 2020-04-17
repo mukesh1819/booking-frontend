@@ -4,7 +4,7 @@ import Package from './Package';
 import {Link} from 'react-router-dom';
 import {Modal as ModalExample} from '../shared';
 import InquiryForm from './InquiryForm';
-import {imageUrl} from '../../helpers';
+import {imageUrl, calculatePackagePrice} from '../../helpers';
 import {Tab} from 'semantic-ui-react';
 import {HotelImage, nepalVillage, peace} from '../../images';
 import Gallery from './Gallery';
@@ -72,6 +72,7 @@ class PackageDetails extends Component {
 
 	render() {
 		const {aPackage} = this.state;
+		var [price, discount] = calculatePackagePrice(aPackage);
 		const dummyImages = [HotelImage, nepalVillage, peace];
 		const panes = [
 			{
@@ -126,17 +127,14 @@ class PackageDetails extends Component {
 							<div className='card'>
 								<div className='card-body d-flex align-items-center justify-content-between'>
 									<div className='pr-2'>
-										{
+										{discount > 0 && (
 											<div className='text-small'>
 												<span className='text-muted'>
-													Rs. <del>{aPackage.price}</del>
+													Rs. <del>{price}</del>
 												</span>
-
-												<span className='text-success'>
-													&nbsp;{aPackage.price - aPackage.offer_price} off
-												</span>
+												<span className='text-success'>&nbsp;{discount} off</span>
 											</div>
-										}
+										)}
 										<span>
 											<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
 											<span className='text-muted text-small text-right'>/person</span>

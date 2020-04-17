@@ -124,3 +124,13 @@ export function ifGreaterThanOne(value, returnValue) {
 		return returnValue;
 	}
 }
+
+export function calculatePackagePrice(aPackage) {
+	var price = aPackage.price;
+	var discount = 0;
+	if (aPackage.offer_price) {
+		discount = aPackage.price - aPackage.offer_price;
+		price = price - discount;
+	}
+	return [price, discount]
+}

@@ -92,7 +92,13 @@ class PackageForm extends Component {
 
 		const PackageSchema = yup.object().shape({
 			name: yup.string().required('Required'),
-			price: yup.string().required('Required'),
+			price: yup.number().typeError('Not a valid amount').min(0, 'should be greater than 0').required('Required'),
+			offer_price: yup
+				.number()
+				.typeError('Not a valid amount')
+				.min(0, 'Should be greater than 0')
+				.max(yup.ref('price'), 'should not be greater than actual price')
+				.required('Required'),
 			location: yup.string().required('Required'),
 			description: yup.string().required('Required'),
 			category_id: yup.string().required('Required')

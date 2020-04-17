@@ -11,7 +11,8 @@ import {
 	imageUrl,
 	toTableData,
 	ifNotZero,
-	ifGreaterThanOne
+	ifGreaterThanOne,
+	calculatePackagePrice
 } from './general';
 import {flagFor, companyDetails} from './variables';
 
@@ -34,5 +35,6 @@ export {
 	ifNotZero,
 	flagFor,
 	companyDetails,
-	ifGreaterThanOne
+	ifGreaterThanOne,
+	calculatePackagePrice
 };

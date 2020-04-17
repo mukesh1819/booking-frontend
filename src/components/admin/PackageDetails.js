@@ -42,7 +42,10 @@ class PackageDetails extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h3>Details</h3>
+					<div className='d-flex justify-content-between'>
+						<h3>Details</h3>
+						<span className='btn btn-outline-primary'>Edit</span>
+					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>

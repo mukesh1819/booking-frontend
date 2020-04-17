@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {imageUrl} from '../../helpers';
+import {imageUrl, calculatePackagePrice} from '../../helpers';
 
 const Package = (props) => {
 	const {aPackage} = props;
-
+	var [price, discount] = calculatePackagePrice(aPackage);
 	return (
 		<div className='card-widget'>
 			<figure>
@@ -31,17 +31,17 @@ const Package = (props) => {
 						{`6 days`}
 					</span>
 				</div>
-				{aPackage.offer_price && (
+				{discount > 0 && (
 					<div>
 						<span className='text-muted'>
 							Rs. <del>{aPackage.price}</del>
 						</span>
 
-						<span className='text-success'> {aPackage.price - aPackage.offer_price} off</span>
+						<span className='text-success'> {discount} off</span>
 					</div>
 				)}
 				<div>
-					<span className='text-bold text-large'>Rs. 25000</span>
+					<span className='text-bold text-large'>{price}</span>
 					<span className='text-small text-muted'>/ person</span>
 				</div>
 			</div>
