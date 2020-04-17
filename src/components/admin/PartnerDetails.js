@@ -9,7 +9,7 @@ class PartnerDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			partner: []
+			partner: {}
 		};
 	}
 
@@ -50,7 +50,7 @@ class PartnerDetails extends Component {
 		const {partner} = this.state;
 		return (
 			<div className='row text-center'>
-				<PartnerProfile partner={this.props.location.state.partner} />
+				<PartnerProfile partner={this.state.partner} />
 
 				<div className='col-12 p-4'>
 					{partner.status === 'approved' && <span className='text-info'>Partner Created</span>}
