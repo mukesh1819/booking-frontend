@@ -85,6 +85,7 @@
 .field-box {
     width: -webkit-fill-available;
     position: relative;
+    flex-grow: 1;
 
     &:last-child {
 
@@ -154,10 +155,13 @@
 
     .toggle-sector-mobile {
         position: absolute;
-        padding: 0.5rem;
-        right: 0;
+        padding: 0.5rem 0.7rem;
+        right: 5px;
         top: 50%;
         z-index: 10;
+        border: 1px solid $primary;
+        border-radius: 5px;
+        background: white;
 
         @include tablet {
             display: none;

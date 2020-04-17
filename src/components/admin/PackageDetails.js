@@ -25,7 +25,7 @@ class PackageDetails extends Component {
 					published: data.checked
 				});
 				updatePackage(this.props.location.state.aPackage.idx, this.state.published).then((response) => {
-					swal('Poof! Your package has been published', {
+					swal('Your package has been published', {
 						icon: 'success'
 					});
 				});
@@ -42,7 +42,10 @@ class PackageDetails extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h3>Details</h3>
+					<div className='d-flex justify-content-between'>
+						<h3>Details</h3>
+						<span className='btn btn-outline-primary'>Edit</span>
+					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>

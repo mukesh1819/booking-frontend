@@ -108,6 +108,10 @@ li {
     margin: 0;
 }
 
+label {
+    margin-top: 0.5rem;
+}
+
 .bg {
 
     &-primary-light {
@@ -301,6 +305,11 @@ section {
     .modal-body {
         padding: 0px;
     }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .card {
@@ -400,6 +409,10 @@ section {
     padding: 8px 50px;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .select-countries {
     max-height: 400px;
 
@@ -460,6 +473,15 @@ section {
         padding: 8px;
         z-index: 20;
         color: white;
+    }
+}
+
+.widget {
+
+    i {
+        &.active {
+            color: $primary;
+        }
     }
 }
 
@@ -636,5 +658,13 @@ footer {
 
             }
         }
+    }
+}
+
+
+// Customer Support
+.search-faq {
+    .input {
+        width: 100%;
     }
 }

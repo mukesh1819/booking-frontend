@@ -67,7 +67,7 @@ class HomePage extends Component {
 					</div>
 					<div className='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
 						<div className='container'>
-							<PackageList />
+							<Categories />
 						</div>
 					</div>
 				</div>

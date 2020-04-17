@@ -1,24 +1,22 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {imageUrl} from '../../helpers';
+import {imageUrl, calculatePackagePrice} from '../../helpers';
 
 const Package = (props) => {
 	const {aPackage} = props;
-
+	var [price, discount] = calculatePackagePrice(aPackage);
 	return (
 		<div className='card-widget'>
-			<a href={imageUrl(aPackage.images[0])} className='image-popup'>
-				<figure>
-					<div className='overlay d-flex align-items-center justify-content-center'>
-						<div className='text-center'>
-							<Link to={`/package/${aPackage.id}`} className='btn btn-large btn-primary text-white'>
-								Details
-							</Link>
-						</div>
+			<figure>
+				<div className='overlay d-flex align-items-center justify-content-center'>
+					<div className='text-center'>
+						<Link to={`/package/${aPackage.id}`} className='btn btn-large btn-primary text-white'>
+							Details
+						</Link>
 					</div>
-					<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
-				</figure>
-			</a>
+				</div>
+				<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+			</figure>
 			<div className='details'>
 				<Link to={`/package/${aPackage.idx}`}>
 					<h3>{aPackage.name}</h3>
@@ -33,17 +31,17 @@ const Package = (props) => {
 						{`6 days`}
 					</span>
 				</div>
-				{aPackage.offer_price && (
+				{discount > 0 && (
 					<div>
 						<span className='text-muted'>
 							Rs. <del>{aPackage.price}</del>
 						</span>
 
-						<span className='text-success'> {aPackage.price - aPackage.offer_price} off</span>
+						<span className='text-success'> {discount} off</span>
 					</div>
 				)}
 				<div>
-					<span className='text-bold text-large'>Rs. 25000</span>
+					<span className='text-bold text-large'>{price}</span>
 					<span className='text-small text-muted'>/ person</span>
 				</div>
 			</div>

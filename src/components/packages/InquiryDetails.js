@@ -55,7 +55,7 @@ class InquiryDetails extends Component {
 										<div className='card-header'>
 											<h3>Your Inquiry Details </h3>
 										</div>
-										<div className='card-body d-flex justify-content-around flex-wrap'>
+										<div className='card-body'>
 											{packageBookingInfo.inquiry !== null && (
 												<Inquiry
 													inquiry={packageBookingInfo.inquiry}
@@ -103,7 +103,7 @@ class InquiryDetails extends Component {
 							</div>
 						</div>
 						<div className='text-center'>
-							<span className=' btn btn-secondary m-3' onClick={() => this.paymentPage()}>
+							<span className=' btn btn-primary m-3' onClick={() => this.paymentPage()}>
 								Continue to Payment
 							</span>
 						</div>

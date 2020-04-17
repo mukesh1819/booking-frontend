@@ -31,9 +31,7 @@ class SearchBar extends Component {
 		this.state = {
 			cities: [],
 			hideReturnField: true,
-			isSubmitted: false,
 			availableFlights: [],
-			searching: false,
 			tripType: 'O'
 		};
 		this.strSectorFrom = React.createRef();
@@ -87,7 +85,7 @@ class SearchBar extends Component {
 	};
 
 	render() {
-		const {hideReturnField, searching, cities, minDate} = this.state;
+		const {hideReturnField, cities, minDate} = this.state;
 		const {searchDetails, countries, setError} = this.props;
 		console.log('Search Details', searchDetails);
 
@@ -107,23 +105,13 @@ class SearchBar extends Component {
 
 		return (
 			<div id='search-flight-form'>
-				{/* {searching && (
-					<Modal show={searching}>
-						<LoadingScreen />
-					</Modal>
-				)} */}
 				<Formik
 					initialValues={searchDetails}
 					validationSchema={SearchFlightSchema}
 					onSubmit={(values, {setSubmitting}) => {
 						this.props.clearFlights();
-						history.push('/flights');
-						this.setState({
-							isSubmitted: true,
-							searching: true
-						});
-						console.log(values);
 						this.props.setSearchDetails(values);
+						history.push('/flights');
 						this.props.onSearch && this.props.onSearch();
 						setSubmitting(false);
 					}}

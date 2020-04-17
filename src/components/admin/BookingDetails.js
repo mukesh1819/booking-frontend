@@ -1,111 +1,71 @@
 import React, {Component} from 'react';
-import {Button} from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
+import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
+import moment from 'moment';
+import {ifNotZero} from '../../helpers';
+import {Badge} from '../shared';
 
-const BookingDetails = (props) => {
-	const {bookings} = props;
+const BookingDetails = ({booking}) => {
 	return (
-		<div>
-			<Card>
-				<Card.Body>
-					<Card.Title>BookingDetails</Card.Title>
-					{bookings.map((booking) => {
-						return (
-							<React.Fragment>
-								{/* <span className='btn btn-outline-secondary' onClick={this.toggleEdit}>
-									EDIT
-								</span> */}
-								<div className='row'>
-									<div className='col-3'>
-										Flight Id - <p>{booking.flight_id}</p>
-									</div>
-									<div className='col-3'>
-										Return Flight Id - <p>{booking.return_flight_id}</p>
-									</div>
-									<div className='col-3'>
-										User Id - <p>{booking.user_id}</p>
-									</div>
-									<div className='col-3'>
-										Contact Name - <p>{booking.contact_name}</p>
-									</div>
-								</div>
-
-								<div className='row'>
-									<div className='col-3'>
-										Mobile No - <p>{booking.mobile_no}</p>
-									</div>
-									<div className='col-3'>
-										email - <p>{booking.email}</p>
-									</div>
-									<div className='col-3'>
-										Pnr No - <p>{booking.pnr_no}</p>
-									</div>
-									<div className='col-3'>
-										Created at - <p>{booking.created_at}</p>
-									</div>
-								</div>
-
-								<div className='row'>
-									<div className='col-3'>
-										<p>{booking.airline}</p>
-									</div>
-									<div className='col-3'>
-										<p>{booking.flight_no}</p>
-									</div>
-									<div className='col-3'>
-										<p>{booking.booking_date_time}</p>
-									</div>
-									<div className='col-3'>
-										<p>{booking.departure_flight_time}</p>
-									</div>
-								</div>
-
-								<div className='row'>
-									<div className='col-3'>
-										Arrival - <p>{booking.arrival}</p>
-									</div>
-									<div className='col-3'>
-										Arrival time - <p>{booking.arrival_time}</p>
-									</div>
-									<div className='col-3'>
-										Sector - <p>{booking.sector}</p>
-									</div>
-									<div className='col-3'>
-										Departure - <p>{booking.departure}</p>
-									</div>
-								</div>
-
-								<div className='row'>
-									<div className='col-3'>
-										Class code - <p>{booking.class_code}</p>
-									</div>
-									<div className='col-3'>
-										Total fare - <p>{booking.total_fare}</p>
-									</div>
-									<div className='col-3'>
-										Refundable - <p>{booking.refundable}</p>
-									</div>
-									<div className='col-3'>
-										Status - <p>{booking.status}</p>
-									</div>
-								</div>
-
-								<div className='row'>
-									<div className='col-3'>
-										Transaction id - <p>{booking.booking_transaction_id}</p>
-									</div>
-									<div className='col-3'>
-										Baggage - <p>{booking.free_baggage}</p>
-									</div>
-									<div className='col-3'>
-										Reporting time - <p>{booking.reporting_time}</p>
-									</div>
-								</div>
-							</React.Fragment>
-						);
-					})}
-				</Card.Body>
-			</Card>
+		<div className='card'>
+			<div className='card-body'>
+				<div className='d-flex justify-content-between'>
+					<div>
+						<h5>{booking.contact_name}</h5>
+						<div className='text-muted text-small'>{booking.email}</div>
+						<div className='text-muted text-small'>{booking.mobile_no}</div>
+					</div>
+					<div>
+						<div className=''>
+							<span className='px-2'>{`${booking.departure}`}</span>
+							<i className='fas fa-arrow-right' />
+							<span className='px-2'> {`${booking.arrival}`}</span>
+						</div>
+						<div>
+							<span className='text-small text-muted px-2'>
+								<i className='fas fa-plane-departure' />&nbsp;
+								{/* {`${moment(booking.flight_date).format('Do MMMM, YYYY')}`} */}
+							</span>
+							{booking.strTripType === 'R' && (
+								<span className='text-small text-muted px-2'>
+									<i className='fas fa-plane-arrival' />&nbsp;
+									{/* {`${moment(booking.strReturnDate).format('Do MMMM, YYYY')}`} */}
+								</span>
+							)}
+							<span className='text-small text-muted px-2'>
+								<i className='fas fa-male' />&nbsp;
+								{booking.no_of_adult} Adult
+								{ifNotZero(booking.no_of_child, `, ${booking.no_of_child} Child`)}
+							</span>
+						</div>
+					</div>
+					<div className='text-center'>
+						<div className=''>
+							{booking.currency}
+							{booking.total_fare}
+						</div>
+						<Badge className={booking.status}>{booking.status}</Badge>
+					</div>
+				</div>
+				<div className='text-small d-flex'>
+					<div>
+						<h5>Flight Details</h5>
+						<div>Flight Id - {booking.flight_id}</div>
+						<div>{booking.airline}</div>
+						<div>{booking.flight_no}</div>
+						<div>Class code - {booking.class_code}</div>
+						<div>Check-in Baggage - {booking.free_baggage}</div>
+					</div>
+					<div>
+						<h5>Booking Details</h5>
+						<div>{booking.booking_date_time}</div>
+						<div>Pnr No - {booking.pnr_no}</div>
+						<div>{booking.departure_flight_time}</div>
+						<div>Refundable - {booking.refundable}</div>
+						<div>Reporting time - {booking.reporting_time}</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };

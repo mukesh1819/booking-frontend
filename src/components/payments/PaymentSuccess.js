@@ -25,7 +25,7 @@ class PaymentSuccess extends Component {
 						</div>
 
 						<div>
-							<span onClick={() => downloadTicket(idx)} className='btn btn-secondary btn-large'>
+							<span onClick={() => downloadTicket(idx)} className='btn btn-primary btn-large m-4'>
 								Download ticket
 							</span>
 						</div>
