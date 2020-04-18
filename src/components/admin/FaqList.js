@@ -4,12 +4,15 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {getFaqs} from '../../api/supportApi';
 import swal from 'sweetalert';
+import {Accordion, Icon, Menu, Segment, Input} from 'semantic-ui-react';
 
 class FaqList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			faqs: []
+			faqs: [],
+			activeIndex: -1,
+			activeMenuItem: 'All'
 		};
 	}
 
@@ -18,8 +21,22 @@ class FaqList extends Component {
 		this.fetchFaqLists();
 	}
 
-	fetchFaqLists = () => {
-		getFaqs()
+	handleItemClick = (e, {name}) => {
+		var searchQuery = name == 'All' ? '' : `q[category_eq]=${name.toLowerCase()}`;
+		this.fetchFaqLists(searchQuery);
+		this.setState({activeMenuItem: name});
+	};
+
+	handleClick = (e, titleProps) => {
+		const {index} = titleProps;
+		const {activeIndex} = this.state;
+		const newIndex = activeIndex === index ? -1 : index;
+
+		this.setState({activeIndex: newIndex});
+	};
+
+	fetchFaqLists = (params) => {
+		getFaqs(params)
 			.then((response) => {
 				// console.log('List of Packages', response.data);
 				this.setState({
@@ -36,63 +53,66 @@ class FaqList extends Component {
 				});
 			});
 	};
-    
+
 	render() {
-        const {faqs} = this.state;
+		const {faqs, activeIndex, activeMenuItem} = this.state;
 		return (
-			<div className='container'>
+			<div className='container p-4'>
 				<div className=''>
-					<div className='col-12 d-flex justify-content-between'>
-						<h3>Faq List</h3>
+					<div className='d-flex justify-content-between'>
+						<h3 className='title'>Faq List</h3>
 						<Link to='/admin/faq/faq_form' className='btn bg-none text-secondary'>
 							Add Faq
 						</Link>
 					</div>
-
-					<table className='table table-striped table-hover table-sm' ref='main'>
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>IDX</th>
-								<th>Question</th>
-								<th>Answer</th>
-								<th>Category</th>
-								<th>Actions</th>
-
-							</tr>
-						</thead>
-
-						<tbody>
-							{faqs.map((faq) => {
-                                return (
-                                    <tr>
-                                        <td>{faq.id}</td>
-                                        <td>{faq.idx}</td>
-                                        <td>{faq.question} </td>
-                                        <td>{faq.answer} </td>
-                                        <td>{faq.category}</td>
-                                        <td>
-                                            <Link
-                                                to={{
-                                                    pathname: `/admin/faq/edit/${faq.idx}`,
-                                                    state: {
-                                                        faq: faq
-                                                    }
-                                                }}
-                                            >
-                                                <i className='fas fa-contact' />
-                                                <span className='px-1'>edit</span>
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                );
-							})}
-						</tbody>
-					</table>
+					<Menu pointing>
+						<Menu.Item name='All' active={activeMenuItem === 'All'} onClick={this.handleItemClick} />
+						<Menu.Item name='Flight' active={activeMenuItem === 'Flight'} onClick={this.handleItemClick} />
+						<Menu.Item
+							name='Package'
+							active={activeMenuItem === 'Package'}
+							onClick={this.handleItemClick}
+						/>
+						<Menu.Menu position='right'>
+							<Menu.Item>
+								<Input icon='search' placeholder='Search...' />
+							</Menu.Item>
+						</Menu.Menu>
+					</Menu>
+					<Accordion styled fluid>
+						{faqs.map((faq, index) => {
+							return (
+								<React.Fragment>
+									<Accordion.Title
+										active={activeIndex === index}
+										index={index}
+										onClick={this.handleClick}
+									>
+										<div className='d-flex justify-content-between'>
+											{faq.question}
+											<Link
+												to={{
+													pathname: `/admin/faq/edit/${faq.idx}`,
+													state: {
+														faq: faq
+													}
+												}}
+											>
+												<i className='fas fa-contact' />
+												<span className='btn bg-none text-primary'>edit</span>
+											</Link>
+										</div>
+									</Accordion.Title>
+									<Accordion.Content active={activeIndex === index}>
+										<p>{faq.answer}</p>
+									</Accordion.Content>
+								</React.Fragment>
+							);
+						})}
+					</Accordion>
 				</div>
 			</div>
 		);
 	}
 }
 export default FaqList;
-

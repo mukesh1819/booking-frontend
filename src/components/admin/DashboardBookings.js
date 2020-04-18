@@ -126,18 +126,16 @@ class DashboardBookings extends Component {
 									);
 								})}
 							</Accordion>
-
-							<div className='text-center'>
-								<Pagination
-									activePage={this.state.currentPage}
-									sizePerPage={5}
-									onPageChange={this.changeCurrentPage}
-									totalPages={this.state.bookings.length}
-								/>
-							</div>
 						</Segment>
+						<div className='text-center p-2'>
+							<Pagination
+								activePage={this.state.currentPage}
+								sizePerPage={5}
+								onPageChange={this.changeCurrentPage}
+								totalPages={this.state.bookings.length}
+							/>
+						</div>
 					</div>
-					<div className='offset-3 col-2' />
 				</div>
 			</div>
 		);

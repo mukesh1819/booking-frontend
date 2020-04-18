@@ -10,8 +10,9 @@ import {Tabs, Tab} from 'react-bootstrap';
 import UserDetailCard from '../users/UserDetailCard';
 import BookingDetails from './BookingDetails';
 import TransactionApiResponse from './TransactionApiResponse';
-import {Modal as ModalExample} from '../shared';
+import {Modal as ModalExample, Badge} from '../shared';
 import swal from 'sweetalert';
+import {Menu, Segment, Pagination, Input, Accordion} from 'semantic-ui-react';
 
 class TransactionList extends Component {
 	constructor(props) {
@@ -19,7 +20,8 @@ class TransactionList extends Component {
 		this.state = {
 			transactions: [],
 			selectedTransaction: null,
-			key: 'user'
+			key: 'user',
+			activeMenuItem: 'All'
 		};
 	}
 
@@ -28,6 +30,11 @@ class TransactionList extends Component {
 			selectedTransaction: transaction
 		});
 	}
+
+	handleItemClick = (e, {name}) => {
+		this.fetchUserTransaction(`q[status_eq]=${name.toLowerCase()}`);
+		this.setState({activeMenuItem: name});
+	};
 
 	setKey(key) {
 		this.setState({
@@ -40,8 +47,8 @@ class TransactionList extends Component {
 		this.fetchUserTransaction();
 	}
 
-	fetchUserTransaction() {
-		getUserTransaction()
+	fetchUserTransaction(params) {
+		getUserTransaction(params)
 			.then((response) => {
 				// console.log(response);
 				this.setState({
@@ -60,42 +67,70 @@ class TransactionList extends Component {
 	}
 
 	render() {
-		const {show, key, selectedTransaction} = this.state;
+		const {show, key, selectedTransaction, activeMenuItem} = this.state;
 		return (
 			<React.Fragment>
 				{this.state.transactions !== null && (
-					<div className='container-fluid'>
-						<div className='col-md-8 col-md-offset-2' id='search-form'>
-							<h5 className='text-center'>Transactionlist</h5>
-							<table className='table table-striped table-bordered'>
-								<thead>
-									<tr>
-										<th>Transaction Invoice</th>
-										<th>state</th>
-										<th>Amount</th>
-										<th>Details</th>
-									</tr>
-								</thead>
-								<tbody>
-									{this.state.transactions.map((transaction) => {
-										return (
-											<tr>
-												<td>{transaction.idx}</td>
-												<td>{transaction.state}</td>
-												<td>{transaction.amount}</td>
-												<td>
-													<span
-														className='btn btn-primary'
-														onClick={() => this.onTransactionSelect(transaction)}
-													>
-														Transaction details
-													</span>
-												</td>
-											</tr>
-										);
-									})}
-								</tbody>
-							</table>
+					<div className='container p-4'>
+						<div className='' id='search-form'>
+							<h3 className='title'>Transactions</h3>
+
+							<Menu pointing>
+								<Menu.Item
+									name='All'
+									active={activeMenuItem === 'All'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Item
+									name='Processing'
+									active={activeMenuItem === 'Processing'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Item
+									name='Verified'
+									active={activeMenuItem === 'Verified'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Menu position='right'>
+									<Menu.Item>
+										<Input icon='search' placeholder='Search...' />
+									</Menu.Item>
+								</Menu.Menu>
+							</Menu>
+
+							<Segment>
+								<table className='table table-striped table-bordered'>
+									<thead>
+										<tr>
+											<th>Transaction Invoice</th>
+											<th>state</th>
+											<th>Amount</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{this.state.transactions.map((transaction) => {
+											return (
+												<tr>
+													<td>{transaction.idx}</td>
+													<td>
+														<Badge type={transaction.state}>{transaction.state}</Badge>
+													</td>
+													<td>{transaction.amount}</td>
+													<td>
+														<span
+															className='btn bg-none text-primary'
+															onClick={() => this.onTransactionSelect(transaction)}
+														>
+															Details
+														</span>
+													</td>
+												</tr>
+											);
+										})}
+									</tbody>
+								</table>
+							</Segment>
 						</div>
 					</div>
 				)}
@@ -113,7 +148,9 @@ class TransactionList extends Component {
 									<UserDetailCard user={selectedTransaction.user} />
 								</Tab>
 								<Tab eventKey='bookings' title='bookings'>
-									<BookingDetails bookings={selectedTransaction.bookings} />
+									{selectedTransaction.bookings.map((booking) => (
+										<BookingDetails booking={booking} />
+									))}
 								</Tab>
 								<Tab eventKey='response' title='response'>
 									<TransactionApiResponse response={selectedTransaction.response} />

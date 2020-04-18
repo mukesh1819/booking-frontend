@@ -40,9 +40,9 @@ class PartnerList extends Component {
 	render() {
 		const {partners} = this.state;
 		return (
-			<div className='container'>
+			<div className='container p-4'>
 				<div className=''>
-					<h5>Partners</h5>
+					<h3 className='title'>Partners</h3>
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
@@ -58,7 +58,10 @@ class PartnerList extends Component {
 							{partners.map((partner) => {
 								return (
 									<tr>
-										<td>{partner.name}</td>
+										<td>
+											{partner.first_name}&nbsp;
+											{partner.last_name}
+										</td>
 										<td>{partner.email} </td>
 										<td>{partner.company_name}</td>
 										<td>{partner.contact_number}</td>
@@ -73,7 +76,7 @@ class PartnerList extends Component {
 												}}
 											>
 												<i className='fas fa-contact' />
-												<span className='px-1'>view</span>
+												<span className='btn bg-none text-primary'>view</span>
 											</Link>
 										</td>
 									</tr>

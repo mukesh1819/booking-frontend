@@ -40,10 +40,10 @@ class PackagesList extends Component {
 	render() {
 		const {packages} = this.state;
 		return (
-			<div className='container'>
+			<div className='container p-4'>
 				<div className=''>
-					<div className='col-12 d-flex justify-content-between'>
-						<h3>Package List</h3>
+					<div className='d-flex justify-content-between'>
+						<h3 className='title'>Package List</h3>
 						<Link to='/admin/package_form' className='btn bg-none text-secondary'>
 							add package
 						</Link>
@@ -77,8 +77,8 @@ class PackagesList extends Component {
 														aPackage: aPackage
 													}
 												}}
+												className='btn bg-none text-primary'
 											>
-												{' '}
 												View
 											</Link>
 											{/* <Link

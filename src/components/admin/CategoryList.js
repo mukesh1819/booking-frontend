@@ -40,11 +40,13 @@ class CategoryList extends Component {
 	render() {
 		const {categories} = this.state;
 		return (
-			<div className='container'>
+			<div className='container p-4'>
 				<div className=''>
-					<div className='col-12 d-flex justify-content-between'>
-						<h5>Category List</h5>
-						<Link to='/admin/category_form'>new category</Link>
+					<div className='d-flex justify-content-between'>
+						<h3 className='title'>Categories</h3>
+						<Link to='/admin/category_form' className='btn bg-none text-secondary'>
+							new category
+						</Link>
 					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
@@ -73,7 +75,7 @@ class CategoryList extends Component {
 												}}
 											>
 												<i className='fas fa-contact' />
-												<span className='px-1'>view</span>
+												<span className='btn bg-none text-primary'>view</span>
 											</Link>
 
 											<Link
@@ -85,7 +87,7 @@ class CategoryList extends Component {
 												}}
 											>
 												<i className='fas fa-contact' />
-												<span className='px-1'>edit</span>
+												<span className='btn bg-none text-primary'>edit</span>
 											</Link>
 										</td>
 									</tr>
