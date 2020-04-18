@@ -137,7 +137,7 @@ export function calculatePackagePrice(aPackage) {
 }
 
 export function nationGroup(countries, group) {
-	if (group == "NP&IN") {
+	if (group == "NP" || group == "IN") {
 		return _.filter(countries, function (e) {
 			return e.value == "NP" || e.value == "IN";
 		})
