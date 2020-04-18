@@ -14,18 +14,21 @@ export default class Users extends Component {
 		super(props);
 
 		this.state = {
-			ActiveComponent: Profile
+			ActiveComponent: Profile,
+			section: 'profile'
 		};
 	}
 
-	activateTab = (comp) => {
+	activateTab = (value) => {
+		const components = {profile: Profile, bookings: Bookings};
 		this.setState({
-			ActiveComponent: comp
+			section: value,
+			ActiveComponent: components[value]
 		});
 	};
 
 	render() {
-		const {ActiveComponent} = this.props.location.state || this.state;
+		const {ActiveComponent, section} = this.props.location.state || this.state;
 		const sideBarMenu = [
 			{
 				icon: 'fas fa-user',
@@ -33,8 +36,7 @@ export default class Users extends Component {
 				label: 'Profile',
 				value: '',
 				link: '/profile',
-				Component: Profile,
-				active: true
+				active: section == 'profile'
 			},
 			{
 				icon: 'fas fa-book',
@@ -42,20 +44,17 @@ export default class Users extends Component {
 				label: 'My Bookings',
 				value: '',
 				link: '/bookings',
-				Component: Bookings,
-				active: false
+				active: section == 'bookings'
 			}
 		];
+
 		return (
 			<div className='container p-0'>
 				<div className='card'>
 					<div className='card-body'>
 						<div className='row'>
 							<div className='col-0 col-md-2 p-0'>
-								<Sidebar
-									items={sideBarMenu}
-									onItemSelect={(component) => this.activateTab(component)}
-								/>
+								<Sidebar items={sideBarMenu} onItemSelect={(value) => this.activateTab(value)} />
 							</div>
 							<div className='col-12 col-md-10 p-0 pl-md-3'>{ActiveComponent && <ActiveComponent />}</div>
 						</div>

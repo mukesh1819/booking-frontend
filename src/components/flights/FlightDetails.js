@@ -8,21 +8,23 @@ const FlightDetails = (props) => {
 	const {flight, adult, child} = props;
 	return (
 		<div className='flight-details'>
-			<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
-				<span>
-					<img src={flight.AirlineLogo} className='p-2' />
-					<div className='text-center'>{'Airline Name'}</div>
-				</span>
-				<span className='text-center'>
+			<div className='d-flex justify-content betweentext-small text-muted'>
+				<div className=''>
+					<div>
+						<img src={flight.AirlineLogo} className='airline-logo' />
+					</div>
+					<div className=''>{'Simrik Air'}</div>
+				</div>
+				<div className='text-center'>
 					<i className='fas fa-plane fa-2x departure text-primary' />
 					<div>{flight.FlightDate}</div>
-				</span>
-				<span className='text-right'>
+				</div>
+				<div className='text-right'>
 					Class: {flight.FlightClassCode} |{' '}
 					<span className='text-info'> {isRefundable(flight.Refundable)}</span>
 					<div>Check-in Baggage: {flight.FreeBaggage}</div>
 					<div>Flight: {flight.FlightNo}</div>
-				</span>
+				</div>
 			</div>
 			<hr />
 			<div className='body'>

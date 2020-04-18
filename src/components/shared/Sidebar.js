@@ -6,11 +6,11 @@ const SideBar = (props) => {
 	const {items, onItemSelect} = props;
 	return (
 		<div className='side-nav top-nav'>
-			{items.map(({label, name, details, icon, value, link, Component, ...rest}) => (
-				<div className='item d-flex align-items-center' key={name} onClick={() => onItemSelect(Component)}>
+			{items.map(({label, name, details, icon, value, link, active, Component, ...rest}) => (
+				<div className='item d-flex align-items-center' key={name} onClick={() => onItemSelect(name)}>
 					<i className={`${icon} p-2 text-primary`} />
 					<span>
-						<span>{label}</span>
+						<span className={active ? 'text-primary' : 'text-secondary'}>{label}</span>
 						<span className='small text-muted' style={{display: 'table'}}>
 							{details}
 						</span>

@@ -99,8 +99,8 @@ class SearchBar extends Component {
 			strSectorFrom: yup.string().required('Required'),
 			strSectorTo: yup.string().required('Required'),
 			strNationality: yup.string().required('Required'),
-			intAdult: yup.number().min(1, 'Cannot be less than 1').required('Required'),
-			intChild: yup.number().min(0, 'Cannot be less than 0').required('Required')
+			intAdult: yup.number().min(1, 'Traveller cannot be zero').required('Required'),
+			intChild: yup.number().min(0, 'Traveller cannot be zero').required('Required')
 		});
 
 		return (

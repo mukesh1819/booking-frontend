@@ -84,7 +84,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language}) => {
 				</div>
 				<div className='d-flex align-items-stretch'>
 					{loggedIn && (
-						<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white pl-3'>
+						<Dropdown icon='fas fa-user' title={userInitials(currentUser)} className='text-white pl-3'>
 							<ul className='text-normal'>
 								{loggedIn && (
 									<li className='m-0'>
@@ -114,7 +114,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language}) => {
 					{!loggedIn && (
 						<div className='d-flex align-items-center login'>
 							<Link to='/login' className='text-bold text-white pl-3'>
-								LOGIN
+								<i className='fas fa-user' />&nbsp; LOGIN
 							</Link>
 						</div>
 					)}

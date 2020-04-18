@@ -154,6 +154,38 @@ label {
     }
 }
 
+.color {
+
+    &-primary-light {
+        color: $primary-light;
+    }
+
+    &-fb {
+        color: $fb-color;
+    }
+
+    &-accent {
+        color: $accent;
+    }
+
+    &-gray {
+        color: $gray;
+    }
+
+    &-gray-light {
+        color: $gray-light;
+    }
+
+    &-body {
+        color: $body-bg-color;
+    }
+
+    &-primary-dark {
+        color: darken($primary, 5%);
+    }
+}
+
+
 .row {
     margin: 0px;
 }
@@ -630,7 +662,7 @@ section {
 
 footer {
     background-color: $primary-light;
-    padding: 2em 0;
+    padding: 1rem 0;
     clear: both;
 
     .social-icons {

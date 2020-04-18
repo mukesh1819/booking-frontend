@@ -62,7 +62,13 @@ class PassengerForm extends Component {
 					gender: yup.string().required('Required'),
 					nationality: yup.string().required('Required')
 				})
-			)
+			),
+			user: yup.object().shape({
+				name: yup.string().required('Required'),
+				code: yup.string().required('Required'),
+				phone_number: yup.string().required('Required'),
+				email: yup.string().required('Required')
+			})
 		});
 		const passenger = {
 			title: 'Mr',
@@ -285,6 +291,12 @@ class PassengerForm extends Component {
 																key: 'Mrs',
 																value: 'Mrs',
 																text: 'Mrs'
+															},
+															,
+															{
+																key: 'Miss',
+																value: 'Miss',
+																text: 'Miss'
 															}
 														]}
 													/>
@@ -406,7 +418,7 @@ class PassengerForm extends Component {
 							})}
 							<div className='text-center p-2'>
 								<button type='submit' class='btn btn-primary'>
-									Submit
+									Continue
 								</button>
 							</div>
 						</Form>

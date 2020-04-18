@@ -124,7 +124,7 @@
 
 
     .search-btn {
-        margin-top: 5px;
+        margin-top: 2.5px;
     }
 
     .travellers .default {
@@ -237,11 +237,15 @@
     }
 }
 
-.line-from-to {
-    border-bottom: 1px solid;
-    flex-grow: 1;
-    color: #80808040;
-    margin: 0 1rem;
+.airline-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.lined {
+    position: relative;
+    border-top: 1px solid #80808040;
+    margin: 0 2rem;
 }
 
 .search-details {

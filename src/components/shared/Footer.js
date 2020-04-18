@@ -63,7 +63,7 @@ const Footer = () => (
 				</div>
 			</div>
 			<hr className='m-0' />
-			<div className='d-flex justify-content-between align-items-center p-1'>
+			<div className='d-flex justify-content-between align-items-center pt-1'>
 				<small className='block text-muted'>&copy; All rights reserved </small>
 			</div>
 		</div>

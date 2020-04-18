@@ -34,7 +34,7 @@ class SignUpForm extends Component {
 				.required('Required')
 		});
 
-		var sortedCountries = sortObjectBy(countries, 'country_code');
+		var sortedCountries = sortObjectBy(countries, 'code');
 
 		return (
 			<Formik
@@ -71,7 +71,10 @@ class SignUpForm extends Component {
 							// console.log(error);
 							swal({
 								title: 'Something went wrong! please try again or contact us',
-								text: error.response != null ? error.response.data.errors.toString() : 'something went wrong',
+								text:
+									error.response != null
+										? error.response.data.errors.toString()
+										: 'something went wrong',
 								icon: 'error',
 								button: 'Try Again!'
 							});
@@ -145,10 +148,8 @@ class SignUpForm extends Component {
 														selection
 														options={sortedCountries.map((country) => {
 															return {
-																key: country.id,
-																value: country.id,
-																text: country.country_code,
-																flag: country.country_char.toLowerCase()
+																...country,
+																text: country.code
 															};
 														})}
 													/>

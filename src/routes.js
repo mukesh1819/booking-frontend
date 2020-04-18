@@ -113,6 +113,7 @@ const routing = (
 		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} layout={UserLayout} />
 		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/email' component={UserEmail} layout={AdminLayout} />
+		<PrivateRoute path='/admin/:section' component={Dashboard} layout={AdminLayout} />
 		<PrivateRoute path='/admin' component={Dashboard} layout={AdminLayout} />
 		<PrivateRoute path='/partner' component={PartnerDashboard} layout={PartnerLayout} />
 

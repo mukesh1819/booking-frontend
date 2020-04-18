@@ -13,7 +13,8 @@ import {
 	ifNotZero,
 	ifGreaterThanOne,
 	calculatePackagePrice,
-	nationGroup
+	nationGroup,
+	numberWithCommas
 } from './general';
 import {flagFor, companyDetails} from './variables';
 
@@ -38,5 +39,6 @@ export {
 	companyDetails,
 	ifGreaterThanOne,
 	calculatePackagePrice,
-	nationGroup
+	nationGroup,
+	numberWithCommas
 };

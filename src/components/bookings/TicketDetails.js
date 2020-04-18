@@ -62,7 +62,7 @@ class TicketDetails extends Component {
 													<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
 														<span>
 															<img src={booking.airline_logo} className='p-2' />
-															<div className='text-center'>{'Airline Name'}</div>
+															<div className='text-center'>{'Simrik Air'}</div>
 														</span>
 														<span className='text-center'>
 															<i className='fas fa-plane fa-2x departure text-primary' />
