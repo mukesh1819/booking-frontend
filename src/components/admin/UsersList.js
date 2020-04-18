@@ -6,6 +6,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import EditUserForm from '../users/EditUserForm';
 import {getUsers} from '../../api/userApi';
 import swal from 'sweetalert';
+import {Badge} from '../shared';
 
 class UsersList extends Component {
 	constructor(props) {
@@ -69,7 +70,9 @@ class UsersList extends Component {
 										<td>{user.id}</td>
 										<td>{user.name}</td>
 										<td>{user.email} </td>
-										<td>{user.role}</td>
+										<td>
+											<Badge type={user.role}>{user.role}</Badge>{' '}
+										</td>
 										<td>{user.phone_number}</td>
 
 										<td>

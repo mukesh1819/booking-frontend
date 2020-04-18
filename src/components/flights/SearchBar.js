@@ -93,7 +93,7 @@ class SearchBar extends Component {
 			strFlightDate: yup.date().required('Required').default(function() {
 				return new Date();
 			}),
-			strReturnDate: yup.date().required('Required').default(function() {
+			strReturnDate: yup.date().default(function() {
 				return yup.ref('strFlightDate');
 			}),
 			strSectorFrom: yup.string().required('Required'),

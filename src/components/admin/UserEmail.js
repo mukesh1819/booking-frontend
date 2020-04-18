@@ -8,42 +8,38 @@ import MailBox from '../shared/MailBox';
 const UserEmail = (props) => {
 	const {user} = props.location.state;
 	return (
-		<div>
-			<div className='container'>
-				<h5>User Information</h5>
-				<table className='table table-striped table-hover table-sm'>
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Role</th>
-							<th>Mobile Number</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr>
-							<td>{user.id}</td>
-							<td>{user.name}</td>
-							<td>{user.email} </td>
-							<td>{user.role}</td>
-							<td>{user.phone_number}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div className='container mt-5 pt-5'>
-				<div className='row'>
-					<div className='offset-1 col-9'>
-						<MailBox
-							values={{
-								description: '',
-								subject: '',
-								email: user.email
-							}}
-						/>
+		<div className='container bg-white p-4'>
+			<div className='row'>
+				<div className='col-12 col-md-2 offset-md-2'>
+					<i className='fas fa-user user-icon fa-3x' />
+					<h3 className='title'>{user.name}&nbsp;</h3>
+					<div className='text-small text-muted'>
+						<i className='fas fa-envelope' />&nbsp;
+						{user.email}
 					</div>
+					<div className='text-small text-muted'>
+						<i className='fas fa-address-card' />&nbsp;
+						{user.role}
+					</div>
+					<div className='text-small text-muted'>
+						<i className='fas fa-phone-volume' />&nbsp;
+						{user.phone_number}
+					</div>
+				</div>
+				<div className='col-12 col-md-6 list-view'>
+					<h3 className='title'>User Information</h3>
+					<div className='list'>
+						<span className='label'>ID</span>
+						<span className='value'>{user.id}</span>
+					</div>
+					<h3 className='py-2'>Email</h3>
+					<MailBox
+						values={{
+							description: '',
+							subject: '',
+							email: user.email
+						}}
+					/>
 				</div>
 			</div>
 		</div>

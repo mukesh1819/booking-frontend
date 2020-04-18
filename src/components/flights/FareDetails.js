@@ -18,21 +18,23 @@ const FareDetails = (props) => {
 			<ul className='text-muted text-small'>
 				{adult > 0 && (
 					<li>
-						Base Fare (1 Adult): {flight.Currency} {flight.AdultFare} x ({adult})
+						Base Fare (1 Adult): {flight.Currency} {flight.AdultFare}{' '}
+						{ifGreaterThanOne(adult, ` * (${adult})`)}
 					</li>
 				)}
 				{child > 0 && (
 					<li>
-						Base Fare (1 Child): {flight.Currency} {flight.ChildFare} x ({child})
+						Base Fare (1 Child): {flight.Currency} {flight.ChildFare}{' '}
+						{ifGreaterThanOne(child, ` * (${child})`)}
 					</li>
 				)}
 				<li>
-					Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x
-					{ifGreaterThanOne(adult + child, ` (${adult} + ${child})`)}
+					Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge}
+					{ifGreaterThanOne(adult + child, ` * (${adult} + ${child})`)}
 				</li>
 				<li>
-					Tax: {flight.Currency} {flight.Tax} x
-					{ifGreaterThanOne(adult + child, ` (${adult} + ${child})`)}
+					Tax: {flight.Currency} {flight.Tax}
+					{ifGreaterThanOne(adult + child, ` * (${adult} + ${child})`)}
 				</li>
 			</ul>
 		</div>

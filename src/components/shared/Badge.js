@@ -19,6 +19,19 @@ export default ({type = 'light', content, children}) => {
 		case 'cancelled':
 			design = 'danger';
 			break;
+		case 'declined':
+			design = 'danger';
+			break;
+
+		case 'Admin':
+			design = 'danger';
+			break;
+		case 'Support':
+			design = 'warning';
+			break;
+		case 'General':
+			design = 'success';
+			break;
 		default:
 			design = type;
 	}

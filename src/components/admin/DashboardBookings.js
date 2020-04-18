@@ -5,19 +5,35 @@ import {getAdminBookings} from '../../api/flightApi';
 import BookingDetails from './BookingDetails';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
-import {Pagination} from 'semantic-ui-react';
+import {Pagination, Menu, Segment, Input} from 'semantic-ui-react';
 import moment from 'moment';
 import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
+import {Accordion} from 'semantic-ui-react';
 
 class DashboardBookings extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			bookings: [],
-			currentPage: 1
+			currentPage: 1,
+			activeItem: 'All',
+			activeIndex: -1
 		};
 	}
+
+	handleItemClick = (e, {name}) => {
+		this.fetchBookings(`q[status_eq]=${name.toLowerCase()}`);
+		this.setState({activeItem: name});
+	};
+
+	handleClick = (e, titleProps) => {
+		const {index} = titleProps;
+		const {activeIndex} = this.state;
+		const newIndex = activeIndex === index ? -1 : index;
+
+		this.setState({activeIndex: newIndex});
+	};
 
 	changeCurrentPage = (e, {activePage}) => {
 		this.setState({currentPage: activePage});
@@ -50,64 +66,78 @@ class DashboardBookings extends Component {
 
 	render() {
 		const {bookings} = this.state;
+		const {activeItem, activeIndex} = this.state;
 		return (
 			<div className='container'>
 				<div className='row my-3'>
-					<div className='col-7'>
-						<button
-							onClick={() => this.fetchBookings(`q[status_eq]=pending`)}
-							className='btn btn-primary mr-1'
-						>
-							pending
-						</button>
+					<div className='col-12'>
+						<Menu pointing>
+							<Menu.Item name='All' active={activeItem === 'All'} onClick={this.handleItemClick} />
+							<Menu.Item
+								name='Pending'
+								active={activeItem === 'Pending'}
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								name='Verified'
+								active={activeItem === 'Verified'}
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								name='Processing'
+								active={activeItem === 'Processing'}
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								name='Cancelled'
+								active={activeItem === 'Cancelled'}
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								name='Completed'
+								active={activeItem === 'Completed'}
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								name='Declined'
+								active={activeItem === 'Declined'}
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Menu position='right'>
+								<Menu.Item>
+									{/* <Input icon='search' placeholder='Search...' /> */}
+									<Link to='/admin/cancel_requests' className='text-danger'>
+										Cancel Requests
+									</Link>
+								</Menu.Item>
+							</Menu.Menu>
+						</Menu>
 
-						<button
-							onClick={() => this.fetchBookings(`q[status_eq]=verified`)}
-							className='btn btn-primary mr-1'
-						>
-							verified
-						</button>
+						<Segment>
+							<Accordion styled fluid>
+								{bookings.map((booking, index) => {
+									return (
+										<BookingDetails
+											booking={booking}
+											activeIndex={activeIndex}
+											index={index}
+											handleClick={this.handleClick}
+										/>
+									);
+								})}
+							</Accordion>
 
-						<button
-							onClick={() => this.fetchBookings(`q[status_eq]=completed`)}
-							className='btn btn-primary mr-1'
-						>
-							completed
-						</button>
-
-						<button
-							onClick={() => this.fetchBookings(`q[status_eq]=processing`)}
-							className='btn btn-primary mr-1'
-						>
-							processing
-						</button>
-
-						<button
-							onClick={() => this.fetchBookings(`q[status_eq]=cancelled`)}
-							className='btn btn-primary'
-						>
-							cancelled
-						</button>
+							<div className='text-center'>
+								<Pagination
+									activePage={this.state.currentPage}
+									sizePerPage={5}
+									onPageChange={this.changeCurrentPage}
+									totalPages={this.state.bookings.length}
+								/>
+							</div>
+						</Segment>
 					</div>
-					<div className='offset-3 col-2'>
-						<Link to='/admin/cancel_requests' className='btn btn-danger'>
-							Cancel Request
-						</Link>
-					</div>
-				</div>
-				<div>
-					{bookings.map((booking) => {
-						return <BookingDetails booking={booking} />;
-					})}
-				</div>
-
-				<div className='text-center'>
-					<Pagination
-						activePage={this.state.currentPage}
-						sizePerPage={5}
-						onPageChange={this.changeCurrentPage}
-						totalPages={this.state.bookings.length}
-					/>
+					<div className='offset-3 col-2' />
 				</div>
 			</div>
 		);

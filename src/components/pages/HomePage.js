@@ -66,9 +66,9 @@ class HomePage extends Component {
 						</header>
 					</div>
 					<div className='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
-						<div className='container'>
+						{/* <div className='container'>
 							<Categories />
-						</div>
+						</div> */}
 					</div>
 				</div>
 				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>

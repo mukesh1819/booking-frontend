@@ -12,7 +12,8 @@ import {
 	toTableData,
 	ifNotZero,
 	ifGreaterThanOne,
-	calculatePackagePrice
+	calculatePackagePrice,
+	nationGroup
 } from './general';
 import {flagFor, companyDetails} from './variables';
 
@@ -36,5 +37,6 @@ export {
 	flagFor,
 	companyDetails,
 	ifGreaterThanOne,
-	calculatePackagePrice
+	calculatePackagePrice,
+	nationGroup
 };

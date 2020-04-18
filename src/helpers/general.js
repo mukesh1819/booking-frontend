@@ -2,6 +2,7 @@ import {
 	BASE_URL
 } from '../constants';
 import moment from 'moment';
+import _ from 'lodash';
 
 export function sortObjectBy(obj, key) {
 	obj = obj.sort((a, b) => {
@@ -119,9 +120,9 @@ export function ifNotZero(value, returnValue) {
 
 export function ifGreaterThanOne(value, returnValue) {
 	if (value > 1) {
-		return '';
-	} else {
 		return returnValue;
+	} else {
+		return '';
 	}
 }
 
@@ -133,4 +134,17 @@ export function calculatePackagePrice(aPackage) {
 		price = price - discount;
 	}
 	return [price, discount]
+}
+
+export function nationGroup(countries, group) {
+	if (group == "NP&IN") {
+		return _.filter(countries, function (e) {
+			return e.value == "NP" || e.value == "IN";
+		})
+	} else {
+		return _.filter(countries, function (e) {
+			return e.value != "NP" && e.value != "IN";
+		})
+	}
+
 }

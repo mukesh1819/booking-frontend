@@ -22,7 +22,7 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken} from '../../helpers';
+import {passCsrfToken, nationGroup} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
@@ -51,7 +51,7 @@ class PassengerForm extends Component {
 
 	render() {
 		const selectedOutboundFlight = this.props.selectedOutboundFlight;
-		const {adult, child, nationality, currentUser} = this.props;
+		const {adult, child, nationality, currentUser, countries} = this.props;
 		currentUser.code = currentUser.country;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -396,7 +396,7 @@ class PassengerForm extends Component {
 														fluid
 														search
 														selection
-														options={this.props.countries}
+														options={nationGroup(countries, nationality)}
 													/>
 												</div>
 											</div>

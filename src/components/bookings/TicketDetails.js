@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image} from 'react-bootstrap';
 import {getBookingDetails, downloadTicket} from '../../api/flightApi';
-import {isRefundable, ifNotZero} from '../../helpers';
+import {isRefundable, ifNotZero, ifGreaterThanOne} from '../../helpers';
 import moment from 'moment';
 import swal from 'sweetalert';
 
@@ -110,7 +110,7 @@ class TicketDetails extends Component {
 												<div>
 													<span className='text-center p-3'>
 														<div className='text-bold'>
-															Total Fare: {flight.Currency} {booking.total_fare}
+															Total Fare: {booking.currency} {booking.total_fare}
 														</div>
 														<div className='text-small text-muted'>
 															({booking.adult} Adult
@@ -120,23 +120,37 @@ class TicketDetails extends Component {
 													<ul className='text-muted text-small'>
 														{booking.adult > 0 && (
 															<li>
-																Base Fare (1 Adult): {flight.Currency}{' '}
-																{flight.AdultFare} x ({booking.adult})
+																Base Fare (1 Adult): {booking.currency}
+																{booking.adult_fare}
+																{ifGreaterThanOne(
+																	booking.adult,
+																	` * (${booking.adult})`
+																)}
 															</li>
 														)}
 														{booking.child > 0 && (
 															<li>
-																Base Fare (1 Child): {flight.Currency}{' '}
-																{flight.ChildFare} x ({booking.child})
+																Base Fare (1 Child): {booking.currency}{' '}
+																{booking.child_fare}
+																{ifGreaterThanOne(
+																	booking.child,
+																	` * (${booking.child})`
+																)}
 															</li>
 														)}
 														<li>
-															Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({booking.adult}
-															{ifNotZero(booking.child, ` + ${booking.child}`)})
+															Fuel Surcharge: {booking.currency} {booking.fuel_surcharge}
+															{ifGreaterThanOne(
+																booking.adult + booking.child,
+																` * (${booking.adult} + ${booking.child})`
+															)}
 														</li>
 														<li>
-															Tax: {flight.Currency} {flight.Tax} x ({booking.adult}
-															{ifNotZero(booking.child, ` + ${booking.child}`)})
+															Tax: {booking.currency} {booking.tax}{' '}
+															{ifGreaterThanOne(
+																booking.adult + booking.child,
+																` * (${booking.adult} + ${booking.child})`
+															)}
 														</li>
 													</ul>
 												</div>
@@ -170,7 +184,7 @@ class TicketDetails extends Component {
 																	<tr className='text-center'>
 																		<td className=''>{passenger.ticket_no}</td>
 																		<td className=''>
-																			{passenger.title} {passenger.first_name}{' '}
+																			{passenger.title} {passenger.first_name}
 																			{passenger.last_name}
 																		</td>
 																		<td className=''>{passenger.passenger_type}</td>

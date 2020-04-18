@@ -4,11 +4,12 @@ import swal from 'sweetalert';
 import moment from 'moment';
 import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
+import {Accordion} from 'semantic-ui-react';
 
-const BookingDetails = ({booking}) => {
+const BookingDetails = ({booking, activeIndex, index, handleClick}) => {
 	return (
-		<div className='card'>
-			<div className='card-body'>
+		<React.Fragment>
+			<Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
 				<div className='d-flex justify-content-between'>
 					<div>
 						<h5>{booking.contact_name}</h5>
@@ -44,9 +45,11 @@ const BookingDetails = ({booking}) => {
 							{booking.currency}
 							{booking.total_fare}
 						</div>
-						<Badge className={booking.status}>{booking.status}</Badge>
+						<Badge type={booking.status}>{booking.status}</Badge>
 					</div>
 				</div>
+			</Accordion.Title>
+			<Accordion.Content active={activeIndex === index}>
 				<div className='text-small d-flex'>
 					<div>
 						<h5>Flight Details</h5>
@@ -65,8 +68,8 @@ const BookingDetails = ({booking}) => {
 						<div>Reporting time - {booking.reporting_time}</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			</Accordion.Content>
+		</React.Fragment>
 	);
 };
 export default BookingDetails;

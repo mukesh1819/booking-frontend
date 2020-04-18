@@ -32,7 +32,7 @@ class PartnerForm extends Component {
 		if (Object.keys(currentUser).length !== 0) {
 			userName = currentUser.name.split(' ');
 		}
-		var sortedCountries = sortObjectBy(countries, 'country_code');
+		var sortedCountries = sortObjectBy(countries, 'code');
 		const PartnersSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
@@ -144,10 +144,9 @@ class PartnerForm extends Component {
 															selection
 															options={sortedCountries.map((country) => {
 																return {
-																	key: country.id,
-																	value: country.country_code,
-																	text: country.country_code,
-																	flag: country.country_char.toLowerCase()
+																	...country,
+																	value: country.code,
+																	text: country.code
 																};
 															})}
 														/>
