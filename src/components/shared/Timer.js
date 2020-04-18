@@ -23,12 +23,7 @@ class Timer extends Component {
 			if (seconds === 0) {
 				if (minutes === 0) {
 					clearInterval(this.interval);
-					swal({
-						title: 'Time Ended!',
-						text: 'Your flight Reservation time has ended. Please try Again',
-						icon: 'warning',
-						button: 'Try Again!'
-					});
+					this.props.onTimeOut();
 				} else {
 					this.setState(({minutes}) => ({
 						minutes: minutes - 1,

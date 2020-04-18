@@ -11,7 +11,7 @@ import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
 import {Accordion} from 'semantic-ui-react';
 
-class DashboardBookings extends Component {
+class FlightBookings extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -141,4 +141,4 @@ class DashboardBookings extends Component {
 		);
 	}
 }
-export default DashboardBookings;
+export default FlightBookings;

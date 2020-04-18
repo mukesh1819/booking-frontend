@@ -24,6 +24,17 @@ class FinalBookingDetails extends Component {
 		});
 	}
 
+	onTimeOut = () => {
+		swal({
+			title: 'Time Ended!',
+			text: 'Your flight Reservation time has ended. Please try Again',
+			icon: 'warning',
+			button: 'Try Again!'
+		}).then((value) => {
+			history.push('/');
+		});
+	};
+
 	componentDidMount() {}
 
 	render() {

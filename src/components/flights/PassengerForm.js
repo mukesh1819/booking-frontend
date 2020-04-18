@@ -161,6 +161,7 @@ class PassengerForm extends Component {
 											onChange={handleChange}
 											value={values.user.name}
 										/>
+										<ErrorMessage name='user.name' />
 									</div>
 
 									<div className='field-box form-group'>
@@ -198,6 +199,8 @@ class PassengerForm extends Component {
 											onChange={handleChange}
 											value={values.user.phone_number}
 										/>
+										<ErrorMessage name='user.code' />
+										<ErrorMessage name='user.phone_number' />
 									</div>
 
 									{/* 
@@ -244,6 +247,7 @@ class PassengerForm extends Component {
 											onChange={handleChange}
 											value={values.user.email}
 										/>
+										<ErrorMessage name='user.email' />
 									</div>
 								</div>
 							</div>
@@ -292,7 +296,6 @@ class PassengerForm extends Component {
 																value: 'Mrs',
 																text: 'Mrs'
 															},
-															,
 															{
 																key: 'Miss',
 																value: 'Miss',

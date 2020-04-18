@@ -8,7 +8,7 @@ const FlightDetails = (props) => {
 	const {flight, adult, child} = props;
 	return (
 		<div className='flight-details'>
-			<div className='d-flex justify-content betweentext-small text-muted'>
+			<div className='d-flex justify-content-between text-small text-muted'>
 				<div className=''>
 					<div>
 						<img src={flight.AirlineLogo} className='airline-logo' />

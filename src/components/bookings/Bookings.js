@@ -16,17 +16,36 @@ class Bookings extends Component {
 		super(props);
 
 		this.state = {
-			transactions: []
+			bookings: [],
+			refresh: false
 		};
+
+		this.onTimeOut = this.onTimeOut.bind(this);
 	}
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
+		this.fetchDetails();
+		this.setState({
+			refresh: false
+		});
+	}
+
+	componentWillUnmount() {}
+
+	onTimeOut = () => {
+		this.fetchDetails();
+		this.setState({
+			refresh: true
+		});
+	};
+
+	fetchDetails = (params) => {
 		getBookings(`q[booking_type_eq]=FLIGHT`)
 			.then((response) => {
 				console.log('Bookings List', response);
 				this.setState({
-					transactions: response.data
+					bookings: response.data
 				});
 			})
 			.catch((error) => {
@@ -42,15 +61,13 @@ class Bookings extends Component {
 					button: 'Continue!'
 				});
 			});
-	}
-
-	componentWillUnmount() {}
+	};
 
 	render() {
-		const {transactions} = this.state;
-		console.log('TRansactions', transactions);
+		const {bookings} = this.state;
+		console.log('Bookings', bookings);
 
-		if (this.state.transactions.length == 0) {
+		if (bookings.length == 0) {
 			return <EmptyContent>No bookings yet.</EmptyContent>;
 		}
 
@@ -58,92 +75,92 @@ class Bookings extends Component {
 			<div className='booking-list container card'>
 				<div className='card-body'>
 					<h3 className='title'>Bookings</h3>
-					{transactions.map((transaction) => {
-						var bookings = transaction.bookings;
+					{bookings.map((booking) => {
 						console.log('Bookings', bookings);
 						return (
 							<div className='transaction'>
-								{bookings.map(function(booking) {
-									if (booking.reservation_time == null) {
-										return;
-									}
+								<div className='booking d-flex justify-content-between align-items-center p-3'>
+									<div key={booking.departing_flight.ruid} className=''>
+										<div className=''>
+											<span className='px-2'>{`${booking.departing_flight.departure}`}</span>
+											<i
+												className={
+													booking.trip === 'One Way' ? (
+														'fas fa-arrow-right'
+													) : (
+														'fas fa-exchange-alt'
+													)
+												}
+											/>
+											<span className='px-2'> {`${booking.departing_flight.arrival}`}</span>
+										</div>
+										<div>
+											<span className='text-small text-muted px-2'>
+												<i className='fas fa-plane departure' />&nbsp;
+												{`${moment(booking.departing_flight.flight_date).format(
+													'Do MMMM, YYYY'
+												)}`}
+											</span>
+											{booking.trip === 'Two Way' && (
+												<span className='text-small text-muted px-2'>
+													<i className='fas fa-plane arrival' />&nbsp;
+													{`${moment(booking.arriving_flight.strReturnDate).format(
+														'Do MMMM, YYYY'
+													)}`}
+												</span>
+											)}
+											<span className='text-small text-muted px-2'>
+												<i className='fas fa-male' />&nbsp;
+												{booking.departing_flight.no_of_adult} Adult
+												{ifNotZero(
+													booking.departing_flight.no_of_child,
+													`, ${booking.departing_flight.no_of_child} Child`
+												)}
+											</span>
+										</div>
+									</div>
+									<div>
+										{booking.departing_flight.status == 'pending' && (
+											<Link
+												to={{
+													pathname: `/ticket/${booking.departing_flight.ruid}`,
+													state: {
+														booking: booking
+													}
+												}}
+												className='btn bg-none text-primary'
+											>
+												Continue to Payment
+											</Link>
+										)}
 
-									return (
-										<div className='booking d-flex justify-content-between align-items-center p-3'>
-											<div key={booking.ruid} className=''>
-												<div className=''>
-													<span className='px-2'>{`${booking.departure}`}</span>
-													<i className='fas fa-arrow-right' />
-													<span className='px-2'> {`${booking.arrival}`}</span>
-												</div>
-												<div>
-													<span className='text-small text-muted px-2'>
-														<i className='fas fa-plane-departure' />&nbsp;
-														{`${moment(booking.flight_date).format('Do MMMM, YYYY')}`}
-													</span>
-													{booking.strTripType === 'R' && (
-														<span className='text-small text-muted px-2'>
-															<i className='fas fa-plane-arrival' />&nbsp;
-															{`${moment(booking.strReturnDate).format('Do MMMM, YYYY')}`}
-														</span>
-													)}
-													<span className='text-small text-muted px-2'>
-														<i className='fas fa-male' />&nbsp;
-														{booking.no_of_adult} Adult
-														{ifNotZero(
-															booking.no_of_child,
-															`, ${booking.no_of_child} Child`
-														)}
-													</span>
-												</div>
-											</div>
-											{transaction.bookings[0] !== undefined && (
-												<div>
-													{transaction.bookings[0].status == 'pending' && (
-														<Link
-															to={{
-																pathname: `/ticket/${transaction.bookings[0].ruid}`,
-																state: {
-																	booking: booking
-																}
-															}}
-															className='btn bg-none text-primary'
-														>
-															Continue to Payment
-														</Link>
-													)}
+										{booking.departing_flight.status == 'completed' && (
+											<Link
+												to={{
+													pathname: `/ticket/${booking.departing_flight.ruid}`,
+													state: {
+														booking: booking
+													}
+												}}
+												className='btn bg-none text-primary'
+											>
+												View Ticket
+											</Link>
+										)}
 
-													{transaction.bookings[0].status == 'confirmed' && (
-														<Link
-															to={{
-																pathname: `/ticket/${transaction.bookings[0].ruid}`,
-																state: {
-																	booking: booking
-																}
-															}}
-															className='btn bg-none text-primary'
-														>
-															View Ticket
-														</Link>
-													)}
-
-													<div className='text-danger text-center'>
-														<Timer
-															ttlTime={getDuration(
-																transaction.bookings[0].reservation_time
-															)}
-														/>
-													</div>
-													{/* <div>
-														<Badge type={transaction.bookings[0].status}>
-															{transaction.bookings[0].status}
+										<div className='text-danger text-center'>
+											<Timer
+												ttlTime={getDuration(booking.departing_flight.reservation_time)}
+												onTimeOut={this.onTimeOut}
+											/>
+										</div>
+										{/* <div>
+														<Badge type={booking.departing_flight.status}>
+															{booking.departing_flight..status}
 														</Badge>
 													</div> */}
-												</div>
-											)}
-										</div>
-									);
-								})}
+									</div>
+								</div>
 							</div>
 						);
 					})}

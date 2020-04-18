@@ -31,7 +31,7 @@ import UpdateBooking from './components/admin/UpdateBooking';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
-import DashboardBookings from './components/admin/DashboardBookings';
+import FlightBookings from './components/admin/FlightBookings';
 import Dashboard from './components/admin/Dashboard';
 import PartnerList from './components/admin/PartnerList';
 import PackagesList from './components/admin/PackagesList';
@@ -110,7 +110,7 @@ const routing = (
 
 		<PrivateRoute path='/admin/partner/:id' component={PartnerDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/cancel_requests' component={UpdateBooking} layout={AdminLayout} />
-		<PrivateRoute path='/admin/dashboard_bookings' component={DashboardBookings} layout={UserLayout} />
+		<PrivateRoute path='/admin/flight_bookings' component={FlightBookings} layout={UserLayout} />
 		<PrivateRoute path='/admin/bookings' component={AdminBookingDetails} layout={AdminLayout} />
 		<PrivateRoute path='/admin/email' component={UserEmail} layout={AdminLayout} />
 		<PrivateRoute path='/admin/:section' component={Dashboard} layout={AdminLayout} />

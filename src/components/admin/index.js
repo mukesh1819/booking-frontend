@@ -4,7 +4,7 @@ import CategoryDetail from './CategoryDetail';
 import CategoryList from './CategoryList';
 import CreateUser from './CreateUser';
 import Dashboard from './Dashboard';
-import DashboardBookings from './DashboardBookings';
+import FlightBookings from './FlightBookings';
 import InquiryDetails from './InquiryDetails';
 import UsersList from './UsersList';
 import UserEmail from './UserEmail';
@@ -23,7 +23,7 @@ export {
 	CategoryList,
 	CreateUser,
 	Dashboard,
-	DashboardBookings,
+	FlightBookings,
 	InquiryDetails,
 	PartnerList,
 	PartnerDetails,

@@ -10,7 +10,8 @@ class TicketDetails extends Component {
 		super(props);
 
 		this.state = {
-			bookings: [{}]
+			departure: {},
+			arrival: {}
 		};
 	}
 
@@ -18,8 +19,10 @@ class TicketDetails extends Component {
 		getBookingDetails(this.props.match.params.id)
 			.then((response) => {
 				console.log('Booking DAtA', response.data);
+				debugger;
 				this.setState({
-					bookings: response.data
+					departure: response.data.departure,
+					arrival: {}
 				});
 			})
 			.catch((error) => {
@@ -34,9 +37,12 @@ class TicketDetails extends Component {
 	}
 
 	render() {
-		const {bookings} = this.state;
-		const booking = bookings[0];
-		const flight = {};
+		const {departure, arrival} = this.state;
+		const booking = departure;
+		var bookings = [departure];
+		if (arrival.flight_id !== undefined) {
+			bookings.push(arrival);
+		}
 		return (
 			<React.Fragment>
 				<div className='container bg-white'>

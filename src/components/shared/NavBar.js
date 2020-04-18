@@ -13,7 +13,7 @@ import history from '../../history';
 import axios from 'axios';
 import {Flag, Segment} from 'semantic-ui-react';
 
-const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language}) => {
+const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>

@@ -104,22 +104,21 @@ class Dashboard extends Component {
 					<div className='col-12 col-md-10 p-4'>
 						<div className='dashboard container'>
 							<div className='row'>
-								{section == undefined ||
-									(section == 'users' && (
-										<div className='widget col-sm-12 col-md-4'>
-											<div className='card'>
-												<div className='card-body'>
-													<div className='text-center'>
-														<span className='count'>{users}</span>
-														<hr />
-														<Link to='/admin/users_list' className='action'>
-															View all Users
-														</Link>
-													</div>
+								{(section == undefined || section == 'users') && (
+									<div className='widget col-sm-12 col-md-4'>
+										<div className='card'>
+											<div className='card-body'>
+												<div className='text-center'>
+													<span className='count'>{users}</span>
+													<hr />
+													<Link to='/admin/users_list' className='action'>
+														View all Users
+													</Link>
 												</div>
 											</div>
 										</div>
-									))}
+									</div>
+								)}
 
 								{(section == undefined || section == 'flights') && (
 									<div className='widget col-sm-12 col-md-4'>
@@ -128,7 +127,7 @@ class Dashboard extends Component {
 												<div className='text-center'>
 													<span className='count'>{bookings}</span>
 													<hr />
-													<Link to='/admin/dashboard_bookings' className='action'>
+													<Link to='/admin/flight_bookings' className='action'>
 														View all bookings
 													</Link>
 												</div>
