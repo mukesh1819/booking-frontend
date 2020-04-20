@@ -150,8 +150,8 @@ class SearchBar extends Component {
 									</span>
 								</div>
 
-								<div className='input-section-inputs'>
-									<div className='field-box form-group'>
+								<div className='input-section-inputs row'>
+									<div className='col-12 col-md-5 form-group'>
 										<label>Leaving From</label>
 										<Dropdown
 											name='strSectorFrom'
@@ -187,7 +187,7 @@ class SearchBar extends Component {
 											/>
 										</div>
 									</div>
-									<div className='toggle-sector-desktop form-group'>
+									<div className='col-md-2 toggle-sector-desktop form-group'>
 										<label htmlFor=''>&nbsp;</label>
 										<i
 											className='menu fas fa-exchange-alt'
@@ -197,7 +197,7 @@ class SearchBar extends Component {
 											}}
 										/>
 									</div>
-									<div className='field-box form-group'>
+									<div className='col-12 col-md-5 form-group'>
 										<label>Going To</label>
 										<Dropdown
 											name='strSectorTo'

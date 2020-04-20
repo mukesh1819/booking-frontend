@@ -21,8 +21,8 @@ class TicketDetails extends Component {
 				console.log('Booking DAtA', response.data);
 				debugger;
 				this.setState({
-					departure: response.data.departure,
-					arrival: {}
+					departure: response.data.departing_flight,
+					arrival: response.data.arriving_flight ? response.data.arriving_flight : {}
 				});
 			})
 			.catch((error) => {
@@ -38,7 +38,6 @@ class TicketDetails extends Component {
 
 	render() {
 		const {departure, arrival} = this.state;
-		const booking = departure;
 		var bookings = [departure];
 		if (arrival.flight_id !== undefined) {
 			bookings.push(arrival);
@@ -119,43 +118,46 @@ class TicketDetails extends Component {
 															Total Fare: {booking.currency} {booking.total_fare}
 														</div>
 														<div className='text-small text-muted'>
-															({booking.adult} Adult
-															{ifNotZero(booking.child, `, ${booking.child} Child`)})
+															({booking.no_of_adult} Adult
+															{ifNotZero(
+																booking.no_of_child,
+																`, ${booking.no_of_child} Child`
+															)})
 														</div>
 													</span>
 													<ul className='text-muted text-small'>
-														{booking.adult > 0 && (
+														{booking.no_of_adult > 0 && (
 															<li>
-																Base Fare (1 Adult): {booking.currency}
+																Base Fare (1 Adult): {booking.currency}{' '}
 																{booking.adult_fare}
 																{ifGreaterThanOne(
-																	booking.adult,
-																	` * (${booking.adult})`
+																	booking.no_of_adult,
+																	` * (${booking.no_of_adult})`
 																)}
 															</li>
 														)}
-														{booking.child > 0 && (
+														{booking.no_of_child > 0 && (
 															<li>
 																Base Fare (1 Child): {booking.currency}{' '}
 																{booking.child_fare}
 																{ifGreaterThanOne(
-																	booking.child,
-																	` * (${booking.child})`
+																	booking.no_of_child,
+																	` * (${booking.no_of_child})`
 																)}
 															</li>
 														)}
 														<li>
 															Fuel Surcharge: {booking.currency} {booking.fuel_surcharge}
 															{ifGreaterThanOne(
-																booking.adult + booking.child,
-																` * (${booking.adult} + ${booking.child})`
+																booking.no_of_adult + booking.no_of_child,
+																` * (${booking.no_of_adult} + ${booking.no_of_child})`
 															)}
 														</li>
 														<li>
 															Tax: {booking.currency} {booking.tax}{' '}
 															{ifGreaterThanOne(
-																booking.adult + booking.child,
-																` * (${booking.adult} + ${booking.child})`
+																booking.no_of_adult + booking.no_of_child,
+																` * (${booking.no_of_adult} + ${booking.no_of_child})`
 															)}
 														</li>
 													</ul>
@@ -184,8 +186,8 @@ class TicketDetails extends Component {
 														</tr>
 													</thead>
 													<tbody>
-														{booking.passengers !== undefined &&
-															booking.passengers.map((passenger) => {
+														{departure.passengers !== undefined &&
+															departure.passengers.map((passenger) => {
 																return (
 																	<tr className='text-center'>
 																		<td className=''>{passenger.ticket_no}</td>
@@ -214,16 +216,16 @@ class TicketDetails extends Component {
 												<div className=''>
 													<div>
 														<span class='text-bold'>PNR No:&nbsp;</span>
-														<span className='text-small'>{booking.pnr_no}</span>
+														<span className='text-small'>{departure.pnr_no}</span>
 													</div>
 													<div>
 														<span class='text-bold'>Invoice:&nbsp;</span>
-														<span className='text-small'>{booking.ruid}</span>
+														<span className='text-small'>{departure.ruid}</span>
 													</div>
 													<div>
 														<span class='text-bold'>Reporting Time:&nbsp;</span>
 														<span className='text-small'>
-															{moment(booking.flight_date).format('D MMMM, YYYY')}
+															{moment(departure.flight_date).format('D MMMM, YYYY')}
 														</span>
 													</div>
 												</div>
@@ -235,7 +237,7 @@ class TicketDetails extends Component {
 						</div>
 					</div>
 					<div className='text-center py-4'>
-						<span onClick={() => downloadTicket(booking.ruid)} className='btn btn-primary btn-large'>
+						<span onClick={() => downloadTicket(departure.ruid)} className='btn btn-primary btn-large'>
 							Print ticket
 						</span>
 					</div>

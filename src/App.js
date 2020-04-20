@@ -14,8 +14,6 @@ import swal from 'sweetalert';
 function App(props) {
 	useEffect(
 		() => {
-			console.log('Load App Component');
-			console.log('ENV VARIABLE', process.env);
 			if (localStorage.token !== undefined && props.currentUser.email == undefined) {
 				getUserDetails()
 					.then((response) => {

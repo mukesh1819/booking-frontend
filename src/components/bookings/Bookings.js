@@ -148,12 +148,14 @@ class Bookings extends Component {
 											</Link>
 										)}
 
-										<div className='text-danger text-center'>
-											<Timer
-												ttlTime={getDuration(booking.departing_flight.reservation_time)}
-												onTimeOut={this.onTimeOut}
-											/>
-										</div>
+										{booking.departing_flight.status == 'pending' && (
+											<div className='text-danger text-center'>
+												<Timer
+													ttlTime={getDuration(booking.departing_flight.reservation_time)}
+													onTimeOut={this.onTimeOut}
+												/>
+											</div>
+										)}
 										{/* <div>
 														<Badge type={booking.departing_flight.status}>
 															{booking.departing_flight..status}
