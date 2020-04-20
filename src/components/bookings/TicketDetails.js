@@ -19,7 +19,6 @@ class TicketDetails extends Component {
 		getBookingDetails(this.props.match.params.id)
 			.then((response) => {
 				console.log('Booking DAtA', response.data);
-				debugger;
 				this.setState({
 					departure: response.data.departing_flight,
 					arrival: response.data.arriving_flight ? response.data.arriving_flight : {}

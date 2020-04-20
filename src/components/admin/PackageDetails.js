@@ -88,7 +88,10 @@ class PackageDetails extends Component {
 								<td>{aPackage.inclusions}</td>
 								<td>{aPackage.exclusions}</td>
 								<td>
-									{aPackage.published === false && <Checkbox checked={published} onChange={this.handleChange} />}
+									{this.state.published == false && aPackage.published === false &&
+										<Checkbox checked={published} onChange={this.handleChange} />
+										
+									}
 								</td>
 							</tr>
 						</tbody>

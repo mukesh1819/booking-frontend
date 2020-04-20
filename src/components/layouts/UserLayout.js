@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import {Slidebar, NavBar} from '../shared';
+
 class UserLayout extends Component {
 	constructor(props) {
 		super(props);

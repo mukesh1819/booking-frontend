@@ -16,9 +16,7 @@ export function updateUserDetails(details) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/members`,
-		data: {
-			user: details
-		}
+		data: details
 	});
 }
 
