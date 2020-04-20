@@ -47,6 +47,22 @@
         width: 100%;
     }
 
+    .react-datepicker-wrapper {
+        width: 100%;
+    }
+
+
+    .field {
+        width: 100%;
+    }
+
+    .row.inputs {
+
+        @include tablet {
+            margin-bottom: 30px;
+        }
+    }
+
     &-inputs {
         display: flex;
         align-items: baseline;
@@ -54,15 +70,7 @@
 
         @include tablet {
             flex-wrap: nowrap;
-            margin: 0px;
-        }
-
-        .react-datepicker-wrapper {
-            width: 100%;
-        }
-
-        .field {
-            width: 100%;
+            margin-bottom: 30px;
         }
     }
 
@@ -83,14 +91,17 @@
 }
 
 .field-box {
-    width: -webkit-fill-available;
     position: relative;
+    padding: 6px 8px;
 
     &:last-child {
-
         @include desktop {
             margin-right: 0px;
         }
+    }
+
+    @include tablet {
+        padding: 0px;
     }
 }
 
@@ -135,8 +146,8 @@
 
     .toggle-trip {
         position: absolute;
-        right: 4px;
-        top: 5px;
+        right: 25px;
+        top: 4px;
         display: table;
 
         @include tablet {
@@ -155,7 +166,7 @@
     .toggle-sector-mobile {
         position: absolute;
         padding: 0.5rem 0.7rem;
-        right: 5px;
+        right: 25px;
         top: 50%;
         z-index: 10;
         border: 1px solid $primary;

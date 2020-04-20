@@ -150,8 +150,8 @@ class SearchBar extends Component {
 									</span>
 								</div>
 
-								<div className='input-section-inputs row'>
-									<div className='col-12 col-md-5 form-group'>
+								<div className='inputs row'>
+									<div className='field-box col-12 col-md-5 px-md-0'>
 										<label>Leaving From</label>
 										<Dropdown
 											name='strSectorFrom'
@@ -187,7 +187,7 @@ class SearchBar extends Component {
 											/>
 										</div>
 									</div>
-									<div className='col-md-2 toggle-sector-desktop form-group'>
+									<div className='col-md-1 toggle-sector-desktop text-center'>
 										<label htmlFor=''>&nbsp;</label>
 										<i
 											className='menu fas fa-exchange-alt'
@@ -197,7 +197,7 @@ class SearchBar extends Component {
 											}}
 										/>
 									</div>
-									<div className='col-12 col-md-5 form-group'>
+									<div className='field-box col-12 col-md-5 px-md-0'>
 										<label>Going To</label>
 										<Dropdown
 											name='strSectorTo'
@@ -228,8 +228,12 @@ class SearchBar extends Component {
 										<ErrorMessage name='strSectorTo' />
 									</div>
 								</div>
-								<div className='input-section-inputs'>
-									<div className='field-box form-group'>
+								<div className='row inputs'>
+									<div
+										className={`field-box col-12 pl-md-0 ${values.strTripType == 'O'
+											? 'col-md-3'
+											: 'col-md-2'}`}
+									>
 										<label>Departure Date</label>
 										<DatePicker
 											name='strFlightDate'
@@ -257,7 +261,9 @@ class SearchBar extends Component {
 										</div>
 									</div>
 									<div
-										className={`field-box form-group ${values.strTripType == 'O' ? 'd-none' : ''}`}
+										className={`field-box col-12 col-md-2 ${values.strTripType == 'O'
+											? 'd-none'
+											: ''}`}
 									>
 										<label>Arrival Date</label>
 										<DatePicker
@@ -274,7 +280,7 @@ class SearchBar extends Component {
 										/>
 										<ErrorMessage name='strReturnDate' />
 									</div>
-									<div className='field-box form-group'>
+									<div className='field-box col-12 col-md-3'>
 										<label>Traveller(s)</label>
 										{/* <IconInput icon='icon-users' iconPosition='left'>
 											<DropdownItem
@@ -346,7 +352,7 @@ class SearchBar extends Component {
 										<ErrorMessage name='intChild' />
 									</div>
 
-									<div className='field-box form-group'>
+									<div className='field-box col-12 col-md-3'>
 										<label htmlFor=''>Nationality</label>
 										<Dropdown
 											name='strNationality'
@@ -367,7 +373,11 @@ class SearchBar extends Component {
 										/>
 										<ErrorMessage name='strNationality' />
 									</div>
-									<div className='field-box text-center'>
+									<div
+										className={`field-box col-12 text-center pr-md-0' ${values.strTripType == 'O'
+											? 'col-md-3'
+											: 'col-md-2'}`}
+									>
 										<label>&nbsp;</label>
 										<button
 											className='search-btn btn btn-primary btn-large'
