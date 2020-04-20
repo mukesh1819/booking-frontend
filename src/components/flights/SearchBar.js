@@ -151,7 +151,7 @@ class SearchBar extends Component {
 								</div>
 
 								<div className='inputs row'>
-									<div className='field-box col-12 col-md-5 px-md-0'>
+									<div className='field-box col px-md-0'>
 										<label>Leaving From</label>
 										<Dropdown
 											name='strSectorFrom'
@@ -197,7 +197,7 @@ class SearchBar extends Component {
 											}}
 										/>
 									</div>
-									<div className='field-box col-12 col-md-5 px-md-0'>
+									<div className='field-box col px-md-0'>
 										<label>Going To</label>
 										<Dropdown
 											name='strSectorTo'

@@ -19,7 +19,8 @@ class PackageDetails extends Component {
 				price: 0.0,
 				location: '',
 				images: [],
-				description: ''
+				description: '',
+				similar_package: []
 			},
 			showInquiryForm: false
 		};
@@ -79,8 +80,7 @@ class PackageDetails extends Component {
 				menuItem: 'About',
 				render: () => (
 					<Tab.Pane attached={false}>
-						<div className=''>
-							<h3> Description</h3>
+						<div className='mt-3'>
 							<div
 								dangerouslySetInnerHTML={{
 									__html: aPackage.description
@@ -145,46 +145,45 @@ class PackageDetails extends Component {
 							</div>
 						</div>
 					</div>
-					<div className='row'>
-						<div className='col-12 p-0'>
-							<div className='card mb-2'>
-								<div className='card-body'>
+					<div className='card mb-2'>
+						<div className='card-body'>
+							<div className='row'>
+								<div className='col-12 p-0'>
 									<Tab menu={{secondary: true}} panes={panes} />
-								</div>
-							</div>
-							<div className='card my-3'>
-								<div className='card-body'>
-									<div className='row'>
-										{aPackage.inclusions && (
-											<div className='col-12 col-md-6'>
-												<h3 className='title'>Inclusions</h3>
-												{aPackage.inclusions
-													.split('\n')
-													.map((item, i) => <p key={i}>{item}</p>)}
-											</div>
-										)}
-										{aPackage.exclusions && (
-											<div className='col-12 col-md-6'>
-												<h3 className='title'>Exclusions</h3>
-												{aPackage.exclusions
-													.split('\n')
-													.map((item, i) => <p key={i}>{item}</p>)}
-											</div>
-										)}
+									<div className='row mt-3'>
+										<Gallery images={dummyImages} />
 									</div>
 								</div>
 							</div>
+							<div className='row mt-3'>
+								{aPackage.inclusions && (
+									<div className='col-12 col-md-6'>
+										<h3 className='title'>Inclusions</h3>
+										{aPackage.inclusions.split('\n').map((item, i) => <p key={i}>{item}</p>)}
+									</div>
+								)}
+								{aPackage.exclusions && (
+									<div className='col-12 col-md-6'>
+										<h3 className='title'>Exclusions</h3>
+										{aPackage.exclusions.split('\n').map((item, i) => <p key={i}>{item}</p>)}
+									</div>
+								)}
+							</div>
 						</div>
+					</div>
+
+					<div className='row'>
 						<div className='col-12 p-0'>
 							<div className='header'>
 								<h3 className='py-3'>Similar Packages</h3>
 							</div>
 							<div className='owl-carousel owl-theme'>
-								<Package aPackage={aPackage} />
-								<Package aPackage={aPackage} />
-								<Package aPackage={aPackage} />
-								<Package aPackage={aPackage} />
-								<Package aPackage={aPackage} />
+								{aPackage.similar_package.length > 0 &&
+									aPackage.similar_package.map((similar) => (
+										<div>
+											<Package aPackage={similar} />
+										</div>
+									))}
 							</div>
 						</div>
 					</div>

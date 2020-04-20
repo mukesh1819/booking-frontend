@@ -23,8 +23,19 @@ $font40: 40px;
         outline: none;
     }
 
-    a {
+    a:hover {
         text-decoration: none;
+    }
+}
+
+.col {
+    flex: 0 0 100%;
+    max-width: 100%;
+
+    @include tablet {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
     }
 }
 
