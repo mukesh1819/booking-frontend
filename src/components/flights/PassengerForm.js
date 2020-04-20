@@ -150,8 +150,8 @@ class PassengerForm extends Component {
 						<Form className='form-wrap'>
 							<h3 className='p-2 title'>Contact Information</h3>
 							<div className='input-section'>
-								<div className='input-section-inputs'>
-									<div className='field-box form-group'>
+								<div className='row'>
+									<div className='col'>
 										<label>Name</label>
 										<Field
 											type='text'
@@ -164,7 +164,7 @@ class PassengerForm extends Component {
 										<ErrorMessage name='user.name' />
 									</div>
 
-									<div className='field-box form-group'>
+									<div className='col'>
 										<label>Phone</label>
 										<Input
 											label={
@@ -204,7 +204,7 @@ class PassengerForm extends Component {
 									</div>
 
 									{/* 
-								<div className='field-box form-group'>
+								<div className='col'>
 									<label>Code</label>
 									<Field
 										type='text'
@@ -225,7 +225,7 @@ class PassengerForm extends Component {
 									</Field>
 								</div> */}
 
-									{/* <div className='field-box form-group'>
+									{/* <div className='col'>
 									<label>Contact Phone</label>
 									<Field
 										type='text'
@@ -237,7 +237,7 @@ class PassengerForm extends Component {
 									/>
 								</div> */}
 
-									<div className='field-box form-group'>
+									<div className='col'>
 										<label>Email</label>
 										<Field
 											type='text'
@@ -259,8 +259,8 @@ class PassengerForm extends Component {
 										{/* <Accordion title={`${passenger.passenger_type} ${index + 1}`} /> */}
 										<h3 className='p-2'>{`${passenger.passenger_type} ${index + 1}`}</h3>
 										<div className='input-section bg-white'>
-											<div className='input-section-inputs'>
-												<div className='field-box form-group'>
+											<div className='row'>
+												<div className='col'>
 													<label htmlFor=''>Title</label>
 													{/* <Field
 														as='select'
@@ -308,7 +308,7 @@ class PassengerForm extends Component {
 													</span>
 												</div>
 
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>First Name</label>
 													<Field
 														name={`passengers[${index}].first_name`}
@@ -320,7 +320,7 @@ class PassengerForm extends Component {
 													/>
 													<ErrorMessage name={`passengers[${index}].first_name`} />
 												</div>
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>Last Name</label>
 													<Field
 														name={`passengers[${index}].last_name`}
@@ -333,7 +333,7 @@ class PassengerForm extends Component {
 													<ErrorMessage name={`passengers[${index}].last_name`} />
 												</div>
 
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>Gender</label>
 													{/* <Field
 														as='select'
@@ -374,7 +374,7 @@ class PassengerForm extends Component {
 													<ErrorMessage name={`passengers[${index}].gender`} />
 												</div>
 
-												{/* <div className='field-box form-group'>
+												{/* <div className='col'>
 													<label htmlFor=''>Nationality</label>
 													<Field
 														as='select'
@@ -394,7 +394,7 @@ class PassengerForm extends Component {
 													</Field>
 													<ErrorMessage name={`passengers[${index}].nationality`} />
 												</div> */}
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>Nationality</label>
 													<Dropdown
 														className='form-control'

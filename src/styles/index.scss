@@ -28,17 +28,6 @@ $font40: 40px;
     }
 }
 
-.col {
-    flex: 0 0 100%;
-    max-width: 100%;
-
-    @include tablet {
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-    }
-}
-
 html {
     height: 100%;
 }

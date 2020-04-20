@@ -64,18 +64,20 @@ class TicketDetails extends Component {
 
 											<div className='card-body'>
 												<div className='flight-details p-2'>
-													<div className='header d-flex justify-content-between align-items-center text-small text-muted'>
-														<span>
-															<img src={booking.airline_logo} className='p-2' />
-															<div className='text-center'>{'Simrik Air'}</div>
+													<div className='header row align-items-center text-small text-muted'>
+														<span className='col'>
+															<div>
+																<img src={booking.airline_logo} className='p-2' />
+																<div>{'Simrik Air'}</div>
+															</div>
 														</span>
-														<span className='text-center'>
+														<span className='col-3 p-0 text-center'>
 															<i className='fas fa-plane fa-2x departure text-primary' />
 															<div>
 																{moment(booking.flight_date).format('D MMMM, YYYY')}
 															</div>
 														</span>
-														<span className='text-right'>
+														<span className='col text-right'>
 															Class: {booking.class_code} | &nbsp;
 															<span className='text-info'>
 																{isRefundable(booking.refundable)}
@@ -86,16 +88,16 @@ class TicketDetails extends Component {
 													</div>
 													<hr />
 													<div className='body'>
-														<div className='d-flex justify-content-between align-items-center'>
-															<span className='text-center'>
+														<div className='row align-items-center'>
+															<span className='col'>
 																{booking.departure_flight_time}
 																<div className='text-bold'>{booking.departure}</div>
 															</span>
-															<span className='text-small text-muted text-center'>
+															<span className='col-3 p-0 text-small text-muted text-center'>
 																<i className='fas fa-clock text-primary' />
 																<div>{booking.duration} min</div>
 															</span>
-															<span className='text-center'>
+															<span className='col text-center'>
 																{booking.arrival_time}
 																<div className='text-bold'>{booking.arrival}</div>
 															</span>

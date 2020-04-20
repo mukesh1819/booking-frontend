@@ -80,6 +80,18 @@
 }
 
 .form-wrap {
+
+    .col {
+        flex: 0 0 100%;
+        max-width: 100%;
+
+        @include tablet {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        }
+    }
+
     label {
         display: none;
         font-weight: 500;
@@ -189,17 +201,18 @@
             display: block;
         }
     }
+}
 
-    .btn-dropdown {
-        font-weight: normal;
 
-        i {
-            float: left;
-        }
+.btn-dropdown {
+    font-weight: normal;
 
-        input {
-            padding-left: 38px;
-        }
+    i {
+        float: left;
+    }
+
+    input {
+        padding-left: 38px;
     }
 }
 

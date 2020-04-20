@@ -13,7 +13,7 @@ import {Button, ButtonGroup} from 'react-bootstrap';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker} from '../shared';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import {Input, Form, Checkbox} from 'semantic-ui-react';
+import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {createInquiry, updateInquiry} from '../../api/inquiryApi';
@@ -160,7 +160,7 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<label>Select Activity</label>
 													<Dropdown
-														className='form-control'
+														className=''
 														name='activity_id'
 														placeholder='Select activities'
 														onBlur={handleBlur}
@@ -188,7 +188,7 @@ class InquiryForm extends Component {
 												<label className='d-block'>Preferred date</label>
 												<DatePicker
 													name='preferred_date'
-													className='form-control w-100'
+													className=' w-100'
 													type='date'
 													date={values.preferred_date}
 													minDate={new Date()}
@@ -210,9 +210,12 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<Form.Field>
 														<label>First Name</label>
-														<input
+														<Form.Input
+															fluid
+															icon='fas fa-user'
+															iconPosition='left'
 															name='first_name'
-															className='form-control'
+															className=''
 															onBlur={handleBlur}
 															onChange={handleChange}
 															value={values.first_name}
@@ -226,9 +229,12 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<Form.Field>
 														<label>Last Name</label>
-														<input
+														<Form.Input
+															fluid
+															icon='fas fa-user'
+															iconPosition='left'
 															name='last_name'
-															className='form-control'
+															className=''
 															onBlur={handleBlur}
 															onChange={handleChange}
 															value={values.last_name}
@@ -244,9 +250,12 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<Form.Field>
 														<label>Email Address</label>
-														<input
+														<Form.Input
+															fluid
+															icon='fas fa-user'
+															iconPosition='left'
 															name='email_address'
-															className='form-control'
+															className=''
 															onBlur={handleBlur}
 															onChange={handleChange}
 															value={values.email_address}
@@ -258,15 +267,21 @@ class InquiryForm extends Component {
 											</div>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label>Mobile Number</label>
-													<Field
-														name='phone'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.phone}
-														placeholder='Mobile Number'
-													/>
+													<Form.Field>
+														<label>Mobile Number</label>
+
+														<Form.Input
+															fluid
+															icon='fas fa-user'
+															iconPosition='left'
+															name='phone'
+															className=''
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.phone}
+															placeholder='Mobile Number'
+														/>
+													</Form.Field>
 													<ErrorMessage name='phone' />
 												</div>
 											</div>
@@ -277,8 +292,9 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<label htmlFor=''>Country</label>
 													<Dropdown
-														className='form-control'
+														className=' btn-dropdown'
 														name='nationality'
+														icon='fas fa-globe'
 														placeholder='Select Country'
 														onBlur={handleBlur}
 														onChange={(e, data) => {
@@ -297,9 +313,12 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<Form.Field>
 														<label>City</label>
-														<input
+														<Form.Input
+															fluid
+															icon='fas fa-user'
+															iconPosition='left'
 															name='city'
-															className='form-control'
+															className=''
 															onBlur={handleBlur}
 															onChange={handleChange}
 															value={values.city}
@@ -315,9 +334,12 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<Form.Field>
 														<label>Address</label>
-														<input
+														<Form.Input
+															fluid
+															icon='fas fa-user'
+															iconPosition='left'
 															name='address'
-															className='form-control'
+															className=''
 															onBlur={handleBlur}
 															onChange={handleChange}
 															value={values.address}
@@ -331,10 +353,13 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<Form.Field>
 														<label>Zip Code</label>
-														<input
+														<Form.Input
+															fluid
+															icon='fas fa-user'
+															iconPosition='left'
 															name='zip_code'
 															type='number'
-															className='form-control'
+															className=''
 															onBlur={handleBlur}
 															onChange={handleChange}
 															value={values.zip_code}
@@ -348,7 +373,11 @@ class InquiryForm extends Component {
 											<div className='field-box'>
 												<Checkbox
 													label={'I am one of the traveller'}
-													onChange={(event, data) => setFieldValue('traveller', data.checked)}
+													onChange={(event, data) => {
+														setFieldValue('traveller', data.checked);
+														data.checked &&
+															setFieldValue('head_traveller_name', values.first_name);
+													}}
 													name='traveller'
 													className=''
 													type='checkbox'
@@ -417,15 +446,20 @@ class InquiryForm extends Component {
 											<div className='col-12 col-md-6'>
 												{!values.traveller && (
 													<div className='field-box'>
-														<label>Head Traveller Name</label>
-														<Field
-															name='head_traveller_name'
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.head_traveller_name}
-															placeholder='Name of Head Traveller'
-														/>
+														<Form.Field>
+															<label>Head Traveller Name</label>
+															<Form.Input
+																fluid
+																icon='fas fa-user'
+																iconPosition='left'
+																name='head_traveller_name'
+																className=''
+																onBlur={handleBlur}
+																onChange={handleChange}
+																value={values.head_traveller_name}
+																placeholder='Name of Head Traveller'
+															/>
+														</Form.Field>
 														<ErrorMessage name='head_traveller_name' />
 													</div>
 												)}
@@ -436,9 +470,7 @@ class InquiryForm extends Component {
 													<label className='small d-block'>
 														Please fill in case you have any special request / query.
 													</label>
-													<Field
-														component='textarea'
-														rows='2'
+													<TextArea
 														className='form-control'
 														name='query'
 														placeholder='Any Queries?'

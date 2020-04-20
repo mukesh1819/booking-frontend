@@ -8,35 +8,34 @@ const FlightDetails = (props) => {
 	const {flight, adult, child} = props;
 	return (
 		<div className='flight-details'>
-			<div className='d-flex justify-content-between text-small text-muted'>
-				<div className=''>
+			<div className='row text-small text-muted align-items-center'>
+				<div className='col'>
 					<div>
 						<img src={flight.AirlineLogo} className='airline-logo' />
 					</div>
 					<div className=''>{'Simrik Air'}</div>
 				</div>
-				<div className='text-center'>
+				<div className='col-3 p-0 text-center'>
 					<i className='fas fa-plane fa-2x departure text-primary' />
 					<div>{flight.FlightDate}</div>
 				</div>
-				<div className='text-right'>
-					Class: {flight.FlightClassCode} |{' '}
-					<span className='text-info'> {isRefundable(flight.Refundable)}</span>
+				<div className='col text-right'>
+					Class: {flight.FlightClassCode} | <span className=''> {isRefundable(flight.Refundable)}</span>
 					<div>Check-in Baggage: {flight.FreeBaggage}</div>
 					<div>Flight: {flight.FlightNo}</div>
 				</div>
 			</div>
 			<hr />
 			<div className='body'>
-				<div className='d-flex justify-content-between align-items-center'>
-					<span className='text-center'>
+				<div className='row align-items-center'>
+					<span className='col'>
 						{flight.DepartureTime} <div className='text-bold'>{flight.Departure}</div>
 					</span>
-					<span className='text-small text-muted text-center'>
+					<span className='text-small text-muted text-center col-3 p-0'>
 						<i className='fas fa-clock text-primary' />
 						<div>{flight.duration} min</div>
 					</span>
-					<span className='text-center'>
+					<span className='text-right col'>
 						{flight.ArrivalTime}
 						<div className='text-bold'>{flight.Arrival}</div>
 					</span>
