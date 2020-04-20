@@ -20,7 +20,6 @@ class Dashboard extends Component {
 	}
 
 	onSideBarSelect = (value) => {
-		debugger;
 		this.setState({
 			section: value
 		});

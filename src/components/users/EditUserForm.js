@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import {passCsrfToken} from '../../helpers';
-import {Formik, Form, Field, connect} from 'formik';
+import {Formik, Form, Field} from 'formik';
 import * as yup from 'yup';
 import ErrorMessage from '../ErrorMessage';
 import history from '../../history';
 import {Redirect} from 'react-router-dom';
 import swal from 'sweetalert';
+import {Dropdown} from 'semantic-ui-react';
+import {connect} from 'react-redux';
 
 class EditUserForm extends Component {
 	constructor(props) {
@@ -54,11 +56,10 @@ class EditUserForm extends Component {
 		const {countries} = this.props;
 		const {user} = this.props.location.state ? this.props.location.state : '';
 		const UpdateSignupForm = yup.object().shape({
-			password: yup.string().required('Required'),
 			password_confirmation: yup
 				.string()
 				.oneOf([yup.ref('password'), null], "Passwords don't match!")
-				.required('Required')
+				
 		});
 
 		if (!user) {
@@ -79,7 +80,7 @@ class EditUserForm extends Component {
 									email: user.email,
 									password: '',
 									password_confirmation: '',
-									currency: user.currency
+									country: user.country
 								}}
 								validationSchema={UpdateSignupForm}
 								onSubmit={(values, {setSubmitting, setStatus}) => {
@@ -88,7 +89,7 @@ class EditUserForm extends Component {
 											id: values.id,
 											name: values.name,
 											email: values.email,
-											currency: values.currency,
+											country: values.country,
 											password: values.password,
 											password_confirmation: values.password_confirmation
 										}
@@ -161,29 +162,37 @@ class EditUserForm extends Component {
 										</div>
 										<div className='row'>
 											<div className='col-md-6 d-flex align-items-end'>
-												<label> Currency </label>
+												<label> Country </label>
 											</div>
+										
 											<div className='col-md-6'>
-												<Field
-													as='select'
-													name='currency'
+												<Dropdown
 													className='form-control'
+													name='country'
+													placeholder='Select Country'
 													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.currency}
-												>
-													{countries.map((country) => {
-														return (
-															country.currency_char !== null && (
-																<option key={country.id} value={country.currency_char}>
-																	{country.currency_char}
-																</option>
-															)
+													onChange={(e, data) => {
+														setFieldValue(
+															`country`,
+															data.value
 														);
+													}}
+													value={values.country}
+													Ffluid
+													search
+													selection
+													options={countries.map((country) => {
+														return {
+															key: country.key,
+															value: country.text,
+															text: country.text,
+															flag: country.flag
+														};
 													})}
-												</Field>
+												/>
 											</div>
 										</div>
+
 										<div className='row'>
 											<div className='col-md-6 d-flex align-items-center'>
 												<label> Password </label>
