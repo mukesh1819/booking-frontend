@@ -64,7 +64,7 @@ class CompanyForm extends Component {
 					/* and other goodies */
 				}) => (
 					<form onSubmit={handleSubmit} autoComplete='off'>
-						<div className='input-section'>
+						<div className=''>
 							<div className='row'>
 								<div className='col-12'>
 									<div className='field-box'>

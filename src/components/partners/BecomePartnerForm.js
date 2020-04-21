@@ -75,12 +75,14 @@ class BecomePartnerForm extends Component {
 			<div className='container p-4'>
 				<div className='card'>
 					<div className='card-body'>
-						<Stepper step={step}>
-							{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
-							{step == 2 && (
-								<CompanyForm prevStep={this.prevStep} nextStep={(data) => this.nextStep(data)} />
-							)}
-						</Stepper>
+						<div className='input-section'>
+							<Stepper step={step}>
+								{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
+								{step == 2 && (
+									<CompanyForm prevStep={this.prevStep} nextStep={(data) => this.nextStep(data)} />
+								)}
+							</Stepper>
+						</div>
 					</div>
 				</div>
 			</div>
