@@ -252,7 +252,7 @@ class InquiryForm extends Component {
 														<label>Email Address</label>
 														<Form.Input
 															fluid
-															icon='fas fa-user'
+															icon='fas fa-envelope'
 															iconPosition='left'
 															name='email_address'
 															className=''
@@ -272,7 +272,7 @@ class InquiryForm extends Component {
 
 														<Form.Input
 															fluid
-															icon='fas fa-user'
+															icon='fas fa-mobile-alt'
 															iconPosition='left'
 															name='phone'
 															className=''
@@ -315,7 +315,7 @@ class InquiryForm extends Component {
 														<label>City</label>
 														<Form.Input
 															fluid
-															icon='fas fa-user'
+															icon='fas fa-city'
 															iconPosition='left'
 															name='city'
 															className=''
@@ -336,7 +336,7 @@ class InquiryForm extends Component {
 														<label>Address</label>
 														<Form.Input
 															fluid
-															icon='fas fa-user'
+															icon='address card icon'
 															iconPosition='left'
 															name='address'
 															className=''
@@ -355,7 +355,7 @@ class InquiryForm extends Component {
 														<label>Zip Code</label>
 														<Form.Input
 															fluid
-															icon='fas fa-user'
+															icon='fas fa-mail-bulk'
 															iconPosition='left'
 															name='zip_code'
 															type='number'

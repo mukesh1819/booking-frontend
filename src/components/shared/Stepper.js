@@ -12,7 +12,7 @@ const Stepper = (props) => {
 			<Step.Group attached='top'>
 				{steps.map(({icon, title, description, level}) => (
 					<Step completed={level < step ? true : false} active={level == step ? true : false}>
-						<Icon name={icon} />
+						{/* <Icon name={icon} /> */}
 						<Step.Content>
 							<Step.Title>{title}</Step.Title>
 							<Step.Description>{description}</Step.Description>

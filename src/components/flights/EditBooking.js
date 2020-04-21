@@ -191,9 +191,7 @@ class EditBooking extends Component {
 														setFieldValue(`user.code`, data.value);
 													}}
 													value={values.user.code}
-													fluid
 													search
-													selection
 													options={sortedCountries.map((country) => {
 														return {
 															key: country.id,

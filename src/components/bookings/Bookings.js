@@ -10,6 +10,7 @@ import {EmptyContent} from '../shared';
 import {Badge} from '../shared';
 import swal from 'sweetalert';
 import {Timer} from '../shared';
+import {PaymentForm} from '../payments';
 
 class Bookings extends Component {
 	constructor(props) {
@@ -17,7 +18,8 @@ class Bookings extends Component {
 
 		this.state = {
 			bookings: [],
-			refresh: false
+			refresh: false,
+			bookingToPay: null
 		};
 
 		this.onTimeOut = this.onTimeOut.bind(this);
@@ -37,6 +39,12 @@ class Bookings extends Component {
 		this.fetchDetails();
 		this.setState({
 			refresh: true
+		});
+	};
+
+	onContinueToPayment = (idx) => {
+		this.setState({
+			bookingToPay: idx
 		});
 	};
 
@@ -64,11 +72,15 @@ class Bookings extends Component {
 	};
 
 	render() {
-		const {bookings} = this.state;
+		const {bookings, bookingToPay} = this.state;
 		console.log('Bookings', bookings);
 
 		if (bookings.length == 0) {
 			return <EmptyContent>No bookings yet.</EmptyContent>;
+		}
+
+		if (bookingToPay != null) {
+			return <PaymentForm idx={bookingToPay} />;
 		}
 
 		return (
@@ -121,17 +133,12 @@ class Bookings extends Component {
 									</div>
 									<div>
 										{booking.departing_flight.status == 'pending' && (
-											<Link
-												to={{
-													pathname: `/ticket/${booking.departing_flight.ruid}`,
-													state: {
-														booking: booking
-													}
-												}}
+											<span
+												onClick={() => this.onContinueToPayment(booking.departing_flight.ruid)}
 												className='btn bg-none text-primary'
 											>
 												Continue to Payment
-											</Link>
+											</span>
 										)}
 
 										{booking.departing_flight.status == 'completed' && (

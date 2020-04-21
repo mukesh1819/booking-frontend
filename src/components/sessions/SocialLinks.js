@@ -83,7 +83,7 @@ class SocialLinks extends Component {
 
 	render() {
 		return (
-			<div className='d-flex justify-content-between'>
+			<div className='row justify-content-around align-items-center'>
 				{/* <GoogleAPI
 						clientId='992913406489-fn9i74pm87a5iodelu298r1qh1fgl6vm.apps.googleusercontent.com'
 						onUpdateSigninStatus={(f) => console.log('f', f)}
@@ -103,7 +103,7 @@ class SocialLinks extends Component {
 				{/* <div>
 							<GoogleLogout onLogoutSuccess={(data) => console.log('logout', data)} />
 						</div> */}
-				<div className='mr-2'>
+				<div className='mx-1'>
 					<GoogleLogin
 						clientId='992913406489-fn9i74pm87a5iodelu298r1qh1fgl6vm.apps.googleusercontent.com'
 						render={(renderProps) => (
@@ -116,7 +116,7 @@ class SocialLinks extends Component {
 					/>
 				</div>
 
-				<div className='ml-2'>
+				<div className='mx-1'>
 					<FacebookAuth
 						appId='861581940937199'
 						callback={(data) => this.fbAuthorize(data)}

@@ -24,116 +24,120 @@ class SignInForm extends Component {
 		// 	return <Redirect to={redirectUrl} />;
 		// }
 		return (
-			<React.Fragment>
-				<Formik
-					initialValues={{
-						email: '',
-						password: ''
-					}}
-					onSubmit={async (values, {setSubmitting, setStatus}) => {
-						const variables = {
-							user: {
-								email: values.email,
-								password: values.password
-							}
-						};
-						signIn(variables)
-							.then((response) => {
-								setSubmitting(false);
-								// console.log('Sign IN response', response.data);
-								if (response.data.user !== undefined) {
-									// console.log('Logged In user', response);
-									this.props.loginUser(response.data.user);
-									localStorage.setItem('token', response.data.jwt);
-									history.push(redirectUrl);
-								} else {
-									swal({
-										title: 'Sign In Failed!',
-										text: response.data.failure,
-										icon: 'error',
-										button: 'Try Again!'
+			<div className='container login-page'>
+				<div className='row justify-content-center align-items-center'>
+					<div className='col-12 col-md-4 p-0'>
+						<Formik
+							initialValues={{
+								email: '',
+								password: ''
+							}}
+							onSubmit={async (values, {setSubmitting, setStatus}) => {
+								const variables = {
+									user: {
+										email: values.email,
+										password: values.password
+									}
+								};
+								signIn(variables)
+									.then((response) => {
+										setSubmitting(false);
+										// console.log('Sign IN response', response.data);
+										if (response.data.user !== undefined) {
+											// console.log('Logged In user', response);
+											this.props.loginUser(response.data.user);
+											localStorage.setItem('token', response.data.jwt);
+											history.push(redirectUrl);
+										} else {
+											swal({
+												title: 'Sign In Failed!',
+												text: response.data.failure,
+												icon: 'error',
+												button: 'Try Again!'
+											});
+										}
+									})
+									.catch((error) => {
+										// console.log('SIGN IN error', error);
+										swal({
+											title: 'Something Went Wrong!',
+											text: '........!',
+											icon: 'error',
+											button: 'Try Again!'
+										});
 									});
-								}
-							})
-							.catch((error) => {
-								// console.log('SIGN IN error', error);
-								swal({
-									title: 'Something Went Wrong!',
-									text: '........!',
-									icon: 'error',
-									button: 'Try Again!'
-								});
-							});
-					}}
-				>
-					{({
-						values,
-						errors,
-						touched,
-						handleChange,
-						handleBlur,
-						handleSubmit,
-						isSubmitting,
-						setFieldValue
-						/* and other goodies */
-					}) => (
-						<div className='login-page'>
-							<div className='login-form card p-2'>
-								<div className='card-body'>
-									<h3>Log in</h3>
-									<div className='text-small'>
-										Don't have an account? <Link to='/signup'>Create Account</Link>
-									</div>
-									<form onSubmit={handleSubmit} className='form-wrap'>
-										<div className='fields'>
-											<div className='field'>
-												<label>Email</label>
-
-												<Field
-													type='text'
-													name='email'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.email}
-													placeholder='Email'
-												/>
-											</div>
-
-											<div className='field'>
-												<label>Password</label>
-
-												<Field
-													type='password'
-													name='password'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.password}
-													placeholder='Password'
-												/>
-											</div>
+							}}
+						>
+							{({
+								values,
+								errors,
+								touched,
+								handleChange,
+								handleBlur,
+								handleSubmit,
+								isSubmitting,
+								setFieldValue
+								/* and other goodies */
+							}) => (
+								<div className=''>
+									<div className='login-form card p-2'>
+										<div className='card-body'>
+											<h3>Log in</h3>
 											<div className='text-small'>
-												<Link to='/forgot'>Forgot Password?</Link>
+												Don't have an account? <Link to='/signup'>Create Account</Link>
 											</div>
+											<form onSubmit={handleSubmit} className='form-wrap'>
+												<div className='fields'>
+													<div className='field'>
+														<label>Email</label>
+
+														<Field
+															type='text'
+															name='email'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.email}
+															placeholder='Email'
+														/>
+													</div>
+
+													<div className='field'>
+														<label>Password</label>
+
+														<Field
+															type='password'
+															name='password'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.password}
+															placeholder='Password'
+														/>
+													</div>
+													<div className='text-small'>
+														<Link to='/forgot'>Forgot Password?</Link>
+													</div>
+												</div>
+												<button
+													className='btn btn-secondary my-2 w-100'
+													type='submit'
+													disabled={isSubmitting}
+												>
+													Sign In
+												</button>
+												<hr />
+												<div className='text-center text-small mb-2'>Sign In with </div>
+												<SocialLinks redirectUrl={redirectUrl} />
+											</form>
 										</div>
-										<button
-											className='btn btn-secondary my-2 w-100'
-											type='submit'
-											disabled={isSubmitting}
-										>
-											Sign In
-										</button>
-										<hr />
-										<div className='text-center text-small mb-2'>Sign In with </div>
-										<SocialLinks redirectUrl={redirectUrl} />
-									</form>
+									</div>
 								</div>
-							</div>
-						</div>
-					)}
-				</Formik>
-			</React.Fragment>
+							)}
+						</Formik>
+					</div>
+				</div>
+			</div>
 		);
 	}
 }

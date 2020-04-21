@@ -2,18 +2,16 @@
 
 .login-page {
     background-color: $body-bg-color;
-    height: 100vh;
-    display: flex;
-    justify-content: space-around;
 
     @include desktop {
-        height: max-content;
         padding: 30px;
-        align-items: center;
     }
 }
 
 .login-form {
+    height: 100vh;
+    width: 100%;
+
     form {
         position: relative;
         width: 100%;
@@ -26,6 +24,10 @@
 
     .fields {
         margin: 1.5rem 0;
+    }
+
+    @include desktop {
+        height: max-content;
     }
 }
 

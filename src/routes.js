@@ -70,8 +70,8 @@ const routing = (
 		<AppRoute path='/support' component={CustomerSupport} layout={UserLayout} />
 		<AppRoute path='/not_verified' component={UserNotVerified} layout={UserLayout} />
 		<AppRoute path='/inquiry' component={InquiryForm} layout={UserLayout} />
+		<AppRoute path='/verify/:token' component={VerifyUser} layout={UserLayout} />
 
-		<PrivateRoute path='/verify/:token' component={VerifyUser} layout={UserLayout} />
 		<PrivateRoute path='/passengers' component={PassengerForm} layout={UserLayout} />
 		<PrivateRoute path='/bookings' component={Bookings} layout={UserLayout} />
 		<PrivateRoute path='/transactions' component={Users} layout={UserLayout} />

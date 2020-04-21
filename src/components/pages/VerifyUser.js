@@ -4,6 +4,7 @@ import {companyDetails} from '../../helpers';
 import {verifyEmail} from '../../api/userApi';
 import history from '../../history';
 import swal from 'sweetalert';
+import {loginUser} from '../../redux/actions';
 
 const VerifyUser = (props) => {
 	const {token} = props.match.params;
@@ -15,6 +16,7 @@ const VerifyUser = (props) => {
 			verifyEmail(token)
 				.then((response) => {
 					setVerification(true);
+					props.loginUser(response.data.user);
 					history.push('/');
 					swal({
 						title: 'Account activated successfully',
@@ -42,6 +44,8 @@ const mapStateToProps = ({userStore}) => ({
 	currentUser: userStore.currentUser
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	loginUser
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifyUser);

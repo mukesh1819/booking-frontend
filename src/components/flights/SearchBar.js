@@ -99,14 +99,18 @@ class SearchBar extends Component {
 			strSectorFrom: yup.string().required('Required'),
 			strSectorTo: yup.string().required('Required'),
 			strNationality: yup.string().required('Required'),
-			intAdult: yup.number().min(1, 'Traveller cannot be zero').required('Required'),
-			intChild: yup.number().min(0, 'Traveller cannot be zero').required('Required')
+			totalPax: yup.number().min(1, 'Traveller cannot be zero')
 		});
+
+		const initialValues = {
+			...searchDetails,
+			totalPax: searchDetails.intAdult + searchDetails.intChild
+		};
 
 		return (
 			<div id='search-flight-form'>
 				<Formik
-					initialValues={searchDetails}
+					initialValues={initialValues}
 					validationSchema={SearchFlightSchema}
 					onSubmit={(values, {setSubmitting}) => {
 						this.props.clearFlights();
@@ -261,7 +265,7 @@ class SearchBar extends Component {
 										</div>
 									</div>
 									<div
-										className={`field-box col-12 col-md-2 ${values.strTripType == 'O'
+										className={`field-box col-12 pl-md-0 col-md-2 ${values.strTripType == 'O'
 											? 'd-none'
 											: ''}`}
 									>
@@ -280,7 +284,7 @@ class SearchBar extends Component {
 										/>
 										<ErrorMessage name='strReturnDate' />
 									</div>
-									<div className='field-box col-12 col-md-3'>
+									<div className='field-box col-12 col-md-3 pl-md-0'>
 										<label>Traveller(s)</label>
 										{/* <IconInput icon='icon-users' iconPosition='left'>
 											<DropdownItem
@@ -315,10 +319,10 @@ class SearchBar extends Component {
 											fluid
 											selection
 											closeOnChange={false}
-											placeholder={`${values.intAdult} Adult${ifNotZero(
-												values.intChild,
-												`, ${values.intChild} Child`
-											)}`}
+											placeholder={`${ifNotZero(
+												values.intAdult,
+												`${values.intAdult} Adult`
+											)}${ifNotZero(values.intChild, `, ${values.intChild} Child`)}`}
 											onClick={(event, data) => {
 												event.preventDefault();
 											}}
@@ -332,7 +336,10 @@ class SearchBar extends Component {
 															className='m-1'
 															onBlur={handleBlur}
 															title={`${values.intAdult} Adult`}
-															onChange={(value) => setFieldValue('intAdult', value)}
+															onChange={(value) => {
+																setFieldValue('intAdult', value);
+																setFieldValue('totalPax', values.intChild + value);
+															}}
 															value={values.intAdult}
 														/>
 														<Counter
@@ -341,18 +348,20 @@ class SearchBar extends Component {
 															className='m-1'
 															onBlur={handleBlur}
 															title={`${values.intChild} Child`}
-															onChange={(value) => setFieldValue('intChild', value)}
+															onChange={(value) => {
+																setFieldValue('intChild', value);
+																setFieldValue('totalPax', values.intAdult + value);
+															}}
 															value={values.intChild}
 														/>
 													</div>
 												}
 											/>
 										</Dropdown>
-										<ErrorMessage name='intAdult' />
-										<ErrorMessage name='intChild' />
+										<ErrorMessage name='totalPax' />
 									</div>
 
-									<div className='field-box col-12 col-md-3'>
+									<div className='field-box col-12 col-md-3 pl-md-0'>
 										<label htmlFor=''>Nationality</label>
 										<Dropdown
 											name='strNationality'
@@ -374,7 +383,7 @@ class SearchBar extends Component {
 										<ErrorMessage name='strNationality' />
 									</div>
 									<div
-										className={`field-box col-12 text-center pr-md-0' ${values.strTripType == 'O'
+										className={`field-box col-12 text-center px-md-0' ${values.strTripType == 'O'
 											? 'col-md-3'
 											: 'col-md-2'}`}
 									>

@@ -12,6 +12,7 @@ import SocialButtonLinks from './SocialButtonLinks';
 import swal from 'sweetalert';
 import {Editable} from '../shared';
 import {updateUserDetails} from '../../api/userApi';
+import {Message} from 'semantic-ui-react';
 
 class Profile extends Component {
 	constructor(props) {
@@ -150,6 +151,16 @@ class Profile extends Component {
 						/>
 					</div>
 				</div>
+				{!currentUser.verified && (
+					<div className='row'>
+						<div className='col-12'>
+							<Message negative>
+								<Message.Header>Your Email has not been verified yet.</Message.Header>
+								<p>Please check your mail to verify your account</p>
+							</Message>
+						</div>
+					</div>
+				)}
 				{/* <SocialButtonLinks /> */}
 			</div>
 		);

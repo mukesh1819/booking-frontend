@@ -178,9 +178,7 @@ class PassengerForm extends Component {
 														setFieldValue(`user.code`, data.value);
 													}}
 													value={values.user.code}
-													fluid
 													search
-													selection
 													options={sortedCountries.map((country) => {
 														return {
 															...country,

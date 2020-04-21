@@ -139,9 +139,7 @@ class PartnerForm extends Component {
 																setFieldValue(`code`, data.value);
 															}}
 															value={values.code}
-															fluid
 															search
-															selection
 															options={sortedCountries.map((country) => {
 																return {
 																	...country,

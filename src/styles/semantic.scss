@@ -14,8 +14,15 @@
 .semantic-input-group {
     width: 100% !important;
 
-    .dropdown {
+    .search {
         width: max-content !important;
+        background-color: white;
+        border: 1px solid gainsboro;
+
+        &.active {
+            background-color: white;
+
+        }
     }
 }
 
@@ -39,5 +46,19 @@
 
     .default {
         font-weight: normal;
+    }
+}
+
+.ui.dropdown {
+    &.btn-dropdown {
+        font-weight: normal;
+
+        i {
+            float: left;
+        }
+
+        input {
+            padding-left: 38px !important;
+        }
     }
 }
