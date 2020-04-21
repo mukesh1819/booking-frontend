@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import {Checkbox} from 'semantic-ui-react';
-import {updatePublish} from '../../api/packageApi';
+import {updatePublish, deletePackage} from '../../api/packageApi';
 import history from '../../history';
 
 class PackageDetails extends Component {
@@ -30,6 +30,28 @@ class PackageDetails extends Component {
 			}
 		});
 	};
+
+	destroyPackage(id){
+		deletePackage(id)
+		.then((response) => {
+			swal({
+				title: 'Package deleted!',
+				text: `this package is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.push('/admin/packages');
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Package Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
+	}
 
 	render() {
 		const {aPackage} = this.props.location.state;
@@ -66,6 +88,7 @@ class PackageDetails extends Component {
 								<th>Inclusions</th>
 								<th>Exclusions</th>
 								<th>Published</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 
@@ -84,6 +107,11 @@ class PackageDetails extends Component {
 								<td>{aPackage.exclusions}</td>
 								<td>
 									<Checkbox checked={aPackage.published} onChange={this.handleChange} />
+								</td>
+								<td>
+									<span className='btn btn-danger' onClick={() => this.destroyPackage(aPackage.idx)}>
+										Delete
+									</span>
 								</td>
 							</tr>
 						</tbody>

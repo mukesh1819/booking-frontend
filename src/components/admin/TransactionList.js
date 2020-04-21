@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getUserTransaction} from '../../api/transactionApi';
+import {getUserTransaction, deleteTransaction} from '../../api/transactionApi';
 import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import history from '../../history';
@@ -32,7 +32,7 @@ class TransactionList extends Component {
 	}
 
 	handleItemClick = (e, {name}) => {
-		this.fetchUserTransaction(`q[status_eq]=${name.toLowerCase()}`);
+		this.fetchUserTransaction(`q[state_eq]=${name.toLowerCase()}`);
 		this.setState({activeMenuItem: name});
 	};
 
@@ -64,6 +64,28 @@ class TransactionList extends Component {
 					button: 'Continue!'
 				});
 			});
+	}
+
+	destroyTransaction(id){
+		deleteTransaction(id)
+		.then((response) => {
+			swal({
+				title: 'Transaction deleted!',
+				text: `this Transaction is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.go();
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Transaction Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
 	}
 
 	render() {
@@ -123,6 +145,9 @@ class TransactionList extends Component {
 															onClick={() => this.onTransactionSelect(transaction)}
 														>
 															Details
+														</span>
+														<span className='btn btn-danger ml-5' onClick={() => this.destroyTransaction(transaction.idx)}>
+															Delete
 														</span>
 													</td>
 												</tr>

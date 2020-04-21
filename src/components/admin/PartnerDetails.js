@@ -3,7 +3,8 @@ import Profile from '../users/Profile';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import PartnerProfile from '../partners/PartnerProfile';
-import {showPartner, confirmPartner} from '../../api/partnerApi';
+import history from '../../history';
+import {showPartner, confirmPartner, deletePartner} from '../../api/partnerApi';
 
 class PartnerDetails extends Component {
 	constructor(props) {
@@ -46,6 +47,28 @@ class PartnerDetails extends Component {
 			});
 	}
 
+	destroyPartner(id){
+		deletePartner(id)
+		.then((response) => {
+			swal({
+				title: 'Partner deleted!',
+				text: `this partner is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.push('/admin/partners');
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Partner Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
+	}
+
 	render() {
 		const {partner} = this.state;
 		return (
@@ -59,6 +82,9 @@ class PartnerDetails extends Component {
 							Confirm
 						</span>
 					)}
+					<span className='btn btn-danger ml-2' onClick={() => this.destroyPartner(partner.idx)}>
+						Delete
+					</span>
 				</div>
 			</div>
 		);

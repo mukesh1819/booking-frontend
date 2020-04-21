@@ -25,6 +25,13 @@ export function getBookingDetails(ruid) {
 	});
 }
 
+export function deleteBooking(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/bookings/${id}`
+	});
+}
+
 export function createBooking(formData) {
 	return axios({
 		method: 'post',

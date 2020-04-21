@@ -4,8 +4,9 @@ import {DataTable} from '../shared';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import EditUserForm from '../users/EditUserForm';
-import {getUsers} from '../../api/userApi';
+import {getUsers, deleteUser} from '../../api/userApi';
 import swal from 'sweetalert';
+import history from '../../history';
 import {Badge} from '../shared';
 
 class UsersList extends Component {
@@ -44,6 +45,28 @@ class UsersList extends Component {
 				});
 			});
 	};
+
+	destroyUser(id){
+		deleteUser(id)
+		.then((response) => {
+			swal({
+				title: 'User deleted!',
+				text: `this user is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.go();
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'User Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
+	}
 
 	render() {
 		const {users} = this.state;
@@ -98,6 +121,9 @@ class UsersList extends Component {
 											>
 												Contact
 											</Link>
+											<span className='btn btn-danger ml-3' onClick={() => this.destroyUser(user.idx)}>
+												Delete
+											</span>
 										</td>
 									</tr>
 								);

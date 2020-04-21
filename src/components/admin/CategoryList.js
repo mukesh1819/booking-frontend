@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {getCategories} from '../../api/categoryApi';
+import {getCategories, deleteCategory} from '../../api/categoryApi';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
+import history from '../../history';
 import swal from 'sweetalert';
 
 class CategoryList extends Component {
@@ -35,6 +36,28 @@ class CategoryList extends Component {
 					button: 'Continue!'
 				});
 			});
+	}
+
+	destroyCategory(id){
+		deleteCategory(id)
+		.then((response) => {
+			swal({
+				title: 'Category deleted!',
+				text: `this category is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.go();
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Category Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
 	}
 
 	render() {
@@ -89,6 +112,9 @@ class CategoryList extends Component {
 												<i className='fas fa-contact' />
 												<span className='btn bg-none text-primary'>edit</span>
 											</Link>
+											<span className='btn btn-danger ml-5' onClick={() => this.destroyCategory(category.idx)}>
+												Delete
+											</span>
 										</td>
 									</tr>
 								);

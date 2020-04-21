@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
-import {getPackageBookingConfirmation} from '../../api/packageBookingApi';
+import history from '../../history';
+import {getPackageBookingConfirmation, deletePackageBooking} from '../../api/packageBookingApi';
 
 class PackageBookingDetails extends Component {
 	constructor(props) {
@@ -29,7 +30,29 @@ class PackageBookingDetails extends Component {
                 button: 'Try Again!'
             });
         });
-    }
+	}
+	
+	destroyPackageBooking(id){
+		deletePackageBooking(id)
+		.then((response) => {
+			swal({
+				title: 'Package Booking deleted!',
+				text: `this package booking is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.push('/admin/package_booking');
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Package Booking Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
+	}
 
 	render() {
 		const {packageBooking} = this.props.location.state;
@@ -82,6 +105,12 @@ class PackageBookingDetails extends Component {
 								<td>
                                     <span className='btn btn-secondary' onClick={() => this.onConfirmPackageBooking(packageBooking.idx)}>confirm</span>
 								</td>
+								<td>
+									<span className='btn btn-danger' onClick={() => this.destroyPackageBooking(packageBooking.idx)}>
+										Delete
+									</span>
+								</td>
+
 							</tr>
 						</tbody>
 					</table>
