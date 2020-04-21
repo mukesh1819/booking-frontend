@@ -9,7 +9,7 @@ const Footer = () => (
 					<div className='footer-widget footer-links'>
 						<ul className='footer-links'>
 							<li className='d-md-inline px-2'>
-								<a href='#'> About Us</a>
+								<a href='/about'> About Us</a>
 							</li>
 							<li className='d-md-inline px-2'>
 								<a href='https://visit-all-nepal.flycricket.io/privacy.html'>Privacy Policy</a>

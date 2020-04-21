@@ -13,8 +13,7 @@ import {
 	PackageForm as AddPackageForm,
 	PackageForm as NewPackageForm
 } from './components/partners';
-import HomePage from './components/pages/HomePage';
-import {PageNotFound, UserNotVerified, VerifyUser} from './components/pages';
+import {HomePage, PageNotFound, UserNotVerified, VerifyUser, InfoPage} from './components/pages';
 import {CustomerSupport} from './components/pages';
 import {PaymentSuccess} from './components/payments';
 import PartnerDashboard from './components/partners/Dashboard';
@@ -51,10 +50,6 @@ import AdminLayout from './components/layouts/AdminLayout';
 import AppRoute from './components/AppRoute';
 import PartnerLayout from './components/layouts/PartnerLayout';
 
-function About() {
-	return <h2>About Us</h2>;
-}
-
 const routing = (
 	<Switch>
 		<AppRoute exact path='/' component={HomePage} layout={UserLayout} />
@@ -65,7 +60,7 @@ const routing = (
 		<AppRoute path='/hotels' component={HotelList} layout={UserLayout} />
 		<AppRoute path='/packages' component={PackageList} layout={UserLayout} />
 		<AppRoute path='/package/:id' component={PackageDetails} layout={UserLayout} />
-		<AppRoute path='/about' component={About} layout={UserLayout} />
+		<AppRoute path='/about' component={InfoPage} layout={UserLayout} />
 		<AppRoute path='/partners/new' component={BecomePartnerForm} layout={UserLayout} />
 		<AppRoute path='/support' component={CustomerSupport} layout={UserLayout} />
 		<AppRoute path='/not_verified' component={UserNotVerified} layout={UserLayout} />

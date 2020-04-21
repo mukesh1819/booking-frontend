@@ -151,9 +151,9 @@ class UpdateBooking extends Component {
 													)}
 													{passenger.passenger_status === 'cancelled' && (
 														<td>
-															<p className='text-danger text-center font-weight-bolder text-lg mt-2'>
+															<span className='text-danger text-center font-weight-bolder text-lg mt-2'>
 																Ticket Cancelled
-															</p>
+															</span>
 														</td>
 													)}
 												</tr>
