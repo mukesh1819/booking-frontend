@@ -29,12 +29,22 @@ export function createPackage(data) {
 	});
 }
 
-export function updatePackage(id, data) {
+export function updatePublish(id, data) {
 	return axios({
 		method: 'patch',
 		url: `${API_URL}/packages/${id}`,
 		data: {
 			published: data
+		}
+	});
+}
+
+export function updatePackage(id, data) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/packages/${id}`,
+		data: {
+			package: data
 		}
 	});
 }
