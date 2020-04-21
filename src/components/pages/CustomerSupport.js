@@ -203,7 +203,7 @@ class CustomerSupport extends Component {
 					<div className='card mt-4'>
 						<div className='card-body'>
 							<h3 className='title'> Frequently Asked Questions.</h3>
-							<Accordion styled fluid>
+							<Accordion styled fluid className='border-none'>
 								{faqs.map((faq, index) => {
 									return (
 										<React.Fragment>

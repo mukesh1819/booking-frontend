@@ -30,11 +30,17 @@ const FareDetails = (props) => {
 				)}
 				<li>
 					Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge}
-					{ifGreaterThanOne(adult + child, ` * (${adult} + ${child})`)}
+					{ifGreaterThanOne(
+						adult + child,
+						` * (` + `${ifNotZero(adult, adult)}` + ifNotZero(child, ` + ${child}`) + `)`
+					)}
 				</li>
 				<li>
 					Tax: {flight.Currency} {flight.Tax}
-					{ifGreaterThanOne(adult + child, ` * (${adult} + ${child})`)}
+					{ifGreaterThanOne(
+						adult + child,
+						` * (` + `${ifNotZero(adult, adult)}` + ifNotZero(child, ` + ${child}`) + `)`
+					)}
 				</li>
 			</ul>
 		</div>
