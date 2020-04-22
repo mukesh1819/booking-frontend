@@ -72,7 +72,7 @@ class BecomePartnerForm extends Component {
 	render() {
 		const {step} = this.state;
 		return (
-			<div className='container p-4'>
+			<div className='container p-4 become-partner'>
 				<div className='card'>
 					<div className='card-body'>
 						<div className='input-section'>
