@@ -31,26 +31,25 @@ class PackageDetails extends Component {
 		});
 	};
 
-	destroyPackage(id){
+	destroyPackage(id) {
 		deletePackage(id)
-		.then((response) => {
-			swal({
-				title: 'Package deleted!',
-				text: `this package is deleted`,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'Package deleted!',
+					text: `this package is deleted`,
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.push('/admin/packages');
+			})
+			.catch((error) => {
+				swal({
+					title: 'Package Delete error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
-			history.push('/admin/packages');
-
-		})
-		.catch((error) => {
-			swal({
-				title: 'Package Delete error',
-				text: 'Something went wrong. please try again or contact us',
-				icon: 'error',
-				button: 'Continue!'
-			});
-		})
 	}
 
 	render() {

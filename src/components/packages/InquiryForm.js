@@ -95,6 +95,7 @@ class InquiryForm extends Component {
 									});
 								})
 								.catch((error) => {
+									debugger;
 									swal({
 										title: 'Sorry!',
 										text: 'something went wrong',
@@ -106,6 +107,7 @@ class InquiryForm extends Component {
 							createInquiry(values)
 								.then((response) => {
 									setSubmitting(false);
+									debugger;
 									swal({
 										title: 'Inquiry Submitted!',
 										text: response.data.message,
@@ -148,7 +150,7 @@ class InquiryForm extends Component {
 									</h3> */}
 								</div>
 							</div>
-							<form onSubmit={handleSubmit} autoComplete='off'>
+							<form onSubmit={handleSubmit}>
 								<div className='input-section bg-white'>
 									<div className='row'>
 										<div className='col-12'>

@@ -52,7 +52,7 @@ class Categories extends Component {
 				this.setState({
 					categories: response.data
 				});
-				$('.owl-carousel').owlCarousel(options);
+				// $('.owl-carousel').owlCarousel(options);
 			})
 			.catch((error) => {});
 	}

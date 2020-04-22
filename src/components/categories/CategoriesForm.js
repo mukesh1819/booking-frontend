@@ -103,7 +103,7 @@ class CategoriesForm extends Component {
 								setFieldValue
 								/* and other goodies */
 							}) => (
-								<form onSubmit={handleSubmit} autoComplete='off'>
+								<form onSubmit={handleSubmit}>
 									<div className='input-section'>
 										<div className='field-box'>
 											<label>Name</label>

@@ -112,6 +112,9 @@ class PackageForm extends Component {
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
+						<form method='post'>
+							<input />
+						</form>
 						<Formik
 							initialValues={packageDetails}
 							validationSchema={PackageSchema}
@@ -174,7 +177,7 @@ class PackageForm extends Component {
 								setFieldValue
 								/* and other goodies */
 							}) => (
-								<form onSubmit={handleSubmit} autoComplete='off'>
+								<form onSubmit={handleSubmit}>
 									<div className='input-section'>
 										<div className='row'>
 											<div className='col-12'>
