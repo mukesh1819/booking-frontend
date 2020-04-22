@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
-import {getAdminBookings} from '../../api/flightApi';
+import {getAdminBookings, deleteBooking} from '../../api/flightApi';
 import BookingDetails from './BookingDetails';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
@@ -9,6 +9,7 @@ import {Pagination, Menu, Segment, Input} from 'semantic-ui-react';
 import moment from 'moment';
 import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
+import history from '../../history';
 import {Accordion} from 'semantic-ui-react';
 
 class FlightBookings extends Component {
@@ -62,6 +63,28 @@ class FlightBookings extends Component {
 					button: 'Continue!'
 				});
 			});
+	}
+
+	destroyBooking = (id) => {
+		deleteBooking(id)
+		.then((response) => {
+			swal({
+				title: 'Flight Booking deleted!',
+				text: `this flight booking is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.go();
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Flight Booking Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
 	}
 
 	render() {
@@ -122,6 +145,7 @@ class FlightBookings extends Component {
 											activeIndex={activeIndex}
 											index={index}
 											handleClick={this.handleClick}
+											destroyBooking = {this.destroyBooking}
 										/>
 									);
 								})}

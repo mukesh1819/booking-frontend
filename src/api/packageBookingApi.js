@@ -19,3 +19,10 @@ export function getPackageBookingConfirmation(id, params){
         params: params
     });
 }
+
+export function deletePackageBooking(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/package_bookings/${id}`
+	});
+}

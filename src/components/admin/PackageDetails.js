@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import {Checkbox} from 'semantic-ui-react';
-import {updatePackage} from '../../api/packageApi';
+import {updatePublish, deletePackage} from '../../api/packageApi';
+import history from '../../history';
 
 class PackageDetails extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			published: false
-		};
 	}
 
 	handleChange = (e, data) => {
@@ -21,13 +19,11 @@ class PackageDetails extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				this.setState({
-					published: data.checked
-				});
-				updatePackage(this.props.location.state.aPackage.idx, this.state.published).then((response) => {
+				updatePublish(this.props.location.state.aPackage.idx, data.checked).then((response) => {
 					swal('Your package has been published', {
 						icon: 'success'
 					});
+					history.push('/admin/packages');
 				});
 			} else {
 				swal('Your package is not published yet');
@@ -35,9 +31,30 @@ class PackageDetails extends Component {
 		});
 	};
 
+	destroyPackage(id){
+		deletePackage(id)
+		.then((response) => {
+			swal({
+				title: 'Package deleted!',
+				text: `this package is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.push('/admin/packages');
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Package Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
+	}
+
 	render() {
 		const {aPackage} = this.props.location.state;
-		const {published} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
@@ -71,6 +88,7 @@ class PackageDetails extends Component {
 								<th>Inclusions</th>
 								<th>Exclusions</th>
 								<th>Published</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 
@@ -88,10 +106,12 @@ class PackageDetails extends Component {
 								<td>{aPackage.inclusions}</td>
 								<td>{aPackage.exclusions}</td>
 								<td>
-									{this.state.published == false && aPackage.published === false &&
-										<Checkbox checked={published} onChange={this.handleChange} />
-										
-									}
+									<Checkbox checked={aPackage.published} onChange={this.handleChange} />
+								</td>
+								<td>
+									<span className='btn btn-danger' onClick={() => this.destroyPackage(aPackage.idx)}>
+										Delete
+									</span>
 								</td>
 							</tr>
 						</tbody>

@@ -4,9 +4,16 @@ import {handleResponse, handleError, useInterceptor} from './apiUtils';
 
 useInterceptor(axios);
 
-export function getUserTransaction() {
+export function getUserTransaction(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/payments`
+		url: `${API_URL}/payments?${params}`
+	});
+}
+
+export function deleteTransaction(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/payments/${id}`
 	});
 }

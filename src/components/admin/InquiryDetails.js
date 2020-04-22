@@ -3,6 +3,8 @@ import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import {Badge} from '../shared';
 import {Inquiry} from '../inquiries';
+import history from '../../history';
+import {deleteInquiry} from '../../api/inquiryApi';
 
 class InquiryDetails extends Component {
 	constructor(props) {
@@ -27,6 +29,27 @@ class InquiryDetails extends Component {
 			});
 	}
 
+	destroyInquiry(id){
+		deleteInquiry(id)
+		.then((response) => {
+			swal({
+				title: 'Inquiry deleted!',
+				text: `this inquiry is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.push('/admin/inquiries');
+		})
+		.catch((error) => {
+			swal({
+				title: 'Inquiry Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
+	}
+
 	render() {
 		const {inquiry} = this.props.location.state;
 		return (
@@ -35,17 +58,23 @@ class InquiryDetails extends Component {
 					<div className='card-body'>
 						<Inquiry inquiry={inquiry} aPackage={inquiry.package} />
 						<div className='text-right'>
-							<Link
-								to={{
-									pathname: '/admin/edit_inquiry',
-									state: {
-										inquiry: inquiry
-									}
-								}}
-								className='btn btn-secondary m-2'
-							>
-								Edit
-							</Link>
+							<span>
+								<Link
+									to={{
+										pathname: '/admin/edit_inquiry',
+										state: {
+											inquiry: inquiry
+										}
+									}}
+									className='btn btn-secondary m-2'
+								>
+									Edit
+								</Link>
+							</span>
+							<span className='btn btn-danger m-2' onClick={() => this.destroyInquiry(inquiry.idx)}>
+								Delete
+							</span>
+							
 							{inquiry.status === 'pending' && (
 								<span className='btn btn-danger m-2' onClick={() => this.rejectUserPackage(inquiry.idx)}>
 									Reject

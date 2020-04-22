@@ -68,3 +68,10 @@ export function verifyEmail(token) {
 		url: `${BASE_URL}/verify/${token}`
 	});
 }
+
+export function deleteUser(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/members/${id}`
+	});
+}

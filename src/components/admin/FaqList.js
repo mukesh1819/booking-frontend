@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import {getFaqs} from '../../api/supportApi';
+import {getFaqs, deleteFaq} from '../../api/supportApi';
 import swal from 'sweetalert';
+import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input} from 'semantic-ui-react';
 
 class FaqList extends Component {
@@ -54,6 +55,28 @@ class FaqList extends Component {
 			});
 	};
 
+	destroyFaq(id){
+		deleteFaq(id)
+		.then((response) => {
+			swal({
+				title: 'Faq deleted!',
+				text: `this Faq is deleted`,
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.go();
+
+		})
+		.catch((error) => {
+			swal({
+				title: 'Faq Delete error',
+				text: 'Something went wrong. please try again or contact us',
+				icon: 'error',
+				button: 'Continue!'
+			});
+		})
+	}
+
 	render() {
 		const {faqs, activeIndex, activeMenuItem} = this.state;
 		return (
@@ -101,11 +124,18 @@ class FaqList extends Component {
 												<i className='fas fa-contact' />
 												<span className='btn bg-none text-primary'>edit</span>
 											</Link>
+											
 										</div>
+										
 									</Accordion.Title>
 									<Accordion.Content active={activeIndex === index}>
 										<p>{faq.answer}</p>
 									</Accordion.Content>
+									<div>
+										<span className='btn btn-danger' onClick={() => this.destroyFaq(faq.idx)}>
+											Delete
+										</span>
+									</div>
 								</React.Fragment>
 							);
 						})}

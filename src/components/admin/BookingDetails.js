@@ -6,7 +6,7 @@ import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
 import {Accordion} from 'semantic-ui-react';
 
-const BookingDetails = ({booking, activeIndex, index, handleClick}) => {
+const BookingDetails = ({booking, activeIndex, index, handleClick, destroyBooking}) => {
 	return (
 		<React.Fragment>
 			<Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
@@ -69,6 +69,11 @@ const BookingDetails = ({booking, activeIndex, index, handleClick}) => {
 					</div>
 				</div>
 			</Accordion.Content>
+			<div>
+				<span className='btn btn-danger' onClick={() => destroyBooking(booking.ruid)}>
+					Delete
+				</span>
+			</div>
 		</React.Fragment>
 	);
 };

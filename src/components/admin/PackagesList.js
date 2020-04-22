@@ -56,6 +56,7 @@ class PackagesList extends Component {
 								<th>Name</th>
 								<th>Category</th>
 								<th>Price</th>
+								<th>Published</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -68,6 +69,7 @@ class PackagesList extends Component {
 										<td>{aPackage.name}</td>
 										<td>{aPackage.category.name} </td>
 										<td>{aPackage.price}</td>
+										<td>{`${aPackage.published}`}</td>
 
 										<td>
 											<Link
