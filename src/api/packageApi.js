@@ -12,11 +12,6 @@ export function showPackage(id) {
 }
 
 export function createPackage(data) {
-	var formData = new FormData();
-	for (let i = 0; i < data.images.length; i++) {
-		formData.append('images[]', data.images[i]);
-	}
-
 	return axios({
 		method: 'post',
 		url: `${API_URL}/packages`,

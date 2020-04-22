@@ -66,6 +66,18 @@ class PackageForm extends Component {
 		$('.owl-carousel').owlCarousel(options);
 	}
 
+	handleSubmit = (id) => {
+		const data = new FormData();
+		Array.from(document.querySelector('[type=file]').files).map((v, index) => {
+			data.append(`images[${index}]`, v);
+		});
+
+		fetch(`${process.env.REACT_APP_BASE_URL}/api/packages/${id}/images`, {
+			method: 'PUT',
+			body: data
+		});
+	};
+
 	render() {
 		const activity = {
 			description: '',
@@ -112,9 +124,10 @@ class PackageForm extends Component {
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						<form method='post'>
-							<input />
-						</form>
+						{/* <form onSubmit={this.handleSubmit}>
+							<input id='package_images' name='package[images[]]' type='file' multiple />
+							<input type='submit' />
+						</form> */}
 						<Formik
 							initialValues={packageDetails}
 							validationSchema={PackageSchema}
@@ -146,6 +159,7 @@ class PackageForm extends Component {
 										.then((response) => {
 											setSubmitting(false);
 											// nextStep(response.data);
+											this.handleSubmit(response.data.idx);
 											swal({
 												title: 'Package created Success!',
 												text: response.data.message,

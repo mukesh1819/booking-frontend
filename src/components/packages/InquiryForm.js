@@ -95,7 +95,6 @@ class InquiryForm extends Component {
 									});
 								})
 								.catch((error) => {
-									debugger;
 									swal({
 										title: 'Sorry!',
 										text: 'something went wrong',
@@ -107,7 +106,6 @@ class InquiryForm extends Component {
 							createInquiry(values)
 								.then((response) => {
 									setSubmitting(false);
-									debugger;
 									swal({
 										title: 'Inquiry Submitted!',
 										text: response.data.message,
