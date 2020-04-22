@@ -10,13 +10,13 @@ const BookingDetails = ({booking, activeIndex, index, handleClick, destroyBookin
 	return (
 		<React.Fragment>
 			<Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
-				<div className='d-flex justify-content-between'>
-					<div>
+				<div className='row'>
+					<div className='col-3'>
 						<h5>{booking.contact_name}</h5>
 						<div className='text-muted text-small'>{booking.email}</div>
 						<div className='text-muted text-small'>{booking.mobile_no}</div>
 					</div>
-					<div>
+					<div className='col'>
 						<div className=''>
 							<span className='px-2'>{`${booking.departure}`}</span>
 							<i className='fas fa-arrow-right' />
@@ -40,7 +40,7 @@ const BookingDetails = ({booking, activeIndex, index, handleClick, destroyBookin
 							</span>
 						</div>
 					</div>
-					<div className='text-center'>
+					<div className='col-1 text-center'>
 						<div className=''>
 							{booking.currency}
 							{booking.total_fare}
@@ -50,7 +50,7 @@ const BookingDetails = ({booking, activeIndex, index, handleClick, destroyBookin
 				</div>
 			</Accordion.Title>
 			<Accordion.Content active={activeIndex === index}>
-				<div className='text-small d-flex'>
+				<div className='text-small d-flex justify-content-between'>
 					<div>
 						<h5>Flight Details</h5>
 						<div>Flight Id - {booking.flight_id}</div>
@@ -67,13 +67,13 @@ const BookingDetails = ({booking, activeIndex, index, handleClick, destroyBookin
 						<div>Refundable - {booking.refundable}</div>
 						<div>Reporting time - {booking.reporting_time}</div>
 					</div>
+					<div>
+						<span className='btn bg-none text-danger' onClick={() => destroyBooking(booking.ruid)}>
+							Delete
+						</span>
+					</div>
 				</div>
 			</Accordion.Content>
-			<div>
-				<span className='btn btn-danger' onClick={() => destroyBooking(booking.ruid)}>
-					Delete
-				</span>
-			</div>
 		</React.Fragment>
 	);
 };

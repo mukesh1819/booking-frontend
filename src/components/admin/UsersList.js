@@ -46,26 +46,25 @@ class UsersList extends Component {
 			});
 	};
 
-	destroyUser(id){
+	destroyUser(id) {
 		deleteUser(id)
-		.then((response) => {
-			swal({
-				title: 'User deleted!',
-				text: `this user is deleted`,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'User deleted!',
+					text: `this user is deleted`,
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.go();
+			})
+			.catch((error) => {
+				swal({
+					title: 'User Delete error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
-			history.go();
-
-		})
-		.catch((error) => {
-			swal({
-				title: 'User Delete error',
-				text: 'Something went wrong. please try again or contact us',
-				icon: 'error',
-				button: 'Continue!'
-			});
-		})
 	}
 
 	render() {
@@ -121,7 +120,10 @@ class UsersList extends Component {
 											>
 												Contact
 											</Link>
-											<span className='btn btn-danger ml-3' onClick={() => this.destroyUser(user.idx)}>
+											<span
+												className='btn bg-none text-danger'
+												onClick={() => this.destroyUser(user.idx)}
+											>
 												Delete
 											</span>
 										</td>

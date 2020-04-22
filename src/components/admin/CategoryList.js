@@ -38,26 +38,25 @@ class CategoryList extends Component {
 			});
 	}
 
-	destroyCategory(id){
+	destroyCategory(id) {
 		deleteCategory(id)
-		.then((response) => {
-			swal({
-				title: 'Category deleted!',
-				text: `this category is deleted`,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'Category deleted!',
+					text: `this category is deleted`,
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.go();
+			})
+			.catch((error) => {
+				swal({
+					title: 'Category Delete error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
-			history.go();
-
-		})
-		.catch((error) => {
-			swal({
-				title: 'Category Delete error',
-				text: 'Something went wrong. please try again or contact us',
-				icon: 'error',
-				button: 'Continue!'
-			});
-		})
 	}
 
 	render() {
@@ -112,7 +111,10 @@ class CategoryList extends Component {
 												<i className='fas fa-contact' />
 												<span className='btn bg-none text-primary'>edit</span>
 											</Link>
-											<span className='btn btn-danger ml-5' onClick={() => this.destroyCategory(category.idx)}>
+											<span
+												className='btn bg-none text-danger'
+												onClick={() => this.destroyCategory(category.idx)}
+											>
 												Delete
 											</span>
 										</td>

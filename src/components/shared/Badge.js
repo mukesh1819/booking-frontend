@@ -23,6 +23,13 @@ export default ({type = 'light', content, children}) => {
 			design = 'danger';
 			break;
 
+		case true:
+			design = 'success';
+			break;
+		case false:
+			design = 'danger';
+			break;
+
 		case 'Admin':
 			design = 'danger';
 			break;

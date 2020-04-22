@@ -4,6 +4,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackages} from '../../api/packageApi';
 import swal from 'sweetalert';
+import {Badge} from '../shared';
 
 class PackagesList extends Component {
 	constructor(props) {
@@ -69,7 +70,9 @@ class PackagesList extends Component {
 										<td>{aPackage.name}</td>
 										<td>{aPackage.category.name} </td>
 										<td>{aPackage.price}</td>
-										<td>{`${aPackage.published}`}</td>
+										<td>
+											<Badge type={aPackage.published}>{aPackage.published}</Badge>
+										</td>
 
 										<td>
 											<Link

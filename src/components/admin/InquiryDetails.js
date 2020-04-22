@@ -29,25 +29,25 @@ class InquiryDetails extends Component {
 			});
 	}
 
-	destroyInquiry(id){
+	destroyInquiry(id) {
 		deleteInquiry(id)
-		.then((response) => {
-			swal({
-				title: 'Inquiry deleted!',
-				text: `this inquiry is deleted`,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'Inquiry deleted!',
+					text: `this inquiry is deleted`,
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.push('/admin/inquiries');
+			})
+			.catch((error) => {
+				swal({
+					title: 'Inquiry Delete error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
-			history.push('/admin/inquiries');
-		})
-		.catch((error) => {
-			swal({
-				title: 'Inquiry Delete error',
-				text: 'Something went wrong. please try again or contact us',
-				icon: 'error',
-				button: 'Continue!'
-			});
-		})
 	}
 
 	render() {
@@ -74,9 +74,12 @@ class InquiryDetails extends Component {
 							<span className='btn btn-danger m-2' onClick={() => this.destroyInquiry(inquiry.idx)}>
 								Delete
 							</span>
-							
+
 							{inquiry.status === 'pending' && (
-								<span className='btn btn-danger m-2' onClick={() => this.rejectUserPackage(inquiry.idx)}>
+								<span
+									className='btn btn-danger m-2'
+									onClick={() => this.rejectUserPackage(inquiry.idx)}
+								>
 									Reject
 								</span>
 							)}

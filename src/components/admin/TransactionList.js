@@ -32,7 +32,8 @@ class TransactionList extends Component {
 	}
 
 	handleItemClick = (e, {name}) => {
-		this.fetchUserTransaction(`q[state_eq]=${name.toLowerCase()}`);
+		var searchQuery = name == 'All' ? '' : `q[state_eq]=${name.toLowerCase()}`;
+		this.fetchUserTransaction(searchQuery);
 		this.setState({activeMenuItem: name});
 	};
 
@@ -66,26 +67,25 @@ class TransactionList extends Component {
 			});
 	}
 
-	destroyTransaction(id){
+	destroyTransaction(id) {
 		deleteTransaction(id)
-		.then((response) => {
-			swal({
-				title: 'Transaction deleted!',
-				text: `this Transaction is deleted`,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'Transaction deleted!',
+					text: `this Transaction is deleted`,
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.go();
+			})
+			.catch((error) => {
+				swal({
+					title: 'Transaction Delete error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
 			});
-			history.go();
-
-		})
-		.catch((error) => {
-			swal({
-				title: 'Transaction Delete error',
-				text: 'Something went wrong. please try again or contact us',
-				icon: 'error',
-				button: 'Continue!'
-			});
-		})
 	}
 
 	render() {
@@ -101,6 +101,11 @@ class TransactionList extends Component {
 								<Menu.Item
 									name='All'
 									active={activeMenuItem === 'All'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Item
+									name='Pending'
+									active={activeMenuItem === 'Pending'}
 									onClick={this.handleItemClick}
 								/>
 								<Menu.Item
@@ -146,7 +151,10 @@ class TransactionList extends Component {
 														>
 															Details
 														</span>
-														<span className='btn btn-danger ml-5' onClick={() => this.destroyTransaction(transaction.idx)}>
+														<span
+															className='btn bg-none text-danger'
+															onClick={() => this.destroyTransaction(transaction.idx)}
+														>
 															Delete
 														</span>
 													</td>
