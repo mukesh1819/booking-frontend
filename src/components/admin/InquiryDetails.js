@@ -30,24 +30,44 @@ class InquiryDetails extends Component {
 	}
 
 	destroyInquiry(id) {
-		deleteInquiry(id)
-			.then((response) => {
-				swal({
-					title: 'Inquiry deleted!',
-					text: `this inquiry is deleted`,
-					icon: 'success',
-					button: 'Continue!'
+		// deleteInquiry(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Inquiry deleted!',
+		// 			text: `this inquiry is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.push('/admin/inquiries');
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Inquiry Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your inquiry will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteInquiry(id).then((response) => {
+					swal('this inquiry is deleted', {
+						icon: 'success'
+					});
+					history.push('/admin/inquiries');
 				});
-				history.push('/admin/inquiries');
-			})
-			.catch((error) => {
-				swal({
-					title: 'Inquiry Delete error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
+			} else {
+				swal('Your inquiry is not deleted yet');
+			}
+		});
+
 	}
 
 	render() {

@@ -56,24 +56,43 @@ class FaqList extends Component {
 	};
 
 	destroyFaq(id) {
-		deleteFaq(id)
-			.then((response) => {
-				swal({
-					title: 'Faq deleted!',
-					text: `this Faq is deleted`,
-					icon: 'success',
-					button: 'Continue!'
+		// deleteFaq(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Faq deleted!',
+		// 			text: `this Faq is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.go();
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Faq Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your faq will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteFaq(id).then((response) => {
+					swal('this faq is deleted', {
+						icon: 'success'
+					});
+					history.go();
 				});
-				history.go();
-			})
-			.catch((error) => {
-				swal({
-					title: 'Faq Delete error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
+			} else {
+				swal('Your faq is not deleted yet');
+			}
+		});
 	}
 
 	render() {

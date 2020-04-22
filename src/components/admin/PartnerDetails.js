@@ -48,25 +48,44 @@ class PartnerDetails extends Component {
 	}
 
 	destroyPartner(id){
-		deletePartner(id)
-		.then((response) => {
-			swal({
-				title: 'Partner deleted!',
-				text: `this partner is deleted`,
-				icon: 'success',
-				button: 'Continue!'
-			});
-			history.push('/admin/partners');
+		// deletePartner(id)
+		// .then((response) => {
+		// 	swal({
+		// 		title: 'Partner deleted!',
+		// 		text: `this partner is deleted`,
+		// 		icon: 'success',
+		// 		button: 'Continue!'
+		// 	});
+		// 	history.push('/admin/partners');
 
-		})
-		.catch((error) => {
-			swal({
-				title: 'Partner Delete error',
-				text: 'Something went wrong. please try again or contact us',
-				icon: 'error',
-				button: 'Continue!'
-			});
-		})
+		// })
+		// .catch((error) => {
+		// 	swal({
+		// 		title: 'Partner Delete error',
+		// 		text: 'Something went wrong. please try again or contact us',
+		// 		icon: 'error',
+		// 		button: 'Continue!'
+		// 	});
+		// })
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your partner will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deletePartner(id).then((response) => {
+					swal('this partner is deleted', {
+						icon: 'success'
+					});
+					history.push('/admin/partners');
+				});
+			} else {
+				swal('Your partner is not deleted yet');
+			}
+		});
 	}
 
 	render() {

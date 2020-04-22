@@ -66,25 +66,44 @@ class FlightBookings extends Component {
 	}
 
 	destroyBooking = (id) => {
-		deleteBooking(id)
-		.then((response) => {
-			swal({
-				title: 'Flight Booking deleted!',
-				text: `this flight booking is deleted`,
-				icon: 'success',
-				button: 'Continue!'
-			});
-			history.go();
+		// deleteBooking(id)
+		// .then((response) => {
+		// 	swal({
+		// 		title: 'Flight Booking deleted!',
+		// 		text: `this flight booking is deleted`,
+		// 		icon: 'success',
+		// 		button: 'Continue!'
+		// 	});
+		// 	history.go();
 
-		})
-		.catch((error) => {
-			swal({
-				title: 'Flight Booking Delete error',
-				text: 'Something went wrong. please try again or contact us',
-				icon: 'error',
-				button: 'Continue!'
-			});
-		})
+		// })
+		// .catch((error) => {
+		// 	swal({
+		// 		title: 'Flight Booking Delete error',
+		// 		text: 'Something went wrong. please try again or contact us',
+		// 		icon: 'error',
+		// 		button: 'Continue!'
+		// 	});
+		// })
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your flight booking will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteBooking(id).then((response) => {
+					swal('this flight booking is deleted', {
+						icon: 'success'
+					});
+					history.go();
+				});
+			} else {
+				swal('Your flight booking is not deleted yet');
+			}
+		});
 	}
 
 	render() {

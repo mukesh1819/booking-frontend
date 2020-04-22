@@ -68,24 +68,43 @@ class TransactionList extends Component {
 	}
 
 	destroyTransaction(id) {
-		deleteTransaction(id)
-			.then((response) => {
-				swal({
-					title: 'Transaction deleted!',
-					text: `this Transaction is deleted`,
-					icon: 'success',
-					button: 'Continue!'
+		// deleteTransaction(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Transaction deleted!',
+		// 			text: `this Transaction is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.go();
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Transaction Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your transaction will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteTransaction(id).then((response) => {
+					swal('this Transaction is deleted', {
+						icon: 'success'
+					});
+					history.go();
 				});
-				history.go();
-			})
-			.catch((error) => {
-				swal({
-					title: 'Transaction Delete error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
+			} else {
+				swal('Your transaction is not deleted yet');
+			}
+		});
 	}
 
 	render() {

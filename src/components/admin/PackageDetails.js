@@ -32,24 +32,43 @@ class PackageDetails extends Component {
 	};
 
 	destroyPackage(id) {
-		deletePackage(id)
-			.then((response) => {
-				swal({
-					title: 'Package deleted!',
-					text: `this package is deleted`,
-					icon: 'success',
-					button: 'Continue!'
+		// deletePackage(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Package deleted!',
+		// 			text: `this package is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.push('/admin/packages');
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Package Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your package will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deletePackage(id).then((response) => {
+					swal('Your package has been deleted', {
+						icon: 'success'
+					});
+					history.push('/admin/packages');
 				});
-				history.push('/admin/packages');
-			})
-			.catch((error) => {
-				swal({
-					title: 'Package Delete error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
+			} else {
+				swal('Your package is not deleted yet');
+			}
+		});
 	}
 
 	render() {

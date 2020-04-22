@@ -33,24 +33,43 @@ class PackageBookingDetails extends Component {
 	}
 
 	destroyPackageBooking(id) {
-		deletePackageBooking(id)
-			.then((response) => {
-				swal({
-					title: 'Package Booking deleted!',
-					text: `this package booking is deleted`,
-					icon: 'success',
-					button: 'Continue!'
+		// deletePackageBooking(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Package Booking deleted!',
+		// 			text: `this package booking is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.push('/admin/package_booking');
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Package Booking Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your package booking will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deletePackageBooking(id).then((response) => {
+					swal('this package booking is deleted', {
+						icon: 'success'
+					});
+					history.push('/admin/package_booking');
 				});
-				history.push('/admin/package_booking');
-			})
-			.catch((error) => {
-				swal({
-					title: 'Package Booking Delete error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
+			} else {
+				swal('Your package booking is not deleted yet');
+			}
+		});
 	}
 
 	render() {
