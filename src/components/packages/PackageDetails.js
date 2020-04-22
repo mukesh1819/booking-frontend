@@ -74,7 +74,7 @@ class PackageDetails extends Component {
 	render() {
 		const {aPackage} = this.state;
 		var [price, discount] = calculatePackagePrice(aPackage);
-		const dummyImages = [HotelImage, nepalVillage, peace];
+		const dummyImages = aPackage.images;
 		const panes = [
 			{
 				menuItem: 'About',

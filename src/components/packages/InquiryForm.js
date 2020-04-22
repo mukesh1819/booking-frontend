@@ -148,7 +148,7 @@ class InquiryForm extends Component {
 									</h3> */}
 								</div>
 							</div>
-							<form onSubmit={handleSubmit} autoComplete='off'>
+							<form onSubmit={handleSubmit}>
 								<div className='input-section bg-white'>
 									<div className='row'>
 										<div className='col-12'>

@@ -63,7 +63,7 @@ class CompanyForm extends Component {
 					setFieldValue
 					/* and other goodies */
 				}) => (
-					<form onSubmit={handleSubmit} autoComplete='off'>
+					<form onSubmit={handleSubmit}>
 						<div className=''>
 							<div className='row'>
 								<div className='col-12'>

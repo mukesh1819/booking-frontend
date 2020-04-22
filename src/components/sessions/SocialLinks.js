@@ -37,7 +37,6 @@ class SocialLinks extends Component {
 	}
 
 	googleAuthorize(data) {
-		debugger;
 		console.log('Google login', data);
 		authorizeGoogle(data)
 			.then((resp) => {

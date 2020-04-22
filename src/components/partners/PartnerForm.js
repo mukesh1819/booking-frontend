@@ -75,7 +75,7 @@ class PartnerForm extends Component {
 						/* and other goodies */
 					}) => (
 						<React.Fragment>
-							<form onSubmit={handleSubmit} autoComplete='off'>
+							<form onSubmit={handleSubmit}>
 								<div className=''>
 									<div className='row'>
 										<div className='col-12 col-md-6'>
