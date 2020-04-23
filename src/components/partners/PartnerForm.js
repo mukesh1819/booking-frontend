@@ -38,7 +38,7 @@ class PartnerForm extends Component {
 			last_name: yup.string().required('Required'),
 			email: yup.string().required('Required'),
 			code: yup.string().required('Required'),
-			contact_number: yup.number().required('Required'),
+			contact_number: yup.number().typeError('Not a valid mobile number').required('Required'),
 			country: yup.string().required('Required'),
 			city: yup.string().required('Required')
 		});

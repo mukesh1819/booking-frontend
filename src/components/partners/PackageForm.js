@@ -10,6 +10,7 @@ import {BASE_URL} from '../../constants';
 import swal from 'sweetalert';
 import {setError} from '../../redux/actions';
 import * as yup from 'yup';
+import {Button, Divider, Grid, Header, Icon, Search, Segment} from 'semantic-ui-react';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -82,7 +83,7 @@ class PackageForm extends Component {
 		const activity = {
 			description: '',
 			duration: '',
-			price: 100.0
+			price: ''
 		};
 
 		const {aPackage} =
@@ -113,8 +114,7 @@ class PackageForm extends Component {
 				.number()
 				.typeError('Not a valid amount')
 				.min(0, 'Should be greater than 0')
-				.max(yup.ref('price'), 'should not be greater than actual price')
-				.required('Required'),
+				.max(yup.ref('price'), 'should not be greater than actual price'),
 			location: yup.string().required('Required'),
 			description: yup.string().required('Required'),
 			category_id: yup.string().required('Required')
@@ -379,7 +379,7 @@ class PackageForm extends Component {
 											<div className='col-12'>
 												<div className='d-flex justify-content-between'>
 													<h3 className='title'>Activities</h3>
-													<span
+													{/* <span
 														className='btn btn-primary'
 														onClick={() =>
 															setFieldValue('activities_attributes', [
@@ -388,72 +388,105 @@ class PackageForm extends Component {
 															])}
 													>
 														Add
-													</span>
+													</span> */}
 												</div>
 											</div>
-											{values.activities_attributes.map((activity, index) => (
-												<div className='col-12 py-2 my-2 bg-body'>
-													<div
-														className='text-right'
-														onClick={() => {
-															values.activities_attributes.splice(index, 1);
-															setFieldValue(
-																'activities_attributes',
-																values.activities_attributes
-															);
-														}}
-													>
-														<i className='fas fa-times' />
-													</div>
-													<div className='field-box'>
-														<label>Description</label>
-
-														<Field
-															name={`activities_attributes[${index}].description`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.activities_attributes[index].description}
-														/>
-
-														<ErrorMessage
-															name={`activities_attributes[${index}].description`}
-														/>
-													</div>
-
-													<div className='field-box'>
-														<label>Duration</label>
-
-														<Field
-															name={`activities_attributes[${index}].duration`}
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.activities_attributes[index].duration}
-														/>
-
-														<ErrorMessage
-															name={`activities_attributes[${index}].duration`}
-														/>
-													</div>
-
-													<div className='field-box'>
-														<label>Price</label>
-
-														<Field
-															name={`activities_attributes[${index}].price`}
-															type='number'
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.activities_attributes[index].price}
-														/>
-
-														<ErrorMessage name={`activities_attributes[${index}].price`} />
-													</div>
-												</div>
-											))}
 										</div>
+										<Segment placeholder>
+											<div className='row activities'>
+												{values.activities_attributes.map((activity, index) => (
+													<div className='activity col-4 py-2'>
+														<div
+															className='text-right'
+															onClick={() => {
+																values.activities_attributes.splice(index, 1);
+																setFieldValue(
+																	'activities_attributes',
+																	values.activities_attributes
+																);
+															}}
+														>
+															<i className='fas fa-times' />
+														</div>
+														<div className='row'>
+															<div className='col-12'>
+																<div className='field-box'>
+																	<label>Description</label>
+
+																	<Field
+																		name={`activities_attributes[${index}].description`}
+																		className='form-control'
+																		onBlur={handleBlur}
+																		onChange={handleChange}
+																		value={
+																			values.activities_attributes[index]
+																				.description
+																		}
+																	/>
+
+																	<ErrorMessage
+																		name={`activities_attributes[${index}].description`}
+																	/>
+																</div>
+															</div>
+															<div className='col-12'>
+																<div className='field-box'>
+																	<label>Duration</label>
+
+																	<Field
+																		name={`activities_attributes[${index}].duration`}
+																		className='form-control'
+																		onBlur={handleBlur}
+																		onChange={handleChange}
+																		value={
+																			values.activities_attributes[index].duration
+																		}
+																	/>
+
+																	<ErrorMessage
+																		name={`activities_attributes[${index}].duration`}
+																	/>
+																</div>
+															</div>
+															<div className='col-12'>
+																<div className='field-box'>
+																	<label>Price</label>
+
+																	<Field
+																		name={`activities_attributes[${index}].price`}
+																		type='number'
+																		className='form-control'
+																		onBlur={handleBlur}
+																		onChange={handleChange}
+																		value={
+																			values.activities_attributes[index].price
+																		}
+																	/>
+
+																	<ErrorMessage
+																		name={`activities_attributes[${index}].price`}
+																	/>
+																</div>
+															</div>
+														</div>
+													</div>
+												))}
+												<div className='col-4 d-flex activity align-items-center justify-content-center'>
+													<Header
+														icon
+														className='text-primary p-4'
+														onClick={() =>
+															setFieldValue('activities_attributes', [
+																...values.activities_attributes,
+																activity
+															])}
+													>
+														<Icon name='fas fa-plus-circle' />
+														Add Activity
+													</Header>
+												</div>
+											</div>
+										</Segment>
 									</div>
 
 									<div class='text-center'>

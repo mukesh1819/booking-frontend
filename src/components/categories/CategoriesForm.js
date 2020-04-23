@@ -24,7 +24,7 @@ class CategoriesForm extends Component {
 
 		const CategoriesSchema = yup.object().shape({
 			name: yup.string().required('Required'),
-			order: yup.number().required('Required')
+			order: yup.number().typeError('Order should be numeric value').required('Required')
 		});
 
 		const initialParams = {

@@ -28,16 +28,13 @@ $font40: 40px;
     }
 }
 
-html {
-    height: 100%;
-}
+html {}
 
 body {
     font-family: $font-secondary;
     color: $fontColor;
     font-size: $font16;
     overflow-x: hidden;
-    min-height: 100%;
 }
 
 #root {
@@ -710,6 +707,17 @@ footer {
     }
 }
 
+
+// Package Form
+
+.activities {
+
+    .activity {
+        // @include border-radius;
+        border: 1px solid #dcdada;
+        color: primary;
+    }
+}
 
 // Customer Support
 .search-faq {

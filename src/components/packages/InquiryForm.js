@@ -17,6 +17,7 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {createInquiry, updateInquiry} from '../../api/inquiryApi';
+import {sortObjectBy} from '../../helpers';
 
 class InquiryForm extends Component {
 	constructor(props) {
@@ -45,7 +46,7 @@ class InquiryForm extends Component {
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
 			email_address: yup.string().required('Required'),
-			phone: yup.number().required('Required'),
+			phone: yup.number().typeError('Not a valid mobile number').required('Required'),
 			nationality: yup.string().required('Required'),
 			address: yup.string().required('Required'),
 			city: yup.string().required('Required'),
@@ -73,6 +74,8 @@ class InquiryForm extends Component {
 			activity_id: null,
 			package_id: inquiry.package != null ? inquiry.package.id : aPackage.id
 		};
+
+		var sortedCountries = sortObjectBy(countries, 'code');
 		return (
 			<div className='container bg-white'>
 				<Formik
@@ -269,13 +272,31 @@ class InquiryForm extends Component {
 												<div className='field-box'>
 													<Form.Field>
 														<label>Mobile Number</label>
-
-														<Form.Input
+														<Input
+															label={
+																<Dropdown
+																	className='dropdown'
+																	defaultValue={values.code}
+																	name='code'
+																	placeholder='Code'
+																	onBlur={handleBlur}
+																	onChange={(e, data) => {
+																		setFieldValue(`code`, data.value);
+																	}}
+																	value={values.code}
+																	search
+																	options={sortedCountries.map((country) => {
+																		return {
+																			...country,
+																			value: country.code,
+																			text: country.code
+																		};
+																	})}
+																/>
+															}
 															fluid
-															icon='fas fa-mobile-alt'
-															iconPosition='left'
 															name='phone'
-															className=''
+															className='semantic-input-group'
 															onBlur={handleBlur}
 															onChange={handleChange}
 															value={values.phone}
@@ -336,7 +357,7 @@ class InquiryForm extends Component {
 														<label>Address</label>
 														<Form.Input
 															fluid
-															icon='address card icon'
+															icon='fas fa-address'
 															iconPosition='left'
 															name='address'
 															className=''
