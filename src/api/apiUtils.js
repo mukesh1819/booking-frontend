@@ -40,7 +40,6 @@ export function useInterceptor(axios) {
 			return response;
 		},
 		function (error) {
-			debugger;
 			const originalRequest = error.config;
 			if (error.message === 'Network Error') {
 				swal({
@@ -49,6 +48,18 @@ export function useInterceptor(axios) {
 				});
 			} else if (error.response.status === 401) {
 				history.push('/');
+				swal({
+					title: "Not Authorized",
+					text: "You are not authorized for this action",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Yes",
+					closeOnConfirm: false
+				}, function () {
+					history.push('/');
+				});
+
 			} else if (error.response.status === 343) {
 				history.push('/not_verified');
 			} else if (error.response.status === 422) {
@@ -58,7 +69,9 @@ export function useInterceptor(axios) {
 					icon: 'error',
 					button: 'Try Again!'
 				});
-			} else {}
+			} else {
+				Promise.reject(new Error(error));
+			}
 		}
 	);
 }
