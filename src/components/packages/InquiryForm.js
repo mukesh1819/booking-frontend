@@ -98,12 +98,7 @@ class InquiryForm extends Component {
 									});
 								})
 								.catch((error) => {
-									swal({
-										title: 'Sorry!',
-										text: 'something went wrong',
-										icon: 'error',
-										button: 'Try Again!'
-									});
+									console.log('Update Inquiry Error', error);
 								});
 						} else {
 							createInquiry(values)
@@ -119,14 +114,7 @@ class InquiryForm extends Component {
 									});
 								})
 								.catch((error) => {
-									// console.log('inquiry create error', error);
-									setSubmitting(false);
-									swal({
-										title: 'Sorry!',
-										text: 'something went wrong',
-										icon: 'error',
-										button: 'Try Again!'
-									});
+									console.log('inquiry create error', error);
 								});
 						}
 					}}

@@ -40,15 +40,24 @@ export function useInterceptor(axios) {
 			return response;
 		},
 		function (error) {
+			debugger;
 			const originalRequest = error.config;
 			if (error.message === 'Network Error') {
 				swal({
-					title: error.message
+					title: error.message,
+					icon: 'error'
 				});
 			} else if (error.response.status === 401) {
 				history.push('/');
 			} else if (error.response.status === 343) {
 				history.push('/not_verified');
+			} else if (error.response.status === 422) {
+				swal({
+					title: '',
+					text: error.response.data.errors.join("/n"),
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			} else {}
 		}
 	);
