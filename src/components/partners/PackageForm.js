@@ -67,7 +67,7 @@ class PackageForm extends Component {
 		$('.owl-carousel').owlCarousel(options);
 	}
 
-	handleSubmit = (id) => {
+	uploadImages = (id) => {
 		const data = new FormData();
 		Array.from(document.querySelector('[type=file]').files).map((v, index) => {
 			data.append(`images[${index}]`, v);
@@ -124,7 +124,7 @@ class PackageForm extends Component {
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						{/* <form onSubmit={this.handleSubmit}>
+						{/* <form onSubmit={this.uploadImages}>
 							<input id='package_images' name='package[images[]]' type='file' multiple />
 							<input type='submit' />
 						</form> */}
@@ -136,7 +136,7 @@ class PackageForm extends Component {
 									updatePackage(aPackage.idx, values)
 										.then((response) => {
 											setSubmitting(false);
-											// nextStep(response.data);
+											this.uploadImages(response.data.idx);
 											swal({
 												title: 'Package updated Successful!',
 												text: response.data.message,
@@ -158,8 +158,7 @@ class PackageForm extends Component {
 									createPackage({...values, images: document.querySelector('[type=file]').files})
 										.then((response) => {
 											setSubmitting(false);
-											// nextStep(response.data);
-											this.handleSubmit(response.data.idx);
+											this.uploadImages(response.data.idx);
 											swal({
 												title: 'Package created Success!',
 												text: response.data.message,

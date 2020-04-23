@@ -71,7 +71,9 @@ class PackagesList extends Component {
 										<td>{aPackage.category.name} </td>
 										<td>{aPackage.price}</td>
 										<td>
-											<Badge type={`${aPackage.published}`}>{aPackage.published ? 'Published' : 'Not Published'}</Badge>
+											<Badge type={aPackage.published}>
+												{aPackage.published ? 'Published' : 'Not Published'}
+											</Badge>
 										</td>
 
 										<td>

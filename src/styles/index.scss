@@ -35,6 +35,7 @@ body {
     color: $fontColor;
     font-size: $font16;
     overflow-x: hidden;
+    height: min-content;
 }
 
 #root {
@@ -651,7 +652,7 @@ section {
     height: 60px;
 
     .image-container {
-        padding: 1rem;
+        padding: .25rem;
         border: 1px solid grey;
     }
 
