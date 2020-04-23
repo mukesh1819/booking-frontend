@@ -29,12 +29,7 @@ class InquiryList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Inquiry fetch error',
-					text: 'could not able to fetch inquiry. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('inquiry fetch error', error);
 			});
 	}
 

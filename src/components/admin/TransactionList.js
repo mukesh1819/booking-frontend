@@ -58,12 +58,7 @@ class TransactionList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Transaction fetch error',
-					text: 'could not able to fetch user transaction. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Transaction fetch error', error);
 			});
 	}
 

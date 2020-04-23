@@ -66,8 +66,8 @@ class PackageDetails extends Component {
 				});
 				$('.owl-carousel').owlCarousel(options);
 			})
-			.catch((response) => {
-				console.log('PACKAGE DETAILS ERROR', response);
+			.catch((error) => {
+				console.log('PACKAGE DETAILS ERROR', error);
 			});
 	}
 

@@ -58,14 +58,9 @@ class CategoriesForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											console.log('Category update Error', error);
 											setSubmitting(false);
-											swal({
-												title: 'Sorry!',
-												text: error.message,
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											
 										});
 								} else {
 									createCategory(values)
@@ -80,14 +75,8 @@ class CategoriesForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											console.log('Category create Error', error);
 											setSubmitting(false);
-											swal({
-												title: 'Sorry!',
-												text: error.message,
-												icon: 'error',
-												button: 'Try Again!'
-											});
 										});
 								}
 							}}

@@ -37,7 +37,7 @@ class Dashboard extends Component {
 				partner: response.data
 			});
 		})
-		.catch((error) => console.log(error));
+		.catch((error) => console.log(' partner fetch error', error));
 	};
 
 	render() {

@@ -51,12 +51,7 @@ class BecomePartnerForm extends Component {
 				.catch((error) => {
 					// console.log('Create Partner Error', error);
 					setSubmitting(false);
-					swal({
-						title: 'Partner Create Error!',
-						text: error.response.data.errors.toString(),
-						icon: 'error',
-						button: 'Try Again!'
-					});
+					console.log(' partner create error', error);
 				});
 		}
 	};

@@ -69,9 +69,17 @@ export function useInterceptor(axios) {
 					icon: 'error',
 					button: 'Try Again!'
 				});
+			} else if (error.response.status === 400) {
+				swal({
+					title: '',
+					text: error.response.data.message.join("/n"),
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			} else {
 				Promise.reject(new Error(error));
 			}
+			
 		}
 	);
 }

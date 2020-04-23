@@ -23,12 +23,7 @@ class PackageBookingDetails extends Component {
 				});
 			})
 			.catch((error) => {
-				swal({
-					title: 'Sorry!',
-					text: error.response != null ? error.response.data.errors : 'sorry something went wrong',
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				console.log('Package booking confirmation error', error);
 			});
 	}
 

@@ -25,7 +25,7 @@ class InquiryDetails extends Component {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				console.log('package Rejection',error);
 			});
 	}
 

@@ -72,15 +72,7 @@ class SignUpForm extends Component {
 									.catch((error) => {
 										setSubmitting(false);
 										// console.log(error);
-										swal({
-											title: 'Something went wrong! please try again or contact us',
-											text:
-												error.response != null
-													? error.response.data.errors.toString()
-													: 'something went wrong',
-											icon: 'error',
-											button: 'Try Again!'
-										});
+										console.log(' signup failed error', error);
 									});
 							}}
 						>

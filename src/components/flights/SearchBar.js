@@ -54,6 +54,7 @@ class SearchBar extends Component {
 				});
 			})
 			.catch((error) => {
+				console.log(' city fetch error', error);
 				this.props.setError('Cant fetch cities');
 			});
 	};

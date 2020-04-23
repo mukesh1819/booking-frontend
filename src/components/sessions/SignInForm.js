@@ -49,22 +49,12 @@ class SignInForm extends Component {
 											localStorage.setItem('token', response.data.jwt);
 											history.push(redirectUrl);
 										} else {
-											swal({
-												title: 'Sign In Failed!',
-												text: response.data.failure,
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											console.log('sign in failed error');
 										}
 									})
 									.catch((error) => {
-										// console.log('SIGN IN error', error);
-										swal({
-											title: 'Something Went Wrong!',
-											text: '........!',
-											icon: 'error',
-											button: 'Try Again!'
-										});
+										console.log('SIGN IN failed error', error);
+										
 									});
 							}}
 						>

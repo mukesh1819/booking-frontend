@@ -32,17 +32,12 @@ class UsersList extends Component {
 					users: response.data
 				});
 			})
-			.catch((errors) => {
+			.catch((error) => {
 				// console.log(errors);
 				this.setState({
 					errors
 				});
-				swal({
-					title: 'User fetch error',
-					text: 'could not able to fetch users. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' User fetch error', error);
 			});
 	};
 

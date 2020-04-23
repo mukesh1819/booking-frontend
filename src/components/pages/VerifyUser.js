@@ -26,13 +26,7 @@ const VerifyUser = (props) => {
 					});
 				})
 				.catch((error) => {
-					console.log(error);
-					swal({
-						title: 'Cannot verify your Email',
-						text: 'There was a problem verifying your email',
-						icon: 'error',
-						button: 'Continue!'
-					});
+					console.log(' Email verify error for account activation', error);
 				});
 		}
 	});

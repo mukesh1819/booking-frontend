@@ -44,14 +44,9 @@ class FaqList extends Component {
 					faqs: response.data
 				});
 			})
-			.catch((errors) => {
-				// console.log('Fetch Package Error', errors);
-				swal({
-					title: 'faq fetch error',
-					text: 'could not able to fetch Faq. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+			.catch((error) => {
+				console.log('Fetch Package Error', error);
+				
 			});
 	};
 

@@ -26,12 +26,7 @@ class TicketDetails extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Booking fetch error',
-					text: `could not able to fetch booking.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Booking list fetch error', error);
 			});
 	}
 

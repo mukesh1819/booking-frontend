@@ -38,12 +38,7 @@ class PartnerDetails extends Component {
 				});
 			})
 			.catch((error) => {
-				swal({
-					title: 'Sorry!',
-					text: error.response.data.errors.toString(),
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				console.log(' partner request approval error', error);
 			});
 	}
 

@@ -29,12 +29,7 @@ class CategoryList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'category fetch error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('Category fetch error', error);
 			});
 	}
 
