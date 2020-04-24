@@ -70,9 +70,10 @@ export function useInterceptor(axios) {
 					button: 'Try Again!'
 				});
 			} else if (error.response.status === 400) {
+				debugger;
 				swal({
 					title: '',
-					text: error.response.data.message.join("/n"),
+					text: error.response.data.message,
 					icon: 'error',
 					button: 'Try Again!'
 				});

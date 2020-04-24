@@ -17,6 +17,7 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.6",
+    "babel-plugin-react-intl": "^7.5.2",
     "babel-preset-react-app": "^9.1.1",
     "bootstrap": "^4.4.1",
     "camelcase": "^5.3.1",
@@ -68,6 +69,7 @@
     "react-facebook-auth": "^1.4.0",
     "react-google-login": "^5.1.3",
     "react-google-oauth": "^1.0.0",
+    "react-intl": "^4.5.0",
     "react-popper": "^1.3.7",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
@@ -94,8 +96,9 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "build:langs": "NODE_ENV='production' babel-node scripts/mergeMessages.js",
+    "build": "npm run build:langs && node scripts/build.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -163,8 +166,14 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
+    "presets": ["react-app", "env"],
+    "plugins": [
+      ["react-intl", {
+          "messagesDir": "./public/messages/"
+      }]
     ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
   }
 }
