@@ -24,32 +24,28 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './App';
 import {Provider} from 'react-redux';
 import store from './redux/store';
-import { BrowserRouter } from "react-router-dom";
-import { IntlProvider, addLocaleData } from "react-intl";
-import th from 'react-intl/lib/locale-data/th'
-import en from "react-intl/locale-data/en";
-import es from "react-intl/locale-data/es";
+import {BrowserRouter} from 'react-router-dom';
 
-import localeData from "./../build/locales/data.json";
+import '@formatjs/intl-pluralrules/polyfill';
+import '@formatjs/intl-pluralrules/polyfill-locales';
 
-addLocaleData([...en, ...es]);
+import {IntlProvider} from 'react-intl';
+import th from 'react-intl/lib/locale-data/th';
+import en from 'react-intl/locale-data/en';
+import es from 'react-intl/locale-data/es';
+
+import localeData from './../build/locales/data.json';
 
 // Define user's language. Different browsers have the user locale defined
 // on different fields on the `navigator` object, so we make sure to account
 // for these different by checking all of them
-const language =
-  (navigator.languages && navigator.languages[0]) ||
-  navigator.language ||
-  navigator.userLanguage;
+const language = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage;
 
 // Split locales with a region code
 const languageWithoutRegionCode = language.toLowerCase().split(/[_-]+/)[0];
 
 // Try full locale, try locale without region code, fallback to 'en'
-const messages =
-  localeData[languageWithoutRegionCode] ||
-  localeData[language] ||
-  localeData.en;
+const messages = localeData[languageWithoutRegionCode] || localeData[language] || localeData.en;
 
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(
@@ -57,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			<BrowserRouter>
 				<App />
 			</BrowserRouter>
-  		</IntlProvider>,
+		</IntlProvider>,
 		document.getElementById('root')
 	);
 });
