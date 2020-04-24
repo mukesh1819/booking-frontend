@@ -12,6 +12,7 @@ import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import history from '../../history';
 import axios from 'axios';
 import {Flag, Segment} from 'semantic-ui-react';
+import { FormattedMessage } from 'react-intl';
 
 const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
@@ -47,9 +48,14 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 									fontWeight: 'bold'
 								}}
 							>
-								BECOME A PARTNER
+								
+								<FormattedMessage
+								id="Navbar.partnerMessage"
+								defaultMessage="BECOME A PARTNER"
+								/>
 							</NavLink>
 						)}
+						
 						<NavLink
 							className='link text-white'
 							to='/support'

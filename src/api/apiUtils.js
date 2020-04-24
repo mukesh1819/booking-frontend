@@ -72,7 +72,7 @@ export function useInterceptor(axios) {
 			} else if (error.response.status === 400) {
 				swal({
 					title: error.response.data.exception,
-					text: error.response.data.message.join("/n"),
+					text: error.response.data.message,
 					icon: 'error',
 					button: 'Try Again!'
 				});
