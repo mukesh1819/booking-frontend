@@ -289,9 +289,7 @@ class FlightList extends Component {
 					toggle={this.onViewDetails}
 					onSuccess={this.onBook}
 				>
-					<div className='p-3'>
-						{this.state.selectedFlight && <DetailComponent flight={this.state.selectedFlight} />}
-					</div>
+					{this.state.selectedFlight && <DetailComponent flight={this.state.selectedFlight} />}
 				</ModalExample>
 			</div>
 		);

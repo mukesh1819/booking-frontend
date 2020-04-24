@@ -70,6 +70,24 @@ export function redirectUrl(state) {
 	return redirectUrl;
 }
 
+export function roleBasedUrl(role, url) {
+	var finalUrl;
+	switch (role) {
+		case "Admin": {
+			finalUrl = "/admin";
+			break;
+		}
+		case "Partner": {
+			finalUrl = "/partner";
+			break;
+		}
+		default: {
+			finalUrl = url;
+		}
+	}
+	return finalUrl;
+}
+
 export function imageUrl(path) {
 	return `${BASE_URL}${path}`;
 }
