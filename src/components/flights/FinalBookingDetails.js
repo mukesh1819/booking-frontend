@@ -50,7 +50,9 @@ class FinalBookingDetails extends Component {
 			<div className='container p-3'>
 				<div className='d-flex justify-content-between'>
 					<span className='text-bold'>Flight Details</span>
-					{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.reservation_time)} />}
+					<span className='text-danger'>
+						{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.reservation_time)} />}
+					</span>
 				</div>
 				<div className='card mt-3'>
 					<div className='card-body'>

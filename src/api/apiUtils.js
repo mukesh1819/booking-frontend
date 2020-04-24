@@ -71,15 +71,13 @@ export function useInterceptor(axios) {
 				});
 			} else if (error.response.status === 400) {
 				swal({
-					title: '',
+					title: error.response.data.exception,
 					text: error.response.data.message.join("/n"),
 					icon: 'error',
 					button: 'Try Again!'
 				});
-			} else {
-				Promise.reject(new Error(error));
-			}
-			
+			} else {}
+
 		}
 	);
 }

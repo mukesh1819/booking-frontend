@@ -75,7 +75,17 @@ class EditInquiry extends Component {
 		const partner_service = {
 			partner_id: 1,
 			name: '',
-			details: ''
+			details: '',
+			extras: {
+				'Package Name': inquiry.package_name,
+				'Head Person': inquiry.head_traveller_name,
+				'Email Address': inquiry.email_address,
+				Address: `${inquiry.city}, ${inquiry.address}`,
+				Nationality: inquiry.nationality,
+				'Number of Person': `Adult - ${inquiry.number_of_adult}, Child - ${inquiry.number_of_child}`,
+				'Phone Number': inquiry.phone,
+				'Invoice Number': inquiry.idx
+			}
 		};
 
 		const inquiryDetails = {
