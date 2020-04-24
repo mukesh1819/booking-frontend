@@ -51,12 +51,7 @@ const CreateUser = () => {
 					})
 					.catch((error) => {
 						setSubmitting(false);
-						swal({
-							title: 'User create error',
-							text: 'could not able to create user. please try again or contact us',
-							icon: 'error',
-							button: 'Continue!'
-						});
+						console.log('user create error', error);
 						// console.log(error);
 						// this.setState({
 						// 	error

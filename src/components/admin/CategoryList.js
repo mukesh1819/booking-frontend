@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {getCategories} from '../../api/categoryApi';
+import {getCategories, deleteCategory} from '../../api/categoryApi';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
+import history from '../../history';
 import swal from 'sweetalert';
 
 class CategoryList extends Component {
@@ -28,23 +29,60 @@ class CategoryList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'category fetch error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('Category fetch error', error);
 			});
+	}
+
+	destroyCategory(id) {
+		// deleteCategory(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Category deleted!',
+		// 			text: `this category is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.go();
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Category Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your category will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteCategory(id).then((response) => {
+					swal('this category is deleted', {
+						icon: 'success'
+					});
+					history.go();
+				});
+			} else {
+				swal('Your category is not deleted yet');
+			}
+		});
 	}
 
 	render() {
 		const {categories} = this.state;
 		return (
-			<div className='container'>
+			<div className='container p-4'>
 				<div className=''>
-					<div className='col-12 d-flex justify-content-between'>
-						<h5>Category List</h5>
-						<Link to='/admin/category_form'>new category</Link>
+					<div className='d-flex justify-content-between'>
+						<h3 className='title'>Categories</h3>
+						<Link to='/admin/category_form' className='btn bg-none text-secondary'>
+							new category
+						</Link>
 					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
@@ -73,7 +111,7 @@ class CategoryList extends Component {
 												}}
 											>
 												<i className='fas fa-contact' />
-												<span className='px-1'>view</span>
+												<span className='btn bg-none text-primary'>view</span>
 											</Link>
 
 											<Link
@@ -85,8 +123,14 @@ class CategoryList extends Component {
 												}}
 											>
 												<i className='fas fa-contact' />
-												<span className='px-1'>edit</span>
+												<span className='btn bg-none text-primary'>edit</span>
 											</Link>
+											<span
+												className='btn bg-none text-danger'
+												onClick={() => this.destroyCategory(category.idx)}
+											>
+												Delete
+											</span>
 										</td>
 									</tr>
 								);

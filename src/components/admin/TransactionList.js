@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getUserTransaction} from '../../api/transactionApi';
+import {getUserTransaction, deleteTransaction} from '../../api/transactionApi';
 import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import history from '../../history';
@@ -10,8 +10,9 @@ import {Tabs, Tab} from 'react-bootstrap';
 import UserDetailCard from '../users/UserDetailCard';
 import BookingDetails from './BookingDetails';
 import TransactionApiResponse from './TransactionApiResponse';
-import {Modal as ModalExample} from '../shared';
+import {Modal as ModalExample, Badge} from '../shared';
 import swal from 'sweetalert';
+import {Menu, Segment, Pagination, Input, Accordion} from 'semantic-ui-react';
 
 class TransactionList extends Component {
 	constructor(props) {
@@ -19,7 +20,8 @@ class TransactionList extends Component {
 		this.state = {
 			transactions: [],
 			selectedTransaction: null,
-			key: 'user'
+			key: 'user',
+			activeMenuItem: 'All'
 		};
 	}
 
@@ -28,6 +30,12 @@ class TransactionList extends Component {
 			selectedTransaction: transaction
 		});
 	}
+
+	handleItemClick = (e, {name}) => {
+		var searchQuery = name == 'All' ? '' : `q[state_eq]=${name.toLowerCase()}`;
+		this.fetchUserTransaction(searchQuery);
+		this.setState({activeMenuItem: name});
+	};
 
 	setKey(key) {
 		this.setState({
@@ -40,8 +48,8 @@ class TransactionList extends Component {
 		this.fetchUserTransaction();
 	}
 
-	fetchUserTransaction() {
-		getUserTransaction()
+	fetchUserTransaction(params) {
+		getUserTransaction(params)
 			.then((response) => {
 				// console.log(response);
 				this.setState({
@@ -50,52 +58,126 @@ class TransactionList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Transaction fetch error',
-					text: 'could not able to fetch user transaction. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Transaction fetch error', error);
 			});
 	}
 
+	destroyTransaction(id) {
+		// deleteTransaction(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Transaction deleted!',
+		// 			text: `this Transaction is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.go();
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Transaction Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your transaction will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteTransaction(id).then((response) => {
+					swal('this Transaction is deleted', {
+						icon: 'success'
+					});
+					history.go();
+				});
+			} else {
+				swal('Your transaction is not deleted yet');
+			}
+		});
+	}
+
 	render() {
-		const {show, key, selectedTransaction} = this.state;
+		const {show, key, selectedTransaction, activeMenuItem} = this.state;
 		return (
 			<React.Fragment>
 				{this.state.transactions !== null && (
-					<div className='container-fluid'>
-						<div className='col-md-8 col-md-offset-2' id='search-form'>
-							<h5 className='text-center'>Transactionlist</h5>
-							<table className='table table-striped table-bordered'>
-								<thead>
-									<tr>
-										<th>Transaction Invoice</th>
-										<th>state</th>
-										<th>Amount</th>
-										<th>Details</th>
-									</tr>
-								</thead>
-								<tbody>
-									{this.state.transactions.map((transaction) => {
-										return (
-											<tr>
-												<td>{transaction.idx}</td>
-												<td>{transaction.state}</td>
-												<td>{transaction.amount}</td>
-												<td>
-													<span
-														className='btn btn-primary'
-														onClick={() => this.onTransactionSelect(transaction)}
-													>
-														Transaction details
-													</span>
-												</td>
-											</tr>
-										);
-									})}
-								</tbody>
-							</table>
+					<div className='container p-4'>
+						<div className='' id='search-form'>
+							<h3 className='title'>Transactions</h3>
+
+							<Menu pointing>
+								<Menu.Item
+									name='All'
+									active={activeMenuItem === 'All'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Item
+									name='Pending'
+									active={activeMenuItem === 'Pending'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Item
+									name='Processing'
+									active={activeMenuItem === 'Processing'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Item
+									name='Verified'
+									active={activeMenuItem === 'Verified'}
+									onClick={this.handleItemClick}
+								/>
+								<Menu.Menu position='right'>
+									<Menu.Item>
+										<Input icon='search' placeholder='Search...' />
+									</Menu.Item>
+								</Menu.Menu>
+							</Menu>
+
+							<Segment>
+								<table className='table table-striped table-bordered'>
+									<thead>
+										<tr>
+											<th>Transaction Invoice</th>
+											<th>state</th>
+											<th>Amount</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{this.state.transactions.map((transaction) => {
+											return (
+												<tr>
+													<td>{transaction.idx}</td>
+													<td>
+														<Badge type={transaction.state}>{transaction.state}</Badge>
+													</td>
+													<td>{transaction.amount}</td>
+													<td>
+														<span
+															className='btn bg-none text-primary'
+															onClick={() => this.onTransactionSelect(transaction)}
+														>
+															Details
+														</span>
+														<span
+															className='btn bg-none text-danger'
+															onClick={() => this.destroyTransaction(transaction.idx)}
+														>
+															Delete
+														</span>
+													</td>
+												</tr>
+											);
+										})}
+									</tbody>
+								</table>
+							</Segment>
 						</div>
 					</div>
 				)}
@@ -107,17 +189,21 @@ class TransactionList extends Component {
 					onSuccess={() => this.onTransactionSelect(null)}
 				>
 					{selectedTransaction !== null && (
-						<Tabs id='controlled-tab-example' activeKey={key} onSelect={(k) => this.setKey(k)}>
-							<Tab eventKey='user' title='user'>
-								<UserDetailCard user={selectedTransaction.user} />
-							</Tab>
-							<Tab eventKey='bookings' title='bookings'>
-								<BookingDetails bookings={selectedTransaction.bookings} />
-							</Tab>
-							<Tab eventKey='response' title='response'>
-								<TransactionApiResponse response={selectedTransaction.response} />
-							</Tab>
-						</Tabs>
+						<div className='p-3'>
+							<Tabs id='controlled-tab-example' activeKey={key} onSelect={(k) => this.setKey(k)}>
+								<Tab eventKey='user' title='user'>
+									<UserDetailCard user={selectedTransaction.user} />
+								</Tab>
+								<Tab eventKey='bookings' title='bookings'>
+									{selectedTransaction.bookings.map((booking) => (
+										<BookingDetails booking={booking} />
+									))}
+								</Tab>
+								<Tab eventKey='response' title='response'>
+									<TransactionApiResponse response={selectedTransaction.response} />
+								</Tab>
+							</Tabs>
+						</div>
 					)}
 				</ModalExample>
 			</React.Fragment>

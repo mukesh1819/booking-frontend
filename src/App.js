@@ -9,47 +9,55 @@ import {loginUser} from './redux/actions';
 import {setCountries} from './redux/actions';
 import {getCountries} from './api/flightApi';
 import {ScrollToTop} from './components/shared';
-import {swal} from 'sweetalert';
+import swal from 'sweetalert';
 
 function App(props) {
-	useEffect(() => {
-		console.log('Load App Component');
-		console.log('ENV VARIABLE', process.env);
-		if (localStorage.token !== undefined && props.currentUser.email == undefined) {
-			getUserDetails()
-				.then((response) => {
-					props.loginUser(response.data.user);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
+	useEffect(
+		() => {
+			if (localStorage.token !== undefined && props.currentUser.email == undefined) {
+				getUserDetails()
+					.then((response) => {
+						props.loginUser(response.data.user);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
 
-		if (props.countries.length == 0) {
-			getCountries()
-				.then((response) => {
-					console.log('Contries', response);
-					props.setCountries(response.data);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
+			if (props.countries.length == 0) {
+				getCountries()
+					.then((response) => {
+						console.log('Contries', response);
+						var countries = response.data.map(function(country) {
+							return {
+								key: country.id,
+								value: country.country_char,
+								flag: country.country_char.toLowerCase(),
+								text: country.name,
+								currency: country.currency_char,
+								code: country.country_code
+							};
+						});
+						props.setCountries(countries);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
 
-		// if (props.error !== '') {
-		// 	swal({
-		// 		title: props.error
-		// 	});
-		// }
-	});
+			// if (props.error !== '') {
+			// 	swal({
+			// 		title: props.error
+			// 	});
+			// }
+		},
+		[props.countries, props.currentUser.email]
+	);
 
 	return (
 		<Router history={history}>
 			<ScrollToTop />
-			<div id='content'>
-				<NavBar />
-				{routing}
-			</div>
+			{routing}
 			<Footer />
 		</Router>
 	);

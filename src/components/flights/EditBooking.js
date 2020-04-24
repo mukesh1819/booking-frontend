@@ -57,12 +57,7 @@ class EditBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Booking fetch error',
-					text: `could not able to fetch booking.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' booking fetch error', error);
 			});
 	};
 
@@ -143,12 +138,7 @@ class EditBooking extends Component {
 								})
 								.catch((error) => {
 									// console.log(error);
-									swal({
-										title: 'Booking Error',
-										text: 'Could not save your booking. please try again or contact us',
-										icon: 'error',
-										button: 'Continue!'
-									});
+									console.log(' booking create error', error);
 								});
 						}}
 					>
@@ -191,9 +181,7 @@ class EditBooking extends Component {
 														setFieldValue(`user.code`, data.value);
 													}}
 													value={values.user.code}
-													fluid
 													search
-													selection
 													options={sortedCountries.map((country) => {
 														return {
 															key: country.id,
@@ -310,14 +298,7 @@ class EditBooking extends Component {
 															fluid
 															search
 															selection
-															options={this.props.countries.map(function(country) {
-																return {
-																	key: country.id,
-																	value: country.country_char,
-																	flag: country.country_char.toLowerCase(),
-																	text: country.name
-																};
-															})}
+															options={this.props.countries}
 														/>
 													</div>
 												</div>

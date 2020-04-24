@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup} from 'reactstrap';
+import {Button, Header, Icon, Image, Modal} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 
 const ModalExample = (props) => {
@@ -9,24 +9,26 @@ const ModalExample = (props) => {
 	// 	setModal(!modal);
 	// };
 	return (
-		<div>
-			<Modal size='lg' isOpen={show} toggle={toggle} className={className} backdrop={true}>
-				{title && <ModalHeader toggle={toggle}> {title} </ModalHeader>}
-				<ModalBody style={{display: 'block'}}>{children}</ModalBody>
-				{buttonLabel !== undefined && (
-					<ModalFooter>
-						<Button
-							color='primary'
-							onClick={() => {
-								onSuccess();
-							}}
-						>
-							{buttonLabel}
-						</Button>
-					</ModalFooter>
-				)}
-			</Modal>
-		</div>
+		<Modal open={show} closeOnDimmerClick={toggle} onClose={toggle} closeOnEscape={toggle} closeIcon>
+			{title && (
+				<Modal.Header className=''>
+					<h3 className='text-primary'>{title}</h3>
+				</Modal.Header>
+			)}
+			<Modal.Content scrolling>{children}</Modal.Content>
+			{buttonLabel !== undefined && (
+				<Modal.Actions>
+					<Button
+						primary
+						onClick={() => {
+							onSuccess();
+						}}
+					>
+						{buttonLabel} <Icon name='chevron right' />
+					</Button>
+				</Modal.Actions>
+			)}
+		</Modal>
 	);
 };
 

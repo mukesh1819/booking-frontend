@@ -43,17 +43,18 @@ export function deleteInquiry(id) {
 	});
 }
 
-export function confirmInquiry(id) {
+export function confirmInquiry(id, values) {
 	return axios({
 		method: 'put',
-		url: `${API_URL}/inquiries/${id}/confirm`
+		url: `${API_URL}/inquiries/${id}/confirm`,
+		params: values
 	});
 }
 
-export function showPackageBooking(idx) {
+export function showPackageBooking(id) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/package_bookings/${idx}`
+		url: `${API_URL}/package_bookings/${id}`
 	});
 }
 

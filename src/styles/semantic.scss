@@ -5,8 +5,43 @@
 
     &.segment {
         margin-top: 0;
-        border: none;
+        border: none !important;
         box-shadow: none;
+        padding: 0;
+    }
+}
+
+.semantic-input-group {
+    width: 100% !important;
+
+    .search {
+        width: max-content !important;
+        background-color: white;
+        border: 1px solid gainsboro;
+
+        &.active {
+            background-color: white;
+
+        }
+    }
+}
+
+[title~=Next],
+[title~=Previous] {
+
+    &[title~=year] {
+        display: none !important;
+    }
+}
+
+.field-box {
+    .multiple {
+        display: flex !important;
+
+        .label {
+            display: flex !important;
+            align-items: center !important;
+        }
     }
 
     .default {
@@ -14,10 +49,48 @@
     }
 }
 
-.semantic-input-group {
-    width: 100% !important;
+.ui.dropdown {
+    &.btn-dropdown {
+        font-weight: normal;
 
-    .dropdown {
-        width: max-content !important;
+        i {
+            float: left;
+        }
+
+        input {
+            padding-left: 38px !important;
+        }
+    }
+}
+
+.become-partner {
+    .ui {
+        &.steps {
+            margin: 0 1rem;
+        }
+    }
+}
+
+
+.ui {
+    &.modals {
+        z-index: 10000;
+    }
+}
+
+.ui.modal .scrolling.content {
+    max-height: calc(100vh - 10.5em);
+    overflow: auto;
+}
+
+.modals.dimmer .ui.scrolling.modal {
+    margin: 0;
+    width: 100%;
+    height: auto;
+
+    @include tablet {
+        margin: 1rem auto;
+        min-width: 600px;
+        width: 50vw;
     }
 }

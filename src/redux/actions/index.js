@@ -3,6 +3,7 @@ import {setCountries, setLanguage, setError} from './extraActions';
 import {
 	setSearchDetails,
 	setFlights,
+	clearFlights,
 	selectInboundFlight,
 	selectOutboundFlight,
 	deselectFlight,
@@ -17,6 +18,7 @@ export {
 	setLanguage,
 	setSearchDetails,
 	setFlights,
+	clearFlights,
 	selectInboundFlight,
 	selectOutboundFlight,
 	deselectFlight,

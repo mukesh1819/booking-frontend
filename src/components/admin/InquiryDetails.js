@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import swal from 'sweetalert';
-import {confirmInquiry} from '../../api/inquiryApi';
 import {Link} from 'react-router-dom';
+import {Badge} from '../shared';
+import {Inquiry} from '../inquiries';
+import history from '../../history';
+import {deleteInquiry} from '../../api/inquiryApi';
 
 class InquiryDetails extends Component {
 	constructor(props) {
@@ -11,128 +14,97 @@ class InquiryDetails extends Component {
 
 	componentDidMount() {}
 
-	confirmUserPackage(id) {
-		confirmInquiry(id)
+	rejectUserPackage(id) {
+		rejectInquiry(id)
 			.then((response) => {
-				// console.log('inquiry response',response.data);
 				swal({
-					title: 'User Package Response!',
-					text: `Your package is confirmed!!! ${response.data.message}`,
+					title: 'User Package Rejection Response!',
+					text: `${response.data.message}`,
 					icon: 'success',
 					button: 'Continue!'
 				});
 			})
 			.catch((error) => {
-				// console.log(error);
-				swal({
-					title: 'User Package Response!',
-					text: error.response.data.errors,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('package Rejection',error);
 			});
 	}
-	
-	rejectUserPackage(id){
-		rejectInquiry(id)
-		.then((response) => {
-			swal({
-				title: 'User Package Rejection Response!',
-				text: `${response.data.message}`,
-				icon: 'success',
-				button: 'Continue!'
-			});
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+
+	destroyInquiry(id) {
+		// deleteInquiry(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'Inquiry deleted!',
+		// 			text: `this inquiry is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.push('/admin/inquiries');
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'Inquiry Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your inquiry will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteInquiry(id).then((response) => {
+					swal('this inquiry is deleted', {
+						icon: 'success'
+					});
+					history.push('/admin/inquiries');
+				});
+			} else {
+				swal('Your inquiry is not deleted yet');
+			}
+		});
+
 	}
 
 	render() {
 		const {inquiry} = this.props.location.state;
-		const totalAmount = (inquiry.number_of_adult + inquiry.number_of_child) * inquiry.package.price;
 		return (
 			<div className='container'>
-				<div className=''>
-					<h5>Inquiry</h5>
-					<table className='table table-striped table-hover table-sm' ref='main'>
-						<thead>
-							<tr>
-								<th>Inquiry id</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Nationality</th>
-								<th>Address</th>
-								<th>City</th>
-								<th>Zip Code</th>
-								<th>Queries</th>
-								<th>phone Number</th>
-								<th>Preferred Date</th>
-								<th>Head Traveller Name</th>
-								<th>No of Adult</th>
-								<th>No of Child</th>
-								<th>Status</th>
-								<th>Package Name</th>
-								<th>Package Price</th>
-								<th>Total Price</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
+				<div className='card'>
+					<div className='card-body'>
+						<Inquiry inquiry={inquiry} aPackage={inquiry.package} />
+						<div className='text-right'>
+							<span>
+								<Link
+									to={{
+										pathname: '/admin/edit_inquiry',
+										state: {
+											inquiry: inquiry
+										}
+									}}
+									className='btn btn-secondary m-2'
+								>
+									Edit
+								</Link>
+							</span>
+							<span className='btn btn-danger m-2' onClick={() => this.destroyInquiry(inquiry.idx)}>
+								Delete
+							</span>
 
-						<tbody>
-							<tr>
-								<td>{inquiry.id}</td>
-								<td>{inquiry.first_name} {inquiry.last_name}</td>
-								<td>{inquiry.email_address} </td>
-								<td>{inquiry.nationality}</td>
-								<td>{inquiry.address}</td>
-								<td>{inquiry.city}</td>
-								<td>{inquiry.zip_code}</td>
-								<td>{inquiry.query}</td>
-								<td>{inquiry.phone}</td>
-								<td>{inquiry.preferred_date}</td>
-								<td>{inquiry.head_traveller_name}</td>
-								<td>{inquiry.number_of_adult}</td>
-								<td>{inquiry.number_of_child}</td>
-								<td>{inquiry.status}</td>
-								<td>{inquiry.package_name}</td>
-								<td>{inquiry.package.price}</td>
-								<td>{totalAmount}</td>
-								<td>
-									{inquiry.status === 'pending' && (
-										<div>
-											<span>
-												<Link to={{
-													pathname:'/inquiry_form',
-													className:'btn btn-secondary',
-													state: {
-														inquiry: inquiry
-													}
-												}}
-												> Edit
-												</Link> 
-											</span>
-
-											<span
-												className='btn btn-secondary'
-												onClick={() => this.confirmUserPackage(inquiry.id)}
-											>
-												Confirm
-											</span>
-
-											<span 
-												className='btn btn-secondary'
-												onClick={() => this.rejectUserPackage(inquiry.id)}
-											>
-												Reject
-											</span>
-										</div>
-										
-									)}
-								</td>
-							</tr>
-						</tbody>
-					</table>
+							{inquiry.status === 'pending' && (
+								<span
+									className='btn btn-danger m-2'
+									onClick={() => this.rejectUserPackage(inquiry.idx)}
+								>
+									Reject
+								</span>
+							)}
+						</div>
+					</div>
 				</div>
 			</div>
 		);

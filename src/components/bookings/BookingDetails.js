@@ -56,37 +56,22 @@ class BookingDetails extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Tickets cancellation!',
-					text: `${error.message}.. could not able to cancel ticket.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' User cancel ticket error', error);
 			});
 	}
 
 	componentDidMount() {
-		if (this.props.location.state !== undefined) {
-			this.setState({
-				booking: this.props.location.state.booking
-			});
-		} else {
-			getBookingDetails(this.props.match.params.id)
-				.then((response) => {
-					this.setState({
-						booking: response.data
-					});
-				})
-				.catch((error) => {
-					// console.log(error);
-					swal({
-						title: 'Booking fetch error',
-						text: `could not able to fetch booking.. please try again or contact us`,
-						icon: 'error',
-						button: 'Continue!'
-					});
+		getBookingDetails(this.props.match.params.id)
+			.then((response) => {
+				this.setState({
+					booking: response.data
 				});
-		}
+				console.log('BOOOOking', response.data);
+			})
+			.catch((error) => {
+				// console.log(error);
+				console.log(' Booking fetch error', error);
+			});
 	}
 
 	render() {
@@ -97,9 +82,6 @@ class BookingDetails extends Component {
 				<div className='container bg-white'>
 					<div className='d-flex justify-content-between p-2'>
 						<h3 className='text-center text-success'> Tickets Details </h3>
-						<span className='btn btn-outline-secondary' onClick={this.toggleEdit}>
-							EDIT
-						</span>
 					</div>
 
 					<div className='row'>
@@ -143,28 +125,28 @@ class BookingDetails extends Component {
 													Total Fare: {flight.Currency} {booking.total_fare}
 												</div>
 												<div className='text-small text-muted'>
-													({booking.adult} Adult
-													{ifNotZero(booking.child, `, ${booking.child} Child`)})
+													({booking.no_of_adult} Adult
+													{ifNotZero(booking.no_of_child, `, ${booking.no_of_child} Child`)})
 												</div>
 											</span>
 											<ul className='text-muted text-small'>
-												{booking.adult > 0 && (
+												{booking.no_of_adult > 0 && (
 													<li>
-														Base Fare (1 Adult): {flight.Currency} {flight.AdultFare} x ({booking.adult})
+														Base Fare (1 Adult): {flight.Currency} {booking.adult_fare} x ({booking.no_of_adult})
 													</li>
 												)}
-												{booking.child > 0 && (
+												{booking.no_of_child > 0 && (
 													<li>
-														Base Fare (1 Child): {flight.Currency} {flight.ChildFare} x ({booking.child})
+														Base Fare (1 Child): {flight.Currency} {booking.child_fare} x ({booking.no_of_child})
 													</li>
 												)}
 												<li>
-													Fuel Surcharge: {flight.Currency} {flight.FuelSurcharge} x ({booking.adult}
-													{ifNotZero(booking.child, ` + ${booking.child}`)})
+													Fuel Surcharge: {flight.Currency} {booking.fuel_surcharge} x ({booking.no_of_adult}
+													{ifNotZero(booking.no_of_child, ` + ${booking.no_of_child}`)})
 												</li>
 												<li>
-													Tax: {flight.Currency} {flight.Tax} x ({booking.adult}
-													{ifNotZero(booking.child, ` + ${booking.child}`)})
+													Tax: {flight.Currency} {booking.tax} x ({booking.no_of_adult}
+													{ifNotZero(booking.no_of_child, ` + ${booking.no_of_child}`)})
 												</li>
 											</ul>
 										</div>
@@ -193,7 +175,7 @@ class BookingDetails extends Component {
 													<div className='text-bold text-success'>
 														{isRefundable(booking.refundable)}
 													</div>
-													<div>FreeBaggage: {booking.free_baggage}</div>
+													<div>Check-in Baggage: {booking.free_baggage}</div>
 												</span>
 											</div>
 											<hr />
@@ -302,17 +284,33 @@ class BookingDetails extends Component {
 						</div>
 					</div>
 					<div className='text-center p-4'>
-						<Link
-							className='btn btn-secondary btn-large'
-							to={{
-								pathname: `/ticket/${booking.ruid}`,
-								state: {
-									booking: booking
-								}
-							}}
-						>
-							View ticket
-						</Link>
+						{booking.status == 'confirmed' && (
+							<Link
+								className='btn btn-primary btn-large'
+								to={{
+									pathname: `/ticket/${booking.ruid}`,
+									state: {
+										booking: booking
+									}
+								}}
+							>
+								View ticket
+							</Link>
+						)}
+
+						{booking.status == 'pending' && (
+							<Link
+								className='btn btn-primary btn-large'
+								to={{
+									pathname: `/ticket/${booking.ruid}`,
+									state: {
+										booking: booking
+									}
+								}}
+							>
+								Continue to Payment
+							</Link>
+						)}
 					</div>
 				</div>
 			</React.Fragment>

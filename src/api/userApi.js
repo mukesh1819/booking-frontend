@@ -16,17 +16,14 @@ export function updateUserDetails(details) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/members`,
-		data: {
-			user: details
-		}
+		data: details
 	});
 }
 
 export function getBookings(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/bookings`,
-		params: params
+		url: `${API_URL}/bookings?${params}`
 	});
 }
 
@@ -62,5 +59,19 @@ export function authorizeFb(data) {
 		data: {
 			user_details: data
 		}
+	});
+}
+
+export function verifyEmail(token) {
+	return axios({
+		method: 'get',
+		url: `${BASE_URL}/verify/${token}`
+	});
+}
+
+export function deleteUser(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/members/${id}`
 	});
 }

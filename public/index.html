@@ -87,7 +87,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
   <!--Start of Tawk.to Script-->
-  <script type="text/javascript">
+  <script>
     var Tawk_API = Tawk_API || {},
       Tawk_LoadStart = new Date();
     (function () {
@@ -99,6 +99,12 @@
       s1.setAttribute('crossorigin', '*');
       s0.parentNode.insertBefore(s1, s0);
     })();
+  </script>
+
+  <script>
+    Tawk_API.onLoad = function () {
+      Tawk_API.hideWidget();
+    };
   </script>
   <!--End of Tawk.to Script-->
 </body>

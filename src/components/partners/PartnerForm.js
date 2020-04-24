@@ -32,13 +32,13 @@ class PartnerForm extends Component {
 		if (Object.keys(currentUser).length !== 0) {
 			userName = currentUser.name.split(' ');
 		}
-		var sortedCountries = sortObjectBy(countries, 'country_code');
+		var sortedCountries = sortObjectBy(countries, 'code');
 		const PartnersSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
 			email: yup.string().required('Required'),
 			code: yup.string().required('Required'),
-			contact_number: yup.number().required('Required'),
+			contact_number: yup.number().typeError('Not a valid mobile number').required('Required'),
 			country: yup.string().required('Required'),
 			city: yup.string().required('Required')
 		});
@@ -75,133 +75,136 @@ class PartnerForm extends Component {
 						/* and other goodies */
 					}) => (
 						<React.Fragment>
-							<form onSubmit={handleSubmit} autoComplete='off'>
-								<div className='input-section'>
-									<div className='field-box'>
-										<label>First Name</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='first_name'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.first_name}
-											/>
-										</IconInput>
-										<ErrorMessage name='first_name' />
-									</div>
+							<form onSubmit={handleSubmit}>
+								<div className=''>
+									<div className='row'>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>First Name</label>
+												<Field
+													name='first_name'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.first_name}
+												/>
+												<ErrorMessage name='first_name' />
+											</div>
+										</div>
 
-									<div className='field-box'>
-										<label>Last Name</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='last_name'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.last_name}
-											/>
-										</IconInput>
-										<ErrorMessage name='last_name' />
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>Last Name</label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='last_name'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.last_name}
+													/>
+												</IconInput>
+												<ErrorMessage name='last_name' />
+											</div>
+										</div>
 									</div>
-
-									<div className='field-box'>
-										<label>Email Address</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='email'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.email}
-											/>
-										</IconInput>
-										<ErrorMessage name='email' />
+									<div className='row'>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>Email Address</label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='email'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.email}
+													/>
+												</IconInput>
+												<ErrorMessage name='email' />
+											</div>
+										</div>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>Mobile Number</label>
+												<Input
+													label={
+														<Dropdown
+															className='dropdown'
+															defaultValue={values.code}
+															name='code'
+															placeholder='Code'
+															onBlur={handleBlur}
+															onChange={(e, data) => {
+																setFieldValue(`code`, data.value);
+															}}
+															value={values.code}
+															search
+															options={sortedCountries.map((country) => {
+																return {
+																	...country,
+																	value: country.code,
+																	text: country.code
+																};
+															})}
+														/>
+													}
+													labelPosition='left'
+													placeholder='Mobile Number'
+													type='text'
+													name='contact_number'
+													className='semantic-input-group'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.contact_number}
+												/>
+												<ErrorMessage name='code' />
+												<ErrorMessage name='contact_number' />
+											</div>
+										</div>
 									</div>
-
-									<div className='field-box'>
-										<label>Mobile Number</label>
-										<Input
-											label={
+									<div className='row'>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label htmlFor=''>Country</label>
 												<Dropdown
-													className='dropdown'
-													defaultValue={values.code}
-													name='code'
-													placeholder='Code'
+													className='form-control'
+													name='country'
+													placeholder='Select Country'
 													onBlur={handleBlur}
 													onChange={(e, data) => {
-														setFieldValue(`code`, data.value);
+														setFieldValue(`country`, data.value);
 													}}
-													value={values.code}
+													value={values.country}
 													fluid
 													search
 													selection
-													options={sortedCountries.map((country) => {
-														return {
-															key: country.id,
-															value: country.country_code,
-															text: country.country_code,
-															flag: country.country_char.toLowerCase()
-														};
-													})}
+													options={countries}
 												/>
-											}
-											labelPosition='left'
-											placeholder='Mobile Number'
-											type='text'
-											name='contact_number'
-											className='semantic-input-group'
-											onBlur={handleBlur}
-											onChange={handleChange}
-											value={values.contact_number}
-										/>
-										<ErrorMessage name='code' />
-										<ErrorMessage name='contact_number' />
-									</div>
+												<ErrorMessage name='country' />
+											</div>
+										</div>
 
-									<div className='field-box'>
-										<label htmlFor=''>Country</label>
-										<Dropdown
-											className='form-control'
-											name='country'
-											placeholder='Select Country'
-											onBlur={handleBlur}
-											onChange={(e, data) => {
-												setFieldValue(`country`, data.value);
-											}}
-											value={values.country}
-											fluid
-											search
-											selection
-											options={countries.map(function(country) {
-												return {
-													key: country.id,
-													value: country.country_char,
-													flag: country.country_char.toLowerCase(),
-													text: country.name
-												};
-											})}
-										/>
-										<ErrorMessage name='country' />
-									</div>
-
-									<div className='field-box'>
-										<label>City</label>
-										<IconInput icon='icon-paper-plane' iconPosition='left'>
-											<Field
-												name='city'
-												className='form-control'
-												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.city}
-											/>
-										</IconInput>
-										<ErrorMessage name='city' />
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>City</label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='city'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.city}
+													/>
+												</IconInput>
+												<ErrorMessage name='city' />
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class='text-center'>
-									<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
-										Submit
+									<button className='btn btn-primary m-2' type='submit' disabled={isSubmitting}>
+										Continue
 									</button>
 								</div>
 							</form>

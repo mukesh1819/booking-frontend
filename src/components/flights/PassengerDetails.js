@@ -12,7 +12,7 @@ class PassengerDetails extends Component {
 			<div className='passenger-details container p-0'>
 				<table className='table'>
 					<thead>
-						<tr className='text-center'>
+						<tr className=''>
 							<th>Name</th>
 							<th>Type</th>
 							<th>Nationality</th>
@@ -21,7 +21,7 @@ class PassengerDetails extends Component {
 					<tbody>
 						{passengers.map((passenger) => {
 							return (
-								<tr className='text-center'>
+								<tr className=''>
 									<td className=''>
 										{passenger.title} {passenger.first_name} {passenger.last_name}
 									</td>

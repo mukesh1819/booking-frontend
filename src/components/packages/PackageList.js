@@ -28,12 +28,7 @@ class PackageList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Package fetch error',
-					text: `could not able to fetch package.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' package fetch error', error);
 			});
 	}
 
@@ -41,7 +36,7 @@ class PackageList extends Component {
 		return (
 			<div className='container p-4'>
 				<div className='row'>
-					<div className='d-none d-md-block col-0 col-md-2 p-0'>
+					{/* <div className='d-none d-md-block col-0 col-md-2 p-0'>
 						<div className='card'>
 							<div className='card-header'>
 								<h3>Filter</h3>
@@ -65,11 +60,15 @@ class PackageList extends Component {
 								/>
 							</div>
 						</div>
-					</div>
-					<div className='col-12 col-md-10'>
-						<div className='d-flex flex-wrap justify-content-around'>
+					</div> */}
+					<div className='col-12 col-md-12'>
+						<div className='d-flex flex-wrap'>
 							{this.state.packages.map((aPackage) => {
-								return <Package aPackage={aPackage} />;
+								return (
+									<div className='mr-3'>
+										<Package aPackage={aPackage} />
+									</div>
+								);
 							})}
 						</div>
 					</div>

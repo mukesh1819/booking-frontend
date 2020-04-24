@@ -14,7 +14,7 @@
     }
 
     @include desktop {
-        padding: 50px;
+        padding: 30px;
     }
 
     // .tint-overlay {
@@ -28,7 +28,7 @@
         padding-bottom: 14px;
 
         @include desktop {
-            padding-bottom: 50px;
+            padding-bottom: 30px;
         }
     }
 
@@ -47,22 +47,30 @@
         width: 100%;
     }
 
+    .react-datepicker-wrapper {
+        width: 100%;
+    }
+
+
+    .field {
+        width: 100%;
+    }
+
+    .row.inputs {
+
+        @include tablet {
+            margin-bottom: 30px;
+        }
+    }
+
     &-inputs {
         display: flex;
-        align-items: center;
+        align-items: baseline;
         flex-wrap: wrap;
 
         @include tablet {
             flex-wrap: nowrap;
-            margin: 0px;
-        }
-
-        .react-datepicker-wrapper {
-            width: 100%;
-        }
-
-        .field {
-            width: 100%;
+            margin-bottom: 30px;
         }
     }
 
@@ -72,6 +80,18 @@
 }
 
 .form-wrap {
+
+    .col {
+        flex: 0 0 100%;
+        max-width: 100%;
+
+        @include tablet {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        }
+    }
+
     label {
         display: none;
         font-weight: 500;
@@ -83,14 +103,17 @@
 }
 
 .field-box {
-    width: -webkit-fill-available;
     position: relative;
+    padding: 6px 8px;
 
     &:last-child {
-
         @include desktop {
             margin-right: 0px;
         }
+    }
+
+    @include tablet {
+        padding: 0px;
     }
 }
 
@@ -123,7 +146,7 @@
 
 
     .search-btn {
-        margin-top: 5px;
+        margin-top: 2.5px;
     }
 
     .travellers .default {
@@ -135,8 +158,8 @@
 
     .toggle-trip {
         position: absolute;
-        right: 4px;
-        top: 5px;
+        right: 25px;
+        top: 4px;
         display: table;
 
         @include tablet {
@@ -146,7 +169,7 @@
         .label {
             display: table;
             position: relative;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             bottom: 10px;
             right: 0;
         }
@@ -154,10 +177,13 @@
 
     .toggle-sector-mobile {
         position: absolute;
-        padding: 0.5rem;
-        right: 0;
+        padding: 0.5rem 0.7rem;
+        right: 25px;
         top: 50%;
         z-index: 10;
+        border: 1px solid $primary;
+        border-radius: 5px;
+        background: white;
 
         @include tablet {
             display: none;
@@ -171,24 +197,8 @@
     .toggle-sector-desktop {
         display: none;
 
-        i {
-            transform: translate(0px, 14px);
-        }
-
         @include tablet {
             display: block;
-        }
-    }
-
-    .btn-dropdown {
-        font-weight: normal;
-
-        i {
-            float: left;
-        }
-
-        input {
-            padding-left: 38px;
         }
     }
 }
@@ -237,11 +247,15 @@
     }
 }
 
-.line-from-to {
-    border-bottom: 1px solid;
-    flex-grow: 1;
-    color: #80808040;
-    margin: 0 1rem;
+.airline-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.lined {
+    position: relative;
+    border-top: 1px solid #80808040;
+    margin: 0 2rem;
 }
 
 .search-details {

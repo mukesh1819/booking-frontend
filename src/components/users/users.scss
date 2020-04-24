@@ -2,18 +2,16 @@
 
 .login-page {
     background-color: $body-bg-color;
-    height: 100vh;
-    display: flex;
-    justify-content: space-around;
 
     @include desktop {
-        height: max-content;
         padding: 30px;
-        align-items: center;
     }
 }
 
 .login-form {
+    height: 100vh;
+    width: 100%;
+
     form {
         position: relative;
         width: 100%;
@@ -27,40 +25,41 @@
     .fields {
         margin: 1.5rem 0;
     }
+
+    @include desktop {
+        height: max-content;
+    }
 }
 
 .user-profile {
 
-    .field {
-        display: block;
+    .edit-action {
+        display: none;
+        cursor: pointer;
+    }
 
-        @include tablet {
-            display: flex;
-
-            &:nth-child(even) {
-                background-color: gainsboro;
-            }
+    .list:hover {
+        .edit-action {
+            display: inherit;
         }
     }
 
-    .label {
-        background-color: gainsboro;
-        width: 100%;
-        padding: 8px;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        color: grey;
+    // .label {
+    //     background-color: gainsboro;
+    //     width: 100%;
+    //     padding: 8px;
+    //     font-size: 0.8rem;
+    //     text-transform: uppercase;
+    //     color: grey;
 
-        @include tablet {
-            background-color: white;
-            flex-grow: 1;
-        }
-    }
+    //     @include tablet {
+    //         background-color: white;
+    //         flex-grow: 1;
+    //     }
+    // }
 
     .value {
-        background-color: white;
-        width: 100%;
-        padding: 8px;
+        display: inherit;
     }
 }
 
@@ -108,43 +107,23 @@
     }
 }
 
-.fb-auth-btn {
-    margin-left: 6px;
-    margin-right: 6px;
-    vertical-align: top;
-    font-size: 16px;
-    font-weight: 500;
-    font-family: Roboto;
-    letter-spacing: .21px;
-    line-height: 37px;
-    color: white;
-    background-color: $fb-color;
-}
+.social-btn {
+    @include border-radius;
 
-.react-google-oauth-button-login {
-    background-color: $google-color;
-    width: 100%;
-    border-radius: 5px;
-    height: 34px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
+    border: 1px solid #d4d4d5;
+    cursor: pointer;
+    padding: 0.25rem;
 
-.react-google-oauth-button-span {
-    font-weight: 600;
-    font-family: $font-secondary;
-    letter-spacing: 0px;
-    line-height: 48px;
-}
+    .logo {
+        width: 25px;
+        height: 25px;
+    }
 
-.react-google-oauth-button-border {
-    display: flex;
-    align-items: center;
-}
+    .text {
+        padding-left: 0.5rem;
+    }
 
-.react-google-oauth-button-iconWrapper {
-    height: 100%;
-    width: 100%;
-    padding: 2px 8px;
-    background-color: $google-color;
+    .btn {
+        font-weight: 600;
+    }
 }

@@ -15,7 +15,22 @@ export function createPackage(data) {
 	return axios({
 		method: 'post',
 		url: `${API_URL}/packages`,
-		data: {package: data}
+		data: {
+			package: data
+		},
+		headers: {
+			'Content-Type': 'multipart/form-data'
+		}
+	});
+}
+
+export function updatePublish(id, data) {
+	return axios({
+		method: 'patch',
+		url: `${API_URL}/packages/${id}`,
+		data: {
+			published: data
+		}
 	});
 }
 
@@ -23,7 +38,9 @@ export function updatePackage(id, data) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/packages/${id}`,
-		data: {package: data}
+		data: {
+			package: data
+		}
 	});
 }
 

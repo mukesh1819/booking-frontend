@@ -4,8 +4,10 @@ import {DataTable} from '../shared';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import EditUserForm from '../users/EditUserForm';
-import {getUsers} from '../../api/userApi';
+import {getUsers, deleteUser} from '../../api/userApi';
 import swal from 'sweetalert';
+import history from '../../history';
+import {Badge} from '../shared';
 
 class UsersList extends Component {
 	constructor(props) {
@@ -30,26 +32,61 @@ class UsersList extends Component {
 					users: response.data
 				});
 			})
-			.catch((errors) => {
+			.catch((error) => {
 				// console.log(errors);
 				this.setState({
 					errors
 				});
-				swal({
-					title: 'User fetch error',
-					text: 'could not able to fetch users. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' User fetch error', error);
 			});
 	};
+
+	destroyUser(id) {
+		// deleteUser(id)
+		// 	.then((response) => {
+		// 		swal({
+		// 			title: 'User deleted!',
+		// 			text: `this user is deleted`,
+		// 			icon: 'success',
+		// 			button: 'Continue!'
+		// 		});
+		// 		history.go();
+		// 	})
+		// 	.catch((error) => {
+		// 		swal({
+		// 			title: 'User Delete error',
+		// 			text: 'Something went wrong. please try again or contact us',
+		// 			icon: 'error',
+		// 			button: 'Continue!'
+		// 		});
+		// 	});
+
+		swal({
+			title: 'Are you sure?',
+			text: 'Once delete, your user will be deleted',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteUser(id).then((response) => {
+					swal('Your user has been deleted', {
+						icon: 'success'
+					});
+					history.go();
+				});
+			} else {
+				swal('Your user is not deleted yet');
+			}
+		});
+	}
 
 	render() {
 		const {users} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Users</h5>
+					<h3 className='title'>Users</h3>
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
@@ -69,7 +106,9 @@ class UsersList extends Component {
 										<td>{user.id}</td>
 										<td>{user.name}</td>
 										<td>{user.email} </td>
-										<td>{user.role}</td>
+										<td>
+											<Badge type={user.role}>{user.role}</Badge>{' '}
+										</td>
 										<td>{user.phone_number}</td>
 
 										<td>
@@ -80,13 +119,10 @@ class UsersList extends Component {
 														user: user
 													}
 												}}
+												className='btn bg-none text-primary'
 											>
-												{' '}
-												Edit{' '}
+												Edit
 											</Link>
-										</td>
-
-										<td>
 											<Link
 												to={{
 													pathname: '/admin/email',
@@ -94,9 +130,16 @@ class UsersList extends Component {
 														user: user
 													}
 												}}
+												className='btn bg-none text-primary'
 											>
 												Contact
 											</Link>
+											<span
+												className='btn bg-none text-danger'
+												onClick={() => this.destroyUser(user.idx)}
+											>
+												Delete
+											</span>
 										</td>
 									</tr>
 								);
@@ -104,7 +147,7 @@ class UsersList extends Component {
 						</tbody>
 					</table>
 				</div>
-				<DataTable data={toTableData(users)} />
+				{/* <DataTable data={toTableData(users)} /> */}
 			</div>
 		);
 	}

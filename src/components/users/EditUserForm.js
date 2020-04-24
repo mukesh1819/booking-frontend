@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import {passCsrfToken} from '../../helpers';
-import {Formik, Form, Field, connect} from 'formik';
+import {Formik, Field} from 'formik';
 import * as yup from 'yup';
 import ErrorMessage from '../ErrorMessage';
 import history from '../../history';
 import {Redirect} from 'react-router-dom';
 import swal from 'sweetalert';
+import {Form, Dropdown} from 'semantic-ui-react';
+import {connect} from 'react-redux';
 
 class EditUserForm extends Component {
 	constructor(props) {
@@ -40,12 +42,7 @@ class EditUserForm extends Component {
 				this.setState({
 					error
 				});
-				swal({
-					title: 'User fetch error',
-					text: 'could not able to find user. please try again or contact us',
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				console.log(' user fetch error', error);
 			});
 	};
 
@@ -54,11 +51,7 @@ class EditUserForm extends Component {
 		const {countries} = this.props;
 		const {user} = this.props.location.state ? this.props.location.state : '';
 		const UpdateSignupForm = yup.object().shape({
-			password: yup.string().required('Required'),
-			password_confirmation: yup
-				.string()
-				.oneOf([yup.ref('password'), null], "Passwords don't match!")
-				.required('Required')
+			password_confirmation: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match!")
 		});
 
 		if (!user) {
@@ -66,12 +59,11 @@ class EditUserForm extends Component {
 		}
 
 		return (
-			<div className='container'>
-				<div className='main'>
-					<br />
-					<h2 className='text-center'> Edit </h2>
-					<div className='card'>
+			<div className='container '>
+				<div className='login-page'>
+					<div className='card login-form'>
 						<div className='card-body'>
+							<h3 className='title'> Edit </h3>
 							<Formik
 								initialValues={{
 									id: user.id,
@@ -79,7 +71,7 @@ class EditUserForm extends Component {
 									email: user.email,
 									password: '',
 									password_confirmation: '',
-									currency: user.currency
+									country: user.country
 								}}
 								validationSchema={UpdateSignupForm}
 								onSubmit={(values, {setSubmitting, setStatus}) => {
@@ -88,7 +80,7 @@ class EditUserForm extends Component {
 											id: values.id,
 											name: values.name,
 											email: values.email,
-											currency: values.currency,
+											country: values.country,
 											password: values.password,
 											password_confirmation: values.password_confirmation
 										}
@@ -108,12 +100,7 @@ class EditUserForm extends Component {
 											this.setState({
 												error
 											});
-											swal({
-												title: 'User Update error',
-												text: 'could not able to update user.. please try again or contact us',
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											console.log(' user update error', error);
 										});
 								}}
 							>
@@ -130,90 +117,92 @@ class EditUserForm extends Component {
 								}) => (
 									<form onSubmit={handleSubmit} className='form-wrap mt-4'>
 										<div className='row'>
-											<div className='col-md-6 d-flex align-items-end'>
-												<label> Name </label>
-											</div>
-											<div className='col-md-6'>
-												<Field
-													type='text'
-													name='name'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.name}
-												/>
-											</div>
-										</div>
-										<div className='row'>
-											<div className='col-md-6 d-flex align-items-end'>
-												<label> Email </label>
-											</div>
-											<div className='col-md-6'>
-												<Field
-													type='text'
-													name='email'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.email}
-												/>
-											</div>
-										</div>
-										<div className='row'>
-											<div className='col-md-6 d-flex align-items-end'>
-												<label> Currency </label>
-											</div>
-											<div className='col-md-6'>
-												<Field
-													as='select'
-													name='currency'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.currency}
-												>
-													{countries.map((country) => {
-														return (
-															country.currency_char !== null && (
-																<option key={country.id} value={country.currency_char}>
-																	{country.currency_char}
-																</option>
-															)
-														);
-													})}
-												</Field>
-											</div>
-										</div>
-										<div className='row'>
-											<div className='col-md-6 d-flex align-items-center'>
-												<label> Password </label>
-												<span> (leave blank if you don 't want to change it)</span>
-											</div>
-											<div className='col-md-6'>
-												<Field
-													type='password'
-													name='password'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.password}
-												/>
-											</div>
-										</div>
-										<div className='row'>
-											<div className='col-md-6 d-flex align-items-end'>
-												<label> Password Confirmation </label>
-											</div>
-											<div className='col-md-6'>
-												<Field
-													type='password'
-													name='password_confirmation'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.password_confirmation}
-												/>
-												<ErrorMessage name='password_confirmation' />
+											<div className='col-12'>
+												<Form.Field>
+													<label> Name </label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														name='name'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.name}
+													/>
+												</Form.Field>
+
+												<Form.Field>
+													<label> Email </label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														type='text'
+														name='email'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.email}
+													/>
+												</Form.Field>
+
+												<Form.Field>
+													<label> Country </label>
+													<Dropdown
+														className='form-control'
+														name='country'
+														placeholder='Select Country'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(`country`, data.value);
+														}}
+														value={values.country}
+														search
+														options={countries.map((country) => {
+															return {
+																key: country.key,
+																value: country.text,
+																text: country.text,
+																flag: country.flag
+															};
+														})}
+													/>
+												</Form.Field>
+
+												<Form.Field>
+													<label>
+														Password
+														<span class='text-small'>
+															(leave blank if you don 't want to change it)
+														</span>{' '}
+													</label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														type='password'
+														name='password'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.password}
+													/>
+												</Form.Field>
+
+												<Form.Field>
+													<label>Confirm Password</label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														type='password'
+														name='password_confirmation'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.password_confirmation}
+													/>
+													<ErrorMessage name='password_confirmation' />
+												</Form.Field>
 											</div>
 										</div>
 										<br />
@@ -229,11 +218,10 @@ class EditUserForm extends Component {
 							</Formik>
 							<br />
 							<hr />
-							<h3 className='text-center'> Cancel my account </h3>
-							<p className='text-center'> Unhappy ? </p>
+							<h3 className='text-center'> Deactivate the account </h3>
 							<div className='text-center'>
 								<button className='btn btn-danger m-2' type='submit'>
-									Cancel my account
+									Deactivate
 								</button>
 							</div>
 						</div>

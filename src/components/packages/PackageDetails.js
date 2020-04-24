@@ -4,9 +4,11 @@ import Package from './Package';
 import {Link} from 'react-router-dom';
 import {Modal as ModalExample} from '../shared';
 import InquiryForm from './InquiryForm';
-import {imageUrl} from '../../helpers';
+import {imageUrl, calculatePackagePrice} from '../../helpers';
 import {Tab} from 'semantic-ui-react';
 import {HotelImage, nepalVillage, peace} from '../../images';
+import Gallery from './Gallery';
+import {Redirect} from 'react-router-dom';
 
 class PackageDetails extends Component {
 	constructor(props) {
@@ -17,13 +19,13 @@ class PackageDetails extends Component {
 				price: 0.0,
 				location: '',
 				images: [],
-				description: ''
+				description: '',
+				similar_package: []
 			},
 			showInquiryForm: false
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
 		this.onSelect = this.onSelect.bind(this);
-		this.onBook = this.onBook.bind(this);
 	}
 
 	componentDidMount() {
@@ -36,10 +38,6 @@ class PackageDetails extends Component {
 		});
 	}
 
-	onBook() {
-		console.log('TODO: On Package Book');
-	}
-
 	fetchDetails() {
 		const options = {
 			margin: 10,
@@ -47,10 +45,10 @@ class PackageDetails extends Component {
 			touchDrag: true,
 			rewind: true,
 			animateIn: true,
-			items: 1,
 			nav: false,
 			responsive: {
 				1000: {
+					items: 4,
 					nav: true,
 					navText: [
 						"<i class='fas fa-chevron-circle-left text-primary'></i>",
@@ -62,27 +60,27 @@ class PackageDetails extends Component {
 		};
 		showPackage(this.props.match.params.id)
 			.then((response) => {
-				console.log('PAckage DEtails', response);
+				console.log('Package Details', response);
 				this.setState({
 					aPackage: response.data
 				});
 				$('.owl-carousel').owlCarousel(options);
 			})
-			.catch((response) => {
-				console.log('PACKAGE DETAILS ERROR', response);
+			.catch((error) => {
+				console.log('PACKAGE DETAILS ERROR', error);
 			});
 	}
 
 	render() {
 		const {aPackage} = this.state;
-		const dummyImages = [HotelImage, nepalVillage, peace, peace, HotelImage];
+		var [price, discount] = calculatePackagePrice(aPackage);
+		const dummyImages = aPackage.images;
 		const panes = [
 			{
 				menuItem: 'About',
 				render: () => (
 					<Tab.Pane attached={false}>
-						<div className=''>
-							<div className='text-primary'> Description</div>
+						<div className='mt-3'>
 							<div
 								dangerouslySetInnerHTML={{
 									__html: aPackage.description
@@ -94,25 +92,25 @@ class PackageDetails extends Component {
 			},
 			{
 				menuItem: 'Gallery',
-				render: () => <Tab.Pane attached={false}>Gallery</Tab.Pane>
-			},
-			{
-				menuItem: 'Contact',
-				render: () => <Tab.Pane attached={false}>Contact Details</Tab.Pane>
+				render: () => (
+					<Tab.Pane attached={false}>
+						<Gallery images={dummyImages} />
+					</Tab.Pane>
+				)
 			}
 		];
 		return (
 			<div className='package-details'>
 				<div className='container'>
 					<div className='header'>
-						<div className='img-container  owl-carousel owl-theme'>
-							<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
-							{dummyImages.length > 0 &&
-								dummyImages.map((v) => <img src={v} alt='Image' className='img-responsive' />)}
+						<div className='img-container'>
+							<a href={imageUrl(aPackage.images[0])} className='image-popup'>
+								<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+							</a>
 						</div>
 						<div className='card bg-none title'>
 							<div className='card-body'>
-								<div className='d-flex align-items-center'>
+								<div className='d-flex align-items-center justify-content-between'>
 									<div className=''>
 										<h2 className='text-white font-secondary'>{aPackage.name}</h2>
 										<span className='text-white text-small'>
@@ -123,42 +121,78 @@ class PackageDetails extends Component {
 								</div>
 							</div>
 							<div className='card'>
-								<div className='card-body d-flex align-items-center justify-content-end'>
-									<span className='p-2'>
-										<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
-										<span className='text-muted text-small text-right'>/person</span>
-									</span>
-									<span className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
-										Book
-									</span>
+								<div className='card-body d-flex align-items-center justify-content-between'>
+									<div className='pr-2'>
+										{discount > 0 && (
+											<div className='text-small'>
+												<span className='text-muted'>
+													Rs. <del>{price}</del>
+												</span>
+												<span className='text-success'>&nbsp;{discount} off</span>
+											</div>
+										)}
+										<span>
+											<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
+											<span className='text-muted text-small text-right'>/person</span>
+										</span>
+									</div>
+									<div className='d-inline-block'>
+										<div className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
+											Submit Query
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div className='row'>
-						<div className='col-md-9 p-0'>
-							<div className='card m-2'>
-								<div className='card-body'>
+					<div className='card mb-2'>
+						<div className='card-body'>
+							<div className='row'>
+								<div className='col-12 p-0'>
 									<Tab menu={{secondary: true}} panes={panes} />
 								</div>
 							</div>
+							<div className='row mt-3'>
+								{aPackage.inclusions && (
+									<div className='col-12 col-md-6'>
+										<h3 className='title'>Inclusions</h3>
+										{aPackage.inclusions.split('\n').map((item, i) => <p key={i}>{item}</p>)}
+									</div>
+								)}
+								{aPackage.exclusions && (
+									<div className='col-12 col-md-6'>
+										<h3 className='title'>Exclusions</h3>
+										{aPackage.exclusions.split('\n').map((item, i) => <p key={i}>{item}</p>)}
+									</div>
+								)}
+							</div>
 						</div>
-						<div className='col-0 col-md-3'>
+					</div>
+
+					<div className='row'>
+						<div className='col-12 p-0'>
 							<div className='header'>
 								<h3 className='py-3'>Similar Packages</h3>
 							</div>
-							<Package aPackage={aPackage} />
+							<div className='owl-carousel owl-theme'>
+								{aPackage.similar_package.length > 0 &&
+									aPackage.similar_package.map((similar) => (
+										<div>
+											<Package aPackage={similar} />
+										</div>
+									))}
+							</div>
 						</div>
 					</div>
 				</div>
-				<ModalExample
-					title={aPackage.name}
+				{/* <ModalExample
+					title={`Kindly submit the query form below to book your trip and we will contact you
+										with the confirmed itinerary.`}
 					show={this.state.showInquiryForm}
 					toggle={this.onSelect}
 					onSuccess={this.onBook}
-				>
-					{this.state.showInquiryForm && <InquiryForm package_id={aPackage.id} />}
-				</ModalExample>
+				/> */}
+				{this.state.showInquiryForm && <Redirect to={{pathname: '/inquiry', state: {aPackage: aPackage}}} />}
 			</div>
 		);
 	}

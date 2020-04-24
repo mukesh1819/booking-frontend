@@ -10,7 +10,7 @@ import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import {connect} from 'react-redux';
-import {setFlights, setSearchDetails, setTTLtime, setError} from '../../redux/actions';
+import {setFlights, setSearchDetails, setTTLtime, setError, clearFlights} from '../../redux/actions';
 import history from '../../history';
 import {Container, Segment} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
@@ -31,9 +31,7 @@ class SearchBar extends Component {
 		this.state = {
 			cities: [],
 			hideReturnField: true,
-			isSubmitted: false,
 			availableFlights: [],
-			searching: false,
 			tripType: 'O'
 		};
 		this.strSectorFrom = React.createRef();
@@ -56,6 +54,7 @@ class SearchBar extends Component {
 				});
 			})
 			.catch((error) => {
+				console.log(' city fetch error', error);
 				this.props.setError('Cant fetch cities');
 			});
 	};
@@ -87,7 +86,7 @@ class SearchBar extends Component {
 	};
 
 	render() {
-		const {hideReturnField, searching, cities, minDate} = this.state;
+		const {hideReturnField, cities, minDate} = this.state;
 		const {searchDetails, countries, setError} = this.props;
 		console.log('Search Details', searchDetails);
 
@@ -95,34 +94,29 @@ class SearchBar extends Component {
 			strFlightDate: yup.date().required('Required').default(function() {
 				return new Date();
 			}),
-			strReturnDate: yup.date().required('Required').default(function() {
+			strReturnDate: yup.date().default(function() {
 				return yup.ref('strFlightDate');
 			}),
 			strSectorFrom: yup.string().required('Required'),
 			strSectorTo: yup.string().required('Required'),
 			strNationality: yup.string().required('Required'),
-			intAdult: yup.number().min(1, 'Cannot be less than 1').required('Required'),
-			intChild: yup.number().min(0, 'Cannot be less than 0').required('Required')
+			totalPax: yup.number().min(1, 'Traveller cannot be zero')
 		});
+
+		const initialValues = {
+			...searchDetails,
+			totalPax: searchDetails.intAdult + searchDetails.intChild
+		};
 
 		return (
 			<div id='search-flight-form'>
-				{/* {searching && (
-					<Modal show={searching}>
-						<LoadingScreen />
-					</Modal>
-				)} */}
 				<Formik
-					initialValues={searchDetails}
+					initialValues={initialValues}
 					validationSchema={SearchFlightSchema}
 					onSubmit={(values, {setSubmitting}) => {
-						history.push('/flights');
-						this.setState({
-							isSubmitted: true,
-							searching: true
-						});
-						console.log(values);
+						this.props.clearFlights();
 						this.props.setSearchDetails(values);
+						history.push('/flights');
 						this.props.onSearch && this.props.onSearch();
 						setSubmitting(false);
 					}}
@@ -161,8 +155,8 @@ class SearchBar extends Component {
 									</span>
 								</div>
 
-								<div className='input-section-inputs'>
-									<div className='field-box form-group'>
+								<div className='inputs row'>
+									<div className='field-box col px-md-0'>
 										<label>Leaving From</label>
 										<Dropdown
 											name='strSectorFrom'
@@ -198,7 +192,8 @@ class SearchBar extends Component {
 											/>
 										</div>
 									</div>
-									<div className='toggle-sector-desktop form-group'>
+									<div className='col-md-1 toggle-sector-desktop text-center'>
+										<label htmlFor=''>&nbsp;</label>
 										<i
 											className='menu fas fa-exchange-alt'
 											onClick={() => {
@@ -207,7 +202,7 @@ class SearchBar extends Component {
 											}}
 										/>
 									</div>
-									<div className='field-box form-group'>
+									<div className='field-box col px-md-0'>
 										<label>Going To</label>
 										<Dropdown
 											name='strSectorTo'
@@ -238,8 +233,12 @@ class SearchBar extends Component {
 										<ErrorMessage name='strSectorTo' />
 									</div>
 								</div>
-								<div className='input-section-inputs'>
-									<div className='field-box form-group'>
+								<div className='row inputs'>
+									<div
+										className={`field-box col-12 pl-md-0 ${values.strTripType == 'O'
+											? 'col-md-3'
+											: 'col-md-2'}`}
+									>
 										<label>Departure Date</label>
 										<DatePicker
 											name='strFlightDate'
@@ -247,6 +246,7 @@ class SearchBar extends Component {
 											type='date'
 											date={values.strFlightDate}
 											minDate={new Date()}
+											maxDate={addDays(new Date(), 365)}
 											onBlur={handleBlur}
 											onChange={(date) => setFieldValue('strFlightDate', date)}
 											value={values.strFlightDate}
@@ -266,7 +266,9 @@ class SearchBar extends Component {
 										</div>
 									</div>
 									<div
-										className={`field-box form-group ${values.strTripType == 'O' ? 'd-none' : ''}`}
+										className={`field-box col-12 pl-md-0 col-md-2 ${values.strTripType == 'O'
+											? 'd-none'
+											: ''}`}
 									>
 										<label>Arrival Date</label>
 										<DatePicker
@@ -275,6 +277,7 @@ class SearchBar extends Component {
 											type='date'
 											date={values.strReturnDate}
 											minDate={values.strFlightDate}
+											maxDate={addDays(new Date(), 365)}
 											onBlur={handleBlur}
 											onChange={(date) => setFieldValue('strReturnDate', date)}
 											value={values.strReturnDate}
@@ -282,7 +285,7 @@ class SearchBar extends Component {
 										/>
 										<ErrorMessage name='strReturnDate' />
 									</div>
-									<div className='field-box form-group'>
+									<div className='field-box col-12 col-md-3 pl-md-0'>
 										<label>Traveller(s)</label>
 										{/* <IconInput icon='icon-users' iconPosition='left'>
 											<DropdownItem
@@ -311,16 +314,16 @@ class SearchBar extends Component {
 										</IconInput> */}
 										<Dropdown
 											name=''
-											placeholder='Select Country'
+											placeholder=''
 											icon='icon-users'
 											className='icon btn-dropdown travellers'
 											fluid
 											selection
 											closeOnChange={false}
-											placeholder={`${values.intAdult} Adult${ifNotZero(
-												values.intChild,
-												`, ${values.intChild} Child`
-											)}`}
+											placeholder={`${ifNotZero(
+												values.intAdult,
+												`${values.intAdult} Adult`
+											)}${ifNotZero(values.intChild, `, ${values.intChild} Child`)}`}
 											onClick={(event, data) => {
 												event.preventDefault();
 											}}
@@ -334,7 +337,10 @@ class SearchBar extends Component {
 															className='m-1'
 															onBlur={handleBlur}
 															title={`${values.intAdult} Adult`}
-															onChange={(value) => setFieldValue('intAdult', value)}
+															onChange={(value) => {
+																setFieldValue('intAdult', value);
+																setFieldValue('totalPax', values.intChild + value);
+															}}
 															value={values.intAdult}
 														/>
 														<Counter
@@ -343,18 +349,20 @@ class SearchBar extends Component {
 															className='m-1'
 															onBlur={handleBlur}
 															title={`${values.intChild} Child`}
-															onChange={(value) => setFieldValue('intChild', value)}
+															onChange={(value) => {
+																setFieldValue('intChild', value);
+																setFieldValue('totalPax', values.intAdult + value);
+															}}
 															value={values.intChild}
 														/>
 													</div>
 												}
 											/>
 										</Dropdown>
-										<ErrorMessage name='intAdult' />
-										<ErrorMessage name='intChild' />
+										<ErrorMessage name='totalPax' />
 									</div>
 
-									<div className='field-box form-group'>
+									<div className='field-box col-12 col-md-3 pl-md-0'>
 										<label htmlFor=''>Nationality</label>
 										<Dropdown
 											name='strNationality'
@@ -371,20 +379,18 @@ class SearchBar extends Component {
 											search
 											selection
 											selectOnBlur={false}
-											options={countries.map(function(country) {
-												return {
-													key: country.id,
-													value: country.country_char,
-													flag: country.country_char.toLowerCase(),
-													text: country.name
-												};
-											})}
+											options={countries}
 										/>
 										<ErrorMessage name='strNationality' />
 									</div>
-									<div className='field-box text-center'>
+									<div
+										className={`field-box col-12 text-center px-md-0' ${values.strTripType == 'O'
+											? 'col-md-3'
+											: 'col-md-2'}`}
+									>
+										<label>&nbsp;</label>
 										<button
-											className='search-btn btn btn-secondary btn-large'
+											className='search-btn btn btn-primary btn-large'
 											type='submit'
 											disabled={isSubmitting}
 										>
@@ -410,6 +416,7 @@ const mapStateToProps = ({flightStore, extras}) => ({
 
 const mapDispatchToProps = {
 	setFlights,
+	clearFlights,
 	setSearchDetails,
 	setTTLtime,
 	setError

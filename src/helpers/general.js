@@ -1,5 +1,8 @@
-import {BASE_URL} from '../constants';
+import {
+	BASE_URL
+} from '../constants';
 import moment from 'moment';
+import _ from 'lodash';
 
 export function sortObjectBy(obj, key) {
 	obj = obj.sort((a, b) => {
@@ -62,9 +65,27 @@ export function userInitials(user) {
 export function redirectUrl(state) {
 	var redirectUrl = '/';
 	if (state !== undefined) {
-		redirectUrl = this.props.location.state.from.pathname;
+		redirectUrl = state.from.pathname;
 	}
 	return redirectUrl;
+}
+
+export function roleBasedUrl(role, url) {
+	var finalUrl;
+	switch (role) {
+		case "Admin": {
+			finalUrl = "/admin";
+			break;
+		}
+		case "Partner": {
+			finalUrl = "/partner";
+			break;
+		}
+		default: {
+			finalUrl = url;
+		}
+	}
+	return finalUrl;
 }
 
 export function imageUrl(path) {
@@ -73,8 +94,7 @@ export function imageUrl(path) {
 
 export function toTableData(data) {
 	const refData = {
-		columns: [
-			{
+		columns: [{
 				label: 'Name',
 				field: 'name',
 				sort: 'asc',
@@ -91,7 +111,7 @@ export function toTableData(data) {
 	if (data.length == 0) {
 		return refData;
 	}
-	var columns = Object.keys(data[0]).map(function(v) {
+	var columns = Object.keys(data[0]).map(function (v) {
 		return {
 			label: v.toUpperCase(),
 			field: v,
@@ -114,4 +134,39 @@ export function ifNotZero(value, returnValue) {
 	} else {
 		return returnValue;
 	}
+}
+
+export function ifGreaterThanOne(value, returnValue) {
+	if (value > 1) {
+		return returnValue;
+	} else {
+		return '';
+	}
+}
+
+export function calculatePackagePrice(aPackage) {
+	var price = aPackage.price;
+	var discount = 0;
+	if (aPackage.offer_price) {
+		discount = aPackage.price - aPackage.offer_price;
+		price = price - discount;
+	}
+	return [price, discount]
+}
+
+export function nationGroup(countries, group) {
+	if (group == "NP" || group == "IN") {
+		return _.filter(countries, function (e) {
+			return e.value == "NP" || e.value == "IN";
+		})
+	} else {
+		return _.filter(countries, function (e) {
+			return e.value != "NP" && e.value != "IN";
+		})
+	}
+
+}
+
+export function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

@@ -32,12 +32,7 @@ class UpdateBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Booking fetch error',
-					text: 'could not able to fetch booking. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Booking fetch error', error);
 			});
 	}
 
@@ -55,12 +50,7 @@ class UpdateBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Tickets cancellation!',
-					text: `${error.message}.. please check error message if not shown from backend`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Cancel ticket error', error);
 			});
 	}
 
@@ -78,12 +68,7 @@ class UpdateBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Tickets cancellation!',
-					text: `${error.message}.. please check error message if not shown from backend`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Ignore Ticket error', error);
 			});
 	}
 
@@ -135,14 +120,14 @@ class UpdateBooking extends Component {
 																<span
 																	className='btn  bg-none text-danger'
 																	onClick={() =>
-																		this.adminCancelRequest(passenger.id)}
+																		this.adminCancelRequest(passenger.idx)}
 																>
 																	cancel
 																</span>
 																<span
 																	className='btn bg-none text-secondary'
 																	onClick={() =>
-																		this.adminIgnoreRequest(passenger.id)}
+																		this.adminIgnoreRequest(passenger.idx)}
 																>
 																	ignore
 																</span>
@@ -151,9 +136,9 @@ class UpdateBooking extends Component {
 													)}
 													{passenger.passenger_status === 'cancelled' && (
 														<td>
-															<p className='text-danger text-center font-weight-bolder text-lg mt-2'>
+															<span className='text-danger text-center font-weight-bolder text-lg mt-2'>
 																Ticket Cancelled
-															</p>
+															</span>
 														</td>
 													)}
 												</tr>

@@ -21,35 +21,41 @@ const FlightCombination = ({
 			<div className=' d-flex align-items-center'>
 				<div className='flex-grow-1'>
 					<div className='d-flex justify-content-between align-items-center'>
-						<div className='no-padding'>
-							<img src={inboundFlight.AirlineLogo} className='p-3' />
+						<div className='text-center px-3'>
+							<img src={inboundFlight.AirlineLogo} className='p-1' />
+							<div className='text-small text-muted'>{'Simrik Air'}</div>
 						</div>
 						<div className='flex-grow-1'>
-							<div className='d-flex no-padding'>
-								<span className=''>{inboundFlight.DepartureTime}</span>
-								<span className='line-from-to' />
-								<span>{inboundFlight.ArrivalTime}</span>
+							<div className='d-flex justify-content-between'>
+								<span className='text-bold'>{inboundFlight.DepartureTime}</span>
+								<span className='text-bold'>{inboundFlight.ArrivalTime}</span>
 							</div>
 							<div className='d-flex justify-content-between'>
 								<span className='text-small text-muted'>{searchDetails.strSectorFrom}</span>
-								<span className='text-small m-auto'>{inboundFlight.duration} min</span>
+								<div className='text-small flex-grow-1 text-center lined'>
+									<i className='fas fa-clock text-muted' />
+									&nbsp;{inboundFlight.duration} min
+								</div>
 								<span className='text-small text-muted'>{searchDetails.strSectorTo}</span>
 							</div>
 						</div>
 					</div>
 					<div className='d-flex justify-content-between align-items-center'>
-						<div className='no-padding'>
-							<img src={outboundFlight.AirlineLogo} className='w-100 p-3' />
+						<div className='text-center px-3'>
+							<img src={outboundFlight.AirlineLogo} className='w-100 p-1' />
+							<div className='text-small text-muted'>{'Simrik Air'}</div>
 						</div>
 						<div className='flex-grow-1'>
-							<div className='d-flex no-padding'>
-								<span className=''>{outboundFlight.DepartureTime}</span>
-								<span className='line-from-to' />
-								<span>{outboundFlight.ArrivalTime}</span>
+							<div className='d-flex justify-content-between'>
+								<span className='text-bold'>{outboundFlight.DepartureTime}</span>
+								<span className='text-bold'>{outboundFlight.ArrivalTime}</span>
 							</div>
 							<div className='d-flex justify-content-between'>
 								<span className='text-small text-muted'>{searchDetails.strSectorTo}</span>
-								<span className='text-small m-auto'>{outboundFlight.duration} min</span>
+								<div className='text-small flex-grow-1 text-center lined'>
+									<i className='fas fa-clock text-muted' />
+									&nbsp;{outboundFlight.duration} min
+								</div>
 								<span className='text-small text-muted'>{searchDetails.strSectorFrom}</span>
 							</div>
 						</div>

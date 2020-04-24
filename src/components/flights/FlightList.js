@@ -111,6 +111,9 @@ class FlightList extends Component {
 		// if (document.readyState == 'complete') {
 		// 	Tawk_API.hideWidget();
 		// }
+		this.setState({
+			loading: true
+		});
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -132,16 +135,11 @@ class FlightList extends Component {
 					});
 				})
 				.catch((error) => {
-					// console.log('Search Flight Error', error);
+					console.log('Flight not found Error', error);
 					this.setState({
 						loading: false
 					});
-					swal({
-						title: 'No Flights Found!',
-						text: `please check your internet and try again`,
-						icon: 'error',
-						button: 'Try Again!'
-					});
+					
 				});
 		}
 	}

@@ -22,6 +22,11 @@ class CategoriesForm extends Component {
 	render() {
 		const {category} = this.props.location.state != null ? this.props.location.state : {category: {}};
 
+		const CategoriesSchema = yup.object().shape({
+			name: yup.string().required('Required'),
+			order: yup.number().typeError('Order should be numeric value').required('Required')
+		});
+
 		const initialParams = {
 			name: category.name,
 			order: category.order
@@ -34,13 +39,14 @@ class CategoriesForm extends Component {
 						Category Form
 						<Formik
 							initialValues={initialParams}
+							validationSchema={CategoriesSchema}
 							onSubmit={(values, {setSubmitting}) => {
 								this.setState({
 									searching: true
 								});
 								console.log(values);
 								if (category.id != null) {
-									updateCategory(category.id, values)
+									updateCategory(category.idx, values)
 										.then((response) => {
 											setSubmitting(false);
 											// nextStep(response.data);
@@ -52,14 +58,9 @@ class CategoriesForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											console.log('Category update Error', error);
 											setSubmitting(false);
-											swal({
-												title: 'Sorry!',
-												text: error.message,
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											
 										});
 								} else {
 									createCategory(values)
@@ -74,14 +75,8 @@ class CategoriesForm extends Component {
 											});
 										})
 										.catch((error) => {
-											console.log('Create Package Error', error);
+											console.log('Category create Error', error);
 											setSubmitting(false);
-											swal({
-												title: 'Sorry!',
-												text: error.message,
-												icon: 'error',
-												button: 'Try Again!'
-											});
 										});
 								}
 							}}
@@ -97,7 +92,7 @@ class CategoriesForm extends Component {
 								setFieldValue
 								/* and other goodies */
 							}) => (
-								<form onSubmit={handleSubmit} autoComplete='off'>
+								<form onSubmit={handleSubmit}>
 									<div className='input-section'>
 										<div className='field-box'>
 											<label>Name</label>

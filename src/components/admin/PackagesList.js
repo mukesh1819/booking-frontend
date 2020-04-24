@@ -4,6 +4,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackages} from '../../api/packageApi';
 import swal from 'sweetalert';
+import {Badge} from '../shared';
 
 class PackagesList extends Component {
 	constructor(props) {
@@ -26,25 +27,21 @@ class PackagesList extends Component {
 					packages: response.data
 				});
 			})
-			.catch((errors) => {
-				// console.log('Fetch Package Error', errors);
-				swal({
-					title: 'Package fetch error',
-					text: 'could not able to fetch package. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+			.catch((error) => {
+				console.log('Fetch Package Error', error);
 			});
 	};
 
 	render() {
 		const {packages} = this.state;
 		return (
-			<div className='container'>
+			<div className='container p-4'>
 				<div className=''>
-					<div className='col-12 d-flex justify-content-between'>
-						<h5>Package List</h5>
-						<Link to='/admin/partners/package_form'>add package</Link>
+					<div className='d-flex justify-content-between'>
+						<h3 className='title'>Package List</h3>
+						<Link to='/admin/package_form' className='btn bg-none text-secondary'>
+							add package
+						</Link>
 					</div>
 
 					<table className='table table-striped table-hover table-sm' ref='main'>
@@ -54,6 +51,7 @@ class PackagesList extends Component {
 								<th>Name</th>
 								<th>Category</th>
 								<th>Price</th>
+								<th>Published</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -66,9 +64,25 @@ class PackagesList extends Component {
 										<td>{aPackage.name}</td>
 										<td>{aPackage.category.name} </td>
 										<td>{aPackage.price}</td>
+										<td>
+											<Badge type={aPackage.published}>
+												{aPackage.published ? 'Published' : 'Not Published'}
+											</Badge>
+										</td>
 
 										<td>
 											<Link
+												to={{
+													pathname: `/admin/package_details`,
+													state: {
+														aPackage: aPackage
+													}
+												}}
+												className='btn bg-none text-primary'
+											>
+												View
+											</Link>
+											{/* <Link
 												to={{
 													pathname: `/partners/package_form/${aPackage.id}`,
 													state: {
@@ -78,7 +92,7 @@ class PackagesList extends Component {
 											>
 												<i className='fas fa-contact' />
 												<span className='px-1'>Edit</span>
-											</Link>
+											</Link> */}
 										</td>
 									</tr>
 								);

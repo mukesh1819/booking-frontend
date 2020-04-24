@@ -7,6 +7,7 @@ import {Timer} from '../shared';
 import {PaymentForm} from '../payments';
 import {Link} from 'react-router-dom';
 import {getDuration} from '../../helpers';
+import history from '../../history';
 
 class FinalBookingDetails extends Component {
 	constructor(props) {
@@ -23,35 +24,65 @@ class FinalBookingDetails extends Component {
 		});
 	}
 
+	onTimeOut = () => {
+		swal({
+			title: 'Time Ended!',
+			text: 'Your flight Reservation time has ended. Please try Again',
+			icon: 'warning',
+			button: 'Try Again!'
+		}).then((value) => {
+			history.push('/');
+		});
+	};
+
 	componentDidMount() {}
 
 	render() {
-		const {passengers, toggle, booking, transaction, selectedOutboundFlight} = this.props;
+		const {passengers, toggle, booking, transaction, selectedOutboundFlight, selectedInboundFlight} = this.props;
 		const {redirectToPayment} = this.state;
 		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.reservation_time));
 		if (redirectToPayment) {
-			return <PaymentForm idx={transaction.idx} />;
+			// return <PaymentForm idx={transaction.idx} />;
+			history.push(`/payment_success/${booking.ruid}`);
 		}
 
 		return (
-			<div className='passenger-details container p-3 bg-white'>
-				{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.reservation_time)} />}
-				<div className='p-2'>
-					<Link to={`/booking/${booking.ruid}/edit`} className='btn bg-none text-secondary float-right'>
-						MODIFY
-					</Link>
+			<div className='container p-3'>
+				<div className='d-flex justify-content-between'>
+					<span className='text-bold'>Flight Details</span>
+					{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.reservation_time)} />}
 				</div>
-				<span className='text-bold'>Flight Details</span>
-				<div className='container'>
-					<FlightDetails flight={selectedOutboundFlight} />
+				<div className='card mt-3'>
+					<div className='card-body'>
+						<h3 className='title'>Departure</h3>
+						<FlightDetails flight={selectedOutboundFlight} />
+					</div>
 				</div>
-				<span className='text-bold'>Passenger Details</span>
-				<PassengerDetails passengers={passengers} />
+
+				{selectedInboundFlight !== null && (
+					<div className='card mt-3'>
+						<div className='card-body'>
+							<h3 className='title'>Arrival</h3>
+							<FlightDetails flight={selectedInboundFlight} />
+						</div>
+					</div>
+				)}
+				<div className='card mt-3'>
+					<div className='card-body'>
+						<div className='d-flex justify-content-between'>
+							<h3 className='title'>Passenger Details</h3>
+							<Link to={`/booking/${booking.ruid}/edit`} className='btn btn-outline-primary'>
+								MODIFY
+							</Link>
+						</div>
+						<PassengerDetails passengers={passengers} />
+					</div>
+				</div>
 
 				<div className='text-center m-1'>
 					<button
 						type='button'
-						className='btn btn-secondary'
+						className='btn btn-primary'
 						onClick={() => {
 							this.submit();
 						}}
@@ -69,7 +100,8 @@ const mapStateToProps = ({flightStore, bookingStore}) => {
 		booking: bookingStore.booking[0],
 		transaction: bookingStore.booking[0].booking_transaction,
 		ttlTime: flightStore.ttlTime,
-		selectedOutboundFlight: flightStore.selectedOutboundFlight
+		selectedOutboundFlight: flightStore.selectedOutboundFlight,
+		selectedInboundFlight: flightStore.selectedInboundFlight
 	};
 };
 

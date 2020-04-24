@@ -48,13 +48,15 @@ class Categories extends Component {
 		};
 		getCategories()
 			.then((response) => {
-				// console.log('CATEGORIES', response);
+				console.log('CATEGORIES', response);
 				this.setState({
 					categories: response.data
 				});
 				$('.owl-carousel').owlCarousel(options);
 			})
-			.catch((error) => {});
+			.catch((error) => {
+				console.log(' Category fetch error', error);
+			});
 	}
 
 	render() {
@@ -65,7 +67,7 @@ class Categories extends Component {
 						<div className='categories-container'>
 							<div className='d-flex justify-content-between align-items-center px-3'>
 								<h2 className='category-title'> {category.name} </h2>
-								<Link to='/packages' className='btn btn-secondary bg-none text-primary'>
+								<Link to='/packages' className='btn bg-none text-primary'>
 									View All <i className='fas fa-angle-right' />
 								</Link>
 							</div>

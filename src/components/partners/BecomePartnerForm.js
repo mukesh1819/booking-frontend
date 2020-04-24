@@ -46,31 +46,38 @@ class BecomePartnerForm extends Component {
 						text: 'Your partnership request is being approved. We will contact you shortly',
 						icon: 'success',
 						button: 'Continue!'
-					});
+					}).then((value) => history.push('/'));
 				})
 				.catch((error) => {
 					// console.log('Create Partner Error', error);
 					setSubmitting(false);
-					swal({
-						title: 'Partner Create Error!',
-						text: error.response.data.errors.toString(),
-						icon: 'error',
-						button: 'Try Again!'
-					});
+					console.log(' partner create error', error);
 				});
 		}
+	};
+
+	prevStep = () => {
+		this.setState((prevState) => {
+			return {
+				step: (prevState.step -= 1)
+			};
+		});
 	};
 
 	render() {
 		const {step} = this.state;
 		return (
-			<div className='container p-4'>
+			<div className='container p-4 become-partner'>
 				<div className='card'>
 					<div className='card-body'>
-						<Stepper step={step}>
-							{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
-							{step == 2 && <CompanyForm nextStep={(data) => this.nextStep(data)} />}
-						</Stepper>
+						<div className='input-section'>
+							<Stepper step={step}>
+								{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
+								{step == 2 && (
+									<CompanyForm prevStep={this.prevStep} nextStep={(data) => this.nextStep(data)} />
+								)}
+							</Stepper>
+						</div>
 					</div>
 				</div>
 			</div>

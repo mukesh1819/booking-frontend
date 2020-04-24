@@ -16,12 +16,12 @@ const SearchDetails = ({details, onModify}) => {
 					</div>
 					<div>
 						<span className='text-small text-muted px-2'>
-							<i class='fas fa-plane-departure text-primary' />&nbsp;
+							<i class='fas fa-plane departure text-primary' />&nbsp;
 							{`${moment(details.strFlightDate).format('Do MMMM, YYYY')}`}
 						</span>
 						{details.strTripType === 'R' && (
 							<span className='text-small text-muted px-2'>
-								<i className='fas fa-plane-arrival text-primary' />&nbsp;
+								<i className='fas fa-plane arrival text-primary' />&nbsp;
 								{`${moment(details.strReturnDate).format('Do MMMM, YYYY')}`}
 							</span>
 						)}
@@ -30,14 +30,12 @@ const SearchDetails = ({details, onModify}) => {
 							{details.intAdult} Adult
 							{ifNotZero(details.intChild, `, ${details.intChild} Child`)}
 						</span>
+						<span className='btn text-primary bg-none' onClick={onModify}>
+							<i className='icon-edit' onClick={onModify} />&nbsp;Modify
+						</span>
 					</div>
 				</div>
-				<div>
-					<span className='btn text-secondary bg-none d-none d-md-block' onClick={onModify}>
-						Modify
-					</span>
-					<i className='icon-edit text-secondary d-md-none' onClick={onModify} />
-				</div>
+				<div />
 			</div>
 		</div>
 	);

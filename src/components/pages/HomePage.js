@@ -6,7 +6,7 @@ import {TabView, Slidebar, Banner} from '../shared';
 import {PackageList} from '../packages';
 import {Categories} from '../categories';
 
-class SearchFlightForm extends Component {
+class HomePage extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -18,9 +18,9 @@ class SearchFlightForm extends Component {
 			<React.Fragment>
 				<nav>
 					<div className='container'>
-						<div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
+						<div className='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
 							<a
-								class='nav-item nav-link active'
+								className='nav-item nav-link active'
 								id='nav-home-tab'
 								data-toggle='tab'
 								href='#nav-flights'
@@ -31,7 +31,7 @@ class SearchFlightForm extends Component {
 								<i className='fas fa-plane departure' />&nbsp;Flights
 							</a>
 							<a
-								class='nav-item nav-link'
+								className='nav-item nav-link'
 								id='nav-profile-tab'
 								data-toggle='tab'
 								href='#nav-packages'
@@ -39,14 +39,14 @@ class SearchFlightForm extends Component {
 								aria-controls='nav-packages'
 								aria-selected='false'
 							>
-								<i class='fas fa-briefcase' />&nbsp;Packages
+								<i className='fas fa-briefcase' />&nbsp;Packages
 							</a>
 						</div>
 					</div>
 				</nav>
-				<div class='tab-content px-sm-0' id='nav-tabContent'>
+				<div className='tab-content px-sm-0' id='nav-tabContent'>
 					<div
-						class='tab-pane fade show active'
+						className='tab-pane fade show active'
 						id='nav-flights'
 						role='tabpanel'
 						aria-labelledby='nav-flights-tab'
@@ -65,15 +65,15 @@ class SearchFlightForm extends Component {
 							</div>
 						</header>
 					</div>
-					<div class='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
-						<div className='container'>
-							<PackageList />
-						</div>
+					<div className='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
+						{/* <div className='container'>
+							<Categories />
+						</div> */}
 					</div>
 				</div>
 				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
 					<Tab eventKey='flights' title='Flights'>
-						<SearchFlightForm />
+						<HomePage />
 					</Tab>
 					<Tab eventKey='packages' title='Packages'>
 						<div className='container'>
@@ -95,4 +95,4 @@ class SearchFlightForm extends Component {
 	}
 }
 
-export default SearchFlightForm;
+export default HomePage;

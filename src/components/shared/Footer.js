@@ -9,7 +9,7 @@ const Footer = () => (
 					<div className='footer-widget footer-links'>
 						<ul className='footer-links'>
 							<li className='d-md-inline px-2'>
-								<a href='#'> About Us</a>
+								<a href='/about'> About Us</a>
 							</li>
 							<li className='d-md-inline px-2'>
 								<a href='https://visit-all-nepal.flycricket.io/privacy.html'>Privacy Policy</a>
@@ -24,7 +24,7 @@ const Footer = () => (
 								<a href='#'>Blogs</a>
 							</li>
 							<li className='d-md-inline px-2'>
-								<a href='/support'>Contact Us</a>
+								<a href='/support'>Customer Support</a>
 							</li>
 						</ul>
 					</div>
@@ -48,8 +48,14 @@ const Footer = () => (
 								</a>
 							</li>
 							<li>
-								<a href='#'>
-									<i className='icon-dribbble' />
+								<a
+									href='#'
+									onClick={(event) => {
+										event.preventDefault();
+										Tawk_API.popup();
+									}}
+								>
+									<i className='fas fa-envelope' />
 								</a>
 							</li>
 						</ul>
@@ -57,7 +63,7 @@ const Footer = () => (
 				</div>
 			</div>
 			<hr className='m-0' />
-			<div className='d-flex justify-content-between align-items-center p-1'>
+			<div className='d-flex justify-content-between align-items-center pt-1'>
 				<small className='block text-muted'>&copy; All rights reserved </small>
 			</div>
 		</div>

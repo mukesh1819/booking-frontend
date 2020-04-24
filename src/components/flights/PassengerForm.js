@@ -22,7 +22,7 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken} from '../../helpers';
+import {passCsrfToken, nationGroup} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
@@ -51,7 +51,7 @@ class PassengerForm extends Component {
 
 	render() {
 		const selectedOutboundFlight = this.props.selectedOutboundFlight;
-		const {adult, child, nationality, currentUser} = this.props;
+		const {adult, child, nationality, currentUser, countries} = this.props;
 		currentUser.code = currentUser.country;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -62,7 +62,13 @@ class PassengerForm extends Component {
 					gender: yup.string().required('Required'),
 					nationality: yup.string().required('Required')
 				})
-			)
+			),
+			user: yup.object().shape({
+				name: yup.string().required('Required'),
+				code: yup.string().required('Required'),
+				phone_number: yup.string().required('Required'),
+				email: yup.string().required('Required')
+			})
 		});
 		const passenger = {
 			title: 'Mr',
@@ -94,13 +100,7 @@ class PassengerForm extends Component {
 			return <Redirect to='/' />;
 		}
 
-		var sortedCountries = this.props.countries.map((country) => {
-			return {
-				country_char: country.country_char,
-				country_code: country.country_code
-			};
-		});
-		sortedCountries = sortObjectBy(sortedCountries, 'country_code');
+		var sortedCountries = sortObjectBy(this.props.countries, 'code');
 
 		var content = (
 			<Container className='p-0'>
@@ -112,7 +112,7 @@ class PassengerForm extends Component {
 							booking: {
 								outbound_flight: this.props.selectedOutboundFlight,
 								inbound_flight: this.props.selectedInboundFlight,
-								passengers_attributes: this.props.passengers,
+								passengers_attributes: values.passengers,
 								contact_name: values.user.name,
 								mobile_no: values.user.phone_number,
 								email: values.user.email
@@ -128,12 +128,7 @@ class PassengerForm extends Component {
 							})
 							.catch((error) => {
 								// console.log(error);
-								swal({
-									title: 'Booking Error',
-									text: 'Could not save your booking. please try again or contact us',
-									icon: 'error',
-									button: 'Continue!'
-								});
+								console.log(' booking create error', error);
 							});
 					}}
 				>
@@ -150,8 +145,8 @@ class PassengerForm extends Component {
 						<Form className='form-wrap'>
 							<h3 className='p-2 title'>Contact Information</h3>
 							<div className='input-section'>
-								<div className='input-section-inputs'>
-									<div className='field-box form-group'>
+								<div className='row'>
+									<div className='col'>
 										<label>Name</label>
 										<Field
 											type='text'
@@ -161,9 +156,10 @@ class PassengerForm extends Component {
 											onChange={handleChange}
 											value={values.user.name}
 										/>
+										<ErrorMessage name='user.name' />
 									</div>
 
-									<div className='field-box form-group'>
+									<div className='col'>
 										<label>Phone</label>
 										<Input
 											label={
@@ -177,15 +173,12 @@ class PassengerForm extends Component {
 														setFieldValue(`user.code`, data.value);
 													}}
 													value={values.user.code}
-													fluid
 													search
-													selection
 													options={sortedCountries.map((country) => {
 														return {
-															key: country.id,
-															value: country.country_code,
-															text: country.country_code,
-															flag: country.country_char.toLowerCase()
+															...country,
+															value: country.code,
+															text: country.code
 														};
 													})}
 												/>
@@ -199,10 +192,12 @@ class PassengerForm extends Component {
 											onChange={handleChange}
 											value={values.user.phone_number}
 										/>
+										<ErrorMessage name='user.code' />
+										<ErrorMessage name='user.phone_number' />
 									</div>
 
 									{/* 
-								<div className='field-box form-group'>
+								<div className='col'>
 									<label>Code</label>
 									<Field
 										type='text'
@@ -223,7 +218,7 @@ class PassengerForm extends Component {
 									</Field>
 								</div> */}
 
-									{/* <div className='field-box form-group'>
+									{/* <div className='col'>
 									<label>Contact Phone</label>
 									<Field
 										type='text'
@@ -235,7 +230,7 @@ class PassengerForm extends Component {
 									/>
 								</div> */}
 
-									<div className='field-box form-group'>
+									<div className='col'>
 										<label>Email</label>
 										<Field
 											type='text'
@@ -245,6 +240,7 @@ class PassengerForm extends Component {
 											onChange={handleChange}
 											value={values.user.email}
 										/>
+										<ErrorMessage name='user.email' />
 									</div>
 								</div>
 							</div>
@@ -256,8 +252,8 @@ class PassengerForm extends Component {
 										{/* <Accordion title={`${passenger.passenger_type} ${index + 1}`} /> */}
 										<h3 className='p-2'>{`${passenger.passenger_type} ${index + 1}`}</h3>
 										<div className='input-section bg-white'>
-											<div className='input-section-inputs'>
-												<div className='field-box form-group'>
+											<div className='row'>
+												<div className='col'>
 													<label htmlFor=''>Title</label>
 													{/* <Field
 														as='select'
@@ -276,10 +272,7 @@ class PassengerForm extends Component {
 														placeholder=''
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															setFieldValue(
-																`passengers[${index}].nationality`,
-																data.value
-															);
+															setFieldValue(`passengers[${index}].title`, data.value);
 														}}
 														value={values.passengers[index].title}
 														fluid
@@ -295,6 +288,11 @@ class PassengerForm extends Component {
 																key: 'Mrs',
 																value: 'Mrs',
 																text: 'Mrs'
+															},
+															{
+																key: 'Miss',
+																value: 'Miss',
+																text: 'Miss'
 															}
 														]}
 													/>
@@ -303,7 +301,7 @@ class PassengerForm extends Component {
 													</span>
 												</div>
 
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>First Name</label>
 													<Field
 														name={`passengers[${index}].first_name`}
@@ -315,7 +313,7 @@ class PassengerForm extends Component {
 													/>
 													<ErrorMessage name={`passengers[${index}].first_name`} />
 												</div>
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>Last Name</label>
 													<Field
 														name={`passengers[${index}].last_name`}
@@ -328,7 +326,7 @@ class PassengerForm extends Component {
 													<ErrorMessage name={`passengers[${index}].last_name`} />
 												</div>
 
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>Gender</label>
 													{/* <Field
 														as='select'
@@ -347,10 +345,7 @@ class PassengerForm extends Component {
 														placeholder=''
 														onBlur={handleBlur}
 														onChange={(e, data) => {
-															setFieldValue(
-																`passengers[${index}].nationality`,
-																data.value
-															);
+															setFieldValue(`passengers[${index}].gender`, data.value);
 														}}
 														value={values.passengers[index].gender}
 														fluid
@@ -372,7 +367,7 @@ class PassengerForm extends Component {
 													<ErrorMessage name={`passengers[${index}].gender`} />
 												</div>
 
-												{/* <div className='field-box form-group'>
+												{/* <div className='col'>
 													<label htmlFor=''>Nationality</label>
 													<Field
 														as='select'
@@ -392,7 +387,7 @@ class PassengerForm extends Component {
 													</Field>
 													<ErrorMessage name={`passengers[${index}].nationality`} />
 												</div> */}
-												<div className='field-box form-group'>
+												<div className='col'>
 													<label htmlFor=''>Nationality</label>
 													<Dropdown
 														className='form-control'
@@ -409,14 +404,7 @@ class PassengerForm extends Component {
 														fluid
 														search
 														selection
-														options={this.props.countries.map(function(country) {
-															return {
-																key: country.id,
-																value: country.country_char,
-																flag: country.country_char.toLowerCase(),
-																text: country.name
-															};
-														})}
+														options={nationGroup(countries, nationality)}
 													/>
 												</div>
 											</div>
@@ -425,8 +413,8 @@ class PassengerForm extends Component {
 								);
 							})}
 							<div className='text-center p-2'>
-								<button type='submit' class='btn btn-secondary'>
-									Submit
+								<button type='submit' class='btn btn-primary'>
+									Continue
 								</button>
 							</div>
 						</Form>

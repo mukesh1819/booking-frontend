@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'reactstrap';
 import HotelImage from '../../images/flight.jpg';
 
 const InfoCard = (props) => (

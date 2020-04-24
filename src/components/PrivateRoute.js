@@ -18,30 +18,30 @@ class PrivateRoute extends Component {
 				})
 				.catch((error) => {
 					// console.log(error);
-					
-					swal({
-						title: 'User fetch error',
-						text: 'Something went wrong could not fetch user data. please try again',
-						icon: 'error',
-						button: 'Continue!'
-					});
+
+					console.log(' user fetch error', error);
 				});
 		}
 	}
 
 	render() {
-		const {component: Component, currentUser, location, ...rest} = this.props;
+		const {component: Component, layout: Layout, currentUser, location, ...rest} = this.props;
 		const isLoggedIn = localStorage.token !== undefined;
 
 		if (!isLoggedIn) {
 			return <Redirect to={{pathname: '/login', state: {from: location}}} />;
 		}
 
-		// if (['Admin', 'Support'].indexOf(currentUser.role) === -1) {
-		// 	return <Redirect to={{pathname: '/'}} />;
-		// }
-
-		return <Route {...rest} render={(props) => <Component {...props} />} />;
+		return (
+			<Route
+				{...rest}
+				render={(props) => (
+					<Layout>
+						<Component {...props} />
+					</Layout>
+				)}
+			/>
+		);
 	}
 }
 
