@@ -135,7 +135,7 @@ class Bookings extends Component {
 										{booking.departing_flight.status == 'pending' && (
 											<span
 												onClick={() => this.onContinueToPayment(booking.departing_flight.ruid)}
-												className='btn bg-none text-primary'
+												className='btn btn-primary'
 											>
 												Continue to Payment
 											</span>
@@ -156,7 +156,7 @@ class Bookings extends Component {
 										)}
 
 										{booking.departing_flight.status == 'pending' && (
-											<div className='text-danger text-center'>
+											<div className='text-danger text-center text-small'>
 												<Timer
 													ttlTime={getDuration(booking.departing_flight.reservation_time)}
 													onTimeOut={this.onTimeOut}

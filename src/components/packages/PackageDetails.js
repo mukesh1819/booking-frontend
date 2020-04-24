@@ -150,9 +150,6 @@ class PackageDetails extends Component {
 							<div className='row'>
 								<div className='col-12 p-0'>
 									<Tab menu={{secondary: true}} panes={panes} />
-									<div className='row mt-3'>
-										<Gallery images={dummyImages} />
-									</div>
 								</div>
 							</div>
 							<div className='row mt-3'>

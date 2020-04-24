@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {NavBar} from '../shared';
 import {Link, Redirect} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
+import {roleBasedUrl} from '../../helpers';
 
 class SignInForm extends Component {
 	constructor(props) {
@@ -42,12 +43,13 @@ class SignInForm extends Component {
 								signIn(variables)
 									.then((response) => {
 										setSubmitting(false);
-										// console.log('Sign IN response', response.data);
 										if (response.data.user !== undefined) {
 											// console.log('Logged In user', response);
 											this.props.loginUser(response.data.user);
 											localStorage.setItem('token', response.data.jwt);
-											history.push(redirectUrl);
+											debugger;
+											var path = roleBasedUrl(response.data.user.role, redirectUrl);
+											history.push(path);
 										} else {
 											swal({
 												title: 'Sign In Failed!',
