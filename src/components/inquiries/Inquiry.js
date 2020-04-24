@@ -17,6 +17,7 @@ class Inquiry extends Component {
 					{/* <img src='' /> */}
 					<div className=''>
 						<h3 className='title'>Inquirer</h3>
+						<i className='fas fa-user user-icon fa-3x' />
 						<h3 className='value text-large text-bold'>
 							{inquiry.first_name}&nbsp;{inquiry.last_name}
 						</h3>

@@ -602,6 +602,23 @@ section {
             background-color: #e2e2e238;
         }
     }
+
+    .editable {
+
+        &:nth-child(even) {
+            background-color: #e2e2e238;
+        }
+
+        .actions {
+            visibility: visible;
+        }
+
+        &:hover {
+            .actions {
+                visibility: visible;
+            }
+        }
+    }
 }
 
 .partner-profile {
