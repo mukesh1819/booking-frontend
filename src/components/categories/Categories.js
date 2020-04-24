@@ -54,7 +54,9 @@ class Categories extends Component {
 				});
 				$('.owl-carousel').owlCarousel(options);
 			})
-			.catch((error) => {});
+			.catch((error) => {
+				console.log(' Category fetch error', error);
+			});
 	}
 
 	render() {

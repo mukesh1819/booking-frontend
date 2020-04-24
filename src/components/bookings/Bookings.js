@@ -62,12 +62,7 @@ class Bookings extends Component {
 					error
 				});
 
-				swal({
-					title: 'Booking fetch error',
-					text: `could not able to fetch booking.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Booking List fetch error', error);
 			});
 	};
 

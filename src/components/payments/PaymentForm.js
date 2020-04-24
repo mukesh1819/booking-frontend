@@ -21,12 +21,7 @@ class PaymentForm extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Payment Page Error',
-					text: `Could not open payment page. please try again or contact us`,
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				console.log(' payment page error', error);
 			});
 	}
 

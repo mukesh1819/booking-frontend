@@ -32,12 +32,7 @@ class UpdateBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Booking fetch error',
-					text: 'could not able to fetch booking. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Booking fetch error', error);
 			});
 	}
 
@@ -55,12 +50,7 @@ class UpdateBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Tickets cancellation!',
-					text: `${error.message}.. please check error message if not shown from backend`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Cancel ticket error', error);
 			});
 	}
 
@@ -78,12 +68,7 @@ class UpdateBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Tickets cancellation!',
-					text: `${error.message}.. please check error message if not shown from backend`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Ignore Ticket error', error);
 			});
 	}
 

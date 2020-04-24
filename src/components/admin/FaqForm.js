@@ -55,12 +55,7 @@ class FaqForm extends Component {
 									history.push();
 								})
 								.catch((error) => {
-									swal({
-										title: 'Sorry!',
-										text: 'something went wrong',
-										icon: 'error',
-										button: 'Try Again!'
-									});
+									console.log('Faq update error', error);
 								});
 						} else {
 							createFaq(values)
@@ -77,12 +72,7 @@ class FaqForm extends Component {
 								.catch((error) => {
 									// console.log('inquiry create error', error);
 									setSubmitting(false);
-									swal({
-										title: 'Sorry!',
-										text: 'something went wrong',
-										icon: 'error',
-										button: 'Try Again!'
-									});
+									console.log('faq create error', error);
 								});
 						}
 					}}

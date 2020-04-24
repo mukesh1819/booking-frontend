@@ -55,13 +55,7 @@ class FlightBookings extends Component {
 				});
 			})
 			.catch((error) => {
-				// console.log(error);
-				swal({
-					title: 'Booking fetch error',
-					text: 'Could not fetch booking. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('Booking fetch error', error);
 			});
 	}
 

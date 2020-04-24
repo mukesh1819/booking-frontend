@@ -42,12 +42,7 @@ class EditUserForm extends Component {
 				this.setState({
 					error
 				});
-				swal({
-					title: 'User fetch error',
-					text: 'could not able to find user. please try again or contact us',
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				console.log(' user fetch error', error);
 			});
 	};
 
@@ -105,12 +100,7 @@ class EditUserForm extends Component {
 											this.setState({
 												error
 											});
-											swal({
-												title: 'User Update error',
-												text: 'could not able to update user.. please try again or contact us',
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											console.log(' user update error', error);
 										});
 								}}
 							>

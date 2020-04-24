@@ -56,12 +56,7 @@ class BookingDetails extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Tickets cancellation!',
-					text: `${error.message}.. could not able to cancel ticket.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' User cancel ticket error', error);
 			});
 	}
 
@@ -75,12 +70,7 @@ class BookingDetails extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Booking fetch error',
-					text: `could not able to fetch booking.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Booking fetch error', error);
 			});
 	}
 

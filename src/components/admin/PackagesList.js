@@ -27,14 +27,8 @@ class PackagesList extends Component {
 					packages: response.data
 				});
 			})
-			.catch((errors) => {
-				// console.log('Fetch Package Error', errors);
-				swal({
-					title: 'Package fetch error',
-					text: 'could not able to fetch package. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+			.catch((error) => {
+				console.log('Fetch Package Error', error);
 			});
 	};
 

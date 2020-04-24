@@ -37,7 +37,7 @@ class Services extends Component {
 				services: response.data
 			});
 		})
-		.catch((error) => console.log(error));
+		.catch((error) => console.log(' partner service fetch error', error));
 	};
 
 	render() {

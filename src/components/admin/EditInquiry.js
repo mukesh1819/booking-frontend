@@ -116,15 +116,7 @@ class EditInquiry extends Component {
 											.catch((error) => {
 												// setSubmitting(false);
 												// console.log(error);
-												swal({
-													title: 'User Package Response!',
-													text:
-														error.response != null
-															? error.response.data.errors
-															: 'sorry something went wrong',
-													icon: 'error',
-													button: 'Continue!'
-												});
+												console.log('Package confirmation error', error);
 											});
 									}}
 								>

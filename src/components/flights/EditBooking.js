@@ -57,12 +57,7 @@ class EditBooking extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Booking fetch error',
-					text: `could not able to fetch booking.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' booking fetch error', error);
 			});
 	};
 
@@ -143,12 +138,7 @@ class EditBooking extends Component {
 								})
 								.catch((error) => {
 									// console.log(error);
-									swal({
-										title: 'Booking Error',
-										text: 'Could not save your booking. please try again or contact us',
-										icon: 'error',
-										button: 'Continue!'
-									});
+									console.log(' booking create error', error);
 								});
 						}}
 					>

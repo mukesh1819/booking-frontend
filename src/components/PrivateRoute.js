@@ -19,12 +19,7 @@ class PrivateRoute extends Component {
 				.catch((error) => {
 					// console.log(error);
 
-					swal({
-						title: 'User fetch error',
-						text: 'Something went wrong could not fetch user data. please try again',
-						icon: 'error',
-						button: 'Continue!'
-					});
+					console.log(' user fetch error', error);
 				});
 		}
 	}

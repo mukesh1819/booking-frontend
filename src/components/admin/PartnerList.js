@@ -28,12 +28,7 @@ class PartnerList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Partner fetch error',
-					text: 'could not able to fetch partner. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' partner fetch error', error);
 			});
 	}
 

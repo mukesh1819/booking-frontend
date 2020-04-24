@@ -35,12 +35,7 @@ class CustomerSupport extends Component {
 				});
 			})
 			.catch((error) => {
-				swal({
-					title: 'Faq fetch error',
-					text: 'Could not fetch questions. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' Faq fetch error', error);
 			});
 	}
 

@@ -47,12 +47,7 @@ class SocialLinks extends Component {
 			})
 			.catch((error) => {
 				// console.log(resp, 'API Failure');
-				swal({
-					title: 'Google login error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' google login error', error);
 			});
 	}
 
@@ -67,12 +62,7 @@ class SocialLinks extends Component {
 			})
 			.catch((error) => {
 				// console.log(resp, 'API Failure');
-				swal({
-					title: 'facebook login error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('facebook login error', error);
 			});
 	}
 

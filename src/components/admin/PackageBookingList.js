@@ -26,14 +26,9 @@ class PackageBookingList extends Component {
 					packageBookings: response.data
 				});
 			})
-			.catch((errors) => {
+			.catch((error) => {
 				// console.log('Fetch Package Error', errors);
-				swal({
-					title: 'PackageBookings fetch error',
-					text: 'could not able to fetch PackageBookings. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('Package Booking fetch error', error);
 			});
 	};
     

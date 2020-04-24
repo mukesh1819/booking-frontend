@@ -43,12 +43,7 @@ class Dashboard extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Dashboard fetch error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log('Dashboard fetch error', error);
 			});
 	}
 

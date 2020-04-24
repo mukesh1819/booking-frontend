@@ -51,22 +51,12 @@ class SignInForm extends Component {
 											var path = roleBasedUrl(response.data.user.role, redirectUrl);
 											history.push(path);
 										} else {
-											swal({
-												title: 'Sign In Failed!',
-												text: response.data.failure,
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											console.log('sign in failed error');
 										}
 									})
 									.catch((error) => {
-										// console.log('SIGN IN error', error);
-										swal({
-											title: 'Something Went Wrong!',
-											text: '........!',
-											icon: 'error',
-											button: 'Try Again!'
-										});
+										console.log('SIGN IN failed error', error);
+										
 									});
 							}}
 						>

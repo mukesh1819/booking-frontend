@@ -35,12 +35,7 @@ class PackageForm extends Component {
 			})
 			.catch((error) => {
 				// console.log('CATEGORIES FETCH ERROR');
-				swal({
-					title: 'Category fetch error!',
-					text: 'could not able to fetch categories. please try again or contact us',
-					icon: 'error',
-					button: 'Try Again!'
-				});
+				console.log(' category fetch error', error);
 			});
 
 		const options = {
@@ -147,12 +142,7 @@ class PackageForm extends Component {
 										.catch((error) => {
 											// console.log('Create Package Error', error);
 											setSubmitting(false);
-											swal({
-												title: 'Package Update Error!',
-												text: `${error.message}.. please try again or contact us`,
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											console.log(' package update error', error);
 										});
 								} else {
 									createPackage({...values, images: document.querySelector('[type=file]').files})
@@ -169,12 +159,7 @@ class PackageForm extends Component {
 										.catch((error) => {
 											// console.log('Create Package Error', error);
 											setSubmitting(false);
-											swal({
-												title: 'Package Create Error!',
-												text: `${error.message}.. please try again or contact us`,
-												icon: 'error',
-												button: 'Try Again!'
-											});
+											console.log(' package create error', error);
 										});
 								}
 							}}

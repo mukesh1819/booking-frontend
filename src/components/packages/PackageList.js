@@ -28,12 +28,7 @@ class PackageList extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'Package fetch error',
-					text: `could not able to fetch package.. please try again or contact us`,
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' package fetch error', error);
 			});
 	}
 

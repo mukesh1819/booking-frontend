@@ -40,12 +40,7 @@ class Profile extends Component {
 				this.setState({
 					error
 				});
-				swal({
-					title: 'User fetch error',
-					text: 'Something went wrong could not fetch user data. please try again',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' user fetch error', error);
 			});
 	};
 
@@ -69,12 +64,7 @@ class Profile extends Component {
 			})
 			.catch((error) => {
 				// console.log(error);
-				swal({
-					title: 'User Updates!',
-					text: 'could not able to update user... please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
+				console.log(' user update error', error);
 			});
 	}
 
