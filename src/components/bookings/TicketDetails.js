@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Image} from 'react-bootstrap';
-import {getBookingDetails, downloadTicket} from '../../api/flightApi';
-import {isRefundable, ifNotZero, ifGreaterThanOne} from '../../helpers';
+import {getBookingDetails, fetchTicket} from '../../api/flightApi';
+import {isRefundable, ifNotZero, ifGreaterThanOne, downloadTicket} from '../../helpers';
 import moment from 'moment';
 import swal from 'sweetalert';
+import {Button} from 'semantic-ui-react';
 
 class TicketDetails extends Component {
 	constructor(props) {
@@ -11,7 +12,8 @@ class TicketDetails extends Component {
 
 		this.state = {
 			departure: {},
-			arrival: {}
+			arrival: {},
+			loading: false
 		};
 	}
 
@@ -30,8 +32,17 @@ class TicketDetails extends Component {
 			});
 	}
 
+	download = (idx) => {
+		fetchTicket(idx).then((response) => {
+			this.setState({
+				loading: false
+			});
+			downloadTicket(response.data);
+		});
+	};
+
 	render() {
-		const {departure, arrival} = this.state;
+		const {departure, arrival, loading} = this.state;
 		var bookings = [departure];
 		if (arrival.flight_id !== undefined) {
 			bookings.push(arrival);
@@ -233,9 +244,14 @@ class TicketDetails extends Component {
 						</div>
 					</div>
 					<div className='text-center py-4'>
-						<span onClick={() => downloadTicket(departure.ruid)} className='btn btn-primary btn-large'>
-							Print ticket
-						</span>
+						<Button
+							primary
+							loading={loading}
+							className='btn btn-primary btn-large '
+							onClick={() => this.download(departure.ruid)}
+						>
+							Download ticket
+						</Button>
 					</div>
 				</div>
 			</React.Fragment>
