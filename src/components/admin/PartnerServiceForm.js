@@ -240,17 +240,29 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									<div>
 										<span className='value mr-2'> {partner.extras[key]}</span>
 										<span className='actions'>
-											<i
-												className='fas fa-edit p-1 text-primary'
-												onClick={() => setEditMode(true)}
-											/>
-											<i
-												className='fas fa-times p-1 text-primary'
-												onClick={() => {
-													delete partner.extras[key];
-													onChange('extras', partner.extras);
-												}}
-											/>
+											{!editMode && (
+												<React.Fragment>
+													<i
+														className='fas fa-edit p-1 text-primary'
+														onClick={() => setEditMode(true)}
+													/>
+													<i
+														className='fas fa-times p-1 text-primary'
+														onClick={() => {
+															delete partner.extras[key];
+															onChange('extras', partner.extras);
+														}}
+													/>
+												</React.Fragment>
+											)}
+											{editMode && (
+												<React.Fragment>
+													<i
+														className='fas fa-times p-1 text-primary'
+														onClick={() => setEditMode(false)}
+													/>
+												</React.Fragment>
+											)}
 										</span>
 									</div>
 								</div>
@@ -262,8 +274,8 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 												partner.extras[key] = e.target.value;
 												onChange('extras', partner.extras);
 											}}
+											value={partner.extras[key]}
 										/>
-										<i className='fas fa-times-circle' />
 									</div>
 								)}
 							</div>

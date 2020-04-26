@@ -64,7 +64,7 @@ class Categories extends Component {
 			<React.Fragment>
 				{this.state.categories.map((category) => {
 					return (
-						<div className='categories-container'>
+						<div className='mb-4'>
 							<div className='d-flex justify-content-between align-items-center px-3'>
 								<h2 className='category-title'> {category.name} </h2>
 								<Link to='/packages' className='btn bg-none text-primary'>

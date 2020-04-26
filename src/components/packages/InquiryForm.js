@@ -497,7 +497,7 @@ class InquiryForm extends Component {
 														type='submit'
 														disabled={isSubmitting}
 													>
-														Submit
+														{inquiry.id ? 'Update' : 'Submit'}
 													</button>
 												</div>
 											</div>
