@@ -26,7 +26,6 @@ class EditInquiry extends Component {
 	}
 
 	componentDidMount() {
-		passCsrfToken(document, axios);
 		this.fetchPartners();
 	}
 

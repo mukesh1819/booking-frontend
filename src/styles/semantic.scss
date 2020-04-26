@@ -14,14 +14,24 @@
 .semantic-input-group {
     width: 100% !important;
 
+    input {
+        z-index: 11;
+    }
+
     .search {
         width: max-content !important;
+        min-width: 100px;
         background-color: white;
         border: 1px solid gainsboro;
+        z-index: 10;
 
         &.active {
             background-color: white;
 
+        }
+
+        i {
+            float: right;
         }
     }
 }

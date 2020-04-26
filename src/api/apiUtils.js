@@ -63,6 +63,7 @@ export function useInterceptor(axios) {
 			} else if (error.response.status === 343) {
 				history.push('/not_verified');
 			} else if (error.response.status === 422) {
+				debugger;
 				swal({
 					title: '',
 					text: error.response.data.errors.join("/n"),

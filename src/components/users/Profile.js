@@ -11,53 +11,37 @@ import UserDetailCard from './UserDetailCard';
 import SocialButtonLinks from './SocialButtonLinks';
 import swal from 'sweetalert';
 import {Editable} from '../shared';
-import {updateUserDetails} from '../../api/userApi';
-import {Message} from 'semantic-ui-react';
+import {updateUserDetails, resendConfirmationCode} from '../../api/userApi';
+import {Message, Button} from 'semantic-ui-react';
 
 class Profile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			updated: false
+			updated: false,
+			loading: false,
+			codeStatus: null
 		};
 	}
 
-	componentDidMount() {
-		passCsrfToken(document, axios);
-		this.fetchDetails();
-	}
+	componentDidMount() {}
 
-	fetchDetails = () => {
-		getUserDetails()
-			.then((response) => {
-				this.setState({
-					userDetails: response.data.user
-				});
-				// console.log(response.data.user);
-			})
-			.catch((error) => {
-				// console.log(error);
-				this.setState({
-					error
-				});
-				console.log(' user fetch error', error);
-			});
-	};
-
-	update(details) {
+	update(id, details) {
 		this.setState({
 			updated: false
 		});
-		updateUserDetails(details)
+		updateUserDetails(id, details)
 			.then((response) => {
 				// console.log('details', response.data);
 				swal({
-					title: 'User Updates!',
-					text: 'user updated successfully',
+					title: 'User Updated!',
+					text: 'User updated successfully',
 					icon: 'success',
 					button: 'Continue!'
+				}).then(function() {
+					location.reload();
 				});
-				this.props.updateUser(details);
+				this.fetchDetails();
 				this.setState({
 					updated: true
 				});
@@ -70,6 +54,7 @@ class Profile extends Component {
 
 	render() {
 		const {currentUser, updated, countries} = this.props;
+		const {loading, codeStatus} = this.state;
 		return (
 			<div className='user-profile'>
 				<div className='row'>
@@ -78,12 +63,12 @@ class Profile extends Component {
 							edit={updated}
 							label='Name'
 							value={currentUser.name}
-							onSubmit={(value) => this.update({id: currentUser.id, name: value})}
+							onSubmit={(value) => this.update(currentUser.id, {name: value})}
 						/>
 						<Editable
 							label='Email'
 							value={currentUser.email}
-							onSubmit={(value) => this.update({id: currentUser.id, email: value})}
+							onSubmit={(value) => this.update(currentUser.id, {email: value})}
 						/>
 
 						{/* <Editable
@@ -107,7 +92,7 @@ class Profile extends Component {
 							edit={updated}
 							label='Contact No'
 							value={`${currentUser.code == null ? '' : currentUser.code} ${currentUser.phone_number}`}
-							onSubmit={(value) => this.update({id: currentUser.id, phone_number: value})}
+							onSubmit={(value) => this.update(currentUser.id, {phone_number: value})}
 						/>
 						{/* <Editable
 						edit={updated}
@@ -137,16 +122,37 @@ class Profile extends Component {
 							value={currentUser.country}
 							type='select'
 							options={countries}
-							onSubmit={(value) => this.update({id: currentUser.id, country: value})}
+							onSubmit={(value) => this.update(currentUser.id, {country: value})}
 						/>
 					</div>
 				</div>
 				{!currentUser.verified && (
 					<div className='row'>
-						<div className='col-12'>
+						<div className='col-12 text-center'>
 							<Message negative>
-								<Message.Header>Your Email has not been verified yet.</Message.Header>
+								<Message.Header>
+									{!codeStatus && <div>Your Email has not been verified yet</div>}
+									{codeStatus && <div>Confirmation token sent !!!</div>}
+								</Message.Header>
 								<p>Please check your mail to verify your account</p>
+								<Button
+									primary
+									loading={loading}
+									className='text-center'
+									onClick={() => {
+										this.setState({
+											loading: true
+										});
+										resendConfirmationCode(currentUser.id).then((response) => {
+											this.setState({
+												loading: false,
+												codeStatus: 'Code Sent'
+											});
+										});
+									}}
+								>
+									Resend Code
+								</Button>
 							</Message>
 						</div>
 					</div>
