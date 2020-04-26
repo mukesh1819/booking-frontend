@@ -73,7 +73,15 @@ class FinalBookingDetails extends Component {
 					<div className='card-body'>
 						<div className='d-flex justify-content-between'>
 							<h3 className='title'>Passenger Details</h3>
-							<Link to={`/booking/${booking.ruid}/edit`} className='btn btn-outline-primary'>
+							<Link
+								to={{
+									pathname: `/passengers/edit`,
+									state: {
+										passengers: passengers
+									}
+								}}
+								className='btn btn-outline-primary'
+							>
 								MODIFY
 							</Link>
 						</div>

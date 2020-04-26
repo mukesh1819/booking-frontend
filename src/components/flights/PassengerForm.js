@@ -16,6 +16,7 @@ import swal from 'sweetalert';
 import {Timer, Accordion} from '../shared';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown, Input} from 'semantic-ui-react';
+import {getPassengers} from '../../redux/selectors';
 
 import './flights.scss';
 
@@ -51,7 +52,7 @@ class PassengerForm extends Component {
 
 	render() {
 		const selectedOutboundFlight = this.props.selectedOutboundFlight;
-		const {adult, child, nationality, currentUser, countries} = this.props;
+		const {passengers, nationality, currentUser, countries} = this.props;
 		currentUser.code = currentUser.country;
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -70,31 +71,11 @@ class PassengerForm extends Component {
 				email: yup.string().required('Required')
 			})
 		});
-		const passenger = {
-			title: 'Mr',
-			first_name: '',
-			last_name: '',
-			passenger_type: '',
-			gender: 'M',
-			nationality: nationality
-		};
+
 		const initialValues = {
-			passengers: [],
+			passengers: passengers,
 			user: currentUser
 		};
-
-		var i;
-		for (i = 0; i < adult; i++) {
-			var a = Object.assign({}, passenger);
-			a.passenger_type = 'ADULT';
-			initialValues.passengers.push(a);
-		}
-
-		for (i = 0; i < child; i++) {
-			var a = Object.assign({}, passenger);
-			a.passenger_type = 'CHILD';
-			initialValues.passengers.push(a);
-		}
 
 		if (initialValues.passengers.length == 0 || !selectedOutboundFlight) {
 			return <Redirect to='/' />;
@@ -435,10 +416,9 @@ const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 	return {
 		selectedInboundFlight: flightStore.selectedInboundFlight,
 		selectedOutboundFlight: flightStore.selectedOutboundFlight,
-		booking: bookingStore.booking,
-		adult: flightStore.searchDetails.intAdult,
-		child: flightStore.searchDetails.intChild,
+		passengers: getPassengers(flightStore.searchDetails),
 		nationality: flightStore.searchDetails.strNationality,
+		booking: bookingStore.booking,
 		currentUser: userStore.currentUser,
 		ttlTime: flightStore.ttlTime,
 		countries: extras.countries
