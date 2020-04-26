@@ -47,7 +47,7 @@ class FinalBookingDetails extends Component {
 		}
 
 		return (
-			<div className='container p-3'>
+			<div className='container py-3 px-md-3'>
 				<div className='d-flex justify-content-between'>
 					<span className='text-bold'>Flight Details</span>
 					<span className='text-danger'>
@@ -77,7 +77,8 @@ class FinalBookingDetails extends Component {
 								to={{
 									pathname: `/passengers/edit`,
 									state: {
-										passengers: passengers
+										passengers: passengers,
+										booking: booking
 									}
 								}}
 								className='btn btn-outline-primary'

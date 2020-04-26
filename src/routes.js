@@ -49,6 +49,8 @@ import UserLayout from './components/layouts/UserLayout';
 import AdminLayout from './components/layouts/AdminLayout';
 import AppRoute from './components/AppRoute';
 import PartnerLayout from './components/layouts/PartnerLayout';
+import AddPassengers from './components/flights/AddPassengers';
+import EditPassengers from './components/flights/EditPassengers';
 
 const routing = (
 	<Switch>
@@ -67,7 +69,8 @@ const routing = (
 		<AppRoute path='/inquiry' component={InquiryForm} layout={UserLayout} />
 		<AppRoute path='/verify/:token' component={VerifyUser} layout={UserLayout} />
 
-		<PrivateRoute path='/passengers' component={PassengerForm} layout={UserLayout} />
+		<PrivateRoute path='/passengers/edit' component={EditPassengers} layout={UserLayout} />
+		<PrivateRoute path='/passengers' component={AddPassengers} layout={UserLayout} />
 		<PrivateRoute path='/bookings' component={Bookings} layout={UserLayout} />
 		<PrivateRoute path='/transactions' component={Users} layout={UserLayout} />
 		<PrivateRoute path='/records' component={Users} layout={UserLayout} />

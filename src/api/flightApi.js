@@ -48,6 +48,15 @@ export function createBooking(formData) {
 	});
 }
 
+export function updateBooking(idx, formData) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/bookings/${idx}`,
+		data: formData
+	});
+}
+
+
 export function cancelUserTickets(ids) {
 	return axios({
 		method: 'put',
