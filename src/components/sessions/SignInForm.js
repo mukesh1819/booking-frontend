@@ -93,7 +93,10 @@ class SignInForm extends Component {
 										<div className='card-body'>
 											<h3>Log in</h3>
 											<div className='text-small'>
-												Don't have an account? <Link to='/signup'>Create Account</Link>
+												Don't have an account?{' '}
+												<Link to={{pathname: '/signup', state: {from: redirectUrl}}}>
+													Create Account
+												</Link>
 											</div>
 											<form onSubmit={handleSubmit} className='form-wrap'>
 												<div className='fields'>
