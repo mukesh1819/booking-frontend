@@ -13,6 +13,8 @@ import swal from 'sweetalert';
 import {Editable} from '../shared';
 import {updateUserDetails, resendConfirmationCode} from '../../api/userApi';
 import {Message, Button} from 'semantic-ui-react';
+import ChangePasswordForm from './ChangePasswordForm';
+import ModalExample from '../shared/Modal';
 
 class Profile extends Component {
 	constructor(props) {
@@ -20,7 +22,8 @@ class Profile extends Component {
 		this.state = {
 			updated: false,
 			loading: false,
-			codeStatus: null
+			codeStatus: null,
+			changePassword: false
 		};
 	}
 
@@ -54,7 +57,7 @@ class Profile extends Component {
 
 	render() {
 		const {currentUser, updated, countries} = this.props;
-		const {loading, codeStatus} = this.state;
+		const {loading, codeStatus, changePassword} = this.state;
 		return (
 			<div className='user-profile'>
 				<div className='row'>
@@ -124,6 +127,23 @@ class Profile extends Component {
 							options={countries}
 							onSubmit={(value) => this.update(currentUser.id, {country: value})}
 						/>
+
+						<div className='editable'>
+							<div className='list'>
+								<div className='label'>Password</div>
+								<div className='value'>
+									<span
+										className='btn btn-primary mr-4'
+										onClick={() =>
+											this.setState({
+												changePassword: true
+											})}
+									>
+										Change
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				{!currentUser.verified && (
@@ -158,6 +178,15 @@ class Profile extends Component {
 					</div>
 				)}
 				{/* <SocialButtonLinks /> */}
+				<ModalExample
+					title='Change Password'
+					buttonLabel='Change'
+					show={changePassword}
+					toggle={this.onChangePassword}
+					onSuccess={(value) => this.update(currentUser.id, value)}
+				>
+					{changePassword && <ChangePasswordForm onChange={(value) => this.update(currentUser.id, value)} />}
+				</ModalExample>
 			</div>
 		);
 	}

@@ -37,9 +37,11 @@ export function useInterceptor(axios) {
 
 	axios.interceptors.response.use(
 		(response) => {
+			debugger;
 			return response;
 		},
 		function (error) {
+			debugger;
 			const originalRequest = error.config;
 			if (error.message === 'Network Error') {
 				swal({
