@@ -12,7 +12,7 @@ import SocialButtonLinks from './SocialButtonLinks';
 import swal from 'sweetalert';
 import {Editable} from '../shared';
 import {updateUserDetails, resendConfirmationCode} from '../../api/userApi';
-import {Message, Button} from 'semantic-ui-react';
+import {Message, Button, Segment} from 'semantic-ui-react';
 import ChangePasswordForm from './ChangePasswordForm';
 import ModalExample from '../shared/Modal';
 
@@ -20,7 +20,7 @@ class Profile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			updated: false,
+			updating: false,
 			loading: false,
 			codeStatus: null,
 			changePassword: false
@@ -29,9 +29,15 @@ class Profile extends Component {
 
 	componentDidMount() {}
 
+	togglePasswordModal = () => {
+		this.setState((prevState) => ({
+			changePassword: !prevState.changePassword
+		}));
+	};
+
 	update(id, details) {
 		this.setState({
-			updated: false
+			updating: true
 		});
 		updateUserDetails(id, details)
 			.then((response) => {
@@ -46,7 +52,7 @@ class Profile extends Component {
 				});
 				this.fetchDetails();
 				this.setState({
-					updated: true
+					updating: false
 				});
 			})
 			.catch((error) => {
@@ -56,26 +62,27 @@ class Profile extends Component {
 	}
 
 	render() {
-		const {currentUser, updated, countries} = this.props;
-		const {loading, codeStatus, changePassword} = this.state;
+		const {currentUser, countries} = this.props;
+		const {loading, codeStatus, changePassword, updating} = this.state;
 		return (
-			<div className='user-profile'>
-				<div className='row'>
-					<div className='col-12 p-0 list-view'>
-						<Editable
-							edit={updated}
-							label='Name'
-							value={currentUser.name}
-							onSubmit={(value) => this.update(currentUser.id, {name: value})}
-						/>
-						<Editable
-							label='Email'
-							value={currentUser.email}
-							onSubmit={(value) => this.update(currentUser.id, {email: value})}
-						/>
+			<Segment loading={currentUser.id == undefined || updating}>
+				<div className='user-profile'>
+					<div className='row'>
+						<div className='col-12 p-0 list-view'>
+							<Editable
+								edit={!updating}
+								label='Name'
+								value={currentUser.name}
+								onSubmit={(value) => this.update(currentUser.id, {name: value})}
+							/>
+							<Editable
+								label='Email'
+								value={currentUser.email}
+								onSubmit={(value) => this.update(currentUser.id, {email: value})}
+							/>
 
-						{/* <Editable
-						edit={updated}
+							{/* <Editable
+						edit={!updating}
 						label='code'
 						value={currentUser.code}
 						name='code'
@@ -91,14 +98,16 @@ class Profile extends Component {
 						onSubmit={(value) => this.update({id: currentUser.id, code: value})}
 					/> */}
 
-						<Editable
-							edit={updated}
-							label='Contact No'
-							value={`${currentUser.code == null ? '' : currentUser.code} ${currentUser.phone_number}`}
-							onSubmit={(value) => this.update(currentUser.id, {phone_number: value})}
-						/>
-						{/* <Editable
-						edit={updated}
+							<Editable
+								edit={!updating}
+								label='Contact No'
+								value={`${currentUser.code == null
+									? ''
+									: currentUser.code} ${currentUser.phone_number}`}
+								onSubmit={(value) => this.update(currentUser.id, {phone_number: value})}
+							/>
+							{/* <Editable
+						edit={!updating}
 						label='Currency'
 						value={currentUser.currency}
 						name='currency'
@@ -118,76 +127,78 @@ class Profile extends Component {
 							})}
 						onSubmit={(value) => this.update({id: currentUser.id, currency: value})}
 					/> */}
-						<Editable
-							edit={updated}
-							label='Nationality'
-							name='nationality'
-							value={currentUser.country}
-							type='select'
-							options={countries}
-							onSubmit={(value) => this.update(currentUser.id, {country: value})}
-						/>
+							<Editable
+								edit={!updating}
+								label='Nationality'
+								name='nationality'
+								value={currentUser.country}
+								type='select'
+								options={countries}
+								onSubmit={(value) => this.update(currentUser.id, {country: value})}
+							/>
 
-						<div className='editable'>
-							<div className='list'>
-								<div className='label'>Password</div>
-								<div className='value'>
-									<span
-										className='btn btn-primary mr-4'
-										onClick={() =>
-											this.setState({
-												changePassword: true
-											})}
-									>
-										Change
-									</span>
+							<div className='editable'>
+								<div className='list'>
+									<div className='label'>Password</div>
+									<div className='value'>
+										<span className='btn btn-primary mr-4' onClick={this.togglePasswordModal}>
+											Change
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				{!currentUser.verified && (
-					<div className='row'>
-						<div className='col-12 text-center'>
-							<Message negative>
-								<Message.Header>
-									{!codeStatus && <div>Your Email has not been verified yet</div>}
-									{codeStatus && <div>Confirmation token sent !!!</div>}
-								</Message.Header>
-								<p>Please check your mail to verify your account</p>
-								<Button
-									primary
-									loading={loading}
-									className='text-center'
-									onClick={() => {
-										this.setState({
-											loading: true
-										});
-										resendConfirmationCode(currentUser.id).then((response) => {
+					{!currentUser.verified && (
+						<div className='row'>
+							<div className='col-12 text-center'>
+								<Message negative>
+									<Message.Header>
+										{!codeStatus && <div>Your Email has not been verified yet</div>}
+										{codeStatus && <div>Confirmation token sent !!!</div>}
+									</Message.Header>
+									<p>Please check your mail to verify your account</p>
+									<Button
+										primary
+										loading={loading}
+										className='text-center'
+										onClick={() => {
 											this.setState({
-												loading: false,
-												codeStatus: 'Code Sent'
+												loading: true
 											});
-										});
-									}}
-								>
-									Resend Code
-								</Button>
-							</Message>
+											resendConfirmationCode(currentUser.id).then((response) => {
+												this.setState({
+													loading: false,
+													codeStatus: 'Code Sent'
+												});
+											});
+										}}
+									>
+										Resend Code
+									</Button>
+								</Message>
+							</div>
 						</div>
-					</div>
-				)}
-				{/* <SocialButtonLinks /> */}
-				<ModalExample
-					title='Change Password'
-					buttonLabel='Change'
-					show={changePassword}
-					toggle={this.onChangePassword}
-					onSuccess={(value) => this.update(currentUser.id, value)}
-				>
-					{changePassword && <ChangePasswordForm onChange={(value) => this.update(currentUser.id, value)} />}
-				</ModalExample>
-			</div>
+					)}
+					{/* <SocialButtonLinks /> */}
+					<ModalExample
+						title='Change Password'
+						buttonLabel='Change'
+						show={changePassword}
+						toggle={this.togglePasswordModal}
+						onSuccess={(value) => this.update(currentUser.id, value)}
+					>
+						{changePassword && (
+							<ChangePasswordForm
+								onChange={(value) => {
+									this.update(currentUser.id, value);
+									this.togglePasswordModal();
+								}}
+							/>
+						)}
+					</ModalExample>
+				</div>
+			</Segment>
 		);
 	}
 }

@@ -80,6 +80,13 @@ export function useInterceptor(axios) {
 					icon: 'error',
 					button: 'Try Again!'
 				});
+			} else if (error.response.status === 500) {
+				swal({
+					title: "Internal Server Error",
+					text: error.message,
+					icon: 'error',
+					button: 'Try Again!'
+				});
 			} else {}
 
 		}
