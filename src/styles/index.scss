@@ -19,36 +19,38 @@ $font32: 32px;
 $font40: 40px;
 
 * {
-    &:focus {
-        outline: none;
-    }
+	&:focus {
+		outline: none;
+	}
 
-    a:hover {
-        text-decoration: none;
-    }
+	a:hover {
+		text-decoration: none;
+	}
 }
 
-html {}
+html {
+}
 
 body {
-    font-family: $font-secondary;
-    color: $fontColor;
-    font-size: $font16;
-    overflow-x: hidden;
-    height: 100%;
+	font-family: $font-secondary;
+	color: $fontColor;
+	font-size: $font16;
+	overflow-x: hidden;
+	height: 100%;
 }
 
 #root {
-    min-height: 100%;
-    display: grid;
-    grid-template-rows: 1fr auto;
+	min-height: 100%;
+	display: grid;
+	grid-template-rows: 1fr auto;
 }
 
-#content {}
+#content {
+}
 
 #footer {
-    grid-row-start: 2;
-    grid-row-end: 3;
+	grid-row-start: 2;
+	grid-row-end: 3;
 }
 
 h1,
@@ -56,182 +58,180 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: $font-primary;
-    color: $primary;
-    font-size: 36px;
-    margin-bottom: 0px;
+	font-family: $font-primary;
+	color: $primary;
+	font-size: 36px;
+	margin-bottom: 0px;
 }
 
 h1 {
-    font-size: $font24;
-    margin-bottom: 0px;
+	font-size: $font24;
+	margin-bottom: 0px;
 }
 
 h2 {
-    font-size: $font24;
+	font-size: $font24;
 
-    @include tablet {
-        font-size: $font32;
-    }
+	@include tablet {
+		font-size: $font32;
+	}
 }
 
 h3 {
-    font-size: $font18;
-    font-family: $font-secondary;
+	font-size: $font18;
+	font-family: $font-secondary;
 }
 
 h4 {
-    font-family: $font-secondary;
-    font-size: $font16;
+	font-family: $font-secondary;
+	font-size: $font16;
 }
 
 h5 {
-    font-family: $font-secondary;
-    font-size: $font14;
-}
-
-h2.category-title:after {
-    border-bottom: 2px solid $secondary;
-    display: block;
-    content: ' ';
-    width: 50px;
-    margin-bottom: 16px;
+	font-family: $font-secondary;
+	font-size: $font14;
 }
 
 ul,
 li {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+// Packages
+
+h2.category-title:after {
+	border-bottom: 2px solid $secondary;
+	display: block;
+	content: ' ';
+	width: 50px;
+	margin-bottom: 16px;
 }
 
 label {
-    margin-top: 0.5rem;
+	margin-top: 0.5rem;
 }
 
 .border-none {
-    border: none !important;
-    box-shadow: none !important;
+	border: none !important;
+	box-shadow: none !important;
 }
 
 .bg {
+	&-primary-light {
+		background-color: $primary-light;
+	}
 
-    &-primary-light {
-        background-color: $primary-light;
-    }
+	&-fb {
+		background-color: $fb-color;
+	}
 
-    &-fb {
-        background-color: $fb-color;
-    }
+	&-accent {
+		background-color: $accent;
+	}
 
-    &-accent {
-        background-color: $accent;
-    }
+	&-gray {
+		background-color: $gray;
+	}
 
-    &-gray {
-        background-color: $gray;
-    }
+	&-gray-light {
+		background-color: $gray-light;
+	}
 
-    &-gray-light {
-        background-color: $gray-light;
-    }
+	&-body {
+		background-color: $body-bg-color;
+	}
 
-    &-body {
-        background-color: $body-bg-color;
-    }
+	&-none {
+		background-color: transaparent;
+		background: none;
+		border: none;
 
-    &-none {
-        background-color: transaparent;
-        background: none;
-        border: none;
+		&:focus,
+		&:hover {
+			background: none;
+		}
+	}
 
-        &:focus,
-        &:hover {
-            background: none;
-        }
-    }
-
-    &-primary-dark {
-        background-color: darken($primary, 5%);
-    }
+	&-primary-dark {
+		background-color: darken($primary, 5%);
+	}
 }
 
 .color {
+	&-primary-light {
+		color: $primary-light;
+	}
 
-    &-primary-light {
-        color: $primary-light;
-    }
+	&-fb {
+		color: $fb-color;
+	}
 
-    &-fb {
-        color: $fb-color;
-    }
+	&-accent {
+		color: $accent;
+	}
 
-    &-accent {
-        color: $accent;
-    }
+	&-gray {
+		color: $gray;
+	}
 
-    &-gray {
-        color: $gray;
-    }
+	&-gray-light {
+		color: $gray-light;
+	}
 
-    &-gray-light {
-        color: $gray-light;
-    }
+	&-body {
+		color: $body-bg-color;
+	}
 
-    &-body {
-        color: $body-bg-color;
-    }
-
-    &-primary-dark {
-        color: darken($primary, 5%);
-    }
+	&-primary-dark {
+		color: darken($primary, 5%);
+	}
 }
 
-
 .row {
-    margin: 0px;
+	margin: 0px;
 }
 
 .container {
-    padding: 0px;
+	padding: 0px;
 }
 
 .btn {
-    @include border-radius(5px);
-    font-weight: bold;
-    text-transform: uppercase;
+	@include border-radius(5px);
+	font-weight: bold;
+	text-transform: uppercase;
 
-    &.bg-none {
-        background-color: transparent;
-        border: none;
-    }
+	&.bg-none {
+		background-color: transparent;
+		border: none;
+	}
 }
 
 input {
-    padding: 10px;
-    border-radius: 5px;
-    outline: none;
-    margin-right: 10px;
-    border: 1px solid #dddddd;
+	padding: 10px;
+	border-radius: 5px;
+	outline: none;
+	margin-right: 10px;
+	border: 1px solid #dddddd;
 }
 
 input:read-only {
-    background-color: white;
+	background-color: white;
 }
 
 .page {
-    p {
-        font-size: 20px;
-        line-height: 1.5;
-        color: #222;
-    }
+	p {
+		font-size: 20px;
+		line-height: 1.5;
+		color: #222;
+	}
 }
 
 .title {
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+	margin-bottom: 0.5rem;
+	font-weight: 600;
 }
-
 
 // select::-ms-expand {
 //     display: none;
@@ -243,464 +243,479 @@ input:read-only {
 // }
 
 img {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 
-    &.img-fit {
-        object-fit: none;
-        object-position: center;
-    }
+	&.img-fit {
+		object-fit: none;
+		object-position: center;
+	}
 }
 
 section {
-    padding: 50px 0px;
+	padding: 50px 0px;
 }
 
 .navbar {
-    padding: 0px 0px;
-    z-index: 1050;
+	padding: 0px 0px;
+	z-index: 1050;
 
-    .navbar-header {
-        padding: 0.5rem 14px;
+	.navbar-header {
+		padding: 0.5rem 14px;
 
-        @include desktop {
-            padding: 0.5rem 0;
-        }
-    }
+		@include desktop {
+			padding: 0.5rem 0;
+		}
+	}
 
-    .navbar-brand {
-        font-size: 1rem;
-        padding: 0 1rem;
+	.navbar-brand {
+		font-size: 1rem;
+		padding: 0 1rem;
 
-        @include desktop {
-            font-size: 1.2rem;
-            padding: 0.5rem 0;
-        }
-    }
+		@include desktop {
+			font-size: 1.2rem;
+			padding: 0.5rem 0;
+		}
+	}
 
-    .navbar-toggler {
-        padding: 0.25rem;
+	.navbar-toggler {
+		padding: 0.25rem;
 
-        &-icon {
-            height: 20px;
-            width: 20px;
-        }
-    }
+		&-icon {
+			height: 20px;
+			width: 20px;
+		}
+	}
 
-    .navbar-nav {
-        font-weight: 600;
+	.navbar-nav {
+		font-weight: 600;
 
-        .link {
-            display: flex;
-            align-items: center;
-            margin: 0rem 1rem;
-        }
-    }
+		.link {
+			display: flex;
+			align-items: center;
+			margin: 0rem 1rem;
+		}
+	}
 
-    .login {
-        padding: 0rem 14px;
+	.login {
+		padding: 0rem 14px;
 
-        @include desktop {
-            padding: 0rem 0;
-        }
-    }
+		@include desktop {
+			padding: 0rem 0;
+		}
+	}
 }
 
 .form-group {
-    margin: 5px 10px;
+	margin: 5px 10px;
 
-    @include tablet {
-        margin-bottom: 30px;
-        margin-right: 14px;
-    }
+	@include tablet {
+		margin-bottom: 30px;
+		margin-right: 14px;
+	}
 }
 
 .form-control {
-    border: 1px solid #dddddd;
-    height: 44px;
-    margin: 2px;
-    @include border-radius(5px);
+	border: 1px solid #dddddd;
+	height: 44px;
+	margin: 2px;
+	@include border-radius(5px);
 }
 
 .card {
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
-    @include border-radius(0px);
-    overflow: hidden;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
+	@include border-radius(0px);
+	overflow: hidden;
 }
 
 .card-header {
-    background-color: rgba($primary, .1);
+	background-color: rgba($primary, .1);
 }
 
 .card-body {
-    padding: 0.5rem;
+	padding: 0.5rem;
 
-    @include desktop {
-        padding: 1rem;
-    }
+	@include desktop {
+		padding: 1rem;
+	}
 }
-
 
 .no-padding {
-    padding: 0 !important;
-    margin: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
-
 .side-nav {
-    display: flex;
-    overflow: scroll;
-    height: min-content;
-    background-color: white;
+	display: flex;
+	overflow: scroll;
+	height: min-content;
+	background-color: white;
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
+	&::-webkit-scrollbar {
+		display: none;
+	}
 
-    .item {
-        cursor: pointer;
-        flex-grow: 1;
-        padding: 0px 10px;
-        color: $secondary;
-        font-weight: 600;
-    }
+	.item {
+		cursor: pointer;
+		flex-grow: 1;
+		padding: 0px 10px;
+		color: $secondary;
+		font-weight: 600;
+	}
 
-    i {
-        font-size: $font18;
-    }
+	i {
+		font-size: $font18;
+	}
 
-    @include tablet {
-        display: block;
-        padding: 8px;
-        background-color: white;
-        height: 100vh;
+	@include tablet {
+		display: block;
+		padding: 8px;
+		background-color: white;
+		height: 100vh;
 
-        .item {
-            padding: 10px 10px;
-        }
-    }
+		.item {
+			padding: 10px 10px;
+		}
+	}
 }
 
 .slide-nav {
-    display: block;
-    padding: 8px;
-    background-color: white;
-    height: 100vh;
+	display: block;
+	padding: 8px;
+	background-color: white;
+	height: 100vh;
 
-    .item {
-        cursor: pointer;
-        flex-grow: 1;
-        padding: 10px 10px;
-        border: 0px;
+	.item {
+		cursor: pointer;
+		flex-grow: 1;
+		padding: 10px 10px;
+		border: 0px;
 
-        i {
-            font-size: $font18;
-        }
-    }
+		i {
+			font-size: $font18;
+		}
+	}
 }
 
 .slide {
-    position: fixed;
-    width: 100%;
-    top: 42px;
-    z-index: 100;
-    @include transition(.3s);
+	position: fixed;
+	width: 100%;
+	top: 42px;
+	z-index: 100;
+	@include transition(.3s);
 
-    &.closed {
-        right: -100vw;
-    }
+	&.closed {
+		right: -100vw;
+	}
 
-    &.show {
-        left: 0px;
-    }
+	&.show {
+		left: 0px;
+	}
 }
 
 .btn-large {
-    padding: 8px 50px;
+	padding: 8px 50px;
 }
 
 .cursor-pointer {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .select-countries {
-    max-height: 400px;
+	max-height: 400px;
 
-    .list {
-        overflow-y: scroll;
-    }
+	.list {
+		overflow-y: scroll;
+	}
 }
 
 .dropdown {
-    &:hover {
-        cursor: pointer;
-    }
+	&:hover {
+		cursor: pointer;
+	}
 }
 
 .custom-dropdown {
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    position: relative;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	position: relative;
 
-    i.icon-chevron-down {
-        float: right;
-    }
+	i.icon-chevron-down {
+		float: right;
+	}
 
-    .menu {
-        display: none;
-        padding: 0.75rem;
-        background: white;
-        position: absolute;
-        border: 1px solid lightgray;
-        top: 100%;
-        right: 0px;
-        min-width: 100%;
-        color: black;
+	.menu {
+		display: none;
+		padding: 0.75rem;
+		background: white;
+		position: absolute;
+		border: 1px solid lightgray;
+		top: 100%;
+		right: 0px;
+		min-width: 100%;
+		color: black;
 
-        li {
-            padding: 0.25rem;
-        }
-    }
+		li {
+			padding: 0.25rem;
+		}
+	}
 
-    &:hover .menu {
-        display: block;
-    }
+	&:hover .menu {
+		display: block;
+	}
 }
 
 .right-0 {
-    right: 0;
+	right: 0;
 }
 
 .validation-msg {
-    font-size: small;
-    color: red;
+	font-size: small;
+	color: red;
 }
 
 .timer {
-    span {
-        background-color: $primary;
-        padding: 8px;
-        z-index: 20;
-        color: white;
-    }
+	span {
+		background-color: $primary;
+		padding: 8px;
+		z-index: 20;
+		color: white;
+	}
 }
 
 .widget {
-
-    i {
-        &.active {
-            color: $primary;
-        }
-    }
+	i {
+		&.active {
+			color: $primary;
+		}
+	}
 }
 
 .card-widget {
-    min-width: 260px;
-    min-height: 275px;
-    display: block;
-    position: relative;
-    background: $white;
-    overflow: hidden;
-    z-index: 9;
-    bottom: 0;
-    margin-bottom: 30px;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
-    width: min-content;
-    @include border-radius(5px);
-    @include transition(.3s);
+	min-width: 260px;
+	min-height: 275px;
+	display: block;
+	position: relative;
+	background: $white;
+	overflow: hidden;
+	z-index: 9;
+	bottom: 0;
+	margin-bottom: 30px;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
+	width: min-content;
+	@include border-radius(5px);
+	@include transition(.3s);
 
-    figure {
-        width: auto;
-        min-height: 190px;
-        max-height: 190px;
-        z-index: 12;
-        position: relative;
-        overflow: hidden;
+	figure {
+		width: auto;
+		min-height: 190px;
+		max-height: 190px;
+		z-index: 12;
+		position: relative;
+		overflow: hidden;
 
-        .overlay {
-            opacity: 0;
-            visibility: hidden;
-            z-index: 10;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            position: absolute;
-            background: rgba(37, 63, 114, 0.7);
-            @include transition(.7s);
-        }
+		.overlay {
+			opacity: 0;
+			visibility: hidden;
+			z-index: 10;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			position: absolute;
+			background: rgba(37, 63, 114, 0.7);
+			@include transition(.7s);
+		}
 
-        img {
-            z-index: 8;
-            opacity: 1;
-            @include transition(.3s);
-        }
-    }
+		img {
+			z-index: 8;
+			opacity: 1;
+			@include transition(.3s);
+			height: -webkit-fill-available;
+		}
+	}
 
-    .details {
-        padding: 0 10px 10px 20px;
-    }
+	.details {
+		padding: 0 10px 10px 20px;
+	}
 
-    &:hover,
-    &:focus {
-        bottom: 0;
-        box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.19);
-        @include border-radius(5px);
+	&:hover,
+	&:focus {
+		bottom: 0;
+		box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.19);
+		@include border-radius(5px);
 
-        img {
-            transform: scale(1.2);
-        }
+		img {
+			transform: scale(1.2);
+		}
 
-        .overlay {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
+		.overlay {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	&.link {
+		height: 100%;
+	}
 }
 
 .package-details {
-    .header {
-        .img-container {
-            height: 230px;
-            position: relative;
-        }
+	.header {
+		.img-container {
+			height: 230px;
+			position: relative;
+		}
 
-        .img-container:after {
-            content: "";
-            position: absolute;
-            height: 80px;
-            width: 100%;
-            display: block;
-            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.582));
-            bottom: 0;
-        }
+		.img-container:after {
+			content: "";
+			position: absolute;
+			height: 80px;
+			width: 100%;
+			display: block;
+			background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.582));
+			bottom: 0;
+		}
 
-        .title {
-            margin-top: -6rem;
-        }
-    }
+		.title {
+			margin-top: -6rem;
+		}
+	}
 
-    .title {
-        z-index: 1040;
-    }
+	.title {
+		z-index: 1040;
+	}
 }
 
 .list-view {
-    margin-bottom: 1rem;
+	margin-bottom: 1rem;
 
-    .list {
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
+	.list {
+		padding: 10px;
+		display: flex;
+		justify-content: space-between;
 
-        .label {
-            color: $primary;
-        }
+		.label {
+			color: $primary;
+		}
 
-        &:nth-child(even) {
-            background-color: #e2e2e238;
-        }
-    }
+		&:nth-child(even) {
+			background-color: #e2e2e238;
+		}
+	}
+
+	.editable {
+		&:nth-child(even) {
+			background-color: #e2e2e238;
+		}
+
+		.actions {
+			visibility: hidden;
+			cursor: pointer;
+		}
+
+		&:hover {
+			.actions {
+				visibility: visible;
+			}
+		}
+	}
 }
 
 .partner-profile {
-    .user-icon {
-        font-size: 5rem;
-        padding: 10px;
-        color: #6c757d;
-    }
+	.user-icon {
+		font-size: 5rem;
+		padding: 10px;
+		color: #6c757d;
+	}
 }
 
 footer {
-    background-color: $primary-light;
-    padding: 1rem 0;
-    clear: both;
+	background-color: $primary-light;
+	padding: 1rem 0;
+	clear: both;
 
-    .social-icons {
-        margin: 0;
-        padding: 0;
+	.social-icons {
+		margin: 0;
+		padding: 0;
 
-        li {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            display: inline-block;
-            zoom: 1;
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: inline-block;
+			zoom: 1;
 
-            a {
-                display: inline-block;
-                zoom: 1;
-                *display: inline;
-                color: $primary;
-                padding-left: 10px;
-                padding-right: 10px;
+			a {
+				display: inline-block;
+				zoom: 1;
+				*display: inline;
+				color: $primary;
+				padding-left: 10px;
+				padding-right: 10px;
 
-                i {
-                    font-size: 20px;
-                }
-
-            }
-        }
-    }
+				i {
+					font-size: 20px;
+				}
+			}
+		}
+	}
 }
-
 
 // Package Form
 
 .activities {
-
-    .activity {
-        // @include border-radius;
-        border: 1px solid #dcdada;
-        color: primary;
-    }
+	.activity {
+		// @include border-radius;
+		border: 1px solid #dcdada;
+		color: primary;
+	}
 }
 
 // Customer Support
 .search-faq {
-    .input {
-        width: 100%;
-    }
+	.input {
+		width: 100%;
+	}
 }
-
 
 // Image Gallery
 .img-gallery {
-    .active-image-container {
-        min-width: 400px;
-        max-width: 1000px;
-        min-height: 400px;
-        max-height: 1000px;
-    }
+	.active-image-container {
+		min-width: 400px;
+		max-width: 1000px;
+		min-height: 400px;
+		max-height: 1000px;
+	}
 }
 
 .image-selector {
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    height: 60px;
+	display: flex;
+	align-items: flex-end;
+	width: 100%;
+	height: 60px;
 
-    .image-container {
-        padding: .25rem;
-        border: 1px solid grey;
-    }
+	.image-container {
+		padding: .25rem;
+		border: 1px solid grey;
+	}
 
-    img {
-        width: 50px;
-        height: 50px;
-        border: 1px solid white;
-        cursor: pointer;
+	img {
+		width: 50px;
+		height: 50px;
+		border: 1px solid white;
+		cursor: pointer;
 
-        &:hover {
-            width: 50px;
-            height: 50px;
-        }
+		&:hover {
+			width: 50px;
+			height: 50px;
+		}
 
-        &.active {
-            width: 60px;
-            height: 60px;
-            @include transition(.5s);
-        }
-    }
+		&.active {
+			width: 60px;
+			height: 60px;
+			@include transition(.5s);
+		}
+	}
 }

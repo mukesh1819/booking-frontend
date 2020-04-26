@@ -1,6 +1,11 @@
 .categories,
 .package-details {
 
+    .owl-stage {
+        display: flex;
+        align-items: stretch;
+    }
+
     .owl-theme {
         .owl-item {
             display: flex;

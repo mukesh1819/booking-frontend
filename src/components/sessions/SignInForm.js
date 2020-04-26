@@ -8,15 +8,25 @@ import {NavBar} from '../shared';
 import {Link, Redirect} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
 import {roleBasedUrl} from '../../helpers';
+import {Segment} from 'semantic-ui-react';
 
 class SignInForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			loading: false
+		};
 	}
+
+	setLoading = (value) => {
+		this.setState({
+			loading: value
+		});
+	};
 
 	render() {
 		const {currentUser} = this.props;
+		const {loading} = this.state;
 		var redirectUrl = '/';
 		if (this.props.location.state !== undefined) {
 			redirectUrl = this.props.location.state.from.pathname;
@@ -34,6 +44,9 @@ class SignInForm extends Component {
 								password: ''
 							}}
 							onSubmit={async (values, {setSubmitting, setStatus}) => {
+								this.setState({
+									loading: true
+								});
 								const variables = {
 									user: {
 										email: values.email,
@@ -47,16 +60,20 @@ class SignInForm extends Component {
 											// console.log('Logged In user', response);
 											this.props.loginUser(response.data.user);
 											localStorage.setItem('token', response.data.jwt);
-											debugger;
 											var path = roleBasedUrl(response.data.user.role, redirectUrl);
 											history.push(path);
 										} else {
 											console.log('sign in failed error');
 										}
+										this.setState({
+											loading: false
+										});
 									})
 									.catch((error) => {
 										console.log('SIGN IN failed error', error);
-										
+										this.setState({
+											loading: false
+										});
 									});
 							}}
 						>
@@ -71,12 +88,15 @@ class SignInForm extends Component {
 								setFieldValue
 								/* and other goodies */
 							}) => (
-								<div className=''>
+								<Segment loading={loading}>
 									<div className='login-form card p-2'>
 										<div className='card-body'>
 											<h3>Log in</h3>
 											<div className='text-small'>
-												Don't have an account? <Link to='/signup'>Create Account</Link>
+												Don't have an account?{' '}
+												<Link to={{pathname: '/signup', state: {from: redirectUrl}}}>
+													Create Account
+												</Link>
 											</div>
 											<form onSubmit={handleSubmit} className='form-wrap'>
 												<div className='fields'>
@@ -120,11 +140,14 @@ class SignInForm extends Component {
 												</button>
 												<hr />
 												<div className='text-center text-small mb-2'>Sign In with </div>
-												<SocialLinks redirectUrl={redirectUrl} />
+												<SocialLinks
+													redirectUrl={redirectUrl}
+													setLoading={(status) => this.setLoading(status)}
+												/>
 											</form>
 										</div>
 									</div>
-								</div>
+								</Segment>
 							)}
 						</Formik>
 					</div>

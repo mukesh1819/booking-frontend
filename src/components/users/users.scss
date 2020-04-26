@@ -31,38 +31,6 @@
     }
 }
 
-.user-profile {
-
-    .edit-action {
-        display: none;
-        cursor: pointer;
-    }
-
-    .list:hover {
-        .edit-action {
-            display: inherit;
-        }
-    }
-
-    // .label {
-    //     background-color: gainsboro;
-    //     width: 100%;
-    //     padding: 8px;
-    //     font-size: 0.8rem;
-    //     text-transform: uppercase;
-    //     color: grey;
-
-    //     @include tablet {
-    //         background-color: white;
-    //         flex-grow: 1;
-    //     }
-    // }
-
-    .value {
-        display: inherit;
-    }
-}
-
 .booking-list {
 
     .transaction:nth-child(even) {

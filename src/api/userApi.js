@@ -1,6 +1,14 @@
 import axios from 'axios';
-import {API_URL, ADMIN_API_URL, BASE_URL} from '../constants';
-import {handleResponse, handleError, useInterceptor} from './apiUtils';
+import {
+	API_URL,
+	ADMIN_API_URL,
+	BASE_URL
+} from '../constants';
+import {
+	handleResponse,
+	handleError,
+	useInterceptor
+} from './apiUtils';
 
 useInterceptor(axios);
 
@@ -12,11 +20,13 @@ export function getUserDetails(params) {
 	});
 }
 
-export function updateUserDetails(details) {
+export function updateUserDetails(id, details) {
 	return axios({
-		method: 'put',
-		url: `${API_URL}/members`,
-		data: details
+		method: 'patch',
+		url: `${API_URL}/members/${id}`,
+		data: {
+			user: details
+		}
 	});
 }
 
@@ -73,5 +83,12 @@ export function deleteUser(id) {
 	return axios({
 		method: 'delete',
 		url: `${API_URL}/members/${id}`
+	});
+}
+
+export function resendConfirmationCode(id) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/resend_code/${id}`
 	});
 }

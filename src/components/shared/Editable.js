@@ -17,7 +17,7 @@ const Editable = (props) => {
 	);
 
 	return (
-		<div>
+		<div className='editable'>
 			<div className='list'>
 				<span className='label'>{label}</span>
 
@@ -25,7 +25,7 @@ const Editable = (props) => {
 					<span className='value text-right'>
 						{value}&nbsp;
 						{!editMode && (
-							<span className='text-bold text-primary edit-action' onClick={() => setEditMode(true)}>
+							<span className='text-bold text-primary actions' onClick={() => setEditMode(true)}>
 								Edit
 							</span>
 						)}
@@ -33,7 +33,13 @@ const Editable = (props) => {
 				)}
 				{editMode && (
 					<span>
-						<span className='btn bg-none text-secondary' onClick={() => onSubmit(fieldValue)}>
+						<span
+							className='btn bg-none text-secondary'
+							onClick={() => {
+								onSubmit(fieldValue);
+								setEditMode(false);
+							}}
+						>
 							Update
 						</span>
 						<span className='text-primary' onClick={() => setEditMode(false)}>

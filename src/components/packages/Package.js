@@ -6,8 +6,8 @@ const Package = (props) => {
 	const {aPackage} = props;
 	var [price, discount] = calculatePackagePrice(aPackage);
 	return (
-		<Link to={`/package/${aPackage.idx}`}>
-			<div className='card-widget'>
+		<Link to={`/package/${aPackage.idx}`} className='card-widget link'>
+			<div className=''>
 				<figure>
 					{/* <div className='overlay d-flex align-items-center justify-content-center'>
 					<div className='text-center'>

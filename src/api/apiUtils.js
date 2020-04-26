@@ -37,9 +37,11 @@ export function useInterceptor(axios) {
 
 	axios.interceptors.response.use(
 		(response) => {
+			debugger;
 			return response;
 		},
 		function (error) {
+			debugger;
 			const originalRequest = error.config;
 			if (error.message === 'Network Error') {
 				swal({
@@ -63,6 +65,7 @@ export function useInterceptor(axios) {
 			} else if (error.response.status === 343) {
 				history.push('/not_verified');
 			} else if (error.response.status === 422) {
+				debugger;
 				swal({
 					title: '',
 					text: error.response.data.errors.join("/n"),
@@ -71,15 +74,13 @@ export function useInterceptor(axios) {
 				});
 			} else if (error.response.status === 400) {
 				swal({
-					title: '',
+					title: error.response.data.exception,
 					text: error.response.data.message.join("/n"),
 					icon: 'error',
 					button: 'Try Again!'
 				});
-			} else {
-				Promise.reject(new Error(error));
-			}
-			
+			} else {}
+
 		}
 	);
 }

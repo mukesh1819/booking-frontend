@@ -15,7 +15,6 @@ class CategoryList extends Component {
 	}
 
 	componentDidMount() {
-		passCsrfToken(document, axios);
 		this.fetchCategories();
 	}
 

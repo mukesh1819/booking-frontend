@@ -64,19 +64,20 @@ class Categories extends Component {
 			<React.Fragment>
 				{this.state.categories.map((category) => {
 					return (
-						<div className='categories-container'>
+						<div className='mb-4'>
 							<div className='d-flex justify-content-between align-items-center px-3'>
 								<h2 className='category-title'> {category.name} </h2>
 								<Link to='/packages' className='btn bg-none text-primary'>
 									View All <i className='fas fa-angle-right' />
 								</Link>
 							</div>
-							<div className='owl-carousel owl-theme'>
-								{category.packages.length > 0 &&
-									category.packages.map((aPackage) => {
+							{category.packages.length > 0 && (
+								<div className='owl-carousel owl-theme'>
+									{category.packages.map((aPackage) => {
 										return <Package aPackage={aPackage} />;
 									})}
-							</div>
+								</div>
+							)}
 						</div>
 					);
 				})}

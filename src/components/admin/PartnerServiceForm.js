@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {InquiryForm} from '../packages';
 import {IconInput, DatePicker} from '../shared';
 import {passCsrfToken} from '../../helpers';
@@ -18,6 +18,7 @@ import {Tab, Checkbox} from 'semantic-ui-react';
 
 export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 	console.log('Inquiry at Partner Service', inquiry);
+	const [editMode, setEditMode] = useState(false);
 	return (
 		<div className='row my-2'>
 			<div className='col-12 col-md-6'>
@@ -230,49 +231,56 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 			<div className='col-12 col-md-6'>
 				<div className='list-view'>
 					<h3 className='title'>Inquiry Details</h3>
-					<div className='list'>
-						<span className='label'>Package Name</span>
-						<span className='value'> {inquiry.package_name}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Head Person</span>
-						<span className='value'> {inquiry.head_traveller_name}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Email Address</span>
-						<span className='value'> {inquiry.email_address}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Address</span>
-						<span className='value'>
-							{' '}
-							{inquiry.address}, {inquiry.city}
-						</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Nationality</span>
-						<span className='value'> {inquiry.nationality}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Package Name</span>
-						<span className='value'> {inquiry.package_name}</span>
-					</div>
-
-					<div className='list'>
-						<span className='label'>Number of Person</span>
-						<span className='value'>
-							Adult - {inquiry.number_of_adult}, Child - {inquiry.number_of_child}
-						</span>
-					</div>
-
-					<div className='list'>
-						<span className='label'>Phone Number</span>
-						<span className='value'>{inquiry.phone}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Invoice Number</span>
-						<span className='value'>{inquiry.idx}</span>
-					</div>
+					{Object.keys(partner.extras).map((key) => {
+						console.log(`${key}: ${partner.extras[key]}`);
+						return (
+							<div className='editable'>
+								<div className='list'>
+									<span className='label'>{key}</span>
+									<div>
+										<span className='value mr-2'> {partner.extras[key]}</span>
+										<span className='actions'>
+											{!editMode && (
+												<React.Fragment>
+													<i
+														className='fas fa-edit p-1 text-primary'
+														onClick={() => setEditMode(true)}
+													/>
+													<i
+														className='fas fa-times p-1 text-primary'
+														onClick={() => {
+															delete partner.extras[key];
+															onChange('extras', partner.extras);
+														}}
+													/>
+												</React.Fragment>
+											)}
+											{editMode && (
+												<React.Fragment>
+													<i
+														className='fas fa-times p-1 text-primary'
+														onClick={() => setEditMode(false)}
+													/>
+												</React.Fragment>
+											)}
+										</span>
+									</div>
+								</div>
+								{editMode && (
+									<div className='d-flex justify-content-end'>
+										<input
+											type='text'
+											onChange={(e) => {
+												partner.extras[key] = e.target.value;
+												onChange('extras', partner.extras);
+											}}
+											value={partner.extras[key]}
+										/>
+									</div>
+								)}
+							</div>
+						);
+					})}
 				</div>
 			</div>
 		</div>

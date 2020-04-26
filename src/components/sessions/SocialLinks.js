@@ -38,10 +38,13 @@ class SocialLinks extends Component {
 
 	googleAuthorize(data) {
 		console.log('Google login', data);
+		this.props.setLoading(true);
 		authorizeGoogle(data)
 			.then((resp) => {
 				console.log('Google Login Successfull', resp);
 				this.props.loginUser(resp.data.user);
+				this.props.setLoading(false);
+
 				localStorage.setItem('token', resp.data.jwt);
 				history.push(this.props.redirectUrl);
 			})
