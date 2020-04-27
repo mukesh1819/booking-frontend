@@ -71,7 +71,6 @@ class EditPassengers extends Component {
 		const {nationality, currentUser, countries} = this.props;
 		const {booking, passengers} = this.props.location.state;
 		const {viewDetails} = this.state;
-		debugger;
 
 		return (
 			<div id='passenger-form'>

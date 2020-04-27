@@ -65,7 +65,7 @@ class UserLayout extends Component {
 		];
 		return (
 			<div id='content'>
-				<NavBar sideBarIsVisible={sideBarIsVisible} toggleSidebar={this.toggleSidebar} />
+				<NavBar sideBarIsVisible={sideBarIsVisible} toggleSidebar={() => this.toggleSidebar()} />
 				<Slidebar
 					isVisible={this.state.sideBarIsVisible}
 					items={sideBarMenu}

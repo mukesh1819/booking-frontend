@@ -45,7 +45,6 @@ class SignUpForm extends Component {
 		if (this.props.location.state !== undefined) {
 			redirectUrl = this.props.location.state.from;
 		}
-		debugger;
 		return (
 			<div className='container login-page'>
 				<div className='row justify-content-center align-items-center'>
