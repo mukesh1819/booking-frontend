@@ -47,7 +47,7 @@ class FinalBookingDetails extends Component {
 		}
 
 		return (
-			<div className='container p-3'>
+			<div className='container py-3 px-md-3'>
 				<div className='d-flex justify-content-between'>
 					<span className='text-bold'>Flight Details</span>
 					<span className='text-danger'>
@@ -73,7 +73,16 @@ class FinalBookingDetails extends Component {
 					<div className='card-body'>
 						<div className='d-flex justify-content-between'>
 							<h3 className='title'>Passenger Details</h3>
-							<Link to={`/booking/${booking.ruid}/edit`} className='btn btn-outline-primary'>
+							<Link
+								to={{
+									pathname: `/passengers/edit`,
+									state: {
+										passengers: passengers,
+										booking: booking
+									}
+								}}
+								className='btn btn-outline-primary'
+							>
 								MODIFY
 							</Link>
 						</div>

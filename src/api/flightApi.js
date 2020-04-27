@@ -1,6 +1,14 @@
 import axios from 'axios';
-import {handleResponse, handleError, useInterceptor} from './apiUtils';
-import {FLIGHT_API_URL, BASE_URL, API_URL} from '../constants/index.js';
+import {
+	handleResponse,
+	handleError,
+	useInterceptor
+} from './apiUtils';
+import {
+	FLIGHT_API_URL,
+	BASE_URL,
+	API_URL
+} from '../constants/index.js';
 import history from '../history';
 import swal from 'sweetalert';
 
@@ -39,6 +47,15 @@ export function createBooking(formData) {
 		data: formData
 	});
 }
+
+export function updateBooking(idx, formData) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/bookings/${idx}`,
+		data: formData
+	});
+}
+
 
 export function cancelUserTickets(ids) {
 	return axios({
@@ -83,17 +100,10 @@ export function getCountries() {
 	});
 }
 
-export function downloadTicket(ruid) {
+export function fetchTicket(ruid) {
 	return axios({
 		url: `${BASE_URL}/${ruid}/download_ticket.pdf`,
 		method: 'GET',
 		responseType: 'blob'
-	}).then((response) => {
-		const url = window.URL.createObjectURL(new Blob([response.data]));
-		const link = document.createElement('a');
-		link.href = url;
-		link.setAttribute('download', 'file.pdf');
-		document.body.appendChild(link);
-		link.click();
-	});
+	})
 }

@@ -1,5 +1,13 @@
-import {handleResponse} from './handleResponse';
-import {authHeader, isAdmin, isLoggedIn, passCsrfToken, logout} from './authHelper';
+import {
+	handleResponse
+} from './handleResponse';
+import {
+	authHeader,
+	isAdmin,
+	isLoggedIn,
+	passCsrfToken,
+	logout
+} from './authHelper';
 import {
 	sortObjectBy,
 	subDays,
@@ -15,10 +23,14 @@ import {
 	calculatePackagePrice,
 	nationGroup,
 	numberWithCommas,
-	roleBasedUrl
+	roleBasedUrl,
+	downloadTicket
 } from './general';
 
-import {flagFor, companyDetails} from './variables';
+import {
+	flagFor,
+	companyDetails
+} from './variables';
 
 export {
 	handleResponse,
@@ -43,5 +55,6 @@ export {
 	calculatePackagePrice,
 	nationGroup,
 	numberWithCommas,
-	roleBasedUrl
+	roleBasedUrl,
+	downloadTicket
 };

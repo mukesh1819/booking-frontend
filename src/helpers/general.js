@@ -170,3 +170,13 @@ export function nationGroup(countries, group) {
 export function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+
+export function downloadTicket(pdf) {
+	const url = window.URL.createObjectURL(new Blob([pdf]));
+	const link = document.createElement('a');
+	link.href = url;
+	link.setAttribute('download', 'file.pdf');
+	document.body.appendChild(link);
+	link.click();
+}
