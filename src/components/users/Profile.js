@@ -101,9 +101,7 @@ class Profile extends Component {
 							<Editable
 								edit={!updating}
 								label='Contact No'
-								value={`${currentUser.code == null
-									? ''
-									: currentUser.code} ${currentUser.phone_number}`}
+								value={currentUser.phone_number}
 								onSubmit={(value) => this.update(currentUser.id, {phone_number: value})}
 							/>
 							{/* <Editable

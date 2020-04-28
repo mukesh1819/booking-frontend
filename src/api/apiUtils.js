@@ -37,11 +37,9 @@ export function useInterceptor(axios) {
 
 	axios.interceptors.response.use(
 		(response) => {
-			debugger;
 			return response;
 		},
 		function (error) {
-			debugger;
 			const originalRequest = error.config;
 			if (error.message === 'Network Error') {
 				swal({
@@ -75,7 +73,7 @@ export function useInterceptor(axios) {
 			} else if (error.response.status === 400) {
 				swal({
 					title: error.response.data.exception,
-					text: error.response.data.message.join("/n"),
+					text: error.response.data.message,
 					icon: 'error',
 					button: 'Try Again!'
 				});

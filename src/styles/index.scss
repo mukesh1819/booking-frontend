@@ -28,8 +28,7 @@ $font40: 40px;
 	}
 }
 
-html {
-}
+html {}
 
 body {
 	font-family: $font-secondary;
@@ -45,8 +44,7 @@ body {
 	grid-template-rows: 1fr auto;
 }
 
-#content {
-}
+#content {}
 
 #footer {
 	grid-row-start: 2;
@@ -371,7 +369,6 @@ section {
 		display: block;
 		padding: 8px;
 		background-color: white;
-		height: 100vh;
 
 		.item {
 			padding: 10px 10px;
