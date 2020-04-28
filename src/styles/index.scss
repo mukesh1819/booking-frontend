@@ -683,10 +683,15 @@ footer {
 // Image Gallery
 .img-gallery {
 	.active-image-container {
-		min-width: 400px;
-		max-width: 1000px;
-		min-height: 400px;
-		max-height: 1000px;
+		// min-width: 400px;
+		// max-width: 1000px;
+		// min-height: 400px;
+		// max-height: 1000px;
+		height: 70vh;
+
+		img {
+			max-height: 100%;
+		}
 	}
 }
 
