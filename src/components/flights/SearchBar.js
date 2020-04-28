@@ -3,8 +3,6 @@ import {getCities, getFlight} from '../../api/flightApi';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {DatePicker, Counter, Loading as LoadingScreen, Modal, IconInput, Dropdown as DropdownItem} from '../shared';
-import {getFlights} from '../../api/flightApi';
-import FlightList from './FlightList';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
@@ -12,16 +10,9 @@ import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import {connect} from 'react-redux';
 import {setFlights, setSearchDetails, setTTLtime, setError, clearFlights} from '../../redux/actions';
 import history from '../../history';
-import {Container, Segment} from 'semantic-ui-react';
-import {Button, ButtonGroup} from 'react-bootstrap';
-import {Input} from 'semantic-ui-react';
-import moment from 'moment';
-import ReactDOM from 'react-dom';
 import {Dropdown} from 'semantic-ui-react';
-import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Radio} from 'semantic-ui-react';
-import swal from 'sweetalert';
 
 class SearchBar extends Component {
 	constructor(props) {

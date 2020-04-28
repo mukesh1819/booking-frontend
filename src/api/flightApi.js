@@ -19,10 +19,18 @@ export function getCities() {
 }
 
 export function getFlights(formData) {
+	var flightDate = formData.strFlightDate;
+	var returnDate = formData.strReturnDate;
+	flightDate.setHours(12, 0, 0);
+	returnDate.setHours(12, 0, 0);
 	return axios({
 		method: 'get',
 		url: `${FLIGHT_API_URL}/search`,
-		params: formData
+		params: {
+			...formData,
+			strFlightDate: flightDate,
+			strReturnDate: returnDate
+		}
 	});
 }
 

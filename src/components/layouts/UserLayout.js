@@ -13,11 +13,11 @@ class UserLayout extends Component {
 
 	componentDidMount() {}
 
-	toggleSidebar() {
+	toggleSidebar = () => {
 		this.setState((prevState, props) => {
 			return {sideBarIsVisible: !prevState.sideBarIsVisible};
 		});
-	}
+	};
 
 	render() {
 		const {currentUser, language, currency, children} = this.props;

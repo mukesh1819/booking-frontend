@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import {getCities, getFlight} from '../../api/flightApi';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {getFlights} from '../../api/flightApi';
-import FlightList from './FlightList';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 
 import * as yup from 'yup';

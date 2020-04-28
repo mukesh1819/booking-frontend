@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {getFlights} from '../../api/flightApi';
-import FlightList from './FlightList';
 import {createBooking} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
