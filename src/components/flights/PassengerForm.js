@@ -1,22 +1,10 @@
 import React, {Component} from 'react';
-import {getCities, getFlight} from '../../api/flightApi';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {getFlights} from '../../api/flightApi';
-import FlightList from './FlightList';
-import {createBooking} from '../../api/flightApi';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions';
 import ErrorMessage from '../ErrorMessage';
-import FinalBookingDetails from './FinalBookingDetails';
-import swal from 'sweetalert';
-import {Timer, Accordion} from '../shared';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown, Input} from 'semantic-ui-react';
-import {getPassengers} from '../../redux/selectors';
 
 import './flights.scss';
 

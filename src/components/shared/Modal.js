@@ -17,7 +17,7 @@ const ModalExample = (props) => {
 			)}
 			<Modal.Content scrolling>{children}</Modal.Content>
 			{buttonLabel !== undefined && (
-				<Modal.Actions>
+				<Modal.Actions className='text-center'>
 					<Button
 						primary
 						onClick={() => {

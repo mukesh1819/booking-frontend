@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getUserDetails} from '../api/userApi';
 import {loginUser} from '../redux/actions';
 import swal from 'sweetalert';
+import {ContentWrapper} from './content';
 
 class AppRoute extends Component {
 	constructor(props) {
@@ -17,7 +18,7 @@ class AppRoute extends Component {
 				{...rest}
 				render={(props) => (
 					<Layout>
-						<Component {...props} />
+						<ContentWrapper {...props} component={Component} />
 					</Layout>
 				)}
 			/>

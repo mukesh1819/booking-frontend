@@ -3,8 +3,6 @@ import {
 	addDays
 } from '../../helpers';
 
-const tomorrow = addDays(new Date(), 1);
-
 const initialState = {
 	flights: {
 		outbounds: [],
@@ -15,8 +13,8 @@ const initialState = {
 	selectedOutboundFlight: null,
 	searchDetails: {
 		strTripType: 'O',
-		strFlightDate: tomorrow,
-		strReturnDate: tomorrow,
+		strFlightDate: new Date(),
+		strReturnDate: new Date(),
 		strNationality: '',
 		intAdult: 1,
 		intChild: 0,

@@ -182,7 +182,7 @@ class InquiryForm extends Component {
 													type='date'
 													date={values.preferred_date}
 													minDate={new Date()}
-													maxDate={addDays(new Date(), 45)}
+													maxDate={addDays(new Date(), 365)}
 													onBlur={handleBlur}
 													onChange={(date) => setFieldValue('preferred_date', date)}
 													value={values.preferred_date}

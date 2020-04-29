@@ -19,40 +19,49 @@ class Categories extends Component {
 		$(document).ready(function() {});
 	}
 
-	fetchDetails() {
-		const options = {
-			margin: 10,
-			loop: true,
-			touchDrag: true,
-			rewind: true,
-			animateIn: true,
-			responsive: {
-				0: {
-					items: 1,
-					nav: false
-				},
-				600: {
-					items: 3,
-					nav: false
-				},
-				1000: {
-					items: 4,
-					nav: true,
-					navText: [
-						"<i class='fas fa-chevron-circle-left text-primary'></i>",
-						"<i class='fas fa-chevron-circle-right text-primary'></i>"
-					],
-					loop: true
+	componentDidUpdate(prevProps) {
+		if (this.state.categories.length > 0) {
+			const options = {
+				margin: 10,
+				touchDrag: true,
+				rewind: true,
+				animateIn: true,
+				responsive: {
+					0: {
+						items: 2,
+						nav: false,
+						autoWidth: true
+					},
+					600: {
+						items: 3,
+						nav: false
+					},
+					1000: {
+						items: 4,
+						nav: true,
+						navText: [
+							"<i class='fas fa-chevron-circle-left text-primary'></i>",
+							"<i class='fas fa-chevron-circle-right text-primary'></i>"
+						],
+						loop: true
+					}
 				}
-			}
-		};
+			};
+			$(window).on('load', function() {
+				$('.owl-carousel').owlCarousel(options);
+				$('.owl-carousel').trigger('play.owl.autoplay');
+				$('.owl-carousel').trigger('refresh.owl.carousel');
+			});
+		}
+	}
+
+	fetchDetails() {
 		getCategories()
 			.then((response) => {
 				console.log('CATEGORIES', response);
 				this.setState({
 					categories: response.data
 				});
-				$('.owl-carousel').owlCarousel(options);
 			})
 			.catch((error) => {
 				console.log(' Category fetch error', error);
