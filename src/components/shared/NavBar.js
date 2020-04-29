@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
@@ -14,7 +14,8 @@ import axios from 'axios';
 import {Flag, Segment} from 'semantic-ui-react';
 
 const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutUser}) => {
-	const loggedIn = currentUser.email !== undefined;
+	const [loggedIn, setLoggedIn] = useState(currentUser.email !== undefined);
+
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 			<div className='container align-items-stretch'>
@@ -86,27 +87,24 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 					{loggedIn && (
 						<Dropdown icon='fas fa-user' title={userInitials(currentUser)} className='text-white pl-3'>
 							<ul className='text-normal'>
-								{loggedIn && (
-									<li className='m-0'>
-										<Link to='/profile' className='item text-bold'>
-											Profile
-										</Link>
-									</li>
-								)}
-								{loggedIn && (
-									<li className='m-0'>
-										<a
-											className='item text-bold'
-											onClick={() => {
-												logoutUser();
-												history.push('/login');
-												logout();
-											}}
-										>
-											Logout
-										</a>
-									</li>
-								)}
+								<li className='m-0'>
+									<Link to='/profile' className='item text-bold'>
+										Profile
+									</Link>
+								</li>
+								<li className='m-0'>
+									<a
+										className='item text-bold'
+										onClick={() => {
+											logoutUser();
+											history.push('/login');
+											setLoggedIn(false);
+											logout();
+										}}
+									>
+										Logout
+									</a>
+								</li>
 							</ul>
 						</Dropdown>
 					)}

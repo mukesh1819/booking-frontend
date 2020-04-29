@@ -28,8 +28,9 @@ class Categories extends Component {
 				animateIn: true,
 				responsive: {
 					0: {
-						items: 1,
-						nav: false
+						items: 2,
+						nav: false,
+						autoWidth: true
 					},
 					600: {
 						items: 3,
