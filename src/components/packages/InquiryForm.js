@@ -41,7 +41,6 @@ class InquiryForm extends Component {
 		const {countries} = this.props;
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
 		const aPackage = inquiry.package != null ? inquiry.package : this.props.location.state.aPackage;
-
 		const InquiriesSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
@@ -146,7 +145,7 @@ class InquiryForm extends Component {
 											<span className=''>Package Name: </span>&nbsp;
 											<span className='text-primary title'>{aPackage.name}</span>
 										</div>
-										{aPackage.activities && (
+										{(aPackage.activities && aPackage.activities.length > 0) && (
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
 													<label>Select Activity</label>
