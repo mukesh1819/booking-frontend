@@ -65,7 +65,7 @@ export function useInterceptor(axios) {
 			} else if (error.response.status === 422) {
 				swal({
 					title: '',
-					text: error.response.data.errors,
+					text: error.response.data.errors.join("/n"),
 					icon: 'error',
 					button: 'Try Again!'
 				});
