@@ -126,7 +126,6 @@ class FlightList extends Component {
 
 	componentDidUpdate(prevProps) {
 		if (this.state.loading) {
-			debugger;
 			getFlights(this.props.searchDetails)
 				.then((response) => {
 					this.props.setFlights(response.data.data);

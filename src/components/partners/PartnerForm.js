@@ -29,6 +29,7 @@ class PartnerForm extends Component {
 		const {partnerIsValid} = this.state;
 		const {countries, currentUser, nextStep} = this.props;
 		var userName = '';
+
 		if (Object.keys(currentUser).length !== 0) {
 			userName = currentUser.name.split(' ');
 		}
@@ -36,9 +37,9 @@ class PartnerForm extends Component {
 		const PartnersSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
-			email: yup.string().required('Required'),
+			email: yup.string().email(),
 			code: yup.string().required('Required'),
-			contact_number: yup.number().typeError('Not a valid mobile number').required('Required'),
+			contact_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character'),
 			country: yup.string().required('Required'),
 			city: yup.string().required('Required')
 		});

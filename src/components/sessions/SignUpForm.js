@@ -83,7 +83,7 @@ class SignUpForm extends Component {
 									})
 									.catch((error) => {
 										setSubmitting(false);
-										this.setLoading(true);
+										this.setLoading(false);
 										console.log(' signup failed error', error);
 									});
 							}}
