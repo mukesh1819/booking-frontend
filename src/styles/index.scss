@@ -18,6 +18,8 @@ $font30: 30px;
 $font32: 32px;
 $font40: 40px;
 
+$input-height: 44px;
+
 * {
 	&:focus {
 		outline: none;
@@ -331,7 +333,7 @@ section {
 
 .form-control {
 	border: 1px solid #dddddd;
-	height: 44px;
+	height: $input-height;
 	margin: 2px;
 	@include border-radius(5px);
 }

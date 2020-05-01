@@ -92,13 +92,17 @@ class CustomerSupport extends Component {
 				menuItem: 'Email Us',
 				render: () => (
 					<Tab.Pane attached={false}>
-						<MailBox
-							values={{
-								description: '',
-								subject: '',
-								email: 'anup.singh2071@gmail.com'
-							}}
-						/>
+						<div className='row'>
+							<div className='col-md-6 offset-md-3'>
+								<MailBox
+									values={{
+										description: '',
+										subject: '',
+										email: 'anup.singh2071@gmail.com'
+									}}
+								/>
+							</div>
+						</div>
 					</Tab.Pane>
 				)
 			},
@@ -119,9 +123,13 @@ class CustomerSupport extends Component {
 				menuItem: 'Chat',
 				render: () => (
 					<Tab.Pane attached={false}>
-						<iframe src={companyDetails.directChat} style={{width: '100%', height: '440px'}}>
-							<a href={companyDetails.directChat} />
-						</iframe>
+						<div className='row'>
+							<div className='col-md-6 offset-md-3'>
+								<iframe src={companyDetails.directChat} style={{width: '100%', height: '440px'}}>
+									<a href={companyDetails.directChat} />
+								</iframe>
+							</div>
+						</div>
 					</Tab.Pane>
 				)
 			}
