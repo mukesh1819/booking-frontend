@@ -73,7 +73,9 @@ class EditBooking extends Component {
 					first_name: yup.string().required('Required'),
 					last_name: yup.string().required('Required'),
 					gender: yup.string().required('Required'),
-					nationality: yup.string().required('Required')
+					nationality: yup.string().required('Required'),
+					phone_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character').required('Required'),
+					email: yup.string().email().required('Required')
 				})
 			)
 		});
@@ -201,6 +203,7 @@ class EditBooking extends Component {
 											onChange={handleChange}
 											value={values.user.phone_number}
 										/>
+										<ErrorMessage name='user.phone_number' />
 									</div>
 
 									<div className='field-box'>
@@ -213,6 +216,7 @@ class EditBooking extends Component {
 											onChange={handleChange}
 											value={values.user.email}
 										/>
+										<ErrorMessage name='user.email' />
 									</div>
 								</div>
 								<h3 className='p-2'>Passenger details</h3>

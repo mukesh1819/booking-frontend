@@ -44,8 +44,8 @@ class InquiryForm extends Component {
 		const InquiriesSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
-			email_address: yup.string().required('Required'),
-			phone: yup.number().typeError('Not a valid mobile number').required('Required'),
+			email_address: yup.string().email().required('Required'),
+			phone: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character').required('Required'),
 			nationality: yup.string().required('Required'),
 			address: yup.string().required('Required'),
 			city: yup.string().required('Required'),

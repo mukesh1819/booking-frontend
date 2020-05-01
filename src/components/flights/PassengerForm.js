@@ -39,8 +39,8 @@ class PassengerForm extends Component {
 			user: yup.object().shape({
 				name: yup.string().required('Required'),
 				code: yup.string().required('Required'),
-				phone_number: yup.string().required('Required'),
-				email: yup.string().required('Required')
+				phone_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character').required('Required'),
+				email: yup.string().email().required('Required')
 			})
 		});
 

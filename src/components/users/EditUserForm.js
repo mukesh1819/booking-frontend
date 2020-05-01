@@ -51,6 +51,7 @@ class EditUserForm extends Component {
 		const {countries} = this.props;
 		const {user} = this.props.location.state ? this.props.location.state : '';
 		const UpdateSignupForm = yup.object().shape({
+			email: yup.string().email().required('Required'),
 			password_confirmation: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match!")
 		});
 
@@ -145,6 +146,7 @@ class EditUserForm extends Component {
 														onChange={handleChange}
 														value={values.email}
 													/>
+													<ErrorMessage name='email' />
 												</Form.Field>
 
 												<Form.Field>

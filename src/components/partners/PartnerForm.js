@@ -37,11 +37,12 @@ class PartnerForm extends Component {
 		const PartnersSchema = yup.object().shape({
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
-			email: yup.string().email(),
+			email: yup.string().email().required('Required'),
 			code: yup.string().required('Required'),
-			contact_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character'),
+			contact_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character').required('Required'),
 			country: yup.string().required('Required'),
 			city: yup.string().required('Required')
+			
 		});
 
 		const partnerDetails = {

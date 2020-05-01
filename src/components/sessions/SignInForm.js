@@ -8,6 +8,7 @@ import {NavBar} from '../shared';
 import {Link, Redirect} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
 import {roleBasedUrl} from '../../helpers';
+import * as yup from 'yup';
 import {Segment} from 'semantic-ui-react';
 
 class SignInForm extends Component {
@@ -28,6 +29,10 @@ class SignInForm extends Component {
 		const {currentUser} = this.props;
 		const {loading} = this.state;
 		var redirectUrl = '/';
+		const UsersSigninForm = yup.object().shape({
+			email: yup.string().email().required('Required'),
+			password: yup.string().required('Required')
+		});
 		if (this.props.location.state !== undefined) {
 			redirectUrl = this.props.location.state.from.pathname;
 		}
@@ -43,6 +48,7 @@ class SignInForm extends Component {
 								email: '',
 								password: ''
 							}}
+							validationSchema={UsersSigninForm}
 							onSubmit={async (values, {setSubmitting, setStatus}) => {
 								this.setState({
 									loading: true
@@ -112,6 +118,7 @@ class SignInForm extends Component {
 															value={values.email}
 															placeholder='Email'
 														/>
+														<ErrorMessage name='email' />
 													</div>
 
 													<div className='field'>
@@ -126,6 +133,7 @@ class SignInForm extends Component {
 															value={values.password}
 															placeholder='Password'
 														/>
+														<ErrorMessage name='password' />
 													</div>
 													<div className='text-small'>
 														<Link to='/forgot'>Forgot Password?</Link>

@@ -33,6 +33,8 @@ class SignUpForm extends Component {
 		const {outboundFlights, inboundFlights, selectedInboundFlight, selectedOutboundFlight, countries} = this.props;
 		const {loading} = this.state;
 		const UsersSignupForm = yup.object().shape({
+			email: yup.string().email().required('Required'),
+			phone_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character'),
 			password: yup.string().required('Required'),
 			password_confirmation: yup
 				.string()
@@ -135,6 +137,7 @@ class SignUpForm extends Component {
 																value={values.email}
 																placeholder='Email'
 															/>
+											`				<ErrorMessage name='email' />
 														</div>
 
 														<div className='field-box'>
@@ -169,6 +172,7 @@ class SignUpForm extends Component {
 																onChange={handleChange}
 																value={values.phone_number}
 															/>
+															<ErrorMessage name='phone_number' />
 														</div>
 
 														<div className='field-box'>

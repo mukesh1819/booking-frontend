@@ -30,7 +30,9 @@ class CompanyForm extends Component {
 			company_name: yup.string().required('Required'),
 			company_type: yup.string('String').required('Required'),
 			company_address: yup.string('String').required('Required'),
-			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions')
+			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions'),
+			company_email: yup.string().email(),
+			company_contact_number: yup.string().matches(new RegExp('[0-9]{7}'))
 		});
 
 		const partnerDetails = {
