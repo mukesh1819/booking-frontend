@@ -1,7 +1,8 @@
 $danger: #d9534f !default;
 $primary: #253f72;
 $info: #5bc0de !default;
-$secondary: #9e845b;
+$secondary: #253f72;
+$accent: #9e845b;
 $success: #5cb85c !default;
 $warning: #f0ad4e !default;
 
@@ -17,7 +18,6 @@ $primary-light: rgba($primary, .1);
 
 $fb-color: #4267B2;
 $google-color: #53A1DB;
-$accent: #09C6AB;
 
 $link-color: #253f72;
 $link-hover-color: darken($link-color, 15%) !default;
