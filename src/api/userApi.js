@@ -52,6 +52,14 @@ export function sendUserEmail(data) {
 	});
 }
 
+export function sendEmail(data) {
+	return axios({
+		method: 'post',
+		url: `${BASE_URL}/admin/user_support_email`,
+		data: data
+	});
+}
+
 export function authorizeGoogle(data) {
 	return axios({
 		method: 'post',

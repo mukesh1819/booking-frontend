@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {loginUser} from '../../redux/actions';
 import {companyDetails} from '../../helpers';
 import {MailBox} from '../shared';
 import {Tab, Accordion, Icon, Search} from 'semantic-ui-react';
@@ -6,6 +8,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import swal from 'sweetalert';
 import {getFaqs} from '../../api/supportApi';
+import {sendEmail} from '../../api/userApi';
 import _ from 'lodash';
 
 class CustomerSupport extends Component {
@@ -37,6 +40,24 @@ class CustomerSupport extends Component {
 			.catch((error) => {
 				console.log(' Faq fetch error', error);
 			});
+	}
+
+	emailUser(variables){
+		sendEmail(variables)
+		.then((response) => {
+			// console.log(response);
+			swal({
+				title: 'Email Sent!',
+				text: response.message,
+				icon: 'success',
+				button: 'Continue!'
+			});
+		})
+		.catch((error) => {
+			console.log("support email error",error);
+			
+		});
+
 	}
 
 	handleClick = (e, titleProps) => {
@@ -87,6 +108,7 @@ class CustomerSupport extends Component {
 	render() {
 		const {faqs, activeIndex, selectedCategory} = this.state;
 		const {isLoading, value, results, searchedFaq} = this.state;
+		const {currentUser} = this.props;
 		const panes = [
 			{
 				menuItem: 'Email Us',
@@ -96,8 +118,10 @@ class CustomerSupport extends Component {
 							values={{
 								description: '',
 								subject: '',
-								email: 'anup.singh2071@gmail.com'
+								email: currentUser.email
 							}}
+
+							sendEmail={(values) => this.emailUser(values)}
 						/>
 					</Tab.Pane>
 				)
@@ -230,5 +254,14 @@ class CustomerSupport extends Component {
 		);
 	}
 }
+const mapStateToProps = ({userStore}) => {
+	return {
+		currentUser: userStore.currentUser
+	};
+};
 
-export default CustomerSupport;
+const mapDispatchToProps = {
+	loginUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerSupport);
