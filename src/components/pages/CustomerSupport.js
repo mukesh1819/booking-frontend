@@ -118,7 +118,7 @@ class CustomerSupport extends Component {
 									values={{
 										description: '',
 										subject: '',
-										email: 'anup.singh2071@gmail.com'
+										email: currentUser.email
 									}}
 									sendEmail={(values) => this.emailUser(values)}
 								/>

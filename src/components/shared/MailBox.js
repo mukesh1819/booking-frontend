@@ -15,8 +15,8 @@ export default ({values, sendEmail}) => {
 						subject: values.subject
 					}
 				};
-				sendEmail(variables)
-				
+				sendEmail(variables);
+				setSubmitting(false);
 			}}
 		>
 			{({
