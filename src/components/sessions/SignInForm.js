@@ -89,7 +89,7 @@ class SignInForm extends Component {
 						<Segment loading={loading}>
 							<div className='login-form card p-2'>
 								<div className='card-body'>
-									<h3>Log in</h3>
+									<h3>Login</h3>
 									<div className='text-small'>
 										Don't have an account?{' '}
 										<Link to={{pathname: '/signup', state: {from: redirectUrl}}}>
@@ -137,7 +137,7 @@ class SignInForm extends Component {
 											Sign In
 										</button>
 										<hr />
-										<div className='text-center text-small mb-2'>Sign In with </div>
+										<div className='text-center text-small mb-2'>Sign in with </div>
 										<SocialLinks
 											redirectUrl={redirectUrl}
 											setLoading={(status) => this.setLoading(status)}

@@ -81,7 +81,7 @@ class CustomerSupport extends Component {
 				});
 
 			var results = _.filter(this.state.faqs, function(e) {
-				return e.question.includes(value);
+				return e.question.toLowerCase().includes(value.toLowerCase());
 			}).map((v) => ({
 				title: v.question,
 				description: v.answer

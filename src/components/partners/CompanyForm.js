@@ -14,6 +14,7 @@ import swal from 'sweetalert';
 import {Input, Checkbox} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 class CompanyForm extends Component {
 	constructor(props) {
@@ -23,14 +24,20 @@ class CompanyForm extends Component {
 
 	componentDidMount() {}
 
+	onCaptchaChange(value) {
+		console.log('Captcha value:', value);
+	}
+
 	render() {
 		const {prevStep, nextStep} = this.props;
 
 		const PartnersSchema = yup.object().shape({
 			company_name: yup.string().required('Required'),
+			company_email: yup.string().email(),
 			company_type: yup.string('String').required('Required'),
 			company_address: yup.string('String').required('Required'),
-			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions')
+			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions'),
+			captcha: yup.string().required('Required')
 		});
 
 		const partnerDetails = {
@@ -41,7 +48,8 @@ class CompanyForm extends Component {
 			website: '',
 			company_contact_number: '',
 			subscription: false,
-			accept_terms: false
+			accept_terms: false,
+			captcha: ''
 		};
 		return (
 			<Formik
@@ -243,9 +251,20 @@ class CompanyForm extends Component {
 										<ErrorMessage name='accept_terms' />
 									</div>
 								</div>
+								<div className='col-12'>
+									<div className='field-box'>
+										<div>
+											<ReCAPTCHA
+												sitekey={process.env.REACT_APP_CAPTCHA_KEY}
+												onChange={(value) => setFieldValue('captcha', value)}
+											/>
+											<ErrorMessage name='captcha' />
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class='d-flex justify-content-end'>
+						<div class='d-flex justify-content-center'>
 							<button className='btn btn-outline-primary m-2' type='button' onClick={prevStep}>
 								Back
 							</button>

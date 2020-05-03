@@ -13,7 +13,7 @@ import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import swal from 'sweetalert';
-import {sortObjectBy} from '../../helpers';
+import {sortObjectBy, phoneValidate} from '../../helpers';
 
 class PartnerForm extends Component {
 	constructor(props) {
@@ -38,8 +38,8 @@ class PartnerForm extends Component {
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
 			email: yup.string().email(),
-			code: yup.string().required('Required'),
-			contact_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character'),
+			code: yup.string().typeError('Select a code').required('Required'),
+			contact_number: phoneValidate(yup).required('Required'),
 			country: yup.string().required('Required'),
 			city: yup.string().required('Required')
 		});
@@ -204,7 +204,7 @@ class PartnerForm extends Component {
 									</div>
 								</div>
 								<div class='text-center'>
-									<button className='btn btn-primary m-2' type='submit' disabled={isSubmitting}>
+									<button className='btn btn-primary mt-4' type='submit' disabled={isSubmitting}>
 										Continue
 									</button>
 								</div>

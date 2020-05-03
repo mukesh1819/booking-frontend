@@ -13,7 +13,7 @@ const AdminLayout = ({currentUser, children}) => {
 			<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 				<div className='container align-items-stretch'>
 					<div className='navbar-header d-flex align-items-center'>
-						<Link to='/' className='navbar-brand animated bounce delay-2s'>
+						<Link to='/admin' className='navbar-brand animated bounce delay-2s'>
 							visitallnepal.com
 						</Link>
 					</div>
