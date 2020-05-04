@@ -11,7 +11,7 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken, nationGroup} from '../../helpers';
+import {passCsrfToken, nationGroup, phoneValidate} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
@@ -23,8 +23,8 @@ class PassengerForm extends Component {
 	}
 
 	render() {
-		const {passengers, nationality, currentUser, countries, onSubmit} = this.props;
-		currentUser.code = currentUser.country;
+		const {passengers, contactDetails, nationality, countries, onSubmit} = this.props;
+		contactDetails.code = contactDetails.country;
 		var sortedCountries = sortObjectBy(this.props.countries, 'code');
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -39,14 +39,15 @@ class PassengerForm extends Component {
 			user: yup.object().shape({
 				name: yup.string().required('Required'),
 				code: yup.string().required('Required'),
-				phone_number: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character').required('Required'),
-				email: yup.string().email().required('Required')
+				email: yup.string().email().required('Required'),
+				phone_number: phoneValidate(yup).required('Required')
+				
 			})
 		});
 
 		const initialValues = {
 			passengers: passengers,
-			user: currentUser
+			user: contactDetails
 		};
 
 		return (
@@ -357,7 +358,6 @@ const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 		selectedOutboundFlight: flightStore.selectedOutboundFlight,
 		nationality: flightStore.searchDetails.strNationality,
 		booking: bookingStore.booking,
-		currentUser: userStore.currentUser,
 		ttlTime: flightStore.ttlTime,
 		countries: extras.countries
 	};

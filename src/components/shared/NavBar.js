@@ -14,8 +14,7 @@ import axios from 'axios';
 import {Flag, Segment} from 'semantic-ui-react';
 
 const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutUser}) => {
-	const [loggedIn, setLoggedIn] = useState(currentUser.email !== undefined);
-
+	const loggedIn = currentUser.email !== undefined;
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 			<div className='container align-items-stretch'>
@@ -98,7 +97,6 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 										onClick={() => {
 											logoutUser();
 											history.push('/login');
-											setLoggedIn(false);
 											logout();
 										}}
 									>

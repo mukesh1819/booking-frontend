@@ -213,7 +213,7 @@ class FlightList extends Component {
 						{searching ? (
 							<div className='search-details'>
 								<span className='collapse-btn p-3' onClick={() => this.setSearch(false)}>
-									<i className='fas fa-times text-secondary' />
+									<i className='fas fa-times color-accent' />
 								</span>
 								<SearchBar
 									onSearch={() => {

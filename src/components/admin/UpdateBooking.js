@@ -125,7 +125,7 @@ class UpdateBooking extends Component {
 																	cancel
 																</span>
 																<span
-																	className='btn bg-none text-secondary'
+																	className='btn bg-none color-accent'
 																	onClick={() =>
 																		this.adminIgnoreRequest(passenger.idx)}
 																>

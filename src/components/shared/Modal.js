@@ -18,14 +18,14 @@ const ModalExample = (props) => {
 			<Modal.Content scrolling>{children}</Modal.Content>
 			{buttonLabel !== undefined && (
 				<Modal.Actions className='text-center'>
-					<Button
-						primary
+					<span
+						className='btn btn-primary'
 						onClick={() => {
 							onSuccess();
 						}}
 					>
-						{buttonLabel} <Icon name='chevron right' />
-					</Button>
+						{buttonLabel}
+					</span>
 				</Modal.Actions>
 			)}
 		</Modal>

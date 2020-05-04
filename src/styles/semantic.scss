@@ -16,6 +16,7 @@
 
     input {
         z-index: 11;
+        height: 44px;
     }
 
     .search {
@@ -80,7 +81,6 @@
         }
     }
 }
-
 
 .ui {
     &.modals {

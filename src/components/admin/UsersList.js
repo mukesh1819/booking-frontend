@@ -34,9 +34,6 @@ class UsersList extends Component {
 			})
 			.catch((error) => {
 				// console.log(errors);
-				this.setState({
-					errors
-				});
 				console.log(' User fetch error', error);
 			});
 	};

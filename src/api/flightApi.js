@@ -1,14 +1,6 @@
 import axios from 'axios';
-import {
-	handleResponse,
-	handleError,
-	useInterceptor
-} from './apiUtils';
-import {
-	FLIGHT_API_URL,
-	BASE_URL,
-	API_URL
-} from '../constants/index.js';
+import {handleResponse, handleError, useInterceptor} from './apiUtils';
+import {FLIGHT_API_URL, BASE_URL, API_URL} from '../constants/index.js';
 import history from '../history';
 import swal from 'sweetalert';
 
@@ -41,6 +33,13 @@ export function getBookingDetails(ruid) {
 	});
 }
 
+export function getPassengerDetails(ruid) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/api/bookings/${ruid}/passengers`
+	});
+}
+
 export function deleteBooking(id) {
 	return axios({
 		method: 'delete',
@@ -63,7 +62,6 @@ export function updateBooking(idx, formData) {
 		data: formData
 	});
 }
-
 
 export function cancelUserTickets(ids) {
 	return axios({
@@ -113,5 +111,5 @@ export function fetchTicket(ruid) {
 		url: `${BASE_URL}/${ruid}/download_ticket.pdf`,
 		method: 'GET',
 		responseType: 'blob'
-	})
+	});
 }

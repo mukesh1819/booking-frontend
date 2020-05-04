@@ -8,6 +8,7 @@ import {PaymentForm} from '../payments';
 import {Link} from 'react-router-dom';
 import {getDuration} from '../../helpers';
 import history from '../../history';
+import {makePayment} from '../../api/paymentApi';
 
 class FinalBookingDetails extends Component {
 	constructor(props) {
@@ -43,7 +44,11 @@ class FinalBookingDetails extends Component {
 		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.reservation_time));
 		if (redirectToPayment) {
 			// return <PaymentForm idx={transaction.idx} />;
-			history.push(`/payment_success/${booking.ruid}`);
+			makePayment(transaction)
+				.then((response) => {
+					history.push(`/payment_success/${booking.ruid}`);
+				})
+				.catch((error) => console.log('Payment Error', error));
 		}
 
 		return (
@@ -75,7 +80,7 @@ class FinalBookingDetails extends Component {
 							<h3 className='title'>Passenger Details</h3>
 							<Link
 								to={{
-									pathname: `/passengers/edit`,
+									pathname: `/passengers/${booking.ruid}/edit`,
 									state: {
 										passengers: passengers,
 										booking: booking

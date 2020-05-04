@@ -37,23 +37,6 @@ class BecomePartnerForm extends Component {
 				values: {...prevState.values, ...data}
 			};
 		});
-
-		if (this.state.step == 3) {
-			createPartner(this.state.values)
-				.then((response) => {
-					swal({
-						title: 'Partner Request!',
-						text: 'Your partnership request is being approved. We will contact you shortly',
-						icon: 'success',
-						button: 'Continue!'
-					}).then((value) => history.push('/'));
-				})
-				.catch((error) => {
-					// console.log('Create Partner Error', error);
-					setSubmitting(false);
-					console.log(' partner create error', error);
-				});
-		}
 	};
 
 	prevStep = () => {
@@ -62,6 +45,23 @@ class BecomePartnerForm extends Component {
 				step: (prevState.step -= 1)
 			};
 		});
+	};
+
+	submit = () => {
+		createPartner(this.state.values)
+			.then((response) => {
+				swal({
+					title: 'Partner Request!',
+					text: 'Your partnership request is being approved. We will contact you shortly',
+					icon: 'success',
+					button: 'Continue!'
+				}).then((value) => history.push('/'));
+			})
+			.catch((error) => {
+				// console.log('Create Partner Error', error);
+				setSubmitting(false);
+				console.log(' partner create error', error);
+			});
 	};
 
 	render() {
@@ -74,7 +74,11 @@ class BecomePartnerForm extends Component {
 							<Stepper step={step}>
 								{step == 1 && <PartnerForm nextStep={(data) => this.nextStep(data)} />}
 								{step == 2 && (
-									<CompanyForm prevStep={this.prevStep} nextStep={(data) => this.nextStep(data)} />
+									<CompanyForm
+										prevStep={this.prevStep}
+										nextStep={(data) => this.nextStep(data)}
+										onSubmit={(data) => this.submit(data)}
+									/>
 								)}
 							</Stepper>
 						</div>

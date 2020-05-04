@@ -18,6 +18,8 @@ $font30: 30px;
 $font32: 32px;
 $font40: 40px;
 
+$input-height: 44px;
+
 * {
 	&:focus {
 		outline: none;
@@ -48,10 +50,23 @@ body {
 
 #content {
 	flex: 1 0 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.content-wrapper {
+	flex: 1 0 auto;
 }
 
 #footer {
 	flex-shrink: 0;
+}
+
+.full-page {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
 }
 
 h1,
@@ -103,7 +118,7 @@ li {
 // Packages
 
 h2.category-title:after {
-	border-bottom: 2px solid $secondary;
+	border-bottom: 2px solid $accent;
 	display: block;
 	content: ' ';
 	width: 50px;
@@ -187,6 +202,10 @@ label {
 
 	&-primary-dark {
 		color: darken($primary, 5%);
+	}
+
+	&-accent {
+		color: $accent;
 	}
 }
 
@@ -318,7 +337,7 @@ section {
 
 .form-control {
 	border: 1px solid #dddddd;
-	height: 44px;
+	height: $input-height;
 	margin: 2px;
 	@include border-radius(5px);
 }
@@ -473,6 +492,7 @@ section {
 .validation-msg {
 	font-size: small;
 	color: red;
+	display: block;
 }
 
 .timer {

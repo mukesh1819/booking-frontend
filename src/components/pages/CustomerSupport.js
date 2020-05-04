@@ -42,22 +42,20 @@ class CustomerSupport extends Component {
 			});
 	}
 
-	emailUser(variables){
+	emailUser(variables) {
 		sendEmail(variables)
-		.then((response) => {
-			// console.log(response);
-			swal({
-				title: 'Email Sent!',
-				text: response.message,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				// console.log(response);
+				swal({
+					title: 'Email Sent!',
+					text: response.message,
+					icon: 'success',
+					button: 'Continue!'
+				});
+			})
+			.catch((error) => {
+				console.log('support email error', error);
 			});
-		})
-		.catch((error) => {
-			console.log("support email error",error);
-			
-		});
-
 	}
 
 	handleClick = (e, titleProps) => {
@@ -83,7 +81,7 @@ class CustomerSupport extends Component {
 				});
 
 			var results = _.filter(this.state.faqs, function(e) {
-				return e.question.includes(value);
+				return e.question.toLowerCase().includes(value.toLowerCase());
 			}).map((v) => ({
 				title: v.question,
 				description: v.answer
@@ -114,15 +112,18 @@ class CustomerSupport extends Component {
 				menuItem: 'Email Us',
 				render: () => (
 					<Tab.Pane attached={false}>
-						<MailBox
-							values={{
-								description: '',
-								subject: '',
-								email: currentUser.email
-							}}
-
-							sendEmail={(values) => this.emailUser(values)}
-						/>
+						<div className='row'>
+							<div className='col-md-6 offset-md-3'>
+								<MailBox
+									values={{
+										description: '',
+										subject: '',
+										email: currentUser.email
+									}}
+									sendEmail={(values) => this.emailUser(values)}
+								/>
+							</div>
+						</div>
 					</Tab.Pane>
 				)
 			},
@@ -143,9 +144,13 @@ class CustomerSupport extends Component {
 				menuItem: 'Chat',
 				render: () => (
 					<Tab.Pane attached={false}>
-						<iframe src={companyDetails.directChat} style={{width: '100%', height: '440px'}}>
-							<a href={companyDetails.directChat} />
-						</iframe>
+						<div className='row'>
+							<div className='col-md-6 offset-md-3'>
+								<iframe src={companyDetails.directChat} style={{width: '100%', height: '440px'}}>
+									<a href={companyDetails.directChat} />
+								</iframe>
+							</div>
+						</div>
 					</Tab.Pane>
 				)
 			}

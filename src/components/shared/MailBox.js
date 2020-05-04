@@ -3,6 +3,11 @@ import {Formik} from 'formik';
 import {Form, TextArea} from 'semantic-ui-react';
 import swal from 'sweetalert';
 import * as yup from 'yup';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+function onCaptchaChange(value) {
+	console.log('Captcha value:', value);
+}
 
 export default ({values, sendEmail}) => {
 	const MailBoxForm = yup.object().shape({
@@ -20,8 +25,8 @@ export default ({values, sendEmail}) => {
 						subject: values.subject
 					}
 				};
-				sendEmail(variables)
-				
+				sendEmail(variables);
+				setSubmitting(false);
 			}}
 		>
 			{({
@@ -57,14 +62,21 @@ export default ({values, sendEmail}) => {
 								value={values.subject}
 							/>
 						</Form.Field>
-						<TextArea
-							name='description'
-							onChange={handleChange}
-							onBlur={handleBlur}
-							placeholder='Message'
-							style={{minHeight: 100}}
-							value={values.description}
-						/>
+						<Form.Field>
+							<label className='font-weight-bold'>Message</label>
+							<TextArea
+								name='description'
+								onChange={handleChange}
+								onBlur={handleBlur}
+								placeholder='Message'
+								style={{minHeight: 100}}
+								value={values.description}
+							/>
+						</Form.Field>
+
+						<Form.Field>
+							<ReCAPTCHA sitekey={process.env.REACT_APP_CAPTCHA_KEY} onChange={onCaptchaChange} />
+						</Form.Field>
 						<button className='btn btn-primary my-3' type='submit' disabled={isSubmitting}>
 							Submit
 						</button>

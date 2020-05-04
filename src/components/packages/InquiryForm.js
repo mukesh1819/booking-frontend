@@ -17,7 +17,7 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {createInquiry, updateInquiry} from '../../api/inquiryApi';
-import {sortObjectBy} from '../../helpers';
+import {sortObjectBy, phoneValidate} from '../../helpers';
 
 class InquiryForm extends Component {
 	constructor(props) {
@@ -45,7 +45,7 @@ class InquiryForm extends Component {
 			first_name: yup.string().required('Required'),
 			last_name: yup.string().required('Required'),
 			email_address: yup.string().email().required('Required'),
-			phone: yup.string().matches(new RegExp('[0-9]{7}')).length(10, 'This field has to be exactly 10 number and not a character').required('Required'),
+			phone: phoneValidate(yup).required('Required'),
 			nationality: yup.string().required('Required'),
 			address: yup.string().required('Required'),
 			city: yup.string().required('Required'),
@@ -145,7 +145,8 @@ class InquiryForm extends Component {
 											<span className=''>Package Name: </span>&nbsp;
 											<span className='text-primary title'>{aPackage.name}</span>
 										</div>
-										{(aPackage.activities && aPackage.activities.length > 0) && (
+										{aPackage.activities &&
+										aPackage.activities.length > 0 && (
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
 													<label>Select Activity</label>

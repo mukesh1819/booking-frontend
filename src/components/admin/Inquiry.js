@@ -96,7 +96,7 @@ class Inquiry extends Component {
 												inquiry: inquiry
 											}
 										}}
-										className='btn bg-none text-secondary'
+										className='btn bg-none color-accent'
 									>
 										Edit
 									</Link>
@@ -153,7 +153,7 @@ class Inquiry extends Component {
 									<h3 className='title'>Other Details</h3>
 									<div>
 										<span
-											className='btn bg-none text-secondary'
+											className='btn bg-none color-accent'
 											onClick={() => {
 												setActions({
 													showOtherForm: true,
@@ -196,7 +196,7 @@ class Inquiry extends Component {
 									<h3 className='title'>Partner Details</h3>
 									<div>
 										<span
-											className='btn bg-none text-secondary'
+											className='btn bg-none color-accent'
 											onClick={() => {
 												setActions({
 													showPartnerForm: true,

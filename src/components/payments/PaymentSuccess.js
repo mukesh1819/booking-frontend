@@ -5,6 +5,7 @@ import successImage from '../../images/success.png';
 import {fetchTicket} from '../../api/flightApi';
 import {Button} from 'semantic-ui-react';
 import {downloadTicket} from '../../helpers/general';
+import {TicketDetails} from '../bookings';
 
 class PaymentSuccess extends Component {
 	constructor(props) {

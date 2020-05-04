@@ -136,7 +136,8 @@ class Bookings extends Component {
 											</span>
 										)}
 
-										{booking.departing_flight.status == 'confirmed' && (
+										{(booking.departing_flight.status == 'completed' ||
+											booking.departing_flight.status == 'verified') && (
 											<Link
 												to={{
 													pathname: `/ticket/${booking.departing_flight.ruid}`,

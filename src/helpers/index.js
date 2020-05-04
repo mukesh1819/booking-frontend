@@ -32,6 +32,8 @@ import {
 	companyDetails
 } from './variables';
 
+export * from './validations';
+
 export {
 	handleResponse,
 	authHeader,

@@ -10,7 +10,7 @@ const SideBar = (props) => {
 				<div className='item d-flex align-items-center' key={name} onClick={() => onItemSelect(name)}>
 					<i className={`${icon} p-2 text-primary`} />
 					<span>
-						<span className={active ? 'text-primary' : 'text-secondary'}>{label}</span>
+						<span className={active ? 'text-primary' : 'color-accent'}>{label}</span>
 						<span className='small text-muted' style={{display: 'table'}}>
 							{details}
 						</span>
@@ -49,7 +49,7 @@ export default SideBar;
 // 						<div className='item d-flex align-items-center' key={name} onClick={() => onItemSelect(name)}>
 // 							<i className={`${icon} p-2 text-primary`} />
 // 							<span>
-// 								<span className={active ? 'text-primary' : 'text-secondary'}>{label}</span>
+// 								<span className={active ? 'text-primary' : 'color-accent'}>{label}</span>
 // 								<span className='small text-muted' style={{display: 'table'}}>
 // 									{details}
 // 								</span>
