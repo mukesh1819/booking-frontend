@@ -1,7 +1,7 @@
 export const getFlights = store => store.flights;
 
 
-export function getPassengers(state) {
+export function passengerSelector(state) {
     const passenger = {
         title: 'Mr',
         first_name: '',

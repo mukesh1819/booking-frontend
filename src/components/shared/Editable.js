@@ -34,7 +34,7 @@ const Editable = (props) => {
 				{editMode && (
 					<span>
 						<span
-							className='btn bg-none text-secondary'
+							className='btn bg-none color-accent'
 							onClick={() => {
 								onSubmit(fieldValue);
 								setEditMode(false);

@@ -79,7 +79,7 @@ class CategoryList extends Component {
 				<div className=''>
 					<div className='d-flex justify-content-between'>
 						<h3 className='title'>Categories</h3>
-						<Link to='/admin/category_form' className='btn bg-none text-secondary'>
+						<Link to='/admin/category_form' className='btn bg-none color-accent'>
 							new category
 						</Link>
 					</div>

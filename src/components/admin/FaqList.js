@@ -46,7 +46,6 @@ class FaqList extends Component {
 			})
 			.catch((error) => {
 				console.log('Fetch Package Error', error);
-				
 			});
 	};
 
@@ -97,7 +96,7 @@ class FaqList extends Component {
 				<div className=''>
 					<div className='d-flex justify-content-between'>
 						<h3 className='title'>Faq List</h3>
-						<Link to='/admin/faq/faq_form' className='btn bg-none text-secondary'>
+						<Link to='/admin/faq/faq_form' className='btn bg-none color-accent'>
 							Add Faq
 						</Link>
 					</div>

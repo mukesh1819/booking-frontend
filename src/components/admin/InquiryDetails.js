@@ -102,7 +102,7 @@ class InquiryDetails extends Component {
 		}).then((willDelete) => {
 			if (willDelete) {
 				deleteInquiry(id).then((response) => {
-					swal('this inquiry is deleted', {
+					swal('Inquiry Deleted', {
 						icon: 'success'
 					});
 					history.push('/admin/inquiries');

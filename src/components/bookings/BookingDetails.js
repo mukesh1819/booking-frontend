@@ -94,17 +94,17 @@ class BookingDetails extends Component {
 											<div className='p-2'>
 												<div className=''>
 													<div>
-														<span class='text-bold'>PNR No:&nbsp;</span>
+														<span className='text-bold'>PNR No:&nbsp;</span>
 														<span className='text-small'>{booking.pnr_no}</span>
 													</div>
 													<div>
-														<span class='text-bold'>Invoice:&nbsp;</span>
+														<span className='text-bold'>Invoice:&nbsp;</span>
 														<span className='text-small'>
 															{booking.booking_transaction.idx}
 														</span>
 													</div>
 													<div>
-														<span class='text-bold'>Reporting Time:&nbsp;</span>
+														<span className='text-bold'>Reporting Time:&nbsp;</span>
 														<span className='text-small'>
 															{moment(booking.flight_date).format('D MMMM, YYYY')}
 														</span>

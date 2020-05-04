@@ -29,7 +29,7 @@ class CompanyForm extends Component {
 	}
 
 	render() {
-		const {prevStep, nextStep} = this.props;
+		const {prevStep, nextStep, onSubmit} = this.props;
 
 		const PartnersSchema = yup.object().shape({
 			company_name: yup.string().required('Required'),
@@ -37,7 +37,7 @@ class CompanyForm extends Component {
 			company_type: yup.string('String').required('Required'),
 			company_address: yup.string('String').required('Required'),
 			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions'),
-			captcha: yup.string().required('Required')
+			captcha: yup.string().typeError('Required').required('Required')
 		});
 
 		const partnerDetails = {
@@ -58,6 +58,7 @@ class CompanyForm extends Component {
 				onSubmit={(values, {setSubmitting}) => {
 					setSubmitting(true);
 					nextStep(values);
+					onSubmit(values);
 				}}
 			>
 				{({

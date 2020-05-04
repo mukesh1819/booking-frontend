@@ -23,8 +23,8 @@ class PassengerForm extends Component {
 	}
 
 	render() {
-		const {passengers, nationality, currentUser, countries, onSubmit} = this.props;
-		currentUser.code = currentUser.country;
+		const {passengers, contactDetails, nationality, countries, onSubmit} = this.props;
+		contactDetails.code = contactDetails.country;
 		var sortedCountries = sortObjectBy(this.props.countries, 'code');
 		const PassengerSchema = yup.object().shape({
 			passengers: yup.array().of(
@@ -46,7 +46,7 @@ class PassengerForm extends Component {
 
 		const initialValues = {
 			passengers: passengers,
-			user: currentUser
+			user: contactDetails
 		};
 
 		return (
@@ -357,7 +357,6 @@ const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 		selectedOutboundFlight: flightStore.selectedOutboundFlight,
 		nationality: flightStore.searchDetails.strNationality,
 		booking: bookingStore.booking,
-		currentUser: userStore.currentUser,
 		ttlTime: flightStore.ttlTime,
 		countries: extras.countries
 	};

@@ -39,7 +39,7 @@ class PackagesList extends Component {
 				<div className=''>
 					<div className='d-flex justify-content-between'>
 						<h3 className='title'>Package List</h3>
-						<Link to='/admin/package_form' className='btn bg-none text-secondary'>
+						<Link to='/admin/package_form' className='btn bg-none color-accent'>
 							add package
 						</Link>
 					</div>

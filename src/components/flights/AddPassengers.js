@@ -14,7 +14,7 @@ import swal from 'sweetalert';
 import {Timer, Accordion} from '../shared';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown, Input} from 'semantic-ui-react';
-import {getPassengers} from '../../redux/selectors';
+import {passengerSelector} from '../../redux/selectors';
 
 import './flights.scss';
 
@@ -87,7 +87,11 @@ class AddPassengers extends Component {
 			<div id='passenger-form'>
 				{!viewDetails && (
 					<Container className='p-0'>
-						<PassengerForm passengers={passengers} onSubmit={(values) => this.onSubmit(values)} />
+						<PassengerForm
+							passengers={passengers}
+							contactDetails={currentUser}
+							onSubmit={(values) => this.onSubmit(values)}
+						/>
 					</Container>
 				)}
 
@@ -101,7 +105,7 @@ const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 	return {
 		selectedInboundFlight: flightStore.selectedInboundFlight,
 		selectedOutboundFlight: flightStore.selectedOutboundFlight,
-		passengers: getPassengers(flightStore.searchDetails),
+		passengers: passengerSelector(flightStore.searchDetails),
 		nationality: flightStore.searchDetails.strNationality,
 		booking: bookingStore.booking,
 		currentUser: userStore.currentUser,

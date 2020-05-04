@@ -55,7 +55,7 @@ class TicketDetails extends Component {
 						<h4 className='text-success'>E-Ticket</h4>
 					</div>
 					<div className='p-3'>
-						<h5 className='text-center text-secondary'>
+						<h5 className='text-center color-accent'>
 							Tickets operated and managed by Booking Nepal Travels and Tours Pvt. Ltd
 						</h5>
 					</div>
@@ -72,7 +72,10 @@ class TicketDetails extends Component {
 													<div className='header row align-items-center text-small text-muted'>
 														<span className='col'>
 															<div>
-																<img src={booking.airline_logo} className='p-2' />
+																<img
+																	src={booking.airline_logo}
+																	className='p-2 airline-logo'
+																/>
 																<div>{'Simrik Air'}</div>
 															</div>
 														</span>
@@ -102,7 +105,7 @@ class TicketDetails extends Component {
 																<i className='fas fa-clock text-primary' />
 																<div>{booking.duration} min</div>
 															</span>
-															<span className='col text-center'>
+															<span className='col text-right'>
 																{booking.arrival_time}
 																<div className='text-bold'>{booking.arrival}</div>
 															</span>
@@ -222,15 +225,15 @@ class TicketDetails extends Component {
 											<div className='p-2'>
 												<div className=''>
 													<div>
-														<span class='text-bold'>PNR No:&nbsp;</span>
+														<span className='text-bold'>PNR No:&nbsp;</span>
 														<span className='text-small'>{departure.pnr_no}</span>
 													</div>
 													<div>
-														<span class='text-bold'>Invoice:&nbsp;</span>
+														<span className='text-bold'>Invoice:&nbsp;</span>
 														<span className='text-small'>{departure.ruid}</span>
 													</div>
 													<div>
-														<span class='text-bold'>Reporting Time:&nbsp;</span>
+														<span className='text-bold'>Reporting Time:&nbsp;</span>
 														<span className='text-small'>
 															{moment(departure.flight_date).format('D MMMM, YYYY')}
 														</span>

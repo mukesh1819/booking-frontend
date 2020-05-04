@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {updateBooking} from '../../api/flightApi';
+import {updateBooking, getBookingDetails} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions';
@@ -14,7 +14,7 @@ import swal from 'sweetalert';
 import {Timer, Accordion} from '../shared';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown, Input} from 'semantic-ui-react';
-import {getPassengers} from '../../redux/selectors';
+import {passengerSelector} from '../../redux/selectors';
 
 import './flights.scss';
 
@@ -33,9 +33,20 @@ class EditPassengers extends Component {
 		super(props);
 		this.state = {
 			viewDetails: false,
-			passengers: []
+			passengers: [],
+			contact_details: {}
 		};
 		this.toggleView = this.toggleView.bind(this);
+		debugger;
+	}
+
+	componentDidMount() {
+		console.log('Abcd');
+		this.fetchDetails();
+	}
+
+	componentWillUnmount() {
+		debugger;
 	}
 
 	toggleView() {
@@ -43,6 +54,21 @@ class EditPassengers extends Component {
 			return {viewDetails: !prevState.viewDetails};
 		});
 	}
+
+	fetchDetails = () => {
+		getPassengerDetails(this.props.match.params.idx)
+			.then((response) => {
+				console.log('Passenger Details', response.data);
+				this.setState({
+					passengers: response.data.passengers,
+					contact_details: response.data.contact_details
+				});
+			})
+			.catch((error) => {
+				// console.log(error);
+				console.log('Passenger Details fetch error', error);
+			});
+	};
 
 	onSubmit = (values) => {
 		updateBooking(this.props.booking.idx, {
@@ -67,14 +93,18 @@ class EditPassengers extends Component {
 
 	render() {
 		const {nationality, currentUser, countries} = this.props;
-		const {booking, passengers} = this.props.location.state;
-		const {viewDetails} = this.state;
+		const {booking} = this.props.location.state;
+		const {viewDetails, passengers, contact_details} = this.state;
 
 		return (
 			<div id='passenger-form'>
 				{!viewDetails && (
 					<Container className='p-0'>
-						<PassengerForm passengers={passengers} onSubmit={(values) => this.onSubmit(values)} />
+						<PassengerForm
+							passengers={passengers}
+							contactDetails={contact_details}
+							onSubmit={(values) => this.onSubmit(values)}
+						/>
 					</Container>
 				)}
 
@@ -86,7 +116,7 @@ class EditPassengers extends Component {
 
 const mapStateToProps = ({flightStore, bookingStore, userStore, extras}) => {
 	return {
-		passengers: getPassengers(flightStore.searchDetails),
+		passengers: passengerSelector(flightStore.searchDetails),
 		booking: bookingStore.booking,
 		currentUser: userStore.currentUser
 	};
