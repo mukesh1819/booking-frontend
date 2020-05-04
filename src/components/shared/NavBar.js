@@ -32,7 +32,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 						<i className={sideBarIsVisible ? 'icon-cross' : 'icon-menu'} />
 					</button>
 					<Link to='/' className='navbar-brand animated bounce delay-2s'>
-						visitallnepal.com
+						{process.env.REACT_APP_URL}
 					</Link>
 				</div>
 

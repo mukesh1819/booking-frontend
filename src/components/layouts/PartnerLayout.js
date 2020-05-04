@@ -14,7 +14,7 @@ const AdminLayout = ({currentUser, children}) => {
 				<div className='container align-items-stretch'>
 					<div className='navbar-header d-flex align-items-center'>
 						<Link to='/' className='navbar-brand animated bounce delay-2s'>
-							visitallnepal.com
+							{process.env.REACT_APP_URL}
 						</Link>
 					</div>
 

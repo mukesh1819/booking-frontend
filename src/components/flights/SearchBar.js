@@ -278,34 +278,12 @@ class SearchBar extends Component {
 									</div>
 									<div className='field-box col-12 col-md-3 pl-md-0'>
 										<label>Traveller(s)</label>
-										{/* <IconInput icon='icon-users' iconPosition='left'>
-											<DropdownItem
-												title={`${values.intAdult + values.intChild} Traveller`}
-												className='text-field px-3'
-											>
-												<Counter
-													id='intAdult'
-													type='number'
-													className='m-1'
-													onBlur={handleBlur}
-													title={`${values.intAdult} Adult`}
-													onChange={(value) => setFieldValue('intAdult', value)}
-													value={values.intAdult}
-												/>
-												<Counter
-													id='intChild'
-													type='number'
-													className='m-1'
-													onBlur={handleBlur}
-													title={`${values.intChild} Child`}
-													onChange={(value) => setFieldValue('intChild', value)}
-													value={values.intChild}
-												/>
-											</DropdownItem>
-										</IconInput> */}
 										<Dropdown
 											name=''
-											placeholder=''
+											placeholder={`${ifNotZero(
+												values.intAdult,
+												`${values.intAdult} Adult`
+											)}${ifNotZero(values.intChild, `, ${values.intChild} Child`)}`}
 											icon='icon-users'
 											className='icon btn-dropdown travellers'
 											fluid
@@ -315,13 +293,14 @@ class SearchBar extends Component {
 												values.intAdult,
 												`${values.intAdult} Adult`
 											)}${ifNotZero(values.intChild, `, ${values.intChild} Child`)}`}
-											onClick={(event, data) => {
-												event.preventDefault();
-											}}
 										>
 											<Dropdown.Menu
+												onClick={(e, data) => {
+													e.stopPropagation();
+													e.preventDefault();
+												}}
 												content={
-													<div className='p-2'>
+													<div className='px-2'>
 														<Counter
 															id='intAdult'
 															type='number'

@@ -422,6 +422,10 @@ class InquiryForm extends Component {
 														}}
 													>
 														<Dropdown.Menu
+															onClick={(e, data) => {
+																e.stopPropagation();
+																e.preventDefault();
+															}}
 															content={
 																<div className='p-2'>
 																	<Counter

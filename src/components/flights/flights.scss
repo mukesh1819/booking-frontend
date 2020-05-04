@@ -117,6 +117,13 @@
     }
 }
 
+.travellers .default {
+
+    &.text {
+        color: rgba(0, 0, 0, .87) !important;
+    }
+}
+
 #search-flight-form {
     form {
         position: relative;
@@ -147,13 +154,6 @@
 
     .search-btn {
         margin-top: 2.5px;
-    }
-
-    .travellers .default {
-
-        &.text {
-            color: rgba(0, 0, 0, .87);
-        }
     }
 
     .toggle-trip {

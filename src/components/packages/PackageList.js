@@ -65,7 +65,7 @@ class PackageList extends Component {
 						<div className='d-flex flex-wrap'>
 							{this.state.packages.map((aPackage) => {
 								return (
-									<div className='mr-3'>
+									<div className='m-3'>
 										<Package aPackage={aPackage} />
 									</div>
 								);
