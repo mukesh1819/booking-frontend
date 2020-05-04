@@ -51,7 +51,7 @@ class TicketDetails extends Component {
 			<React.Fragment>
 				<div className='container bg-white'>
 					<div className='text-center py-4'>
-						<h3>Visit All Nepal</h3>
+						<h3>{process.env.REACT_APP_TITLE}</h3>
 						<h4 className='text-success'>E-Ticket</h4>
 					</div>
 					<div className='p-3'>
