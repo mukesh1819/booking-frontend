@@ -50,12 +50,24 @@ class BecomePartnerForm extends Component {
 	submit = () => {
 		createPartner(this.state.values)
 			.then((response) => {
-				swal({
-					title: 'Partner Request!',
-					text: 'Your partnership request is being approved. We will contact you shortly',
-					icon: 'success',
-					button: 'Continue!'
-				}).then((value) => history.push('/'));
+				if(response.response && response.response.data.errors){
+					swal({
+						title: '',
+						text: response.response.data.errors.join("/n"),
+						icon: 'error',
+						button: 'Try Again!'
+					})
+					history.goBack();
+				}
+				else{
+					swal({
+						title: 'Partner Request!',
+						text: 'Your partnership request is being approved. We will contact you shortly',
+						icon: 'success',
+						button: 'Continue!'
+					}).then((value) => history.push('/'));
+				}
+				
 			})
 			.catch((error) => {
 				// console.log('Create Partner Error', error);

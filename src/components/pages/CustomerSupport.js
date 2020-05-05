@@ -118,7 +118,8 @@ class CustomerSupport extends Component {
 									values={{
 										description: '',
 										subject: '',
-										email: currentUser.email
+										email: currentUser.email,
+										captcha: ''
 									}}
 									sendEmail={(values) => this.emailUser(values)}
 								/>

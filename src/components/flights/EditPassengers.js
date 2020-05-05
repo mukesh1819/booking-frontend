@@ -37,7 +37,6 @@ class EditPassengers extends Component {
 			contact_details: {}
 		};
 		this.toggleView = this.toggleView.bind(this);
-		debugger;
 	}
 
 	componentDidMount() {
@@ -46,7 +45,6 @@ class EditPassengers extends Component {
 	}
 
 	componentWillUnmount() {
-		debugger;
 	}
 
 	toggleView() {

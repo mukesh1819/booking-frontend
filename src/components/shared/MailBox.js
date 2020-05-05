@@ -4,6 +4,8 @@ import {Form, TextArea} from 'semantic-ui-react';
 import swal from 'sweetalert';
 import * as yup from 'yup';
 import ReCAPTCHA from 'react-google-recaptcha';
+import ErrorMessage from '../ErrorMessage';
+
 
 function onCaptchaChange(value) {
 	console.log('Captcha value:', value);
@@ -11,25 +13,29 @@ function onCaptchaChange(value) {
 
 export default ({values, sendEmail}) => {
 	const MailBoxForm = yup.object().shape({
-		email: yup.string().email().required('Required')
+		email: yup.string().email().required('Required'),
+		captcha: yup.string().typeError('Required')
+
 	});
 	return (
 		<Formik
 			initialValues={values}
 			validationSchema={MailBoxForm}
 			onSubmit={(values, {setSubmitting}) => {
+				setSubmitting(false);
 				const variables = {
 					user: {
 						email: values.email,
 						description: values.description,
-						subject: values.subject
+						subject: values.subject,
+						captcha: values.captcha
 					}
 				};
 				sendEmail(variables);
-				setSubmitting(false);
 			}}
 		>
 			{({
+				setFieldValue,
 				values,
 				errors,
 				touched,
@@ -75,7 +81,11 @@ export default ({values, sendEmail}) => {
 						</Form.Field>
 
 						<Form.Field>
-							<ReCAPTCHA sitekey={process.env.REACT_APP_CAPTCHA_KEY} onChange={onCaptchaChange} />
+							<ReCAPTCHA 
+								sitekey={process.env.REACT_APP_CAPTCHA_KEY}
+								onChange={(value) => setFieldValue('captcha', value)}
+							/>
+							<ErrorMessage name='captcha' />
 						</Form.Field>
 						<button className='btn btn-primary my-3' type='submit' disabled={isSubmitting}>
 							Submit
