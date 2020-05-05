@@ -13,7 +13,7 @@ import {Input} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import swal from 'sweetalert';
-import {sortObjectBy, phoneValidate} from '../../helpers';
+import {sortObjectBy, phoneValidate, textValidate} from '../../helpers';
 
 class PartnerForm extends Component {
 	constructor(props) {
@@ -35,13 +35,13 @@ class PartnerForm extends Component {
 		}
 		var sortedCountries = sortObjectBy(countries, 'code');
 		const PartnersSchema = yup.object().shape({
-			first_name: yup.string().required('Required'),
-			last_name: yup.string().required('Required'),
+			first_name: textValidate(yup).required('Required'),
+			last_name: textValidate(yup).required('Required'),
 			email: yup.string().email().required('Required'),
 			code: yup.string().typeError('Select a code').required('Required'),
 			contact_number: phoneValidate(yup).required('Required'),
 			country: yup.string().required('Required'),
-			city: yup.string().required('Required')
+			city: textValidate(yup).required('Required')
 			
 		});
 

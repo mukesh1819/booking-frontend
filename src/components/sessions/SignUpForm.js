@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import ErrorMessage from '../ErrorMessage';
 import {Link} from 'react-router-dom';
 import SocialLinks from './SocialLinks';
-import {passCsrfToken, phoneValidate} from '../../helpers';
+import {passCsrfToken, phoneValidate, textValidate} from '../../helpers';
 import axios from 'axios';
 import {sortObjectBy} from '../../helpers';
 import {Dropdown, Input, Segment} from 'semantic-ui-react';
@@ -34,7 +34,7 @@ class SignUpForm extends Component {
 		const {loading} = this.state;
 		const UsersSignupForm = yup.object().shape({
 			email: yup.string().email().required('Required'),
-			name: yup.string().required('Required'),
+			name: textValidate(yup).required('Required'),
 			password: yup.string().required('Required'),
 			phone_number: phoneValidate(yup).required('Required'),
 			password_confirmation: yup

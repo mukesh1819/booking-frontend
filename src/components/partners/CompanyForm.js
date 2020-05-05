@@ -15,6 +15,7 @@ import {Input, Checkbox} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
+import {phoneValidate, textValidate, alphaNumericValidate} from '../../helpers';
 
 
 class CompanyForm extends Component {
@@ -33,12 +34,13 @@ class CompanyForm extends Component {
 		const {prevStep, nextStep, onSubmit} = this.props;
 
 		const PartnersSchema = yup.object().shape({
-			company_name: yup.string().required('Required'),
+			company_name: textValidate(yup).required('Required'),
 			company_email: yup.string().email(),
 			company_type: yup.string('String').required('Required'),
-			company_address: yup.string('String').required('Required'),
+			company_address: alphaNumericValidate(yup).required('Required'),
 			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions'),
-			company_contact_number: yup.string().matches(new RegExp('[0-9]{7}')),
+			company_contact_number:phoneValidate(yup),
+			website:  alphaNumericValidate(yup),
 			captcha: yup.string().typeError('Required').required('Required')
 		});
 

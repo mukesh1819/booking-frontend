@@ -17,7 +17,7 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {createInquiry, updateInquiry} from '../../api/inquiryApi';
-import {sortObjectBy, phoneValidate} from '../../helpers';
+import {sortObjectBy, phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 
 class InquiryForm extends Component {
 	constructor(props) {
@@ -42,17 +42,21 @@ class InquiryForm extends Component {
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
 		const aPackage = inquiry.package != null ? inquiry.package : this.props.location.state.aPackage;
 		const InquiriesSchema = yup.object().shape({
-			first_name: yup.string().required('Required'),
-			last_name: yup.string().required('Required'),
+			first_name: textValidate(yup).required('Required'),
+			last_name: textValidate(yup).required('Required'),
 			email_address: yup.string().email().required('Required'),
 			phone: phoneValidate(yup).required('Required'),
 			nationality: yup.string().required('Required'),
-			address: yup.string().required('Required'),
-			city: yup.string().required('Required'),
+			address: alphaNumericValidate(yup).required('Required'),
+			city: textValidate(yup).required('Required'),
 			preferred_date: yup.date().required('Required').default(function() {
 				return new Date();
 			}),
-			head_traveller_name: yup.string().required('Required')
+			zip_code: numberValidate(yup),
+			query: alphaNumericValidate(yup),
+			number_of_adult: numberValidate(yup),
+			number_of_child: numberValidate(yup),
+			head_traveller_name: textValidate(yup).required('Required')
 		});
 
 		const inquiryDetails = {

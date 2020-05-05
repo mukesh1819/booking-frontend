@@ -11,7 +11,7 @@ import './flights.scss';
 import {Formik, Form, Field} from 'formik';
 
 import * as yup from 'yup';
-import {passCsrfToken, nationGroup, phoneValidate} from '../../helpers';
+import {passCsrfToken, nationGroup, phoneValidate, textValidate, alphaNumericValidate} from '../../helpers';
 
 import {Container, Button, Segment} from 'semantic-ui-react';
 import {newPayment} from '../../api/paymentApi';
@@ -30,14 +30,14 @@ class PassengerForm extends Component {
 			passengers: yup.array().of(
 				yup.object().shape({
 					title: yup.string().required('Required'),
-					first_name: yup.string().required('Required'),
-					last_name: yup.string().required('Required'),
+					first_name: textValidate(yup).required('Required'),
+					last_name: textValidate(yup).required('Required'),
 					gender: yup.string().required('Required'),
 					nationality: yup.string().required('Required')
 				})
 			),
 			user: yup.object().shape({
-				name: yup.string().required('Required'),
+				name: textValidate(yup).required('Required'),
 				code: yup.string().required('Required'),
 				email: yup.string().email().required('Required'),
 				phone_number: phoneValidate(yup).required('Required')
