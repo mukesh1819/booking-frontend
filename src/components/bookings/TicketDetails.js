@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image} from 'react-bootstrap';
-import {getBookingDetails, fetchTicket} from '../../api/flightApi';
+import {getTicketDetails, fetchTicket} from '../../api/flightApi';
 import {isRefundable, ifNotZero, ifGreaterThanOne, downloadTicket} from '../../helpers';
 import moment from 'moment';
 import swal from 'sweetalert';
@@ -18,9 +18,10 @@ class TicketDetails extends Component {
 	}
 
 	componentDidMount() {
-		getBookingDetails(this.props.match.params.id)
+		getTicketDetails(this.props.match.params.id)
 			.then((response) => {
 				console.log('Booking DAtA', response.data);
+				debugger;
 				this.setState({
 					departure: response.data.departing_flight,
 					arrival: response.data.arriving_flight ? response.data.arriving_flight : {}

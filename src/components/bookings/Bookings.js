@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {getBookings} from '../../api/userApi';
 import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -128,12 +128,25 @@ class Bookings extends Component {
 									</div>
 									<div>
 										{booking.departing_flight.status == 'pending' && (
-											<span
-												onClick={() => this.onContinueToPayment(booking.departing_flight.ruid)}
-												className='btn btn-primary'
-											>
-												Continue to Payment
-											</span>
+											<Fragment>
+												<Link
+													to={{
+														pathname: `/booking/${booking.departing_flight.ruid}`,
+														state: {
+															booking: booking
+														}
+													}}
+													className='btn bg-none text-primary'
+												>
+													View Details
+												</Link>
+												<div className='text-danger text-center text-small'>
+													<Timer
+														ttlTime={getDuration(booking.departing_flight.reservation_time)}
+														onTimeOut={this.onTimeOut}
+													/>
+												</div>
+											</Fragment>
 										)}
 
 										{(booking.departing_flight.status == 'completed' ||
@@ -149,15 +162,6 @@ class Bookings extends Component {
 											>
 												View Ticket
 											</Link>
-										)}
-
-										{booking.departing_flight.status == 'pending' && (
-											<div className='text-danger text-center text-small'>
-												<Timer
-													ttlTime={getDuration(booking.departing_flight.reservation_time)}
-													onTimeOut={this.onTimeOut}
-												/>
-											</div>
 										)}
 										{/* <div>
 														<Badge type={booking.departing_flight.status}>

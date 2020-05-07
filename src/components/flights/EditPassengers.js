@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {updateBooking, getBookingDetails} from '../../api/flightApi';
+import {updateBooking, getTicketDetails, getPassengerDetails} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions';
@@ -15,6 +15,7 @@ import {Timer, Accordion} from '../shared';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown, Input} from 'semantic-ui-react';
 import {passengerSelector} from '../../redux/selectors';
+import history from '../../history';
 
 import './flights.scss';
 
@@ -44,8 +45,7 @@ class EditPassengers extends Component {
 		this.fetchDetails();
 	}
 
-	componentWillUnmount() {
-	}
+	componentWillUnmount() {}
 
 	toggleView() {
 		this.setState(function(prevState) {
@@ -69,16 +69,25 @@ class EditPassengers extends Component {
 	};
 
 	onSubmit = (values) => {
-		updateBooking(this.props.booking.idx, {
+		updateBooking(this.props.match.params.idx, {
 			booking: {
 				passengers_attributes: values.passengers
 			}
 		})
 			.then((response) => {
 				this.setState({
-					passengers: values.passengers,
-					viewDetails: true
+					passengers: values.passengers
 				});
+				swal({
+					title: 'Passengers Updated Successfully',
+					icon: 'success',
+					button: 'Continue'
+				}).then((value) => {
+					if (value) {
+						history.push(`/booking/${this.props.match.params.idx}`);
+					}
+				});
+
 				this.props.setBooking(response.data);
 			})
 			.catch((error) => {
@@ -86,8 +95,6 @@ class EditPassengers extends Component {
 				console.log(' booking create error', error);
 			});
 	};
-
-	componentDidMount() {}
 
 	render() {
 		const {nationality, currentUser, countries} = this.props;

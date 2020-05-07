@@ -51,9 +51,7 @@ class AddPassengers extends Component {
 				outbound_flight: this.props.selectedOutboundFlight,
 				inbound_flight: this.props.selectedInboundFlight,
 				passengers_attributes: values.passengers,
-				contact_name: values.user.name,
-				mobile_no: values.user.phone_number,
-				email: values.user.email
+				...values.user
 			}
 		})
 			.then((response) => {
@@ -89,7 +87,11 @@ class AddPassengers extends Component {
 					<Container className='p-0'>
 						<PassengerForm
 							passengers={passengers}
-							contactDetails={currentUser}
+							contactDetails={{
+								contact_name: currentUser.name,
+								mobile_no: currentUser.phone_number,
+								email: currentUser.email
+							}}
 							onSubmit={(values) => this.onSubmit(values)}
 						/>
 					</Container>

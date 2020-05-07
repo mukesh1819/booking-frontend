@@ -29,14 +29,21 @@ export function getFlights(formData) {
 export function getBookingDetails(ruid) {
 	return axios({
 		method: 'get',
-		url: `${BASE_URL}/ticket_generation/${ruid}`
+		url: `${API_URL}/bookings/${ruid}`
+	});
+}
+
+export function getTicketDetails(ruid) {
+	return axios({
+		method: 'get',
+		url: `${BASE_URL}/ticket_generation/${ruid}.json`
 	});
 }
 
 export function getPassengerDetails(ruid) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/api/bookings/${ruid}/passengers`
+		url: `${API_URL}/bookings/${ruid}/passengers`
 	});
 }
 

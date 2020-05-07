@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {newPayment} from '../../api/paymentApi';
 import swal from 'sweetalert';
+import {makePayment} from '../../api/paymentApi';
+import history from '../../history';
 
 class PaymentForm extends Component {
 	constructor(props) {
@@ -26,9 +28,14 @@ class PaymentForm extends Component {
 	}
 
 	componentDidUpdate() {
-		if (this.state.action !== null) {
-			document.getElementById('pay-form').submit();
-		}
+		// if (this.state.action !== null) {
+		// 	document.getElementById('pay-form').submit();
+		// }
+		makePayment(this.props.transaction)
+			.then((response) => {
+				history.push(`/payment_success/${this.props.idx}`);
+			})
+			.catch((error) => console.log('Payment Error', error));
 	}
 
 	render() {

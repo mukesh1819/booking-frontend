@@ -5,7 +5,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import FlightList from './FlightList';
-import {createBooking, getBookingDetails} from '../../api/flightApi';
+import {createBooking, getTicketDetails} from '../../api/flightApi';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {setBooking} from '../../redux/actions';
@@ -49,7 +49,7 @@ class EditBooking extends Component {
 	}
 
 	fetchDetails = () => {
-		getBookingDetails(this.props.match.params.idx)
+		getTicketDetails(this.props.match.params.idx)
 			.then((response) => {
 				this.setState({
 					booking: response.data

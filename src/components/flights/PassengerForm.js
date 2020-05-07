@@ -37,11 +37,10 @@ class PassengerForm extends Component {
 				})
 			),
 			user: yup.object().shape({
-				name: textValidate(yup).required('Required'),
+				contact_name: textValidate(yup).required('Required'),
 				code: yup.string().required('Required'),
 				email: yup.string().email().required('Required'),
-				phone_number: phoneValidate(yup).required('Required')
-				
+				mobile_number: phoneValidate(yup).required('Required')
 			})
 		});
 
@@ -50,10 +49,17 @@ class PassengerForm extends Component {
 			user: contactDetails
 		};
 
+		if (initialValues.user.contact_name == undefined) {
+			return <Segment loading />;
+		}
+
 		return (
 			<Container className='p-0'>
 				<Formik
-					initialValues={initialValues}
+					initialValues={{
+						passengers: passengers,
+						user: contactDetails
+					}}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
 						onSubmit(values);
@@ -77,13 +83,14 @@ class PassengerForm extends Component {
 										<label>Name</label>
 										<Field
 											type='text'
-											name='user.name'
+											name='user.contact_name'
 											className='form-control'
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={values.user.name}
+											contact_name
+											value={values.user.contact_name}
 										/>
-										<ErrorMessage name='user.name' />
+										<ErrorMessage name='user.contact_name' />
 									</div>
 
 									<div className='col'>
@@ -113,14 +120,14 @@ class PassengerForm extends Component {
 											labelPosition='left'
 											placeholder='Contact Phone'
 											type='text'
-											name='user.phone_number'
+											name='user.mobile_number'
 											className='semantic-input-group'
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={values.user.phone_number}
+											value={values.user.mobile_number}
 										/>
 										<ErrorMessage name='user.code' />
-										<ErrorMessage name='user.phone_number' />
+										<ErrorMessage name='user.mobile_number' />
 									</div>
 
 									{/* 
@@ -172,7 +179,6 @@ class PassengerForm extends Component {
 								</div>
 							</div>
 							<h3 className='p-2 title'>Passenger details</h3>
-
 							{values.passengers.map((passenger, index) => {
 								return (
 									<div className='' key={`${passenger.passenger_type} ${index + 1}`}>
