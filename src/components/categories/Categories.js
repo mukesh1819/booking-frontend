@@ -47,11 +47,7 @@ class Categories extends Component {
 					}
 				}
 			};
-			$(window).on('load', function() {
-				$('.owl-carousel').owlCarousel(options);
-				$('.owl-carousel').trigger('play.owl.autoplay');
-				$('.owl-carousel').trigger('refresh.owl.carousel');
-			});
+			$('.owl-carousel').owlCarousel(options);
 		}
 	}
 

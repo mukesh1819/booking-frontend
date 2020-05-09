@@ -25,6 +25,8 @@ class SignInForm extends Component {
 		});
 	};
 
+	componentDidMount() {}
+
 	render() {
 		const {currentUser} = this.props;
 		const {loading} = this.state;
@@ -107,17 +109,17 @@ class SignInForm extends Component {
 											<div className='field'>
 												<label>Email</label>
 
-														<Field
-															type='text'
-															name='email'
-															className='form-control'
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.email}
-															placeholder='Email'
-														/>
-														<ErrorMessage name='email' />
-													</div>
+												<Field
+													type='text'
+													name='email'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.email}
+													placeholder='Email'
+												/>
+												<ErrorMessage name='email' />
+											</div>
 
 											<div className='field'>
 												<label>Password</label>

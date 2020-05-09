@@ -61,7 +61,7 @@ export function useInterceptor(axios) {
 				});
 
 			} else if (error.response.status === 343) {
-				history.push('/not_verified');
+				history.push('/profile');
 			} else if (error.response.status === 422) {
 				swal({
 					title: '',
