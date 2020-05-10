@@ -3,7 +3,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {logout, userInitials, isAdmin, isLoggedIn, flagFor} from '../../helpers';
+import {logout, userInitials, isAdmin, isLoggedIn, supportedLanguages} from '../../helpers';
 import Slidebar from './Slidebar';
 import Dropdown from './Dropdown';
 import SignUpForm from '../sessions/SignInForm';
@@ -12,9 +12,14 @@ import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import history from '../../history';
 import axios from 'axios';
 import {Flag, Segment} from 'semantic-ui-react';
+import '../../i18n';
+import {useTranslation, initReactI18next} from 'react-i18next';
 
 const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
+	const {t, i18n} = useTranslation();
+	console.log(supportedLanguages, i18n.language);
+
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 			<div className='container align-items-stretch'>
@@ -32,7 +37,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 						<i className={sideBarIsVisible ? 'icon-cross' : 'icon-menu'} />
 					</button>
 					<Link to='/' className='navbar-brand animated bounce delay-2s'>
-						{process.env.REACT_APP_URL}
+						<span>{t('visitallnepal')}</span>
 					</Link>
 				</div>
 
@@ -47,7 +52,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 									fontWeight: 'bold'
 								}}
 							>
-								BECOME A PARTNER
+								{t('BecomePartner')}
 							</NavLink>
 						)}
 						<NavLink
@@ -58,7 +63,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 								fontWeight: 'bold'
 							}}
 						>
-							CUSTOMER SUPPORT
+							{t('CustomerSupport')}
 						</NavLink>
 						{loggedIn && (
 							<NavLink
@@ -69,14 +74,18 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 									fontWeight: 'bold'
 								}}
 							>
-								MY BOOKINGS
+								{t('MyBookings')}
 							</NavLink>
 						)}
-						<Dropdown icon={`${flagFor(language)} flag`} title={language} className='text-white px-3'>
+						<Dropdown
+							icon={`${supportedLanguages[i18n.language].flag} flag`}
+							title={supportedLanguages[i18n.language].label}
+							className='text-white px-3'
+						>
 							<div className='d-flex select-countries text-normal'>
 								<div className=''>
 									<span className='text-bold'>Languages</span>
-									<Currencies requestData='languages' />
+									<Currencies requestData='languages' onChange={(lang) => onChange(lang)} />
 								</div>
 							</div>
 						</Dropdown>
@@ -110,7 +119,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 					{!loggedIn && (
 						<div className='d-flex align-items-center login'>
 							<Link to='/login' className='text-bold text-white pl-3'>
-								<i className='fas fa-user' />&nbsp; LOGIN
+								<i className='fas fa-user' />&nbsp; {t('Login')}
 							</Link>
 						</div>
 					)}

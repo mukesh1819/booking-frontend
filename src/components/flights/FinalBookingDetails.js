@@ -40,7 +40,7 @@ class FinalBookingDetails extends Component {
 	render() {
 		const {passengers, toggle, booking, transaction, selectedOutboundFlight, selectedInboundFlight} = this.props;
 		const {redirectToPayment} = this.state;
-		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.reservation_time));
+		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.remaining_time));
 		if (redirectToPayment) {
 			return <PaymentForm transaction={transaction} idx={transaction.idx} />;
 		}
@@ -50,7 +50,7 @@ class FinalBookingDetails extends Component {
 				<div className='d-flex justify-content-between'>
 					<span className='text-bold'>Flight Details</span>
 					<span className='text-danger'>
-						{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.reservation_time)} />}
+						{this.props.ttlTime > 0 && <Timer ttlTime={getDuration(booking.remaining_time)} />}
 					</span>
 				</div>
 				<div className='card mt-3'>

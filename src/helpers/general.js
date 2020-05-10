@@ -34,13 +34,7 @@ export function addDays(date, days) {
 }
 
 export function getDuration(time) {
-	var currentTime = moment().format('YYYY MM DD HH:mm:ss');
-	var bookingTime = moment.utc(time).format('YYYY MM DD HH:mm:ss');
-	var start = moment.utc(currentTime, 'HH:mm:ss');
-	var end = moment.utc(bookingTime, 'HH:mm:ss');
-	var diff = moment.duration(end.diff(start));
-	console.log('START', start);
-	console.log('END', end);
+	var diff = moment.duration(time, 'seconds');
 	console.log('DiFF', diff);
 	return diff;
 }

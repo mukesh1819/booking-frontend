@@ -142,7 +142,7 @@ class Bookings extends Component {
 												</Link>
 												<div className='text-danger text-center text-small'>
 													<Timer
-														ttlTime={getDuration(booking.departing_flight.reservation_time)}
+														ttlTime={getDuration(booking.departing_flight.remaining_time)}
 														onTimeOut={this.onTimeOut}
 													/>
 												</div>

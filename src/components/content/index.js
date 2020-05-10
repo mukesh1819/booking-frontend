@@ -1,1 +1,6 @@
-export * from './ContentWrapper'
+import ContentWrapper from './ContentWrapper';
+
+
+export {
+    ContentWrapper
+};

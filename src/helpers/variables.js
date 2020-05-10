@@ -1,10 +1,16 @@
-const languageFlagMap = {
-    'ENG': 'us',
-    'ESP': 'es'
-}
-
-export function flagFor(language) {
-    return languageFlagMap[language]
+export const supportedLanguages = {
+    en: {
+        label: "ENG",
+        flag: "us"
+    },
+    us: {
+        label: "ENG",
+        flag: "us"
+    },
+    es: {
+        label: "ESP",
+        flag: "es"
+    }
 }
 
 export const companyDetails = {

@@ -4,11 +4,18 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 import {setCurrency, setLanguage} from '../../redux/actions';
 import {Flag, Segment} from 'semantic-ui-react';
 
+import '../../i18n';
+import {useTranslation, initReactI18next} from 'react-i18next';
+
 const Currencies = (props) => {
 	const {currency, setCurrency, language, setLanguage, requestData, countries} = props;
 
 	var contents = null;
-	console.log('CURRENCY', currency);
+	const {t, i18n} = useTranslation();
+
+	const onLanguageChange = (language) => {
+		i18n.changeLanguage(language);
+	};
 
 	switch (requestData) {
 		case 'currencies':
@@ -54,6 +61,7 @@ const Currencies = (props) => {
 						className='d-flex align-items-center p-1 menu-item m-0'
 						onClick={() => {
 							setLanguage(code);
+							onLanguageChange(flag);
 						}}
 					>
 						<Flag name={flag} />

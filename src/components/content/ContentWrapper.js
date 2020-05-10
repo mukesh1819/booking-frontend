@@ -1,4 +1,5 @@
 import React from 'react';
+import {withTranslation} from 'react-i18next';
 
 const ContentWrapper = (props) => {
 	var ContentComponent = props.component;
@@ -9,4 +10,4 @@ const ContentWrapper = (props) => {
 	);
 };
 
-export {ContentWrapper};
+export default withTranslation()(ContentWrapper);

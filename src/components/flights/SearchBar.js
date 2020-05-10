@@ -13,6 +13,8 @@ import history from '../../history';
 import {Dropdown} from 'semantic-ui-react';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Radio} from 'semantic-ui-react';
+import '../../i18n';
+import {useTranslation, initReactI18next} from 'react-i18next';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -78,7 +80,8 @@ class SearchBar extends Component {
 
 	render() {
 		const {hideReturnField, cities, minDate} = this.state;
-		const {searchDetails, countries, setError} = this.props;
+		const {searchDetails, countries, setError, t, i18n} = this.props;
+
 		console.log('Search Details', searchDetails);
 
 		const SearchFlightSchema = yup.object().shape({
@@ -133,7 +136,7 @@ class SearchBar extends Component {
 											this.changeTripType('O');
 										}}
 									>
-										One-Way
+										{t('OneWay')}
 									</span>
 									<span
 										className={values.strTripType == 'R' ? 'active' : ''}
@@ -142,7 +145,7 @@ class SearchBar extends Component {
 											this.changeTripType('R');
 										}}
 									>
-										Round Trip
+										{t('RoundTrip')}
 									</span>
 								</div>
 

@@ -14,6 +14,7 @@ class HomePage extends Component {
 	componentDidMount() {}
 
 	render() {
+		const {t, i18n} = this.props;
 		return (
 			<React.Fragment>
 				<nav>
@@ -28,7 +29,7 @@ class HomePage extends Component {
 								aria-controls='nav-flights'
 								aria-selected='true'
 							>
-								<i className='fas fa-plane departure' />&nbsp;Flights
+								<i className='fas fa-plane departure' />&nbsp; {t('Flights')}
 							</a>
 							<a
 								className='nav-item nav-link'
@@ -39,7 +40,7 @@ class HomePage extends Component {
 								aria-controls='nav-packages'
 								aria-selected='false'
 							>
-								<i className='fas fa-briefcase' />&nbsp;Packages
+								<i className='fas fa-briefcase' />&nbsp; {t('Packages')}
 							</a>
 						</div>
 					</div>
@@ -54,14 +55,14 @@ class HomePage extends Component {
 						<header id='header' className='cover' role='banner'>
 							<div className='container'>
 								<h1 className='text-white text-larger'>
-									Find and book domestic flights <br />within Nepal at best price.
+									{t('FindAndBookFlights')} <br /> {t('WithinNepal')}
 								</h1>
 								<div className='airline-logos d-none'>
 									<img src={yetiImage} alt='Image' className='img-responsive' />
 									<img src={buddhaImage} alt='Image' className='img-responsive' />
 									<img src={shreeImage} alt='Image' className='img-responsive' />
 								</div>
-								<SearchBar />
+								<SearchBar {...this.props} />
 							</div>
 						</header>
 					</div>

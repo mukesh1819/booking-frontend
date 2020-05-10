@@ -28,7 +28,7 @@ import {
 } from './general';
 
 import {
-	flagFor,
+	supportedLanguages,
 	companyDetails
 } from './variables';
 
@@ -51,7 +51,7 @@ export {
 	imageUrl,
 	toTableData,
 	ifNotZero,
-	flagFor,
+	supportedLanguages,
 	companyDetails,
 	ifGreaterThanOne,
 	calculatePackagePrice,
