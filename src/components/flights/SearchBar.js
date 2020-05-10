@@ -127,7 +127,7 @@ class SearchBar extends Component {
 						/* and other goodies */
 					}) => (
 						<form onSubmit={handleSubmit} autoComplete='off' className='form-wrap'>
-							<div className='input-section'>
+							<div className='input-section padded'>
 								<div className='d-none d-md-block select-trip'>
 									<span
 										className={values.strTripType == 'O' ? 'active' : ''}

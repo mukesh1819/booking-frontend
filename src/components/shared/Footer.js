@@ -15,13 +15,13 @@ const Footer = () => (
 								<a href='https://visit-all-nepal.flycricket.io/privacy.html'>Privacy Policy</a>
 							</li>
 							<li className='d-md-inline px-2'>
-								<a href='#'>Terms & Conditions</a>
+								<a href='https://visit-all-nepal.flycricket.io/privacy.html'>Terms & Conditions</a>
 							</li>
 							<li className='d-md-inline px-2'>
-								<a href='#'>Partner With Us</a>
+								<a href='/partners/new'>Partner With Us</a>
 							</li>
 							<li className='d-md-inline px-2'>
-								<a href='#'>Blogs</a>
+								<a href='/blogs'>Blogs</a>
 							</li>
 							<li className='d-md-inline px-2'>
 								<a href='/support'>Customer Support</a>

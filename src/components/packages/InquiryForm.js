@@ -143,7 +143,7 @@ class InquiryForm extends Component {
 								</div>
 							</div>
 							<form onSubmit={handleSubmit}>
-								<div className='input-section bg-white'>
+								<div className='input-section padded bg-white'>
 									<div className='row'>
 										<div className='col-12'>
 											<span className=''>Package Name: </span>&nbsp;
@@ -199,7 +199,7 @@ class InquiryForm extends Component {
 									</div>
 								</div>
 								<div className='inquirer-details '>
-									<div className='input-section  bg-primary-light'>
+									<div className='input-section padded bg-primary-light'>
 										<div className='row'>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
@@ -403,7 +403,7 @@ class InquiryForm extends Component {
 								</div>
 
 								<div className='traveller-details '>
-									<div className='input-section bg-white'>
+									<div className='input-section padded bg-white'>
 										<div className='row'>
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>

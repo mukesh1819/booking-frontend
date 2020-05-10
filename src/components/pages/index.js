@@ -4,6 +4,7 @@ import CustomerSupport from './CustomerSupport';
 import VerifyUser from './VerifyUser';
 import UserNotVerified from './UserNotVerified';
 import InfoPage from './InfoPage';
+import Blogs from './Blogs';
 
 export {
     CustomerSupport,
@@ -11,5 +12,6 @@ export {
     HomePage,
     UserNotVerified,
     VerifyUser,
-    InfoPage
+    InfoPage,
+    Blogs
 };

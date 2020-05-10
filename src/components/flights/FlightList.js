@@ -220,6 +220,7 @@ class FlightList extends Component {
 										this.setLoading(true);
 										this.setSearch(false);
 									}}
+									{...this.props}
 								/>
 							</div>
 						) : (

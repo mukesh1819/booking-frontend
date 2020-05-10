@@ -41,7 +41,6 @@
 .input-section {
     border-radius: 5px;
     background-color: white;
-    padding: 10px 0px;
 
     .ui.input {
         width: 100%;
@@ -73,9 +72,16 @@
             margin-bottom: 30px;
         }
     }
+}
 
-    @include tablet {
-        padding: 20px 30px;
+.input-section {
+    &.padded {
+        padding: 10px 0px;
+
+        @include tablet {
+            padding: 20px 30px;
+        }
+
     }
 }
 

@@ -13,7 +13,7 @@ import {
 	PackageForm as AddPackageForm,
 	PackageForm as NewPackageForm
 } from './components/partners';
-import {HomePage, PageNotFound, UserNotVerified, VerifyUser, InfoPage} from './components/pages';
+import {HomePage, PageNotFound, UserNotVerified, VerifyUser, InfoPage, Blogs} from './components/pages';
 import {CustomerSupport} from './components/pages';
 import {PaymentSuccess} from './components/payments';
 import PartnerDashboard from './components/partners/Dashboard';
@@ -62,6 +62,7 @@ const routing = (
 		<AppRoute path='/hotels' component={HotelList} layout={UserLayout} />
 		<AppRoute path='/packages' component={PackageList} layout={UserLayout} />
 		<AppRoute path='/package/:id' component={PackageDetails} layout={UserLayout} />
+		<AppRoute path='/blogs' component={Blogs} layout={UserLayout} />
 		<AppRoute path='/about' component={InfoPage} layout={UserLayout} />
 		<AppRoute path='/partners/new' component={BecomePartnerForm} layout={UserLayout} />
 		<AppRoute path='/support' component={CustomerSupport} layout={UserLayout} />

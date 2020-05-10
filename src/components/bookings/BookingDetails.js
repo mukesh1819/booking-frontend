@@ -27,7 +27,7 @@ const FlightDetails = ({flight}) => (
 									</div>
 									<div className='col-3 p-0 text-center'>
 										<i className='fas fa-plane fa-2x departure text-primary' />
-										<div>{flight.flight_date}</div>
+										<div>{`${moment(flight.flight_date).format('Do MMMM, YYYY')}`}</div>
 									</div>
 									<div className='col p-0 text-right'>
 										Class: {flight.class_code} |{' '}

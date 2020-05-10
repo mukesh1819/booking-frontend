@@ -2,7 +2,7 @@ import React from 'react';
 import image from '../../images/404.jpg';
 import {Segment, Header, Button, Icon} from 'semantic-ui-react';
 
-const PageNotFound = () => (
+const InfoPage = () => (
 	<div className='container px-md-4 py-md-4 page'>
 		<Segment raised className='p-4'>
 			<h3 className='title'>About Us</h3>
@@ -33,4 +33,4 @@ const PageNotFound = () => (
 	</div>
 );
 
-export default PageNotFound;
+export default InfoPage;
