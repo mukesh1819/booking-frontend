@@ -88,7 +88,7 @@ class HomePage extends Component {
 						{/* <div className='title'>
 							<h2 className='text-center'> Things to do </h2>
 						</div> */}
-						<Categories />
+						<Categories {...this.props} />
 					</div>
 				</section>
 			</React.Fragment>

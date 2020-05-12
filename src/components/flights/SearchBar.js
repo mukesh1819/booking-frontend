@@ -151,7 +151,7 @@ class SearchBar extends Component {
 
 								<div className='inputs row'>
 									<div className='field-box col px-md-0'>
-										<label>Leaving From</label>
+										<label>{t('Leaving From')}</label>
 										<Dropdown
 											name='strSectorFrom'
 											onBlur={handleBlur}
@@ -197,7 +197,7 @@ class SearchBar extends Component {
 										/>
 									</div>
 									<div className='field-box col px-md-0'>
-										<label>Going To</label>
+										<label>{t('Going To')}</label>
 										<Dropdown
 											name='strSectorTo'
 											onBlur={handleBlur}
@@ -233,7 +233,7 @@ class SearchBar extends Component {
 											? 'col-md-3'
 											: 'col-md-2'}`}
 									>
-										<label>Departure Date</label>
+										<label>{t("Departure Date")}</label>
 										<DatePicker
 											name='strFlightDate'
 											className='form-control'
@@ -264,7 +264,7 @@ class SearchBar extends Component {
 											? 'd-none'
 											: ''}`}
 									>
-										<label>Arrival Date</label>
+										<label>{t("Arrival Date")}</label>
 										<DatePicker
 											name='strReturnDate'
 											className='form-control'
@@ -280,7 +280,7 @@ class SearchBar extends Component {
 										<ErrorMessage name='strReturnDate' />
 									</div>
 									<div className='field-box col-12 col-md-3 pl-md-0'>
-										<label>Traveller(s)</label>
+										<label>{t("Traveller(s)")}</label>
 										<Dropdown
 											name=''
 											placeholder={`${ifNotZero(
@@ -336,7 +336,7 @@ class SearchBar extends Component {
 									</div>
 
 									<div className='field-box col-12 col-md-3 pl-md-0'>
-										<label htmlFor=''>Nationality</label>
+										<label htmlFor=''>{t("Nationality")}</label>
 										<Dropdown
 											name='strNationality'
 											placeholder='Select Country'
@@ -367,7 +367,7 @@ class SearchBar extends Component {
 											type='submit'
 											disabled={isSubmitting}
 										>
-											Search
+											{t("Search")}
 										</button>
 									</div>
 								</div>
