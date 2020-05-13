@@ -65,6 +65,7 @@ class Categories extends Component {
 	}
 
 	render() {
+		const {t, i18n} = this.props;
 		return (
 			<React.Fragment>
 				{this.state.categories.map((category) => {
@@ -72,9 +73,9 @@ class Categories extends Component {
 						category.packages.length > 0 && (
 							<div className='mb-4'>
 								<div className='d-flex justify-content-between align-items-center px-3'>
-									<h2 className='category-title'> {category.name} </h2>
+									<h2 className='category-title'> {t(category.name)} </h2>
 									<Link to='/packages' className='btn bg-none text-primary'>
-										View All <i className='fas fa-angle-right' />
+										{t('View All')} <i className='fas fa-angle-right' />
 									</Link>
 								</div>
 								<div className='owl-carousel owl-theme'>

@@ -38,6 +38,7 @@ class FinalBookingDetails extends Component {
 	componentDidMount() {}
 
 	render() {
+		debugger;
 		const {passengers, toggle, booking, transaction, selectedOutboundFlight, selectedInboundFlight} = this.props;
 		const {redirectToPayment} = this.state;
 		console.log('RESERVATION TIMEs', booking.reservation_time, getDuration(booking.remaining_time));

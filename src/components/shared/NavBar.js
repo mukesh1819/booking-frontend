@@ -94,7 +94,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 							<ul className='text-normal'>
 								<li className='m-0'>
 									<Link to='/profile' className='item text-bold'>
-										Profile
+										{t('Profile')}
 									</Link>
 								</li>
 								<li className='m-0'>
@@ -106,7 +106,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 											logout();
 										}}
 									>
-										Logout
+										{t("Logout")}
 									</a>
 								</li>
 							</ul>
