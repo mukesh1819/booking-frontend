@@ -96,7 +96,7 @@ class InquiryForm extends Component {
 									swal({
 										title: 'Inquiry updated!',
 										text: response.data.message,
-										icon: 'Success',
+										icon: 'success',
 										button: 'Continue'
 									});
 								})
@@ -110,7 +110,7 @@ class InquiryForm extends Component {
 									swal({
 										title: 'Inquiry Submitted!',
 										text: response.data.message,
-										icon: 'Success',
+										icon: 'success',
 										button: 'Continue'
 									}).then((value) => {
 										history.push('/');

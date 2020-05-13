@@ -37,7 +37,7 @@ export default ({images}) => {
 		},
 		[images]
 	);
-	const [activeImage, setActiveImage] = useState(images[0]);
+	const [activeImage, setActiveImage] = useState(images[0].url);
 	return (
 		<div className='img-gallery'>
 			<div className='d-flex py-2 justify-content-center active-image-container'>
@@ -52,7 +52,7 @@ export default ({images}) => {
 				<div className='owl-carousel owl-theme'>
 					{images.map((v, index) => (
 						<img
-							src={`${process.env.REACT_APP_BASE_URL}/${v}`}
+							src={`${process.env.REACT_APP_BASE_URL}/${v.url}`}
 							alt='Image'
 							className='img-responsive'
 							style={{height: 'auto'}}
@@ -64,7 +64,7 @@ export default ({images}) => {
 				{images.map((v, index) => (
 					<div onClick={() => setActiveImage(v)} className='image-container'>
 						<img
-							src={`${process.env.REACT_APP_BASE_URL}/${v}`}
+							src={`${process.env.REACT_APP_BASE_URL}/${v,url}`}
 							alt='Image'
 							className={`${v == activeImage ? 'active' : ''} img-fit`}
 						/>

@@ -16,7 +16,7 @@ const Package = (props) => {
 						</Link>
 					</div>
 				</div> */}
-					<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
+					<img src={imageUrl(aPackage.images[0].url)} alt='Image' className='img-responsive' />
 				</figure>
 				<div className='details'>
 					<h3>{aPackage.name}</h3>
