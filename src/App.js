@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import routing from './routes';
-import {NavBar, Footer} from './components/shared';
 import {Router, Switch, Route} from 'react-router-dom';
 import history from './history';
 import {getUserDetails} from './api/userApi';
@@ -58,7 +57,6 @@ function App(props) {
 		<Router history={history}>
 			<ScrollToTop />
 			{routing}
-			<Footer />
 		</Router>
 	);
 }

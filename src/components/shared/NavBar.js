@@ -8,9 +8,7 @@ import Slidebar from './Slidebar';
 import Dropdown from './Dropdown';
 import SignUpForm from '../sessions/SignInForm';
 import Currencies from '../users/Currencies';
-import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import history from '../../history';
-import axios from 'axios';
 import {Flag, Segment} from 'semantic-ui-react';
 import '../../i18n';
 import {useTranslation, initReactI18next} from 'react-i18next';
@@ -18,7 +16,6 @@ import {useTranslation, initReactI18next} from 'react-i18next';
 const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
 	const {t, i18n} = useTranslation();
-	console.log(supportedLanguages, i18n.language);
 
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>

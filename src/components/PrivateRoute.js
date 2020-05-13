@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getUserDetails} from '../api/userApi';
 import {loginUser} from '../redux/actions';
 import swal from 'sweetalert';
+import {Footer} from './shared';
 
 class PrivateRoute extends Component {
 	constructor(props) {
@@ -25,7 +26,7 @@ class PrivateRoute extends Component {
 	}
 
 	render() {
-		const {component: Component, layout: Layout, currentUser, location, ...rest} = this.props;
+		const {component: Component, layout: Layout, currentUser, location, footer, ...rest} = this.props;
 		const isLoggedIn = localStorage.token !== undefined;
 
 		if (!isLoggedIn) {
@@ -38,6 +39,7 @@ class PrivateRoute extends Component {
 				render={(props) => (
 					<Layout>
 						<Component {...props} />
+						{footer && <Footer />}
 					</Layout>
 				)}
 			/>
