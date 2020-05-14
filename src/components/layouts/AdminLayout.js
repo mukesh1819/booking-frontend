@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import {Link, NavLink} from 'react-router-dom';
@@ -9,6 +9,7 @@ import {Sidebar} from '../shared';
 
 const AdminLayout = ({currentUser, children}) => {
 	const loggedIn = currentUser.email !== undefined;
+	const [section, setSection] = useState(undefined);
 
 	const sideBarMenu = [
 		{
@@ -87,7 +88,7 @@ const AdminLayout = ({currentUser, children}) => {
 			</nav>
 			<div className='row'>
 				<div className='d-none d-md-block col-md-2 p-0'>
-					<Sidebar items={sideBarMenu} onItemSelect={(data) => this.onSideBarSelect(data)} />
+					<Sidebar items={sideBarMenu} onItemSelect={(data) => history.push(`/admin#${data}`)} />
 				</div>
 				<div div className='col-12 col-md-10 p-4'>
 					{children}
