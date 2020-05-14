@@ -24,8 +24,12 @@ class FlightBookings extends Component {
 		};
 	}
 
+	onStatusChange = (value) => {
+		this.fetchBookings(`q[status_eq]=${value.toLowerCase()}`);
+		this.setState({activeItem: value});
+	};
+
 	handleItemClick = (e, {name}) => {
-		this.fetchBookings(`q[status_eq]=${name.toLowerCase()}`);
 		this.setState({activeItem: name});
 	};
 
@@ -131,42 +135,33 @@ class FlightBookings extends Component {
 						/>
 
 						<Menu pointing>
-							<Menu.Item name='All' active={activeItem === 'All'} onClick={this.handleItemClick} />
-							<Menu.Item name='Pending' active={activeItem === 'Pending'} onClick={this.handleItemClick}>
+							<Menu.Item name={activeItem} active={activeItem === 'All'} onClick={this.handleItemClick} />
+							<Menu.Item>
 								<Dropdown clearable text='Status'>
 									<Dropdown.Menu>
 										<Dropdown.Item
 											content='Verified'
-											onClick={() => this.handleItemClick('verified')}
+											onClick={() => this.onStatusChange('verified')}
+										/>
+										<Dropdown.Item
+											content='Processing'
+											onClick={() => this.onStatusChange('processing')}
+										/>
+										<Dropdown.Item
+											content='Cancelled'
+											onClick={() => this.onStatusChange('cancelled')}
+										/>
+										<Dropdown.Item
+											content='Completed'
+											onClick={() => this.onStatusChange('completed')}
+										/>
+										<Dropdown.Item
+											content='Declined'
+											onClick={() => this.onStatusChange('declined')}
 										/>
 									</Dropdown.Menu>
 								</Dropdown>
 							</Menu.Item>
-							<Menu.Item
-								name='Verified'
-								active={activeItem === 'Verified'}
-								onClick={this.handleItemClick}
-							/>
-							<Menu.Item
-								name='Processing'
-								active={activeItem === 'Processing'}
-								onClick={this.handleItemClick}
-							/>
-							<Menu.Item
-								name='Cancelled'
-								active={activeItem === 'Cancelled'}
-								onClick={this.handleItemClick}
-							/>
-							<Menu.Item
-								name='Completed'
-								active={activeItem === 'Completed'}
-								onClick={this.handleItemClick}
-							/>
-							<Menu.Item
-								name='Declined'
-								active={activeItem === 'Declined'}
-								onClick={this.handleItemClick}
-							/>
 							<Menu.Menu position='right'>
 								<Menu.Item>
 									{/* <Input icon='search' placeholder='Search...' /> */}
