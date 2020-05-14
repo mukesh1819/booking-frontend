@@ -69,7 +69,6 @@ export function useInterceptor(axios) {
 					icon: 'error',
 					button: 'Try Again!'
 				});
-				return error;
 			} else if (error.response.status === 400) {
 				swal({
 					title: error.response.data.exception,
@@ -85,6 +84,8 @@ export function useInterceptor(axios) {
 					button: 'Try Again!'
 				});
 			} else {}
+
+			return error;
 
 		}
 	);

@@ -7,6 +7,8 @@ import swal from 'sweetalert';
 import moment from 'moment';
 import {isRefundable, ifNotZero} from '../../helpers';
 import {PaymentForm} from '../payments';
+import {Timer} from '../shared';
+import {getDuration} from '../../helpers';
 
 const FlightDetails = ({flight}) => (
 	<React.Fragment>
@@ -352,6 +354,7 @@ class BookingDetails extends Component {
 					<span onClick={this.onContinueToPayment} className='btn btn-primary'>
 						Continue to Payment
 					</span>
+					<Timer ttlTime={getDuration(departing_flight.remaining_time)} />
 				</div>
 			</div>
 		);

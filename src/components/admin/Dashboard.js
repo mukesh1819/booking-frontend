@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import {getAdminDashboard} from '../../api/flightApi';
 import {Sidebar} from '../shared';
 import swal from 'sweetalert';
-
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);

@@ -5,12 +5,13 @@ import {getAdminBookings, deleteBooking} from '../../api/flightApi';
 import BookingDetails from './BookingDetails';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
-import {Pagination, Menu, Segment, Input} from 'semantic-ui-react';
+import {Pagination, Menu, Segment, Input, Dropdown} from 'semantic-ui-react';
 import moment from 'moment';
 import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
 import history from '../../history';
 import {Accordion} from 'semantic-ui-react';
+import FilterForm from './FilterForm';
 
 class FlightBookings extends Component {
 	constructor(props) {
@@ -98,7 +99,7 @@ class FlightBookings extends Component {
 				swal('Your flight booking is not deleted yet');
 			}
 		});
-	}
+	};
 
 	render() {
 		const {bookings} = this.state;
@@ -107,13 +108,40 @@ class FlightBookings extends Component {
 			<div className='container'>
 				<div className='row my-3'>
 					<div className='col-12'>
+						<FilterForm
+							submitUrl='bookings'
+							fields={[
+								{
+									name: 'created_at',
+									label: 'Created At',
+									type: 'date'
+								},
+								{
+									name: 'status',
+									label: 'Status',
+									type: 'select',
+									options: ['confirmed', 'pending', 'processing']
+								},
+								{
+									name: 'flight_id',
+									label: 'Flight Id',
+									type: 'text'
+								}
+							]}
+						/>
+
 						<Menu pointing>
 							<Menu.Item name='All' active={activeItem === 'All'} onClick={this.handleItemClick} />
-							<Menu.Item
-								name='Pending'
-								active={activeItem === 'Pending'}
-								onClick={this.handleItemClick}
-							/>
+							<Menu.Item name='Pending' active={activeItem === 'Pending'} onClick={this.handleItemClick}>
+								<Dropdown clearable text='Status'>
+									<Dropdown.Menu>
+										<Dropdown.Item
+											content='Verified'
+											onClick={() => this.handleItemClick('verified')}
+										/>
+									</Dropdown.Menu>
+								</Dropdown>
+							</Menu.Item>
 							<Menu.Item
 								name='Verified'
 								active={activeItem === 'Verified'}
@@ -158,7 +186,7 @@ class FlightBookings extends Component {
 											activeIndex={activeIndex}
 											index={index}
 											handleClick={this.handleClick}
-											destroyBooking = {this.destroyBooking}
+											destroyBooking={this.destroyBooking}
 										/>
 									);
 								})}

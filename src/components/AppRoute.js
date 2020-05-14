@@ -14,7 +14,6 @@ class AppRoute extends Component {
 
 	render() {
 		const {component: Component, layout: Layout, footer, ...rest} = this.props;
-		debugger;
 		return (
 			<Route
 				{...rest}
