@@ -30,7 +30,9 @@ class FilterForm extends Component {
 					onSubmit={(values, {setSubmitting}) => {
 						setSubmitting(false);
 						var url = `${submitUrl}?`;
-						Object.keys(values).forEach((key) => (url = url + `params[q][${key}]=${values[key]}&`));
+						Object.keys(values).forEach(
+							(key) => (url = url + values[key] ? `params[q][${key}]=${values[key]}&` : '')
+						);
 						console.log('Request URL', url);
 						filter(url)
 							.then((response) => {

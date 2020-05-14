@@ -106,7 +106,7 @@ const routes = [
 
 	{private: true, path: '/admin/partner/:id', component: PartnerDetails, layout: AdminLayout},
 	{private: true, path: '/admin/cancel_requests', component: UpdateBooking, layout: AdminLayout},
-	{private: true, path: '/admin/flight_bookings', component: FlightBookings, layout: UserLayout},
+	{private: true, path: '/admin/flight_bookings', component: FlightBookings, layout: AdminLayout},
 	{private: true, path: '/admin/bookings', component: AdminBookingDetails, layout: AdminLayout},
 	{private: true, path: '/admin/email', component: UserEmail, layout: AdminLayout},
 	{private: true, path: '/admin/:section', component: Dashboard, layout: AdminLayout},
