@@ -105,6 +105,12 @@ class FlightBookings extends Component {
 		});
 	};
 
+	onFilter = () => {
+		this.setState({
+			bookings: values
+		});
+	};
+
 	render() {
 		const {bookings} = this.state;
 		const {activeItem, activeIndex} = this.state;
@@ -116,22 +122,28 @@ class FlightBookings extends Component {
 							submitUrl='bookings'
 							fields={[
 								{
-									name: 'created_at',
-									label: 'Created At',
+									name: 'created_at_gteq',
+									label: 'From Date',
 									type: 'date'
 								},
 								{
-									name: 'status',
+									name: 'created_at_lteq',
+									label: 'To Date',
+									type: 'date'
+								},
+								{
+									name: 'status_eq',
 									label: 'Status',
 									type: 'select',
 									options: ['confirmed', 'pending', 'processing']
 								},
 								{
-									name: 'flight_id',
+									name: 'flight_id_cont',
 									label: 'Flight Id',
 									type: 'text'
 								}
 							]}
+							onSubmit={(values) => this.onFilter(values)}
 						/>
 
 						<Menu pointing>
