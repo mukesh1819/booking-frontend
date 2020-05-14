@@ -87,11 +87,12 @@ class UsersList extends Component {
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>Sno</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Role</th>
 								<th>Mobile Number</th>
+								<th>Created At</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -107,7 +108,7 @@ class UsersList extends Component {
 											<Badge type={user.role}>{user.role}</Badge>{' '}
 										</td>
 										<td>{user.phone_number}</td>
-
+										<td>{user.created_at}</td>
 										<td>
 											<Link
 												to={{

@@ -87,8 +87,10 @@ class CategoryList extends Component {
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
+								<th>Sno</th>
 								<th>Name</th>
-								<th>order</th>
+								<th>Order</th>
+								<th>Created At</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -97,9 +99,10 @@ class CategoryList extends Component {
 							{categories.map((category) => {
 								return (
 									<tr>
+										<td>{category.sno}</td>
 										<td>{category.name}</td>
 										<td>{category.order} </td>
-
+										<td>{category.created_at}</td>
 										<td>
 											<Link
 												to={{

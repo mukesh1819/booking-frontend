@@ -140,6 +140,7 @@ class FaqList extends Component {
 									</Accordion.Title>
 									<Accordion.Content active={activeIndex === index}>
 										<p>{faq.answer}</p>
+											<p>Created At - {faq.created_at}</p>
 									</Accordion.Content>
 									<div>
 										<span

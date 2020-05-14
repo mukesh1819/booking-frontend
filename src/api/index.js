@@ -9,6 +9,6 @@ useInterceptor(axios);
 export function filter(url) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/${url}`
+		url: `${BASE_URL}/admin/${url}`
 	});
 }

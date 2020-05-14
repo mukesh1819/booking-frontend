@@ -143,9 +143,11 @@ class TransactionList extends Component {
 								<table className='table table-striped table-bordered'>
 									<thead>
 										<tr>
+											<th>Sno</th>
 											<th>Transaction Invoice</th>
 											<th>state</th>
 											<th>Amount</th>
+											<th>Created At</th>
 											<th>Actions</th>
 										</tr>
 									</thead>
@@ -153,11 +155,13 @@ class TransactionList extends Component {
 										{this.state.transactions.map((transaction) => {
 											return (
 												<tr>
+													<td>{transaction.sNo}</td>
 													<td>{transaction.idx}</td>
 													<td>
 														<Badge type={transaction.state}>{transaction.state}</Badge>
 													</td>
 													<td>{transaction.amount}</td>
+													<td>{transaction.created_at}</td>
 													<td>
 														<span
 															className='btn bg-none text-primary'

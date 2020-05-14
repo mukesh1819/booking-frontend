@@ -45,6 +45,7 @@ class InquiryList extends Component {
 							<div className='card'>
 								<div className='card-body row'>
 									<div className='col-4'>
+										<div>{inquiry.sno}</div>
 										<h3>
 											{inquiry.first_name} {inquiry.last_name}
 										</h3>
@@ -57,6 +58,7 @@ class InquiryList extends Component {
 											<Badge type={inquiry.status}> {inquiry.status}</Badge>
 										</div>
 										<div>{inquiry.preferred_date}</div>
+										<div>Created At - {inquiry.created_at}</div>
 									</div>
 
 									<div className='col-3'>

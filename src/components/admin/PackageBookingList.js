@@ -44,7 +44,7 @@ class PackageBookingList extends Component {
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>Sno</th>
 								<th>IDX</th>
 								<th>package ID</th>
 								<th>User ID</th>
@@ -60,6 +60,7 @@ class PackageBookingList extends Component {
 								<th>Drop off Location</th>
 								<th>Meals Included</th>
 								<th>Remarks</th>
+								<th>Created At</th>
 								<th>Actions</th>
 
 							</tr>
@@ -86,6 +87,7 @@ class PackageBookingList extends Component {
                                             <td>{packageBooking.drop_off_location}</td>
                                             <td>{packageBooking.meals_included}</td>
                                             <td>{packageBooking.remarks}</td>
+                                            <td>{packageBooking.created_at}</td>
                                             <td>
                                                 <Link
                                                     to={{

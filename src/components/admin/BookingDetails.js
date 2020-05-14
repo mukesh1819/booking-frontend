@@ -66,6 +66,7 @@ const BookingDetails = ({booking, activeIndex, index, handleClick, destroyBookin
 						<div>{booking.departure_flight_time}</div>
 						<div>Refundable - {booking.refundable}</div>
 						<div>Reporting time - {booking.reporting_time}</div>
+						<div>Created At - {booking.created_at}</div>
 					</div>
 					<div>
 						<span className='btn bg-none text-danger' onClick={() => destroyBooking(booking.ruid)}>

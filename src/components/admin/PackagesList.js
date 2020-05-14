@@ -52,6 +52,7 @@ class PackagesList extends Component {
 								<th>Category</th>
 								<th>Price</th>
 								<th>Published</th>
+								<th>Created At</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -69,6 +70,7 @@ class PackagesList extends Component {
 												{aPackage.published ? 'Published' : 'Not Published'}
 											</Badge>
 										</td>
+										<td>{aPackage.created_at}</td>
 
 										<td>
 											<Link

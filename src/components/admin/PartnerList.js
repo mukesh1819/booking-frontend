@@ -41,10 +41,12 @@ class PartnerList extends Component {
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
+								<th>Sno</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Company Name</th>
 								<th>Contact Number</th>
+								<th>Created At</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -53,6 +55,7 @@ class PartnerList extends Component {
 							{partners.map((partner) => {
 								return (
 									<tr>
+										<td>{partner.sno} </td>
 										<td>
 											{partner.first_name}&nbsp;
 											{partner.last_name}
@@ -60,6 +63,7 @@ class PartnerList extends Component {
 										<td>{partner.email} </td>
 										<td>{partner.company_name}</td>
 										<td>{partner.contact_number}</td>
+										<td>{partner.created_at} </td>
 
 										<td>
 											<Link
