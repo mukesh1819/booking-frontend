@@ -7,6 +7,7 @@ import EditUserForm from '../users/EditUserForm';
 import {getUsers, deleteUser} from '../../api/userApi';
 import swal from 'sweetalert';
 import history from '../../history';
+import FilterForm from './FilterForm';
 import {Badge} from '../shared';
 
 class UsersList extends Component {
@@ -78,10 +79,59 @@ class UsersList extends Component {
 		});
 	}
 
+	onFilter = (values) => {
+		this.setState({
+			users: values
+		});
+	};
+
 	render() {
 		const {users} = this.state;
 		return (
 			<div className='container'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='admin/users'
+						fields={[
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							},
+							{
+								name: 'role_name_eq',
+								label: 'role',
+								type: 'select',
+								options: ['Admin', 'Support', 'General']
+							},
+							{
+								name: 'name_cont',
+								label: 'name',
+								type: 'text'
+							},
+
+							{
+								name: 'email_cont',
+								label: 'email',
+								type: 'text'
+							},
+
+							{
+								name: 'phone_number_cont',
+								label: 'Mobile Number',
+								type: 'text'
+							}
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+
+				</div>
+				
 				<div className=''>
 					<h3 className='title'>Users</h3>
 					<table className='table table-striped table-hover table-sm' ref='main'>

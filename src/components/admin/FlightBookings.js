@@ -119,7 +119,7 @@ class FlightBookings extends Component {
 				<div className='row my-3'>
 					<div className='col-12'>
 						<FilterForm
-							submitUrl='bookings'
+							submitUrl='admin/bookings'
 							fields={[
 								{
 									name: 'created_at_gteq',

@@ -4,6 +4,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {getPartners} from '../../api/partnerApi';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
+import FilterForm from './FilterForm';
 
 class PartnerList extends Component {
 	constructor(props) {
@@ -32,10 +33,52 @@ class PartnerList extends Component {
 			});
 	}
 
+	onFilter = (values) => {
+		this.setState({
+			partners: values
+		});
+	};
+
 	render() {
 		const {partners} = this.state;
 		return (
 			<div className='container p-4'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='partners'
+						fields={[
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							},
+							{
+								name: 'first_name_or_last_name_cont',
+								label: 'first name or last name',
+								type: 'text'
+							},
+
+							{
+								name: 'email_cont',
+								label: 'email',
+								type: 'text'
+							},
+
+							{
+								name: 'contact_number_cont',
+								label: 'Mobile Number',
+								type: 'text'
+							}
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+
+				</div>
 				<div className=''>
 					<h3 className='title'>Partners</h3>
 					<table className='table table-striped table-hover table-sm' ref='main'>

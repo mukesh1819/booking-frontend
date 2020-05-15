@@ -5,6 +5,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
 import history from '../../history';
 import swal from 'sweetalert';
+import FilterForm from './FilterForm';
 
 class CategoryList extends Component {
 	constructor(props) {
@@ -72,10 +73,43 @@ class CategoryList extends Component {
 		});
 	}
 
+	onFilter = (values) => {
+		this.setState({
+			categories: values
+		});
+	};
+
 	render() {
 		const {categories} = this.state;
 		return (
 			<div className='container p-4'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='categories'
+						fields={[
+							{
+								name: 'name_eq',
+								label: 'name',
+								type: 'select',
+								options: ["Land Activities", "Air Activities", "Water Activities"]
+							},
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							}
+							
+
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+				</div>
+
 				<div className=''>
 					<div className='d-flex justify-content-between'>
 						<h3 className='title'>Categories</h3>

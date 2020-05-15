@@ -5,6 +5,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackages} from '../../api/packageApi';
 import swal from 'sweetalert';
 import {Badge} from '../shared';
+import FilterForm from './FilterForm';
 
 class PackagesList extends Component {
 	constructor(props) {
@@ -32,10 +33,60 @@ class PackagesList extends Component {
 			});
 	};
 
+	onFilter = (values) => {
+		this.setState({
+			packages: values
+		});
+	};
+
 	render() {
 		const {packages} = this.state;
 		return (
 			<div className='container p-4'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='packages'
+						fields={[
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							},
+							{
+								name: 'name_cont',
+								label: 'package name',
+								type: 'text'
+							},
+
+							{
+								name: 'price_eq',
+								label: 'price',
+								type: 'text'
+							},
+
+							{
+								name: 'category_name_eq',
+								label: 'category name',
+								type: 'select',
+								options: ["Land Activities", "Air Activities", "Water Activities"]
+							},
+
+							{
+								name: 'published_eq',
+								label: 'published',
+								type: 'select',
+								options: ["true", "false"]
+							}
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+				</div>
+
 				<div className=''>
 					<div className='d-flex justify-content-between'>
 						<h3 className='title'>Package List</h3>
@@ -47,7 +98,7 @@ class PackagesList extends Component {
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>Sno</th>
 								<th>Name</th>
 								<th>Category</th>
 								<th>Price</th>
