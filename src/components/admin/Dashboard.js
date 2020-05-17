@@ -52,12 +52,13 @@ class Dashboard extends Component {
 		} = this.state;
 
 		const section = this.props.location.hash;
+		debugger;
 
 		return (
 			<React.Fragment>
 				<div className='dashboard container'>
 					<div className='row'>
-						{(section == undefined || section == '#users') && (
+						{(section == '' || section == '#users') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -71,7 +72,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#flights') && (
+						{(section == '' || section == '#flights') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -85,7 +86,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#others') && (
+						{(section == '' || section == '#others') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -99,7 +100,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#packages') && (
+						{(section == '' || section == '#packages') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -113,7 +114,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#packages') && (
+						{(section == '' || section == '#packages') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -127,7 +128,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#packages') && (
+						{(section == '' || section == '#packages') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -141,7 +142,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#packages') && (
+						{(section == '' || section == '#packages') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -155,7 +156,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#packages') && (
+						{(section == '' || section == '#packages') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -169,7 +170,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == undefined || section == '#others') && (
+						{(section == '' || section == '#others') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
