@@ -5,6 +5,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import {Badge} from '../shared';
+import FilterForm from './FilterForm';
 
 class InquiryList extends Component {
 	constructor(props) {
@@ -33,10 +34,77 @@ class InquiryList extends Component {
 			});
 	}
 
+	onFilter = (values) => {
+		this.setState({
+			inquiries: values
+		});
+	};
+
 	render() {
 		const {inquiries} = this.state;
 		return (
 			<div className='container p-4'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='inquiries'
+						fields={[
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							},
+
+							{
+								name: 'preferred_date_gteq',
+								label: 'From Preferred Date',
+								type: 'date'
+							},
+							{
+								name: 'preferred_date_lteq',
+								label: 'To Preferred Date',
+								type: 'date'
+							},
+
+							{
+								name: 'first_name_or_last_name_cont',
+								label: 'name',
+								type: 'text'
+							},
+
+							{
+								name: 'package_name_cont',
+								label: 'package name',
+								type: 'text'
+							},
+
+							{
+								name: 'email_address_cont',
+								label: 'email',
+								type: 'text'
+							},
+
+							{
+								name: 'status_eq',
+								label: 'status',
+								type: 'select',
+								options: ["pending", "processing", "verified"]
+							},
+
+							{
+								name: 'phone_cont',
+								label: 'Mobile Number',
+								type: 'text'
+							}
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+				</div>
+
 				<div className=''>
 					<h3 className='title'>Inquiries</h3>
 					{inquiries.map((inquiry) => {
@@ -45,6 +113,7 @@ class InquiryList extends Component {
 							<div className='card'>
 								<div className='card-body row'>
 									<div className='col-4'>
+										<div>{inquiry.sno}</div>
 										<h3>
 											{inquiry.first_name} {inquiry.last_name}
 										</h3>
@@ -57,6 +126,7 @@ class InquiryList extends Component {
 											<Badge type={inquiry.status}> {inquiry.status}</Badge>
 										</div>
 										<div>{inquiry.preferred_date}</div>
+										<div>Created At - {inquiry.created_at}</div>
 									</div>
 
 									<div className='col-3'>

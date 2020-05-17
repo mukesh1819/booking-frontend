@@ -4,6 +4,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {getPartners} from '../../api/partnerApi';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
+import FilterForm from './FilterForm';
 
 class PartnerList extends Component {
 	constructor(props) {
@@ -32,19 +33,63 @@ class PartnerList extends Component {
 			});
 	}
 
+	onFilter = (values) => {
+		this.setState({
+			partners: values
+		});
+	};
+
 	render() {
 		const {partners} = this.state;
 		return (
 			<div className='container p-4'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='partners'
+						fields={[
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							},
+							{
+								name: 'first_name_or_last_name_cont',
+								label: 'first name or last name',
+								type: 'text'
+							},
+
+							{
+								name: 'email_cont',
+								label: 'email',
+								type: 'text'
+							},
+
+							{
+								name: 'contact_number_cont',
+								label: 'Mobile Number',
+								type: 'text'
+							}
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+
+				</div>
 				<div className=''>
 					<h3 className='title'>Partners</h3>
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
+								<th>Sno</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Company Name</th>
 								<th>Contact Number</th>
+								<th>Created At</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -53,6 +98,7 @@ class PartnerList extends Component {
 							{partners.map((partner) => {
 								return (
 									<tr>
+										<td>{partner.sno} </td>
 										<td>
 											{partner.first_name}&nbsp;
 											{partner.last_name}
@@ -60,6 +106,7 @@ class PartnerList extends Component {
 										<td>{partner.email} </td>
 										<td>{partner.company_name}</td>
 										<td>{partner.contact_number}</td>
+										<td>{partner.created_at} </td>
 
 										<td>
 											<Link

@@ -29,14 +29,14 @@ class FilterForm extends Component {
 					initialValues={initialValues}
 					onSubmit={(values, {setSubmitting}) => {
 						setSubmitting(false);
-						var url = `${submitUrl}?`;
+						var url = ``;
 						Object.keys(values).forEach(
-							(key) => (url = url + values[key] ? `params[q][${key}]=${values[key]}&` : '')
+							(key) => {url = url + (values[key] != '' && key != '' ? `q[${key}]=${values[key]}&` : '')}
 						);
+						url = `${submitUrl}?`+ url;
 						console.log('Request URL', url);
 						filter(url)
 							.then((response) => {
-								debugger;
 								setSubmitting(false);
 								onSubmit(response.data);
 							})

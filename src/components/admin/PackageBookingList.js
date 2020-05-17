@@ -4,6 +4,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackageBookings} from '../../api/packageBookingApi';
 import swal from 'sweetalert';
+import FilterForm from './FilterForm';
 
 class PackageBookingList extends Component {
 	constructor(props) {
@@ -31,11 +32,123 @@ class PackageBookingList extends Component {
 				console.log('Package Booking fetch error', error);
 			});
 	};
+
+	onFilter = (values) => {
+		this.setState({
+			packageBookings: values
+		});
+	};
     
 	render() {
         const {packageBookings} = this.state;
 		return (
 			<div className='container'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='package_bookings'
+						fields={[
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							},
+
+							{
+								name: 'start_date_gteq',
+								label: 'From start Date',
+								type: 'date'
+							},
+							{
+								name: 'start_date_lteq',
+								label: 'To start Date',
+								type: 'date'
+							},
+
+							{
+								name: 'end_date_gteq',
+								label: 'From end Date',
+								type: 'date'
+							},
+							{
+								name: 'end_date_lteq',
+								label: 'To end Date',
+								type: 'date'
+							},
+
+							{
+								name: 'pickup_date_gteq',
+								label: 'From pickup Date',
+								type: 'date'
+							},
+							{
+								name: 'pickup_date_lteq',
+								label: 'To pickup Date',
+								type: 'date'
+							},
+							
+							{
+								name: 'drop_off_date_gteq',
+								label: 'From drop off Date',
+								type: 'date'
+							},
+							{
+								name: 'drop_off_date_lteq',
+								label: 'To start Date',
+								type: 'date'
+							},
+
+							{
+								name: 'pickup_location_cont',
+								label: 'pickup location',
+								type: 'text'
+							},
+
+							{
+								name: 'drop_off_location_cont',
+								label: 'drop location',
+								type: 'text'
+							},
+
+							{
+								name: 'package_name_cont',
+								label: 'package name',
+								type: 'text'
+							},
+
+							{
+								name: 'user_name_cont',
+								label: 'user',
+								type: 'text'
+							},
+
+							{
+								name: 'status_eq',
+								label: 'status',
+								type: 'select',
+								options: ["pending", "confirmed", "processing"]
+							},
+
+							{
+								name: 'amount_eq',
+								label: 'amount',
+								type: 'text'
+							},
+
+							{
+								name: 'inquiry_first_name_or_last_name_cont',
+								label: 'inquiry',
+								type: 'text'
+							}
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+				</div>
+
 				<div className=''>
 					<div className='col-12 d-flex justify-content-between'>
 						<h5>Package Booking List</h5>
@@ -44,7 +157,7 @@ class PackageBookingList extends Component {
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>Sno</th>
 								<th>IDX</th>
 								<th>package ID</th>
 								<th>User ID</th>
@@ -60,6 +173,7 @@ class PackageBookingList extends Component {
 								<th>Drop off Location</th>
 								<th>Meals Included</th>
 								<th>Remarks</th>
+								<th>Created At</th>
 								<th>Actions</th>
 
 							</tr>
@@ -86,6 +200,7 @@ class PackageBookingList extends Component {
                                             <td>{packageBooking.drop_off_location}</td>
                                             <td>{packageBooking.meals_included}</td>
                                             <td>{packageBooking.remarks}</td>
+                                            <td>{packageBooking.created_at}</td>
                                             <td>
                                                 <Link
                                                     to={{

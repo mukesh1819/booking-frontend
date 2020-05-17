@@ -6,6 +6,7 @@ import {getFaqs, deleteFaq} from '../../api/supportApi';
 import swal from 'sweetalert';
 import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input} from 'semantic-ui-react';
+import FilterForm from './FilterForm';
 
 class FaqList extends Component {
 	constructor(props) {
@@ -89,10 +90,43 @@ class FaqList extends Component {
 		});
 	}
 
+	onFilter = (values) => {
+		this.setState({
+			faqs: values
+		});
+	};
+
 	render() {
 		const {faqs, activeIndex, activeMenuItem} = this.state;
 		return (
 			<div className='container p-4'>
+				<div className="col-12">
+					<FilterForm
+						submitUrl='faqs'
+						fields={[
+							{
+								name: 'category_eq',
+								label: 'name',
+								type: 'select',
+								options: ["flight", "package"]
+							},
+							{
+								name: 'created_at_gteq',
+								label: 'From Date',
+								type: 'date'
+							},
+							{
+								name: 'created_at_lteq',
+								label: 'To Date',
+								type: 'date'
+							}
+							
+
+						]}
+						onSubmit={(values) => this.onFilter(values)}
+					/>
+				</div>
+
 				<div className=''>
 					<div className='d-flex justify-content-between'>
 						<h3 className='title'>Faq List</h3>
@@ -140,6 +174,7 @@ class FaqList extends Component {
 									</Accordion.Title>
 									<Accordion.Content active={activeIndex === index}>
 										<p>{faq.answer}</p>
+											<p>Created At - {faq.created_at}</p>
 									</Accordion.Content>
 									<div>
 										<span

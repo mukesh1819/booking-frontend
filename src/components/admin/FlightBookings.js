@@ -105,7 +105,7 @@ class FlightBookings extends Component {
 		});
 	};
 
-	onFilter = () => {
+	onFilter = (values) => {
 		this.setState({
 			bookings: values
 		});
@@ -119,7 +119,7 @@ class FlightBookings extends Component {
 				<div className='row my-3'>
 					<div className='col-12'>
 						<FilterForm
-							submitUrl='bookings'
+							submitUrl='admin/bookings'
 							fields={[
 								{
 									name: 'created_at_gteq',
@@ -135,7 +135,7 @@ class FlightBookings extends Component {
 									name: 'status_eq',
 									label: 'Status',
 									type: 'select',
-									options: ['confirmed', 'pending', 'processing']
+									options: ['verified', 'pending', 'processing']
 								},
 								{
 									name: 'flight_id_cont',
@@ -147,7 +147,7 @@ class FlightBookings extends Component {
 						/>
 
 						<Menu pointing>
-							<Menu.Item name={activeItem} active={activeItem === 'All'} onClick={this.handleItemClick} />
+							<Menu.Item name={activeItem} active={activeItem === 'All'} onClick={this.handleItemClick} /> 
 							<Menu.Item>
 								<Dropdown clearable text='Status'>
 									<Dropdown.Menu>

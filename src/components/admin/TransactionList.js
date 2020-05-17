@@ -13,6 +13,7 @@ import TransactionApiResponse from './TransactionApiResponse';
 import {Modal as ModalExample, Badge} from '../shared';
 import swal from 'sweetalert';
 import {Menu, Segment, Pagination, Input, Accordion} from 'semantic-ui-react';
+import FilterForm from './FilterForm';
 
 class TransactionList extends Component {
 	constructor(props) {
@@ -102,12 +103,74 @@ class TransactionList extends Component {
 		});
 	}
 
+	onFilter = (values) => {
+		this.setState({
+			transactions: values
+		});
+	};
+
 	render() {
 		const {show, key, selectedTransaction, activeMenuItem} = this.state;
 		return (
 			<React.Fragment>
 				{this.state.transactions !== null && (
 					<div className='container p-4'>
+						<div className="col-12">
+							<FilterForm
+								submitUrl='payments'
+								fields={[
+									{
+										name: 'created_at_gteq',
+										label: 'From Date',
+										type: 'date'
+									},
+									{
+										name: 'created_at_lteq',
+										label: 'To Date',
+										type: 'date'
+									},
+
+									{
+										name: 'date_gteq',
+										label: 'From Transaction Date',
+										type: 'date'
+									},
+									{
+										name: 'date_lteq',
+										label: 'To Transaction Date',
+										type: 'date'
+									},
+
+									{
+										name: 'user_name_cont',
+										label: 'user name',
+										type: 'text'
+									},
+
+									{
+										name: 'amount_eq',
+										label: 'amount',
+										type: 'text'
+									},
+
+									{
+										name: 'state_eq',
+										label: 'status',
+										type: 'select',
+										options: ["pending", "initial", "verified"]
+									},
+
+									{
+										name: 'booking_type_eq',
+										label: 'booking type',
+										type: 'select',
+										options: ["FLIGHT", "PACKAGE"]
+									}
+									
+								]}
+								onSubmit={(values) => this.onFilter(values)}
+							/>
+						</div>
 						<div className='' id='search-form'>
 							<h3 className='title'>Transactions</h3>
 
@@ -143,9 +206,11 @@ class TransactionList extends Component {
 								<table className='table table-striped table-bordered'>
 									<thead>
 										<tr>
+											<th>Sno</th>
 											<th>Transaction Invoice</th>
 											<th>state</th>
 											<th>Amount</th>
+											<th>Created At</th>
 											<th>Actions</th>
 										</tr>
 									</thead>
@@ -153,11 +218,13 @@ class TransactionList extends Component {
 										{this.state.transactions.map((transaction) => {
 											return (
 												<tr>
+													<td>{transaction.sNo}</td>
 													<td>{transaction.idx}</td>
 													<td>
 														<Badge type={transaction.state}>{transaction.state}</Badge>
 													</td>
 													<td>{transaction.amount}</td>
+													<td>{transaction.created_at}</td>
 													<td>
 														<span
 															className='btn bg-none text-primary'
