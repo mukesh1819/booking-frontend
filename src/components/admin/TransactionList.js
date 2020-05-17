@@ -12,7 +12,7 @@ import BookingDetails from './BookingDetails';
 import TransactionApiResponse from './TransactionApiResponse';
 import {Modal as ModalExample, Badge} from '../shared';
 import swal from 'sweetalert';
-import {Menu, Segment, Pagination, Input, Accordion} from 'semantic-ui-react';
+import {Menu, Segment, Pagination, Input, Accordion, Dropdown} from 'semantic-ui-react';
 import FilterForm from './FilterForm';
 
 class TransactionList extends Component {
@@ -25,6 +25,10 @@ class TransactionList extends Component {
 			activeMenuItem: 'All'
 		};
 	}
+
+	onStatusChange = (value) => {
+		this.setState({activeMenuItem: value});
+	};
 
 	onTransactionSelect(transaction) {
 		this.setState({
@@ -111,90 +115,101 @@ class TransactionList extends Component {
 
 	render() {
 		const {show, key, selectedTransaction, activeMenuItem} = this.state;
+		const FilterFields = [
+			// {
+			// 	name: 'created_at_gteq',
+			// 	label: 'From Date',
+			// 	type: 'date'
+			// },
+			// {
+			// 	name: 'created_at_lteq',
+			// 	label: 'To Date',
+			// 	type: 'date'
+			// },
+
+			{
+				name: 'date_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'date_lteq',
+				label: 'To Date',
+				type: 'date'
+			},
+
+			// {
+			// 	name: 'user_name_cont',
+			// 	label: 'user name',
+			// 	type: 'text'
+			// },
+
+			{
+				name: 'amount_eq',
+				label: 'amount',
+				type: 'text'
+			}
+
+			// {
+			// 	name: 'state_eq',
+			// 	label: 'status',
+			// 	type: 'select',
+			// 	options: ['pending', 'initial', 'verified']
+			// },
+
+			// {
+			// 	name: 'booking_type_eq',
+			// 	label: 'booking type',
+			// 	type: 'select',
+			// 	options: ['FLIGHT', 'PACKAGE']
+			// }
+		];
 		return (
 			<React.Fragment>
 				{this.state.transactions !== null && (
-					<div className='container p-4'>
-						<div className="col-12">
-							<FilterForm
-								submitUrl='payments'
-								fields={[
-									{
-										name: 'created_at_gteq',
-										label: 'From Date',
-										type: 'date'
-									},
-									{
-										name: 'created_at_lteq',
-										label: 'To Date',
-										type: 'date'
-									},
-
-									{
-										name: 'date_gteq',
-										label: 'From Transaction Date',
-										type: 'date'
-									},
-									{
-										name: 'date_lteq',
-										label: 'To Transaction Date',
-										type: 'date'
-									},
-
-									{
-										name: 'user_name_cont',
-										label: 'user name',
-										type: 'text'
-									},
-
-									{
-										name: 'amount_eq',
-										label: 'amount',
-										type: 'text'
-									},
-
-									{
-										name: 'state_eq',
-										label: 'status',
-										type: 'select',
-										options: ["pending", "initial", "verified"]
-									},
-
-									{
-										name: 'booking_type_eq',
-										label: 'booking type',
-										type: 'select',
-										options: ["FLIGHT", "PACKAGE"]
-									}
-									
-								]}
-								onSubmit={(values) => this.onFilter(values)}
-							/>
-						</div>
+					<div className='ui container'>
+						<FilterForm
+							submitUrl='payments'
+							fields={FilterFields}
+							onSubmit={(values) => this.onFilter(values)}
+						/>
 						<div className='' id='search-form'>
 							<h3 className='title'>Transactions</h3>
 
 							<Menu pointing>
-								<Menu.Item
-									name='All'
-									active={activeMenuItem === 'All'}
-									onClick={this.handleItemClick}
-								/>
-								<Menu.Item
-									name='Pending'
-									active={activeMenuItem === 'Pending'}
-									onClick={this.handleItemClick}
-								/>
-								<Menu.Item
-									name='Processing'
-									active={activeMenuItem === 'Processing'}
-									onClick={this.handleItemClick}
-								/>
-								<Menu.Item
-									name='Verified'
-									active={activeMenuItem === 'Verified'}
-									onClick={this.handleItemClick}
-								/>
+								<Menu.Item name={activeMenuItem} active={true} />
+								<Menu.Item>
+									<Dropdown clearable text='Status'>
+										<Dropdown.Menu>
+											<Dropdown.Item
+												content='Pending'
+												onClick={() => this.onStatusChange('pending')}
+											/>
+											<Dropdown.Item
+												content='Processing'
+												onClick={() => this.onStatusChange('processing')}
+											/>
+											<Dropdown.Item
+												content='Verified'
+												onClick={() => this.onStatusChange('verified')}
+											/>
+										</Dropdown.Menu>
+									</Dropdown>
+								</Menu.Item>
+								<Menu.Item>
+									<Dropdown clearable text='Type'>
+										<Dropdown.Menu>
+											<Dropdown.Item
+												content='Flights'
+												onClick={() => this.onStatusChange('flights')}
+											/>
+											<Dropdown.Item
+												content='Packages'
+												onClick={() => this.onStatusChange('packages')}
+											/>
+										</Dropdown.Menu>
+									</Dropdown>
+								</Menu.Item>
 								<Menu.Menu position='right'>
 									<Menu.Item>
 										<Input icon='search' placeholder='Search...' />

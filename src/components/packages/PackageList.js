@@ -34,7 +34,7 @@ class PackageList extends Component {
 
 	render() {
 		return (
-			<div className='container p-4'>
+			<div className='ui container'>
 				<div className='row'>
 					{/* <div className='d-none d-md-block col-0 col-md-2 p-0'>
 						<div className='card'>

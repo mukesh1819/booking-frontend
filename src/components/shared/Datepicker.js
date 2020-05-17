@@ -8,6 +8,7 @@ export default ({date, onChange, placeholder, ...rest}) => {
 	const [startDate, setStartDate] = useState(date);
 	return (
 		<SemanticDatepicker
+			fluid
 			date={startDate}
 			onChange={(event, data) => {
 				setStartDate(data.value);

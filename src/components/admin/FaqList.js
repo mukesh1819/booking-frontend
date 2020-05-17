@@ -5,7 +5,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {getFaqs, deleteFaq} from '../../api/supportApi';
 import swal from 'sweetalert';
 import history from '../../history';
-import {Accordion, Icon, Menu, Segment, Input} from 'semantic-ui-react';
+import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown} from 'semantic-ui-react';
 import FilterForm from './FilterForm';
 
 class FaqList extends Component {
@@ -98,50 +98,49 @@ class FaqList extends Component {
 
 	render() {
 		const {faqs, activeIndex, activeMenuItem} = this.state;
+		const filterFields = [
+			// {
+			// 	name: 'category_eq',
+			// 	label: 'Category',
+			// 	type: 'select',
+			// 	options: ['flight', 'package']
+			// },
+			{
+				name: 'created_at_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'created_at_lteq',
+				label: 'To Date',
+				type: 'date'
+			}
+		];
 		return (
-			<div className='container p-4'>
-				<div className="col-12">
-					<FilterForm
-						submitUrl='faqs'
-						fields={[
-							{
-								name: 'category_eq',
-								label: 'name',
-								type: 'select',
-								options: ["flight", "package"]
-							},
-							{
-								name: 'created_at_gteq',
-								label: 'From Date',
-								type: 'date'
-							},
-							{
-								name: 'created_at_lteq',
-								label: 'To Date',
-								type: 'date'
-							}
-							
-
-						]}
-						onSubmit={(values) => this.onFilter(values)}
-					/>
+			<div className='ui container'>
+				<div className='d-flex justify-content-between'>
+					<h3 className='title'>Faq List</h3>
+					<Link to='/admin/faq/faq_form' className='btn bg-none color-accent'>
+						Add Faq
+					</Link>
 				</div>
+				{/* <FilterForm
+					submitUrl='faqs'
+					fields={filterFields}
+					onSubmit={(values) => this.onFilter(values)}
+				/> */}
 
-				<div className=''>
-					<div className='d-flex justify-content-between'>
-						<h3 className='title'>Faq List</h3>
-						<Link to='/admin/faq/faq_form' className='btn bg-none color-accent'>
-							Add Faq
-						</Link>
-					</div>
+				<Segment>
 					<Menu pointing>
 						<Menu.Item name='All' active={activeMenuItem === 'All'} onClick={this.handleItemClick} />
-						<Menu.Item name='Flight' active={activeMenuItem === 'Flight'} onClick={this.handleItemClick} />
-						<Menu.Item
-							name='Package'
-							active={activeMenuItem === 'Package'}
-							onClick={this.handleItemClick}
-						/>
+						<Menu.Item name='Flight' active={activeMenuItem === 'Flight'} onClick={this.handleItemClick}>
+							<Dropdown clearable text='Category'>
+								<Dropdown.Menu>
+									<Dropdown.Item content='Flights' onClick={() => this.onStatusChange('flights')} />
+									<Dropdown.Item content='Packages' onClick={() => this.onStatusChange('packages')} />
+								</Dropdown.Menu>
+							</Dropdown>
+						</Menu.Item>
 						<Menu.Menu position='right'>
 							<Menu.Item>
 								<Input icon='search' placeholder='Search...' />
@@ -169,26 +168,24 @@ class FaqList extends Component {
 											>
 												<i className='fas fa-contact' />
 												<span className='btn bg-none text-primary'>edit</span>
+												<span
+													className='btn bg-none text-danger'
+													onClick={() => this.destroyFaq(faq.idx)}
+												>
+													Delete
+												</span>
 											</Link>
 										</div>
 									</Accordion.Title>
 									<Accordion.Content active={activeIndex === index}>
 										<p>{faq.answer}</p>
-											<p>Created At - {faq.created_at}</p>
+										<p>Created At - {faq.created_at}</p>
 									</Accordion.Content>
-									<div>
-										<span
-											className='btn bg-none text-danger'
-											onClick={() => this.destroyFaq(faq.idx)}
-										>
-											Delete
-										</span>
-									</div>
 								</React.Fragment>
 							);
 						})}
 					</Accordion>
-				</div>
+				</Segment>
 			</div>
 		);
 	}

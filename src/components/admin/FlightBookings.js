@@ -20,7 +20,8 @@ class FlightBookings extends Component {
 			bookings: [],
 			currentPage: 1,
 			activeItem: 'All',
-			activeIndex: -1
+			activeIndex: -1,
+			showFilter: false
 		};
 	}
 
@@ -111,43 +112,51 @@ class FlightBookings extends Component {
 		});
 	};
 
+	toggleFilter = () => {
+		this.setState({
+			showFilter: !this.state.showFilter
+		});
+	};
+
 	render() {
-		const {bookings} = this.state;
-		const {activeItem, activeIndex} = this.state;
+		const {bookings, activeItem, activeIndex, showFilter} = this.state;
+		const filterFields = [
+			{
+				name: 'created_at_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'created_at_lteq',
+				label: 'To Date',
+				type: 'date'
+			},
+			{
+				name: 'status_eq',
+				label: 'Status',
+				type: 'select',
+				options: ['verified', 'pending', 'processing']
+			},
+			{
+				name: 'flight_id_cont',
+				label: 'Flight Id',
+				type: 'text'
+			}
+		];
 		return (
 			<div className='container'>
 				<div className='row my-3'>
 					<div className='col-12'>
-						<FilterForm
-							submitUrl='admin/bookings'
-							fields={[
-								{
-									name: 'created_at_gteq',
-									label: 'From Date',
-									type: 'date'
-								},
-								{
-									name: 'created_at_lteq',
-									label: 'To Date',
-									type: 'date'
-								},
-								{
-									name: 'status_eq',
-									label: 'Status',
-									type: 'select',
-									options: ['verified', 'pending', 'processing']
-								},
-								{
-									name: 'flight_id_cont',
-									label: 'Flight Id',
-									type: 'text'
-								}
-							]}
-							onSubmit={(values) => this.onFilter(values)}
-						/>
+						{showFilter && (
+							<FilterForm
+								submitUrl='admin/bookings'
+								fields={filterFields}
+								onSubmit={(values) => this.onFilter(values)}
+							/>
+						)}
 
 						<Menu pointing>
-							<Menu.Item name={activeItem} active={activeItem === 'All'} onClick={this.handleItemClick} /> 
+							<Menu.Item name={activeItem} active={activeItem === 'All'} onClick={this.handleItemClick} />
 							<Menu.Item>
 								<Dropdown clearable text='Status'>
 									<Dropdown.Menu>
@@ -174,13 +183,14 @@ class FlightBookings extends Component {
 									</Dropdown.Menu>
 								</Dropdown>
 							</Menu.Item>
+							<Menu.Item>
+								{/* <Input icon='search' placeholder='Search...' /> */}
+								<Link to='/admin/cancel_requests' className='text-danger'>
+									Cancel Requests
+								</Link>
+							</Menu.Item>
 							<Menu.Menu position='right'>
-								<Menu.Item>
-									{/* <Input icon='search' placeholder='Search...' /> */}
-									<Link to='/admin/cancel_requests' className='text-danger'>
-										Cancel Requests
-									</Link>
-								</Menu.Item>
+								<Menu.Item name={showFilter ? 'Cancel' : 'Filter'} onClick={this.toggleFilter} />
 							</Menu.Menu>
 						</Menu>
 

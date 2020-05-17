@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import history from '../../history';
 import swal from 'sweetalert';
 import FilterForm from './FilterForm';
+import {Card} from 'semantic-ui-react';
 
 class CategoryList extends Component {
 	constructor(props) {
@@ -82,98 +83,96 @@ class CategoryList extends Component {
 	render() {
 		const {categories} = this.state;
 		return (
-			<div className='container p-4'>
-				<div className="col-12">
-					<FilterForm
-						submitUrl='categories'
-						fields={[
-							{
-								name: 'name_eq',
-								label: 'name',
-								type: 'select',
-								options: ["Land Activities", "Air Activities", "Water Activities"]
-							},
-							{
-								name: 'created_at_gteq',
-								label: 'From Date',
-								type: 'date'
-							},
-							{
-								name: 'created_at_lteq',
-								label: 'To Date',
-								type: 'date'
-							}
-							
+			<div className='ui container'>
+				<FilterForm
+					submitUrl='categories'
+					fields={[
+						{
+							name: 'name_eq',
+							label: 'name',
+							type: 'select',
+							options: ['Land Activities', 'Air Activities', 'Water Activities']
+						},
+						{
+							name: 'created_at_gteq',
+							label: 'From Date',
+							type: 'date'
+						},
+						{
+							name: 'created_at_lteq',
+							label: 'To Date',
+							type: 'date'
+						}
+					]}
+					onSubmit={(values) => this.onFilter(values)}
+				/>
 
-						]}
-						onSubmit={(values) => this.onFilter(values)}
-					/>
-				</div>
+				<Card fluid>
+					<Card.Content>
+						<div className='d-flex justify-content-between'>
+							<h3 className='title'>Categories</h3>
+							<Link to='/admin/category_form' className='btn bg-none color-accent'>
+								new category
+							</Link>
+						</div>
 
-				<div className=''>
-					<div className='d-flex justify-content-between'>
-						<h3 className='title'>Categories</h3>
-						<Link to='/admin/category_form' className='btn bg-none color-accent'>
-							new category
-						</Link>
-					</div>
+						<table className='table table-striped table-hover table-sm' ref='main'>
+							<thead>
+								<tr>
+									<th>Sno</th>
+									<th>Name</th>
+									<th>Order</th>
+									<th>Created At</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
 
-					<table className='table table-striped table-hover table-sm' ref='main'>
-						<thead>
-							<tr>
-								<th>Sno</th>
-								<th>Name</th>
-								<th>Order</th>
-								<th>Created At</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
+							<tbody>
+								{categories.map((category) => {
+									return (
+										<tr>
+											<td>{category.sno}</td>
+											<td>{category.name}</td>
+											<td>{category.order} </td>
+											<td>{category.created_at}</td>
+											<td>
+												<Link
+													to={{
+														pathname: '/admin/category_details',
+														state: {
+															category: category
+														}
+													}}
+												>
+													<i className='fas fa-contact' />
+													<span className='btn bg-none text-primary'>view</span>
+												</Link>
 
-						<tbody>
-							{categories.map((category) => {
-								return (
-									<tr>
-										<td>{category.sno}</td>
-										<td>{category.name}</td>
-										<td>{category.order} </td>
-										<td>{category.created_at}</td>
-										<td>
-											<Link
-												to={{
-													pathname: '/admin/category_details',
-													state: {
-														category: category
-													}
-												}}
-											>
-												<i className='fas fa-contact' />
-												<span className='btn bg-none text-primary'>view</span>
-											</Link>
-
-											<Link
-												to={{
-													pathname: '/admin/category_form',
-													state: {
-														category: category
-													}
-												}}
-											>
-												<i className='fas fa-contact' />
-												<span className='btn bg-none text-primary'>edit</span>
-											</Link>
-											<span
-												className='btn bg-none text-danger'
-												onClick={() => this.destroyCategory(category.idx)}
-											>
-												Delete
-											</span>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
-				</div>
+												<Link
+													to={{
+														pathname: '/admin/category_form',
+														state: {
+															category: category
+														}
+													}}
+												>
+													<i className='fas fa-contact' />
+													<span className='btn bg-none text-primary'>edit</span>
+												</Link>
+												<span
+													className='btn bg-none text-danger'
+													onClick={() => this.destroyCategory(category.idx)}
+												>
+													Delete
+												</span>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</Card.Content>
+				</Card>
 			</div>
 		);
 	}

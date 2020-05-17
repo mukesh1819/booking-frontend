@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import {Badge} from '../shared';
 import FilterForm from './FilterForm';
+import {Card} from 'semantic-ui-react';
 
 class InquiryList extends Component {
 	constructor(props) {
@@ -43,118 +44,118 @@ class InquiryList extends Component {
 	render() {
 		const {inquiries} = this.state;
 		return (
-			<div className='container p-4'>
-				<div className="col-12">
-					<FilterForm
-						submitUrl='inquiries'
-						fields={[
-							{
-								name: 'created_at_gteq',
-								label: 'From Date',
-								type: 'date'
-							},
-							{
-								name: 'created_at_lteq',
-								label: 'To Date',
-								type: 'date'
-							},
+			<div className='ui container'>
+				<FilterForm
+					submitUrl='inquiries'
+					fields={[
+						{
+							name: 'created_at_gteq',
+							label: 'From Date',
+							type: 'date'
+						},
+						{
+							name: 'created_at_lteq',
+							label: 'To Date',
+							type: 'date'
+						},
 
-							{
-								name: 'preferred_date_gteq',
-								label: 'From Preferred Date',
-								type: 'date'
-							},
-							{
-								name: 'preferred_date_lteq',
-								label: 'To Preferred Date',
-								type: 'date'
-							},
+						{
+							name: 'preferred_date_gteq',
+							label: 'From Preferred Date',
+							type: 'date'
+						},
+						{
+							name: 'preferred_date_lteq',
+							label: 'To Preferred Date',
+							type: 'date'
+						},
 
-							{
-								name: 'first_name_or_last_name_cont',
-								label: 'name',
-								type: 'text'
-							},
+						{
+							name: 'first_name_or_last_name_cont',
+							label: 'name',
+							type: 'text'
+						},
 
-							{
-								name: 'package_name_cont',
-								label: 'package name',
-								type: 'text'
-							},
+						{
+							name: 'package_name_cont',
+							label: 'package name',
+							type: 'text'
+						},
 
-							{
-								name: 'email_address_cont',
-								label: 'email',
-								type: 'text'
-							},
+						{
+							name: 'email_address_cont',
+							label: 'email',
+							type: 'text'
+						},
 
-							{
-								name: 'status_eq',
-								label: 'status',
-								type: 'select',
-								options: ["pending", "processing", "verified"]
-							},
+						{
+							name: 'status_eq',
+							label: 'status',
+							type: 'select',
+							options: ['pending', 'processing', 'verified']
+						},
 
-							{
-								name: 'phone_cont',
-								label: 'Mobile Number',
-								type: 'text'
-							}
-						]}
-						onSubmit={(values) => this.onFilter(values)}
-					/>
-				</div>
+						{
+							name: 'phone_cont',
+							label: 'Mobile Number',
+							type: 'text'
+						}
+					]}
+					onSubmit={(values) => this.onFilter(values)}
+				/>
 
-				<div className=''>
-					<h3 className='title'>Inquiries</h3>
-					{inquiries.map((inquiry) => {
-						var total_passenger = inquiry.number_of_adult + inquiry.number_of_child;
-						return (
-							<div className='card'>
-								<div className='card-body row'>
-									<div className='col-4'>
-										<div>{inquiry.sno}</div>
-										<h3>
-											{inquiry.first_name} {inquiry.last_name}
-										</h3>
-										<div className='text-muted text-small'>{inquiry.email_address}</div>
-										<div className='text-muted text-small'>{inquiry.phone}</div>
-									</div>
-
-									<div className='col-4'>
-										<div>
-											<Badge type={inquiry.status}> {inquiry.status}</Badge>
+				<Card fluid>
+					<Card.Content>
+						<h3 className='title'>Inquiries</h3>
+						{inquiries.map((inquiry) => {
+							var total_passenger = inquiry.number_of_adult + inquiry.number_of_child;
+							return (
+								<div className='card'>
+									<div className='card-body row'>
+										<div className='col-4'>
+											<div>{inquiry.sno}</div>
+											<h3>
+												{inquiry.first_name} {inquiry.last_name}
+											</h3>
+											<div className='text-muted text-small'>{inquiry.email_address}</div>
+											<div className='text-muted text-small'>{inquiry.phone}</div>
 										</div>
-										<div>{inquiry.preferred_date}</div>
-										<div>Created At - {inquiry.created_at}</div>
-									</div>
 
-									<div className='col-3'>
-										<span className='title'>Package: </span>
-										<span>{inquiry.package_name}</span>
-										<div className='text-small text-muted'>
-											<span className='text-strong'>Total Passengers: </span>
-											{total_passenger}
+										<div className='col-4'>
+											<div>
+												<Badge type={inquiry.status}> {inquiry.status}</Badge>
+											</div>
+											<div>{inquiry.preferred_date}</div>
+											<div>Created At - {inquiry.created_at}</div>
 										</div>
-									</div>
-									<div className='col-1'>
-										<Link
-											to={{
-												pathname: '/admin/inquiry_details',
-												state: {
-													inquiry: inquiry
-												}
-											}}
-										>
-											<i className='fas fa-contact' />
-											<span className='btn bg-none text-primary'>view</span>
-										</Link>
+
+										<div className='col-3'>
+											<span className='title'>Package: </span>
+											<span>{inquiry.package_name}</span>
+											<div className='text-small text-muted'>
+												<span className='text-strong'>Total Passengers: </span>
+												{total_passenger}
+											</div>
+										</div>
+										<div className='col-1'>
+											<Link
+												to={{
+													pathname: '/admin/inquiry_details',
+													state: {
+														inquiry: inquiry
+													}
+												}}
+											>
+												<i className='fas fa-contact' />
+												<span className='btn bg-none text-primary'>view</span>
+											</Link>
+										</div>
 									</div>
 								</div>
-							</div>
-						);
-					})}
-				</div>
+							);
+						})}
+					</Card.Content>
+				</Card>
 			</div>
 		);
 	}

@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 import history from '../../history';
 import FilterForm from './FilterForm';
 import {Badge} from '../shared';
+import {Card} from 'semantic-ui-react';
 
 class UsersList extends Component {
 	constructor(props) {
@@ -87,114 +88,114 @@ class UsersList extends Component {
 
 	render() {
 		const {users} = this.state;
+		const filterFields = [
+			{
+				name: 'created_at_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'created_at_lteq',
+				label: 'To Date',
+				type: 'date'
+			},
+			{
+				name: 'role_name_eq',
+				label: 'role',
+				type: 'select',
+				options: ['Admin', 'Support', 'General']
+			},
+			{
+				name: 'name_cont',
+				label: 'name',
+				type: 'text'
+			},
+
+			{
+				name: 'email_cont',
+				label: 'email',
+				type: 'text'
+			},
+
+			{
+				name: 'phone_number_cont',
+				label: 'Mobile Number',
+				type: 'text'
+			}
+		];
 		return (
-			<div className='container'>
-				<div className="col-12">
-					<FilterForm
-						submitUrl='admin/users'
-						fields={[
-							{
-								name: 'created_at_gteq',
-								label: 'From Date',
-								type: 'date'
-							},
-							{
-								name: 'created_at_lteq',
-								label: 'To Date',
-								type: 'date'
-							},
-							{
-								name: 'role_name_eq',
-								label: 'role',
-								type: 'select',
-								options: ['Admin', 'Support', 'General']
-							},
-							{
-								name: 'name_cont',
-								label: 'name',
-								type: 'text'
-							},
+			<div className='ui container'>
+				<FilterForm
+					submitUrl='admin/users'
+					fields={filterFields}
+					onSubmit={(values) => this.onFilter(values)}
+				/>
 
-							{
-								name: 'email_cont',
-								label: 'email',
-								type: 'text'
-							},
+				<Card fluid>
+					<Card.Content>
+						<h3 className='title'>Users</h3>
+						<table className='table table-striped table-hover table-sm' ref='main'>
+							<thead>
+								<tr>
+									<th>Sno</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Role</th>
+									<th>Mobile Number</th>
+									<th>Created At</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
 
-							{
-								name: 'phone_number_cont',
-								label: 'Mobile Number',
-								type: 'text'
-							}
-						]}
-						onSubmit={(values) => this.onFilter(values)}
-					/>
-
-				</div>
-				
-				<div className=''>
-					<h3 className='title'>Users</h3>
-					<table className='table table-striped table-hover table-sm' ref='main'>
-						<thead>
-							<tr>
-								<th>Sno</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Role</th>
-								<th>Mobile Number</th>
-								<th>Created At</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							{users.map((user) => {
-								return (
-									<tr>
-										<td>{user.id}</td>
-										<td>{user.name}</td>
-										<td>{user.email} </td>
-										<td>
-											<Badge type={user.role}>{user.role}</Badge>{' '}
-										</td>
-										<td>{user.phone_number}</td>
-										<td>{user.created_at}</td>
-										<td>
-											<Link
-												to={{
-													pathname: '/users/edit',
-													state: {
-														user: user
-													}
-												}}
-												className='btn bg-none text-primary'
-											>
-												Edit
-											</Link>
-											<Link
-												to={{
-													pathname: '/admin/email',
-													state: {
-														user: user
-													}
-												}}
-												className='btn bg-none text-primary'
-											>
-												Contact
-											</Link>
-											<span
-												className='btn bg-none text-danger'
-												onClick={() => this.destroyUser(user.idx)}
-											>
-												Delete
-											</span>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
-				</div>
+							<tbody>
+								{users.map((user) => {
+									return (
+										<tr>
+											<td>{user.id}</td>
+											<td>{user.name}</td>
+											<td>{user.email} </td>
+											<td>
+												<Badge type={user.role}>{user.role}</Badge>{' '}
+											</td>
+											<td>{user.phone_number}</td>
+											<td>{user.created_at}</td>
+											<td>
+												<Link
+													to={{
+														pathname: '/users/edit',
+														state: {
+															user: user
+														}
+													}}
+													className='btn bg-none text-primary'
+												>
+													Edit
+												</Link>
+												<Link
+													to={{
+														pathname: '/admin/email',
+														state: {
+															user: user
+														}
+													}}
+													className='btn bg-none text-primary'
+												>
+													Contact
+												</Link>
+												<span
+													className='btn bg-none text-danger'
+													onClick={() => this.destroyUser(user.idx)}
+												>
+													Delete
+												</span>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</Card.Content>
+				</Card>
 				{/* <DataTable data={toTableData(users)} /> */}
 			</div>
 		);

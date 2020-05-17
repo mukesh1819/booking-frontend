@@ -30,7 +30,7 @@ class EditInquiry extends Component {
 	render() {
 		const {inquiry} = this.props.location != null ? this.props.location.state : {inquiry: {}};
 		return (
-			<div className='container p-4'>
+			<div className='ui container'>
 				<h3 className='title'>Edit Inquiry</h3>
 				<div className='card'>
 					<div className='card-body'>
