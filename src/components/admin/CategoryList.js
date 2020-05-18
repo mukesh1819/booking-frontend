@@ -138,7 +138,7 @@ class CategoryList extends Component {
 											<td>
 												<Link
 													to={{
-														pathname: '/admin/category_details',
+														pathname: `/admin/category_details/${category.idx}`,
 														state: {
 															category: category
 														}

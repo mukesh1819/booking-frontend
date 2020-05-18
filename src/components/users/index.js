@@ -5,6 +5,7 @@ import {Bookings} from '../bookings';
 import './users.scss';
 import '../shared/tab.scss';
 import {Sidebar} from '../shared';
+import history from '../../history';
 
 const Transactions = () => 'Transactions';
 const Reports = () => 'Reports';
@@ -35,7 +36,7 @@ export default class Users extends Component {
 				name: 'profile',
 				label: 'Profile',
 				value: '',
-				link: '/profile',
+				link: `/profile`,
 				active: section == 'profile'
 			},
 			{
@@ -43,7 +44,7 @@ export default class Users extends Component {
 				name: 'bookings',
 				label: 'My Bookings',
 				value: '',
-				link: '/bookings',
+				link: `/bookings`,
 				active: section == 'bookings'
 			}
 		];

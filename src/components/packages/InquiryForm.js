@@ -17,12 +17,15 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {createInquiry, updateInquiry} from '../../api/inquiryApi';
+import {showPackage} from '../../api/packageApi';
 import {sortObjectBy, phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 
 class InquiryForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			aPackage: {}
+		};
 		var date = new Date();
 		date.setDate(date.getDate() + 2);
 	}
@@ -35,12 +38,24 @@ class InquiryForm extends Component {
 		getCategories().then((res) => {
 			console.log('TODO ', res);
 		});
+
+		if(this.props.match && this.props.match.params){
+			showPackage(this.props.match.params.idx)
+			.then((resp) => {
+				this.setState({
+					aPackage: resp.data
+				});
+			})
+			.catch((error) => {
+				console.log("fetch package error", error);
+			})
+		}
 	}
 
 	render() {
 		const {countries} = this.props;
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
-		const aPackage = inquiry.package != null ? inquiry.package : this.props.location.state.aPackage;
+		const aPackage = inquiry.package != null ? inquiry.package : this.state.aPackage;
 		const InquiriesSchema = yup.object().shape({
 			first_name: textValidate(yup).required('Required'),
 			last_name: textValidate(yup).required('Required'),

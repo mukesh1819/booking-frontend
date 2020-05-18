@@ -52,7 +52,6 @@ class Dashboard extends Component {
 		} = this.state;
 
 		const section = this.props.location.hash;
-		debugger;
 
 		return (
 			<React.Fragment>

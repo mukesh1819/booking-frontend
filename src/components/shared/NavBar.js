@@ -65,7 +65,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 						{loggedIn && (
 							<NavLink
 								className='link text-white'
-								to='/bookings'
+								to={`/bookings/${currentUser.idx}`}
 								activeStyle={{
 									textDecoration: 'none',
 									fontWeight: 'bold'
@@ -93,7 +93,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 						<Dropdown icon='fas fa-user' title={userInitials(currentUser)} className='text-white pl-3'>
 							<ul className='text-normal'>
 								<li className='m-0'>
-									<Link to='/profile' className='item text-bold'>
+									<Link to={`/profile/${currentUser.idx}`} className='item text-bold'>
 										{t('Profile')}
 									</Link>
 								</li>

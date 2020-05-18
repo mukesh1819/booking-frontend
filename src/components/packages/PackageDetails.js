@@ -9,6 +9,7 @@ import {Tab} from 'semantic-ui-react';
 import {HotelImage, nepalVillage, peace} from '../../images';
 import Gallery from './Gallery';
 import {Redirect} from 'react-router-dom';
+import history from '../../history';
 
 class PackageDetails extends Component {
 	constructor(props) {
@@ -33,9 +34,10 @@ class PackageDetails extends Component {
 	}
 
 	onSelect() {
-		this.setState((prevState, props) => {
-			return {showInquiryForm: !prevState.showInquiryForm};
-		});
+		history.push(`/inquiry_form/${this.props.match.params.id}`);
+		// this.setState((prevState, props) => {
+		// 	return {showInquiryForm: !prevState.showInquiryForm};
+		// });
 	}
 
 	fetchDetails() {

@@ -221,42 +221,40 @@ class PackageBookingList extends Component {
 
 						<tbody>
 							{packageBookings.map((packageBooking) => {
-								if (packageBooking.status === 'processing') {
-									return (
-										<tr>
-											<td>{packageBooking.id}</td>
-											{/* <td>{packageBooking.idx}</td> */}
-											{/* <td>{packageBooking.package_id} </td> */}
-											{/* <td>{packageBooking.user_id} </td> */}
-											<td>{packageBooking.amount}</td>
-											{/* <td>{packageBooking.inquiry_id}</td> */}
-											{/* <td>{packageBooking.booking_transaction_id}</td> */}
-											<td>{packageBooking.status}</td>
-											<td>{packageBooking.start_date}</td>
-											<td>{packageBooking.end_date}</td>
-											{/* <td>{packageBooking.pickup_date}</td> */}
-											{/* <td>{packageBooking.pickup_location}</td> */}
-											{/* <td>{packageBooking.drop_off_date}</td> */}
-											{/* <td>{packageBooking.drop_off_location}</td> */}
-											{/* <td>{packageBooking.meals_included}</td> */}
-											{/* <td>{packageBooking.remarks}</td> */}
-											{/* <td>{packageBooking.created_at}</td> */}
-											<td>
-												<Link
-													to={{
-														pathname: `/admin/package_booking_details/${packageBooking.idx}`,
-														state: {
-															packageBooking: packageBooking
-														}
-													}}
-												>
-													<i className='fas fa-contact' />
-													<span className='px-1'>view</span>
-												</Link>
-											</td>
-										</tr>
-									);
-								}
+								return (
+									<tr>
+										<td>{packageBooking.id}</td>
+										{/* <td>{packageBooking.idx}</td> */}
+										{/* <td>{packageBooking.package_id} </td> */}
+										{/* <td>{packageBooking.user_id} </td> */}
+										<td>{packageBooking.amount}</td>
+										{/* <td>{packageBooking.inquiry_id}</td> */}
+										{/* <td>{packageBooking.booking_transaction_id}</td> */}
+										<td>{packageBooking.status}</td>
+										<td>{packageBooking.start_date}</td>
+										<td>{packageBooking.end_date}</td>
+										{/* <td>{packageBooking.pickup_date}</td> */}
+										{/* <td>{packageBooking.pickup_location}</td> */}
+										{/* <td>{packageBooking.drop_off_date}</td> */}
+										{/* <td>{packageBooking.drop_off_location}</td> */}
+										{/* <td>{packageBooking.meals_included}</td> */}
+										{/* <td>{packageBooking.remarks}</td> */}
+										{/* <td>{packageBooking.created_at}</td> */}
+										<td>
+											<Link
+												to={{
+													pathname: `/admin/package_booking_details/${packageBooking.idx}`,
+													state: {
+														packageBooking: packageBooking
+													}
+												}}
+											>
+												<i className='fas fa-contact' />
+												<span className='px-1'>view</span>
+											</Link>
+										</td>
+									</tr>
+								);
 							})}
 						</tbody>
 					</table>

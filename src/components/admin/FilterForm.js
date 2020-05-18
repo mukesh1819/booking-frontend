@@ -41,7 +41,6 @@ class FilterForm extends Component {
 					console.log('Request URL', url);
 					filter(url)
 						.then((response) => {
-							debugger;
 							setSubmitting(false);
 							onSubmit(response.data);
 						})

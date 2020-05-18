@@ -124,7 +124,7 @@ class PackagesList extends Component {
 											<td>
 												<Link
 													to={{
-														pathname: `/admin/package_details`,
+														pathname: `/admin/package_details/${aPackage.idx}`,
 														state: {
 															aPackage: aPackage
 														}

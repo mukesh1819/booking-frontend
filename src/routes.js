@@ -82,7 +82,7 @@ const routes = [
 	{private: true, path: '/admin/package_form', component: NewPackageForm, layout: UserLayout},
 	{private: true, path: '/admin/partners/:id', component: PartnerProfile, layout: UserLayout},
 	{private: true, path: '/inquiry_details/:idx', component: PackageInquiryDetails, layout: UserLayout},
-	{private: true, path: '/inquiry_form', component: InquiryForm, layout: UserLayout},
+	{private: true, path: '/inquiry_form/:idx', component: InquiryForm, layout: UserLayout},
 	{private: true, path: '/admin/edit_inquiry', component: EditInquiry, layout: UserLayout},
 	{private: true, path: '/admin/package_booking_details/:id', component: PackageBookingDetails, layout: UserLayout},
 	{private: true, path: '/payment_success/:idx', component: PaymentSuccess, layout: UserLayout},

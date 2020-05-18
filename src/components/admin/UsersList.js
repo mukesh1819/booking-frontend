@@ -162,7 +162,7 @@ class UsersList extends Component {
 											<td>
 												<Link
 													to={{
-														pathname: '/users/edit',
+														pathname: `/users/edit/${user.idx}`,
 														state: {
 															user: user
 														}
