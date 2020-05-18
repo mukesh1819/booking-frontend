@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import FilterForm from './FilterForm';
 import {Segment, Card} from 'semantic-ui-react';
+import {CustomMenu} from './Menu';
 
 class PartnerList extends Component {
 	constructor(props) {
@@ -42,40 +43,64 @@ class PartnerList extends Component {
 
 	render() {
 		const {partners} = this.state;
+		const filterFields = [
+			{
+				name: 'created_at_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'created_at_lteq',
+				label: 'To Date',
+				type: 'date'
+			},
+			{
+				name: 'first_name_or_last_name_cont',
+				label: 'first name or last name',
+				type: 'text'
+			},
+
+			{
+				name: 'email_cont',
+				label: 'email',
+				type: 'text'
+			},
+
+			{
+				name: 'contact_number_cont',
+				label: 'Mobile Number',
+				type: 'text'
+			}
+		];
+
 		return (
 			<div className='ui container'>
-				<FilterForm
+				{/* <FilterForm submitUrl='partners' fields={filterFields} onSubmit={(values) => this.onFilter(values)} /> */}
+				<CustomMenu
 					submitUrl='partners'
-					fields={[
+					filterFields={filterFields}
+					onFilter={(values) => this.onFilter(values)}
+					items={[
 						{
-							name: 'created_at_gteq',
-							label: 'From Date',
-							type: 'date'
-						},
-						{
-							name: 'created_at_lteq',
-							label: 'To Date',
-							type: 'date'
-						},
-						{
-							name: 'first_name_or_last_name_cont',
-							label: 'first name or last name',
-							type: 'text'
-						},
-
-						{
-							name: 'email_cont',
-							label: 'email',
-							type: 'text'
-						},
-
-						{
-							name: 'contact_number_cont',
-							label: 'Mobile Number',
-							type: 'text'
+							label: 'Status',
+							type: 'dropdown',
+							name: 'status_eq',
+							objects: [
+								{
+									label: 'Pending',
+									value: 'pending'
+								},
+								{
+									label: 'Verified',
+									value: 'verified'
+								},
+								{
+									label: 'Processing',
+									value: 'processing'
+								}
+							]
 						}
 					]}
-					onSubmit={(values) => this.onFilter(values)}
 				/>
 				<Segment>
 					<Card fluid>
@@ -84,7 +109,7 @@ class PartnerList extends Component {
 							<table className='table table-striped table-hover table-sm' ref='main'>
 								<thead>
 									<tr>
-										<th>Sno</th>
+										<th>S. No.</th>
 										<th>Name</th>
 										<th>Email</th>
 										<th>Company Name</th>
@@ -95,10 +120,10 @@ class PartnerList extends Component {
 								</thead>
 
 								<tbody>
-									{partners.map((partner) => {
+									{partners.map((partner, index) => {
 										return (
 											<tr>
-												<td>{partner.sno} </td>
+												<td>{index + 1}</td>
 												<td>
 													{partner.first_name}&nbsp;
 													{partner.last_name}

@@ -1,7 +1,8 @@
 import React, {Component, useState, useEffect} from 'react';
 import {imageUrl} from '../../helpers';
+import {Segment, Header, Icon, Button} from 'semantic-ui-react';
 
-export default ({images}) => {
+export default ({images = []}) => {
 	useEffect(
 		() => {
 			const options = {
@@ -37,6 +38,17 @@ export default ({images}) => {
 		},
 		[images]
 	);
+
+	if (images.length == 0) {
+		return (
+			<Segment placeholder>
+				<Header icon>
+					<Icon name='pdf times circle outline' />
+					Images Not Available.
+				</Header>
+			</Segment>
+		);
+	}
 	const [activeImage, setActiveImage] = useState(images[0].url);
 	return (
 		<div className='img-gallery'>

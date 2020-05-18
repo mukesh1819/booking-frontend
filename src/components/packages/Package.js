@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {imageUrl, calculatePackagePrice} from '../../helpers';
+import {Segment, Icon, Header} from 'semantic-ui-react';
 
 const Package = (props) => {
 	const {aPackage} = props;
@@ -16,7 +17,16 @@ const Package = (props) => {
 						</Link>
 					</div>
 				</div> */}
-					{ aPackage.image && <img src={imageUrl(aPackage.images[0].url)} alt='Image' className='img-responsive' />} 
+					{aPackage.images.length == 0 && (
+						<Segment placeholder>
+							<Header icon>
+								<Icon className='image outline' />{' '}
+							</Header>
+						</Segment>
+					)}
+					{aPackage.images.length > 0 && (
+						<img src={imageUrl(aPackage.images[0].url)} alt='Image' className='img-responsive' />
+					)}
 				</figure>
 				<div className='details'>
 					<h3>{aPackage.name}</h3>

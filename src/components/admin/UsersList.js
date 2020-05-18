@@ -137,7 +137,7 @@ class UsersList extends Component {
 						<table className='table table-striped table-hover table-sm' ref='main'>
 							<thead>
 								<tr>
-									<th>Sno</th>
+									<th>S. No.</th>
 									<th>Name</th>
 									<th>Email</th>
 									<th>Role</th>

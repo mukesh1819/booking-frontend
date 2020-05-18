@@ -41,49 +41,48 @@ class PackagesList extends Component {
 
 	render() {
 		const {packages} = this.state;
+
+		const filterFields = [
+			{
+				name: 'created_at_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'created_at_lteq',
+				label: 'To Date',
+				type: 'date'
+			},
+			{
+				name: 'name_cont',
+				label: 'package name',
+				type: 'text'
+			},
+
+			{
+				name: 'price_eq',
+				label: 'price',
+				type: 'text'
+			},
+
+			{
+				name: 'category_name_eq',
+				label: 'category name',
+				type: 'select',
+				options: ['Land Activities', 'Air Activities', 'Water Activities']
+			},
+
+			{
+				name: 'published_eq',
+				label: 'published',
+				type: 'select',
+				options: ['true', 'false']
+			}
+		];
+
 		return (
 			<div className='ui container'>
-				<FilterForm
-					submitUrl='packages'
-					fields={[
-						{
-							name: 'created_at_gteq',
-							label: 'From Date',
-							type: 'date'
-						},
-						{
-							name: 'created_at_lteq',
-							label: 'To Date',
-							type: 'date'
-						},
-						{
-							name: 'name_cont',
-							label: 'package name',
-							type: 'text'
-						},
-
-						{
-							name: 'price_eq',
-							label: 'price',
-							type: 'text'
-						},
-
-						{
-							name: 'category_name_eq',
-							label: 'category name',
-							type: 'select',
-							options: ['Land Activities', 'Air Activities', 'Water Activities']
-						},
-
-						{
-							name: 'published_eq',
-							label: 'published',
-							type: 'select',
-							options: ['true', 'false']
-						}
-					]}
-					onSubmit={(values) => this.onFilter(values)}
-				/>
+				<FilterForm submitUrl='packages' fields={filterFields} onSubmit={(values) => this.onFilter(values)} />
 
 				<Card fluid>
 					<Card.Content>
@@ -97,7 +96,7 @@ class PackagesList extends Component {
 						<table className='table table-striped table-hover table-sm' ref='main'>
 							<thead>
 								<tr>
-									<th>Sno</th>
+									<th>S. No.</th>
 									<th>Name</th>
 									<th>Category</th>
 									<th>Price</th>
@@ -108,10 +107,10 @@ class PackagesList extends Component {
 							</thead>
 
 							<tbody>
-								{packages.map((aPackage) => {
+								{packages.map((aPackage, index) => {
 									return (
 										<tr>
-											<td>{aPackage.id}</td>
+											<td>{index + 1}</td>
 											<td>{aPackage.name}</td>
 											<td>{aPackage.category.name} </td>
 											<td>{aPackage.price}</td>

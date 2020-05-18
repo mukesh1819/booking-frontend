@@ -198,7 +198,7 @@ class PackageBookingList extends Component {
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
-								<th>Sno</th>
+								<th>S. No.</th>
 								{/* <th>IDX</th> */}
 								{/* <th>package ID</th> */}
 								{/* <th>User ID</th> */}

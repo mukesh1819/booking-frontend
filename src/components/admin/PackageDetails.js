@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
-import {Checkbox} from 'semantic-ui-react';
+import {Checkbox, Card} from 'semantic-ui-react';
 import {updatePublish, deletePackage} from '../../api/packageApi';
 import history from '../../history';
+import {Package} from '../packages';
 
 class PackageDetails extends Component {
 	constructor(props) {
@@ -74,66 +75,72 @@ class PackageDetails extends Component {
 	render() {
 		const {aPackage} = this.props.location.state;
 		return (
-			<div className='container'>
-				<div className=''>
-					<div className='d-flex justify-content-between'>
-						<h3>Details</h3>
-						<Link
-							to={{
-								pathname: `/admin/package_form`,
-								state: {
-									aPackage: aPackage
-								}
-							}}
-							className='btn btn-outline-primary'
-						>
-							Edit
-						</Link>
+			<div className='row'>
+				<div className='col-12 col-md-4'>
+					<Package aPackage={aPackage} />
+					<div className=''>
+						<span className='btn btn-outline-primary' onChange={this.handleChange}>
+							Publish Package
+						</span>
 					</div>
+				</div>
 
-					<table className='table table-striped table-hover table-sm' ref='main'>
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Name</th>
-								<th>Images</th>
-								<th>Category</th>
-								<th>Price</th>
-								<th>Offer Price</th>
-								<th>Location</th>
-								<th>Duration</th>
-								<th>Description</th>
-								<th>Inclusions</th>
-								<th>Exclusions</th>
-								<th>Published</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr>
-								<td>{aPackage.id}</td>
-								<td>{aPackage.name}</td>
-								<td>{aPackage.images}</td>
-								<td>{aPackage.category.name} </td>
-								<td>{aPackage.price}</td>
-								<td>{aPackage.offer_price}</td>
-								<td>{aPackage.location}</td>
-								<td>{aPackage.duration}</td>
-								<td>{aPackage.description}</td>
-								<td>{aPackage.inclusions}</td>
-								<td>{aPackage.exclusions}</td>
-								<td>
-									<Checkbox checked={aPackage.published} onChange={this.handleChange} />
-								</td>
-								<td>
-									<span className='btn btn-danger' onClick={() => this.destroyPackage(aPackage.idx)}>
+				<div className='col-12 col-md-8'>
+					<Card fluid>
+						<Card.Content>
+							<div className='d-flex justify-content-between'>
+								<h3 className='title'>Details</h3>
+								<div>
+									<Link
+										to={{
+											pathname: `/admin/package_form`,
+											state: {
+												aPackage: aPackage
+											}
+										}}
+										className='btn btn-outline-primary'
+									>
+										Edit
+									</Link>
+									<span
+										className='btn btn-outline-danger'
+										onClick={() => this.destroyPackage(aPackage.idx)}
+									>
 										Delete
 									</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+								</div>
+							</div>
+							<div className='list-view'>
+								<div className='list'>
+									<span className='label'>Category</span>
+									<span className='value'>{aPackage.category.name}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Published</span>
+									<span className='value'>{aPackage.published}</span>
+								</div>
+							</div>
+
+							<div>
+								<h3 className='title'>Descriptions</h3>
+								<div
+									dangerouslySetInnerHTML={{
+										__html: aPackage.description
+									}}
+								/>
+							</div>
+							<div className='row'>
+								<div className='col-6'>
+									<h3 className='title'>Inclusions</h3>
+									{aPackage.inclusions}
+								</div>
+								<div className='col-6'>
+									<h3 className='title'>Exclusions</h3>
+									{aPackage.exclusions}
+								</div>
+							</div>
+						</Card.Content>
+					</Card>
 				</div>
 			</div>
 		);

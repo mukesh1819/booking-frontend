@@ -221,7 +221,7 @@ class TransactionList extends Component {
 								<table className='table table-striped table-bordered'>
 									<thead>
 										<tr>
-											<th>Sno</th>
+											<th>S. No.</th>
 											<th>Transaction Invoice</th>
 											<th>state</th>
 											<th>Amount</th>
