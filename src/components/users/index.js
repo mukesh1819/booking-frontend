@@ -16,11 +16,20 @@ export default class Users extends Component {
 
 		this.state = {
 			ActiveComponent: Profile,
-			section: 'profile'
+			section: '#profile'
 		};
 	}
 
+	componentDidMount(){
+		const components = {profile: Profile, bookings: Bookings};
+		this.setState({
+			section: this.props.location.hash,
+			ActiveComponent: components[this.props.location.hash.slice(1, this.props.location.hash.length)]
+		});
+	}
+
 	activateTab = (value) => {
+		history.push(`/profile/${this.props.match.params.idx}#${value}`);
 		const components = {profile: Profile, bookings: Bookings};
 		this.setState({
 			section: value,
@@ -29,7 +38,7 @@ export default class Users extends Component {
 	};
 
 	render() {
-		const {ActiveComponent, section} = this.props.location.state || this.state;
+		const {ActiveComponent, section} = this.state;
 		const sideBarMenu = [
 			{
 				icon: 'fas fa-user',

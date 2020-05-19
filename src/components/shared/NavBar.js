@@ -93,7 +93,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 						<Dropdown icon='fas fa-user' title={userInitials(currentUser)} className='text-white pl-3'>
 							<ul className='text-normal'>
 								<li className='m-0'>
-									<Link to={`/profile/${currentUser.idx}`} className='item text-bold'>
+									<Link to={`/profile/${currentUser.idx}#profile`} className='item text-bold'>
 										{t('Profile')}
 									</Link>
 								</li>

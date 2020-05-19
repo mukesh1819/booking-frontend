@@ -77,23 +77,22 @@ class EditUserForm extends Component {
 								validationSchema={UpdateSignupForm}
 								onSubmit={(values, {setSubmitting, setStatus}) => {
 									const variables = {
-										user: {
-											id: values.id,
-											name: values.name,
-											email: values.email,
-											country: values.country,
-											password: values.password,
-											password_confirmation: values.password_confirmation
-										}
+										id: values.id,
+										name: values.name,
+										email: values.email,
+										country: values.country,
+										password: values.password,
+										password_confirmation: values.password_confirmation
 									};
-									updateUserDetails(variables)
+									updateUserDetails(variables.id, variables)
 										.then((response) => {
 											setSubmitting(false);
 											this.setState({
 												userDetails: response.data.user
 											});
 											// console.log(response.data.user);
-											history.push('/profile');
+											// history.push(`/profile/${this.state.userDetails.idx}`);
+											history.goBack();
 										})
 										.catch((error) => {
 											// console.log(error);
@@ -164,7 +163,7 @@ class EditUserForm extends Component {
 														options={countries.map((country) => {
 															return {
 																key: country.key,
-																value: country.text,
+																value: country.value,
 																text: country.text,
 																flag: country.flag
 															};

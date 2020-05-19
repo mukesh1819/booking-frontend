@@ -72,7 +72,7 @@ const routes = [
 	{private: true, path: '/bookings', component: Bookings, layout: UserLayout},
 	{private: true, path: '/transactions', component: Users, layout: UserLayout},
 	{private: true, path: '/records', component: Users, layout: UserLayout},
-	{private: true, path: '/profile', component: Users, layout: UserLayout},
+	{private: true, path: '/profile/:idx', component: Users, layout: UserLayout},
 	{private: true, path: '/users/edit', component: EditUserForm, layout: UserLayout},
 	{private: true, path: '/booking/:id', component: BookingDetails, layout: UserLayout},
 	{private: true, path: '/booking/:idx/edit', component: EditBooking, layout: UserLayout},
