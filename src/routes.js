@@ -87,7 +87,7 @@ const routes = [
 	{private: true, path: '/admin/package_booking_details/:id', component: PackageBookingDetails, layout: UserLayout},
 	{private: true, path: '/payment_success/:idx', component: PaymentSuccess, layout: UserLayout},
 
-	{private: true, path: '/admin/transaction_details', component: TransactionDetails, layout: AdminLayout},
+	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},
 	{private: true, path: '/admin/transaction_list', component: TransactionList, layout: AdminLayout},
 	{private: true, path: '/admin/create_user', component: CreateUser, layout: AdminLayout},
 	{private: true, path: '/admin/users_list', component: UsersList, layout: AdminLayout},

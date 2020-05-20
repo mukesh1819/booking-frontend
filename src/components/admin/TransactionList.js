@@ -7,9 +7,6 @@ import ErrorMessage from '../ErrorMessage';
 import {Link, NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Tabs, Tab} from 'react-bootstrap';
-import UserDetailCard from '../users/UserDetailCard';
-import BookingDetails from './BookingDetails';
-import TransactionApiResponse from './TransactionApiResponse';
 import {Modal as ModalExample, Badge} from '../shared';
 import swal from 'sweetalert';
 import {Menu, Segment, Pagination, Input, Accordion, Dropdown} from 'semantic-ui-react';
@@ -241,12 +238,17 @@ class TransactionList extends Component {
 													<td>{transaction.amount}</td>
 													<td>{transaction.created_at}</td>
 													<td>
-														<span
+														<Link
 															className='btn bg-none text-primary'
-															onClick={() => this.onTransactionSelect(transaction)}
+															to={{
+																pathname: `/admin/transaction/${transaction.idx}`,
+																state: {
+																	transaction: transaction
+																}
+															}}
 														>
 															Details
-														</span>
+														</Link>
 														<span
 															className='btn bg-none text-danger'
 															onClick={() => this.destroyTransaction(transaction.idx)}
@@ -263,31 +265,6 @@ class TransactionList extends Component {
 						</div>
 					</div>
 				)}
-				<ModalExample
-					title='Transaction Details'
-					buttonLabel='close'
-					show={selectedTransaction !== null}
-					toggle={() => this.onTransactionSelect(null)}
-					onSuccess={() => this.onTransactionSelect(null)}
-				>
-					{selectedTransaction !== null && (
-						<div className='p-3'>
-							<Tabs id='controlled-tab-example' activeKey={key} onSelect={(k) => this.setKey(k)}>
-								<Tab eventKey='user' title='user'>
-									<UserDetailCard user={selectedTransaction.user} />
-								</Tab>
-								<Tab eventKey='bookings' title='bookings'>
-									{selectedTransaction.bookings.map((booking) => (
-										<BookingDetails booking={booking} />
-									))}
-								</Tab>
-								<Tab eventKey='response' title='response'>
-									<TransactionApiResponse response={selectedTransaction.response} />
-								</Tab>
-							</Tabs>
-						</div>
-					)}
-				</ModalExample>
 			</React.Fragment>
 		);
 	}

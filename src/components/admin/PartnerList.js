@@ -56,7 +56,7 @@ class PartnerList extends Component {
 			},
 			{
 				name: 'first_name_or_last_name_cont',
-				label: 'first name or last name',
+				label: 'Name',
 				type: 'text'
 			},
 

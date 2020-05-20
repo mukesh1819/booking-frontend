@@ -6,6 +6,7 @@ import {getPackages} from '../../api/packageApi';
 import swal from 'sweetalert';
 import {Badge} from '../shared';
 import FilterForm from './FilterForm';
+import {CustomMenu} from './Menu';
 import {Segment, Card} from 'semantic-ui-react';
 class PackagesList extends Component {
 	constructor(props) {
@@ -55,34 +56,61 @@ class PackagesList extends Component {
 			},
 			{
 				name: 'name_cont',
-				label: 'package name',
+				label: 'Name',
 				type: 'text'
 			},
 
 			{
 				name: 'price_eq',
-				label: 'price',
+				label: 'Price',
 				type: 'text'
-			},
-
-			{
-				name: 'category_name_eq',
-				label: 'category name',
-				type: 'select',
-				options: ['Land Activities', 'Air Activities', 'Water Activities']
-			},
-
-			{
-				name: 'published_eq',
-				label: 'published',
-				type: 'select',
-				options: ['true', 'false']
 			}
 		];
 
 		return (
 			<div className='ui container'>
-				<FilterForm submitUrl='packages' fields={filterFields} onSubmit={(values) => this.onFilter(values)} />
+				{/* <FilterForm submitUrl='packages' fields={filterFields} onSubmit={(values) => this.onFilter(values)} /> */}
+				<CustomMenu
+					submitUrl='packages'
+					filterFields={filterFields}
+					onFilter={(values) => this.onFilter(values)}
+					items={[
+						{
+							label: 'Status',
+							type: 'dropdown',
+							name: 'published_eq',
+							objects: [
+								{
+									label: 'Published',
+									value: true
+								},
+								{
+									label: 'Unpublished',
+									value: false
+								}
+							]
+						},
+						{
+							label: 'Category',
+							type: 'dropdown',
+							name: 'category_name_cont',
+							objects: [
+								{
+									label: 'Land Activities',
+									value: 'Land Activities'
+								},
+								{
+									label: 'Air Activities',
+									value: 'Air Activities'
+								},
+								{
+									label: 'Water Activities',
+									value: 'Water Activities'
+								}
+							]
+						}
+					]}
+				/>
 
 				<Card fluid>
 					<Card.Content>

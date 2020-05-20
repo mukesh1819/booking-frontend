@@ -4,7 +4,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackageBookings} from '../../api/packageBookingApi';
 import swal from 'sweetalert';
-import FilterForm from './FilterForm';
+import {CustomMenu} from './Menu';
 import {Segment, Card, Menu, Dropdown, Input} from 'semantic-ui-react';
 
 class PackageBookingList extends Component {
@@ -42,32 +42,10 @@ class PackageBookingList extends Component {
 		});
 	};
 
-	toggleFilter = () => {
-		this.setState({
-			showFilter: !this.state.showFilter
-		});
-	};
-
-	onStatusChange = (value) => {
-		this.setState({activeItem: value});
-	};
-
-	handleItemClick = (e, {name}) => {
-		this.setState({activeItem: name});
-	};
-
-	handleClick = (e, titleProps) => {
-		const {index} = titleProps;
-		const {activeIndex} = this.state;
-		const newIndex = activeIndex === index ? -1 : index;
-
-		this.setState({activeIndex: newIndex});
-	};
-
 	render() {
 		const {packageBookings, activeItem, activeIndex, showFilter} = this.state;
 
-		const FilterFields = [
+		const filterFields = [
 			{
 				name: 'created_at_gteq',
 				label: 'From Date',
@@ -141,12 +119,12 @@ class PackageBookingList extends Component {
 				type: 'text'
 			},
 
-			{
-				name: 'status_eq',
-				label: 'Status',
-				type: 'select',
-				options: ['pending', 'confirmed', 'processing']
-			},
+			// {
+			// 	name: 'status_eq',
+			// 	label: 'Status',
+			// 	type: 'select',
+			// 	options: ['pending', 'confirmed', 'processing']
+			// },
 
 			{
 				name: 'amount_eq',
@@ -156,43 +134,40 @@ class PackageBookingList extends Component {
 
 			{
 				name: 'inquiry_first_name_or_last_name_cont',
-				label: 'inquiry',
+				label: 'Inquiring User',
 				type: 'text'
 			}
 		];
 
 		return (
 			<div className='ui container'>
-				<h3>Package Booking List</h3>
-
-				{showFilter && (
-					<FilterForm
-						submitUrl='package_bookings'
-						fields={FilterFields}
-						onSubmit={(values) => this.onFilter(values)}
-					/>
-				)}
-				<Menu pointing>
-					<Menu.Item name={activeItem} active={true} onClick={this.handleItemClick} />
-					<Menu.Item>
-						<Dropdown clearable text='Status'>
-							<Dropdown.Menu>
-								<Dropdown.Item content='Verified' onClick={() => this.onStatusChange('verified')} />
-								<Dropdown.Item content='Processing' onClick={() => this.onStatusChange('processing')} />
-								<Dropdown.Item content='Cancelled' onClick={() => this.onStatusChange('cancelled')} />
-								<Dropdown.Item content='Completed' onClick={() => this.onStatusChange('completed')} />
-								<Dropdown.Item content='Declined' onClick={() => this.onStatusChange('declined')} />
-							</Dropdown.Menu>
-						</Dropdown>
-					</Menu.Item>
-
-					<Menu.Menu position='right'>
-						<Menu.Item name={showFilter ? 'Cancel' : 'Filter'} onClick={this.toggleFilter} />
-						<Menu.Item>
-							<Input icon='search' placeholder='Search...' />
-						</Menu.Item>
-					</Menu.Menu>
-				</Menu>
+				<h3 className='title'>Package Bookings</h3>
+				<CustomMenu
+					submitUrl='package_bookings'
+					filterFields={filterFields}
+					onFilter={(values) => this.onFilter(values)}
+					items={[
+						{
+							label: 'Status',
+							type: 'dropdown',
+							name: 'status_eq',
+							objects: [
+								{
+									label: 'Pending',
+									value: 'pending'
+								},
+								{
+									label: 'Processing',
+									value: 'processing'
+								},
+								{
+									label: 'Confirmed',
+									value: 'confirmed'
+								}
+							]
+						}
+					]}
+				/>
 
 				<Segment>
 					<table className='table table-striped table-hover table-sm' ref='main'>

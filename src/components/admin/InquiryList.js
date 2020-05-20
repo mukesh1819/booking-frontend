@@ -5,7 +5,7 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import {Badge} from '../shared';
-import FilterForm from './FilterForm';
+import {CustomMenu} from './Menu';
 import {Card} from 'semantic-ui-react';
 
 class InquiryList extends Component {
@@ -43,65 +43,80 @@ class InquiryList extends Component {
 
 	render() {
 		const {inquiries} = this.state;
+		const filterFields = [
+			{
+				name: 'created_at_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'created_at_lteq',
+				label: 'To Date',
+				type: 'date'
+			},
+
+			{
+				name: 'preferred_date_eq',
+				label: 'Date of Activity',
+				type: 'date'
+			},
+			// {
+			// 	name: 'preferred_date_lteq',
+			// 	label: 'To Preferred Date',
+			// 	type: 'date'
+			// },
+
+			{
+				name: 'first_name_or_last_name_cont',
+				label: 'User Name',
+				type: 'text'
+			},
+
+			{
+				name: 'package_name_cont',
+				label: 'Package name',
+				type: 'text'
+			},
+
+			{
+				name: 'email_address_cont',
+				label: 'email',
+				type: 'text'
+			},
+
+			{
+				name: 'phone_cont',
+				label: 'Mobile Number',
+				type: 'text'
+			}
+		];
 		return (
 			<div className='ui container'>
-				<FilterForm
+				<CustomMenu
 					submitUrl='inquiries'
-					fields={[
+					filterFields={filterFields}
+					onFilter={(values) => this.onFilter(values)}
+					items={[
 						{
-							name: 'created_at_gteq',
-							label: 'From Date',
-							type: 'date'
-						},
-						{
-							name: 'created_at_lteq',
-							label: 'To Date',
-							type: 'date'
-						},
-
-						{
-							name: 'preferred_date_gteq',
-							label: 'From Preferred Date',
-							type: 'date'
-						},
-						{
-							name: 'preferred_date_lteq',
-							label: 'To Preferred Date',
-							type: 'date'
-						},
-
-						{
-							name: 'first_name_or_last_name_cont',
-							label: 'name',
-							type: 'text'
-						},
-
-						{
-							name: 'package_name_cont',
-							label: 'package name',
-							type: 'text'
-						},
-
-						{
-							name: 'email_address_cont',
-							label: 'email',
-							type: 'text'
-						},
-
-						{
+							label: 'Status',
+							type: 'dropdown',
 							name: 'status_eq',
-							label: 'status',
-							type: 'select',
-							options: ['pending', 'processing', 'verified']
-						},
-
-						{
-							name: 'phone_cont',
-							label: 'Mobile Number',
-							type: 'text'
+							objects: [
+								{
+									label: 'Pending',
+									value: 'pending'
+								},
+								{
+									label: 'Processing',
+									value: 'processing'
+								},
+								{
+									label: 'Verified',
+									value: 'verified'
+								}
+							]
 						}
 					]}
-					onSubmit={(values) => this.onFilter(values)}
 				/>
 
 				<Card fluid>
