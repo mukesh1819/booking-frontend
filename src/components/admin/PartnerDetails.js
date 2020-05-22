@@ -42,7 +42,7 @@ class PartnerDetails extends Component {
 			});
 	}
 
-	destroyPartner(id){
+	destroyPartner(id) {
 		// deletePartner(id)
 		// .then((response) => {
 		// 	swal({
@@ -86,10 +86,10 @@ class PartnerDetails extends Component {
 	render() {
 		const {partner} = this.state;
 		return (
-			<div className='row text-center'>
+			<div className='row'>
 				<PartnerProfile partner={this.state.partner} />
 
-				<div className='col-12 p-4'>
+				<div className='col-12 p-4 text-center'>
 					{partner.status === 'approved' && <span className='text-info'>Partner Created</span>}
 					{partner.status === 'processing' && (
 						<span className='btn btn-secondary' onClick={() => this.callPartnerConfirm(partner.idx)}>

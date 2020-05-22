@@ -39,17 +39,15 @@ class InquiryForm extends Component {
 			console.log('TODO ', res);
 		});
 
-		if(this.props.match && this.props.match.params){
-			showPackage(this.props.match.params.idx)
+		showPackage(this.props.match.params.idx)
 			.then((resp) => {
 				this.setState({
 					aPackage: resp.data
 				});
 			})
 			.catch((error) => {
-				console.log("fetch package error", error);
-			})
-		}
+				console.log('fetch package error', error);
+			});
 	}
 
 	render() {

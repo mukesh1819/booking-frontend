@@ -120,9 +120,15 @@ class PackageDetails extends Component {
 				<div className='container'>
 					<div className='header'>
 						<div className='img-container'>
-							<a href={imageUrl(aPackage.images[0])} className='image-popup'>
-								<img src={imageUrl(aPackage.images[0])} alt='Image' className='img-responsive' />
-							</a>
+							{aPackage.images.length > 0 && (
+								<a href={imageUrl(aPackage.images[0].url)} className='image-popup'>
+									<img
+										src={imageUrl(aPackage.images[0].url)}
+										alt='Image'
+										className='img-responsive'
+									/>
+								</a>
+							)}
 						</div>
 						<div className='card bg-none title'>
 							<div className='card-body'>
