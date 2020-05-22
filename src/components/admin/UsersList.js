@@ -7,7 +7,7 @@ import EditUserForm from '../users/EditUserForm';
 import {getUsers, deleteUser} from '../../api/userApi';
 import swal from 'sweetalert';
 import history from '../../history';
-import FilterForm from './FilterForm';
+import {CustomMenu} from './Menu';
 import {Badge} from '../shared';
 import {Card} from 'semantic-ui-react';
 
@@ -100,12 +100,6 @@ class UsersList extends Component {
 				type: 'date'
 			},
 			{
-				name: 'role_name_eq',
-				label: 'role',
-				type: 'select',
-				options: ['Admin', 'Support', 'General']
-			},
-			{
 				name: 'name_cont',
 				label: 'name',
 				type: 'text'
@@ -125,10 +119,31 @@ class UsersList extends Component {
 		];
 		return (
 			<div className='ui container'>
-				<FilterForm
+				<CustomMenu
 					submitUrl='admin/users'
-					fields={filterFields}
-					onSubmit={(values) => this.onFilter(values)}
+					filterFields={filterFields}
+					onFilter={(values) => this.onFilter(values)}
+					items={[
+						{
+							label: 'Role',
+							type: 'dropdown',
+							name: 'role_name_eq',
+							objects: [
+								{
+									label: 'Admin',
+									value: 'Admin'
+								},
+								{
+									label: 'Support',
+									value: 'Support'
+								},
+								{
+									label: 'General',
+									value: 'General'
+								}
+							]
+						}
+					]}
 				/>
 
 				<Card fluid>

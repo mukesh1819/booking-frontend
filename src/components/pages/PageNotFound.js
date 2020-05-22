@@ -1,9 +1,21 @@
 import React from 'react';
-import image from '../../images/404.jpg';
+import {Button, Header, Icon, Segment} from 'semantic-ui-react';
+import history from '../../history';
 
 const PageNotFound = () => (
-	<div className='text-center'>
-		<img src={image} className='img-responsive' />
+	<div className='ui container'>
+		<Segment placeholder>
+			<Header icon>
+				<Icon name='search' />
+				Page Not Found.
+			</Header>
+			<Segment.Inline>
+				<Button>Try Again</Button>
+				<Button primary onClick={() => history.push('/')}>
+					Go to Home
+				</Button>
+			</Segment.Inline>
+		</Segment>
 	</div>
 );
 

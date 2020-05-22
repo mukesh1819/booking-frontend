@@ -62,11 +62,8 @@ class Profile extends Component {
 	}
 
 	render() {
-		const {currentUser, countries} = this.props;
-		var userCountry = []
-		if(countries.length > 1){
-			userCountry = countries.filter((country) =>  country.value == currentUser.country)
-		}
+		const {currentUser, countries = []} = this.props;
+		var userCountry = countries.find((country) => country.value == currentUser.country);
 		const {loading, codeStatus, changePassword, updating} = this.state;
 		return (
 			<Segment loading={currentUser.id == undefined || updating}>
@@ -133,7 +130,7 @@ class Profile extends Component {
 								edit={!updating}
 								label='Nationality'
 								name='nationality'
-								value={userCountry.length > 0 ? userCountry[0].text : ''}
+								value={userCountry ? userCountry.text : ''}
 								type='select'
 								options={countries}
 								onSubmit={(value) => this.update(currentUser.id, {country: value})}

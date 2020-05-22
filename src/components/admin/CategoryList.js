@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import history from '../../history';
 import swal from 'sweetalert';
 import FilterForm from './FilterForm';
+import {CustomMenu} from './Menu';
 import {Card} from 'semantic-ui-react';
 
 class CategoryList extends Component {
@@ -82,29 +83,51 @@ class CategoryList extends Component {
 
 	render() {
 		const {categories} = this.state;
+		const filterFields = [
+			{
+				name: 'created_at_gteq',
+				label: 'From Date',
+				type: 'date'
+			},
+			{
+				name: 'created_at_lteq',
+				label: 'To Date',
+				type: 'date'
+			}
+		];
 		return (
 			<div className='ui container'>
-				<FilterForm
+				{/* <FilterForm
 					submitUrl='categories'
-					fields={[
+					fields={}
+					onSubmit={(values) => this.onFilter(values)}
+				/> */}
+
+				<CustomMenu
+					submitUrl='categories'
+					filterFields={filterFields}
+					onFilter={(values) => this.onFilter(values)}
+					items={[
 						{
-							name: 'name_eq',
-							label: 'name',
-							type: 'select',
-							options: ['Land Activities', 'Air Activities', 'Water Activities']
-						},
-						{
-							name: 'created_at_gteq',
-							label: 'From Date',
-							type: 'date'
-						},
-						{
-							name: 'created_at_lteq',
-							label: 'To Date',
-							type: 'date'
+							label: 'Category',
+							type: 'dropdown',
+							name: 'name_cont',
+							objects: [
+								{
+									label: 'Land Activities',
+									value: 'Land Activities'
+								},
+								{
+									label: 'Air Activities',
+									value: 'Air Activities'
+								},
+								{
+									label: 'Water Activities',
+									value: 'Water Activities'
+								}
+							]
 						}
 					]}
-					onSubmit={(values) => this.onFilter(values)}
 				/>
 
 				<Card fluid>

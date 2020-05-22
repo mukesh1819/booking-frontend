@@ -6,7 +6,7 @@ import {getFaqs, deleteFaq} from '../../api/supportApi';
 import swal from 'sweetalert';
 import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown} from 'semantic-ui-react';
-import FilterForm from './FilterForm';
+import {CustomMenu} from './Menu';
 
 class FaqList extends Component {
 	constructor(props) {
@@ -124,29 +124,30 @@ class FaqList extends Component {
 						Add Faq
 					</Link>
 				</div>
-				{/* <FilterForm
+				<CustomMenu
 					submitUrl='faqs'
-					fields={filterFields}
-					onSubmit={(values) => this.onFilter(values)}
-				/> */}
+					filterFields={filterFields}
+					onFilter={(values) => this.onFilter(values)}
+					items={[
+						{
+							label: 'Category',
+							type: 'dropdown',
+							name: 'category_cont',
+							objects: [
+								{
+									label: 'Flights',
+									value: 'flight'
+								},
+								{
+									label: 'Packages',
+									value: 'package'
+								}
+							]
+						}
+					]}
+				/>
 
 				<Segment>
-					<Menu pointing>
-						<Menu.Item name='All' active={activeMenuItem === 'All'} onClick={this.handleItemClick} />
-						<Menu.Item name='Flight' active={activeMenuItem === 'Flight'} onClick={this.handleItemClick}>
-							<Dropdown clearable text='Category'>
-								<Dropdown.Menu>
-									<Dropdown.Item content='Flights' onClick={() => this.onStatusChange('flights')} />
-									<Dropdown.Item content='Packages' onClick={() => this.onStatusChange('packages')} />
-								</Dropdown.Menu>
-							</Dropdown>
-						</Menu.Item>
-						<Menu.Menu position='right'>
-							<Menu.Item>
-								<Input icon='search' placeholder='Search...' />
-							</Menu.Item>
-						</Menu.Menu>
-					</Menu>
 					<Accordion styled fluid>
 						{faqs.map((faq, index) => {
 							return (
