@@ -4,7 +4,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import PartnerProfile from '../partners/PartnerProfile';
 import history from '../../history';
-import {showPartner, confirmPartner, deletePartner} from '../../api/partnerApi';
+import {showPartner, confirmPartner, deletePartner, activatePartner, deactivatePartner} from '../../api/partnerApi';
 
 class PartnerDetails extends Component {
 	constructor(props) {
@@ -36,10 +36,43 @@ class PartnerDetails extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
+				history.goBack();
 			})
 			.catch((error) => {
 				console.log(' partner request approval error', error);
 			});
+	}
+
+	callPartnerActivate(id){
+		activatePartner(id)
+		.then((response) => {
+			swal({
+				title: 'Partner Activation Request!',
+				text: 'partnership is activated',
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.goBack();
+		})
+		.catch((error) => {
+			console.log(' partner Activation error', error);
+		});
+	}
+
+	callPartnerDeactivate(id){
+		deactivatePartner(id)
+		.then((response) => {
+			swal({
+				title: 'Partner deactivation Request!',
+				text: 'partnership is deactivated',
+				icon: 'success',
+				button: 'Continue!'
+			});
+			history.goBack();
+		})
+		.catch((error) => {
+			console.log(' partner deactivate error', error);
+		});
 	}
 
 	destroyPartner(id){
@@ -90,7 +123,23 @@ class PartnerDetails extends Component {
 				<PartnerProfile partner={this.state.partner} />
 
 				<div className='col-12 p-4'>
-					{partner.status === 'approved' && <span className='text-info'>Partner Created</span>}
+					{partner.status === 'approved' && 
+					<span>
+						<span className='text-info mr-2'>Partner Created</span>
+						<span className='btn btn-secondary' onClick={() => this.callPartnerDeactivate(partner.idx)}>
+								deactivate
+						</span>
+					</span>
+					}
+					{partner.status === 'inactive' && (
+						<span>
+							<span className='text-info mr-2'>Partner has been deactivated</span>
+							<span className='btn btn-secondary' onClick={() => this.callPartnerActivate(partner.idx)}>
+								activate
+							</span>
+						</span>
+						
+					)}
 					{partner.status === 'processing' && (
 						<span className='btn btn-secondary' onClick={() => this.callPartnerConfirm(partner.idx)}>
 							Confirm
