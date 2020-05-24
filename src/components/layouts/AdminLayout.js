@@ -7,7 +7,7 @@ import {logout, userInitials} from '../../helpers';
 import history from '../../history';
 import {Sidebar} from '../shared';
 
-const AdminLayout = ({currentUser, children}) => {
+const AdminLayout = ({currentUser, children, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
 	const [section, setSection] = useState(undefined);
 

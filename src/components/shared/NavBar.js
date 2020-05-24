@@ -3,7 +3,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import store from '../../redux/store';
-import {logout, userInitials, isAdmin, isLoggedIn, supportedLanguages} from '../../helpers';
+import {logout, userInitials, isAdmin, isLoggedIn, supportedLanguages, roleBasedUrl} from '../../helpers';
 import Slidebar from './Slidebar';
 import Dropdown from './Dropdown';
 import SignUpForm from '../sessions/SignInForm';
@@ -33,7 +33,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 					>
 						<i className={sideBarIsVisible ? 'icon-cross' : 'icon-menu'} />
 					</button>
-					<Link to='/' className='navbar-brand animated bounce delay-2s'>
+					<Link to={roleBasedUrl(currentUser.role, '/')} className='navbar-brand animated bounce delay-2s'>
 						<span>{t('visitallnepal')}</span>
 					</Link>
 				</div>
@@ -106,7 +106,7 @@ const NavBar = ({sideBarIsVisible, toggleSidebar, currentUser, language, logoutU
 											logout();
 										}}
 									>
-										{t("Logout")}
+										{t('Logout')}
 									</a>
 								</li>
 							</ul>

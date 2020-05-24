@@ -165,7 +165,24 @@ const FlightDetails = ({flight}) => (
 const PassengerDetails = ({flight, canEdit, allSelected, selectPassenger, selectedPassengers}) => (
 	<div className='widget'>
 		<div className='card'>
-			<h3 className='card-header'>Passenger Details</h3>
+			<div className='card-header'>
+				<div className='d-flex justify-content-between'>
+					<h3 className='title'>Passenger Details</h3>
+					<Link
+						to={{
+							pathname: `/passengers/${flight.ruid}/edit`,
+							state: {
+								passengers: flight.passengers,
+								booking: flight
+							}
+						}}
+						className='btn btn-outline-primary'
+					>
+						MODIFY
+					</Link>
+				</div>
+			</div>
+
 			<div className='card-body'>
 				<div className='d-flex p-2'>
 					{canEdit &&
@@ -354,7 +371,10 @@ class BookingDetails extends Component {
 					<span onClick={this.onContinueToPayment} className='btn btn-primary'>
 						Continue to Payment
 					</span>
-					<Timer ttlTime={getDuration(departing_flight.remaining_time)} />
+					<Timer
+						ttlTime={getDuration(departing_flight.remaining_time)}
+						onTimeOut={() => console.log('Abcd')}
+					/>
 				</div>
 			</div>
 		);

@@ -15,6 +15,7 @@ import {Timer, Accordion} from '../shared';
 import {setTTLtime} from '../../redux/actions/flightActions';
 import {Dropdown, Input} from 'semantic-ui-react';
 import {passengerSelector} from '../../redux/selectors';
+import history from '../../history';
 
 import './flights.scss';
 
@@ -57,10 +58,11 @@ class AddPassengers extends Component {
 			.then((response) => {
 				this.setState({
 					passengers: values.passengers,
-					viewDetails: true,
+					// viewDetails: true,
 					user: values.user
 				});
 				this.props.setBooking(response.data);
+				history.push(`/booking/${response.data[0].ruid}`);
 			})
 			.catch((error) => {
 				// console.log(error);

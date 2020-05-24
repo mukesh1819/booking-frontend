@@ -49,6 +49,15 @@ class PackageDetails extends Component {
 			animateIn: true,
 			nav: false,
 			responsive: {
+				0: {
+					items: 2,
+					nav: false,
+					autoWidth: true
+				},
+				600: {
+					items: 3,
+					nav: false
+				},
 				1000: {
 					items: 4,
 					nav: true,
@@ -88,6 +97,32 @@ class PackageDetails extends Component {
 									__html: aPackage.description
 								}}
 							/>
+
+							{aPackage.activities &&
+							aPackage.activities.length > 0 && (
+								<div className='row mt-3'>
+									<h3 className='title'>Activities</h3>
+									<div className='col-12'>
+										<div className='field-box'>
+											<table className='table table-responsive table-striped'>
+												<tr>
+													<th>Description</th>
+													<th>Duration</th>
+													<th>Price</th>
+												</tr>
+												{aPackage.activities.map((activity) => {
+													<tr>
+														<td>{activity.description}</td>
+														<td>{activity.duration}</td>
+														<td>{activity.price}</td>
+													</tr>;
+												})}
+											</table>
+										</div>
+									</div>
+								</div>
+							)}
+
 							<div className='row mt-3'>
 								{aPackage.inclusions && (
 									<div className='col-12 col-md-6'>
