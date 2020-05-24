@@ -33,16 +33,20 @@ class FilterForm extends Component {
 				initialValues={initialValues}
 				onSubmit={(values, {setSubmitting}) => {
 					setSubmitting(false);
-					var url = ``;
+					var searchUrl = ``;
 					Object.keys(values).forEach((key) => {
-						url = url + (values[key] != '' && key != '' ? `q[${key}]=${values[key]}&` : '');
+						searchUrl = searchUrl + (values[key] != '' && key != '' ? `q[${key}]=${values[key]}&` : '');
 					});
-					url = `${submitUrl}?` + url;
+					const url = `${submitUrl}?` + searchUrl;
 					console.log('Request URL', url);
 					filter(url)
 						.then((response) => {
 							setSubmitting(false);
 							onSubmit(response.data);
+							history.push({
+								pathname: window.location.pathname,
+								search: `?${searchUrl}`
+							});
 						})
 						.catch((error) => {
 							setSubmitting(false);

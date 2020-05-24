@@ -3,6 +3,7 @@ import React, {useState, Fragment} from 'react';
 import FilterForm from './FilterForm';
 import {Dropdown, Menu, Label} from 'semantic-ui-react';
 import {filter} from '../../api';
+import history from '../../history';
 
 export const CustomMenu = ({filterFields, items = [], onFilter, submitUrl}) => {
 	const [showFilter, setFilter] = useState(false);
@@ -16,7 +17,12 @@ export const CustomMenu = ({filterFields, items = [], onFilter, submitUrl}) => {
 					slug = slug + (values[key] != '' && key != '' ? `q[${key}]=${values[key]}&` : '');
 				});
 		}
+
 		var url = submitUrl + `?${slug}`;
+		history.push({
+			pathname: window.location.pathname,
+			search: `?${slug}`
+		});
 		console.log('Request URL', url);
 		filter(url)
 			.then((response) => {

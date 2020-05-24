@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {getAdminDashboard} from '../../api/flightApi';
 import swal from 'sweetalert';
+import history from '../../history';
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
@@ -61,7 +62,7 @@ class Dashboard extends Component {
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
-										<div className='text-center'>
+										<div className='text-center' onClick={() => history.push('/admin/users_list')}>
 											<span className='count'> {users} </span> <hr />
 											<Link to='/admin/users_list' className='action'>
 												View all Users
