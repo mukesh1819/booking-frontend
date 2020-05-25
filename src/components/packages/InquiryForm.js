@@ -73,7 +73,6 @@ class InquiryForm extends Component {
 			number_of_child: numberValidate(yup),
 			head_traveller_name: textValidate(yup).required('Required')
 		});
-
 		const inquiryDetails = {
 			first_name: inquiry.first_name,
 			last_name: inquiry.last_name,
@@ -90,9 +89,8 @@ class InquiryForm extends Component {
 			number_of_child: inquiry.number_of_child == null ? 0 : inquiry.number_of_child,
 			head_traveller_name: inquiry.head_traveller_name,
 			activity_id: null,
-			package_id: inquiry.package != null ? inquiry.package.id : aPackage.id
+			package_id: aPackage.id
 		};
-
 		var sortedCountries = sortObjectBy(countries, 'code');
 		return (
 			<div className='container bg-white'>
@@ -100,6 +98,7 @@ class InquiryForm extends Component {
 					initialValues={inquiryDetails}
 					validationSchema={InquiriesSchema}
 					onSubmit={(values, {setSubmitting}) => {
+						values.package_id = inquiryDetails.package_id;
 						this.setState({
 							searching: true
 						});
