@@ -135,7 +135,7 @@ class TransactionDetails extends Component{
 
 									
 									<div className='text-center'>
-										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
+										<button className='btn btn-success m-2' type='submit' disabled={isSubmitting}>
 											Success
 										</button>
 									</div>
