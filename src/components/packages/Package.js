@@ -37,7 +37,7 @@ const Package = (props) => {
 						</span>
 						<span className='text-small text-muted'>
 							<i className='fas fa-clock' />&nbsp;
-							{`6 days`}
+							{aPackage.duration}
 						</span>
 					</div>
 					{discount > 0 && (

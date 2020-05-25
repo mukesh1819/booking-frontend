@@ -119,7 +119,7 @@ class PartnerDetails extends Component {
 	render() {
 		const {partner} = this.state;
 		return (
-			<div className='row text-center'>
+			<div className='row'>
 				<PartnerProfile partner={this.state.partner} />
 
 				<div className='col-12 p-4'>

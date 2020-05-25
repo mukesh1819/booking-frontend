@@ -6,10 +6,7 @@ import {connect} from 'react-redux';
 class Timer extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			minutes: props.ttlTime.minutes(),
-			seconds: props.ttlTime.seconds()
-		};
+		this.state = this.setTime(props);
 	}
 
 	componentDidMount() {
@@ -38,6 +35,19 @@ class Timer extends Component {
 		clearInterval(this.interval);
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.ttlTime.minutes() == this.props.ttlTime.minutes()) return;
+		console.log('COMPONENT UPDATED', this.props.ttlTime);
+		this.setState(this.setTime(this.props));
+	}
+
+	setTime(props) {
+		return {
+			minutes: props.ttlTime.minutes(),
+			seconds: props.ttlTime.seconds()
+		};
+	}
+
 	render() {
 		const {minutes, seconds} = this.state;
 		return (
@@ -54,16 +64,4 @@ class Timer extends Component {
 	}
 }
 
-const mapStateToProps = ({flightStore}) => {
-	// return {
-	// 	ttlTime: flightStore.ttlTime
-	// };
-
-	return {};
-};
-
-const mapDispatchToProps = {
-	// setTTLtime
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export default Timer;

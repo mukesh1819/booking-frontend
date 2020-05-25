@@ -34,7 +34,7 @@ class PartnerProfile extends Component {
 							{/* <div className='col-12 col-md-2 p-0'>
 								<Sidebar items={sideBarMenu} />
 							</div> */}
-							<div className='col-12 col-md-2 offset-md-2 '>
+							<div className='col-12 col-md-3 offset-md-2 '>
 								{/* <img src='' /> */}
 								<div className=''>
 									<i className='fas fa-user user-icon' />
@@ -87,7 +87,7 @@ class PartnerProfile extends Component {
 									</span>
 								</div>
 							</div> */}
-							<div className='col-12 col-md-6 list-view'>
+							<div className='col-12 col-md-5 list-view'>
 								<h3 className='title'>Company Details</h3>
 								<div className='list'>
 									<span className='label'>Name</span>

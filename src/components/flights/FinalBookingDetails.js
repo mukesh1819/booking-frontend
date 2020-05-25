@@ -50,7 +50,7 @@ class FinalBookingDetails extends Component {
 				<div className='d-flex justify-content-between'>
 					<span className='text-bold'>Flight Details</span>
 					<span className='text-danger'>
-						<Timer ttlTime={getDuration(booking.remaining_time)} />
+						<Timer ttlTime={getDuration(booking.remaining_time)} onTimeOut={this.onTimeOut} />
 					</span>
 				</div>
 				<div className='card mt-3'>

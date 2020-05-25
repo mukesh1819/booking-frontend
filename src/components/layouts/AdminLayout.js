@@ -7,7 +7,7 @@ import {logout, userInitials} from '../../helpers';
 import history from '../../history';
 import {Sidebar} from '../shared';
 
-const AdminLayout = ({currentUser, children}) => {
+const AdminLayout = ({currentUser, children, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
 	const [section, setSection] = useState(undefined);
 
@@ -58,20 +58,18 @@ const AdminLayout = ({currentUser, children}) => {
 						{loggedIn && (
 							<Dropdown icon='icon-user' title={userInitials(currentUser)} className='text-white pl-3'>
 								<ul className='text-normal'>
-									{loggedIn && (
-										<li className='m-0'>
-											<a
-												className='item text-bold'
-												onClick={() => {
-													logoutUser();
-													history.push('/login');
-													logout();
-												}}
-											>
-												Logout
-											</a>
-										</li>
-									)}
+									<li className='m-0'>
+										<a
+											className='item text-bold'
+											onClick={() => {
+												logoutUser();
+												history.push('/login');
+												logout();
+											}}
+										>
+											Logout
+										</a>
+									</li>
 								</ul>
 							</Dropdown>
 						)}

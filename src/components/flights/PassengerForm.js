@@ -40,7 +40,7 @@ class PassengerForm extends Component {
 				contact_name: textValidate(yup).required('Required'),
 				code: yup.string().required('Required'),
 				email: yup.string().email().required('Required'),
-				mobile_number: phoneValidate(yup).required('Required')
+				mobile_no: phoneValidate(yup).required('Required')
 			})
 		});
 
@@ -56,10 +56,7 @@ class PassengerForm extends Component {
 		return (
 			<Container className='p-0'>
 				<Formik
-					initialValues={{
-						passengers: passengers,
-						user: contactDetails
-					}}
+					initialValues={initialValues}
 					validationSchema={PassengerSchema}
 					onSubmit={(values, {setSubmitting, props}) => {
 						onSubmit(values);
@@ -87,7 +84,6 @@ class PassengerForm extends Component {
 											className='form-control'
 											onBlur={handleBlur}
 											onChange={handleChange}
-											contact_name
 											value={values.user.contact_name}
 										/>
 										<ErrorMessage name='user.contact_name' />
@@ -120,14 +116,14 @@ class PassengerForm extends Component {
 											labelPosition='left'
 											placeholder='Contact Phone'
 											type='text'
-											name='user.mobile_number'
+											name='user.mobile_no'
 											className='semantic-input-group'
 											onBlur={handleBlur}
 											onChange={handleChange}
-											value={values.user.mobile_number}
+											value={values.user.mobile_no}
 										/>
 										<ErrorMessage name='user.code' />
-										<ErrorMessage name='user.mobile_number' />
+										<ErrorMessage name='user.mobile_no' />
 									</div>
 
 									{/* 
