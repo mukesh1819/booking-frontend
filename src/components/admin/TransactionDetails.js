@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, ButtonToolbar, Modal, Tabs, Tab} from 'react-bootstrap';
+import {ButtonToolbar, Modal, Tabs, Tab} from 'react-bootstrap';
 import UserDetailCard from '../users/UserDetailCard';
 import BookingDetails from './BookingDetails';
 import TransactionApiResponse from './TransactionApiResponse';
@@ -9,15 +9,35 @@ import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {onTransactionSuccess} from '../../api/transactionApi';
 import {Badge} from '../shared';
+import {fetchTicket} from '../../api/flightApi';
+import {Button} from 'semantic-ui-react';
+import history from '../../history';
+import {downloadTicket} from '../../helpers/general';
 
 class TransactionDetails extends Component{
 	constructor(props){
 		super(props);
 
+		this.state = {
+			loading: false
+		};
+	}
+
+	download(idx) {
+		this.setState({
+			loading: true
+		});
+		fetchTicket(idx).then((response) => {
+			downloadTicket(response.data);
+			this.setState({
+				loading: false
+			});
+		});
 	}
 
 	render(){
 		const {transaction} = this.props.location.state || {};
+		const {loading} = this.state;
 		const TransactionSchema = yup.object().shape({
 			response: yup.string().required('Required')
 		});
@@ -92,11 +112,11 @@ class TransactionDetails extends Component{
 										text: response.data.message,
 										icon: 'Success',
 										button: 'Continue'
-									});
-									history.push();
+									}).then((value) => history.push('/admin/transaction_list'));
+									
 								})
 								.catch((error) => {
-									console.log('Faq update error', error);
+									console.log('Transaction update error', error);
 								});
 						} 
 					}}
@@ -145,7 +165,18 @@ class TransactionDetails extends Component{
 					)}
 				</Formik>
 				}
-				
+				{transaction.state === 'verified' &&
+					<div>
+						<Button
+							primary
+							loading={loading}
+							className='btn btn-primary btn-large '
+							onClick={() => this.download(transaction.idx)}
+						>
+							Download ticket
+						</Button>
+					</div>
+				}
 
 			</div>
 		);
