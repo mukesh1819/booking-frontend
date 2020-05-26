@@ -17,3 +17,13 @@ export function deleteTransaction(id) {
 		url: `${API_URL}/payments/${id}`
 	});
 }
+
+export function onTransactionSuccess(id, details){
+	return axios({
+		method: 'put',
+		url: `${API_URL}/payments/${id}`,
+		data: {
+			transaction: details
+		}
+	});
+}

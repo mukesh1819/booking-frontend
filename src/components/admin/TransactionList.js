@@ -64,45 +64,45 @@ class TransactionList extends Component {
 			});
 	}
 
-	destroyTransaction(id) {
-		// deleteTransaction(id)
-		// 	.then((response) => {
-		// 		swal({
-		// 			title: 'Transaction deleted!',
-		// 			text: `this Transaction is deleted`,
-		// 			icon: 'success',
-		// 			button: 'Continue!'
-		// 		});
-		// 		history.go();
-		// 	})
-		// 	.catch((error) => {
-		// 		swal({
-		// 			title: 'Transaction Delete error',
-		// 			text: 'Something went wrong. please try again or contact us',
-		// 			icon: 'error',
-		// 			button: 'Continue!'
-		// 		});
-		// 	});
+	// destroyTransaction(id) {
+	// 	// deleteTransaction(id)
+	// 	// 	.then((response) => {
+	// 	// 		swal({
+	// 	// 			title: 'Transaction deleted!',
+	// 	// 			text: `this Transaction is deleted`,
+	// 	// 			icon: 'success',
+	// 	// 			button: 'Continue!'
+	// 	// 		});
+	// 	// 		history.go();
+	// 	// 	})
+	// 	// 	.catch((error) => {
+	// 	// 		swal({
+	// 	// 			title: 'Transaction Delete error',
+	// 	// 			text: 'Something went wrong. please try again or contact us',
+	// 	// 			icon: 'error',
+	// 	// 			button: 'Continue!'
+	// 	// 		});
+	// 	// 	});
 
-		swal({
-			title: 'Are you sure?',
-			text: 'Once delete, your transaction will be deleted',
-			icon: 'warning',
-			buttons: true,
-			dangerMode: true
-		}).then((willDelete) => {
-			if (willDelete) {
-				deleteTransaction(id).then((response) => {
-					swal('this Transaction is deleted', {
-						icon: 'success'
-					});
-					history.go();
-				});
-			} else {
-				swal('Your transaction is not deleted yet');
-			}
-		});
-	}
+	// 	swal({
+	// 		title: 'Are you sure?',
+	// 		text: 'Once delete, your transaction will be deleted',
+	// 		icon: 'warning',
+	// 		buttons: true,
+	// 		dangerMode: true
+	// 	}).then((willDelete) => {
+	// 		if (willDelete) {
+	// 			deleteTransaction(id).then((response) => {
+	// 				swal('this Transaction is deleted', {
+	// 					icon: 'success'
+	// 				});
+	// 				history.go();
+	// 			});
+	// 		} else {
+	// 			swal('Your transaction is not deleted yet');
+	// 		}
+	// 	});
+	// }
 
 	onFilter = (values) => {
 		this.setState({
@@ -249,12 +249,12 @@ class TransactionList extends Component {
 														>
 															Details
 														</Link>
-														<span
+														{/* <span
 															className='btn bg-none text-danger'
 															onClick={() => this.destroyTransaction(transaction.idx)}
 														>
 															Delete
-														</span>
+														</span> */}
 													</td>
 												</tr>
 											);

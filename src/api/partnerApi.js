@@ -55,3 +55,17 @@ export function partner_details(id){
 		url: `${API_URL}/users/partner_details/${id}`
 	});
 }
+
+export function activatePartner(id) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/partners/${id}/activate`
+	});
+}
+
+export function deactivatePartner(id) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/partners/${id}/deactivate`
+	});
+}
