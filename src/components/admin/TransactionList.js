@@ -227,10 +227,10 @@ class TransactionList extends Component {
 										</tr>
 									</thead>
 									<tbody>
-										{this.state.transactions.map((transaction) => {
+										{this.state.transactions.map((transaction, index) => {
 											return (
 												<tr>
-													<td>{transaction.sNo}</td>
+													<td>{index + 1}</td>
 													<td>{transaction.idx}</td>
 													<td>
 														<Badge type={transaction.state}>{transaction.state}</Badge>

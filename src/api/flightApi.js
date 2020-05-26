@@ -81,7 +81,8 @@ export function cancelUserTickets(ids) {
 export function getAdminBookings(params) {
 	return axios({
 		method: 'get',
-		url: `${BASE_URL}/admin/bookings?${params}`
+		url: `${BASE_URL}/admin/bookings`,
+		params: params
 	});
 }
 

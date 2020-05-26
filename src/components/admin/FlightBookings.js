@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import {getAdminBookings, deleteBooking} from '../../api/flightApi';
@@ -11,7 +11,8 @@ import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
 import history from '../../history';
 import {Accordion} from 'semantic-ui-react';
-import FilterForm from './FilterForm';
+import {CustomMenu} from './Menu';
+import queryString from 'query-string';
 
 class FlightBookings extends Component {
 	constructor(props) {
@@ -26,7 +27,14 @@ class FlightBookings extends Component {
 	}
 
 	onStatusChange = (value) => {
-		this.fetchBookings(`q[status_eq]=${value.toLowerCase()}`);
+		var searchQuery = `?q[status_eq]=${value.toLowerCase()}`;
+		var obj = {};
+		obj['q[status_eq]'] = value.toLowerCase();
+		this.fetchBookings(obj);
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
 		this.setState({activeItem: value});
 	};
 
@@ -43,13 +51,18 @@ class FlightBookings extends Component {
 	};
 
 	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
 		this.setState({currentPage: activePage});
-		this.fetchBookings(`page=${activePage}`);
+		this.fetchBookings({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
 	};
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchBookings();
+		this.fetchBookings(queryString.parse(this.props.location.search));
 	}
 
 	fetchBookings(params) {
@@ -64,47 +77,6 @@ class FlightBookings extends Component {
 				console.log('Booking fetch error', error);
 			});
 	}
-
-	destroyBooking = (id) => {
-		// deleteBooking(id)
-		// .then((response) => {
-		// 	swal({
-		// 		title: 'Flight Booking deleted!',
-		// 		text: `this flight booking is deleted`,
-		// 		icon: 'success',
-		// 		button: 'Continue!'
-		// 	});
-		// 	history.go();
-
-		// })
-		// .catch((error) => {
-		// 	swal({
-		// 		title: 'Flight Booking Delete error',
-		// 		text: 'Something went wrong. please try again or contact us',
-		// 		icon: 'error',
-		// 		button: 'Continue!'
-		// 	});
-		// })
-
-		swal({
-			title: 'Are you sure?',
-			text: 'Once delete, your flight booking will be deleted',
-			icon: 'warning',
-			buttons: true,
-			dangerMode: true
-		}).then((willDelete) => {
-			if (willDelete) {
-				deleteBooking(id).then((response) => {
-					swal('this flight booking is deleted', {
-						icon: 'success'
-					});
-					history.go();
-				});
-			} else {
-				swal('Your flight booking is not deleted yet');
-			}
-		});
-	};
 
 	onFilter = (values) => {
 		this.setState({
@@ -147,64 +119,96 @@ class FlightBookings extends Component {
 			<div className='container'>
 				<div className='row my-3'>
 					<div className='col-12'>
-						{showFilter && (
-							<FilterForm
-								submitUrl='admin/bookings'
-								fields={filterFields}
-								onSubmit={(values) => this.onFilter(values)}
-							/>
-						)}
-
-						<Menu pointing>
-							<Menu.Item name={activeItem} active={activeItem === 'All'} onClick={this.handleItemClick} />
-							<Menu.Item>
-								<Dropdown clearable text='Status'>
-									<Dropdown.Menu>
-										<Dropdown.Item
-											content='Verified'
-											onClick={() => this.onStatusChange('verified')}
-										/>
-										<Dropdown.Item
-											content='Processing'
-											onClick={() => this.onStatusChange('processing')}
-										/>
-										<Dropdown.Item
-											content='Cancelled'
-											onClick={() => this.onStatusChange('cancelled')}
-										/>
-										<Dropdown.Item
-											content='Completed'
-											onClick={() => this.onStatusChange('completed')}
-										/>
-										<Dropdown.Item
-											content='Declined'
-											onClick={() => this.onStatusChange('declined')}
-										/>
-									</Dropdown.Menu>
-								</Dropdown>
-							</Menu.Item>
-							<Menu.Item>
-								{/* <Input icon='search' placeholder='Search...' /> */}
-								<Link to='/admin/cancel_requests' className='text-danger'>
-									Cancel Requests
-								</Link>
-							</Menu.Item>
-							<Menu.Menu position='right'>
-								<Menu.Item name={showFilter ? 'Cancel' : 'Filter'} onClick={this.toggleFilter} />
-							</Menu.Menu>
-						</Menu>
-
+						<CustomMenu
+							submitUrl='admin/bookings'
+							filterFields={filterFields}
+							onFilter={(values) => this.onFilter(values)}
+							items={[
+								{
+									label: 'Status',
+									type: 'dropdown',
+									name: 'status_eq',
+									objects: [
+										{
+											label: 'Pending',
+											value: 'pending'
+										},
+										{
+											label: 'Processing',
+											value: 'processing'
+										},
+										{
+											label: 'Verified',
+											value: 'verified'
+										},
+										{
+											label: 'Cancelled',
+											value: 'cancelled'
+										},
+										{
+											label: 'Completed',
+											value: 'completed'
+										},
+										{
+											label: 'Declined',
+											value: 'declined'
+										}
+									]
+								}
+							]}
+						/>
 						<Segment>
 							<Accordion styled fluid>
 								{bookings.map((booking, index) => {
 									return (
-										<BookingDetails
-											booking={booking}
-											activeIndex={activeIndex}
-											index={index}
-											handleClick={this.handleClick}
-											destroyBooking={this.destroyBooking}
-										/>
+										<div
+											onClick={() => {
+												history.push(`/admin/booking/${booking.ruid}`);
+											}}
+										>
+											<div className='row'>
+												<div className='col-3'>
+													<h5>{booking.contact_name}</h5>
+													<div className='text-muted text-small'>{booking.email}</div>
+													<div className='text-muted text-small'>{booking.mobile_no}</div>
+												</div>
+												<div className='col'>
+													<div className=''>
+														<span className='px-2'>{`${booking.departure}`}</span>
+														<i className='fas fa-arrow-right' />
+														<span className='px-2'> {`${booking.arrival}`}</span>
+													</div>
+													<div>
+														<span className='text-small text-muted px-2'>
+															<i className='fas fa-plane-departure' />&nbsp;
+															{/* {`${moment(booking.flight_date).format('Do MMMM, YYYY')}`} */}
+														</span>
+														{booking.strTripType === 'R' && (
+															<span className='text-small text-muted px-2'>
+																<i className='fas fa-plane-arrival' />&nbsp;
+																{/* {`${moment(booking.strReturnDate).format('Do MMMM, YYYY')}`} */}
+															</span>
+														)}
+														<span className='text-small text-muted px-2'>
+															<i className='fas fa-male' />&nbsp;
+															{booking.no_of_adult} Adult
+															{ifNotZero(
+																booking.no_of_child,
+																`, ${booking.no_of_child} Child`
+															)}
+														</span>
+													</div>
+												</div>
+												<div className='col-1 text-center'>
+													<div className=''>
+														{booking.currency}
+														{booking.total_fare}
+													</div>
+													<Badge type={booking.status}>{booking.status}</Badge>
+												</div>
+											</div>
+											<hr />
+										</div>
 									);
 								})}
 							</Accordion>

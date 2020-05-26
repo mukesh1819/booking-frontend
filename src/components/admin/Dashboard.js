@@ -62,7 +62,7 @@ class Dashboard extends Component {
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
-										<div className='text-center' onClick={() => history.push('/admin/users_list')}>
+										<div className='text-center'>
 											<span className='count'> {users} </span> <hr />
 											<Link to='/admin/users_list' className='action'>
 												View all Users
@@ -86,6 +86,22 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
+
+						{(section == '' || section == '#flights') && (
+							<div className='widget col-sm-12 col-md-4'>
+								<div className='card'>
+									<div className='card-body'>
+										<div className='text-center'>
+											<span className='count'> {0} </span> <hr />
+											<Link to='/admin/cancel_requests' className='action'>
+												View all Cancel Requests
+											</Link>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
+
 						{(section == '' || section == '#others') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>

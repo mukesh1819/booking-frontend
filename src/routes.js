@@ -26,7 +26,7 @@ import UsersList from './components/admin/UsersList';
 import PackageBookingList from './components/admin/PackageBookingList';
 import FaqList from './components/admin/FaqList';
 import FaqForm from './components/admin/FaqForm';
-import UpdateBooking from './components/admin/UpdateBooking';
+import UpdateBooking from './components/admin/CancelRequests';
 import TransactionDetails from './components/admin/TransactionDetails';
 import AdminBookingDetails from './components/admin/BookingDetails';
 import UserEmail from './components/admin/UserEmail';
