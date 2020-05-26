@@ -9,7 +9,7 @@ import InquiryDetails from './InquiryDetails';
 import UsersList from './UsersList';
 import UserEmail from './UserEmail';
 import UserDetails from './UserDetails';
-import UpdateBooking from './UpdateBooking';
+import UpdateBooking from './CancelRequests';
 import TransactionList from './TransactionList';
 import TransactionDetails from './TransactionDetails';
 import TransactionApiResponse from './TransactionApiResponse';

@@ -163,10 +163,10 @@ class UsersList extends Component {
 							</thead>
 
 							<tbody>
-								{users.map((user) => {
+								{users.map((user, index) => {
 									return (
 										<tr>
-											<td>{user.id}</td>
+											<td>{index + 1}</td>
 											<td>{user.name}</td>
 											<td>{user.email} </td>
 											<td>
