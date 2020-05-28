@@ -51,7 +51,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 							fluid
 							search
 							selection
-							options={partners.map(function(partner) {
+							options={partners.filter((partner) => partner.status === 'approved' ).map(function(partner) {
 								name = partner.first_name + ' ' + partner.last_name;
 								return {
 									key: partner.id,

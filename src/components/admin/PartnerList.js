@@ -114,6 +114,7 @@ class PartnerList extends Component {
 										<th>Email</th>
 										<th>Company Name</th>
 										<th>Contact Number</th>
+										<th>Status</th>
 										<th>Created At</th>
 										<th>Actions</th>
 									</tr>
@@ -131,6 +132,7 @@ class PartnerList extends Component {
 												<td>{partner.email} </td>
 												<td>{partner.company_name}</td>
 												<td>{partner.contact_number}</td>
+												<td>{partner.status}</td>
 												<td>{partner.created_at} </td>
 
 												<td>
