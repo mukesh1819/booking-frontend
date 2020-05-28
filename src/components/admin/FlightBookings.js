@@ -19,36 +19,12 @@ class FlightBookings extends Component {
 		super(props);
 		this.state = {
 			bookings: [],
-			currentPage: 1,
+			pagination: {},
 			activeItem: 'All',
 			activeIndex: -1,
 			showFilter: false
 		};
 	}
-
-	onStatusChange = (value) => {
-		var searchQuery = `?q[status_eq]=${value.toLowerCase()}`;
-		var obj = {};
-		obj['q[status_eq]'] = value.toLowerCase();
-		this.fetchBookings(obj);
-		history.push({
-			pathname: window.location.pathname,
-			search: searchQuery
-		});
-		this.setState({activeItem: value});
-	};
-
-	handleItemClick = (e, {name}) => {
-		this.setState({activeItem: name});
-	};
-
-	handleClick = (e, titleProps) => {
-		const {index} = titleProps;
-		const {activeIndex} = this.state;
-		const newIndex = activeIndex === index ? -1 : index;
-
-		this.setState({activeIndex: newIndex});
-	};
 
 	changeCurrentPage = (e, {activePage}) => {
 		var searchQuery = `?page=${activePage}`;
@@ -70,7 +46,8 @@ class FlightBookings extends Component {
 			.then((response) => {
 				// console.log(response);
 				this.setState({
-					bookings: response.data
+					bookings: response.data.bookings,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -91,7 +68,7 @@ class FlightBookings extends Component {
 	};
 
 	render() {
-		const {bookings, activeItem, activeIndex, showFilter} = this.state;
+		const {bookings, activeItem, showFilter, pagination} = this.state;
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
@@ -215,10 +192,10 @@ class FlightBookings extends Component {
 						</Segment>
 						<div className='text-center p-2'>
 							<Pagination
-								activePage={this.state.currentPage}
-								sizePerPage={5}
+								activePage={pagination.current_page}
+								sizePerPage={pagination.per_page}
 								onPageChange={this.changeCurrentPage}
-								totalPages={this.state.bookings.length}
+								totalPages={pagination.total_pages}
 							/>
 						</div>
 					</div>
