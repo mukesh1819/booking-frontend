@@ -174,3 +174,21 @@ export function downloadTicket(pdf) {
 	document.body.appendChild(link);
 	link.click();
 }
+
+export function downloadCsvTicket(csv) {
+	const url = window.URL.createObjectURL(new Blob([csv]));
+	const link = document.createElement('a');
+	link.href = url;
+	link.setAttribute('download', 'file.csv');
+	document.body.appendChild(link);
+	link.click();
+}
+
+export function downloadXlsTicket(xls) {
+	const url = window.URL.createObjectURL(new Blob([xls]));
+	const link = document.createElement('a');
+	link.href = url;
+	link.setAttribute('download', 'file.xls');
+	document.body.appendChild(link);
+	link.click();
+}

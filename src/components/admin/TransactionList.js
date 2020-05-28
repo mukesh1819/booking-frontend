@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getUserTransaction, deleteTransaction} from '../../api/transactionApi';
+import {getUserTransaction, deleteTransaction, getCsvTransaction, getXlsTransaction} from '../../api/transactionApi';
 import {passCsrfToken} from '../../helpers';
 import axios from 'axios';
 import history from '../../history';
@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import {Tabs, Tab} from 'react-bootstrap';
 import {Modal as ModalExample, Badge} from '../shared';
 import swal from 'sweetalert';
-import {Menu, Segment, Pagination, Input, Accordion, Dropdown} from 'semantic-ui-react';
+import {Menu, Segment, Pagination, Input, Accordion, Dropdown, Button} from 'semantic-ui-react';
+import {downloadTicket, downloadCsvTicket, downloadXlsTicket} from '../../helpers/general';
 import FilterForm from './FilterForm';
 
 class TransactionList extends Component {
@@ -62,6 +63,28 @@ class TransactionList extends Component {
 				// console.log(error);
 				console.log(' Transaction fetch error', error);
 			});
+	}
+
+	downloadCsv(){
+		getCsvTransaction()
+		.then((response) => {
+			console.log('Transaction response', response.data);
+			downloadCsvTicket(response.data);
+		})
+		.catch((error) => {
+			console.log('csv download error');
+		})
+	}
+
+	downloadXls(){
+		getXlsTransaction()
+		.then((response) => {
+			console.log('Transaction response', response.data);
+			downloadXlsTicket(response.data);
+		})
+		.catch((error) => {
+			console.log('csv download error');
+		})
 	}
 
 	// destroyTransaction(id) {
@@ -171,7 +194,32 @@ class TransactionList extends Component {
 							onSubmit={(values) => this.onFilter(values)}
 						/>
 						<div className='' id='search-form'>
-							<h3 className='title'>Transactions</h3>
+							<div className='row'>
+								<div className='col-6'>
+									<h3 className='title'>Transactions</h3>
+								</div>
+								<div className='col-6 d-flex justify-content-end'>
+									<span>
+										<Button
+										primary
+										className='btn btn-primary btn-large mr-2'
+										onClick={() => this.downloadCsv()}
+										>
+											Download csv
+										</Button>
+									</span>
+									<span>
+										<Button
+										primary
+										className='btn btn-primary btn-large '
+										onClick={() => this.downloadXls()}
+										>
+											Download xls
+										</Button>
+									</span>
+								</div>
+								
+							</div>
 
 							<Menu pointing>
 								<Menu.Item name={activeMenuItem} active={true} />

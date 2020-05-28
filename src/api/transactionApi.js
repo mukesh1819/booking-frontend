@@ -27,3 +27,17 @@ export function onTransactionSuccess(id, details){
 		}
 	});
 }
+
+export function getCsvTransaction() {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/payments.csv`
+	});
+}
+
+export function getXlsTransaction() {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/payments.xls`
+	});
+}
