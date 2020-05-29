@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {ButtonToolbar, Modal, Tabs, Tab} from 'react-bootstrap';
 import UserDetailCard from '../users/UserDetailCard';
 import BookingDetails from './BookingDetails';
 import TransactionApiResponse from './TransactionApiResponse';
@@ -8,18 +7,19 @@ import {Form, TextArea} from 'semantic-ui-react';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {onTransactionSuccess} from '../../api/transactionApi';
-import {Badge} from '../shared';
+import {Badge, Modal} from '../shared';
 import {fetchTicket} from '../../api/flightApi';
 import {Button} from 'semantic-ui-react';
 import history from '../../history';
 import {downloadTicket} from '../../helpers/general';
 
-class TransactionDetails extends Component{
-	constructor(props){
+class TransactionDetails extends Component {
+	constructor(props) {
 		super(props);
 
 		this.state = {
-			loading: false
+			loading: false,
+			markingAsSuccess: false
 		};
 	}
 
@@ -35,7 +35,7 @@ class TransactionDetails extends Component{
 		});
 	}
 
-	render(){
+	render() {
 		const {transaction} = this.props.location.state || {};
 		const {loading} = this.state;
 		const TransactionSchema = yup.object().shape({
@@ -94,78 +94,20 @@ class TransactionDetails extends Component{
 						<TransactionApiResponse response={transaction.response} />
 					</div>
 				</div>
-				{transaction.state !== 'verified' && 
-					<Formik
-					initialValues={transactionSuccess}
-					validationSchema={TransactionSchema}
-					onSubmit={(values, {setSubmitting}) => {
-						this.setState({
-							searching: true
-						});
-						setSubmitting(false);
-						// console.log(values);
-						if (transaction.id != null) {
-							onTransactionSuccess(values.transaction_idx, values)
-								.then((response) => {
-									swal({
-										title: 'Transaction updated!',
-										text: response.data.message,
-										icon: 'Success',
-										button: 'Continue'
-									}).then((value) => history.push('/admin/transaction_list'));
-									
-								})
-								.catch((error) => {
-									console.log('Transaction update error', error);
-								});
-						} 
-					}}
-				>
-					{({
-						values,
-						errors,
-						touched,
-						handleChange,
-						handleBlur,
-						handleSubmit,
-						isSubmitting,
-						setFieldValue
-						/* and other goodies */
-					}) => (
-						<div className='transaction-form mt-4'>
-							<div className='row'>
-								<div className='col-12'>
-									<h3>Create Transaction by admin</h3>
-								</div>
-							</div>
-							<form onSubmit={handleSubmit}>
-								<Form>
-									<Form.Field>
-										<label className='font-weight-bold'>Remarks</label>
-										<TextArea
-											name='response'
-											onChange={handleChange}
-											onBlur={handleBlur}
-											placeholder='Remarks'
-											style={{minHeight: 100}}
-											value={values.response}
-										/>
-									</Form.Field>
-									<ErrorMessage name='response' />
 
-									
-									<div className='text-center'>
-										<button className='btn btn-success m-2' type='submit' disabled={isSubmitting}>
-											Success
-										</button>
-									</div>
-								</Form>
-							</form>
-						</div>
-					)}
-				</Formik>
-				}
-				{transaction.state === 'verified' &&
+				<div className='text-center'>
+					<button
+						className='btn btn-primary btn-large'
+						onClick={() =>
+							this.setState({
+								markingAsSuccess: !this.state.markingAsSuccess
+							})}
+					>
+						{this.state.markingAsSuccess ? 'Cancel' : 'Mark as Success'}
+					</button>
+				</div>
+
+				{transaction.state === 'verified' && (
 					<div>
 						<Button
 							primary
@@ -176,8 +118,87 @@ class TransactionDetails extends Component{
 							Download ticket
 						</Button>
 					</div>
-				}
+				)}
 
+				<Modal
+					title='Mark Transaction as Success'
+					show={this.state.markingAsSuccess}
+					toggle={() => {
+						this.setState({
+							markingAsSuccess: !this.state.markingAsSuccess
+						});
+					}}
+					onSuccess={this.onBook}
+				>
+					{transaction.state !== 'verified' && (
+						<Formik
+							initialValues={transactionSuccess}
+							validationSchema={TransactionSchema}
+							onSubmit={(values, {setSubmitting}) => {
+								this.setState({
+									searching: true
+								});
+								setSubmitting(false);
+								// console.log(values);
+								if (transaction.id != null) {
+									onTransactionSuccess(values.transaction_idx, values)
+										.then((response) => {
+											swal({
+												title: 'Transaction updated!',
+												text: response.data.message,
+												icon: 'success',
+												button: 'Continue'
+											}).then((value) => history.push('/admin/transaction_list'));
+										})
+										.catch((error) => {
+											console.log('Transaction update error', error);
+										});
+								}
+							}}
+						>
+							{({
+								values,
+								errors,
+								touched,
+								handleChange,
+								handleBlur,
+								handleSubmit,
+								isSubmitting,
+								setFieldValue
+								/* and other goodies */
+							}) => (
+								<div className='transaction-form'>
+									<form onSubmit={handleSubmit}>
+										<Form>
+											<Form.Field>
+												<label className='font-weight-bold'>Remarks</label>
+												<TextArea
+													name='response'
+													onChange={handleChange}
+													onBlur={handleBlur}
+													placeholder='Remarks'
+													style={{minHeight: 100}}
+													value={values.response}
+												/>
+											</Form.Field>
+											<ErrorMessage name='response' />
+
+											<div className='text-center'>
+												<button
+													className='ui positive button'
+													type='submit'
+													disabled={isSubmitting}
+												>
+													Continue
+												</button>
+											</div>
+										</Form>
+									</form>
+								</div>
+							)}
+						</Formik>
+					)}
+				</Modal>
 			</div>
 		);
 	}
