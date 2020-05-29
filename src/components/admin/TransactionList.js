@@ -65,26 +65,26 @@ class TransactionList extends Component {
 			});
 	}
 
-	downloadCsv(){
+	downloadCsv() {
 		getCsvTransaction()
-		.then((response) => {
-			console.log('Transaction response', response.data);
-			downloadCsvTicket(response.data);
-		})
-		.catch((error) => {
-			console.log('csv download error');
-		})
+			.then((response) => {
+				console.log('Transaction response', response.data);
+				downloadCsvTicket(response.data);
+			})
+			.catch((error) => {
+				console.log('csv download error');
+			});
 	}
 
-	downloadXls(){
+	downloadXls() {
 		getXlsTransaction()
-		.then((response) => {
-			console.log('Transaction response', response.data);
-			downloadXlsTicket(response.data);
-		})
-		.catch((error) => {
-			console.log('csv download error');
-		})
+			.then((response) => {
+				console.log('Transaction response', response.data);
+				downloadXlsTicket(response.data);
+			})
+			.catch((error) => {
+				console.log('csv download error');
+			});
 	}
 
 	// destroyTransaction(id) {
@@ -198,27 +198,6 @@ class TransactionList extends Component {
 								<div className='col-6'>
 									<h3 className='title'>Transactions</h3>
 								</div>
-								<div className='col-6 d-flex justify-content-end'>
-									<span>
-										<Button
-										primary
-										className='btn btn-primary btn-large mr-2'
-										onClick={() => this.downloadCsv()}
-										>
-											Download csv
-										</Button>
-									</span>
-									<span>
-										<Button
-										primary
-										className='btn btn-primary btn-large '
-										onClick={() => this.downloadXls()}
-										>
-											Download xls
-										</Button>
-									</span>
-								</div>
-								
 							</div>
 
 							<Menu pointing>
@@ -252,6 +231,14 @@ class TransactionList extends Component {
 												content='Packages'
 												onClick={() => this.onStatusChange('packages')}
 											/>
+										</Dropdown.Menu>
+									</Dropdown>
+								</Menu.Item>
+								<Menu.Item>
+									<Dropdown clearable text='Export'>
+										<Dropdown.Menu>
+											<Dropdown.Item content='CSV' onClick={() => this.downloadCsv()} />
+											<Dropdown.Item content='Excel' onClick={() => this.downloadXls()} />
 										</Dropdown.Menu>
 									</Dropdown>
 								</Menu.Item>
