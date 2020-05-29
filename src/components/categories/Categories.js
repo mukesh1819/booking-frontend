@@ -56,7 +56,7 @@ class Categories extends Component {
 			.then((response) => {
 				console.log('CATEGORIES', response);
 				this.setState({
-					categories: response.data
+					categories: response.data.categories
 				});
 			})
 			.catch((error) => {
