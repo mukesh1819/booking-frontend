@@ -51,7 +51,7 @@ class PackagesList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			packages: values
+			packages: values.packages
 		});
 	};
 

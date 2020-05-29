@@ -142,7 +142,7 @@ class TransactionList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			transactions: values
+			transactions: values.booking_transactions
 		});
 	};
 

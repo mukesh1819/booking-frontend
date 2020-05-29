@@ -41,7 +41,7 @@ class PartnerList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			partners: values
+			partners: values.partners
 		});
 	};
 

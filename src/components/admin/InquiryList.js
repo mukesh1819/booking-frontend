@@ -51,7 +51,7 @@ class InquiryList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			inquiries: values
+			inquiries: values.inquiries
 		});
 	};
 

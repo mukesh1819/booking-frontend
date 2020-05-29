@@ -105,7 +105,7 @@ class FaqList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			faqs: values
+			faqs: values.faqs
 		});
 	};
 

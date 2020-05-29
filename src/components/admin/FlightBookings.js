@@ -57,7 +57,7 @@ class FlightBookings extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			bookings: values
+			bookings: values.bookings
 		});
 	};
 

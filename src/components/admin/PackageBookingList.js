@@ -53,7 +53,7 @@ class PackageBookingList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			packageBookings: values
+			packageBookings: values.package_bookings
 		});
 	};
 

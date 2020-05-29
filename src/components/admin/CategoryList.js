@@ -90,7 +90,7 @@ class CategoryList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			categories: values
+			categories: values.categories
 		});
 	};
 

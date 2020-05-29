@@ -95,7 +95,7 @@ class UsersList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			users: values
+			users: values.users
 		});
 	};
 
