@@ -5,28 +5,32 @@ import {getPartners} from '../../api/partnerApi';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import FilterForm from './FilterForm';
-import {Segment, Card} from 'semantic-ui-react';
+import {Segment, Card, Pagination} from 'semantic-ui-react';
+import queryString from 'query-string';
+import history from '../../history';
 import {CustomMenu} from './Menu';
 
 class PartnerList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			pagination: {},
 			partners: []
 		};
 	}
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchPartners();
+		this.fetchPartners(queryString.parse(this.props.location.search));
 	}
 
-	fetchPartners() {
-		getPartners()
+	fetchPartners(params) {
+		getPartners(params)
 			.then((response) => {
 				// console.log('response', response.data);
 				this.setState({
-					partners: response.data
+					partners: response.data.partners,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -41,8 +45,18 @@ class PartnerList extends Component {
 		});
 	};
 
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchPartners({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
+
 	render() {
-		const {partners} = this.state;
+		const {partners, pagination} = this.state;
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
@@ -156,6 +170,14 @@ class PartnerList extends Component {
 						</Card.Content>
 					</Card>
 				</Segment>
+				<div className='text-center p-2'>
+					<Pagination
+						activePage={pagination.current_page}
+						sizePerPage={pagination.per_page}
+						onPageChange={this.changeCurrentPage}
+						totalPages={pagination.total_pages}
+					/>
+				</div>
 			</div>
 		);
 	}

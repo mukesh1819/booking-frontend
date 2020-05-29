@@ -7,7 +7,8 @@ useInterceptor(axios);
 export function getFaqs(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/faqs?${params}`
+		url: `${API_URL}/faqs`,
+		params: params
 	});
 }
 

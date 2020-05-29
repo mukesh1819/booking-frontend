@@ -9,7 +9,8 @@ import swal from 'sweetalert';
 import history from '../../history';
 import {CustomMenu} from './Menu';
 import {Badge} from '../shared';
-import {Card} from 'semantic-ui-react';
+import queryString from 'query-string';
+import {Card, Pagination} from 'semantic-ui-react';
 
 class UsersList extends Component {
 	constructor(props) {
@@ -17,21 +18,33 @@ class UsersList extends Component {
 		this.state = {
 			users: [],
 			editing: false,
-			selectedUser: null
+			selectedUser: null,
+			pagination: {}
 		};
 	}
 
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchUsers({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
+
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchUsers();
+		this.fetchUsers(queryString.parse(this.props.location.search));
 	}
 
-	fetchUsers = () => {
-		getUsers()
+	fetchUsers = (params) => {
+		getUsers(params)
 			.then((response) => {
 				// console.log('List of Users', response.data);
 				this.setState({
-					users: response.data
+					users: response.data.users,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -87,7 +100,7 @@ class UsersList extends Component {
 	};
 
 	render() {
-		const {users} = this.state;
+		const {users, pagination} = this.state;
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
@@ -212,6 +225,15 @@ class UsersList extends Component {
 					</Card.Content>
 				</Card>
 				{/* <DataTable data={toTableData(users)} /> */}
+
+				<div className='text-center p-2'>
+					<Pagination
+						activePage={pagination.current_page}
+						sizePerPage={pagination.per_page}
+						onPageChange={this.changeCurrentPage}
+						totalPages={pagination.total_pages}
+					/>
+				</div>
 			</div>
 		);
 	}

@@ -37,10 +37,11 @@ export function getBookings(params) {
 	});
 }
 
-export function getUsers() {
+export function getUsers(params) {
 	return axios({
 		method: 'get',
-		url: `${ADMIN_API_URL}/users`
+		url: `${ADMIN_API_URL}/users`,
+		params: params
 	});
 }
 

@@ -47,7 +47,8 @@ export function updatePackage(id, data) {
 export function getPackages(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/packages?${params}`
+		url: `${API_URL}/packages`,
+		params: params
 	});
 }
 

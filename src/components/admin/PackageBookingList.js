@@ -5,7 +5,9 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {getPackageBookings} from '../../api/packageBookingApi';
 import swal from 'sweetalert';
 import {CustomMenu} from './Menu';
-import {Segment, Card, Menu, Dropdown, Input} from 'semantic-ui-react';
+import {Segment, Card, Menu, Dropdown, Input, Pagination} from 'semantic-ui-react';
+import queryString from 'query-string';
+import history from '../../history';
 
 class PackageBookingList extends Component {
 	constructor(props) {
@@ -13,21 +15,34 @@ class PackageBookingList extends Component {
 		this.state = {
 			activeItem: 'All',
 			packageBookings: [],
+			pagination: {},
 			showFilter: false
 		};
 	}
 
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchPackageBookings({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
+
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchPackageBookings();
+		this.fetchPackageBookings(queryString.parse(this.props.location.search));
 	}
 
-	fetchPackageBookings = () => {
-		getPackageBookings()
+	fetchPackageBookings = (params) => {
+		getPackageBookings(params)
 			.then((response) => {
 				// console.log('List of Packages', response.data);
 				this.setState({
-					packageBookings: response.data
+					packageBookings: response.data.package_bookings,
+					pagination: response.data.meta.pagination
+
 				});
 			})
 			.catch((error) => {
@@ -43,7 +58,7 @@ class PackageBookingList extends Component {
 	};
 
 	render() {
-		const {packageBookings, activeItem, activeIndex, showFilter} = this.state;
+		const {packageBookings, activeItem, activeIndex, showFilter, pagination} = this.state;
 
 		const filterFields = [
 			{
@@ -234,6 +249,15 @@ class PackageBookingList extends Component {
 						</tbody>
 					</table>
 				</Segment>
+
+				<div className='text-center p-2'>
+					<Pagination
+						activePage={pagination.current_page}
+						sizePerPage={pagination.per_page}
+						onPageChange={this.changeCurrentPage}
+						totalPages={pagination.total_pages}
+					/>
+				</div>
 			</div>
 		);
 	}

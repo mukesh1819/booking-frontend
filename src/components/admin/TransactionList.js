@@ -11,6 +11,7 @@ import {Modal as ModalExample, Badge} from '../shared';
 import swal from 'sweetalert';
 import {Menu, Segment, Pagination, Input, Accordion, Dropdown, Button} from 'semantic-ui-react';
 import {downloadTicket, downloadCsvTicket, downloadXlsTicket} from '../../helpers/general';
+import queryString from 'query-string';
 import FilterForm from './FilterForm';
 
 class TransactionList extends Component {
@@ -20,9 +21,20 @@ class TransactionList extends Component {
 			transactions: [],
 			selectedTransaction: null,
 			key: 'user',
-			activeMenuItem: 'All'
+			activeMenuItem: 'All',
+			pagination: {}
 		};
 	}
+
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchUserTransaction({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
 
 	onStatusChange = (value) => {
 		this.setState({activeMenuItem: value});
@@ -48,7 +60,7 @@ class TransactionList extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchUserTransaction();
+		this.fetchUserTransaction(queryString.parse(this.props.location.search));
 	}
 
 	fetchUserTransaction(params) {
@@ -56,7 +68,8 @@ class TransactionList extends Component {
 			.then((response) => {
 				// console.log(response);
 				this.setState({
-					transactions: response.data
+					transactions: response.data.booking_transactions,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -134,7 +147,7 @@ class TransactionList extends Component {
 	};
 
 	render() {
-		const {show, key, selectedTransaction, activeMenuItem} = this.state;
+		const {show, key, selectedTransaction, activeMenuItem, pagination} = this.state;
 		const FilterFields = [
 			// {
 			// 	name: 'created_at_gteq',
@@ -297,6 +310,15 @@ class TransactionList extends Component {
 									</tbody>
 								</table>
 							</Segment>
+
+							<div className='text-center p-2'>
+								<Pagination
+									activePage={pagination.current_page}
+									sizePerPage={pagination.per_page}
+									onPageChange={this.changeCurrentPage}
+									totalPages={pagination.total_pages}
+								/>
+							</div>
 						</div>
 					</div>
 				)}

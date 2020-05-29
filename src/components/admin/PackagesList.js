@@ -7,26 +7,41 @@ import swal from 'sweetalert';
 import {Badge} from '../shared';
 import FilterForm from './FilterForm';
 import {CustomMenu} from './Menu';
-import {Segment, Card} from 'semantic-ui-react';
+import history from '../../history';
+import queryString from 'query-string';
+import {Segment, Card, Pagination} from 'semantic-ui-react';
+
 class PackagesList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			packages: []
+			packages: [],
+			pagination: {}
 		};
 	}
 
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchPackages({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
+
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchPackages();
+		this.fetchPackages(queryString.parse(this.props.location.search));
 	}
 
-	fetchPackages = () => {
-		getPackages()
+	fetchPackages = (params) => {
+		getPackages(params)
 			.then((response) => {
 				// console.log('List of Packages', response.data);
 				this.setState({
-					packages: response.data
+					packages: response.data.packages,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -41,7 +56,7 @@ class PackagesList extends Component {
 	};
 
 	render() {
-		const {packages} = this.state;
+		const {packages, pagination} = this.state;
 
 		const filterFields = [
 			{
@@ -180,6 +195,15 @@ class PackagesList extends Component {
 						</table>
 					</Card.Content>
 				</Card>
+
+				<div className='text-center p-2'>
+					<Pagination
+						activePage={pagination.current_page}
+						sizePerPage={pagination.per_page}
+						onPageChange={this.changeCurrentPage}
+						totalPages={pagination.total_pages}
+					/>
+				</div>
 			</div>
 		);
 	}

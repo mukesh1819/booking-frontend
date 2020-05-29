@@ -7,7 +7,8 @@ useInterceptor(axios);
 export function getUserTransaction(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/payments?${params}`
+		url: `${API_URL}/payments`,
+		params: params
 	});
 }
 

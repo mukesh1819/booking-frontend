@@ -5,7 +5,8 @@ import {passCsrfToken, toTableData} from '../../helpers';
 import {getFaqs, deleteFaq} from '../../api/supportApi';
 import swal from 'sweetalert';
 import history from '../../history';
-import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown} from 'semantic-ui-react';
+import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown, Pagination} from 'semantic-ui-react';
+import queryString from 'query-string';
 import {CustomMenu} from './Menu';
 
 class FaqList extends Component {
@@ -14,13 +15,24 @@ class FaqList extends Component {
 		this.state = {
 			faqs: [],
 			activeIndex: -1,
-			activeMenuItem: 'All'
+			activeMenuItem: 'All',
+			pagination: {}
 		};
 	}
 
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchFaqLists({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
+
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchFaqLists();
+		this.fetchFaqLists(queryString.parse(this.props.location.search));
 	}
 
 	handleItemClick = (e, {name}) => {
@@ -42,7 +54,8 @@ class FaqList extends Component {
 			.then((response) => {
 				// console.log('List of Packages', response.data);
 				this.setState({
-					faqs: response.data
+					faqs: response.data.faqs,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -97,7 +110,7 @@ class FaqList extends Component {
 	};
 
 	render() {
-		const {faqs, activeIndex, activeMenuItem} = this.state;
+		const {faqs, activeIndex, activeMenuItem, pagination} = this.state;
 		const filterFields = [
 			// {
 			// 	name: 'category_eq',
@@ -187,6 +200,15 @@ class FaqList extends Component {
 						})}
 					</Accordion>
 				</Segment>
+
+				<div className='text-center p-2'>
+					<Pagination
+						activePage={pagination.current_page}
+						sizePerPage={pagination.per_page}
+						onPageChange={this.changeCurrentPage}
+						totalPages={pagination.total_pages}
+					/>
+				</div>
 			</div>
 		);
 	}

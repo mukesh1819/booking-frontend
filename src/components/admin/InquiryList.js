@@ -6,27 +6,41 @@ import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import {Badge} from '../shared';
 import {CustomMenu} from './Menu';
-import {Card} from 'semantic-ui-react';
+import queryString from 'query-string';
+import history from '../../history';
+import {Card, Pagination} from 'semantic-ui-react';
 
 class InquiryList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			pagination: {},
 			inquiries: []
 		};
 	}
 
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchInquiries({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
+
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchInquiries();
+		this.fetchInquiries(queryString.parse(this.props.location.search));
 	}
 
-	fetchInquiries() {
-		getInquiries()
+	fetchInquiries(params) {
+		getInquiries(params)
 			.then((response) => {
 				// console.log('inquiries', response.data);
 				this.setState({
-					inquiries: response.data
+					inquiries: response.data.inquiries,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -42,7 +56,7 @@ class InquiryList extends Component {
 	};
 
 	render() {
-		const {inquiries} = this.state;
+		const {inquiries, pagination} = this.state;
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
@@ -171,6 +185,15 @@ class InquiryList extends Component {
 						})}
 					</Card.Content>
 				</Card>
+
+				<div className='text-center p-2'>
+					<Pagination
+						activePage={pagination.current_page}
+						sizePerPage={pagination.per_page}
+						onPageChange={this.changeCurrentPage}
+						totalPages={pagination.total_pages}
+					/>
+				</div>
 			</div>
 		);
 	}

@@ -7,26 +7,39 @@ import history from '../../history';
 import swal from 'sweetalert';
 import FilterForm from './FilterForm';
 import {CustomMenu} from './Menu';
-import {Card} from 'semantic-ui-react';
+import {Card, Pagination} from 'semantic-ui-react';
+import queryString from 'query-string';
 
 class CategoryList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			pagination: {},
 			categories: []
 		};
 	}
 
+	changeCurrentPage = (e, {activePage}) => {
+		var searchQuery = `?page=${activePage}`;
+		this.setState({currentPage: activePage});
+		this.fetchCategories({page: activePage});
+		history.push({
+			pathname: window.location.pathname,
+			search: searchQuery
+		});
+	};
+
 	componentDidMount() {
-		this.fetchCategories();
+		this.fetchCategories(queryString.parse(this.props.location.search));
 	}
 
-	fetchCategories() {
-		getCategories()
+	fetchCategories(params) {
+		getCategories(params)
 			.then((response) => {
 				// console.log('inquiries', response.data);
 				this.setState({
-					categories: response.data
+					categories: response.data.categories,
+					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
@@ -82,7 +95,7 @@ class CategoryList extends Component {
 	};
 
 	render() {
-		const {categories} = this.state;
+		const {categories, pagination} = this.state;
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
@@ -196,6 +209,15 @@ class CategoryList extends Component {
 						</table>
 					</Card.Content>
 				</Card>
+
+				<div className='text-center p-2'>
+					<Pagination
+						activePage={pagination.current_page}
+						sizePerPage={pagination.per_page}
+						onPageChange={this.changeCurrentPage}
+						totalPages={pagination.total_pages}
+					/>
+				</div>
 			</div>
 		);
 	}
