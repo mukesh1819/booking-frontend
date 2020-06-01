@@ -39,7 +39,7 @@ class InquiryForm extends Component {
 			console.log('TODO ', res);
 		});
 
-		showPackage(this.props.inquiry != null ? this.props.inquiry.package.idx : this.state.aPackage.idx )
+		showPackage(this.props.inquiry != null ? this.props.inquiry.package.idx : this.props.match.params.idx)
 			.then((resp) => {
 				this.setState({
 					aPackage: resp.data

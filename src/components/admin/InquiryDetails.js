@@ -56,7 +56,7 @@ class InquiryDetails extends Component {
 		getPartners()
 			.then((response) => {
 				this.setState({
-					partners: response.data
+					partners: response.data.partners
 				});
 			})
 			.catch((error) => {
