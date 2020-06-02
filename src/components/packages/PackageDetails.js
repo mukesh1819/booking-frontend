@@ -40,6 +40,12 @@ class PackageDetails extends Component {
 		// });
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.aPackage.idx !== this.props.match.params.id) {
+			this.fetchDetails();
+		}
+	}
+
 	fetchDetails() {
 		const options = {
 			margin: 10,
