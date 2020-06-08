@@ -21,6 +21,7 @@ class FlightBookings extends Component {
 			bookings: [],
 			pagination: {},
 			activeItem: 'All',
+			params: {},
 			activeIndex: -1,
 			showFilter: false
 		};
@@ -28,8 +29,10 @@ class FlightBookings extends Component {
 
 	changeCurrentPage = (e, {activePage}) => {
 		var searchQuery = `?page=${activePage}`;
+		const params = {page: activePage};
+		this.setParams(params);
 		this.setState({currentPage: activePage});
-		this.fetchBookings({page: activePage});
+		this.fetchBookings(this.state.params);
 		history.push({
 			pathname: window.location.pathname,
 			search: searchQuery
@@ -59,6 +62,10 @@ class FlightBookings extends Component {
 		this.setState({
 			bookings: values.bookings
 		});
+	};
+
+	setParams = (values) => {
+		this.setState({params: Object.assign({}, {...this.state.params, ...values})});
 	};
 
 	toggleFilter = () => {

@@ -6,9 +6,10 @@ import swal from 'sweetalert';
 
 useInterceptor(axios);
 
-export function filter(url) {
+export function filter(url, params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/${url}`
+		url: `${API_URL}/${url}`,
+		params: params
 	});
 }

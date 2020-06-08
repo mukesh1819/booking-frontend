@@ -11,20 +11,20 @@ export const CustomMenu = ({filterFields, items = [], onFilter, submitUrl}) => {
 
 	const onMenuChange = (values) => {
 		var slug = ``;
+		var params = {};
 		{
 			!values.all &&
 				Object.keys(values).forEach((key) => {
 					slug = slug + (values[key] != '' && key != '' ? `q[${key}]=${values[key]}&` : '');
+					params[`q[${key}]`] = values[key];
 				});
 		}
 
-		var url = submitUrl + `?${slug}`;
 		history.push({
 			pathname: window.location.pathname,
 			search: `?${slug}`
 		});
-		console.log('Request URL', url);
-		filter(url)
+		filter(submitUrl, params)
 			.then((response) => {
 				onFilter(response.data);
 			})

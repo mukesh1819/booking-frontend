@@ -478,6 +478,9 @@ class InquiryDetails extends Component {
 													/>
 												</React.Fragment>
 											))}
+											<button type='submit' className='btn btn-primary'>
+												Submit
+											</button>
 										</form>
 									)}
 								</Formik>
