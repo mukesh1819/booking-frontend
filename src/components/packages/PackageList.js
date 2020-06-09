@@ -23,7 +23,7 @@ class PackageList extends Component {
 			.then((response) => {
 				// console.log(response.data);
 				this.setState({
-					packages: response.data
+					packages: response.data.packages
 				});
 			})
 			.catch((error) => {
