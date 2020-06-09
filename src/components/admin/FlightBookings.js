@@ -30,9 +30,8 @@ class FlightBookings extends Component {
 	changeCurrentPage = (e, {activePage}) => {
 		var searchQuery = `?page=${activePage}`;
 		const params = {page: activePage};
-		this.setParams(params);
 		this.setState({currentPage: activePage});
-		this.fetchBookings(this.state.params);
+		this.fetchBookings(this.setParams(params));
 		history.push({
 			pathname: window.location.pathname,
 			search: searchQuery
@@ -65,7 +64,9 @@ class FlightBookings extends Component {
 	};
 
 	setParams = (values) => {
-		this.setState({params: Object.assign({}, {...this.state.params, ...values})});
+		const newParams = Object.assign({}, {...this.state.params, ...values});
+		this.setState({params: newParams});
+		return newParams;
 	};
 
 	toggleFilter = () => {
@@ -106,6 +107,7 @@ class FlightBookings extends Component {
 						<CustomMenu
 							submitUrl='admin/bookings'
 							filterFields={filterFields}
+							setParams={(values) => this.setParams(values)}
 							onFilter={(values) => this.onFilter(values)}
 							items={[
 								{

@@ -5,7 +5,7 @@ import {Dropdown, Menu, Label} from 'semantic-ui-react';
 import {filter} from '../../api';
 import history from '../../history';
 
-export const CustomMenu = ({filterFields, items = [], onFilter, submitUrl}) => {
+export const CustomMenu = ({filterFields, items = [], onFilter, submitUrl, setParams = () => {}}) => {
 	const [showFilter, setFilter] = useState(false);
 	const [activeItem, activateItem] = useState('All');
 
@@ -19,7 +19,7 @@ export const CustomMenu = ({filterFields, items = [], onFilter, submitUrl}) => {
 					params[`q[${key}]`] = values[key];
 				});
 		}
-
+		setParams(params);
 		history.push({
 			pathname: window.location.pathname,
 			search: `?${slug}`

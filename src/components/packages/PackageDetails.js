@@ -88,6 +88,8 @@ class PackageDetails extends Component {
 			});
 	}
 
+	componentWillUnmount() {}
+
 	render() {
 		const {aPackage} = this.state;
 		var [price, discount] = calculatePackagePrice(aPackage);

@@ -1,14 +1,6 @@
 import axios from 'axios';
-import {
-	API_URL,
-	ADMIN_API_URL,
-	BASE_URL
-} from '../constants';
-import {
-	handleResponse,
-	handleError,
-	useInterceptor
-} from './apiUtils';
+import {API_URL, ADMIN_API_URL, BASE_URL} from '../constants';
+import {handleResponse, handleError, useInterceptor} from './apiUtils';
 
 useInterceptor(axios);
 
