@@ -51,6 +51,7 @@ import AppRoute from './components/AppRoute';
 import PartnerLayout from './components/layouts/PartnerLayout';
 import AddPassengers from './components/flights/AddPassengers';
 import EditPassengers from './components/flights/EditPassengers';
+import CarInquiryForm from './components/rental/CarInquiryForm';
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -86,6 +87,9 @@ const routes = [
 	{private: true, path: '/admin/edit_inquiry', component: EditInquiry, layout: UserLayout},
 	{private: true, path: '/admin/package_booking_details/:id', component: PackageBookingDetails, layout: UserLayout},
 	{private: true, path: '/payment_success/:idx', component: PaymentSuccess, layout: UserLayout},
+
+	{private: true, path: '/car_inquiry_form', component: CarInquiryForm, layout: UserLayout},
+
 
 	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},
 	{private: true, path: '/admin/transaction_list', component: TransactionList, layout: AdminLayout},
