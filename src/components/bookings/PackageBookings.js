@@ -68,11 +68,11 @@ class PackageBookings extends Component {
 									</div>
 									<div>
 										<span className='text-small text-muted px-2'>
-											<i className='fas fa-plane departure' />&nbsp;
+											<i className='calendar alternate icon' />&nbsp;
 											{`${moment(booking.start_date).format('Do MMMM, YYYY')}`}
 										</span>
 										<span className='text-small text-muted px-2'>
-											<i className='fas fa-plane arrival' />&nbsp;
+											<i className='calendar alternate outline icon' />&nbsp;
 											{`${moment(booking.end_date).format('Do MMMM, YYYY')}`}
 										</span>
 									</div>
