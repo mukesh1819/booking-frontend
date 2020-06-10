@@ -37,8 +37,8 @@ class CarForm extends Component {
 			car_type: car.car_type,
 			price: car.price,
 			no_of_seats: car.no_of_seats,
-			details: car.details
-			// image: null
+			details: car.details,
+			image: null
 		};
 
 		const CarSchema = yup.object().shape({
@@ -171,6 +171,27 @@ class CarForm extends Component {
 														<ErrorMessage name='no_of_seats' />
 													</div>
 												</div>
+											</div>
+
+											<div>
+												<label for='file'>File upload</label>
+												<input
+													id='image'
+													name='image'
+													type='file'
+													onChange={(event) => {
+														var file = event.target.files[0];
+														var reader = new FileReader();
+														reader.onload = function(item) {
+															setFieldValue('image', item.target.result);
+														};
+														reader.readAsDataURL(file);
+													}}
+													className='form-control'
+													multiple
+												/>
+												<img src={values.image} />
+												<ErrorMessage name='image' />
 											</div>
 
 											<div className='row'>
