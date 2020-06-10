@@ -4,6 +4,7 @@ import Banner from './Banner';
 import Counter from './Counter';
 import DataTable from './DataTable';
 import DatePicker from './Datepicker';
+import DateTimePicker from './DateTimePicker';
 import Dropdown from './Dropdown';
 import Editable from './Editable';
 import EmptyContent from './EmptyContent';
@@ -30,6 +31,7 @@ export {
     Counter,
     DataTable,
     DatePicker,
+    DateTimePicker,
     Dropdown,
     Editable,
     EmptyContent,

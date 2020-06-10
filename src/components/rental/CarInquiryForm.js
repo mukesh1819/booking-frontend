@@ -7,14 +7,13 @@ import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import {Counter, IconInput, Loading as LoadingScreen, DatePicker} from '../shared';
-import SemanticDatepicker from 'react-semantic-ui-datepickers';
+import {Counter, IconInput, Loading as LoadingScreen, DatePicker, DateTimePicker} from '../shared';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
-import {getCars} from '../../api/carApi'
-import {createCarInquiry, updateCarInquiry} from '../../api/carInquiryApi'
+import {getCars} from '../../api/carApi';
+import {createCarInquiry, updateCarInquiry} from '../../api/carInquiryApi';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 
 class CarInquiryForm extends Component {
@@ -32,16 +31,16 @@ class CarInquiryForm extends Component {
 	}
 
 	fetchDetails() {
-        getCars()
-        .then((response) => {
-            this.setState({
-                cars: response.data.cars
-            })
-			console.log('car list ', response.data.cars);
-		})
-		.catch((error) => {
+		getCars()
+			.then((response) => {
+				this.setState({
+					cars: response.data.cars
+				});
+				console.log('car list ', response.data.cars);
+			})
+			.catch((error) => {
 				console.log('fetch package error', error);
-        });
+			});
 	}
 
 	render() {
@@ -49,25 +48,25 @@ class CarInquiryForm extends Component {
 		const {cars} = this.state;
 		const InquiriesSchema = yup.object().shape({
 			source: textValidate(yup).required('Required'),
-			destination: textValidate(yup).required('Required'),
+			destination: textValidate(yup),
 			car_type: yup.string().required('Required'),
 			start_date: yup.date().required('Required').default(function() {
 				return new Date();
-            }),
+			}),
 			no_of_pax: numberValidate(yup),
 			no_of_days: numberValidate(yup)
-        });
-       
+		});
+
 		const inquiryDetails = {
-            no_of_pax: carInquiry.no_of_pax,
+			no_of_pax: carInquiry.no_of_pax || 0,
 			source: carInquiry.source,
-            destination: carInquiry.destination,
+			destination: carInquiry.destination,
 			start_time: carInquiry.start_time,
 			start_date: carInquiry.start_date == null ? new Date() : new Date(carInquiry.start_date),
-            car_type: carInquiry.car_type,
-            within_city: carInquiry.within_city,
-            car_id: carInquiry.car_id,
-            no_of_days: carInquiry.no_of_days
+			car_type: carInquiry.car_type,
+			within_city: carInquiry.within_city,
+			car_id: carInquiry.car_id,
+			no_of_days: carInquiry.no_of_days || 0
 		};
 		return (
 			<div className='container bg-white'>
@@ -94,7 +93,7 @@ class CarInquiryForm extends Component {
 									console.log('Update Inquiry Error', error);
 								});
 						} else {
-                            createCarInquiry(values)
+							createCarInquiry(values)
 								.then((response) => {
 									setSubmitting(false);
 									swal({
@@ -136,34 +135,34 @@ class CarInquiryForm extends Component {
 							<form onSubmit={handleSubmit}>
 								<div className='input-section padded bg-white'>
 									<div className='row'>
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <label>Select Car Type</label>
-                                                <Dropdown
-                                                    className=''
-                                                    name='car_type'
-                                                    placeholder='Select cars'
-                                                    onBlur={handleBlur}
-                                                    onChange={(e, data) => {
-                                                        setFieldValue(`car_type`, data.value);
-                                                    }}
-                                                    value={values.car_type}
-                                                    fluid
-                                                    search
-                                                    selection
-                                                    options={cars.map(function(car) {
-                                                        return {
-                                                            key: car.id,
-                                                            value: car.car_type,
-                                                            text: car.car_type
-                                                        };
-                                                    })}
-                                                />
-                                                <ErrorMessage name='car_type' />
-                                            </div>
-                                        </div>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>Select Car Type</label>
+												<Dropdown
+													className=''
+													name='car_type'
+													placeholder='Select cars'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(`car_type`, data.value);
+													}}
+													value={values.car_type}
+													fluid
+													search
+													selection
+													options={cars.map(function(car) {
+														return {
+															key: car.id,
+															value: car.car_type,
+															text: car.car_type
+														};
+													})}
+												/>
+												<ErrorMessage name='car_type' />
+											</div>
+										</div>
 
-                                        <div className='col-12'>
+										<div className='col-12'>
 											<div className='field-box'>
 												<Checkbox
 													label={'with in the city'}
@@ -184,7 +183,7 @@ class CarInquiryForm extends Component {
 										<div className='col-12 col-md-6'>
 											<div className='field-box'>
 												<label className='d-block'>start date</label>
-												<DatePicker
+												<DateTimePicker
 													name='start_date'
 													className=' w-100'
 													type='date'
@@ -224,50 +223,69 @@ class CarInquiryForm extends Component {
 												</div>
 											</div>
 											<div className='col-12 col-md-6'>
-                                                {!values.within_city && (
-                                                    <div className='field-box'>
-                                                        <Form.Field>
-                                                            <label>Destination</label>
-                                                            <Form.Input
-                                                                fluid
-                                                                icon='fas fa-user'
-                                                                iconPosition='left'
-                                                                name='destination'
-                                                                className=''
-                                                                onBlur={handleBlur}
-                                                                onChange={handleChange}
-                                                                value={values.destination}
-                                                                placeholder='Destination'
-                                                            />
-                                                        </Form.Field>
-                                                        <ErrorMessage name='destination' />
-                                                    </div>
-                                                )}
+												{!values.within_city && (
+													<div className='field-box'>
+														<Form.Field>
+															<label>Destination</label>
+															<Form.Input
+																fluid
+																icon='fas fa-user'
+																iconPosition='left'
+																name='destination'
+																className=''
+																onBlur={handleBlur}
+																onChange={handleChange}
+																value={values.destination}
+																placeholder='Destination'
+															/>
+														</Form.Field>
+														<ErrorMessage name='destination' />
+													</div>
+												)}
 											</div>
 
-                                            <div className='col-12 col-md-6'>
+											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<Form.Field>
-														<label>No of days</label>
-														<Form.Input
-															fluid
-															icon='fas fa-mail-bulk'
-															iconPosition='left'
-															name='no_of_days'
-															type='number'
-															className=''
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.no_of_days}
-															placeholder='No of days'
+													<label htmlFor=''>Number of Passenger</label>
+													<Dropdown
+														name=''
+														icon='icon-users'
+														className='icon btn-dropdown travellers'
+														iconPosition='left'
+														fluid
+														selection
+														closeOnChange={false}
+														placeholder='Number of Days'
+														onClick={(event, data) => {
+															event.preventDefault();
+														}}
+													>
+														<Dropdown.Menu
+															onClick={(e, data) => {
+																e.stopPropagation();
+																e.preventDefault();
+															}}
+															content={
+																<div className='p-2'>
+																	<Counter
+																		id='no_of_days'
+																		type='number'
+																		className='m-1'
+																		onBlur={handleBlur}
+																		title={`${values.no_of_days} Days`}
+																		onChange={(value) => {
+																			setFieldValue('no_of_days', value);
+																		}}
+																		value={values.no_of_days}
+																	/>
+																</div>
+															}
 														/>
-													</Form.Field>
-                                                    <ErrorMessage name='no_of_days' />
+													</Dropdown>
+													<ErrorMessage name='no_of_days' />
 												</div>
 											</div>
 										</div>
-										
-										
 									</div>
 								</div>
 
@@ -279,14 +297,13 @@ class CarInquiryForm extends Component {
 													<label htmlFor=''>Number of Passenger</label>
 													<Dropdown
 														name=''
-														placeholder='Select traveller'
 														icon='icon-users'
 														className='icon btn-dropdown travellers'
 														iconPosition='left'
 														fluid
 														selection
 														closeOnChange={false}
-														placeholder="Number of Traveller"
+														placeholder='Number of Traveller'
 														onClick={(event, data) => {
 															event.preventDefault();
 														}}
@@ -304,8 +321,9 @@ class CarInquiryForm extends Component {
 																		className='m-1'
 																		onBlur={handleBlur}
 																		title={`${values.no_of_pax} Traveller`}
-																		onChange={(value) =>
-																			setFieldValue('no_of_pax', value)}
+																		onChange={(value) => {
+																			setFieldValue('no_of_pax', value);
+																		}}
 																		value={values.no_of_pax}
 																	/>
 																</div>
@@ -315,7 +333,7 @@ class CarInquiryForm extends Component {
 													<ErrorMessage name='no_of_pax' />
 												</div>
 											</div>
-											
+
 											<div className='col-12'>
 												<div className='text-center'>
 													<button
