@@ -11,3 +11,19 @@ export function getCars(params) {
 		params: params
 	});
 }
+
+export function createCar(data) {
+	return axios({
+		method: 'post',
+		url: `${API_URL}/cars`,
+		data: {car: data}
+	});
+}
+
+export function updateCar(id, data) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/cars/${id}`,
+		data: {car: data}
+	});
+}

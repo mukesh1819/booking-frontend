@@ -1,0 +1,233 @@
+import React, {Component} from 'react';
+import {Formik, Form, Field} from 'formik';
+import ErrorMessage from '../ErrorMessage';
+import {BASE_URL} from '../../constants';
+import swal from 'sweetalert';
+import * as yup from 'yup';
+import {Button, Divider, Grid, Header, Icon, Search, TextArea} from 'semantic-ui-react';
+import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
+import {createCar, updateCar} from '../../api/carApi';
+
+class CarForm extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {}
+	}
+
+	// componentDidMount() {
+	// 	this.fetchDetails();
+	// }
+		
+	// uploadImages = (id) => {
+	// 	const data = new FormData();
+	// 	Array.from(document.querySelector('[type=file]').files).map((v, index) => {
+	// 		data.append(`images[${index}]`, v);
+	// 	});
+
+	// 	fetch(`${process.env.REACT_APP_BASE_URL}/api/packages/${id}/images`, {
+	// 		method: 'PUT',
+	// 		body: data
+	// 	});
+	// };
+
+	render() {
+        const {car} = this.props.car != null ? this.props : {car: {}};
+
+		const carDetails = {
+			car_type: car.car_type,
+			price: car.price,
+			no_of_seats: car.no_of_seats,
+			details: car.details
+			// image: null
+        };
+
+		const CarSchema = yup.object().shape({
+            car_type: yup.string().required('Required'),
+			price: yup.string().required('Required'),
+			// price: yup.number().typeError('Not a valid amount').min(0, 'should be greater than 0').required('Required'),
+			no_of_seats: numberValidate(yup),
+			details: yup.string().required('Required')
+		});
+
+		return (
+			<div className='container'>
+				<div className='card'>
+					<div className='card-body'>
+						{/* <form onSubmit={this.uploadImages}>
+							<input id='package_images' name='package[images[]]' type='file' multiple />
+							<input type='submit' />
+						</form> */}
+						<Formik
+							initialValues={carDetails}
+							validationSchema={CarSchema}
+							onSubmit={(values, {setSubmitting}) => {
+								if (car.id != null) {
+									updateCar(car.idx, values)
+										.then((response) => {
+											setSubmitting(false);
+											// this.uploadImages(response.data.idx);
+											swal({
+												title: 'Car updated Successful!',
+												text: response.data.message,
+												icon: 'success',
+												button: 'continue!'
+											});
+										})
+										.catch((error) => {
+											// console.log('Create Package Error', error);
+											setSubmitting(false);
+											console.log(' Car update error', error);
+										});
+								} else {
+									createCar({...values, images: document.querySelector('[type=file]').files})
+										.then((response) => {
+											setSubmitting(false);
+											// this.uploadImages(response.data.idx);
+											swal({
+												title: 'Car created Success!',
+												text: response.data.message,
+												icon: 'success',
+												button: 'continue!'
+											});
+										})
+										.catch((error) => {
+											// console.log('Create Package Error', error);
+											setSubmitting(false);
+											console.log(' Car create error', error);
+										});
+								}
+							}}
+						>
+							{({
+								values,
+								errors,
+								touched,
+								handleChange,
+								handleBlur,
+								handleSubmit,
+								isSubmitting,
+								setFieldValue
+								/* and other goodies */
+							}) => (
+								<form onSubmit={handleSubmit}>
+									<div className='input-section'>
+										<div className='row'>
+											<div className='col-12'>
+												<div className='field-box'>
+													<label>Car Type</label>
+
+													<Field
+														name='car_type'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.car_type}
+													/>
+
+													<ErrorMessage name='car_type' />
+												</div>
+											</div>
+										</div>
+										<div className='row'>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Price</label>
+
+													<Field
+														name='price'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.price}
+													/>
+
+													<ErrorMessage name='price' />
+												</div>
+											</div>
+											
+										</div>
+										<div className='row'>
+                                            <div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<Form.Field>
+														<label>Number of seats</label>
+														<Form.Input
+															fluid
+															icon='fas fa-mail-bulk'
+															iconPosition='left'
+															name='no_of_seats'
+															type='number'
+															className=''
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.no_of_seats}
+															placeholder='number of seats'
+														/>
+													</Form.Field>
+													<ErrorMessage name='no_of_seats' />
+												</div>
+											</div>
+										</div>
+										
+										{/* <div>
+											<label for='file'>File upload</label>
+											<input
+												id='image'
+												name='image'
+												type='file'
+												onChange={(event) => {
+													var file = event.target.files[0];
+													var reader = new FileReader();
+													reader.onload = function(item) {
+														setFieldValue('image', item.target.result);
+													};
+													reader.readAsDataURL(file);
+												}}
+												className='form-control'
+												multiple
+											/>
+											<img src={values.image} /> */}
+											{/* <Thumb files={values.images} /> */}
+												{/* <img
+													src={`${BASE_URL}/${image}`}
+													alt={image}
+													className='img-thumbnail mt-2'
+													height={200}
+													width={200}
+												/>
+											<ErrorMessage name='image' />
+										</div> */}
+
+                                        <div className='row'>
+                                            <div className='field-box'>
+                                                <label htmlFor=''>Details</label>
+                                                <TextArea
+                                                    className='form-control'
+                                                    name='details'
+                                                    placeholder='detail'
+                                                    onBlur={handleBlur}
+                                                    onChange={(e, data) => {
+                                                        setFieldValue(`details`, e.target.value);
+                                                    }}
+                                                    value={values.details}
+                                                />
+                                                <ErrorMessage name='details' />
+                                            </div>
+                                        </div>
+                                    </div>
+
+									<div class='text-center'>
+										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
+											Submit
+										</button>
+									</div>
+								</form>
+							)}
+						</Formik>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
+export default CarForm;
