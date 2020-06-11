@@ -48,7 +48,7 @@ class CarInquiryForm extends Component {
 		const {cars} = this.state;
 		const InquiriesSchema = yup.object().shape({
 			source: textValidate(yup).required('Required'),
-			destination: textValidate(yup),
+			destination: textValidate(yup).required('Required'),
 			car_type: yup.string().required('Required'),
 			start_date: yup.date().required('Required').default(function() {
 				return new Date();
@@ -123,7 +123,6 @@ class CarInquiryForm extends Component {
 						/* and other goodies */
 					}) => (
 						<div className='inquiry-form'>
-                            {errors.source}
 							<div className='row'>
 								<div className='col-12'>
 									{/* <h3>
@@ -159,24 +158,6 @@ class CarInquiryForm extends Component {
 													})}
 												/>
 												<ErrorMessage name='car_type' />
-											</div>
-										</div>
-
-										<div className='col-12'>
-											<div className='field-box'>
-												<Checkbox
-													label={'with in the city'}
-													onChange={(event, data) => {
-														setFieldValue('within_city', data.checked);
-														data.checked &&
-															setFieldValue('destination', values.within_city);
-													}}
-													name='within_city'
-													className=''
-													type='checkbox'
-													checked={values.within_city}
-													onBlur={handleBlur}
-												/>
 											</div>
 										</div>
 
@@ -222,6 +203,25 @@ class CarInquiryForm extends Component {
 													<ErrorMessage name='source' />
 												</div>
 											</div>
+
+											<div className='col-12'>
+												<div className='field-box'>
+													<Checkbox
+														label={'with in the city'}
+														onChange={(event, data) => {
+															setFieldValue('within_city', data.checked);
+															data.checked &&
+																setFieldValue('destination', values.source);
+														}}
+														name='within_city'
+														className=''
+														type='checkbox'
+														checked={values.within_city}
+														onBlur={handleBlur}
+													/>
+												</div>
+											</div>
+
 											<div className='col-12 col-md-6'>
 												{!values.within_city && (
 													<div className='field-box'>
@@ -246,7 +246,7 @@ class CarInquiryForm extends Component {
 
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
-													<label htmlFor=''>Number of Passenger</label>
+													<label htmlFor=''>Number of Days</label>
 													<Dropdown
 														name=''
 														icon='icon-users'
@@ -255,7 +255,7 @@ class CarInquiryForm extends Component {
 														fluid
 														selection
 														closeOnChange={false}
-														placeholder='Number of Days'
+														placeholder={`${values.no_of_days}Days`}
 														onClick={(event, data) => {
 															event.preventDefault();
 														}}
@@ -303,7 +303,7 @@ class CarInquiryForm extends Component {
 														fluid
 														selection
 														closeOnChange={false}
-														placeholder='Number of Traveller'
+														placeholder={`${values.no_of_pax}Travellers`}
 														onClick={(event, data) => {
 															event.preventDefault();
 														}}

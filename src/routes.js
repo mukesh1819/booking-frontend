@@ -53,6 +53,7 @@ import AddPassengers from './components/flights/AddPassengers';
 import EditPassengers from './components/flights/EditPassengers';
 import CarInquiryForm from './components/rental/CarInquiryForm';
 import CarForm from './components/rental/CarForm';
+import CarBookingForm from './components/rental/CarBookingForm';
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -91,6 +92,7 @@ const routes = [
 
 	{private: true, path: '/car_inquiry_form', component: CarInquiryForm, layout: UserLayout},
 	{private: true, path: '/car_form', component: CarForm, layout: UserLayout},
+	{private: true, path: '/car_booking_form', component: CarBookingForm, layout: UserLayout},
 
 
 	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},
