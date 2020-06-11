@@ -24,23 +24,6 @@ class CarBookingForm extends Component {
 		date.setDate(date.getDate() + 2);
 	}
 
-	componentDidMount() {
-		// this.fetchDetails();
-	}
-
-	// fetchDetails() {
-		// getCars()
-		// 	.then((response) => {
-		// 		this.setState({
-		// 			cars: response.data.cars
-		// 		});
-		// 		console.log('car list ', response.data.cars);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log('fetch package error', error);
-		// 	});
-	// }
-
 	render() {
         const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
 		const {carBooking} = this.props.carBooking != null ? this.props : {carBooking: {}};
