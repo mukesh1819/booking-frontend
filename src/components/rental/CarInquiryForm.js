@@ -123,7 +123,7 @@ class CarInquiryForm extends Component {
 						/* and other goodies */
 					}) => (
 						<div className='inquiry-form'>
-                            {errors.source}
+							{errors.source}
 							<div className='row'>
 								<div className='col-12'>
 									{/* <h3>
@@ -191,7 +191,9 @@ class CarInquiryForm extends Component {
 													minDate={new Date()}
 													maxDate={addDays(new Date(), 365)}
 													onBlur={handleBlur}
-													onChange={(date) => setFieldValue('start_date', date)}
+													onChange={(date) => {
+														setFieldValue('start_date', date);
+													}}
 													value={values.start}
 													placeholder='start Date'
 												/>
