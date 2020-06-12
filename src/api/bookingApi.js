@@ -9,3 +9,11 @@ export function getPackageBookings(params) {
 		params: params
 	});
 }
+
+export function getRentalBookings(params) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/car_bookings`,
+		params: params
+	});
+}

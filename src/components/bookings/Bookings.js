@@ -1,6 +1,7 @@
 import React from 'react';
 import FlightBookings from './FlightBookings';
 import PackageBookings from './PackageBookings';
+import RentalBookings from './RentalBookings';
 import {Tab} from 'semantic-ui-react';
 
 export default function Bookings() {
@@ -18,6 +19,14 @@ export default function Bookings() {
 			render: () => (
 				<Tab.Pane attached={false}>
 					<PackageBookings />
+				</Tab.Pane>
+			)
+		},
+		{
+			menuItem: 'Car Rentals',
+			render: () => (
+				<Tab.Pane attached={false}>
+					<RentalBookings />
 				</Tab.Pane>
 			)
 		}
