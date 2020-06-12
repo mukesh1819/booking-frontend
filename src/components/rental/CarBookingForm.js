@@ -26,7 +26,7 @@ class CarBookingForm extends Component {
 
 	render() {
         const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
-		const {carBooking} = this.props.carBooking != null ? this.props : {carBooking: {}};
+		const {carBooking} = this.props.location != null ? this.props.location.state : {carBooking: {}};
 		const BookingSchema = yup.object().shape({
             contact_name: textValidate(yup).required('Required'),
             contact_email: yup.string().email().required('Required'),
@@ -46,7 +46,7 @@ class CarBookingForm extends Component {
 			contact_name: carBooking.contact_name,
 			contact_email: carBooking.contact_email,
 			mobile_no: carBooking.mobile_no,
-			car_inquiry_id: carInquiry.id != null ? carInquiry.id : 1,
+			car_inquiry_id: carBooking.car_inquiry != null ? carBooking.car_inquiry.id : 1,
 			pickup_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
             pickup_location: carBooking.pickup_location,
@@ -65,7 +65,7 @@ class CarBookingForm extends Component {
 						});
 						setSubmitting(false);
 						// console.log(values);
-						if (carBooking.id != null) {
+						if (carBooking.idx != null) {
 							updateCarBooking(carBooking.idx, values)
 								.then((response) => {
 									swal({

@@ -20,3 +20,33 @@ export function updateCarBooking(id, data) {
 		data: {car_booking: data}
 	});
 }
+
+export function showUserCarBooking(id) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/admin/car_bookings/${id}`
+	});
+}
+
+export function getCarBookingConfirmation(id, params){
+    return axios({
+        method: 'put',
+        url: `${API_URL}/admin/rentals/${id}/confirm`,
+        params: params
+    });
+}
+
+export function declineCarBooking(id, params){
+    return axios({
+        method: 'put',
+        url: `${API_URL}/admin/rentals/${id}/decline`,
+        params: params
+    });
+}
+
+export function deleteCarBooking(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/admin/car_bookings/${id}`
+	});
+}
