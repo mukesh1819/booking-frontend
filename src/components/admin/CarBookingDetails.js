@@ -96,7 +96,7 @@ class CarBookingDetails extends Component {
 	}
 
 	render() {
-        const {carBooking} = this.state;
+		const {carBooking} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
@@ -153,23 +153,27 @@ class CarBookingDetails extends Component {
                                         </Link>
                                     </span>
                                 </td>
-								<td>
-									<span
-										className='btn btn-secondary'
-										onClick={() => this.onConfirmCarBooking(carBooking.idx)}
-									>
-										confirm
-									</span>
-								</td>
-                                   
-                                <td>
-                                    <span
-										className='btn btn-secondary'
-										onClick={() => this.onDeclineCarBooking(carBooking.idx)}
-									>
-										decline
-									</span>
-                                </td>
+								{carBooking.status == 'pending' || carBooking.status == 'declined' &&
+									<td>
+										<span
+											className='btn btn-secondary'
+											onClick={() => this.onConfirmCarBooking(carBooking.idx)}
+										>
+											confirm
+										</span>
+									</td>
+								} 
+
+								{carBooking.status == 'pending' || carBooking.status == 'processing' &&
+									<td>
+										<span
+											className='btn btn-secondary'
+											onClick={() => this.onDeclineCarBooking(carBooking.idx)}
+										>
+											decline
+										</span>
+									</td>
+								}
 								<td>
 									<span
 										className='btn bg-none text-danger'

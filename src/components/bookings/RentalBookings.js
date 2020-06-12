@@ -33,7 +33,6 @@ class RentalBookings extends Component {
 		getRentalBookings()
 			.then((response) => {
 				console.log('Rental Bookings List', response);
-				debugger;
 				this.setState({
 					bookings: response.data.car_bookings
 				});
@@ -50,7 +49,6 @@ class RentalBookings extends Component {
 
 	render() {
 		const {bookings} = this.state;
-
 		if (bookings.length == 0) {
 			return <EmptyContent>No Rental Bookings yet.</EmptyContent>;
 		}

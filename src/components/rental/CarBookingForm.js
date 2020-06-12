@@ -26,7 +26,7 @@ class CarBookingForm extends Component {
 
 	render() {
         const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
-		const {carBooking} = this.props.location != null ? this.props.location.state : {carBooking: {}};
+		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
 		const BookingSchema = yup.object().shape({
             contact_name: textValidate(yup).required('Required'),
             contact_email: yup.string().email().required('Required'),
