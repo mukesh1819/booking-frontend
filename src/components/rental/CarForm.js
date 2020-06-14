@@ -4,19 +4,31 @@ import ErrorMessage from '../ErrorMessage';
 import {BASE_URL} from '../../constants';
 import swal from 'sweetalert';
 import * as yup from 'yup';
-import {Button, Divider, Grid, Header, Icon, Search, TextArea, Form} from 'semantic-ui-react';
+import {Button, Divider, Grid, Header, Icon, Search, TextArea, Form, Dropdown} from 'semantic-ui-react';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {createCar, updateCar} from '../../api/carApi';
+import {getPartners} from '../../api/partnerApi';
 
 class CarForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			partners: []
+		};
 	}
 
-	// componentDidMount() {
-	// 	this.fetchDetails();
-	// }
+	componentDidMount() {
+		this.fetchDetails();
+	}
+
+	fetchDetails(params){
+		getPartners(params)
+		.then((response) => {
+			this.setState({
+				partners: response.data.partners
+			});
+		})
+	}
 
 	// uploadImages = (id) => {
 	// 	const data = new FormData();
@@ -32,13 +44,15 @@ class CarForm extends Component {
 
 	render() {
 		const {car} = this.props.car != null ? this.props : {car: {}};
+		const {partners} = this.state;
 
 		const carDetails = {
 			car_type: car.car_type,
 			price: car.price,
 			no_of_seats: car.no_of_seats,
 			details: car.details,
-			image: null
+			image: null,
+			partner_id: car.partner_id
 		};
 
 		const CarSchema = yup.object().shape({
@@ -192,6 +206,35 @@ class CarForm extends Component {
 												/>
 												<img src={values.image} />
 												<ErrorMessage name='image' />
+											</div>
+
+											<div className='row'>
+												<div className='col-12 col-md-6'>
+													<div className='field-box'>
+														<label>Select Partners</label>
+														<Dropdown
+															className=''
+															name='partner_id'
+															placeholder='Select Partners'
+															onBlur={handleBlur}
+															onChange={(e, data) => {
+																setFieldValue(`partner_id`, data.value);
+															}}
+															value={values.partner_id}
+															fluid
+															search
+															selection
+															options={partners.filter((partner) => partner.partner_type === 'rental').map(function(partner) {
+																name = partner.first_name + ' ' + partner.last_name;
+																return {
+																	key: partner.id,
+																	value: partner.id,
+																	text: name
+																};
+															})}
+														/>
+													</div>
+												</div>
 											</div>
 
 											<div className='row'>
