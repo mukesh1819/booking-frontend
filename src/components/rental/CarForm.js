@@ -79,7 +79,7 @@ class CarForm extends Component {
 											console.log(' Car update error', error);
 										});
 								} else {
-									createCar({...values, images: document.querySelector('[type=file]').files})
+									createCar({...values, image: document.querySelector('[type=file]').files})
 										.then((response) => {
 											setSubmitting(false);
 											// this.uploadImages(response.data.idx);

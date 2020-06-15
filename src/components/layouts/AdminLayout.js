@@ -26,6 +26,13 @@ const AdminLayout = ({currentUser, children, logoutUser}) => {
 			active: section == 'packages'
 		},
 		{
+			icon: 'fas fa-car',
+			name: 'rentals',
+			label: 'Rentals',
+			value: '',
+			active: section == 'rentals'
+		},
+		{
 			icon: 'fas fa-users',
 			name: 'users',
 			label: 'Users',
