@@ -18,7 +18,9 @@ class CarForm extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchDetails();
+		var params = {};
+		params['q[partner_type_eq]'] = 'rental';
+		this.fetchDetails(params);
 	}
 
 	fetchDetails(params){
@@ -43,15 +45,14 @@ class CarForm extends Component {
 	// };
 
 	render() {
-		const {car} = this.props.car != null ? this.props : {car: {}};
+		const {car} = this.props.location.state!= null ? this.props.location.state : {car: {}};
 		const {partners} = this.state;
-
 		const carDetails = {
 			car_type: car.car_type,
 			price: car.price,
 			no_of_seats: car.no_of_seats,
 			details: car.details,
-			image: null,
+			image: car.image,
 			partner_id: car.partner_id
 		};
 
@@ -224,7 +225,7 @@ class CarForm extends Component {
 															fluid
 															search
 															selection
-															options={partners.filter((partner) => partner.partner_type === 'rental').map(function(partner) {
+															options={partners.map(function(partner) {
 																name = partner.first_name + ' ' + partner.last_name;
 																return {
 																	key: partner.id,

@@ -54,7 +54,14 @@ import EditPassengers from './components/flights/EditPassengers';
 import CarInquiryForm from './components/rental/CarInquiryForm';
 import CarForm from './components/rental/CarForm';
 import CarBookingForm from './components/rental/CarBookingForm';
-import CardBookingDetails from './components/admin/CarBookingDetails';
+import CarBookingDetails from './components/admin/CarBookingDetails';
+import CarList from './components/admin/CarList';
+import CarBookingList from './components/admin/CarBookingList';
+import CarDetails from './components/admin/CarDetails';
+import RentalPartnerList from './components/admin/RentalPartnerList';
+import AssignCarBookingForm from './components/admin/AssignCarBookingForm';
+
+
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -96,8 +103,16 @@ const routes = [
 	{private: true, path: '/car_booking_form', component: CarBookingForm, layout: UserLayout},
 
 	
-	{private: true, path: '/admin/car_bookings/:idx', component: CardBookingDetails, layout: AdminLayout},
+	{private: true, path: '/admin/car_bookings/:idx', component: CarBookingDetails, layout: AdminLayout},
 	{private: true, path: '/car_bookings/:idx/edit', component: CarBookingForm, layout: UserLayout},
+	{private: true, path: '/admin/cars', component: CarList, layout: AdminLayout},
+	{private: true, path: '/admin/car_bookings', component: CarBookingList, layout: AdminLayout},
+	{private: true, path: '/admin/car_details/:idx', component: CarDetails, layout: AdminLayout},
+	{private: true, path: '/admin/car_form', component: CarForm, layout: AdminLayout},
+	{private: true, path: '/admin/car/:idx/edit', component: CarForm, layout: AdminLayout},
+	{private: true, path: '/admin/rental_partners', component: RentalPartnerList, layout: AdminLayout},
+	{private: true, path: '/admin/:idx/assign_partner_booking_form', component: AssignCarBookingForm, layout: AdminLayout},
+
 
 	
 	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},

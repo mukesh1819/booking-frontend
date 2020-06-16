@@ -20,6 +20,13 @@ export function createCar(data) {
 	});
 }
 
+export function showCar(id) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/cars/${id}`
+	});
+}
+
 export function updateCar(id, data) {
 	return axios({
 		method: 'put',
@@ -27,3 +34,27 @@ export function updateCar(id, data) {
 		data: {car: data}
 	});
 }
+
+export function activateCar(id, data) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/admin/cars/${id}/activate`,
+		data: {car: data}
+	});
+}
+
+export function deactivateCar(id, data) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/admin/cars/${id}/deactivate`,
+		data: {car: data}
+	});
+}
+
+export function deleteCar(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/admin/cars/${id}`
+	});
+}
+

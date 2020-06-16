@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
-import {getCarBookingConfirmation, declineCarBooking, deleteCarBooking, showUserCarBooking} from '../../api/carBookingApi';
+import {deactivateCar, activateCar, showCar, deleteCar} from '../../api/carApi';
 
-class CarBookingDetails extends Component {
+class CarDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            carBooking: {}
+            car: {}
         };
 	}
 
@@ -17,45 +17,45 @@ class CarBookingDetails extends Component {
     }
 
     fetchDetails() {
-        showUserCarBooking(this.props.match.params.idx)
+        showCar(this.props.match.params.idx)
         .then((response) => {
             this.setState({
-                carBooking: response.data
+                car: response.data
             });
         })
     }
 
-	onConfirmCarBooking(id) {
-		getCarBookingConfirmation(id)
+	onCarActivate(id) {
+		activateCar(id)
 			.then((response) => {
 				swal({
-					title: 'Car Booking Confirmation!',
+					title: 'Car Activation!',
 					text: response.data.message,
 					icon: 'success',
 					button: 'Continue!'
 				});
 			})
 			.catch((error) => {
-				console.log('Car booking confirmation error', error);
+				console.log('Car activation error', error);
 			});
     }
-	
-    onDeclineCarBooking(id){
-        declineCarBooking(id)
+    
+    onCarDeactivate(id){
+        deactivateCar(id)
 			.then((response) => {
 				swal({
-					title: 'Car Booking Rejection!',
+					title: 'Car Deactivated!',
 					text: response.data.message,
 					icon: 'success',
 					button: 'Continue!'
 				});
 			})
 			.catch((error) => {
-				console.log('Car booking Rejection error', error);
+				console.log('Car deactivation error', error);
 			});
     }
 
-	destroyCarBooking(id) {
+	destroyCar(id) {
 		// deletePackageBooking(id)
 		// 	.then((response) => {
 		// 		swal({
@@ -83,7 +83,7 @@ class CarBookingDetails extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				deleteCarBooking(id).then((response) => {
+				deleteCar(id).then((response) => {
 					swal('this car booking is deleted', {
 						icon: 'success'
 					});
@@ -96,55 +96,47 @@ class CarBookingDetails extends Component {
 	}
 
 	render() {
-		const {carBooking} = this.state;
+		const {car} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Car Booking</h5>
+					<h5>Car Details</h5>
 					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
 						<thead>
 							<tr>
-								<th>idx</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Mobile Number</th>
+                                <th>Idx</th>
                                 <th>Car Type</th>
-								<th>Amount</th>
-								<th>booking_transaction_id</th>
-								<th>Status</th>
-								<th>Pickup Date</th>
-								<th>Pickup Location</th>
-								<th>Drop Off Date</th>
-								<th>Drop Off location</th>
-								<th>Remarks</th>
-								<th>Actions</th>
+                                <th>Image</th>
+                                <th>No of seats</th>
+                                <th>Price</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                {/* <th>Partner Name</th> */}
+                                <th>Actions</th>
 							</tr>
 						</thead>
                         
 						<tbody>
-                            {carBooking.idx != null &&(
+                            {car.idx != null &&(
 
 							<tr>
-								<td>{carBooking.idx}</td>
-								<td>{carBooking.contact_name} </td>
-								<td>{carBooking.contact_email} </td>
-								<td>{carBooking.mobile_no}</td>
-								<td>{carBooking.car_inquiry.car_type}</td>
-								<td>{carBooking.amount}</td>
-								<td>{carBooking.booking_transaction_id}</td>
-								<td>{carBooking.status}</td>
-								<td>{carBooking.pickup_date}</td>
-								<td>{carBooking.pickup_location}</td>
-								<td>{carBooking.drop_off_date}</td>
-								<td>{carBooking.drop_off_location}</td>
-								<td>{carBooking.remarks}</td>
+								<td>{car.idx}</td>
+								<td>{car.car_type} </td>
+								<td>{car.image} </td>
+								<td>{car.no_of_seats}</td>
+								<td>{car.price}</td>
+								<td>{car.details}</td>
+								<td>{car.status}</td>
+								<td>{car.created_at}</td>
+								{/* <td>{car.partner.id}</td> */}
                                 <td>
                                     <span>
                                         <Link
                                             to={{
-                                                pathname: `/car_bookings/${carBooking.idx}/edit`,
+                                                pathname: `/admin/car/${car.idx}/edit`,
                                                 state: {
-                                                    carBooking: carBooking
+                                                    car: car
                                                 }
                                             }}
                                         >
@@ -153,50 +145,31 @@ class CarBookingDetails extends Component {
                                         </Link>
                                     </span>
                                 </td>
-								{carBooking.status == 'pending' || carBooking.status == 'declined' &&
+								{car.status == 'inactive' &&
 									<td>
 										<span
 											className='btn btn-secondary'
-											onClick={() => this.onConfirmCarBooking(carBooking.idx)}
+											onClick={() => this.onCarActivate(car.idx)}
 										>
-											confirm
+											activate
 										</span>
 									</td>
 								} 
 
-								{carBooking.status == 'pending' || carBooking.status == 'processing' &&
+								{car.status == 'active'  &&
 									<td>
 										<span
 											className='btn btn-secondary'
-											onClick={() => this.onDeclineCarBooking(carBooking.idx)}
+											onClick={() => this.onCarDeactivate(car.idx)}
 										>
-											decline
+											deactivate
 										</span>
 									</td>
 								}
-
-								{(carBooking.status == 'processing' || carBooking.status == 'verified') &&
-									<td>
-										<span>
-											<Link
-												to={{
-													pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
-													state: {
-														carBooking: carBooking
-													}
-												}}
-											>
-												<i className='fas fa-contact' />
-												<span className='btn bg-none text-primary'>assign partner</span>
-											</Link>
-                                    	</span>
-									</td>
-								} 
-
 								<td>
 									<span
 										className='btn bg-none text-danger'
-										onClick={() => this.destroyCarBooking(carBooking.idx)}
+										onClick={() => this.destroyCar(car.idx)}
 									>
 										Delete
 									</span>
@@ -211,4 +184,4 @@ class CarBookingDetails extends Component {
 	}
 }
 
-export default CarBookingDetails;
+export default CarDetails;

@@ -4,6 +4,13 @@ import {handleResponse, handleError, useInterceptor} from './apiUtils';
 
 useInterceptor(axios);
 
+export function getCarBookings(params){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/admin/car_bookings`,
+		params: params
+	});
+}
 
 export function createCarBooking(data) {
 	return axios({
@@ -48,5 +55,13 @@ export function deleteCarBooking(id) {
 	return axios({
 		method: 'delete',
 		url: `${API_URL}/admin/car_bookings/${id}`
+	});
+}
+
+export function assignPartner(id, details){
+	return axios({
+		method: 'patch',
+		url: `${API_URL}/admin/rentals/${id}/assign_partner`,
+		data: {car_booking: details}
 	});
 }

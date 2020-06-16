@@ -69,3 +69,11 @@ export function deactivatePartner(id) {
 		url: `${API_URL}/partners/${id}/deactivate`
 	});
 }
+
+export function getRentalPartners(params){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/rental_partner`,
+		params: params
+	});
+}

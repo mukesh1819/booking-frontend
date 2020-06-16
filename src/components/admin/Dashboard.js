@@ -30,7 +30,10 @@ class Dashboard extends Component {
 					inquiries: response.data.inquiries_count,
 					categories: response.data.categories_count,
 					packageBooking: response.data.package_booking_count,
-					faq: response.data.faq_count
+					faq: response.data.faq_count,
+					cars: response.data.car_count,
+					carBooking: response.data.car_booking_count,
+					rentalPartner: response.data.rental_partner_count
 				});
 			})
 			.catch((error) => {
@@ -49,7 +52,10 @@ class Dashboard extends Component {
 			inquiries,
 			categories,
 			packageBooking,
-			faq
+			faq,
+			cars,
+			carBooking,
+			rentalPartner
 		} = this.state;
 
 		const section = this.props.location.hash;
@@ -201,8 +207,8 @@ class Dashboard extends Component {
 									<div className='card'>
 										<div className='card-body'>
 											<div className='text-center'>
-												<span className='count'> {transactions} </span> <hr />
-												<Link to='/admin/transaction_list' className='action'>
+												<span className='count'> {carBooking} </span> <hr />
+												<Link to='/admin/car_bookings' className='action'>
 													View all Car Bookings
 												</Link>
 											</div>
@@ -213,8 +219,8 @@ class Dashboard extends Component {
 									<div className='card'>
 										<div className='card-body'>
 											<div className='text-center'>
-												<span className='count'> {faq} </span> <hr />
-												<Link to='/admin/faqs' className='action'>
+												<span className='count'> {cars} </span> <hr />
+												<Link to='/admin/cars' className='action'>
 													View all Cars
 												</Link>
 											</div>
@@ -226,8 +232,8 @@ class Dashboard extends Component {
 									<div className='card'>
 										<div className='card-body'>
 											<div className='text-center'>
-												<span className='count'> {faq} </span> <hr />
-												<Link to='/admin/faqs' className='action'>
+												<span className='count'> {rentalPartner} </span> <hr />
+												<Link to='/admin/rental_partners' className='action'>
 													View all Rental Partners
 												</Link>
 											</div>
