@@ -15,6 +15,7 @@ import ReactDOM from 'react-dom';
 import {getCars} from '../../api/carApi';
 import {createCarInquiry, updateCarInquiry} from '../../api/carInquiryApi';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
+import '../../i18n';
 
 class CarInquiryForm extends Component {
 	constructor(props) {
@@ -46,6 +47,7 @@ class CarInquiryForm extends Component {
 	render() {
 		const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
 		const {cars} = this.state;
+		const {t} = this.props;
 		const InquiriesSchema = yup.object().shape({
 			source: textValidate(yup).required('Required'),
 			destination: textValidate(yup).required('Required'),
@@ -122,235 +124,241 @@ class CarInquiryForm extends Component {
 						setFieldValue
 						/* and other goodies */
 					}) => (
-						<div className='inquiry-form'>
-							<div className='row'>
-								<div className='col-12'>
-									{/* <h3>
-										Kindly submit the query form below to book your trip and we will contact you
-										with the confirmed itinerary.
-									</h3> */}
+						<form onSubmit={handleSubmit} className='form-wrap'>
+							<div className='bg-white input-section padded'>
+								<div className='d-none d-md-block form-menu'>
+									<span
+										className={!values.within_city ? 'active' : ''}
+										onClick={() => {
+											setFieldValue('within_city', false);
+											setFieldValue('destination', '');
+										}}
+									>
+										{t('Multi City')}
+									</span>
+									<span
+										className={values.within_city ? 'active' : ''}
+										onClick={() => {
+											setFieldValue('within_city', true);
+											setFieldValue('destination', values.source);
+										}}
+									>
+										{t('Within City')}
+									</span>
+									<span
+										className={values.airport_transfer ? 'active' : ''}
+										onClick={() => {
+											setFieldValue('airport_transfer', true);
+										}}
+									>
+										{t('Airport Transfer')}
+									</span>
+								</div>
+								<div className='inputs row'>
+									<div className='field-box col'>
+										<Form.Field>
+											<label>Source</label>
+											<Form.Input
+												fluid
+												icon='fas fa-user'
+												iconPosition='left'
+												name='source'
+												className=''
+												onBlur={handleBlur}
+												onChange={handleChange}
+												value={values.source}
+												placeholder='Source'
+											/>
+										</Form.Field>
+										<ErrorMessage name='source' />
+										{/* <div className='toggle-sector-mobile'>
+												<i
+													className='fas fa-exchange-alt'
+													onClick={() => {
+														setFieldValue('strSectorTo', values.strSectorFrom);
+														setFieldValue('strSectorFrom', values.strSectorTo);
+													}}
+												/>
+											</div> */}
+									</div>
+									{/* <div className='col-md-1 toggle-sector-desktop text-center'>
+											<label htmlFor=''>&nbsp;</label>
+											<i
+												className='menu fas fa-exchange-alt'
+												onClick={() => {
+													setFieldValue('strSectorTo', values.strSectorFrom);
+													setFieldValue('strSectorFrom', values.strSectorTo);
+												}}
+											/>
+										</div> */}
+									<div className='field-box col'>
+										{!values.within_city && (
+											<div className='field-box'>
+												<Form.Field>
+													<label>Destination</label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														name='destination'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.destination}
+														placeholder='Destination'
+													/>
+												</Form.Field>
+												<ErrorMessage name='destination' />
+											</div>
+										)}
+									</div>
+								</div>
+
+								<div className='inputs row'>
+									<div className='field-box col'>
+										<label>Car Type</label>
+										<Dropdown
+											className=''
+											name='car_type'
+											placeholder='Select cars'
+											onBlur={handleBlur}
+											onChange={(e, data) => {
+												setFieldValue(`car_type`, data.value);
+											}}
+											value={values.car_type}
+											fluid
+											search
+											selection
+											options={cars.map(function(car) {
+												return {
+													key: car.id,
+													value: car.car_type,
+													text: car.car_type
+												};
+											})}
+										/>
+										<ErrorMessage name='car_type' />
+									</div>
+
+									<div className='field-box col'>
+										<label className='d-block'>start date</label>
+										<DateTimePicker
+											name='start_date'
+											className=' w-100'
+											type='date'
+											date={values.start_date}
+											minDate={new Date()}
+											maxDate={addDays(new Date(), 365)}
+											onBlur={handleBlur}
+											onChange={(date) => {
+												setFieldValue('start_date', date);
+											}}
+											value={values.start}
+											placeholder='start Date'
+										/>
+										<ErrorMessage name='start_date' />
+									</div>
+
+									<div className='field-box col'>
+										<label htmlFor=''>Number of Days</label>
+										<Dropdown
+											name=''
+											icon='icon-users'
+											className='icon btn-dropdown travellers'
+											iconPosition='left'
+											fluid
+											selection
+											closeOnChange={false}
+											placeholder={`${values.no_of_days} Days`}
+											onClick={(event, data) => {
+												event.preventDefault();
+											}}
+										>
+											<Dropdown.Menu
+												onClick={(e, data) => {
+													e.stopPropagation();
+													e.preventDefault();
+												}}
+												content={
+													<div className='p-2'>
+														<Counter
+															id='no_of_days'
+															type='number'
+															className='m-1'
+															onBlur={handleBlur}
+															title={`${values.no_of_days} Days`}
+															onChange={(value) => {
+																setFieldValue('no_of_days', value);
+															}}
+															value={values.no_of_days}
+														/>
+													</div>
+												}
+											/>
+										</Dropdown>
+										<ErrorMessage name='no_of_days' />
+									</div>
+
+									<div className='field-box col'>
+										<label htmlFor=''>Number of Passenger</label>
+										<Dropdown
+											name=''
+											icon='icon-users'
+											className='icon btn-dropdown travellers'
+											iconPosition='left'
+											fluid
+											selection
+											closeOnChange={false}
+											placeholder={`${values.no_of_pax}Travellers`}
+											onClick={(event, data) => {
+												event.preventDefault();
+											}}
+										>
+											<Dropdown.Menu
+												onClick={(e, data) => {
+													e.stopPropagation();
+													e.preventDefault();
+												}}
+												content={
+													<div className='p-2'>
+														<Counter
+															id='no_of_pax'
+															type='number'
+															className='m-1'
+															onBlur={handleBlur}
+															title={`${values.no_of_pax} Traveller`}
+															onChange={(value) => {
+																setFieldValue('no_of_pax', value);
+															}}
+															value={values.no_of_pax}
+														/>
+													</div>
+												}
+											/>
+										</Dropdown>
+										<ErrorMessage name='no_of_pax' />
+									</div>
 								</div>
 							</div>
-							<form onSubmit={handleSubmit}>
-								<div className='input-section padded bg-white'>
-									<div className='row'>
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label>Select Car Type</label>
-												<Dropdown
-													className=''
-													name='car_type'
-													placeholder='Select cars'
-													onBlur={handleBlur}
-													onChange={(e, data) => {
-														setFieldValue(`car_type`, data.value);
-													}}
-													value={values.car_type}
-													fluid
-													search
-													selection
-													options={cars.map(function(car) {
-														return {
-															key: car.id,
-															value: car.car_type,
-															text: car.car_type
-														};
-													})}
-												/>
-												<ErrorMessage name='car_type' />
-											</div>
-										</div>
 
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label className='d-block'>start date</label>
-												<DateTimePicker
-													name='start_date'
-													className=' w-100'
-													type='date'
-													date={values.start_date}
-													minDate={new Date()}
-													maxDate={addDays(new Date(), 365)}
-													onBlur={handleBlur}
-													onChange={(date) => {
-														setFieldValue('start_date', date);
-													}}
-													value={values.start}
-													placeholder='start Date'
-												/>
-												<ErrorMessage name='start_date' />
-											</div>
+							<div className='bg-white'>
+								<div className='row'>
+									<div className='col-12 col-md-6' />
+
+									<div className='col-12'>
+										<div className='text-center'>
+											<button
+												className='btn btn-primary btn-large mb-2'
+												type='submit'
+												disabled={isSubmitting}
+											>
+												{carInquiry.id ? 'Update' : 'Submit'}
+											</button>
 										</div>
 									</div>
 								</div>
-								<div className='inquirer-details '>
-									<div className='input-section padded bg-primary-light'>
-										<div className='row'>
-											<div className='col-12 col-md-6'>
-												<div className='field-box'>
-													<Form.Field>
-														<label>Source</label>
-														<Form.Input
-															fluid
-															icon='fas fa-user'
-															iconPosition='left'
-															name='source'
-															className=''
-															onBlur={handleBlur}
-															onChange={handleChange}
-															value={values.source}
-															placeholder='Source'
-														/>
-													</Form.Field>
-													<ErrorMessage name='source' />
-												</div>
-											</div>
-
-											<div className='col-12'>
-												<div className='field-box'>
-													<Checkbox
-														label={'with in the city'}
-														onChange={(event, data) => {
-															setFieldValue('within_city', data.checked);
-															data.checked && setFieldValue('destination', values.source);
-														}}
-														name='within_city'
-														className=''
-														type='checkbox'
-														checked={values.within_city}
-														onBlur={handleBlur}
-													/>
-												</div>
-											</div>
-
-											<div className='col-12 col-md-6'>
-												{!values.within_city && (
-													<div className='field-box'>
-														<Form.Field>
-															<label>Destination</label>
-															<Form.Input
-																fluid
-																icon='fas fa-user'
-																iconPosition='left'
-																name='destination'
-																className=''
-																onBlur={handleBlur}
-																onChange={handleChange}
-																value={values.destination}
-																placeholder='Destination'
-															/>
-														</Form.Field>
-														<ErrorMessage name='destination' />
-													</div>
-												)}
-											</div>
-
-											<div className='col-12 col-md-6'>
-												<div className='field-box'>
-													<label htmlFor=''>Number of Days</label>
-													<Dropdown
-														name=''
-														icon='icon-users'
-														className='icon btn-dropdown travellers'
-														iconPosition='left'
-														fluid
-														selection
-														closeOnChange={false}
-														placeholder={`${values.no_of_days}Days`}
-														onClick={(event, data) => {
-															event.preventDefault();
-														}}
-													>
-														<Dropdown.Menu
-															onClick={(e, data) => {
-																e.stopPropagation();
-																e.preventDefault();
-															}}
-															content={
-																<div className='p-2'>
-																	<Counter
-																		id='no_of_days'
-																		type='number'
-																		className='m-1'
-																		onBlur={handleBlur}
-																		title={`${values.no_of_days} Days`}
-																		onChange={(value) => {
-																			setFieldValue('no_of_days', value);
-																		}}
-																		value={values.no_of_days}
-																	/>
-																</div>
-															}
-														/>
-													</Dropdown>
-													<ErrorMessage name='no_of_days' />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div className='traveller-details '>
-									<div className='input-section padded bg-white'>
-										<div className='row'>
-											<div className='col-12 col-md-6'>
-												<div className='field-box'>
-													<label htmlFor=''>Number of Passenger</label>
-													<Dropdown
-														name=''
-														icon='icon-users'
-														className='icon btn-dropdown travellers'
-														iconPosition='left'
-														fluid
-														selection
-														closeOnChange={false}
-														placeholder={`${values.no_of_pax}Travellers`}
-														onClick={(event, data) => {
-															event.preventDefault();
-														}}
-													>
-														<Dropdown.Menu
-															onClick={(e, data) => {
-																e.stopPropagation();
-																e.preventDefault();
-															}}
-															content={
-																<div className='p-2'>
-																	<Counter
-																		id='no_of_pax'
-																		type='number'
-																		className='m-1'
-																		onBlur={handleBlur}
-																		title={`${values.no_of_pax} Traveller`}
-																		onChange={(value) => {
-																			setFieldValue('no_of_pax', value);
-																		}}
-																		value={values.no_of_pax}
-																	/>
-																</div>
-															}
-														/>
-													</Dropdown>
-													<ErrorMessage name='no_of_pax' />
-												</div>
-											</div>
-
-											<div className='col-12'>
-												<div className='text-center'>
-													<button
-														className='btn btn-primary m-2'
-														type='submit'
-														disabled={isSubmitting}
-													>
-														{carInquiry.id ? 'Update' : 'Submit'}
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
+							</div>
+						</form>
 					)}
 				</Formik>
 			</div>
