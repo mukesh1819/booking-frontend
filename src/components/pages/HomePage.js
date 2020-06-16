@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Button, Segment} from 'semantic-ui-react';
 import SearchBar from '../flights/SearchBar';
+import CarInquiryForm from '../rental/CarInquiryForm';
 import {yetiImage, buddhaImage, shreeImage} from '../../images';
 import {TabView, Slidebar, Banner} from '../shared';
 import {PackageList} from '../packages';
@@ -22,7 +23,7 @@ class HomePage extends Component {
 						<div className='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
 							<a
 								className='nav-item nav-link active'
-								id='nav-home-tab'
+								id='nav-flights-tab'
 								data-toggle='tab'
 								href='#nav-flights'
 								role='tab'
@@ -31,9 +32,10 @@ class HomePage extends Component {
 							>
 								<i className='fas fa-plane departure' />&nbsp; {t('Flights')}
 							</a>
+
 							<a
 								className='nav-item nav-link'
-								id='nav-profile-tab'
+								id='nav-packages-tab'
 								data-toggle='tab'
 								href='#nav-packages'
 								role='tab'
@@ -41,6 +43,18 @@ class HomePage extends Component {
 								aria-selected='false'
 							>
 								<i className='fas fa-briefcase' />&nbsp; {t('Packages')}
+							</a>
+
+							<a
+								className='nav-item nav-link'
+								id='nav-rentals-tab'
+								data-toggle='tab'
+								href='#nav-rentals'
+								role='tab'
+								aria-controls='nav-rentals'
+								aria-selected='false'
+							>
+								<i className='fas fa-car' />&nbsp; {t('Rentals')}
 							</a>
 						</div>
 					</div>
@@ -65,11 +79,34 @@ class HomePage extends Component {
 								<SearchBar {...this.props} />
 							</div>
 						</header>
+						<section className='categories'>
+							<div className='container'>
+								{/* <div className='title'>
+							<h2 className='text-center'> Things to do </h2>
+						</div> */}
+								<Categories {...this.props} />
+							</div>
+						</section>
 					</div>
 					<div className='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
-						{/* <div className='container'>
-							<Categories />
+						<section className='categories'>
+							<div className='container'>
+								{/* <div className='title'>
+							<h2 className='text-center'> Things to do </h2>
 						</div> */}
+								<Categories {...this.props} />
+							</div>
+						</section>
+					</div>
+					<div className='tab-pane fade' id='nav-rentals' role='tabpanel' aria-labelledby='nav-rentals-tab'>
+						<header id='header' className='cover' role='banner'>
+							<div className='container'>
+								<h1 className='text-white text-larger'>
+									{t('Rent Cars')} <br /> {t('WithinNepal')}
+								</h1>
+								<CarInquiryForm {...this.props} />
+							</div>
+						</header>
 					</div>
 				</div>
 				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
@@ -83,14 +120,6 @@ class HomePage extends Component {
 						</div>
 					</Tab>
 				</Tabs> */}
-				<section className='categories'>
-					<div className='container'>
-						{/* <div className='title'>
-							<h2 className='text-center'> Things to do </h2>
-						</div> */}
-						<Categories {...this.props} />
-					</div>
-				</section>
 			</React.Fragment>
 		);
 	}
