@@ -14,14 +14,17 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {getCars} from '../../api/carApi';
 import {createCarInquiry, updateCarInquiry} from '../../api/carInquiryApi';
+import {getLocations} from '../../api/locationApi';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import '../../i18n';
+import {useTranslation, initReactI18next} from 'react-i18next';
 
 class CarInquiryForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			cars: []
+			cars: [],
+			locations: []
 		};
 		var date = new Date();
 		date.setDate(date.getDate() + 2);
@@ -42,11 +45,22 @@ class CarInquiryForm extends Component {
 			.catch((error) => {
 				console.log('fetch package error', error);
 			});
+		
+			getLocations()
+				.then((response) => {
+					this.setState({
+						locations: response.data.locations
+					});
+					console.log('locations list ', response.data.locations);
+				})
+				.catch((error) => {
+					console.log('fetch location error', error);
+				});
 	}
 
 	render() {
-		const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
-		const {cars} = this.state;
+		const {carInquiry} = this.props.location.state!= null ? this.props.location.state : {carInquiry: {}};
+		const {cars, locations} = this.state;
 		const {t} = this.props;
 		const InquiriesSchema = yup.object().shape({
 			source: textValidate(yup).required('Required'),
@@ -154,7 +168,34 @@ class CarInquiryForm extends Component {
 										{t('Airport Transfer')}
 									</span>
 								</div>
+
 								<div className='inputs row'>
+									<div className='field-box col'>
+										<label>Source</label>
+										<Dropdown
+											className=''
+											name='source'
+											placeholder='Select location'
+											onBlur={handleBlur}
+											onChange={(e, data) => {
+												setFieldValue(`source`, data.value);
+											}}
+											value={values.source}
+											fluid
+											search
+											selection
+											options={locations.map(function(location) {
+												return {
+													key: location.id,
+													value: location.name,
+													text: location.name
+												};
+											})}
+										/>
+										<ErrorMessage name='source' />
+									</div>
+								
+								{/* <div className='inputs row'>
 									<div className='field-box col'>
 										<Form.Field>
 											<label>Source</label>
@@ -170,7 +211,7 @@ class CarInquiryForm extends Component {
 												placeholder='Source'
 											/>
 										</Form.Field>
-										<ErrorMessage name='source' />
+										<ErrorMessage name='source' /> */}
 										{/* <div className='toggle-sector-mobile'>
 												<i
 													className='fas fa-exchange-alt'
@@ -180,7 +221,7 @@ class CarInquiryForm extends Component {
 													}}
 												/>
 											</div> */}
-									</div>
+									{/* </div> */}
 									{/* <div className='col-md-1 toggle-sector-desktop text-center'>
 											<label htmlFor=''>&nbsp;</label>
 											<i
@@ -191,7 +232,37 @@ class CarInquiryForm extends Component {
 												}}
 											/>
 										</div> */}
-									<div className='field-box col'>
+
+										{!values.within_city && 
+											<div className='field-box col'>
+												<label>Destination</label>
+												<Dropdown
+													className=''
+													name='destination'
+													placeholder='Select location'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(`destination`, data.value);
+													}}
+													value={values.destination}
+													fluid
+													search
+													selection
+													options={locations.map(function(location) {
+														return {
+															key: location.id,
+															value: location.name,
+															text: location.name
+														};
+													})}
+												/>
+												<ErrorMessage name='destination' />
+											</div>
+										}
+
+									</div>
+
+									{/* <div className='field-box col'>
 										{!values.within_city && (
 											<div className='field-box'>
 												<Form.Field>
@@ -212,7 +283,7 @@ class CarInquiryForm extends Component {
 											</div>
 										)}
 									</div>
-								</div>
+								</div> */}
 
 								<div className='inputs row'>
 									<div className='field-box col'>

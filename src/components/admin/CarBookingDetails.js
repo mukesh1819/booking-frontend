@@ -153,7 +153,7 @@ class CarBookingDetails extends Component {
                                         </Link>
                                     </span>
                                 </td>
-								{carBooking.status == 'pending' || carBooking.status == 'declined' &&
+								{(carBooking.status == 'pending' || carBooking.status == 'declined') &&
 									<td>
 										<span
 											className='btn btn-secondary'
@@ -164,7 +164,7 @@ class CarBookingDetails extends Component {
 									</td>
 								} 
 
-								{carBooking.status == 'pending' || carBooking.status == 'processing' &&
+								{(carBooking.status == 'pending' || carBooking.status == 'processing') &&
 									<td>
 										<span
 											className='btn btn-secondary'

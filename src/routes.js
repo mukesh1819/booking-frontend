@@ -62,6 +62,8 @@ import RentalPartnerList from './components/admin/RentalPartnerList';
 import AssignCarBookingForm from './components/admin/AssignCarBookingForm';
 import LocationList from './components/admin/LocationList';
 import LocationForm from './components/rental/LocationForm';
+import CarInquiryList from './components/admin/CarInquiryList';
+import CarInquiryDetails from './components/admin/CarInquiryDetails';
 
 
 const routes = [
@@ -104,9 +106,9 @@ const routes = [
 	{private: true, path: '/car_booking_form', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form/:idx/edit', component: LocationForm, layout: UserLayout},
+	{private: true, path: '/admin/car_inquiry_form/:idx/edit', component: CarInquiryForm, layout: UserLayout},
 
 
-	
 	{private: true, path: '/admin/car_bookings/:idx', component: CarBookingDetails, layout: AdminLayout},
 	{private: true, path: '/car_bookings/:idx/edit', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/cars', component: CarList, layout: AdminLayout},
@@ -117,8 +119,10 @@ const routes = [
 	{private: true, path: '/admin/rental_partners', component: RentalPartnerList, layout: AdminLayout},
 	{private: true, path: '/admin/:idx/assign_partner_booking_form', component: AssignCarBookingForm, layout: AdminLayout},
 	{private: true, path: '/admin/locations', component: LocationList, layout: AdminLayout},
+	{private: true, path: '/admin/car_inquiries', component: CarInquiryList, layout: AdminLayout},
+	{private: true, path: '/admin/car_inquiry_details/:idx', component: CarInquiryDetails, layout: AdminLayout},
 
-
+	
 	
 	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},
 	{private: true, path: '/admin/transaction_list', component: TransactionList, layout: AdminLayout},

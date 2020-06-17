@@ -34,7 +34,8 @@ class Dashboard extends Component {
 					cars: response.data.car_count,
 					carBooking: response.data.car_booking_count,
 					rentalPartner: response.data.rental_partner_count,
-					location: response.data.location_count
+					location: response.data.location_count,
+					carInquiry: response.data.car_inquiry_count
 				});
 			})
 			.catch((error) => {
@@ -57,7 +58,8 @@ class Dashboard extends Component {
 			cars,
 			carBooking,
 			rentalPartner,
-			location
+			location,
+			carInquiry
 		} = this.state;
 
 		const section = this.props.location.hash;
@@ -250,6 +252,19 @@ class Dashboard extends Component {
 												<span className='count'> {location} </span> <hr />
 												<Link to='/admin/locations' className='action'>
 													View all location
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'> {carInquiry} </span> <hr />
+												<Link to='/admin/car_inquiries' className='action'>
+													View all Car Inquiry
 												</Link>
 											</div>
 										</div>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getLocations, deleteLocation} from '../../api/locationApi';
+import {getCarInquiries} from '../../api/carInquiryApi';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
 import {Link} from 'react-router-dom';
@@ -9,20 +9,21 @@ import FilterForm from './FilterForm';
 import {CustomMenu} from './Menu';
 import {Card, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
+import {Badge} from '../shared';
 
-class LocationList extends Component {
+class CarInquiryList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			pagination: {},
-			locations: []
+			carInquiries: []
 		};
 	}
 
 	changeCurrentPage = (e, {activePage}) => {
 		var searchQuery = `?page=${activePage}`;
 		this.setState({currentPage: activePage});
-		this.fetchLocations({page: activePage});
+		this.fetchInquiry({page: activePage});
 		history.push({
 			pathname: window.location.pathname,
 			search: searchQuery
@@ -30,72 +31,72 @@ class LocationList extends Component {
 	};
 
 	componentDidMount() {
-		this.fetchLocations(queryString.parse(this.props.location.search));
+		this.fetchInquiry(queryString.parse(this.props.location.search));
 	}
 
-	fetchLocations(params) {
-		getLocations(params)
+	fetchInquiry(params) {
+		getCarInquiries(params)
 			.then((response) => {
 				// console.log('inquiries', response.data);
 				this.setState({
-					locations: response.data.locations,
+					carInquiries: response.data.car_inquiries,
 					pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {
 				// console.log(error);
-				console.log('Location fetch error', error);
+				console.log('car inquiry fetch error', error);
 			});
 	}
 
-	destroyLocation(id) {
-		// deleteCategory(id)
-		// 	.then((response) => {
-		// 		swal({
-		// 			title: 'Category deleted!',
-		// 			text: `this category is deleted`,
-		// 			icon: 'success',
-		// 			button: 'Continue!'
-		// 		});
-		// 		history.go();
-		// 	})
-		// 	.catch((error) => {
-		// 		swal({
-		// 			title: 'Category Delete error',
-		// 			text: 'Something went wrong. please try again or contact us',
-		// 			icon: 'error',
-		// 			button: 'Continue!'
-		// 		});
-		// 	});
+	// destroyLocation(id) {
+	// 	// deleteCategory(id)
+	// 	// 	.then((response) => {
+	// 	// 		swal({
+	// 	// 			title: 'Category deleted!',
+	// 	// 			text: `this category is deleted`,
+	// 	// 			icon: 'success',
+	// 	// 			button: 'Continue!'
+	// 	// 		});
+	// 	// 		history.go();
+	// 	// 	})
+	// 	// 	.catch((error) => {
+	// 	// 		swal({
+	// 	// 			title: 'Category Delete error',
+	// 	// 			text: 'Something went wrong. please try again or contact us',
+	// 	// 			icon: 'error',
+	// 	// 			button: 'Continue!'
+	// 	// 		});
+	// 	// 	});
 
-		swal({
-			title: 'Are you sure?',
-			text: 'Once delete, your location will be deleted',
-			icon: 'warning',
-			buttons: true,
-			dangerMode: true
-		}).then((willDelete) => {
-			if (willDelete) {
-				deleteLocation(id).then((response) => {
-					swal('this location is deleted', {
-						icon: 'success'
-					});
-					history.go();
-				});
-			} else {
-				swal('Your location is not deleted yet');
-			}
-		});
-	}
+	// 	swal({
+	// 		title: 'Are you sure?',
+	// 		text: 'Once delete, your location will be deleted',
+	// 		icon: 'warning',
+	// 		buttons: true,
+	// 		dangerMode: true
+	// 	}).then((willDelete) => {
+	// 		if (willDelete) {
+	// 			deleteLocation(id).then((response) => {
+	// 				swal('this location is deleted', {
+	// 					icon: 'success'
+	// 				});
+	// 				history.go();
+	// 			});
+	// 		} else {
+	// 			swal('Your location is not deleted yet');
+	// 		}
+	// 	});
+	// }
 
 	onFilter = (values) => {
 		this.setState({
-			locations: values.locations
+			carInquiries: values.car_inquiries
 		});
 	};
 
 	render() {
-		const {locations, pagination} = this.state;
+		const {carInquiries, pagination} = this.state;
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
@@ -117,7 +118,7 @@ class LocationList extends Component {
 				/> */}
 
 				<CustomMenu
-					submitUrl='admin/locations'
+					submitUrl='admin/car_inquiries'
 					filterFields={filterFields}
 					onFilter={(values) => this.onFilter(values)}
 					items={[
@@ -143,37 +144,49 @@ class LocationList extends Component {
 				<Card fluid>
 					<Card.Content>
 						<div className='d-flex justify-content-between'>
-							<h3 className='title'>Locations</h3>
-							<Link to='/admin/location_form' className='btn bg-none color-accent'>
-								add location
-							</Link>
+							<h3 className='title'>Car Inquiries</h3>
+							
 						</div>
 
 						<table className='table table-striped table-hover table-sm' ref='main'>
 							<thead>
 								<tr>
 									<th>S. No.</th>
-									<th>Name</th>
-									<th>Type</th>
+									<th>Car Type</th>
+									<th>No of days</th>
+                                    <th>Airport Transfer</th>
+                                    <th>Within City</th>
 									<th>Created At</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
+                            
 
 							<tbody>
-								{locations.map((location, index) => {
+								{carInquiries.map((carInquiry, index) => {
 									return (
 										<tr>
 											<td>{index + 1}</td>
-											<td>{location.name}</td>
-											<td>{location.location_type} </td>
-											<td>{location.created_at}</td>
+											<td>{carInquiry.car_type}</td>
+											<td>{carInquiry.no_of_days} </td>
+											<td>
+												<Badge type={carInquiry.airport_transfer}>
+													{carInquiry.airport_transfer ? 'True' : 'False'}
+												</Badge>
+											</td>
+                                            <td>
+												<Badge type={carInquiry.within_city}>
+													{carInquiry.within_city ? 'True' : 'False'}
+												</Badge>
+											</td>
+
+											<td>{carInquiry.created_at}</td>
 											<td>
 												<Link
 													to={{
-														pathname: `/admin/location_details/${location.idx}`,
+														pathname: `/admin/car_inquiry_details/${carInquiry.idx}`,
 														state: {
-															location: location
+															carInquiries: carInquiry
 														}
 													}}
 												>
@@ -183,21 +196,16 @@ class LocationList extends Component {
 
 												<Link
 													to={{
-														pathname: `/admin/location_form/${location.idx}/edit`,
+														pathname: `/admin/car_inquiry_form/${carInquiry.idx}/edit`,
 														state: {
-															location: location
+															carInquiry: carInquiry
 														}
 													}}
 												>
 													<i className='fas fa-contact' />
 													<span className='btn bg-none text-primary'>edit</span>
 												</Link>
-												<span
-													className='btn bg-none text-danger'
-													onClick={() => this.destroyLocation(location.idx)}
-												>
-													Delete
-												</span>
+												
 											</td>
 										</tr>
 									);
@@ -219,4 +227,4 @@ class LocationList extends Component {
 		);
 	}
 }
-export default LocationList;
+export default CarInquiryList;

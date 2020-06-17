@@ -20,3 +20,18 @@ export function updateCarInquiry(id, data) {
 		data: {car_inquiry: data}
 	});
 }
+
+export function getCarInquiries(params){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/admin/car_inquiries`,
+		params: params
+	});
+}
+
+export function showCarInquiry(id){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/car_inquiries/${id}`
+	});
+}

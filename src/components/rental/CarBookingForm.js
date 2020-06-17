@@ -39,7 +39,8 @@ class CarBookingForm extends Component {
 				return new Date();
             }),
             drop_off_location: yup.string().required('Required'),
-            remarks: yup.string().required('Required')
+			remarks: yup.string().required('Required'),
+			flight_no: yup.string()
 		});
        
 		const bookingDetails = {
@@ -52,7 +53,10 @@ class CarBookingForm extends Component {
             pickup_location: carBooking.pickup_location,
             drop_off_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			drop_off_location: carBooking.pickup_location,
-			remarks: carBooking.remarks
+			remarks: carBooking.remarks,
+			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),
+			flight_no: carBooking.flight_no
+
         };
 		return (
 			<div className='container bg-white'>
@@ -176,6 +180,47 @@ class CarBookingForm extends Component {
                                                     />
                                                 </Form.Field>
                                                 <ErrorMessage name='mobile_no' />
+                                            </div>
+                                        </div>
+
+                                        <div className='col-12 col-md-6'>
+											<div className='field-box col'>
+												<label className='d-block'>Flight Date</label>
+												<DateTimePicker
+													name='flight_date'
+													className=' w-100'
+													type='date'
+													date={values.flight_date}
+													minDate={new Date()}
+													maxDate={addDays(new Date(), 365)}
+													onBlur={handleBlur}
+													onChange={(date) => {
+														setFieldValue('flight_date', date);
+													}}
+													value={values.flight_date}
+													placeholder='Flight Date'
+												/>
+												<ErrorMessage name='flight_date' />
+											</div>
+										</div>
+
+										<div className='col-12 col-md-6'>
+                                            <div className='field-box'>
+                                                <Form.Field>
+                                                    <label>Flight Number</label>
+                                                    <Form.Input
+                                                        fluid
+                                                        icon='fas fa-user'
+                                                        iconPosition='left'
+                                                        name='flight_no'
+                                                        className=''
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        value={values.flight_no}
+                                                        placeholder='Flight no'
+                                                    />
+                                                </Form.Field>
+                                                <ErrorMessage name='flight_no' />
                                             </div>
                                         </div>
 
