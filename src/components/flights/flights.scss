@@ -137,27 +137,6 @@
         z-index: 2;
     }
 
-    .select-trip {
-        padding: 10px 0px 20px;
-
-        span {
-            color: $primary;
-            font-weight: 700;
-            margin: 0px 10px;
-            text-transform: uppercase;
-            cursor: pointer;
-
-            &:first-child {
-                margin-left: 0px;
-            }
-
-            &.active {
-                border-bottom: 1px solid $accent;
-            }
-        }
-    }
-
-
     .search-btn {
         margin-top: 2.5px;
     }
@@ -205,6 +184,27 @@
 
         @include tablet {
             display: block;
+        }
+    }
+}
+
+
+.form-menu {
+    padding: 10px 0px 20px;
+
+    span {
+        color: $primary;
+        font-weight: 700;
+        margin: 0px 10px;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        &:first-child {
+            margin-left: 0px;
+        }
+
+        &.active {
+            border-bottom: 1px solid $accent;
         }
     }
 }

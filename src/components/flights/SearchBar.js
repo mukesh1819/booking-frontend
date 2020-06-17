@@ -128,7 +128,7 @@ class SearchBar extends Component {
 					}) => (
 						<form onSubmit={handleSubmit} autoComplete='off' className='form-wrap'>
 							<div className='input-section padded'>
-								<div className='d-none d-md-block select-trip'>
+								<div className='d-none d-md-block form-menu'>
 									<span
 										className={values.strTripType == 'O' ? 'active' : ''}
 										onClick={() => {
@@ -233,7 +233,7 @@ class SearchBar extends Component {
 											? 'col-md-3'
 											: 'col-md-2'}`}
 									>
-										<label>{t("Departure Date")}</label>
+										<label>{t('Departure Date')}</label>
 										<DatePicker
 											name='strFlightDate'
 											className='form-control'
@@ -264,7 +264,7 @@ class SearchBar extends Component {
 											? 'd-none'
 											: ''}`}
 									>
-										<label>{t("Arrival Date")}</label>
+										<label>{t('Arrival Date')}</label>
 										<DatePicker
 											name='strReturnDate'
 											className='form-control'
@@ -280,7 +280,7 @@ class SearchBar extends Component {
 										<ErrorMessage name='strReturnDate' />
 									</div>
 									<div className='field-box col-12 col-md-3 pl-md-0'>
-										<label>{t("Traveller(s)")}</label>
+										<label>{t('Traveller(s)')}</label>
 										<Dropdown
 											name=''
 											placeholder={`${ifNotZero(
@@ -336,7 +336,7 @@ class SearchBar extends Component {
 									</div>
 
 									<div className='field-box col-12 col-md-3 pl-md-0'>
-										<label htmlFor=''>{t("Nationality")}</label>
+										<label htmlFor=''>{t('Nationality')}</label>
 										<Dropdown
 											name='strNationality'
 											placeholder='Select Country'
@@ -367,7 +367,7 @@ class SearchBar extends Component {
 											type='submit'
 											disabled={isSubmitting}
 										>
-											{t("Search")}
+											{t('Search')}
 										</button>
 									</div>
 								</div>
