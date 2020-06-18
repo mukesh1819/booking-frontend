@@ -80,7 +80,6 @@ class CarForm extends Component {
 									image: document.querySelector('[type=file]').files
 								})
 									.then((response) => {
-										debugger;
 										setSubmitting(false);
 										swal({
 											title: 'Car created Success!',

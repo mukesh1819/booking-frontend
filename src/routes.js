@@ -101,9 +101,9 @@ const routes = [
 	{private: true, path: '/admin/package_booking_details/:id', component: PackageBookingDetails, layout: UserLayout},
 	{private: true, path: '/payment_success/:idx', component: PaymentSuccess, layout: UserLayout},
 
-	{private: false, path: '/cars', component: ListOfCar, layout: UserLayout},
+	{private: false, path: '/cars/:car_inquiry_idx', component: ListOfCar, layout: UserLayout},
 	{private: false, path: '/car_inquiry_form', component: CarInquiryForm, layout: UserLayout},
-	{private: true, path: '/car_booking_form', component: CarBookingForm, layout: UserLayout},
+	{private: true, path: '/car_booking_form/:car_idx/:car_inquiry_idx', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form/:idx/edit', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/car_inquiry_form/:idx/edit', component: CarInquiryForm, layout: UserLayout},

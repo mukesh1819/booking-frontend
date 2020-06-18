@@ -111,6 +111,7 @@ class CarInquiryForm extends Component {
 						} else {
 							createCarInquiry(values)
 								.then((response) => {
+									console.log('res mess', response.data);
 									setSubmitting(false);
 									swal({
 										title: 'Inquiry Submitted!',
@@ -118,7 +119,7 @@ class CarInquiryForm extends Component {
 										icon: 'success',
 										button: 'Continue'
 									}).then((value) => {
-										history.push('/cars');
+										history.push(`/cars/${response.data.idx}`);  
 									});
 								})
 								.catch((error) => {
