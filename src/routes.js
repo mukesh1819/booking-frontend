@@ -3,6 +3,7 @@ import {Router, Switch, Route} from 'react-router-dom';
 import {FlightList, FlightDetails, PassengerForm} from './components/flights';
 import {HotelList} from './components/hotels';
 import {PackageList, PackageDetails, InquiryDetails as PackageInquiryDetails} from './components/packages';
+import {CarList as ListOfCar} from './components/rental';
 import Users from './components/users';
 import {SignInForm, SignUpForm} from './components/sessions';
 import {BookingDetails, Bookings, TicketDetails} from './components/bookings';
@@ -65,7 +66,6 @@ import LocationForm from './components/rental/LocationForm';
 import CarInquiryList from './components/admin/CarInquiryList';
 import CarInquiryDetails from './components/admin/CarInquiryDetails';
 
-
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
 	{private: false, path: '/signup', component: SignUpForm, layout: UserLayout, footer: true},
@@ -101,13 +101,12 @@ const routes = [
 	{private: true, path: '/admin/package_booking_details/:id', component: PackageBookingDetails, layout: UserLayout},
 	{private: true, path: '/payment_success/:idx', component: PaymentSuccess, layout: UserLayout},
 
-	{private: true, path: '/car_inquiry_form', component: CarInquiryForm, layout: UserLayout},
-	{private: true, path: '/car_form', component: CarForm, layout: UserLayout},
+	{private: false, path: '/cars', component: ListOfCar, layout: UserLayout},
+	{private: false, path: '/car_inquiry_form', component: CarInquiryForm, layout: UserLayout},
 	{private: true, path: '/car_booking_form', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form/:idx/edit', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/car_inquiry_form/:idx/edit', component: CarInquiryForm, layout: UserLayout},
-
 
 	{private: true, path: '/admin/car_bookings/:idx', component: CarBookingDetails, layout: AdminLayout},
 	{private: true, path: '/car_bookings/:idx/edit', component: CarBookingForm, layout: UserLayout},
@@ -117,13 +116,16 @@ const routes = [
 	{private: true, path: '/admin/car_form', component: CarForm, layout: AdminLayout},
 	{private: true, path: '/admin/car/:idx/edit', component: CarForm, layout: AdminLayout},
 	{private: true, path: '/admin/rental_partners', component: RentalPartnerList, layout: AdminLayout},
-	{private: true, path: '/admin/:idx/assign_partner_booking_form', component: AssignCarBookingForm, layout: AdminLayout},
+	{
+		private: true,
+		path: '/admin/:idx/assign_partner_booking_form',
+		component: AssignCarBookingForm,
+		layout: AdminLayout
+	},
 	{private: true, path: '/admin/locations', component: LocationList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiries', component: CarInquiryList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiry_details/:idx', component: CarInquiryDetails, layout: AdminLayout},
 
-	
-	
 	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},
 	{private: true, path: '/admin/transaction_list', component: TransactionList, layout: AdminLayout},
 	{private: true, path: '/admin/create_user', component: CreateUser, layout: AdminLayout},
