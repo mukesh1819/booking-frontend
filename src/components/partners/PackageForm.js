@@ -30,7 +30,7 @@ class PackageForm extends Component {
 		getCategories()
 			.then((res) => {
 				this.setState({
-					categories: res.data
+					categories: res.data.categories
 				});
 			})
 			.catch((error) => {

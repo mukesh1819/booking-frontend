@@ -58,3 +58,21 @@ export function deleteCar(id) {
 	});
 }
 
+export function submitFormData(url, idx, values) {
+	const data = new FormData();
+	const {image, ...newValues} = values;
+	Object.keys(newValues).forEach((key) => {
+		data.append(key, values[key]);
+	});
+	Array.from(image).map((v, index) => {
+		data.append(`image[${index}]`, v);
+	});
+	return axios({
+		url: `${API_URL}/${url}`,
+		method: idx ? 'PUT' : 'POST',
+		data: data,
+		headers: {
+			'Content-Type': 'multipart/form-data'
+		}
+	});
+}

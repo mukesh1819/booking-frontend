@@ -18,34 +18,14 @@ class LocationForm extends Component {
 	}
 
 	// componentDidMount() {
-	// 	var params = {};
-	// 	params['q[partner_type_eq]'] = 'rental';
 	// 	this.fetchDetails(params);
 	// }
 
 	// fetchDetails(params){
-	// 	getPartners(params)
-	// 	.then((response) => {
-	// 		this.setState({
-	// 			partners: response.data.partners
-	// 		});
-	// 	})
 	// }
 
-	// uploadImages = (id) => {
-	// 	const data = new FormData();
-	// 	Array.from(document.querySelector('[type=file]').files).map((v, index) => {
-	// 		data.append(`images[${index}]`, v);
-	// 	});
-
-	// 	fetch(`${process.env.REACT_APP_BASE_URL}/api/packages/${id}/images`, {
-	// 		method: 'PUT',
-	// 		body: data
-	// 	});
-	// };
-
 	render() {
-		const {location} = this.props.location.state!= null ? this.props.location.state : {location: {}};
+		const {location} = this.props.location.state != null ? this.props.location.state : {location: {}};
 		const {partners} = this.state;
 		const locationDetails = {
 			name: location.name,
@@ -55,7 +35,6 @@ class LocationForm extends Component {
 		const LocationSchema = yup.object().shape({
 			name: yup.string().required('Required'),
 			location_type: yup.string().required('Required')
-			
 		});
 
 		return (
@@ -66,7 +45,7 @@ class LocationForm extends Component {
 							<input id='package_images' name='package[images[]]' type='file' multiple />
 							<input type='submit' />
 						</form> */}
-                        <h3>Location Form</h3>
+						<h3>Location Form</h3>
 						<Formik
 							initialValues={locationDetails}
 							validationSchema={LocationSchema}
@@ -122,7 +101,6 @@ class LocationForm extends Component {
 								return (
 									<form onSubmit={handleSubmit}>
 										<div className='input-section'>
-											
 											<div className='row'>
 												<div className='col-12 col-md-6'>
 													<div className='field-box'>
@@ -140,25 +118,25 @@ class LocationForm extends Component {
 															search
 															selection
 															options={[
-                                                                {
-                                                                    id: 1,
-                                                                    value: 'city',
-                                                                    text: 'city'
-                                                                },
+																{
+																	id: 1,
+																	value: 'city',
+																	text: 'city'
+																},
 
-                                                                {
-                                                                    id: 2,
-                                                                    value: 'airport',
-                                                                    text: 'airport'
-                                                                }
-                                                            ]}
+																{
+																	id: 2,
+																	value: 'airport',
+																	text: 'airport'
+																}
+															]}
 														/>
 														<ErrorMessage name='type' />
 													</div>
 												</div>
 											</div>
 
-                                            <div className='row'>
+											<div className='row'>
 												<div className='col-12 col-md-6'>
 													<div className='field-box'>
 														<Form.Field>
@@ -176,8 +154,6 @@ class LocationForm extends Component {
 													</div>
 												</div>
 											</div>
-
-											
 										</div>
 
 										<div class='text-center'>

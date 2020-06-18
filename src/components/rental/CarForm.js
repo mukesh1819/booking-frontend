@@ -6,7 +6,7 @@ import swal from 'sweetalert';
 import * as yup from 'yup';
 import {Button, Divider, Grid, Header, Icon, Search, TextArea, Form, Dropdown} from 'semantic-ui-react';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
-import {createCar, updateCar} from '../../api/carApi';
+import {createCar, updateCar, submitFormData} from '../../api/carApi';
 import {getPartners} from '../../api/partnerApi';
 
 class CarForm extends Component {
@@ -23,13 +23,12 @@ class CarForm extends Component {
 		this.fetchDetails(params);
 	}
 
-	fetchDetails(params){
-		getPartners(params)
-		.then((response) => {
+	fetchDetails(params) {
+		getPartners(params).then((response) => {
 			this.setState({
 				partners: response.data.partners
 			});
-		})
+		});
 	}
 
 	// uploadImages = (id) => {
@@ -45,7 +44,7 @@ class CarForm extends Component {
 	// };
 
 	render() {
-		const {car} = this.props.location.state!= null ? this.props.location.state : {car: {}};
+		const {car} = this.props.location.state != null ? this.props.location.state : {car: {}};
 		const {partners} = this.state;
 		const carDetails = {
 			car_type: car.car_type,
@@ -76,41 +75,24 @@ class CarForm extends Component {
 							initialValues={carDetails}
 							validationSchema={CarSchema}
 							onSubmit={(values, {setSubmitting}) => {
-								if (car.id != null) {
-									updateCar(car.idx, values)
-										.then((response) => {
-											setSubmitting(false);
-											// this.uploadImages(response.data.idx);
-											swal({
-												title: 'Car updated Successful!',
-												text: response.data.message,
-												icon: 'success',
-												button: 'continue!'
-											});
-										})
-										.catch((error) => {
-											// console.log('Create Package Error', error);
-											setSubmitting(false);
-											console.log(' Car update error', error);
+								submitFormData('admin/cars', car.id, {
+									...values,
+									image: document.querySelector('[type=file]').files
+								})
+									.then((response) => {
+										debugger;
+										setSubmitting(false);
+										swal({
+											title: 'Car created Success!',
+											text: response.data.message,
+											icon: 'success',
+											button: 'continue!'
 										});
-								} else {
-									createCar({...values, image: document.querySelector('[type=file]').files})
-										.then((response) => {
-											setSubmitting(false);
-											// this.uploadImages(response.data.idx);
-											swal({
-												title: 'Car created Success!',
-												text: response.data.message,
-												icon: 'success',
-												button: 'continue!'
-											});
-										})
-										.catch((error) => {
-											// console.log('Create Package Error', error);
-											setSubmitting(false);
-											console.log(' Car create error', error);
-										});
-								}
+									})
+									.catch((error) => {
+										setSubmitting(false);
+										console.log(' Car create error', error);
+									});
 							}}
 						>
 							{({
