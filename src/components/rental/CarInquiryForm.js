@@ -45,21 +45,21 @@ class CarInquiryForm extends Component {
 			.catch((error) => {
 				console.log('fetch package error', error);
 			});
-		
-			getLocations()
-				.then((response) => {
-					this.setState({
-						locations: response.data.locations
-					});
-					console.log('locations list ', response.data.locations);
-				})
-				.catch((error) => {
-					console.log('fetch location error', error);
+
+		getLocations()
+			.then((response) => {
+				this.setState({
+					locations: response.data.locations
 				});
+				console.log('locations list ', response.data.locations);
+			})
+			.catch((error) => {
+				console.log('fetch location error', error);
+			});
 	}
 
 	render() {
-		const {carInquiry} = this.props.location.state!= null ? this.props.location.state : {carInquiry: {}};
+		const {carInquiry} = this.props.location.state != null ? this.props.location.state : {carInquiry: {}};
 		const {cars, locations} = this.state;
 		const {t} = this.props;
 		const InquiriesSchema = yup.object().shape({
@@ -118,7 +118,7 @@ class CarInquiryForm extends Component {
 										icon: 'success',
 										button: 'Continue'
 									}).then((value) => {
-										history.push('/');
+										history.push('/cars');
 									});
 								})
 								.catch((error) => {
@@ -194,96 +194,34 @@ class CarInquiryForm extends Component {
 										/>
 										<ErrorMessage name='source' />
 									</div>
-								
-								{/* <div className='inputs row'>
-									<div className='field-box col'>
-										<Form.Field>
-											<label>Source</label>
-											<Form.Input
-												fluid
-												icon='fas fa-user'
-												iconPosition='left'
-												name='source'
+
+									{!values.within_city && (
+										<div className='field-box col'>
+											<label>Destination</label>
+											<Dropdown
 												className=''
+												name='destination'
+												placeholder='Select location'
 												onBlur={handleBlur}
-												onChange={handleChange}
-												value={values.source}
-												placeholder='Source'
-											/>
-										</Form.Field>
-										<ErrorMessage name='source' /> */}
-										{/* <div className='toggle-sector-mobile'>
-												<i
-													className='fas fa-exchange-alt'
-													onClick={() => {
-														setFieldValue('strSectorTo', values.strSectorFrom);
-														setFieldValue('strSectorFrom', values.strSectorTo);
-													}}
-												/>
-											</div> */}
-									{/* </div> */}
-									{/* <div className='col-md-1 toggle-sector-desktop text-center'>
-											<label htmlFor=''>&nbsp;</label>
-											<i
-												className='menu fas fa-exchange-alt'
-												onClick={() => {
-													setFieldValue('strSectorTo', values.strSectorFrom);
-													setFieldValue('strSectorFrom', values.strSectorTo);
+												onChange={(e, data) => {
+													setFieldValue(`destination`, data.value);
 												}}
+												value={values.destination}
+												fluid
+												search
+												selection
+												options={locations.map(function(location) {
+													return {
+														key: location.id,
+														value: location.name,
+														text: location.name
+													};
+												})}
 											/>
-										</div> */}
-
-										{!values.within_city && 
-											<div className='field-box col'>
-												<label>Destination</label>
-												<Dropdown
-													className=''
-													name='destination'
-													placeholder='Select location'
-													onBlur={handleBlur}
-													onChange={(e, data) => {
-														setFieldValue(`destination`, data.value);
-													}}
-													value={values.destination}
-													fluid
-													search
-													selection
-													options={locations.map(function(location) {
-														return {
-															key: location.id,
-															value: location.name,
-															text: location.name
-														};
-													})}
-												/>
-												<ErrorMessage name='destination' />
-											</div>
-										}
-
-									</div>
-
-									{/* <div className='field-box col'>
-										{!values.within_city && (
-											<div className='field-box'>
-												<Form.Field>
-													<label>Destination</label>
-													<Form.Input
-														fluid
-														icon='fas fa-user'
-														iconPosition='left'
-														name='destination'
-														className=''
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.destination}
-														placeholder='Destination'
-													/>
-												</Form.Field>
-												<ErrorMessage name='destination' />
-											</div>
-										)}
-									</div>
-								</div> */}
+											<ErrorMessage name='destination' />
+										</div>
+									)}
+								</div>
 
 								<div className='inputs row'>
 									<div className='field-box col'>
