@@ -222,7 +222,11 @@ class CarList extends Component {
 					onSuccess={this.onBook}
 				>
 					{selectedCar && (
-						<div>{selectedCar.image.length && <img src={BASE_URL + selectedCar.image[0].url} />}</div>
+						<div>
+							
+							<div>{selectedCar.image.length && <img src={BASE_URL + selectedCar.image[0].url} />}</div>
+							{/* <div>Price - {selectedCar.price}</div> */}
+						</div>
 					)}
 				</ModalExample>
 			</div>
