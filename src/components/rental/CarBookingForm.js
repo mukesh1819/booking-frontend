@@ -24,7 +24,8 @@ class CarBookingForm extends Component {
 	}
 
 	render() {
-		const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
+		const {car_inquiry_idx} = this.props.match.params != null ? this.props.match.params : {car_inquiry_idx: null};
+		const {car_idx} = this.props.match.params != null ? this.props.match.params : {car_idx: null};
 		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
 		const BookingSchema = yup.object().shape({
 			contact_name: textValidate(yup).required('Required'),
@@ -46,7 +47,7 @@ class CarBookingForm extends Component {
 			contact_name: carBooking.contact_name,
 			contact_email: carBooking.contact_email,
 			mobile_no: carBooking.mobile_no,
-			car_inquiry_id: carBooking.car_inquiry != null ? carBooking.car_inquiry.id : 1,
+			car_inquiry_idx: carBooking.car_inquiry != null ? carBooking.car_inquiry.idx : car_inquiry_idx,
 			pickup_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
 			pickup_location: carBooking.pickup_location,
@@ -54,8 +55,10 @@ class CarBookingForm extends Component {
 			drop_off_location: carBooking.pickup_location,
 			remarks: carBooking.remarks,
 			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),
-			flight_no: carBooking.flight_no
+			flight_no: carBooking.flight_no,
+			car_idx: car_idx
 		};
+
 		return (
 			<div className='container bg-white'>
 				<Formik
@@ -330,7 +333,7 @@ class CarBookingForm extends Component {
 														type='submit'
 														disabled={isSubmitting}
 													>
-														{carInquiry.id ? 'Update' : 'Submit'}
+														{carBooking.id ? 'Update' : 'Submit'}
 													</button>
 												</div>
 											</div>

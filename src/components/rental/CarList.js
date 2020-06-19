@@ -55,6 +55,7 @@ class CarList extends Component {
 		this.onSort = this.onSort.bind(this);
 		this.setSearch = this.setSearch.bind(this);
 		this.setLoading = this.setLoading.bind(this);
+		this.onBook = this.onBook.bind(this);
 	}
 
 	onSort(sortKey) {
@@ -73,8 +74,8 @@ class CarList extends Component {
 		});
 	}
 
-	onBook() {
-		history.push('/car_booking_form');
+	onBook(params) {
+		history.push(`/car_booking_form/${this.state.selectedCar.idx}/${this.props.match.params.car_inquiry_idx}`);
 	}
 
 	componentDidMount() {
@@ -84,16 +85,19 @@ class CarList extends Component {
 		this.setState({
 			loading: true
 		});
+		
 	}
 
 	componentDidUpdate(prevProps) {
+		var params = {};
+		params['car_inquiry_id'] = this.props.match.params.car_inquiry_idx
 		if (this.state.loading) {
-			getCars()
+			getCars(params)
 				.then((response) => {
 					console.log(response.data.cars);
 					this.setState({
 						loading: false,
-						cars: response.data.cars
+						cars: response.data
 					});
 				})
 				.catch((error) => {
@@ -225,7 +229,6 @@ class CarList extends Component {
 		);
 	}
 }
-
 const mapStateToProps = ({flightStore}) => {
 	return {};
 };
