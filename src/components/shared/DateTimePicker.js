@@ -15,6 +15,7 @@ export default ({date, onChange, placeholder, ...rest}) => {
 			timeIntervals={15}
 			timeCaption='time'
 			dateFormat='MMMM d, yyyy h:mm aa'
+			{...rest}
 		/>
 	);
 };

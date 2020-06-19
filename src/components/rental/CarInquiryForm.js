@@ -251,7 +251,7 @@ class CarInquiryForm extends Component {
 
 									<div className='field-box col'>
 										<label className='d-block'>start date</label>
-										<DateTimePicker
+										<DatePicker
 											name='start_date'
 											className=' w-100'
 											type='date'

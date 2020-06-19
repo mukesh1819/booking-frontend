@@ -18,31 +18,30 @@ import {createCarBooking, updateCarBooking} from '../../api/carBookingApi';
 class CarBookingForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-		};
+		this.state = {};
 		var date = new Date();
 		date.setDate(date.getDate() + 2);
 	}
 
 	render() {
-        const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
+		const {carInquiry} = this.props.carInquiry != null ? this.props : {carInquiry: {}};
 		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
 		const BookingSchema = yup.object().shape({
-            contact_name: textValidate(yup).required('Required'),
-            contact_email: yup.string().email().required('Required'),
-            mobile_no: numberValidate(yup).required('Required'),
-            pickup_date: yup.date().required('Required').default(function() {
+			contact_name: textValidate(yup).required('Required'),
+			contact_email: yup.string().email().required('Required'),
+			mobile_no: numberValidate(yup).required('Required'),
+			pickup_date: yup.date().required('Required').default(function() {
 				return new Date();
 			}),
-            pickup_location: yup.string().required('Required'),
-            drop_off_date: yup.date().required('Required').default(function() {
+			pickup_location: yup.string().required('Required'),
+			drop_off_date: yup.date().required('Required').default(function() {
 				return new Date();
-            }),
-            drop_off_location: yup.string().required('Required'),
+			}),
+			drop_off_location: yup.string().required('Required'),
 			remarks: yup.string().required('Required'),
 			flight_no: yup.string()
 		});
-       
+
 		const bookingDetails = {
 			contact_name: carBooking.contact_name,
 			contact_email: carBooking.contact_email,
@@ -50,14 +49,13 @@ class CarBookingForm extends Component {
 			car_inquiry_id: carBooking.car_inquiry != null ? carBooking.car_inquiry.id : 1,
 			pickup_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
-            pickup_location: carBooking.pickup_location,
-            drop_off_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
+			pickup_location: carBooking.pickup_location,
+			drop_off_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			drop_off_location: carBooking.pickup_location,
 			remarks: carBooking.remarks,
 			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),
 			flight_no: carBooking.flight_no
-
-        };
+		};
 		return (
 			<div className='container bg-white'>
 				<Formik
@@ -124,66 +122,65 @@ class CarBookingForm extends Component {
 							<form onSubmit={handleSubmit}>
 								<div className='input-section padded bg-white'>
 									<div className='row'>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<Form.Field>
+													<label>Contact name</label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														name='contact_name'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.contact_name}
+														placeholder='Name'
+													/>
+												</Form.Field>
+												<ErrorMessage name='contact name' />
+											</div>
+										</div>
 
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <Form.Field>
-                                                    <label>Contact name</label>
-                                                    <Form.Input
-                                                        fluid
-                                                        icon='fas fa-user'
-                                                        iconPosition='left'
-                                                        name='contact_name'
-                                                        className=''
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={values.contact_name}
-                                                        placeholder='Name'
-                                                    />
-                                                </Form.Field>
-                                                <ErrorMessage name='contact name' />
-                                            </div>
-                                        </div>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<Form.Field>
+													<label>Email Address</label>
+													<Form.Input
+														fluid
+														icon='fas fa-envelope'
+														iconPosition='left'
+														name='contact_email'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.contact_email}
+														placeholder='Email Address'
+													/>
+												</Form.Field>
+												<ErrorMessage name='contact_email' />
+											</div>
+										</div>
 
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <Form.Field>
-                                                    <label>Email Address</label>
-                                                    <Form.Input
-                                                        fluid
-                                                        icon='fas fa-envelope'
-                                                        iconPosition='left'
-                                                        name='contact_email'
-                                                        className=''
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={values.contact_email}
-                                                        placeholder='Email Address'
-                                                    />
-                                                </Form.Field>
-                                                <ErrorMessage name='contact_email' />
-                                            </div>
-                                        </div>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<Form.Field>
+													<label>Mobile Number</label>
+													<Input
+														fluid
+														name='mobile_no'
+														className='semantic-input-group'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.mobile_no}
+														placeholder='Mobile Number'
+													/>
+												</Form.Field>
+												<ErrorMessage name='mobile_no' />
+											</div>
+										</div>
 
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <Form.Field>
-                                                    <label>Mobile Number</label>
-                                                    <Input
-                                                        fluid
-                                                        name='mobile_no'
-                                                        className='semantic-input-group'
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={values.mobile_no}
-                                                        placeholder='Mobile Number'
-                                                    />
-                                                </Form.Field>
-                                                <ErrorMessage name='mobile_no' />
-                                            </div>
-                                        </div>
-
-                                        <div className='col-12 col-md-6'>
+										<div className='col-12 col-md-6'>
 											<div className='field-box col'>
 												<label className='d-block'>Flight Date</label>
 												<DateTimePicker
@@ -199,30 +196,31 @@ class CarBookingForm extends Component {
 													}}
 													value={values.flight_date}
 													placeholder='Flight Date'
+													showTimeSelectOnly
 												/>
 												<ErrorMessage name='flight_date' />
 											</div>
 										</div>
 
 										<div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <Form.Field>
-                                                    <label>Flight Number</label>
-                                                    <Form.Input
-                                                        fluid
-                                                        icon='fas fa-user'
-                                                        iconPosition='left'
-                                                        name='flight_no'
-                                                        className=''
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={values.flight_no}
-                                                        placeholder='Flight no'
-                                                    />
-                                                </Form.Field>
-                                                <ErrorMessage name='flight_no' />
-                                            </div>
-                                        </div>
+											<div className='field-box'>
+												<Form.Field>
+													<label>Flight Number</label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														name='flight_no'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.flight_no}
+														placeholder='Flight no'
+													/>
+												</Form.Field>
+												<ErrorMessage name='flight_no' />
+											</div>
+										</div>
 
 										<div className='col-12 col-md-6'>
 											<div className='field-box'>
@@ -238,32 +236,33 @@ class CarBookingForm extends Component {
 													onChange={(date) => setFieldValue('pickup_date', date)}
 													value={values.pickup_date}
 													placeholder='Pickup date'
+													showTimeSelectOnly
 												/>
 												<ErrorMessage name='pickup_date' />
 											</div>
 										</div>
 
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <Form.Field>
-                                                    <label>Pick-up location</label>
-                                                    <Form.Input
-                                                        fluid
-                                                        icon='fas fa-user'
-                                                        iconPosition='left'
-                                                        name='pickup_location'
-                                                        className=''
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={values.pickup_location}
-                                                        placeholder='Pick-up location'
-                                                    />
-                                                </Form.Field>
-                                                <ErrorMessage name='pickup_location' />
-                                            </div>
-                                        </div>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<Form.Field>
+													<label>Pick-up location</label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														name='pickup_location'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.pickup_location}
+														placeholder='Pick-up location'
+													/>
+												</Form.Field>
+												<ErrorMessage name='pickup_location' />
+											</div>
+										</div>
 
-                                        <div className='col-12 col-md-6'>
+										<div className='col-12 col-md-6'>
 											<div className='field-box'>
 												<label className='d-block'>Drop-off date</label>
 												<DateTimePicker
@@ -282,43 +281,42 @@ class CarBookingForm extends Component {
 											</div>
 										</div>
 
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <Form.Field>
-                                                    <label>Drop-off location</label>
-                                                    <Form.Input
-                                                        fluid
-                                                        icon='fas fa-user'
-                                                        iconPosition='left'
-                                                        name='drop_off_location'
-                                                        className=''
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={values.drop_off_location}
-                                                        placeholder='Drop-off location'
-                                                    />
-                                                </Form.Field>
-                                                <ErrorMessage name='drop_off_location' />
-                                            </div>
-                                        </div>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<Form.Field>
+													<label>Drop-off location</label>
+													<Form.Input
+														fluid
+														icon='fas fa-user'
+														iconPosition='left'
+														name='drop_off_location'
+														className=''
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.drop_off_location}
+														placeholder='Drop-off location'
+													/>
+												</Form.Field>
+												<ErrorMessage name='drop_off_location' />
+											</div>
+										</div>
 
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <label htmlFor=''>Remarks</label>
-                                                <TextArea
-                                                    className='form-control'
-                                                    name='remarks'
-                                                    placeholder='remarks'
-                                                    onBlur={handleBlur}
-                                                    onChange={(e, data) => {
-                                                        setFieldValue(`remarks`, e.target.value);
-                                                    }}
-                                                    value={values.remarks}
-                                                />
-                                                <ErrorMessage name='remarks' />
-                                            </div>
-                                        </div>
-
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label htmlFor=''>Remarks</label>
+												<TextArea
+													className='form-control'
+													name='remarks'
+													placeholder='remarks'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(`remarks`, e.target.value);
+													}}
+													value={values.remarks}
+												/>
+												<ErrorMessage name='remarks' />
+											</div>
+										</div>
 									</div>
 								</div>
 
