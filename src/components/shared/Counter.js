@@ -1,8 +1,7 @@
 import {InputGroup, FormControl} from 'react-bootstrap';
 import React, {useState, useEffect} from 'react';
 
-export default ({className, title, value, onChange, ...rest}) => {
-	const min = 0;
+export default ({className, title, value, onChange, min = 0, max = 0, ...rest}) => {
 	return (
 		<div className={`counter d-flex justify-content-between align-items-center ${className}`}>
 			<span
@@ -20,7 +19,7 @@ export default ({className, title, value, onChange, ...rest}) => {
 			<span
 				className='btn btn-primary'
 				onClick={() => {
-					onChange(value + 1);
+					onChange(value + 1 > max ? max : value + 1);
 				}}
 			>
 				+
