@@ -13,19 +13,36 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
-import {createCarBooking, updateCarBooking} from '../../api/carBookingApi';
+import {createCarBooking, updateCarBooking, showUserRentalBooking} from '../../api/carBookingApi';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			carBooking: {}
+		};
+	}
+
+	componentDidMount(){
+		this.fetchUserBookingDetails();
+	}
+
+	fetchUserBookingDetails(){
+		showUserRentalBooking(this.props.match.params.booking_idx)
+		.then((response) => {
+			this.setState({
+				carBooking: response.data
+			});
+		})
 	}
 
 	render() {
+		const {carBooking} = this.state;
 		return (
 			<div className='container bg-white'>
 				Booking Details
-				<span className='btn btn-praim'>Continue to Payment</span>
+				{carBooking.status === 'processing' && <span className='btn btn-primary'>Continue to Payment</span>}
+				{carBooking.status === 'verified' && <span className='btn btn-primary'>Download ticket</span>}
 			</div>
 		);
 	}

@@ -4,6 +4,7 @@ import {FlightList, FlightDetails, PassengerForm} from './components/flights';
 import {HotelList} from './components/hotels';
 import {PackageList, PackageDetails, InquiryDetails as PackageInquiryDetails} from './components/packages';
 import {CarList as ListOfCar} from './components/rental';
+import UserBookingDetails  from './components/rental/CarBookingDetails';
 import Users from './components/users';
 import {SignInForm, SignUpForm} from './components/sessions';
 import {BookingDetails, Bookings, TicketDetails} from './components/bookings';
@@ -66,6 +67,7 @@ import LocationForm from './components/rental/LocationForm';
 import CarInquiryList from './components/admin/CarInquiryList';
 import CarInquiryDetails from './components/admin/CarInquiryDetails';
 
+
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
 	{private: false, path: '/signup', component: SignUpForm, layout: UserLayout, footer: true},
@@ -107,7 +109,10 @@ const routes = [
 	{private: true, path: '/admin/location_form', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form/:idx/edit', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/car_inquiry_form/:idx/edit', component: CarInquiryForm, layout: UserLayout},
+	{private: true, path: '/rental/booking_details/:booking_idx', component: UserBookingDetails, layout: UserLayout},
 
+
+	
 	{private: true, path: '/admin/car_bookings/:idx', component: CarBookingDetails, layout: AdminLayout},
 	{private: true, path: '/car_bookings/:idx/edit', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/cars', component: CarList, layout: AdminLayout},
