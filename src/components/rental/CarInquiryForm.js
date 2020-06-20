@@ -15,7 +15,7 @@ import ReactDOM from 'react-dom';
 import {setCarInquiryDetails} from '../../redux/actions';
 import {connect} from 'react-redux';
 
-import {getCars} from '../../api/carApi';
+import {getVehicles} from '../../api/vehicleTypeApi';
 import {createCarInquiry, updateCarInquiry} from '../../api/carInquiryApi';
 import {getLocations} from '../../api/locationApi';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
@@ -26,7 +26,7 @@ class CarInquiryForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			cars: [],
+			vehicles: [],
 			locations: []
 		};
 		var date = new Date();
@@ -38,15 +38,15 @@ class CarInquiryForm extends Component {
 	}
 
 	fetchDetails() {
-		getCars()
+		getVehicles()
 			.then((response) => {
 				this.setState({
-					cars: response.data.cars
+					vehicles: response.data.vehicle_types
 				});
-				console.log('car list ', response.data.cars);
+				console.log('car list ', response.data.vehicle_types);
 			})
 			.catch((error) => {
-				console.log('fetch package error', error);
+				console.log('fetch vehicle error', error);
 			});
 
 		getLocations()
@@ -63,7 +63,7 @@ class CarInquiryForm extends Component {
 
 	render() {
 		const {carInquiry} = this.props.location.state != null ? this.props.location.state : {carInquiry: {}};
-		const {cars, locations} = this.state;
+		const {vehicles, locations} = this.state;
 		const {t} = this.props;
 		const InquiriesSchema = yup.object().shape({
 			source: textValidate(yup).required('Required'),
@@ -77,7 +77,7 @@ class CarInquiryForm extends Component {
 		});
 
 		const inquiryDetails = {
-			no_of_pax: carInquiry.no_of_pax || 0,
+			no_of_pax: carInquiry.no_of_pax || 1,
 			source: carInquiry.source,
 			destination: carInquiry.destination,
 			start_time: carInquiry.start_time,
@@ -85,7 +85,8 @@ class CarInquiryForm extends Component {
 			car_type: carInquiry.car_type,
 			within_city: carInquiry.within_city,
 			car_id: carInquiry.car_id,
-			no_of_days: carInquiry.no_of_days || 0,
+			no_of_days: carInquiry.no_of_days || 1,
+			max_pax: 20.
 			airport_transfer: false
 		};
 		return (
@@ -239,16 +240,24 @@ class CarInquiryForm extends Component {
 											onBlur={handleBlur}
 											onChange={(e, data) => {
 												setFieldValue(`car_type`, data.value);
+												if(vehicles.length > 0) {
+													var vehicle_pax = vehicles.find((v) => v.name == data.value)
+													if(vehicle_pax !== null){
+													setFieldValue(`max_pax`, vehicle_pax.no_of_seats);
+
+													}
+												} 
+												
 											}}
 											value={values.car_type}
 											fluid
 											search
 											selection
-											options={cars.map(function(car) {
+											options={vehicles.map(function(vehicle) {
 												return {
-													key: car.id,
-													value: car.car_type,
-													text: car.car_type
+													key: vehicle.id,
+													value: vehicle.name,
+													text: vehicle.name
 												};
 											})}
 										/>
@@ -304,6 +313,7 @@ class CarInquiryForm extends Component {
 															title={`${values.no_of_days} Days`}
 															onChange={(value) => {
 																setFieldValue('no_of_days', value);
+
 															}}
 															value={values.no_of_days}
 														/>
@@ -340,6 +350,8 @@ class CarInquiryForm extends Component {
 															id='no_of_pax'
 															type='number'
 															className='m-1'
+															max={values.max_pax}
+															min= {1}
 															onBlur={handleBlur}
 															title={`${values.no_of_pax} Traveller`}
 															onChange={(value) => {

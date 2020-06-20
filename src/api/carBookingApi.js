@@ -65,3 +65,10 @@ export function assignPartner(id, details){
 		data: {car_booking: details}
 	});
 }
+
+export function showUserRentalBooking(id) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/car_bookings/${id}`
+	});
+}
