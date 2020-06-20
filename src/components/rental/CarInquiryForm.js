@@ -86,7 +86,7 @@ class CarInquiryForm extends Component {
 			within_city: carInquiry.within_city,
 			car_id: carInquiry.car_id,
 			no_of_days: carInquiry.no_of_days || 1,
-			max_pax: 20.
+			max_pax: 20,
 			airport_transfer: false
 		};
 		return (
@@ -240,14 +240,12 @@ class CarInquiryForm extends Component {
 											onBlur={handleBlur}
 											onChange={(e, data) => {
 												setFieldValue(`car_type`, data.value);
-												if(vehicles.length > 0) {
-													var vehicle_pax = vehicles.find((v) => v.name == data.value)
-													if(vehicle_pax !== null){
-													setFieldValue(`max_pax`, vehicle_pax.no_of_seats);
-
+												if (vehicles.length > 0) {
+													var vehicle_pax = vehicles.find((v) => v.name == data.value);
+													if (vehicle_pax !== null) {
+														setFieldValue(`max_pax`, vehicle_pax.no_of_seats);
 													}
-												} 
-												
+												}
 											}}
 											value={values.car_type}
 											fluid
@@ -313,7 +311,6 @@ class CarInquiryForm extends Component {
 															title={`${values.no_of_days} Days`}
 															onChange={(value) => {
 																setFieldValue('no_of_days', value);
-
 															}}
 															value={values.no_of_days}
 														/>
@@ -351,7 +348,7 @@ class CarInquiryForm extends Component {
 															type='number'
 															className='m-1'
 															max={values.max_pax}
-															min= {1}
+															min={1}
 															onBlur={handleBlur}
 															title={`${values.no_of_pax} Traveller`}
 															onChange={(value) => {

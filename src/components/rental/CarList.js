@@ -121,7 +121,9 @@ class CarList extends Component {
 	}
 
 	render() {
-		const {sortKey, isSortReverse, searching, loading, cars, selectedCar, carInquiryDetails} = this.state;
+		const {sortKey, isSortReverse, searching, loading, cars, selectedCar} = this.state;
+		const {carInquiryDetails} = this.props;
+
 		return (
 			<div className='container p-0'>
 				<div className='row mb-4'>
@@ -222,9 +224,8 @@ class CarList extends Component {
 				>
 					{selectedCar && (
 						<div>
-							
 							<div>{selectedCar.image.length && <img src={BASE_URL + selectedCar.image[0].url} />}</div>
-							{/* <div>Price - {selectedCar.price}</div> */}
+							<div>Estimated Price - {selectedCar.price * carInquiryDetails.no_of_days}</div>
 						</div>
 					)}
 				</ModalExample>
