@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import {Formik, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
@@ -14,6 +14,7 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {createCarBooking, updateCarBooking} from '../../api/carBookingApi';
+import {connect} from 'react-redux';
 
 class CarBookingForm extends Component {
 	constructor(props) {
@@ -27,6 +28,9 @@ class CarBookingForm extends Component {
 		const {car_inquiry_idx} = this.props.match.params != null ? this.props.match.params : {car_inquiry_idx: null};
 		const {car_idx} = this.props.match.params != null ? this.props.match.params : {car_idx: null};
 		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
+
+		const {carInquiryDetails} = this.props;
+
 		const BookingSchema = yup.object().shape({
 			contact_name: textValidate(yup).required('Required'),
 			contact_email: yup.string().email().required('Required'),
@@ -183,47 +187,51 @@ class CarBookingForm extends Component {
 											</div>
 										</div>
 
-										<div className='col-12 col-md-6'>
-											<div className='field-box col'>
-												<label className='d-block'>Flight Date</label>
-												<DateTimePicker
-													name='flight_date'
-													className=' w-100'
-													type='date'
-													date={values.flight_date}
-													minDate={new Date()}
-													maxDate={addDays(new Date(), 365)}
-													onBlur={handleBlur}
-													onChange={(date) => {
-														setFieldValue('flight_date', date);
-													}}
-													value={values.flight_date}
-													placeholder='Flight Date'
-													showTimeSelectOnly
-												/>
-												<ErrorMessage name='flight_date' />
-											</div>
-										</div>
+										{carInquiryDetails.airport_transfer && (
+											<Fragment>
+												<div className='col-12 col-md-6'>
+													<div className='field-box col'>
+														<label className='d-block'>Flight Date</label>
+														<DateTimePicker
+															name='flight_date'
+															className=' w-100'
+															type='date'
+															date={values.flight_date}
+															minDate={new Date()}
+															maxDate={addDays(new Date(), 365)}
+															onBlur={handleBlur}
+															onChange={(date) => {
+																setFieldValue('flight_date', date);
+															}}
+															value={values.flight_date}
+															placeholder='Flight Date'
+															showTimeSelectOnly
+														/>
+														<ErrorMessage name='flight_date' />
+													</div>
+												</div>
 
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<Form.Field>
-													<label>Flight Number</label>
-													<Form.Input
-														fluid
-														icon='fas fa-user'
-														iconPosition='left'
-														name='flight_no'
-														className=''
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.flight_no}
-														placeholder='Flight no'
-													/>
-												</Form.Field>
-												<ErrorMessage name='flight_no' />
-											</div>
-										</div>
+												<div className='col-12 col-md-6'>
+													<div className='field-box'>
+														<Form.Field>
+															<label>Flight Number</label>
+															<Form.Input
+																fluid
+																icon='fas fa-user'
+																iconPosition='left'
+																name='flight_no'
+																className=''
+																onBlur={handleBlur}
+																onChange={handleChange}
+																value={values.flight_no}
+																placeholder='Flight no'
+															/>
+														</Form.Field>
+														<ErrorMessage name='flight_no' />
+													</div>
+												</div>
+											</Fragment>
+										)}
 
 										<div className='col-12 col-md-6'>
 											<div className='field-box'>
@@ -349,4 +357,12 @@ class CarBookingForm extends Component {
 	}
 }
 
-export default CarBookingForm;
+const mapStateToProps = ({rentalStore}) => {
+	return {
+		carInquiryDetails: rentalStore.carInquiryDetails
+	};
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarBookingForm);

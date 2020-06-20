@@ -85,12 +85,11 @@ class CarList extends Component {
 		this.setState({
 			loading: true
 		});
-		
 	}
 
 	componentDidUpdate(prevProps) {
 		var params = {};
-		params['car_inquiry_id'] = this.props.match.params.car_inquiry_idx
+		params['car_inquiry_id'] = this.props.match.params.car_inquiry_idx;
 		if (this.state.loading) {
 			getCars(params)
 				.then((response) => {
@@ -122,7 +121,7 @@ class CarList extends Component {
 	}
 
 	render() {
-		const {sortKey, isSortReverse, searching, loading, cars, selectedCar} = this.state;
+		const {sortKey, isSortReverse, searching, loading, cars, selectedCar, carInquiryDetails} = this.state;
 		return (
 			<div className='container p-0'>
 				<div className='row mb-4'>
@@ -229,8 +228,10 @@ class CarList extends Component {
 		);
 	}
 }
-const mapStateToProps = ({flightStore}) => {
-	return {};
+const mapStateToProps = ({rentalStore}) => {
+	return {
+		carInquiryDetails: rentalStore.carInquiryDetails
+	};
 };
 
 const mapDispatchToProps = {};

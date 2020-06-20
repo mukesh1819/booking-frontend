@@ -12,6 +12,9 @@ import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
+import {setCarInquiryDetails} from '../../redux/actions';
+import {connect} from 'react-redux';
+
 import {getCars} from '../../api/carApi';
 import {createCarInquiry, updateCarInquiry} from '../../api/carInquiryApi';
 import {getLocations} from '../../api/locationApi';
@@ -82,7 +85,8 @@ class CarInquiryForm extends Component {
 			car_type: carInquiry.car_type,
 			within_city: carInquiry.within_city,
 			car_id: carInquiry.car_id,
-			no_of_days: carInquiry.no_of_days || 0
+			no_of_days: carInquiry.no_of_days || 0,
+			airport_transfer: false
 		};
 		return (
 			<div className='container bg-white'>
@@ -94,6 +98,7 @@ class CarInquiryForm extends Component {
 							searching: true
 						});
 						setSubmitting(false);
+						this.props.setCarInquiryDetails(values);
 						// console.log(values);
 						if (carInquiry.id != null) {
 							updateCarInquiry(carInquiry.idx, values)
@@ -119,7 +124,7 @@ class CarInquiryForm extends Component {
 										icon: 'success',
 										button: 'Continue'
 									}).then((value) => {
-										history.push(`/cars/${response.data.idx}`);  
+										history.push(`/cars/${response.data.idx}`);
 									});
 								})
 								.catch((error) => {
@@ -376,4 +381,10 @@ class CarInquiryForm extends Component {
 	}
 }
 
-export default CarInquiryForm;
+const mapStateToProps = ({rentalStore}) => ({});
+
+const mapDispatchToProps = {
+	setCarInquiryDetails
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarInquiryForm);
