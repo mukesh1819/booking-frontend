@@ -8,6 +8,8 @@ import {Checkbox, Segment, Header, Icon} from 'semantic-ui-react';
 import {getCars} from '../../api/carApi';
 import {isRefundable, numberWithCommas} from '../../helpers';
 import {BASE_URL} from '../../constants';
+import CarInquiryForm from './CarInquiryForm';
+import SearchDetails from './SearchDetails';
 
 const SORTS = {
 	NONE: (list) => list,
@@ -79,11 +81,20 @@ class CarList extends Component {
 	}
 
 	componentDidMount() {
-		// if (document.readyState == 'complete') {
-		// 	Tawk_API.hideWidget();
-		// }
 		this.setState({
 			loading: true
+		});
+	}
+
+	setSearch(status) {
+		this.setState({
+			searching: status
+		});
+	}
+
+	setLoading(status) {
+		this.setState({
+			loading: status
 		});
 	}
 
@@ -128,12 +139,12 @@ class CarList extends Component {
 			<div className='container p-0'>
 				<div className='row mb-4'>
 					<div className='col-12 p-0'>
-						{/* {searching ? (
+						{searching ? (
 							<div className='search-details'>
 								<span className='collapse-btn p-3' onClick={() => this.setSearch(false)}>
 									<i className='fas fa-times color-accent' />
 								</span>
-								<SearchBar
+								<CarInquiryForm
 									onSearch={() => {
 										this.setLoading(true);
 										this.setSearch(false);
@@ -143,7 +154,7 @@ class CarList extends Component {
 							</div>
 						) : (
 							<SearchDetails onModify={() => this.setSearch(true)} />
-						)} */}
+						)}
 						<div className='bg-secondary text-center sorter d-md-none'>
 							{sorters.map(({key, label}) => {
 								return (

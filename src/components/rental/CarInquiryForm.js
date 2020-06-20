@@ -119,14 +119,8 @@ class CarInquiryForm extends Component {
 								.then((response) => {
 									console.log('res mess', response.data);
 									setSubmitting(false);
-									swal({
-										title: 'Inquiry Submitted!',
-										text: response.data.message,
-										icon: 'success',
-										button: 'Continue'
-									}).then((value) => {
-										history.push(`/cars/${response.data.idx}`);
-									});
+									history.push(`/cars/${response.data.idx}`);
+									this.props.onSearch && this.props.onSearch();
 								})
 								.catch((error) => {
 									console.log('inquiry create error', error);
