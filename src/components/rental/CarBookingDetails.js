@@ -12,6 +12,7 @@ import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
+import PaymentForm from '../payments/PaymentForm';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {createCarBooking, updateCarBooking, showUserRentalBooking} from '../../api/carBookingApi';
 
@@ -19,7 +20,8 @@ class CarBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			carBooking: {}
+			carBooking: {},
+			showPaymentPage: false
 		};
 	}
 
@@ -36,8 +38,23 @@ class CarBookingDetails extends Component {
 		});
 	}
 
+	paymentPage() {
+		this.setState({
+			showPaymentPage: true
+		});
+	}
+
 	render() {
 		const {carBooking} = this.state;
+		if (this.state.showPaymentPage) {
+			return(
+			<PaymentForm
+					transaction={carBooking.booking_transaction}
+					idx={carBooking.idx}
+			/>
+			);
+		}
+
 		return (
 			<div className='container partner-profile'>
 				<div className='card'>
@@ -111,7 +128,7 @@ class CarBookingDetails extends Component {
 							</div>
 						</div>
 					</div>
-					{carBooking.status === 'processing' && <span className='btn btn-primary'>Continue to Payment</span>}
+					{carBooking.status === 'processing' && <span className='btn btn-primary' onClick={() => this.paymentPage()}>Continue to Payment</span>}
 					{carBooking.status === 'verified' && <span className='btn btn-primary'>Download ticket</span>}
 				</div>
 			</div>

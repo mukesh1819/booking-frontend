@@ -41,7 +41,13 @@ class InquiryDetails extends Component {
 		console.log('Package Booking Info', packageBookingInfo);
 
 		if (this.state.showPaymentPage) {
-			return <PaymentForm idx={packageBookingInfo.idx} />;
+			// return <PaymentForm idx={packageBookingInfo.idx} />;
+			return(
+				<PaymentForm
+						transaction={packageBookingInfo.booking_transaction}
+						idx={packageBookingInfo.idx}
+				/>
+			);
 		}
 
 		return (
