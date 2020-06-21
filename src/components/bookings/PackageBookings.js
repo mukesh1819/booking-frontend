@@ -30,7 +30,7 @@ class PackageBookings extends Component {
 	componentWillUnmount() {}
 
 	fetchDetails = (params) => {
-		getPackageBookings(`q[booking_type_eq]=PACKAGE`)
+		getPackageBookings(params)
 			.then((response) => {
 				console.log('Package Bookings List', response);
 				this.setState({

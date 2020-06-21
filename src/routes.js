@@ -3,8 +3,6 @@ import {Router, Switch, Route} from 'react-router-dom';
 import {FlightList, FlightDetails, PassengerForm} from './components/flights';
 import {HotelList} from './components/hotels';
 import {PackageList, PackageDetails, InquiryDetails as PackageInquiryDetails} from './components/packages';
-import {CarList as ListOfCar} from './components/rental';
-import UserBookingDetails  from './components/rental/CarBookingDetails';
 import Users from './components/users';
 import {SignInForm, SignUpForm} from './components/sessions';
 import {BookingDetails, Bookings, TicketDetails} from './components/bookings';
@@ -53,20 +51,25 @@ import AppRoute from './components/AppRoute';
 import PartnerLayout from './components/layouts/PartnerLayout';
 import AddPassengers from './components/flights/AddPassengers';
 import EditPassengers from './components/flights/EditPassengers';
-import CarInquiryForm from './components/rental/CarInquiryForm';
-import CarForm from './components/rental/CarForm';
-import CarBookingForm from './components/rental/CarBookingForm';
-import CarBookingDetails from './components/admin/CarBookingDetails';
+
+import {
+	CarInquiryForm,
+	CarForm,
+	CarBookingForm,
+	CarList as ListOfCar,
+	CarBookingDetails as UserBookingDetails
+} from './components/rental';
+
 import CarList from './components/admin/CarList';
 import CarBookingList from './components/admin/CarBookingList';
 import CarDetails from './components/admin/CarDetails';
+import CarBookingDetails from './components/admin/CarBookingDetails';
 import RentalPartnerList from './components/admin/RentalPartnerList';
 import AssignCarBookingForm from './components/admin/AssignCarBookingForm';
 import LocationList from './components/admin/LocationList';
 import LocationForm from './components/rental/LocationForm';
 import CarInquiryList from './components/admin/CarInquiryList';
 import CarInquiryDetails from './components/admin/CarInquiryDetails';
-
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -109,10 +112,8 @@ const routes = [
 	{private: true, path: '/admin/location_form', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form/:idx/edit', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/car_inquiry_form/:idx/edit', component: CarInquiryForm, layout: UserLayout},
-	{private: true, path: '/rental/booking_details/:booking_idx', component: UserBookingDetails, layout: UserLayout},
+	{private: true, path: '/car_bookings/:booking_idx', component: UserBookingDetails, layout: UserLayout},
 
-
-	
 	{private: true, path: '/admin/car_bookings/:idx', component: CarBookingDetails, layout: AdminLayout},
 	{private: true, path: '/car_bookings/:idx/edit', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/cars', component: CarList, layout: AdminLayout},

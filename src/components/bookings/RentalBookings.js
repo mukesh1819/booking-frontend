@@ -60,7 +60,7 @@ class RentalBookings extends Component {
 					return (
 						<div className='transaction'>
 							<div className='booking d-flex justify-content-between align-items-center p-3'>
-								<div key={booking.ruid} className=''>
+								<div key={booking.idx} className=''>
 									<div>
 										<strong>{booking.package ? booking.package.name : ''}</strong>
 									</div>
@@ -75,21 +75,29 @@ class RentalBookings extends Component {
 										</span>
 									</div>
 								</div>
-								<div>
+								<div className='text-center'>
 									<div className=''>
 										<Badge type={booking.status}>{booking.status}</Badge>
 									</div>
 									{(booking.status == 'completed' || booking.status == 'verified') && (
 										<Link
 											to={{
-												pathname: `/ticket/${booking.ruid}`,
-												state: {
-													booking: booking
-												}
+												pathname: `/ticket/${booking.idx}`
 											}}
 											className='btn bg-none text-primary'
 										>
 											View Ticket
+										</Link>
+									)}
+
+									{(booking.status == 'pending' || booking.status == 'processing') && (
+										<Link
+											to={{
+												pathname: `/car_bookings/${booking.idx}`
+											}}
+											className='btn bg-none text-primary'
+										>
+											View Details
 										</Link>
 									)}
 								</div>
