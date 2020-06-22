@@ -168,7 +168,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									name='pickup_location'
 									className='form-control'
 									onBlur={onBlur}
-									onChange={(email_address) => onChange('pickup_location', e.target.value)}
+									onChange={(event, data) => onChange('pickup_location', data)}
 									value={partner.pickup_location}
 								/>
 
@@ -218,7 +218,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									name='remarks'
 									className='form-control'
 									onBlur={onBlur}
-									onChange={(date) => onChange('remarks', date)}
+									onChange={(event, data) => onChange('remarks', data)}
 									value={partner.remarks}
 								/>
 
