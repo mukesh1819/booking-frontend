@@ -7,6 +7,7 @@ import {confirmPartner, showPartner} from '../../api/partnerApi';
 import {Badge, Sidebar} from '../shared';
 import PartnerProfile from './PartnerProfile';
 import Services from './Services';
+import RentalBooking from './RentalBooking';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
@@ -50,6 +51,9 @@ class Dashboard extends Component {
 				</div>
 				<div className='my-3'>
 					<Services partner={partner} />
+				</div>
+				<div className='my-3'>
+					<RentalBooking partner={partner} />
 				</div>
 			</div>
 		);

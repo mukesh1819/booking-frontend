@@ -12,6 +12,14 @@ export function getCarBookings(params){
 	});
 }
 
+export function getPartnerCarBookings(params){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/car_bookings`,
+		params: params
+	});
+}
+
 export function createCarBooking(data) {
 	return axios({
 		method: 'post',
