@@ -1,7 +1,7 @@
 import React, {component, Component} from 'react';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import {getRentalPartners} from '../../api/partnerApi';
+import {getPartners} from '../../api/partnerApi';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import FilterForm from './FilterForm';
@@ -21,11 +21,13 @@ class RentalPartnerList extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchPartners(queryString.parse(this.props.location.search));
+		var params = {};
+        params['q[company_type_cont]'] = 'vehicle rental';
+		this.fetchPartners(this.props.location.search.length > 0 ? queryString.parse(this.props.location.search) : params);
 	}
 
 	fetchPartners(params) {
-		getRentalPartners(params)
+		getPartners(params)
 			.then((response) => {
 				// console.log('response', response.data);
 				this.setState({

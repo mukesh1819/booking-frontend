@@ -8,8 +8,10 @@ import moment from 'moment';
 import {isRefundable, ifNotZero} from '../../helpers';
 import {PaymentForm} from '../payments';
 import {Timer} from '../shared';
+import {Button, ButtonGroup} from 'react-bootstrap';
 import {getDuration} from '../../helpers';
-import {Package} from '../packages';
+import {Package} from '../packages';import {fetchTicket} from '../../api/flightApi';
+import {downloadTicket} from '../../helpers';
 
 const ContactDetails = ({details}) => (
 	<div className='widget'>
@@ -47,9 +49,11 @@ class PackageBookingDetails extends Component {
 				package: {
 					images: []
 				},
-				inquiry: {}
+				inquiry: {},
 			},
-			redirectToPayment: false
+			redirectToPayment: false,
+			loading: false
+
 		};
 	}
 
@@ -72,8 +76,17 @@ class PackageBookingDetails extends Component {
 		});
 	};
 
+	download = (idx) => {
+		fetchTicket(idx).then((response) => {
+			this.setState({
+				loading: false
+			});
+			downloadTicket(response.data);
+		});
+	};
+
 	render() {
-		const {booking, redirectToPayment} = this.state;
+		const {booking, redirectToPayment, loading} = this.state;
 
 		if (redirectToPayment) {
 			return <PaymentForm transaction={booking.booking_transaction} idx={booking.booking_transaction.idx} />;
@@ -160,12 +173,26 @@ class PackageBookingDetails extends Component {
 						<ContactDetails details={booking.inquiry} />
 					</div>
 				</div>
+				{booking.inquiry.status == "processing" &&
+					<div className='text-center p-4'>
+						<span onClick={this.onContinueToPayment} className='btn btn-primary'>
+							Continue to Payment
+						</span>
+					</div>
+				}
 
-				<div className='text-center p-4'>
-					<span onClick={this.onContinueToPayment} className='btn btn-primary'>
-						Continue to Payment
+				{booking.inquiry.status == "verified" &&
+					<span className='text-center py-4'>
+						<Button
+							primary
+							loading={loading}
+							className='btn btn-primary btn-large '
+							onClick={() => this.download(booking.idx)}
+						>
+							Download ticket
+						</Button>
 					</span>
-				</div>
+				}
 			</div>
 		);
 	}

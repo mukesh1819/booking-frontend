@@ -145,15 +145,15 @@ class CarBookingDetails extends Component {
 					{carBooking.status === 'processing' && <span className='btn btn-primary' onClick={() => this.paymentPage()}>Continue to Payment</span>}
 					{carBooking.status === 'verified' && 
 						<span className='text-center py-4'>
-						<Button
-							primary
-							loading={loading}
-							className='btn btn-primary btn-large '
-							onClick={() => this.download(carBooking.idx)}
-						>
-							Download ticket
-						</Button>
-					</span>
+							<Button
+								primary
+								loading={loading}
+								className='btn btn-primary btn-large '
+								onClick={() => this.download(carBooking.idx)}
+							>
+								Download ticket
+							</Button>
+						</span>
 					}
 				</div>
 			</div>
