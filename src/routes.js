@@ -5,7 +5,12 @@ import {HotelList} from './components/hotels';
 import {PackageList, PackageDetails, InquiryDetails as PackageInquiryDetails} from './components/packages';
 import Users from './components/users';
 import {SignInForm, SignUpForm} from './components/sessions';
-import {BookingDetails, Bookings, TicketDetails} from './components/bookings';
+import {
+	BookingDetails,
+	Bookings,
+	TicketDetails,
+	PackageBookingDetails as UserPackageBookingDetails
+} from './components/bookings';
 import PrivateRoute from './components/PrivateRoute';
 import {
 	BecomePartnerForm,
@@ -96,6 +101,8 @@ const routes = [
 	{private: true, path: '/booking/:id', component: BookingDetails, layout: UserLayout},
 	{private: true, path: '/booking/:idx/edit', component: EditBooking, layout: UserLayout},
 	{private: true, path: '/ticket/:id', component: TicketDetails, layout: UserLayout},
+
+	{private: true, path: '/package_booking/:id', component: UserPackageBookingDetails, layout: UserLayout},
 
 	{private: true, path: '/partners/package_form/:partnerId', component: AddPackageForm, layout: UserLayout},
 	{private: true, path: '/admin/package_form', component: NewPackageForm, layout: UserLayout},

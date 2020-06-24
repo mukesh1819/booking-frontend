@@ -6,7 +6,7 @@ import {Dropdown} from '../shared';
 import {logout, userInitials} from '../../helpers';
 import history from '../../history';
 
-const AdminLayout = ({currentUser, children}) => {
+const PartnerLayout = ({currentUser, children}) => {
 	const loggedIn = currentUser.email !== undefined;
 	return (
 		<div id='content'>
@@ -85,4 +85,4 @@ const mapStateToProps = ({userStore}) => ({
 
 const mapDispatchToProps = {logoutUser};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(PartnerLayout);

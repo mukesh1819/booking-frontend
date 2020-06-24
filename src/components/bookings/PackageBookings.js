@@ -77,17 +77,27 @@ class PackageBookings extends Component {
 										</span>
 									</div>
 								</div>
-								<div>
+								<div className='text-center'>
 									<div className=''>
 										<Badge type={booking.status}>{booking.status}</Badge>
 									</div>
-									{(booking.status == 'completed' || booking.status == 'verified') && (
+									{booking.status == 'pending' && (
+										<Fragment>
+											<Link
+												to={{
+													pathname: `/package_booking/${booking.idx}`
+												}}
+												className='btn bg-none text-primary'
+											>
+												View Details
+											</Link>
+										</Fragment>
+									)}
+
+									{(booking.status == 'confirmed' || booking.status == 'verified') && (
 										<Link
 											to={{
-												pathname: `/ticket/${booking.ruid}`,
-												state: {
-													booking: booking
-												}
+												pathname: `/package_booking/${booking.idx}`
 											}}
 											className='btn bg-none text-primary'
 										>
