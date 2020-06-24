@@ -17,3 +17,10 @@ export function getRentalBookings(params) {
 		params: params
 	});
 }
+
+export function getPackageBookingDetails(idx) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/package_bookings/${idx}`
+	});
+}

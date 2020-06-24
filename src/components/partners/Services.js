@@ -24,20 +24,20 @@ class Services extends Component {
 		passCsrfToken(document, axios);
 	}
 
-	componentDidUpdate(prevProps, prevState) { 
-		if(this.props.partner.id != null  && prevState.services[0] == null){
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.partner.id != null && prevState.services[0] == null) {
 			this.fetchDetails();
 		}
-	} 
+	}
 
 	fetchDetails = () => {
 		getPartnerServices(`q[partner_id_eq]=${this.props.partner.id}`)
-		.then((response) => {
-			this.setState({
-				services: response.data
-			});
-		})
-		.catch((error) => console.log(' partner service fetch error', error));
+			.then((response) => {
+				this.setState({
+					services: response.data
+				});
+			})
+			.catch((error) => console.log(' partner service fetch error', error));
 	};
 
 	render() {
@@ -49,14 +49,19 @@ class Services extends Component {
 						<div className='row'>
 							<div className='col-12 col-md-8 offset-md-2'>
 								<h3 className='title'>Services</h3>
-								<div className='list-view'>
-									{services.map((service) => (
-										<div className='list'>
-											<div className='label'>{service.name}</div>
-											<div className='value'>{service.details}</div>
+								{services.map((service) => (
+									<div className='card'>
+										<div className='card-body'>
+											<div className='list-view'>
+												<div className='list'>
+													<div className='label'>{service.name}</div>
+													<div className='value'>{service.details}</div>
+												</div>
+											</div>
+											<div>{service.extras}</div>
 										</div>
-									))}
-								</div>
+									</div>
+								))}
 							</div>
 						</div>
 					</div>
