@@ -15,13 +15,17 @@ import ReactDOM from 'react-dom';
 import PaymentForm from '../payments/PaymentForm';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {createCarBooking, updateCarBooking, showUserRentalBooking} from '../../api/carBookingApi';
+import {fetchTicket} from '../../api/flightApi';
+import {downloadTicket} from '../../helpers';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			carBooking: {},
-			showPaymentPage: false
+			showPaymentPage: false,
+			loading: false
+
 		};
 	}
 
@@ -44,8 +48,18 @@ class CarBookingDetails extends Component {
 		});
 	}
 
+	download = (idx) => {
+		fetchTicket(idx).then((response) => {
+			this.setState({
+				loading: false
+			});
+			downloadTicket(response.data);
+		});
+	};
+
+
 	render() {
-		const {carBooking} = this.state;
+		const {carBooking, loading} = this.state;
 		if (this.state.showPaymentPage) {
 			return(
 			<PaymentForm
@@ -129,7 +143,18 @@ class CarBookingDetails extends Component {
 						</div>
 					</div>
 					{carBooking.status === 'processing' && <span className='btn btn-primary' onClick={() => this.paymentPage()}>Continue to Payment</span>}
-					{carBooking.status === 'verified' && <span className='btn btn-primary'>Download ticket</span>}
+					{carBooking.status === 'verified' && 
+						<span className='text-center py-4'>
+						<Button
+							primary
+							loading={loading}
+							className='btn btn-primary btn-large '
+							onClick={() => this.download(carBooking.idx)}
+						>
+							Download ticket
+						</Button>
+					</span>
+					}
 				</div>
 			</div>
 		);

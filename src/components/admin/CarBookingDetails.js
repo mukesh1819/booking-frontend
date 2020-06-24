@@ -175,7 +175,7 @@ class CarBookingDetails extends Component {
 									</td>
 								}
 
-								{(carBooking.status == 'processing' || carBooking.status == 'verified') &&
+								{(carBooking.status == 'processing') &&
 									<td>
 										<span>
 											<Link

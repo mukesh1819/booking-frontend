@@ -82,7 +82,7 @@ class RentalBookings extends Component {
 									{(booking.status == 'completed' || booking.status == 'verified') && (
 										<Link
 											to={{
-												pathname: `/ticket/${booking.idx}`
+												pathname: `/car_bookings/${booking.idx}`
 											}}
 											className='btn bg-none text-primary'
 										>

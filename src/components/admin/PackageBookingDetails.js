@@ -114,6 +114,7 @@ class PackageBookingDetails extends Component {
 								<td>{packageBooking.drop_off_location}</td>
 								<td>{packageBooking.meals_included}</td>
 								<td>{packageBooking.remarks}</td>
+								{packageBooking.status == 'pending' && 
 								<td>
 									<span
 										className='btn btn-secondary'
@@ -122,6 +123,7 @@ class PackageBookingDetails extends Component {
 										confirm
 									</span>
 								</td>
+								}
 								<td>
 									<span
 										className='btn bg-none text-danger'

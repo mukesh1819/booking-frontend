@@ -45,12 +45,12 @@ class Services extends Component {
         const {carBookings} = this.state;
 		return (
 			<div className='container'>
+            {carBookings.length > 0 &&
 				<div className='card'>
 					<div className='card-body'>
 						<div className='row'>
 							<div className='col-12 col-md-8 offset-md-2'>
 								<h3 className='title'>Car Bookings</h3>
-                                {/* {carBookings.length > 0 && */}
 								<div className='list-view'>
 									{carBookings.map((carBooking) => (
 										<div className='list'>
@@ -65,11 +65,11 @@ class Services extends Component {
 										</div>
 									))}
 								</div>
-                                {/* } */}
 							</div>
 						</div>
 					</div>
 				</div>
+                }
 			</div>
 		);
 	}

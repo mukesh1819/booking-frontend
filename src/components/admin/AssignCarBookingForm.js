@@ -25,7 +25,7 @@ class AssignCarBookingForm extends Component {
     
     componentDidMount(){
         var params ={};
-        params['q[partner_type_eq]'] = 'rental';
+        params['q[partner_type]'] = 'vehicle rental';
         this.fetchPartners(params); 
     }
 
