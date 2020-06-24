@@ -99,72 +99,61 @@ class PackageBookingDetails extends Component {
 				</div>
 
 				<div className='row'>
-					<div className='col-12 col-md-4'>
+					<div className='col-12 col-md-3'>
 						<div className='widget mb-4'>
-							<div className='card'>
-								<h3 className='card-header'>Package Details</h3>
-
-								<div className='card-body'>
-									<Package aPackage={booking.package} />
-								</div>
-							</div>
+							<Package aPackage={booking.package} />
 						</div>
+						<ContactDetails details={booking.inquiry} />
 					</div>
-					<div className='col-12 col-md-4'>
+					<div className='col-12 col-md-9'>
 						<div className='widget mb-4'>
-							<div className='card'>
-								<h3 className='card-header'>Booking Details</h3>
-								<div className='card-body'>
-									<div className='p-2'>
-										<div className=''>
-											<div>
-												<span className='text-bold'>Invoice:&nbsp;</span>
-												<span className='text-small'>{booking.booking_transaction.idx}</span>
-											</div>
-											<div>
-												<span className='text-bold'>Pickup Date:&nbsp;</span>
-												<span className='text-small'>
-													{moment(booking.pickup_date).format('D MMMM, YYYY')}
-												</span>
-											</div>
-											<div>
-												<span className='text-bold'>Dropoff Date:&nbsp;</span>
-												<span className='text-small'>
-													{moment(booking.drop_off_date).format('D MMMM, YYYY')}
-												</span>
-											</div>
-											<div>
-												<span className='text-bold'>Start Date:&nbsp;</span>
-												<span className='text-small'>
-													{moment(booking.start_date).format('D MMMM, YYYY')}
-												</span>
-											</div>
-											<div>
-												<span className='text-bold'>End Date:&nbsp;</span>
-												<span className='text-small'>
-													{moment(booking.end_date).format('D MMMM, YYYY')}
-												</span>
-											</div>
-											<div>
-												<span className='text-bold'>Pickup Location:&nbsp;</span>
-												<span className='text-small'>{booking.pickup_location}</span>
-											</div>
-											<div>
-												<span className='text-bold'>Drop off Location:&nbsp;</span>
-												<span className='text-small'>{booking.drop_off_location}</span>
-											</div>
-											<div>
-												<span className='text-bold'>Meals:&nbsp;</span>
-												<span className='text-small'>{booking.meals_included}</span>
-											</div>
+							<div className='list-view'>
+								<h3 className='title'>Booking Details</h3>
+								<div className='list'>
+									<span className='label'>Invoice</span>
+									<span className='value'>{booking.booking_transaction.idx}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Pickup Date</span>
+									<span className='value'>{moment(booking.pickup_date).format('D MMMM, YYYY')}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Dropoff Date</span>
+									<span className='value'>
+										{moment(booking.drop_off_date).format('D MMMM, YYYY')}
+									</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Start Date</span>
+									<span className='value'>{moment(booking.start_date).format('D MMMM, YYYY')}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>End Date</span>
+									<span className='value'>{moment(booking.end_date).format('D MMMM, YYYY')}</span>
+								</div>
 
-											<div>
-												<span className='text-center p-3'>
-													<div className='text-bold'>Total Amount: {booking.amount}</div>
-												</span>
-											</div>
-										</div>
-									</div>
+								<div className='list'>
+									<span className='label'>Pickup Location</span>
+									<span className='value'>{booking.pickup_location}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Drop off Location</span>
+									<span className='value'>{booking.drop_off_location}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Meals</span>
+									<span className='value'>{booking.meals_included}</span>
+								</div>
+								<div>
+									<span className='text-center p-3'>
+										<div className='text-bold'>Total Amount: {booking.amount}</div>
+									</span>
+								</div>
+
+								<div className='text-center p-4'>
+									<span onClick={this.onContinueToPayment} className='btn btn-primary'>
+										Continue to Payment
+									</span>
 								</div>
 							</div>
 						</div>
