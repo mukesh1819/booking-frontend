@@ -5,9 +5,34 @@ import moment from 'moment';
 import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
 import {Accordion} from 'semantic-ui-react';
+import {getBookingDetails} from '../../api/flightApi';
+import {fetchTicket} from '../../api/flightApi';
+import {downloadTicket} from '../../helpers';
+import {Button, ButtonGroup} from 'react-bootstrap';
 
-const BookingDetails = ({booking}) => {
-	const destroyBooking = (id) => {
+
+class BookingDetails extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			booking: {}
+		}
+	}
+	componentDidMount(){
+		this.fetchBooking(this.props.match.params.ruid)
+	}
+
+	fetchBooking(ruid) {
+		getBookingDetails(ruid)
+		.then((response) => {
+			this.setState({
+				booking: response.data.departing_flight,
+				loading: false
+			});
+		})
+	}
+
+	destroyBooking = (id) => {
 		// deleteBooking(id)
 		// .then((response) => {
 		// 	swal({
@@ -48,33 +73,61 @@ const BookingDetails = ({booking}) => {
 		});
 	};
 
-	return (
-		<React.Fragment>
-			<div className='text-small d-flex justify-content-between'>
-				<div>
-					<h5>Flight Details</h5>
-					<div>Flight Id - {booking.flight_id}</div>
-					<div>{booking.airline}</div>
-					<div>{booking.flight_no}</div>
-					<div>Class code - {booking.class_code}</div>
-					<div>Check-in Baggage - {booking.free_baggage}</div>
+	download = (idx) => {
+		fetchTicket(idx).then((response) => {
+			this.setState({
+				loading: false
+			});
+			downloadTicket(response.data);
+		});
+	};
+
+
+	render(){
+		const {booking, loading} = this.state;
+
+		return (
+			<React.Fragment>
+				<div className='text-small d-flex justify-content-between'>
+					<div>
+						<h5>Flight Details</h5>
+						<div>Flight Id - {booking.flight_id}</div>
+						<div>{booking.airline}</div>
+						<div>{booking.flight_no}</div>
+						<div>Class code - {booking.class_code}</div>
+						<div>Check-in Baggage - {booking.free_baggage}</div>
+					</div>
+					<div>
+						<h5>Booking Details</h5>
+						<div>{booking.booking_date_time}</div>
+						<div>Pnr No - {booking.pnr_no}</div>
+						<div>{booking.departure_flight_time}</div>
+						<div>Refundable - {booking.refundable}</div>
+						<div>Reporting time - {booking.reporting_time}</div>
+						<div>Created At - {booking.created_at}</div>
+					</div>
+					<div>
+						{booking.status === 'verified' && 
+							<span className='text-center py-4'>
+								<Button
+									primary
+									loading={loading}
+									className='btn btn-primary btn-large '
+									onClick={() => this.download(booking.booking_transaction.idx)}
+								>
+									Download ticket
+								</Button>
+							</span>
+						}
+
+						<span className='btn bg-none text-danger' onClick={() => destroyBooking(booking.ruid)}>
+							Delete
+						</span>
+					</div>
 				</div>
-				<div>
-					<h5>Booking Details</h5>
-					<div>{booking.booking_date_time}</div>
-					<div>Pnr No - {booking.pnr_no}</div>
-					<div>{booking.departure_flight_time}</div>
-					<div>Refundable - {booking.refundable}</div>
-					<div>Reporting time - {booking.reporting_time}</div>
-					<div>Created At - {booking.created_at}</div>
-				</div>
-				<div>
-					<span className='btn bg-none text-danger' onClick={() => destroyBooking(booking.ruid)}>
-						Delete
-					</span>
-				</div>
-			</div>
-		</React.Fragment>
-	);
+			</React.Fragment>
+		);
+	}
+
 };
 export default BookingDetails;

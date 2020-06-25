@@ -149,7 +149,7 @@ class FlightBookings extends Component {
 									return (
 										<div
 											onClick={() => {
-												history.push(`/admin/booking/${booking.ruid}`);
+												history.push(`/admin/bookings/${booking.ruid}`);
 											}}
 										>
 											<div className='row'>

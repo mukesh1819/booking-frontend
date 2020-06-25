@@ -115,6 +115,7 @@ const routes = [
 
 	{private: false, path: '/cars/:car_inquiry_idx', component: ListOfCar, layout: UserLayout},
 	{private: false, path: '/car_inquiry_form', component: CarInquiryForm, layout: UserLayout},
+	{private: true, path: '/car_bookings/:idx/edit', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/car_booking_form/:car_idx/:car_inquiry_idx', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form', component: LocationForm, layout: UserLayout},
 	{private: true, path: '/admin/location_form/:idx/edit', component: LocationForm, layout: UserLayout},
@@ -122,7 +123,6 @@ const routes = [
 	{private: true, path: '/car_bookings/:booking_idx', component: UserBookingDetails, layout: UserLayout},
 
 	{private: true, path: '/admin/car_bookings/:idx', component: CarBookingDetails, layout: AdminLayout},
-	{private: true, path: '/car_bookings/:idx/edit', component: CarBookingForm, layout: UserLayout},
 	{private: true, path: '/admin/cars', component: CarList, layout: AdminLayout},
 	{private: true, path: '/admin/car_bookings', component: CarBookingList, layout: AdminLayout},
 	{private: true, path: '/admin/car_details/:idx', component: CarDetails, layout: AdminLayout},
@@ -159,7 +159,7 @@ const routes = [
 	{private: true, path: '/admin/partner/:id', component: PartnerDetails, layout: AdminLayout},
 	{private: true, path: '/admin/cancel_requests', component: UpdateBooking, layout: AdminLayout},
 	{private: true, path: '/admin/flight_bookings', component: FlightBookings, layout: AdminLayout},
-	{private: true, path: '/admin/bookings', component: AdminBookingDetails, layout: AdminLayout},
+	{private: true, path: '/admin/bookings/:ruid', component: AdminBookingDetails, layout: AdminLayout},
 	{private: true, path: '/admin/email', component: UserEmail, layout: AdminLayout},
 	{private: true, path: '/admin/:section', component: Dashboard, layout: AdminLayout},
 	{private: true, path: '/admin', component: Dashboard, layout: AdminLayout},

@@ -95,17 +95,19 @@ class TransactionDetails extends Component {
 					</div>
 				</div>
 
-				<div className='text-center'>
-					<button
-						className='btn btn-primary btn-large'
-						onClick={() =>
-							this.setState({
-								markingAsSuccess: !this.state.markingAsSuccess
-							})}
-					>
-						{this.state.markingAsSuccess ? 'Cancel' : 'Mark as Success'}
-					</button>
-				</div>
+				{transaction.state !== 'verified' && (
+					<div className='text-center'>
+						<button
+							className='btn btn-primary btn-large'
+							onClick={() =>
+								this.setState({
+									markingAsSuccess: !this.state.markingAsSuccess
+								})}
+						>
+							{this.state.markingAsSuccess ? 'Cancel' : 'Mark as Success'}
+						</button>
+					</div>
+				)}
 
 				{transaction.state === 'verified' && (
 					<div>

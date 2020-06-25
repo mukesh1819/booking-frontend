@@ -10,7 +10,8 @@ import {PaymentForm} from '../payments';
 import {Timer} from '../shared';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {getDuration} from '../../helpers';
-import {Package} from '../packages';import {fetchTicket} from '../../api/flightApi';
+import {Package} from '../packages';
+import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 
 const ContactDetails = ({details}) => (

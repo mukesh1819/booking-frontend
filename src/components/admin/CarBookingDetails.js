@@ -3,12 +3,17 @@ import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
 import {getCarBookingConfirmation, declineCarBooking, deleteCarBooking, showUserCarBooking} from '../../api/carBookingApi';
+import {fetchTicket} from '../../api/flightApi';
+import {downloadTicket} from '../../helpers';
+import {Button, ButtonGroup} from 'react-bootstrap';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            carBooking: {}
+			carBooking: {},
+			loading: false
+			
         };
 	}
 
@@ -53,7 +58,17 @@ class CarBookingDetails extends Component {
 			.catch((error) => {
 				console.log('Car booking Rejection error', error);
 			});
-    }
+	}
+	
+	download = (idx) => {
+		fetchTicket(idx).then((response) => {
+			this.setState({
+				loading: false
+			});
+			downloadTicket(response.data);
+		});
+	};
+
 
 	destroyCarBooking(id) {
 		// deletePackageBooking(id)
@@ -96,7 +111,7 @@ class CarBookingDetails extends Component {
 	}
 
 	render() {
-		const {carBooking} = this.state;
+		const {carBooking, loading} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
@@ -138,6 +153,20 @@ class CarBookingDetails extends Component {
 								<td>{carBooking.drop_off_date}</td>
 								<td>{carBooking.drop_off_location}</td>
 								<td>{carBooking.remarks}</td>
+								<td>
+									{carBooking.status === 'verified' && 
+										<span className='text-center py-4'>
+											<Button
+												primary
+												loading={loading}
+												className='btn btn-primary btn-large '
+												onClick={() => this.download(carBooking.idx)}
+											>
+												Download ticket
+											</Button>
+										</span>
+									}
+								</td>
                                 <td>
                                     <span>
                                         <Link

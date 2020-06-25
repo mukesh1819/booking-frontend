@@ -72,11 +72,12 @@ class CarBookingForm extends Component {
 						this.setState({
 							searching: true
 						});
-						setSubmitting(false);
+						// setSubmitting(false);
 						// console.log(values);
 						if (carBooking.idx != null) {
 							updateCarBooking(carBooking.idx, values)
 								.then((response) => {
+									setSubmitting(false);
 									swal({
 										title: 'Car Booking updated!',
 										text: response.data.message,
@@ -341,7 +342,7 @@ class CarBookingForm extends Component {
 														type='submit'
 														disabled={isSubmitting}
 													>
-														{carBooking.id ? 'Update' : 'Submit'}
+														{carBooking.idx ? 'Update' : 'Submit'}
 													</button>
 												</div>
 											</div>

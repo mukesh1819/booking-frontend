@@ -3,11 +3,16 @@ import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
 import {getPackageBookingConfirmation, deletePackageBooking} from '../../api/packageBookingApi';
+import {fetchTicket} from '../../api/flightApi';
+import {downloadTicket} from '../../helpers';
+import {Button, ButtonGroup} from 'react-bootstrap';
 
 class PackageBookingDetails extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			loading: false
+		};
 	}
 
 	componentDidMount() {}
@@ -67,8 +72,18 @@ class PackageBookingDetails extends Component {
 		});
 	}
 
+	download = (idx) => {
+		fetchTicket(idx).then((response) => {
+			this.setState({
+				loading: false
+			});
+			downloadTicket(response.data);
+		});
+	};
+
 	render() {
 		const {packageBooking} = this.props.location.state;
+		const {loading} = this.state;
 		return (
 			<div className='container'>
 				<div className=''>
@@ -114,6 +129,20 @@ class PackageBookingDetails extends Component {
 								<td>{packageBooking.drop_off_location}</td>
 								<td>{packageBooking.meals_included}</td>
 								<td>{packageBooking.remarks}</td>
+								<td>
+									{packageBooking.inquiry.status === 'verified' && 
+										<span className='text-center py-4'>
+											<Button
+												primary
+												loading={loading}
+												className='btn btn-primary btn-large '
+												onClick={() => this.download(packageBooking.idx)}
+											>
+												Download ticket
+											</Button>
+										</span>
+									}
+								</td>
 								{packageBooking.status == 'pending' && 
 								<td>
 									<span
