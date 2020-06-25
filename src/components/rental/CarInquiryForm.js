@@ -64,7 +64,7 @@ class CarInquiryForm extends Component {
 	render() {
 		const {carInquiry} = this.props.location.state != null ? this.props.location.state : {carInquiry: {}};
 		const {vehicles, locations} = this.state;
-		const {t} = this.props;
+		const {t, i18n} = this.props;
 		const InquiriesSchema = yup.object().shape({
 			source: textValidate(yup).required('Required'),
 			destination: textValidate(yup).required('Required'),
@@ -149,7 +149,7 @@ class CarInquiryForm extends Component {
 											setFieldValue('destination', '');
 										}}
 									>
-										{t('Multi City')}
+										Multi City
 									</span>
 									<span
 										className={values.within_city ? 'active' : ''}
@@ -158,7 +158,7 @@ class CarInquiryForm extends Component {
 											setFieldValue('destination', values.source);
 										}}
 									>
-										{t('Within City')}
+										Within City
 									</span>
 									<span
 										className={values.airport_transfer ? 'active' : ''}
@@ -166,7 +166,7 @@ class CarInquiryForm extends Component {
 											setFieldValue('airport_transfer', true);
 										}}
 									>
-										{t('Airport Transfer')}
+										Airport Transfer
 									</span>
 								</div>
 
@@ -269,7 +269,7 @@ class CarInquiryForm extends Component {
 											onChange={(date) => {
 												setFieldValue('start_date', date);
 											}}
-											value={values.start}
+											value={values.start_date}
 											placeholder='start Date'
 										/>
 										<ErrorMessage name='start_date' />

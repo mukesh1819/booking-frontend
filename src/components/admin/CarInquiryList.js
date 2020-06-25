@@ -10,6 +10,8 @@ import {CustomMenu} from './Menu';
 import {Card, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
 import {Badge} from '../shared';
+// import '../../i18n';
+// import {useTranslation, initReactI18next} from 'react-i18next';
 
 class CarInquiryList extends Component {
 	constructor(props) {
@@ -199,6 +201,7 @@ class CarInquiryList extends Component {
 														pathname: `/admin/car_inquiry_form/${carInquiry.idx}/edit`,
 														state: {
 															carInquiry: carInquiry
+															
 														}
 													}}
 												>

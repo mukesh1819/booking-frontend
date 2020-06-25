@@ -28,7 +28,6 @@ class CarBookingForm extends Component {
 		const {car_inquiry_idx} = this.props.match.params != null ? this.props.match.params : {car_inquiry_idx: null};
 		const {car_idx} = this.props.match.params != null ? this.props.match.params : {car_idx: null};
 		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
-
 		const {carInquiryDetails} = this.props;
 
 		const BookingSchema = yup.object().shape({
@@ -43,8 +42,8 @@ class CarBookingForm extends Component {
 				return new Date();
 			}),
 			drop_off_location: yup.string().required('Required'),
-			remarks: yup.string().required('Required'),
-			flight_no: yup.string()
+			remarks: yup.string()
+			// flight_no: yup.string()
 		});
 
 		const bookingDetails = {
@@ -55,8 +54,8 @@ class CarBookingForm extends Component {
 			pickup_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
 			pickup_location: carBooking.pickup_location,
-			drop_off_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
-			drop_off_location: carBooking.pickup_location,
+			drop_off_date: carBooking.drop_off_date == null ? new Date() : new Date(carBooking.drop_off_date),
+			drop_off_location: carBooking.drop_off_location,
 			remarks: carBooking.remarks,
 			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),
 			flight_no: carBooking.flight_no,
