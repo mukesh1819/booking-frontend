@@ -8,6 +8,7 @@ import {Button, Divider, Grid, Header, Icon, Search, TextArea, Form, Dropdown} f
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {createLocation, updateLocation} from '../../api/locationApi';
 import {getPartners} from '../../api/partnerApi';
+import history from '../../history';
 
 class LocationForm extends Component {
 	constructor(props) {
@@ -60,6 +61,8 @@ class LocationForm extends Component {
 												text: response.data.message,
 												icon: 'success',
 												button: 'continue!'
+											}).then((value) => {
+												history.push('/admin/locations');
 											});
 										})
 										.catch((error) => {
@@ -77,6 +80,8 @@ class LocationForm extends Component {
 												text: response.data.message,
 												icon: 'success',
 												button: 'continue!'
+											}).then((value) => {
+												history.push('/');
 											});
 										})
 										.catch((error) => {

@@ -8,6 +8,7 @@ import {CustomMenu} from './Menu';
 import {Segment, Card, Menu, Dropdown, Input, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
 import history from '../../history';
+import FilterForm from './FilterForm';
 
 class PackageBookingList extends Component {
 	constructor(props) {
@@ -94,39 +95,39 @@ class PackageBookingList extends Component {
 			// 	type: 'date'
 			// },
 
-			// {
-			// 	name: 'pickup_date_gteq',
-			// 	label: 'From pickup Date',
-			// 	type: 'date'
-			// },
-			// {
-			// 	name: 'pickup_date_lteq',
-			// 	label: 'To pickup Date',
-			// 	type: 'date'
-			// },
+			{
+				name: 'pickup_date_gteq',
+				label: 'From pickup Date',
+				type: 'date'
+			},
+			{
+				name: 'pickup_date_lteq',
+				label: 'To pickup Date',
+				type: 'date'
+			},
 
-			// {
-			// 	name: 'drop_off_date_gteq',
-			// 	label: 'From drop off Date',
-			// 	type: 'date'
-			// },
-			// {
-			// 	name: 'drop_off_date_lteq',
-			// 	label: 'To start Date',
-			// 	type: 'date'
-			// },
+			{
+				name: 'drop_off_date_gteq',
+				label: 'From drop off Date',
+				type: 'date'
+			},
+			{
+				name: 'drop_off_date_lteq',
+				label: 'To start Date',
+				type: 'date'
+			},
 
-			// {
-			// 	name: 'pickup_location_cont',
-			// 	label: 'pickup location',
-			// 	type: 'text'
-			// },
+			{
+				name: 'pickup_location_cont',
+				label: 'pickup location',
+				type: 'text'
+			},
 
-			// {
-			// 	name: 'drop_off_location_cont',
-			// 	label: 'drop location',
-			// 	type: 'text'
-			// },
+			{
+				name: 'drop_off_location_cont',
+				label: 'drop location',
+				type: 'text'
+			},
 
 			{
 				name: 'mobile_no_cont',
@@ -149,13 +150,21 @@ class PackageBookingList extends Component {
 
 			{
 				name: 'contact_name_cont',
-				label: 'Inquiring User',
+				label: 'User Name',
+				type: 'text'
+			},
+
+			{
+				name: 'contact_email_cont',
+				label: 'User Email',
 				type: 'text'
 			}
 		];
 
 		return (
 			<div className='ui container'>
+				{/* <FilterForm submitUrl='admin/car_bookings' fields={filterFields} onSubmit={(values) => this.onFilter(values)} /> */}
+
 				<h3 className='title'>Car Bookings</h3>
 				<CustomMenu
 					submitUrl='car_bookings'

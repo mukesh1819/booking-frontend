@@ -70,7 +70,7 @@ class PackagesList extends Component {
 			},
 			{
 				name: 'car_type_cont',
-				label: 'Name',
+				label: 'Car Type',
 				type: 'text'
 			},
 
@@ -78,12 +78,19 @@ class PackagesList extends Component {
 				name: 'price_eq',
 				label: 'Price',
 				type: 'text'
+			},
+
+			{
+				name: 'status_eq',
+				label: 'status',
+				type: 'select',
+				options: ['active', 'inactive']
 			}
 		];
 
 		return (
 			<div className='ui container'>
-				<FilterForm submitUrl='cars' fields={filterFields} onSubmit={(values) => this.onFilter(values)} />
+				<FilterForm submitUrl='admin/cars' fields={filterFields} onSubmit={(values) => this.onFilter(values)} />
 				{/* <CustomMenu
 					submitUrl='packages'
 					filterFields={filterFields}

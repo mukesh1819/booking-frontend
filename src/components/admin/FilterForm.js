@@ -36,8 +36,10 @@ class FilterForm extends Component {
 					var searchUrl = ``;
 					var params = {};
 					Object.keys(values).forEach((key) => {
-						searchUrl = searchUrl + (values[key] != '' && key != '' ? `q[${key}]=${values[key]}&` : '');
-						params[`q[${key}]`] = values[key];
+						if((values[key] != '' && key != '' )){
+							searchUrl= searchUrl +`q[${key}]=${values[key]}&`
+							params[`q[${key}]`] = values[key];
+						}
 					});
 					filter(submitUrl, params)
 						.then((response) => {

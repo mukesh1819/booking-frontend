@@ -86,6 +86,8 @@ class CarForm extends Component {
 											text: response.data.message,
 											icon: 'success',
 											button: 'continue!'
+										}).then((value) => {
+											history.push('/admin/cars');
 										});
 									})
 									.catch((error) => {

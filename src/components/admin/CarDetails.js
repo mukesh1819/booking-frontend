@@ -34,6 +34,8 @@ class CarDetails extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
+				history.push('/admin/cars');
+
 			})
 			.catch((error) => {
 				console.log('Car activation error', error);
@@ -49,6 +51,7 @@ class CarDetails extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
+				history.push('/admin/cars');
 			})
 			.catch((error) => {
 				console.log('Car deactivation error', error);
@@ -87,10 +90,10 @@ class CarDetails extends Component {
 					swal('this car booking is deleted', {
 						icon: 'success'
 					});
-					history.push('/admin/car_bookings');
+					history.push('/admin/cars');
 				});
 			} else {
-				swal('Your Car booking is not deleted yet');
+				swal('Your Car is not deleted yet');
 			}
 		});
 	}

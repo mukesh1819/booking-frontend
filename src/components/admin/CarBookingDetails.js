@@ -39,6 +39,7 @@ class CarBookingDetails extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
+				history.push('/admin/car_bookings');
 			})
 			.catch((error) => {
 				console.log('Car booking confirmation error', error);
@@ -54,6 +55,7 @@ class CarBookingDetails extends Component {
 					icon: 'success',
 					button: 'Continue!'
 				});
+				history.push('/admin/car_bookings');
 			})
 			.catch((error) => {
 				console.log('Car booking Rejection error', error);

@@ -109,7 +109,34 @@ class CarInquiryList extends Component {
 				name: 'created_at_lteq',
 				label: 'To Date',
 				type: 'date'
-			}
+			},
+			{
+				name: 'source_eq',
+				label: 'Source',
+				type: 'text'
+			},
+			{
+				name: 'destination_eq',
+				label: 'Destination',
+				type: 'text'
+			},
+			
+			{
+				name: 'start_date_gteq',
+				label: 'To Start Date',
+				type: 'date'
+			},
+			{
+				name: 'start_date_lteq',
+				label: 'From Start Date',
+				type: 'date'
+			},
+			{
+				name: 'car_type_cont',
+				label: 'Car Type',
+				type: 'text'
+			},
+
 		];
 		return (
 			<div className='ui container'>

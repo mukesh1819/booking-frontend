@@ -82,6 +82,8 @@ class CarBookingForm extends Component {
 										text: response.data.message,
 										icon: 'success',
 										button: 'Continue'
+									}).then((value) => {
+										history.push(`/admin/car_bookings/${carBooking.idx}`);
 									});
 								})
 								.catch((error) => {

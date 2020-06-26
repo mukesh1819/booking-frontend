@@ -89,6 +89,14 @@ class CarInquiryForm extends Component {
 			max_pax: 20,
 			airport_transfer: false
 		};
+		var max_seat = 0;
+		var vehicle_max_pax = {};
+		if(inquiryDetails.car_type){
+			vehicle_max_pax = vehicles.find((v) => v.name == inquiryDetails.car_type)
+			if(vehicle_max_pax != null){
+				max_seat = vehicle_max_pax.no_of_seats
+			}
+		}
 		return (
 			<div className='container bg-white'>
 				<Formik
@@ -109,6 +117,8 @@ class CarInquiryForm extends Component {
 										text: response.data.message,
 										icon: 'success',
 										button: 'Continue'
+									}).then((value) => {
+										history.push('/admin/car_inquiries')
 									});
 								})
 								.catch((error) => {
@@ -341,7 +351,7 @@ class CarInquiryForm extends Component {
 															id='no_of_pax'
 															type='number'
 															className='m-1'
-															max={values.max_pax}
+															max={values.car_type ? max_seat : values.max_pax}
 															min={1}
 															onBlur={handleBlur}
 															title={`${values.no_of_pax} Traveller`}

@@ -86,6 +86,19 @@ class RentalPartnerList extends Component {
 				name: 'contact_number_cont',
 				label: 'Mobile Number',
 				type: 'text'
+			},
+
+			{
+				name: 'company_name_cont',
+				label: 'Company Name',
+				type: 'text'
+			},
+
+			{
+				name: 'status_eq',
+				label: 'status',
+				type: 'select',
+				options: ['inactive', 'processing', 'approved']
 			}
 		];
 

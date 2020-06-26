@@ -106,6 +106,17 @@ class LocationList extends Component {
 				name: 'created_at_lteq',
 				label: 'To Date',
 				type: 'date'
+			},
+			{
+				name: 'name_cont',
+				label: 'Location Name',
+				type: 'text'
+			},
+			{
+				name: 'location_type_eq',
+				label: 'Location Type',
+				type: 'select',
+				options: ['airport', 'city']
 			}
 		];
 		return (
