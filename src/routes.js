@@ -74,6 +74,7 @@ import AssignCarBookingForm from './components/admin/AssignCarBookingForm';
 import LocationList from './components/admin/LocationList';
 import LocationForm from './components/rental/LocationForm';
 import CarInquiryList from './components/admin/CarInquiryList';
+import VehicleTypeList from './components/admin/VehicleTypeList';
 import CarInquiryDetails from './components/admin/CarInquiryDetails';
 
 const routes = [
@@ -135,6 +136,8 @@ const routes = [
 		component: AssignCarBookingForm,
 		layout: AdminLayout
 	},
+	
+	{private: true, path: '/admin/vehicle_types', component: VehicleTypeList, layout: AdminLayout},
 	{private: true, path: '/admin/locations', component: LocationList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiries', component: CarInquiryList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiry_details/:idx', component: CarInquiryDetails, layout: AdminLayout},

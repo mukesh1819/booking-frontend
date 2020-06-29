@@ -28,8 +28,7 @@ class CarBookingForm extends Component {
 		const {car_inquiry_idx} = this.props.match.params != null ? this.props.match.params : {car_inquiry_idx: null};
 		const {car_idx} = this.props.match.params != null ? this.props.match.params : {car_idx: null};
 		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
-		const {carInquiryDetails} = this.props;
-
+		const {carInquiryDetails, currentUser} = this.props;
 		const BookingSchema = yup.object().shape({
 			contact_name: textValidate(yup).required('Required'),
 			contact_email: yup.string().email().required('Required'),
@@ -314,22 +313,43 @@ class CarBookingForm extends Component {
 											</div>
 										</div>
 
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label htmlFor=''>Remarks</label>
-												<TextArea
-													className='form-control'
-													name='remarks'
-													placeholder='remarks'
-													onBlur={handleBlur}
-													onChange={(e, data) => {
-														setFieldValue(`remarks`, e.target.value);
-													}}
-													value={values.remarks}
-												/>
-												<ErrorMessage name='remarks' />
+										{currentUser.role === 'Admin' &&
+										<React.Fragment>
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label>Amount</label>
+
+													<Field
+														name='amount'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.amount}
+													/>
+
+													<ErrorMessage name='amount' />
+												</div>
 											</div>
-										</div>
+										
+
+											<div className='col-12 col-md-6'>
+												<div className='field-box'>
+													<label htmlFor=''>Remarks</label>
+													<TextArea
+														className='form-control'
+														name='remarks'
+														placeholder='remarks'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(`remarks`, e.target.value);
+														}}
+														value={values.remarks}
+													/>
+													<ErrorMessage name='remarks' />
+												</div>
+											</div>
+										</React.Fragment>
+										}
 									</div>
 								</div>
 
@@ -359,9 +379,10 @@ class CarBookingForm extends Component {
 	}
 }
 
-const mapStateToProps = ({rentalStore}) => {
+const mapStateToProps = ({rentalStore, userStore}) => {
 	return {
-		carInquiryDetails: rentalStore.carInquiryDetails
+		carInquiryDetails: rentalStore.carInquiryDetails,
+		currentUser: userStore.currentUser
 	};
 };
 

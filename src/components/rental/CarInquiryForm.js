@@ -351,7 +351,7 @@ class CarInquiryForm extends Component {
 															id='no_of_pax'
 															type='number'
 															className='m-1'
-															max={values.car_type ? max_seat : values.max_pax}
+															max={values.car_type ? values.max_pax : max_seat}
 															min={1}
 															onBlur={handleBlur}
 															title={`${values.no_of_pax} Traveller`}
