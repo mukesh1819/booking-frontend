@@ -142,6 +142,7 @@ class InquiryDetails extends Component {
 			partner_id: 1,
 			name: '',
 			details: '',
+
 			extras: {
 				'Package Name': inquiry.package_name,
 				'Head Person': inquiry.head_traveller_name,
@@ -150,7 +151,11 @@ class InquiryDetails extends Component {
 				Nationality: inquiry.nationality,
 				'Number of Person': `Adult - ${inquiry.number_of_adult}, Child - ${inquiry.number_of_child}`,
 				'Phone Number': inquiry.phone,
-				'Invoice Number': inquiry.idx
+				'Invoice Number': inquiry.idx,
+				pickup_location: inquiry.pickup_location,
+				drop_off_location: inquiry.drop_off_location,
+				meals_included: inquiry.meals_included,
+				remarks: ''
 			}
 		};
 
@@ -162,7 +167,10 @@ class InquiryDetails extends Component {
 			drop_off_date: date,
 			drop_off_location: '',
 			meals_included: false,
-			remarks: '',
+			remarks: ''
+		};
+
+		const partnerServiceDetails = {
 			partner_services_attributes: [partner_service]
 		};
 		return (
@@ -396,7 +404,7 @@ class InquiryDetails extends Component {
 						{showPartnerForm && (
 							<React.Fragment>
 								<Formik
-									initialValues={inquiryDetails}
+									initialValues={partnerServiceDetails}
 									validationSchema={InquiriesSchema}
 									onSubmit={(values, {setSubmitting}) => {
 										// console.log('VALUES', values);

@@ -4,7 +4,7 @@ import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import React, {useState} from 'react';
 
-export default ({date, onChange, placeholder, ...rest}) => {
+export default ({date = new Date(), onChange, placeholder, ...rest}) => {
 	const [startDate, setStartDate] = useState(date);
 	return (
 		<SemanticDatepicker

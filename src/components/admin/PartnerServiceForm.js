@@ -51,7 +51,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 							fluid
 							search
 							selection
-							options={partners.filter((partner) => partner.status === 'approved' ).map(function(partner) {
+							options={partners.map(function(partner) {
 								name = partner.first_name + ' ' + partner.last_name;
 								return {
 									key: partner.id,
@@ -91,8 +91,11 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									date={partner.start_date}
 									minDate={new Date()}
 									onBlur={onBlur}
-									onChange={(date) => onChange(`start_date`, date)}
-									value={partner.start_date}
+									onChange={(date) => {
+										partner.extras['start_date'] = `${date}`;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['start_date']}
 									placeholder='Arrival Date'
 								/>
 
@@ -110,8 +113,11 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									date={partner.end_date}
 									minDate={new Date()}
 									onBlur={onBlur}
-									onChange={(date) => onChange('end_date', date)}
-									value={partner.end_date}
+									onChange={(date) => {
+										partner.extras['end_date'] = `${date}`;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['end_date']}
 									placeholder='Return Date'
 								/>
 
@@ -131,8 +137,11 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									date={partner.pickup_date}
 									minDate={new Date()}
 									onBlur={onBlur}
-									onChange={(date) => onChange('pickup_date', date)}
-									value={partner.pickup_date}
+									onChange={(date) => {
+										partner.extras['pickup_date'] = `${date}`;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['pickup_date']}
 									placeholder='Pickup Date'
 								/>
 
@@ -150,8 +159,11 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									date={partner.drop_off_date}
 									minDate={new Date()}
 									onBlur={onBlur}
-									onChange={(date) => onChange('drop_off_date', date)}
-									value={partner.drop_off_date}
+									onChange={(date) => {
+										partner.extras['drop_off_date'] = `${date}`;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['drop_off_date']}
 									placeholder='Drop off Date'
 								/>
 
@@ -168,8 +180,11 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									name='pickup_location'
 									className='form-control'
 									onBlur={onBlur}
-									onChange={(event, data) => onChange('pickup_location', data)}
-									value={partner.pickup_location}
+									onChange={(event) => {
+										partner.extras['pickup_location'] = event.target.value;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['pickup_location']}
 								/>
 
 								<ErrorMessage name='pickup_location' />
@@ -183,8 +198,11 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									name='drop_off_location'
 									className='form-control'
 									onBlur={onBlur}
-									onChange={(e) => onChange('drop_off_location', e.target.value)}
-									value={partner.drop_off_location}
+									onChange={(event) => {
+										partner.extras['drop_off_location'] = event.target.value;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['drop_off_location']}
 								/>
 
 								<ErrorMessage name='drop_off_location' />
@@ -199,7 +217,11 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									name='meals_included'
 									className=''
 									label={'Meals Included?'}
-									onChange={(event, data) => onChange('meals_included', data.checked)}
+									onChange={(event, data) => {
+										partner.extras['meals_included'] = data.checked;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['meals_included']}
 									onBlur={onBlur}
 									className=''
 									checked={partner.meals_included}
@@ -213,15 +235,16 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 						<div className='col-12'>
 							<div className='field-box'>
 								<label>Remarks</label>
-
 								<Field
 									name='remarks'
 									className='form-control'
 									onBlur={onBlur}
-									onChange={(event, data) => onChange('remarks', data)}
-									value={partner.remarks}
+									onChange={(event) => {
+										partner.extras['remarks'] = event.target.value;
+										onChange('extras', partner.extras);
+									}}
+									value={partner.extras['remarks']}
 								/>
-
 								<ErrorMessage name='remarks' />
 							</div>
 						</div>
