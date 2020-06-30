@@ -51,6 +51,14 @@ export function confirmInquiry(id, values) {
 	});
 }
 
+export function assignPartner(id, values) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/inquiries/${id}/assign_partner`,
+		params: values
+	});
+}
+
 export function showPackageBooking(id) {
 	return axios({
 		method: 'get',

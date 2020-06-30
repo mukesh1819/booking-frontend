@@ -92,7 +92,6 @@ class PackageBookingDetails extends Component {
 		if (redirectToPayment) {
 			return <PaymentForm transaction={booking.booking_transaction} idx={booking.booking_transaction.idx} />;
 		}
-
 		return (
 			<div className='container bg-white'>
 				<div className='d-flex justify-content-between p-2'>
@@ -151,11 +150,13 @@ class PackageBookingDetails extends Component {
 									</span>
 								</div>
 
-								<div className='text-center p-4'>
-									<span onClick={this.onContinueToPayment} className='btn btn-primary'>
-										Continue to Payment
-									</span>
-								</div>
+								{booking.inquiry.status === "processing" && (
+									<div className='text-center p-4'>
+										<span onClick={this.onContinueToPayment} className='btn btn-primary'>
+											Continue to Payment
+										</span>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>
@@ -163,26 +164,20 @@ class PackageBookingDetails extends Component {
 						<ContactDetails details={booking.inquiry} />
 					</div>
 				</div>
-				{booking.inquiry.status == "processing" &&
+				{booking.inquiry.status === "verified" && (
 					<div className='text-center p-4'>
-						<span onClick={this.onContinueToPayment} className='btn btn-primary'>
-							Continue to Payment
+						<span className='text-center py-4'>
+							<Button
+								primary
+								loading={loading}
+								className='btn btn-primary btn-large '
+								onClick={() => this.download(booking.idx)}
+							>
+								Download ticket
+							</Button>
 						</span>
 					</div>
-				}
-
-				{booking.inquiry.status == "verified" &&
-					<span className='text-center py-4'>
-						<Button
-							primary
-							loading={loading}
-							className='btn btn-primary btn-large '
-							onClick={() => this.download(booking.idx)}
-						>
-							Download ticket
-						</Button>
-					</span>
-				}
+				)}
 			</div>
 		);
 	}
