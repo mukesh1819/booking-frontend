@@ -6,6 +6,8 @@ import {getCarBookingConfirmation, declineCarBooking, deleteCarBooking, showUser
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
+import {Badge} from '../shared';
+
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -117,7 +119,7 @@ class CarBookingDetails extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Car Booking</h5>
+					<h3>Car Booking</h3>
 					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
 						<thead>
 							<tr>
@@ -234,6 +236,43 @@ class CarBookingDetails extends Component {
 								</td>
 							</tr>
                             )}
+						</tbody>
+					</table>
+
+					<h3>Car Inquiry Details</h3>
+					
+					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
+						<thead>
+							<tr>
+								<th>No of Passenger</th>
+								<th>Source </th>
+								<th>Destination</th>
+								<th>Within City</th>
+                                <th>No of Days</th>
+								<th>Airport Transfer</th>
+								
+							</tr>
+						</thead>
+                        
+						<tbody>
+							{carBooking.car_inquiry != null && (
+								<tr>
+									<td>{carBooking.car_inquiry.no_of_pax}</td>
+									<td>{carBooking.car_inquiry.source}</td>
+									<td>{carBooking.car_inquiry.destination}</td>
+									<td>
+										<Badge type={carBooking.car_inquiry.within_city}>
+													{carBooking.car_inquiry.within_city ? 'True' : 'False'}
+										</Badge>
+									</td>
+									<td>{carBooking.car_inquiry.no_of_days}</td>
+									<td>
+										<Badge type={carBooking.car_inquiry.airport_transfer}>
+													{carBooking.car_inquiry.airport_transfer ? 'True' : 'False'}
+										</Badge>
+									</td>
+								</tr>
+							)}
 						</tbody>
 					</table>
 				</div>
