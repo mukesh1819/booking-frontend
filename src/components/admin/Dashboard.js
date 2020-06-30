@@ -63,6 +63,7 @@ class Dashboard extends Component {
 		} = this.state;
 
 		const section = this.props.location.hash;
+		debugger;
 
 		return (
 			<React.Fragment>
@@ -146,18 +147,6 @@ class Dashboard extends Component {
 									<div className='card'>
 										<div className='card-body'>
 											<div className='text-center'>
-												<span className='count'> {partners} </span> <hr />
-												<Link to='/admin/partners' className='action'>
-													View all Partners
-												</Link>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className='widget col-sm-12 col-md-4'>
-									<div className='card'>
-										<div className='card-body'>
-											<div className='text-center'>
 												<span className='count'> {packages} </span> <hr />
 												<Link to='/admin/packages' className='action'>
 													View all Packages
@@ -231,20 +220,6 @@ class Dashboard extends Component {
 										</div>
 									</div>
 								</div>
-
-								<div className='widget col-sm-12 col-md-4'>
-									<div className='card'>
-										<div className='card-body'>
-											<div className='text-center'>
-												<span className='count'> {rentalPartner} </span> <hr />
-												<Link to='/admin/rental_partners' className='action'>
-													View all Rental Partners
-												</Link>
-											</div>
-										</div>
-									</div>
-								</div>
-
 								<div className='widget col-sm-12 col-md-4'>
 									<div className='card'>
 										<div className='card-body'>
@@ -265,6 +240,36 @@ class Dashboard extends Component {
 												<span className='count'> {carInquiry} </span> <hr />
 												<Link to='/admin/car_inquiries' className='action'>
 													View all Car Inquiry
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+							</Fragment>
+						)}
+
+						{(section == '' || section == '#partners') && (
+							<Fragment>
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'> {partners} </span> <hr />
+												<Link to='/admin/partners' className='action'>
+													View all Package Partners
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'> {rentalPartner} </span> <hr />
+												<Link to='/admin/rental_partners' className='action'>
+													View all Rental Partners
 												</Link>
 											</div>
 										</div>

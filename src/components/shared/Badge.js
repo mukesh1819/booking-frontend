@@ -10,12 +10,17 @@ export default ({type = 'light', content, children}) => {
 		case 'processing':
 			design = 'info';
 			break;
+
 		case 'verified':
 			design = 'success';
 			break;
 		case 'confirmed':
 			design = 'success';
 			break;
+		case 'approved':
+			design = 'success';
+			break;
+
 		case 'cancelled':
 			design = 'danger';
 			break;

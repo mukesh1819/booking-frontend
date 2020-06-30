@@ -62,16 +62,16 @@ class RentalBookings extends Component {
 							<div className='booking d-flex justify-content-between align-items-center p-3'>
 								<div key={booking.idx} className=''>
 									<div>
-										<strong>{booking.package ? booking.package.name : ''}</strong>
+										<strong>{booking.car_inquiry.car_type}</strong>
 									</div>
 									<div>
-										<span className='text-small text-muted px-2'>
-											<i className='calendar alternate icon' />&nbsp;
+										<span className='text-small text-muted pr-2'>
+											<i className='calendar alternate outline icon' />&nbsp;
 											{`${moment(booking.start_date).format('Do MMMM, YYYY')}`}
 										</span>
-										<span className='text-small text-muted px-2'>
-											<i className='calendar alternate outline icon' />&nbsp;
-											{`${moment(booking.end_date).format('Do MMMM, YYYY')}`}
+										<span className='text-small text-muted pr-2'>
+											<i className='hourglass start icon' />&nbsp;
+											{booking.car_inquiry.no_of_days} days
 										</span>
 									</div>
 								</div>
