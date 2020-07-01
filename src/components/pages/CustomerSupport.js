@@ -34,7 +34,7 @@ class CustomerSupport extends Component {
 		getFaqs(params)
 			.then((response) => {
 				this.setState({
-					faqs: response.data
+					faqs: response.data.faqs
 				});
 			})
 			.catch((error) => {

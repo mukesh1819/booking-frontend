@@ -19,7 +19,7 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
-import {confirmInquiry} from '../../api/inquiryApi';
+import {confirmInquiry, assignPartner} from '../../api/inquiryApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
 import PartnerServiceForm from './PartnerServiceForm';
 
@@ -409,7 +409,7 @@ class InquiryDetails extends Component {
 									onSubmit={(values, {setSubmitting}) => {
 										// console.log('VALUES', values);
 										setSubmitting(false);
-										confirmInquiry(inquiry.idx, values)
+										assignPartner(inquiry.idx, values)
 											.then((response) => {
 												// console.log('inquiry response',response.data);
 												swal({
