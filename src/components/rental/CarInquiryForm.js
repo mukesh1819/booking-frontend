@@ -5,11 +5,9 @@ import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import history from '../../history';
-import {Container, Segment, Dropdown} from 'semantic-ui-react';
-import {Button, ButtonGroup} from 'react-bootstrap';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, DateTimePicker} from '../shared';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
+import {Container, Segment, Input, Dropdown, Form, Radio, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import {setCarInquiryDetails} from '../../redux/actions';
@@ -91,10 +89,10 @@ class CarInquiryForm extends Component {
 		};
 		var max_seat = 0;
 		var vehicle_max_pax = {};
-		if(inquiryDetails.car_type){
-			vehicle_max_pax = vehicles.find((v) => v.name == inquiryDetails.car_type)
-			if(vehicle_max_pax != null){
-				max_seat = vehicle_max_pax.no_of_seats
+		if (inquiryDetails.car_type) {
+			vehicle_max_pax = vehicles.find((v) => v.name == inquiryDetails.car_type);
+			if (vehicle_max_pax != null) {
+				max_seat = vehicle_max_pax.no_of_seats;
 			}
 		}
 		return (
@@ -118,7 +116,7 @@ class CarInquiryForm extends Component {
 										icon: 'success',
 										button: 'Continue'
 									}).then((value) => {
-										history.push('/admin/car_inquiries')
+										history.push('/admin/car_inquiries');
 									});
 								})
 								.catch((error) => {
@@ -179,6 +177,32 @@ class CarInquiryForm extends Component {
 										Airport Transfer
 									</span>
 								</div>
+								{values.airport_transfer && (
+									<Form>
+										<Form.Group inline widths='equal'>
+											<Radio
+												label='Airport Pickup'
+												name='radioGroup'
+												value='this'
+												checked={values.airport_pickup}
+												onChange={(e, data) => {
+													setFieldValue('airport_pickup', data.checked);
+													setFieldValue('airport_dropoff', !data.checked);
+												}}
+											/>
+											<Form.Radio
+												label='Airport Dropoff'
+												name='radioGroup'
+												value='that'
+												checked={values.airport_dropoff}
+												onChange={(e, data) => {
+													setFieldValue('airport_pickup', !data.checked);
+													setFieldValue('airport_dropoff', data.checked);
+												}}
+											/>
+										</Form.Group>
+									</Form>
+								)}
 
 								<div className='inputs row'>
 									<div className='field-box col'>
@@ -195,13 +219,18 @@ class CarInquiryForm extends Component {
 											fluid
 											search
 											selection
-											options={locations.map(function(location) {
-												return {
-													key: location.id,
-													value: location.name,
-													text: location.name
-												};
-											})}
+											options={locations
+												.filter((v) => {
+													var predicate = values.airport_pickup ? 'airport' : 'city';
+													return v.location_type == predicate;
+												})
+												.map(function(location) {
+													return {
+														key: location.id,
+														value: location.name,
+														text: location.name
+													};
+												})}
 										/>
 										<ErrorMessage name='source' />
 									</div>
@@ -221,13 +250,18 @@ class CarInquiryForm extends Component {
 												fluid
 												search
 												selection
-												options={locations.map(function(location) {
-													return {
-														key: location.id,
-														value: location.name,
-														text: location.name
-													};
-												})}
+												options={locations
+													.filter((v) => {
+														var predicate = values.airport_dropoff ? 'airport' : 'city';
+														return v.location_type == predicate;
+													})
+													.map(function(location) {
+														return {
+															key: location.id,
+															value: location.name,
+															text: location.name
+														};
+													})}
 											/>
 											<ErrorMessage name='destination' />
 										</div>
