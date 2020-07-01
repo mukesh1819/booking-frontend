@@ -12,38 +12,11 @@ import {getPartnerServices} from '../../api/partnerServiceApi';
 // 	return 'PARTNER PROFILE';
 // };
 
-class Services extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			services: []
-		};
-	}
-
-	componentDidMount() {
-		passCsrfToken(document, axios);
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		if (this.props.partner.id != null && prevState.services[0] == null) {
-			this.fetchDetails();
-		}
-	}
-
-	fetchDetails = () => {
-		getPartnerServices(`q[partner_id_eq]=${this.props.partner.id}`)
-			.then((response) => {
-				this.setState({
-					services: response.data
-				});
-			})
-			.catch((error) => console.log(' partner service fetch error', error));
-	};
-
-	render() {
-		const {services} = this.state;
-		return (
-			<div className='container'>
+const Services = (props) => {
+	const {services} = props;
+	return (
+		<div className='container'>
+			{services.length > 0 &&
 				<div className='card'>
 					<div className='card-body'>
 						<div className='row'>
@@ -54,11 +27,16 @@ class Services extends Component {
 										<div className='card-body'>
 											<div className='list-view'>
 												<div className='list'>
-													<div className='label'>{service.name}</div>
-													<div className='value'>{service.details}</div>
+													<div className='label'>Service Name - {service.name}</div>
+													<div className='label'>Service Details - {service.details}</div>
 												</div>
 											</div>
-											<div>{service.extras}</div>
+											<h3>Service Info</h3>
+											{Object.entries(service.extras).map(([key, value]) =>  (
+												// arr.push(json[key]);
+												<div>{key} - {value}</div>
+											))}
+											{/* <div>{service.extras}</div> */}
 										</div>
 									</div>
 								))}
@@ -66,9 +44,9 @@ class Services extends Component {
 						</div>
 					</div>
 				</div>
-			</div>
-		);
-	}
+			}
+		</div>
+	);
 }
 
 const mapStateToProps = ({userStore}) => ({

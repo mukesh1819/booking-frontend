@@ -49,12 +49,18 @@ class Dashboard extends Component {
 				<div>
 					<PartnerProfile partner={partner} />
 				</div>
-				<div className='my-3'>
-					<Services partner={partner} />
-				</div>
-				<div className='my-3'>
-					<RentalBooking partner={partner} />
-				</div>
+				{partner.partner_services != null &&
+					<div className='my-3'>
+						<Services services={partner.partner_services} />
+					</div>
+				}
+				
+				{partner.car_bookings != null && 
+					<div className='my-3'>
+						<RentalBooking carBookings={partner.car_bookings} />
+					</div>
+				} 
+				
 			</div>
 		);
 		
