@@ -78,11 +78,14 @@ class PackageDetails extends Component {
 			<div className='row'>
 				<div className='col-12 col-md-4'>
 					<Package aPackage={aPackage} />
-					<div className=''>
-						<span className='btn btn-outline-primary' onChange={this.handleChange}>
-							Publish Package
-						</span>
-					</div>
+					{!aPackage.published && (
+						<div className=''>
+							<span className='btn btn-outline-primary' onChange={this.handleChange}>
+								Publish Package
+							</span>
+						</div>
+					)}
+					
 				</div>
 
 				<div className='col-12 col-md-8'>
@@ -117,7 +120,7 @@ class PackageDetails extends Component {
 								</div>
 								<div className='list'>
 									<span className='label'>Published</span>
-									<span className='value'>{aPackage.published}</span>
+									<span className='value'>{`${aPackage.published}`}</span>
 								</div>
 							</div>
 
