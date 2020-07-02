@@ -2,14 +2,33 @@ import React, {Component} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import {Badge} from '../shared';
+import { getPartnerServices } from '../../api/partnerServiceApi';
 
 class Inquiry extends Component {
 	constructor(props) {
 		super(props);
+		this.state={
+			partnerServices: []
+		};
+	}
+	componentDidMount(){
+		var params = {};
+		params["package_booking_id_eq"] = this.props.inquiry.package_booking.id;
+		this.fetchPartnerServices(params);
+	}
+
+	fetchPartnerServices(params){
+		getPartnerServices(params)
+		.then((response) => {
+			this.setState({
+				partnerServices: response.data
+			});
+		})
 	}
 
 	render() {
 		const {inquiry, aPackage, reject, destroy, setActions} = this.props;
+		const {partnerServices} = this.state;
 		const totalAmount = (inquiry.number_of_adult + inquiry.number_of_child) * aPackage.price;
 		return (
 			<div className='row'>
@@ -168,20 +187,20 @@ class Inquiry extends Component {
 
 								<div className='list'>
 									<span className='label'>Start Date</span>
-									<span className='value'> {inquiry.head_traveller_name}</span>
+									<span className='value'> {inquiry.package_booking.start_date}</span>
 								</div>
 								<div className='list'>
 									<span className='label'>End date</span>
-									<span className='value'> {inquiry.number_of_adult}</span>
+									<span className='value'> {inquiry.package_booking.end_date}</span>
 								</div>
 								<div className='list'>
 									<span className='label'>Pickup Location</span>
-									<span className='value'> {inquiry.number_of_child}</span>
+									<span className='value'> {inquiry.package_booking.pickup_location}</span>
 								</div>
 
 								<div className='list'>
 									<span className='label'>Drop off Location</span>
-									<span className='value'> {inquiry.number_of_child}</span>
+									<span className='value'> {inquiry.package_booking.drop_off_location}</span>
 								</div>
 								{inquiry.query !== null && (
 									<div className='list'>
@@ -209,7 +228,20 @@ class Inquiry extends Component {
 									</div>
 								</div>
 
-								<div className='list'>
+								{partnerServices.map((partnerService, index) => {
+									return(
+										<React.Fragment>
+											<h4 className='title'>Partner {index + 1}</h4>
+											{Object.entries(partnerService.extras).map(([key, value]) =>  (
+												<div className='list'>
+													<span className='label'>{key}</span>
+													<span className='value'>{value}</span>
+												</div>
+											))}
+										</React.Fragment>
+									);
+								})}
+								{/* <div className='list'>
 									<span className='label'>Start Date</span>
 									<span className='value'> {inquiry.head_traveller_name}</span>
 								</div>
@@ -225,7 +257,7 @@ class Inquiry extends Component {
 								<div className='list'>
 									<span className='label'>Drop off Location</span>
 									<span className='value'> {inquiry.number_of_child}</span>
-								</div>
+								</div> */}
 								{inquiry.query !== null && (
 									<div className='list'>
 										<div className='label'>Queries</div>

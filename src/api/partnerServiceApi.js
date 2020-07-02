@@ -7,6 +7,8 @@ useInterceptor(axios);
 export function getPartnerServices(params) {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/partner_services?${params}`
+		url: `${API_URL}/partner_services`,
+		params: params
 	});
 }
+
