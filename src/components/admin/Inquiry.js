@@ -13,7 +13,9 @@ class Inquiry extends Component {
 	}
 	componentDidMount(){
 		var params = {};
-		params["package_booking_id_eq"] = this.props.inquiry.package_booking.id;
+		if(this.props.inquiry.package_booking){
+			params["package_booking_id_eq"] = this.props.inquiry.package_booking.id;
+		}
 		this.fetchPartnerServices(params);
 	}
 
