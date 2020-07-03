@@ -319,45 +319,47 @@ class CarInquiryForm extends Component {
 										<ErrorMessage name='start_date' />
 									</div>
 
-									<div className='field-box col'>
-										<label htmlFor=''>Number of Days</label>
-										<Dropdown
-											name=''
-											icon='icon-users'
-											className='icon btn-dropdown travellers'
-											iconPosition='left'
-											fluid
-											selection
-											closeOnChange={false}
-											placeholder={`${values.no_of_days} Days`}
-											onClick={(event, data) => {
-												event.preventDefault();
-											}}
-										>
-											<Dropdown.Menu
-												onClick={(e, data) => {
-													e.stopPropagation();
-													e.preventDefault();
+									{!values.airport_transfer && (
+										<div className='field-box col'>
+											<label htmlFor=''>Number of Days</label>
+											<Dropdown
+												name=''
+												icon='icon-users'
+												className='icon btn-dropdown travellers'
+												iconPosition='left'
+												fluid
+												selection
+												closeOnChange={false}
+												placeholder={`${values.no_of_days} Days`}
+												onClick={(event, data) => {
+													event.preventDefault();
 												}}
-												content={
-													<div className='p-2'>
-														<Counter
-															id='no_of_days'
-															type='number'
-															className='m-1'
-															onBlur={handleBlur}
-															title={`${values.no_of_days} Days`}
-															onChange={(value) => {
-																setFieldValue('no_of_days', value);
-															}}
-															value={values.no_of_days}
-														/>
-													</div>
-												}
-											/>
-										</Dropdown>
-										<ErrorMessage name='no_of_days' />
-									</div>
+											>
+												<Dropdown.Menu
+													onClick={(e, data) => {
+														e.stopPropagation();
+														e.preventDefault();
+													}}
+													content={
+														<div className='p-2'>
+															<Counter
+																id='no_of_days'
+																type='number'
+																className='m-1'
+																onBlur={handleBlur}
+																title={`${values.no_of_days} Days`}
+																onChange={(value) => {
+																	setFieldValue('no_of_days', value);
+																}}
+																value={values.no_of_days}
+															/>
+														</div>
+													}
+												/>
+											</Dropdown>
+											<ErrorMessage name='no_of_days' />
+										</div>
+									)}
 
 									<div className='field-box col'>
 										<label htmlFor=''>Number of Passenger</label>

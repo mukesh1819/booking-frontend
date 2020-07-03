@@ -20,6 +20,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
 import {confirmInquiry, assignPartner} from '../../api/inquiryApi';
+import {getPackageBookingDetails} from '../../api/packageBookingApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
 import PartnerServiceForm from './PartnerServiceForm';
 
@@ -29,7 +30,8 @@ class InquiryDetails extends Component {
 		this.state = {
 			showDetails: true,
 			showOtherForm: false,
-			showPartnerForm: false
+			showPartnerForm: false,
+			packageBooking: {}
 		};
 	}
 
@@ -62,6 +64,21 @@ class InquiryDetails extends Component {
 			.catch((error) => {
 				swal({
 					title: 'Partner fetch error',
+					text: 'Something went wrong. please try again or contact us',
+					icon: 'error',
+					button: 'Continue!'
+				});
+			});
+
+		getPackageBookingDetails(this.props.location.state.inquiry.package_booking.idx)
+			.then((response) => {
+				this.setState({
+					packageBooking: response.data
+				});
+			})
+			.catch((error) => {
+				swal({
+					title: 'Package Booking fetch error',
 					text: 'Something went wrong. please try again or contact us',
 					icon: 'error',
 					button: 'Continue!'
@@ -115,8 +132,9 @@ class InquiryDetails extends Component {
 
 	render() {
 		const {inquiry} = this.props.location.state;
-		const {partners, showDetails, showOtherForm, showPartnerForm} = this.state;
+		const {partners, packageBooking, showDetails, showOtherForm, showPartnerForm} = this.state;
 		var date = new Date();
+
 		const InquiriesSchema = yup.object().shape({
 			start_date: yup.date().default(function() {
 				return new Date();
@@ -171,8 +189,10 @@ class InquiryDetails extends Component {
 		};
 
 		const partnerServiceDetails = {
-			partner_services_attributes: [partner_service]
+			partner_services_attributes:
+				packageBooking.idx == undefined ? [partner_service] : packageBooking.partner_services
 		};
+
 		return (
 			<div className='container'>
 				<div className='card'>

@@ -236,7 +236,7 @@ class CarBookingForm extends Component {
 
 										<div className='col-12 col-md-6'>
 											<div className='field-box'>
-												<label className='d-block'>Pick-up date</label>
+												<label className='d-block'>Pick-up time</label>
 												<DateTimePicker
 													name='pickup_date'
 													className=' w-100'
@@ -247,7 +247,7 @@ class CarBookingForm extends Component {
 													onBlur={handleBlur}
 													onChange={(date) => setFieldValue('pickup_date', date)}
 													value={values.pickup_date}
-													placeholder='Pickup date'
+													placeholder='Pickup time'
 													showTimeSelectOnly
 												/>
 												<ErrorMessage name='pickup_date' />
@@ -276,7 +276,7 @@ class CarBookingForm extends Component {
 
 										<div className='col-12 col-md-6'>
 											<div className='field-box'>
-												<label className='d-block'>Drop-off date</label>
+												<label className='d-block'>Drop-off time</label>
 												<DateTimePicker
 													name='drop_off_date'
 													className=' w-100'
@@ -287,7 +287,8 @@ class CarBookingForm extends Component {
 													onBlur={handleBlur}
 													onChange={(date) => setFieldValue('drop_off_date', date)}
 													value={values.drop_off_date}
-													placeholder='Drop-off date'
+													placeholder='Drop-off time'
+													showTimeSelectOnly
 												/>
 												<ErrorMessage name='drop_off_date' />
 											</div>
@@ -313,43 +314,42 @@ class CarBookingForm extends Component {
 											</div>
 										</div>
 
-										{currentUser.role === 'Admin' &&
-										<React.Fragment>
-											<div className='col-12 col-md-6'>
-												<div className='field-box'>
-													<label>Amount</label>
+										{currentUser.role === 'Admin' && (
+											<React.Fragment>
+												<div className='col-12 col-md-6'>
+													<div className='field-box'>
+														<label>Amount</label>
 
-													<Field
-														name='amount'
-														className='form-control'
-														onBlur={handleBlur}
-														onChange={handleChange}
-														value={values.amount}
-													/>
+														<Field
+															name='amount'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.amount}
+														/>
 
-													<ErrorMessage name='amount' />
+														<ErrorMessage name='amount' />
+													</div>
 												</div>
-											</div>
-										
 
-											<div className='col-12 col-md-6'>
-												<div className='field-box'>
-													<label htmlFor=''>Remarks</label>
-													<TextArea
-														className='form-control'
-														name='remarks'
-														placeholder='remarks'
-														onBlur={handleBlur}
-														onChange={(e, data) => {
-															setFieldValue(`remarks`, e.target.value);
-														}}
-														value={values.remarks}
-													/>
-													<ErrorMessage name='remarks' />
+												<div className='col-12 col-md-6'>
+													<div className='field-box'>
+														<label htmlFor=''>Remarks</label>
+														<TextArea
+															className='form-control'
+															name='remarks'
+															placeholder='remarks'
+															onBlur={handleBlur}
+															onChange={(e, data) => {
+																setFieldValue(`remarks`, e.target.value);
+															}}
+															value={values.remarks}
+														/>
+														<ErrorMessage name='remarks' />
+													</div>
 												</div>
-											</div>
-										</React.Fragment>
-										}
+											</React.Fragment>
+										)}
 									</div>
 								</div>
 
