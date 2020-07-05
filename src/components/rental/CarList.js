@@ -6,10 +6,11 @@ import {connect} from 'react-redux';
 import history from '../../history';
 import {Checkbox, Segment, Header, Icon} from 'semantic-ui-react';
 import {getCars} from '../../api/carApi';
-import {isRefundable, numberWithCommas} from '../../helpers';
 import {BASE_URL} from '../../constants';
 import CarInquiryForm from './CarInquiryForm';
 import SearchDetails from './SearchDetails';
+import {Car} from '.';
+import CarDetails from './CarDetails';
 
 const SORTS = {
 	NONE: (list) => list,
@@ -188,42 +189,12 @@ class CarList extends Component {
 						</div>
 					</div>
 
-					<div className='col'>
-						<div className='d-flex flex-wrap'>
-							{cars.map((car) => (
-								<div className='' onClick={() => this.onViewDetails(car)} className='card-widget link'>
-									<figure>
-										{car.image.length == 0 && (
-											<Segment placeholder>
-												<Header icon>
-													<Icon className='image outline' />{' '}
-												</Header>
-											</Segment>
-										)}
-										{car.image.length && (
-											<img src={BASE_URL + car.image[0].url} className='img-responsive' />
-										)}
-									</figure>
-									<div className='details'>
-										<h3>{car.car_type}</h3>
-										<div className='d-flex justify-content-between align-items-center py-2'>
-											<span className='text-small text-muted'>
-												{/* <i className='fas fa-map-marker-alt' />&nbsp; */}
-												{'With Carrier'}
-											</span>
-											<span className='text-small text-muted'>
-												{/* <i className='fas fa-clock' />&nbsp; */}
-												{car.duration}
-											</span>
-										</div>
-										<div>
-											<span className='text-bold text-large'>{numberWithCommas(car.price)}</span>
-											<span className='text-small text-muted'>/day</span>
-										</div>
-									</div>
-								</div>
-							))}
-						</div>
+					<div className='col-12 col-md-10'>
+						{cars.map((car) => (
+							<div className='' onClick={() => this.onViewDetails(car)} className=''>
+								<Car car={car} />
+							</div>
+						))}
 					</div>
 				</div>
 				<ModalExample
@@ -233,12 +204,7 @@ class CarList extends Component {
 					toggle={this.onViewDetails}
 					onSuccess={this.onBook}
 				>
-					{selectedCar && (
-						<div>
-							<div>{selectedCar.image.length && <img src={BASE_URL + selectedCar.image[0].url} />}</div>
-							<div>Estimated Price - {selectedCar.price * carInquiryDetails.no_of_days}</div>
-						</div>
-					)}
+					{selectedCar && <CarDetails car={selectedCar} inquiry={carInquiryDetails} />}
 				</ModalExample>
 			</div>
 		);

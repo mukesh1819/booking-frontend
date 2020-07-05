@@ -8,6 +8,7 @@ import {Button, Divider, Grid, Header, Icon, Search, TextArea, Form, Dropdown} f
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {createCar, updateCar, submitFormData} from '../../api/carApi';
 import {getPartners} from '../../api/partnerApi';
+import history from '../../history';
 
 class CarForm extends Component {
 	constructor(props) {
