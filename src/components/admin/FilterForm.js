@@ -21,6 +21,7 @@ class FilterForm extends Component {
 		const {submitUrl, fields, onSubmit} = this.props;
 		const initialValues = {};
 		fields.forEach((field) => (initialValues[name] = ''));
+		const chunks = fields.chunk(2);
 
 		const options = [
 			{key: 'm', text: 'Male', value: 'male'},
@@ -36,8 +37,8 @@ class FilterForm extends Component {
 					var searchUrl = ``;
 					var params = {};
 					Object.keys(values).forEach((key) => {
-						if((values[key] != '' && key != '' )){
-							searchUrl= searchUrl +`q[${key}]=${values[key]}&`
+						if (values[key] != '' && key != '') {
+							searchUrl = searchUrl + `q[${key}]=${values[key]}&`;
 							params[`q[${key}]`] = values[key];
 						}
 					});
@@ -68,65 +69,67 @@ class FilterForm extends Component {
 					/* and other goodies */
 				}) => (
 					<div className='ui card fluid'>
-						<div className='ui card-header'>
-							<h3>Filter</h3>
+						<div class='content'>
+							<div class='header'>Filter</div>
 						</div>
 
-						<div className='ui card-body'>
+						<div className='content'>
 							<Form className='' autocomplete='off' onSubmit={handleSubmit}>
-								<Form.Group widths='equal'>
-									{fields.map((field) => (
-										<Fragment>
-											{field.type == 'text' && (
-												<Form.Field>
-													<Form.Input
-														label={field.label}
-														placeholder={field.label}
-														name={field.name}
-														onChange={handleChange}
-														onBlur={handleBlur}
-														value={values[field.name]}
-														error={
-															errors[field.name] &&
-															touched[field.name] && {
-																content: errors[field.name],
-																pointing: 'below'
+								{chunks.map((fields) => (
+									<Form.Group>
+										{fields.map((field) => (
+											<Fragment>
+												{field.type == 'text' && (
+													<Form.Field width={8}>
+														<Form.Input
+															label={field.label}
+															placeholder={field.label}
+															name={field.name}
+															onChange={handleChange}
+															onBlur={handleBlur}
+															value={values[field.name]}
+															error={
+																errors[field.name] &&
+																touched[field.name] && {
+																	content: errors[field.name],
+																	pointing: 'below'
+																}
 															}
-														}
-													/>
-												</Form.Field>
-											)}
+														/>
+													</Form.Field>
+												)}
 
-											{field.type == 'select' && (
-												<Form.Field>
-													<Form.Select
-														clearable
+												{field.type == 'select' && (
+													<Form.Field width={8}>
+														<Form.Select
+															clearable
+															label={field.label}
+															options={field.options.map((v) => {
+																return {
+																	key: v,
+																	value: v,
+																	text: v
+																};
+															})}
+															selection
+															name={field.name}
+															onChange={(e, data) => {
+																setFieldValue(field.name, data.value);
+															}}
+															onBlur={handleBlur}
+															value={values[field.name]}
+															placeholder={`Select ${field.label}`}
+														/>
+													</Form.Field>
+												)}
+
+												{field.type == 'date' && (
+													<Form.Field
 														label={field.label}
-														options={field.options.map((v) => {
-															return {
-																key: v,
-																value: v,
-																text: v
-															};
-														})}
-														selection
-														name={field.name}
-														onChange={(e, data) => {
-															setFieldValue(field.name, data.value);
-														}}
-														onBlur={handleBlur}
-														value={values[field.name]}
-														placeholder={`Select ${field.label}`}
-													/>
-												</Form.Field>
-											)}
-
-											{field.type == 'date' && (
-												<Form.Field>
-													<label htmlFor=''>{field.label}</label>
-													<DatePicker
+														width={8}
+														control={DatePicker}
 														name='strFlightDate'
-														className='form-control'
+														className='w-100'
 														type='date'
 														date={new Date()}
 														onBlur={handleBlur}
@@ -134,11 +137,11 @@ class FilterForm extends Component {
 														value={values[field.name]}
 														placeholder={field.label}
 													/>
-												</Form.Field>
-											)}
-										</Fragment>
-									))}
-								</Form.Group>
+												)}
+											</Fragment>
+										))}
+									</Form.Group>
+								))}
 
 								<Button primary type='submit' disabled={isSubmitting}>
 									Submit
