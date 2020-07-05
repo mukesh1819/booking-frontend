@@ -43,7 +43,6 @@ class PackageBookingList extends Component {
 				this.setState({
 					carBookings: response.data.car_bookings,
 					pagination: response.data.meta.pagination
-
 				});
 			})
 			.catch((error) => {
@@ -194,7 +193,7 @@ class PackageBookingList extends Component {
 				/>
 
 				<Segment>
-					<table className='table table-striped table-hover table-sm' ref='main'>
+					<table className='ui celled striped unstackable selectable table ' ref='main'>
 						<thead>
 							<tr>
 								<th>S. No.</th>

@@ -120,7 +120,7 @@ class CarInquiryList extends Component {
 				label: 'Destination',
 				type: 'text'
 			},
-			
+
 			{
 				name: 'start_date_gteq',
 				label: 'To Start Date',
@@ -135,8 +135,7 @@ class CarInquiryList extends Component {
 				name: 'car_type_cont',
 				label: 'Car Type',
 				type: 'text'
-			},
-
+			}
 		];
 		return (
 			<div className='ui container'>
@@ -160,7 +159,7 @@ class CarInquiryList extends Component {
 									label: 'Airport',
 									value: 'airport'
 								},
-								
+
 								{
 									label: 'City',
 									value: 'city'
@@ -174,7 +173,6 @@ class CarInquiryList extends Component {
 					<Card.Content>
 						<div className='d-flex justify-content-between'>
 							<h3 className='title'>Car Inquiries</h3>
-							
 						</div>
 
 						<table className='table table-striped table-hover table-sm' ref='main'>
@@ -183,13 +181,12 @@ class CarInquiryList extends Component {
 									<th>S. No.</th>
 									<th>Car Type</th>
 									<th>No of days</th>
-                                    <th>Airport Transfer</th>
-                                    <th>Within City</th>
+									<th>Airport Transfer</th>
+									<th>Within City</th>
 									<th>Created At</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
-                            
 
 							<tbody>
 								{carInquiries.map((carInquiry, index) => {
@@ -203,7 +200,7 @@ class CarInquiryList extends Component {
 													{carInquiry.airport_transfer ? 'True' : 'False'}
 												</Badge>
 											</td>
-                                            <td>
+											<td>
 												<Badge type={carInquiry.within_city}>
 													{carInquiry.within_city ? 'True' : 'False'}
 												</Badge>
@@ -222,20 +219,6 @@ class CarInquiryList extends Component {
 													<i className='fas fa-contact' />
 													<span className='btn bg-none text-primary'>view</span>
 												</Link>
-
-												<Link
-													to={{
-														pathname: `/admin/car_inquiry_form/${carInquiry.idx}/edit`,
-														state: {
-															carInquiry: carInquiry
-															
-														}
-													}}
-												>
-													<i className='fas fa-contact' />
-													<span className='btn bg-none text-primary'>edit</span>
-												</Link>
-												
 											</td>
 										</tr>
 									);

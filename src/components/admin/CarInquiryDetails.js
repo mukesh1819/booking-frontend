@@ -8,7 +8,6 @@ import swal from 'sweetalert';
 import {Card} from 'semantic-ui-react';
 import {Badge} from '../shared';
 
-
 class CarInquiryDetails extends Component {
 	constructor(props) {
 		super(props);
@@ -17,7 +16,6 @@ class CarInquiryDetails extends Component {
 		};
 	}
 
-	
 	componentDidMount() {
 		this.fetchCarInquiry();
 	}
@@ -27,7 +25,7 @@ class CarInquiryDetails extends Component {
 			.then((response) => {
 				// console.log('inquiries', response.data);
 				this.setState({
-					carInquiry: response.data,
+					carInquiry: response.data
 				});
 			})
 			.catch((error) => {
@@ -36,63 +34,57 @@ class CarInquiryDetails extends Component {
 			});
 	}
 
-    render() {
-        const {carInquiry} = this.state;
+	render() {
+		const {carInquiry} = this.state;
 		return (
 			<div className='container'>
 				<Card fluid>
 					<Card.Content>
-						<div className='d-flex justify-content-between'>
-							<h3 className='title'>Car Inquiries</h3>
-							
+						<div className='list-view'>
+							<div className='actions float-right'>
+								<Link
+									to={{
+										pathname: `/admin/car_inquiry_form/${carInquiry.idx}/edit`,
+										state: {
+											carInquiry: carInquiry
+										}
+									}}
+								>
+									<i className='fas fa-contact' />
+									<span className='btn btn-outline-primary'>edit</span>
+								</Link>
+							</div>
+
+							<h3 className='title'>Inquiry Details</h3>
+							<div className='list'>
+								<span className='label'>Number of pax</span>
+								<span className='value'>{carInquiry.no_of_pax}</span>
+							</div>
+							<div className='list'>
+								<span className='label'>Source</span>
+								<span className='value'>{carInquiry.source}</span>
+							</div>
+							<div className='list'>
+								<span className='label'>Destination</span>
+								<span className='value'>{carInquiry.destination}</span>
+							</div>
+							<div className='list'>
+								<span className='label'>Start Date</span>
+								<span className='value'>{carInquiry.start_date}</span>
+							</div>
+							<div className='list'>
+								<span className='label'>No of Days</span>
+								<span className='value'>{carInquiry.no_of_days}</span>
+							</div>
+							<div className='list'>
+								<span className='label'>Trip Type</span>
+								{carInquiry.within_city && <span className='value'>Within City</span>}
+								{carInquiry.airport_transfer && <span className='value'>Aiport Transfer</span>}
+							</div>
 						</div>
-
-						<table className='table table-striped table-hover table-sm' ref='main'>
-							<thead>
-								<tr>
-                                    <th>Car Id</th>
-                                    <th>No of Passenger</th>
-                                    <th>Source</th>
-                                    <th>Destination</th>
-                                    <th>Start Date</th>
-									<th>Car Type</th>
-									<th>No of days</th>
-                                    <th>Airport Transfer</th>
-                                    <th>Within City</th>
-									<th>Created At</th>
-								</tr>
-							</thead>
-                            
-							<tbody>
-                                <tr>
-                                    <td>{carInquiry.car != null ? carInquiry.car.id : ''}</td>
-                                    <td>{carInquiry.no_of_pax}</td>
-                                    <td>{carInquiry.source}</td>
-                                    <td>{carInquiry.destination}</td>
-                                    <td>{carInquiry.start_date}</td>
-                                    <td>{carInquiry.car_type}</td>
-                                    <td>{carInquiry.no_of_days} </td>
-                                    <td>
-                                        <Badge type={carInquiry.airport_transfer}>
-                                            {carInquiry.airport_transfer ? 'True' : 'False'}
-                                        </Badge>
-                                    </td>
-                                    <td>
-                                        <Badge type={carInquiry.within_city}>
-                                            {carInquiry.within_city ? 'True' : 'False'}
-                                        </Badge>
-                                    </td>
-
-                                    <td>{carInquiry.created_at}</td>
-                                </tr>
-							</tbody>
-						</table>
 					</Card.Content>
-                </Card>
-
-            </div>
-
-				
+				</Card>
+			</div>
 		);
 	}
 }

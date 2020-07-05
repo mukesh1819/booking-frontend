@@ -25,10 +25,11 @@ class CarBookingForm extends Component {
 	}
 
 	render() {
+		debugger;
 		const {car_inquiry_idx} = this.props.match.params != null ? this.props.match.params : {car_inquiry_idx: null};
 		const {car_idx} = this.props.match.params != null ? this.props.match.params : {car_idx: null};
 		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
-		const {carInquiryDetails, currentUser} = this.props;
+		const {inquiry, currentUser, car} = this.props;
 		const BookingSchema = yup.object().shape({
 			contact_name: textValidate(yup).required('Required'),
 			contact_email: yup.string().email().required('Required'),
@@ -52,9 +53,9 @@ class CarBookingForm extends Component {
 			car_inquiry_idx: carBooking.car_inquiry != null ? carBooking.car_inquiry.idx : car_inquiry_idx,
 			pickup_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
-			pickup_location: carInquiryDetails.airport_pickup ? carInquiryDetails.source : carBooking.pickup_location,
+			pickup_location: inquiry.airport_pickup ? inquiry.source : carBooking.pickup_location,
 			drop_off_date: carBooking.drop_off_date == null ? new Date() : new Date(carBooking.drop_off_date),
-			drop_off_location: carInquiryDetails.airport_dropoff ? carInquiryDetails.destination : carBooking.drop_off_location,
+			drop_off_location: inquiry.airport_dropoff ? inquiry.destination : carBooking.drop_off_location,
 			remarks: carBooking.remarks,
 			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),
 			flight_no: carBooking.flight_no,
@@ -63,6 +64,7 @@ class CarBookingForm extends Component {
 
 		return (
 			<div className='container bg-white'>
+				<div className='ui info message fludi'>Estimated Price: {car.price * inquiry.no_of_days}</div>
 				<Formik
 					initialValues={bookingDetails}
 					validationSchema={BookingSchema}
@@ -188,7 +190,7 @@ class CarBookingForm extends Component {
 											</div>
 										</div>
 
-										{carInquiryDetails.airport_transfer && (
+										{inquiry.airport_transfer && (
 											<Fragment>
 												<div className='col-12 col-md-6'>
 													<div className='field-box col'>
@@ -381,7 +383,8 @@ class CarBookingForm extends Component {
 
 const mapStateToProps = ({rentalStore, userStore}) => {
 	return {
-		carInquiryDetails: rentalStore.carInquiryDetails,
+		inquiry: rentalStore.carInquiryDetails,
+		car: rentalStore.selectedCar,
 		currentUser: userStore.currentUser
 	};
 };

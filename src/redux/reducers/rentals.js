@@ -1,5 +1,6 @@
 const initialState = {
-    carInquiryDetails: {}
+    carInquiryDetails: {},
+    selectedCar: {}
 };
 
 export default function (state = initialState, action) {
@@ -8,6 +9,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 carInquiryDetails: action.payload
+            };
+        }
+        case "SELECT_CAR": {
+            return {
+                ...state,
+                selectedCar: action.payload
             };
         }
         default:

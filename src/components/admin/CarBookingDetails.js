@@ -1,36 +1,38 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
-import {getCarBookingConfirmation, declineCarBooking, deleteCarBooking, showUserCarBooking} from '../../api/carBookingApi';
+import {
+	getCarBookingConfirmation,
+	declineCarBooking,
+	deleteCarBooking,
+	showUserCarBooking
+} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Badge} from '../shared';
 
-
 class CarBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			carBooking: {},
+			carBooking: {car_inquiry: {}},
 			loading: false
-			
-        };
+		};
 	}
 
 	componentDidMount() {
 		this.fetchDetails();
-    }
+	}
 
-    fetchDetails() {
-        showUserCarBooking(this.props.match.params.idx)
-        .then((response) => {
-            this.setState({
-                carBooking: response.data
-            });
-        })
-    }
+	fetchDetails() {
+		showUserCarBooking(this.props.match.params.idx).then((response) => {
+			this.setState({
+				carBooking: response.data
+			});
+		});
+	}
 
 	onConfirmCarBooking(id) {
 		getCarBookingConfirmation(id)
@@ -46,10 +48,10 @@ class CarBookingDetails extends Component {
 			.catch((error) => {
 				console.log('Car booking confirmation error', error);
 			});
-    }
-	
-    onDeclineCarBooking(id){
-        declineCarBooking(id)
+	}
+
+	onDeclineCarBooking(id) {
+		declineCarBooking(id)
 			.then((response) => {
 				swal({
 					title: 'Car Booking Rejection!',
@@ -63,7 +65,7 @@ class CarBookingDetails extends Component {
 				console.log('Car booking Rejection error', error);
 			});
 	}
-	
+
 	download = (idx) => {
 		fetchTicket(idx).then((response) => {
 			this.setState({
@@ -72,7 +74,6 @@ class CarBookingDetails extends Component {
 			downloadTicket(response.data);
 		});
 	};
-
 
 	destroyCarBooking(id) {
 		// deletePackageBooking(id)
@@ -119,96 +120,39 @@ class CarBookingDetails extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h3>Car Booking</h3>
-					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
-						<thead>
-							<tr>
-								<th>idx</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Mobile Number</th>
-                                <th>Car Type</th>
-								<th>Amount</th>
-								<th>booking_transaction_id</th>
-								<th>Status</th>
-								<th>Pickup Date</th>
-								<th>Pickup Location</th>
-								<th>Drop Off Date</th>
-								<th>Drop Off location</th>
-								<th>Remarks</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-                        
-						<tbody>
-                            {carBooking.idx != null &&(
-
-							<tr>
-								<td>{carBooking.idx}</td>
-								<td>{carBooking.contact_name} </td>
-								<td>{carBooking.contact_email} </td>
-								<td>{carBooking.mobile_no}</td>
-								<td>{carBooking.car_inquiry.car_type}</td>
-								<td>{carBooking.amount}</td>
-								<td>{carBooking.booking_transaction_id}</td>
-								<td>{carBooking.status}</td>
-								<td>{carBooking.pickup_date}</td>
-								<td>{carBooking.pickup_location}</td>
-								<td>{carBooking.drop_off_date}</td>
-								<td>{carBooking.drop_off_location}</td>
-								<td>{carBooking.remarks}</td>
-								<td>
-									{carBooking.status === 'verified' && 
-										<span className='text-center py-4'>
-											<Button
-												primary
-												loading={loading}
-												className='btn btn-primary btn-large '
-												onClick={() => this.download(carBooking.idx)}
-											>
-												Download ticket
-											</Button>
-										</span>
-									}
-								</td>
-                                <td>
-                                    <span>
-                                        <Link
-                                            to={{
-                                                pathname: `/car_bookings/${carBooking.idx}/edit`,
-                                                state: {
-                                                    carBooking: carBooking
-                                                }
-                                            }}
-                                        >
-                                            <i className='fas fa-contact' />
-                                            <span className='btn bg-none text-primary'>edit</span>
-                                        </Link>
-                                    </span>
-                                </td>
-								{(carBooking.status == 'pending' || carBooking.status == 'declined') &&
-									<td>
-										<span
-											className='btn btn-secondary'
-											onClick={() => this.onConfirmCarBooking(carBooking.idx)}
+					<div className='row'>
+						<div className='col-12 col-md-3 offset-md-2 '>
+							<div className=''>
+								<i className='fas fa-car fa-3x' />
+								<h3 className='title'>
+									{carBooking.first_name}&nbsp;
+									{carBooking.last_name}
+								</h3>
+								<div className=''>
+									Status:&nbsp;<Badge type={carBooking.status}>{carBooking.status}</Badge>
+								</div>
+								<div>IDx: {carBooking.idx}</div>
+								<div>Car Type: {carBooking.car_inquiry.car_type}</div>
+								<div>Amount: {carBooking.amount}</div>
+								<h3 className='title' />
+								{carBooking.status === 'verified' && (
+									<span className='text-center py-4'>
+										<a
+											href='#'
+											primary
+											loading={loading}
+											className='text-danger text-bold'
+											onClick={(e) => {
+												e.preventDefault();
+												this.download(carBooking.idx);
+											}}
 										>
-											confirm
-										</span>
-									</td>
-								} 
+											Download ticket
+										</a>
+									</span>
+								)}
 
-								{(carBooking.status == 'pending' || carBooking.status == 'processing') &&
-									<td>
-										<span
-											className='btn btn-secondary'
-											onClick={() => this.onDeclineCarBooking(carBooking.idx)}
-										>
-											decline
-										</span>
-									</td>
-								}
-
-								{(carBooking.status == 'processing') &&
+								{carBooking.status == 'processing' && (
 									<td>
 										<span>
 											<Link
@@ -222,59 +166,129 @@ class CarBookingDetails extends Component {
 												<i className='fas fa-contact' />
 												<span className='btn bg-none text-primary'>assign partner</span>
 											</Link>
-                                    	</span>
+										</span>
 									</td>
-								} 
+								)}
+							</div>
+						</div>
 
-								<td>
-									<span
-										className='btn bg-none text-danger'
-										onClick={() => this.destroyCarBooking(carBooking.idx)}
-									>
-										Delete
-									</span>
-								</td>
-							</tr>
-                            )}
-						</tbody>
-					</table>
+						<div className='col-12 col-md-5'>
+							<div className='list-view'>
+								<h3 className='title'>Car Booking Details</h3>
+								<div className='list'>
+									<span className='label'>Pickup Time</span>
+									<span className='value'>{carBooking.pickup_date}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Drop off Time</span>
+									<span className='value'>{carBooking.drop_off_date}</span>
+								</div>
 
-					<h3>Car Inquiry Details</h3>
-					
-					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
-						<thead>
-							<tr>
-								<th>No of Passenger</th>
-								<th>Source </th>
-								<th>Destination</th>
-								<th>Within City</th>
-                                <th>No of Days</th>
-								<th>Airport Transfer</th>
-								
-							</tr>
-						</thead>
-                        
-						<tbody>
-							{carBooking.car_inquiry != null && (
-								<tr>
-									<td>{carBooking.car_inquiry.no_of_pax}</td>
-									<td>{carBooking.car_inquiry.source}</td>
-									<td>{carBooking.car_inquiry.destination}</td>
-									<td>
-										<Badge type={carBooking.car_inquiry.within_city}>
-													{carBooking.car_inquiry.within_city ? 'True' : 'False'}
-										</Badge>
-									</td>
-									<td>{carBooking.car_inquiry.no_of_days}</td>
-									<td>
-										<Badge type={carBooking.car_inquiry.airport_transfer}>
-													{carBooking.car_inquiry.airport_transfer ? 'True' : 'False'}
-										</Badge>
-									</td>
-								</tr>
+								<div className='list'>
+									<span className='label'>Pickup Location</span>
+									<span className='value'>{carBooking.pickup_location}</span>
+								</div>
+
+								<div className='list'>
+									<span className='label'>Drop off Location</span>
+									<span className='value'>{carBooking.drop_off_location}</span>
+								</div>
+							</div>
+
+							<div className='list-view'>
+								<h3 className='title'>Contact Details</h3>
+								<div className='list'>
+									<span className='label'>Name</span>
+									<span className='value'>{carBooking.contact_name}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Email</span>
+									<span className='value'> {carBooking.contact_email}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Mobile No</span>
+									<span className='value'>{carBooking.mobile_no}</span>
+								</div>
+							</div>
+
+							{carBooking.flight_no && (
+								<div className='list-view'>
+									<h3 className='title'>Flight Details</h3>
+									<div className='list'>
+										<span className='label'>Flight Number</span>
+										<span className='value'>{carBooking.flight_no}</span>
+									</div>
+									<div className='list'>
+										<span className='label'>Flight Time</span>
+										<span className='value'> {carBooking.flight_time}</span>
+									</div>
+								</div>
 							)}
-						</tbody>
-					</table>
+
+							<div className='list-view'>
+								<h3 className='title'>Inquiry Details</h3>
+								<div className='list'>
+									<span className='label'>Number of pax</span>
+									<span className='value'>{carBooking.car_inquiry.no_of_pax}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Source</span>
+									<span className='value'>{carBooking.car_inquiry.source}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Destination</span>
+									<span className='value'>{carBooking.car_inquiry.destination}</span>
+								</div>
+								<div className='list'>
+									<span className='label'>Aiport Transfer</span>
+									<span className='value'>
+										<Badge type={carBooking.car_inquiry.within_city}>
+											{carBooking.car_inquiry.within_city ? 'True' : 'False'}
+										</Badge>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className='text-center'>
+						{(carBooking.status == 'pending' || carBooking.status == 'declined') && (
+							<span
+								className='btn btn-success m-2'
+								onClick={() => this.onConfirmCarBooking(carBooking.idx)}
+							>
+								confirm
+							</span>
+						)}
+
+						{(carBooking.status == 'pending' || carBooking.status == 'processing') && (
+							<span
+								className='btn btn-outline-danger m-2'
+								onClick={() => this.onDeclineCarBooking(carBooking.idx)}
+							>
+								decline
+							</span>
+						)}
+
+						<Link
+							className='m-2'
+							to={{
+								pathname: `/car_bookings/${carBooking.idx}/edit`,
+								state: {
+									carBooking: carBooking
+								}
+							}}
+						>
+							<i className='fas fa-contact' />
+							<span className='btn btn-primary'>edit</span>
+						</Link>
+
+						{/* <span
+							className='btn btn-danger'
+							onClick={() => this.destroyCarBooking(carBooking.idx)}
+						>
+							Delete
+						</span> */}
+					</div>
 				</div>
 			</div>
 		);

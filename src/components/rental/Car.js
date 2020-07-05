@@ -2,9 +2,12 @@ import React from 'react';
 import {Segment, Header, Icon, Grid, Card, Divider, Search, Button} from 'semantic-ui-react';
 import {isRefundable, numberWithCommas} from '../../helpers';
 import {BASE_URL} from '../../constants';
+import {Badge} from '../shared';
+import {connect} from 'react-redux';
+import history from '../../history';
 
-export default function Car(props) {
-	const {car} = props;
+const Car = function(props) {
+	const {car, currentUser} = props;
 
 	return (
 		<div class='mb-4'>
@@ -33,10 +36,14 @@ export default function Car(props) {
 									{/* <i className='fas fa-map-marker-alt' />&nbsp; */}
 									{'With Carrier'}
 								</span>
-								<span className='text-small text-muted'>
+								<div className='text-small text-muted'>
 									{/* <i className='fas fa-clock' />&nbsp; */}
-									{car.duration}
-								</span>
+									<div>{car.duration}</div>
+									<div>No. of Seats: {car.no_of_seats}</div>
+									<div>
+										Status: <Badge type={car.status}>{car.status}</Badge>
+									</div>
+								</div>
 							</Grid.Column>
 
 							<Grid.Column verticalAlign='middle' textAlign='center'>
@@ -46,6 +53,17 @@ export default function Car(props) {
 										<span className='text-small text-muted'>/day</span>
 									</h2>
 									<button className='ui primary button'>Select</button>
+									{currentUser.role === 'Admin' &&
+									car.partner != undefined && (
+										<button
+											onClick={() => {
+												history.push(`/admin/partner/${car.partner.idx}`);
+											}}
+											className='ui primary button'
+										>
+											Partner Details
+										</button>
+									)}
 								</div>
 							</Grid.Column>
 						</Grid.Row>
@@ -54,4 +72,14 @@ export default function Car(props) {
 			</Card>
 		</div>
 	);
-}
+};
+
+const mapStateToProps = ({userStore}) => {
+	return {
+		currentUser: userStore.currentUser
+	};
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Car);

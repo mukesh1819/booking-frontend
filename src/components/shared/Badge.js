@@ -20,6 +20,9 @@ export default ({type = 'light', content, children}) => {
 		case 'approved':
 			design = 'success';
 			break;
+		case 'active':
+			design = 'success';
+			break;
 
 		case 'cancelled':
 			design = 'danger';

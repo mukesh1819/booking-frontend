@@ -113,11 +113,52 @@ class CarForm extends Component {
 										<div className='input-section'>
 											<div className='row'>
 												<div className='col-12 col-md-6'>
+													<h3 className='title'>Add Car</h3>
+													<div className='text-center'>
+														{values.image && <img src={values.image} />}
+														{!values.image && <i className='huge car icon' />}
+													</div>
+													<label for='file'>Upload Image</label>
+													<input
+														id='image'
+														name='image'
+														type='file'
+														onChange={(event) => {
+															var file = event.target.files[0];
+															var reader = new FileReader();
+															reader.onload = function(item) {
+																setFieldValue('image', item.target.result);
+															};
+															reader.readAsDataURL(file);
+														}}
+														className='form-control'
+														multiple
+													/>
+													<ErrorMessage name='image' />
+
+													<div className='field-box'>
+														<label htmlFor=''>Details</label>
+														<TextArea
+															className='form-control'
+															name='details'
+															placeholder='detail'
+															onBlur={handleBlur}
+															onChange={(e, data) => {
+																setFieldValue(`details`, e.target.value);
+															}}
+															value={values.details}
+														/>
+														<ErrorMessage name='details' />
+													</div>
+												</div>
+												<div className='col-12 col-md-6'>
 													<div className='field-box'>
 														<Form.Field>
 															<label>Car Type</label>
 															<Form.Input
 																fluid
+																icon='car icon'
+																iconPosition='left'
 																name='car_type'
 																onBlur={handleBlur}
 																onChange={handleChange}
@@ -127,16 +168,12 @@ class CarForm extends Component {
 
 														<ErrorMessage name='car_type' />
 													</div>
-												</div>
-											</div>
-											<div className='row'>
-												<div className='col-12 col-md-6'>
 													<div className='field-box'>
 														<Form.Field>
 															<label>Price</label>
 															<Form.Input
 																fluid
-																icon='fas fa-mail-bulk'
+																icon='money icon'
 																iconPosition='left'
 																name='price'
 																onBlur={handleBlur}
@@ -147,16 +184,12 @@ class CarForm extends Component {
 
 														<ErrorMessage name='price' />
 													</div>
-												</div>
-											</div>
-											<div className='row'>
-												<div className='col-12 col-md-6'>
 													<div className='field-box'>
 														<Form.Field>
 															<label>Number of seats</label>
 															<Form.Input
 																fluid
-																icon='fas fa-mail-bulk'
+																icon='users icon'
 																iconPosition='left'
 																name='no_of_seats'
 																type='number'
@@ -169,38 +202,14 @@ class CarForm extends Component {
 														</Form.Field>
 														<ErrorMessage name='no_of_seats' />
 													</div>
-												</div>
-											</div>
-
-											<div>
-												<label for='file'>File upload</label>
-												<input
-													id='image'
-													name='image'
-													type='file'
-													onChange={(event) => {
-														var file = event.target.files[0];
-														var reader = new FileReader();
-														reader.onload = function(item) {
-															setFieldValue('image', item.target.result);
-														};
-														reader.readAsDataURL(file);
-													}}
-													className='form-control'
-													multiple
-												/>
-												<img src={values.image} />
-												<ErrorMessage name='image' />
-											</div>
-
-											<div className='row'>
-												<div className='col-12 col-md-6'>
 													<div className='field-box'>
-														<label>Select Partners</label>
+														<label>Select Partner</label>
 														<Dropdown
-															className=''
+															className='icon btn-dropdown'
 															name='partner_id'
-															placeholder='Select Partners'
+															icon='user icon'
+															iconPosition='left'
+															placeholder='Select Partner'
 															onBlur={handleBlur}
 															onChange={(e, data) => {
 																setFieldValue(`partner_id`, data.value);
@@ -220,25 +229,16 @@ class CarForm extends Component {
 														/>
 													</div>
 												</div>
+												<div className='col-12 col-md-6' />
+											</div>
+											<div className='row'>
+												<div className='col-12 col-md-6' />
+
+												<div className='col-12 col-md-6' />
 											</div>
 
 											<div className='row'>
-												<div className='col-12 col-md-6'>
-													<div className='field-box'>
-														<label htmlFor=''>Details</label>
-														<TextArea
-															className='form-control'
-															name='details'
-															placeholder='detail'
-															onBlur={handleBlur}
-															onChange={(e, data) => {
-																setFieldValue(`details`, e.target.value);
-															}}
-															value={values.details}
-														/>
-														<ErrorMessage name='details' />
-													</div>
-												</div>
+												<div className='col-12 col-md-6' />
 											</div>
 										</div>
 

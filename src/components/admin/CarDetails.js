@@ -3,27 +3,27 @@ import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
 import {deactivateCar, activateCar, showCar, deleteCar} from '../../api/carApi';
+import {Car} from '../rental';
 
 class CarDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            car: {}
-        };
+			car: {image: []}
+		};
 	}
 
 	componentDidMount() {
 		this.fetchDetails();
-    }
+	}
 
-    fetchDetails() {
-        showCar(this.props.match.params.idx)
-        .then((response) => {
-            this.setState({
-                car: response.data
-            });
-        })
-    }
+	fetchDetails() {
+		showCar(this.props.match.params.idx).then((response) => {
+			this.setState({
+				car: response.data
+			});
+		});
+	}
 
 	onCarActivate(id) {
 		activateCar(id)
@@ -35,15 +35,14 @@ class CarDetails extends Component {
 					button: 'Continue!'
 				});
 				history.push('/admin/cars');
-
 			})
 			.catch((error) => {
 				console.log('Car activation error', error);
 			});
-    }
-    
-    onCarDeactivate(id){
-        deactivateCar(id)
+	}
+
+	onCarDeactivate(id) {
+		deactivateCar(id)
 			.then((response) => {
 				swal({
 					title: 'Car Deactivated!',
@@ -56,7 +55,7 @@ class CarDetails extends Component {
 			.catch((error) => {
 				console.log('Car deactivation error', error);
 			});
-    }
+	}
 
 	destroyCar(id) {
 		// deletePackageBooking(id)
@@ -103,84 +102,38 @@ class CarDetails extends Component {
 		return (
 			<div className='container'>
 				<div className=''>
-					<h5>Car Details</h5>
-					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
-						<thead>
-							<tr>
-                                <th>Idx</th>
-                                <th>Car Type</th>
-                                <th>Image</th>
-                                <th>No of seats</th>
-                                <th>Price</th>
-                                <th>Details</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                {/* <th>Partner Name</th> */}
-                                <th>Actions</th>
-							</tr>
-						</thead>
-                        
-						<tbody>
-                            {car.idx != null &&(
+					<h3 className='title'>Car Details</h3>
+					<Car car={car} />
+					<div className='text-center'>
+						<span className='m-2'>
+							<Link
+								to={{
+									pathname: `/admin/car/${car.idx}/edit`,
+									state: {
+										car: car
+									}
+								}}
+							>
+								<i className='fas fa-contact' />
+								<span className='btn btn-primary'>edit</span>
+							</Link>
+						</span>
+						{car.status == 'inactive' && (
+							<span className='btn btn-success m-2' onClick={() => this.onCarActivate(car.idx)}>
+								activate
+							</span>
+						)}
 
-							<tr>
-								<td>{car.idx}</td>
-								<td>{car.car_type} </td>
-								<td>{car.image} </td>
-								<td>{car.no_of_seats}</td>
-								<td>{car.price}</td>
-								<td>{car.details}</td>
-								<td>{car.status}</td>
-								<td>{car.created_at}</td>
-								{/* <td>{car.partner.id}</td> */}
-                                <td>
-                                    <span>
-                                        <Link
-                                            to={{
-                                                pathname: `/admin/car/${car.idx}/edit`,
-                                                state: {
-                                                    car: car
-                                                }
-                                            }}
-                                        >
-                                            <i className='fas fa-contact' />
-                                            <span className='btn bg-none text-primary'>edit</span>
-                                        </Link>
-                                    </span>
-                                </td>
-								{car.status == 'inactive' &&
-									<td>
-										<span
-											className='btn btn-secondary'
-											onClick={() => this.onCarActivate(car.idx)}
-										>
-											activate
-										</span>
-									</td>
-								} 
+						{car.status == 'active' && (
+							<span className='btn btn-outline-danger m-2' onClick={() => this.onCarDeactivate(car.idx)}>
+								deactivate
+							</span>
+						)}
 
-								{car.status == 'active'  &&
-									<td>
-										<span
-											className='btn btn-secondary'
-											onClick={() => this.onCarDeactivate(car.idx)}
-										>
-											deactivate
-										</span>
-									</td>
-								}
-								<td>
-									<span
-										className='btn bg-none text-danger'
-										onClick={() => this.destroyCar(car.idx)}
-									>
-										Delete
-									</span>
-								</td>
-							</tr>
-                            )}
-						</tbody>
-					</table>
+						<span className='btn btn-danger m-2' onClick={() => this.destroyCar(car.idx)}>
+							Delete
+						</span>
+					</div>
 				</div>
 			</div>
 		);

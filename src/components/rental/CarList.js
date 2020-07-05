@@ -11,6 +11,7 @@ import CarInquiryForm from './CarInquiryForm';
 import SearchDetails from './SearchDetails';
 import {Car} from '.';
 import CarDetails from './CarDetails';
+import {selectCar} from '../../redux/actions';
 
 const SORTS = {
 	NONE: (list) => list,
@@ -54,7 +55,7 @@ class CarList extends Component {
 		};
 
 		// this.onFlightSelect = this.onFlightSelect.bind(this);
-		this.onViewDetails = this.onViewDetails.bind(this);
+		this.onCarSelect = this.onCarSelect.bind(this);
 		this.onSort = this.onSort.bind(this);
 		this.setSearch = this.setSearch.bind(this);
 		this.setLoading = this.setLoading.bind(this);
@@ -69,12 +70,13 @@ class CarList extends Component {
 		});
 	}
 
-	onViewDetails(car) {
+	onCarSelect(car) {
 		this.setState((state, props) => {
 			return {
 				selectedCar: state.selectedCar == null ? car : null
 			};
 		});
+		this.props.selectCar(car);
 	}
 
 	onBook(params) {
@@ -191,7 +193,7 @@ class CarList extends Component {
 
 					<div className='col-12 col-md-10'>
 						{cars.map((car) => (
-							<div className='' onClick={() => this.onViewDetails(car)} className=''>
+							<div className='' onClick={() => this.onCarSelect(car)} className=''>
 								<Car car={car} />
 							</div>
 						))}
@@ -201,7 +203,7 @@ class CarList extends Component {
 					title='Car Details'
 					buttonLabel='Continue'
 					show={selectedCar !== null}
-					toggle={this.onViewDetails}
+					toggle={this.onCarSelect}
 					onSuccess={this.onBook}
 				>
 					{selectedCar && <CarDetails car={selectedCar} inquiry={carInquiryDetails} />}
@@ -216,6 +218,6 @@ const mapStateToProps = ({rentalStore}) => {
 	};
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {selectCar};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarList);
