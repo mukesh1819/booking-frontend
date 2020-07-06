@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
-import {deactivateCar, activateCar, showCar, deleteCar} from '../../api/carApi';
+import {deactivateCar, activateCar, showAdminCar, deleteCar} from '../../api/carApi';
 import {Car} from '../rental';
 
 class CarDetails extends Component {
@@ -18,7 +18,7 @@ class CarDetails extends Component {
 	}
 
 	fetchDetails() {
-		showCar(this.props.match.params.idx).then((response) => {
+		showAdminCar(this.props.match.params.idx).then((response) => {
 			this.setState({
 				car: response.data
 			});

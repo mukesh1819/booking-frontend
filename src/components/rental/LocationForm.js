@@ -28,9 +28,10 @@ class LocationForm extends Component {
 	render() {
 		const {location} = this.props.location.state != null ? this.props.location.state : {location: {}};
 		const {partners} = this.state;
+
 		const locationDetails = {
 			name: location.name,
-			location_type: location.type
+			location_type: location.location_type
 		};
 
 		const LocationSchema = yup.object().shape({
