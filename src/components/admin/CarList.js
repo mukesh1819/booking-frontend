@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import {getCars} from '../../api/carApi';
+import {getCarsForAdmin} from '../../api/carApi';
 import swal from 'sweetalert';
 import {Badge} from '../shared';
 import FilterForm from './FilterForm';
@@ -36,7 +36,7 @@ class PackagesList extends Component {
 	}
 
 	fetchCars = (params) => {
-		getCars(params)
+		getCarsForAdmin(params)
 			.then((response) => {
 				// console.log('List of Packages', response.data);
 				this.setState({

@@ -12,6 +12,14 @@ export function getCars(params) {
 	});
 }
 
+export function getCarsForAdmin(params) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/admin/cars`,
+		params: params
+	});
+}
+
 export function createCar(data) {
 	return axios({
 		method: 'post',
@@ -24,6 +32,13 @@ export function showCar(id) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/cars/${id}`
+	});
+}
+
+export function showAdminCar(id) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/admin/cars/${id}`
 	});
 }
 

@@ -20,7 +20,7 @@ class CarForm extends Component {
 
 	componentDidMount() {
 		var params = {};
-		params['q[partner_type_eq]'] = 'rental';
+		params['q[company_type_cont]'] = 'vehicle rental';
 		this.fetchDetails(params);
 	}
 
