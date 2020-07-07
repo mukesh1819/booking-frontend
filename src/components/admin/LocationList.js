@@ -141,7 +141,7 @@ class LocationList extends Component {
 									label: 'Airport',
 									value: 'airport'
 								},
-								
+
 								{
 									label: 'City',
 									value: 'city'
@@ -180,7 +180,7 @@ class LocationList extends Component {
 											<td>{location.location_type} </td>
 											<td>{location.created_at}</td>
 											<td>
-												<Link
+												{/* <Link
 													to={{
 														pathname: `/admin/location_details/${location.idx}`,
 														state: {
@@ -190,7 +190,7 @@ class LocationList extends Component {
 												>
 													<i className='fas fa-contact' />
 													<span className='btn bg-none text-primary'>view</span>
-												</Link>
+												</Link> */}
 
 												<Link
 													to={{

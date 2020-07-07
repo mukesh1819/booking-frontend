@@ -40,140 +40,138 @@ class LocationForm extends Component {
 
 		return (
 			<div className='container'>
-				<div className='card'>
-					<div className='card-body'>
-						{/* <form onSubmit={this.uploadImages}>
+				<div className='row'>
+					<div className='col-12 col-md-4 offset-md-4'>
+						<div className='card'>
+							<div className='card-body'>
+								{/* <form onSubmit={this.uploadImages}>
 							<input id='package_images' name='package[images[]]' type='file' multiple />
 							<input type='submit' />
 						</form> */}
-						<h3>Location Form</h3>
-						<Formik
-							initialValues={locationDetails}
-							validationSchema={LocationSchema}
-							onSubmit={(values, {setSubmitting}) => {
-								if (location.idx != null) {
-									updateLocation(location.idx, values)
-										.then((response) => {
-											setSubmitting(false);
-											// this.uploadImages(response.data.idx);
-											swal({
-												title: 'location updated Successful!',
-												text: response.data.message,
-												icon: 'success',
-												button: 'continue!'
-											}).then((value) => {
-												history.push('/admin/locations');
-											});
-										})
-										.catch((error) => {
-											// console.log('Create Package Error', error);
-											setSubmitting(false);
-											console.log(' location update error', error);
-										});
-								} else {
-									createLocation(values)
-										.then((response) => {
-											setSubmitting(false);
-											// this.uploadImages(response.data.idx);
-											swal({
-												title: 'location created Success!',
-												text: response.data.message,
-												icon: 'success',
-												button: 'continue!'
-											}).then((value) => {
-												history.push('/');
-											});
-										})
-										.catch((error) => {
-											// console.log('Create Package Error', error);
-											setSubmitting(false);
-											console.log(' location create error', error);
-										});
-								}
-							}}
-						>
-							{({
-								values,
-								errors,
-								touched,
-								handleChange,
-								handleBlur,
-								handleSubmit,
-								isSubmitting,
-								setFieldValue
-								/* and other goodies */
-							}) => {
-								return (
-									<form onSubmit={handleSubmit}>
-										<div className='input-section'>
-											<div className='row'>
-												<div className='col-12 col-md-6'>
-													<div className='field-box'>
-														<label>Select Type</label>
-														<Dropdown
-															className=''
-															name='location_type'
-															placeholder='Select Location Type'
-															onBlur={handleBlur}
-															onChange={(e, data) => {
-																setFieldValue(`location_type`, data.value);
-															}}
-															value={values.location_type}
-															fluid
-															search
-															selection
-															options={[
-																{
-																	id: 1,
-																	value: 'city',
-																	text: 'city'
-																},
-
-																{
-																	id: 2,
-																	value: 'airport',
-																	text: 'airport'
-																}
-															]}
-														/>
-														<ErrorMessage name='type' />
-													</div>
-												</div>
-											</div>
-
-											<div className='row'>
-												<div className='col-12 col-md-6'>
-													<div className='field-box'>
-														<Form.Field>
-															<label>Location Name</label>
-															<Form.Input
-																fluid
-																name='name'
+								<div className='container'>
+									<h3>Location Form</h3>
+									<Formik
+										initialValues={locationDetails}
+										validationSchema={LocationSchema}
+										onSubmit={(values, {setSubmitting}) => {
+											if (location.idx != null) {
+												updateLocation(location.idx, values)
+													.then((response) => {
+														setSubmitting(false);
+														// this.uploadImages(response.data.idx);
+														swal({
+															title: 'location updated Successful!',
+															text: response.data.message,
+															icon: 'success',
+															button: 'continue!'
+														}).then((value) => {
+															history.push('/admin/locations');
+														});
+													})
+													.catch((error) => {
+														// console.log('Create Package Error', error);
+														setSubmitting(false);
+														console.log(' location update error', error);
+													});
+											} else {
+												createLocation(values)
+													.then((response) => {
+														setSubmitting(false);
+														// this.uploadImages(response.data.idx);
+														swal({
+															title: 'location created Success!',
+															text: response.data.message,
+															icon: 'success',
+															button: 'continue!'
+														}).then((value) => {
+															history.push('/');
+														});
+													})
+													.catch((error) => {
+														// console.log('Create Package Error', error);
+														setSubmitting(false);
+														console.log(' location create error', error);
+													});
+											}
+										}}
+									>
+										{({
+											values,
+											errors,
+											touched,
+											handleChange,
+											handleBlur,
+											handleSubmit,
+											isSubmitting,
+											setFieldValue
+											/* and other goodies */
+										}) => {
+											return (
+												<form onSubmit={handleSubmit}>
+													<div className='input-section'>
+														<div className='field-box'>
+															<label>Select Type</label>
+															<Dropdown
+																className=''
+																name='location_type'
+																placeholder='Select Location Type'
 																onBlur={handleBlur}
-																onChange={handleChange}
-																value={values.name}
+																onChange={(e, data) => {
+																	setFieldValue(`location_type`, data.value);
+																}}
+																value={values.location_type}
+																fluid
+																search
+																selection
+																options={[
+																	{
+																		id: 1,
+																		value: 'city',
+																		text: 'city'
+																	},
+
+																	{
+																		id: 2,
+																		value: 'airport',
+																		text: 'airport'
+																	}
+																]}
 															/>
-														</Form.Field>
+															<ErrorMessage name='type' />
+														</div>
 
-														<ErrorMessage name='name' />
+														<div className='field-box'>
+															<Form.Field>
+																<label>Location Name</label>
+																<Form.Input
+																	fluid
+																	name='name'
+																	onBlur={handleBlur}
+																	onChange={handleChange}
+																	value={values.name}
+																/>
+															</Form.Field>
+
+															<ErrorMessage name='name' />
+														</div>
 													</div>
-												</div>
-											</div>
-										</div>
 
-										<div class='text-center'>
-											<button
-												className='btn btn-secondary m-2'
-												type='submit'
-												disabled={isSubmitting}
-											>
-												Submit
-											</button>
-										</div>
-									</form>
-								);
-							}}
-						</Formik>
+													<div class='text-center'>
+														<button
+															className='btn btn-secondary m-2'
+															type='submit'
+															disabled={isSubmitting}
+														>
+															Submit
+														</button>
+													</div>
+												</form>
+											);
+										}}
+									</Formik>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -169,7 +169,10 @@ class InquiryList extends Component {
 										<div className='col-1'>
 											<Link
 												to={{
-													pathname: `/admin/inquiry_details/${inquiry.package.idx}`
+													pathname: `/admin/inquiry_details/${inquiry.package.idx}`,
+													state: {
+														inquiry: inquiry
+													}
 												}}
 											>
 												<i className='fas fa-contact' />

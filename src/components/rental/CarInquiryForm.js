@@ -154,6 +154,7 @@ class CarInquiryForm extends Component {
 										className={!values.within_city ? 'active' : ''}
 										onClick={() => {
 											setFieldValue('within_city', false);
+											setFieldValue('airport_transfer', false);
 											setFieldValue('destination', '');
 										}}
 									>
@@ -163,6 +164,7 @@ class CarInquiryForm extends Component {
 										className={values.within_city ? 'active' : ''}
 										onClick={() => {
 											setFieldValue('within_city', true);
+											setFieldValue('airport_transfer', false);
 											setFieldValue('destination', values.source);
 										}}
 									>
@@ -171,6 +173,7 @@ class CarInquiryForm extends Component {
 									<span
 										className={values.airport_transfer ? 'active' : ''}
 										onClick={() => {
+											setFieldValue('within_city', false);
 											setFieldValue('airport_transfer', true);
 										}}
 									>
