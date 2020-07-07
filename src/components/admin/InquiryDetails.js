@@ -19,7 +19,7 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
-import {confirmInquiry, assignPartner} from '../../api/inquiryApi';
+import {confirmInquiry, assignPartner, updateAssignPartner} from '../../api/inquiryApi';
 import {getPackageBookingDetails} from '../../api/packageBookingApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
 import PartnerServiceForm from './PartnerServiceForm';
@@ -157,7 +157,7 @@ class InquiryDetails extends Component {
 		});
 
 		const partner_service = {
-			partner_id: 1,
+			partner_id: '',
 			name: '',
 			details: '',
 
@@ -187,10 +187,9 @@ class InquiryDetails extends Component {
 			meals_included: false,
 			remarks: ''
 		};
-
 		const partnerServiceDetails = {
 			partner_services_attributes:
-				packageBooking.idx == undefined ? [partner_service] : packageBooking.partner_services
+				(packageBooking.idx != undefined && packageBooking.partner_services.length > 0) ? packageBooking.partner_services : [partner_service]
 		};
 
 		return (
@@ -429,7 +428,25 @@ class InquiryDetails extends Component {
 									onSubmit={(values, {setSubmitting}) => {
 										// console.log('VALUES', values);
 										setSubmitting(false);
-										assignPartner(inquiry.idx, values)
+										if(values.partner_services_attributes[0].idx){
+											updateAssignPartner(inquiry.idx, values)
+											.then((response) => {
+												// console.log('inquiry response',response.data);
+												swal({
+													title: 'User Package Update!',
+													text: `Your package is updated!!! ${response.data.message}`,
+													icon: 'success',
+													button: 'Continue!'
+												});
+											})
+											.catch((error) => {
+												// setSubmitting(false);
+												// console.log(error);
+												console.log('Package update error', error);
+											});
+										}
+										else{
+											assignPartner(inquiry.idx, values)
 											.then((response) => {
 												// console.log('inquiry response',response.data);
 												swal({
@@ -444,6 +461,8 @@ class InquiryDetails extends Component {
 												// console.log(error);
 												console.log('Package confirmation error', error);
 											});
+										}
+										
 									}}
 								>
 									{({

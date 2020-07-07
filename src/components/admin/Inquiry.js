@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import {Badge} from '../shared';
@@ -18,9 +18,10 @@ const Inquiry = (props) => {
 		() => {
 			var params = {};
 			if (package_booking) {
-				params['package_booking_id_eq'] = package_booking.id;
+				params['q[package_booking_id_eq'] = package_booking.id;
+				fetchPartnerServices(params);
 			}
-			fetchPartnerServices(params);
+			
 		},
 		[package_booking]
 	);

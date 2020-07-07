@@ -224,7 +224,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 									value={partner.extras['meals_included']}
 									onBlur={onBlur}
 									className=''
-									checked={partner.meals_included}
+									checked={partner.extras.meals_included}
 								/>
 								<ErrorMessage name='meals_included' />
 							</div>
