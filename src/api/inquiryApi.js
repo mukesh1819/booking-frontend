@@ -59,13 +59,13 @@ export function assignPartner(id, values) {
 	});
 }
 
-export function updateAssignPartner(id, values) {
-	return axios({
-		method: 'put',
-		url: `${API_URL}/inquiries/${id}/update_assign_partner`,
-		params: values
-	});
-}
+// export function updateAssignPartner(id, values) {
+// 	return axios({
+// 		method: 'put',
+// 		url: `${API_URL}/inquiries/${id}/update_assign_partner`,
+// 		params: values
+// 	});
+// }
 
 export function showPackageBooking(id) {
 	return axios({
