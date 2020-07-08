@@ -4,7 +4,7 @@ import ErrorMessage from '../ErrorMessage';
 import {BASE_URL} from '../../constants';
 import swal from 'sweetalert';
 import * as yup from 'yup';
-import {Button, Divider, Grid, Header, Icon, Search, TextArea, Form, Dropdown} from 'semantic-ui-react';
+import {Button, Divider, Grid, Header, Icon, Search, TextArea, Form, Dropdown, Checkbox} from 'semantic-ui-react';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {createCar, updateCar, submitFormData} from '../../api/carApi';
 import {getPartners} from '../../api/partnerApi';
@@ -53,7 +53,8 @@ class CarForm extends Component {
 			no_of_seats: car.no_of_seats,
 			details: car.details,
 			image: car.image,
-			partner_id: car.partner_id
+			partner_id: car.partner_id,
+			has_carrier: car.has_carrier
 		};
 
 		const CarSchema = yup.object().shape({
@@ -228,8 +229,27 @@ class CarForm extends Component {
 															})}
 														/>
 													</div>
+
+													
 												</div>
-												<div className='col-12 col-md-6' />
+												<div className='col-12 col-md-6' >
+													<div className='field-box'>
+														<Checkbox
+															name='has_carrier'
+															className=''
+															onBlur={handleBlur}
+															onChange={(event, data) => {
+																setFieldValue('has_carrier', data.checked);
+															}}
+															checked={values.has_carrier}
+															label={{
+																children: 'has carrier'
+															}}
+														/>
+														<ErrorMessage name='has_carrier' />
+													</div>
+
+												</div>
 											</div>
 											<div className='row'>
 												<div className='col-12 col-md-6' />

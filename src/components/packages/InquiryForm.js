@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import {Counter, IconInput, Loading as LoadingScreen, DatePicker, DateTimePicker} from '../shared';
+import {Counter, IconInput, Loading as LoadingScreen, DatePicker} from '../shared';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
@@ -193,7 +193,7 @@ class InquiryForm extends Component {
 										<div className='col-12 col-md-6'>
 											<div className='field-box'>
 												<label className='d-block'>Preferred date</label>
-												<DateTimePicker
+												<DatePicker
 													name='preferred_date'
 													className=' w-100'
 													type='date'
@@ -204,8 +204,6 @@ class InquiryForm extends Component {
 													onChange={(date) => setFieldValue('preferred_date', date)}
 													value={values.preferred_date}
 													placeholder='Arrival Date'
-													showTimeSelectOnly={false}
-													showTimeSelect={false}
 												/>
 												<ErrorMessage name='preferred_date' />
 											</div>
