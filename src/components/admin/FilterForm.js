@@ -68,9 +68,9 @@ class FilterForm extends Component {
 					setFieldValue
 					/* and other goodies */
 				}) => (
-					<div className='ui card fluid'>
+					<div className='ui segment p-4 fluid'>
 						<div class='content'>
-							<div class='header'>Filter</div>
+							<h3 class='ui header'>Filter</h3>
 						</div>
 
 						<div className='content'>

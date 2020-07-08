@@ -7,3 +7,7 @@ Array.prototype.chunk = function (size) {
     }
     return chunks;
 }
+
+String.prototype.pluralize = function (count, suffix = 's') {
+    return `${count} ${this}${count !== 1 ? suffix : ''}`;
+}

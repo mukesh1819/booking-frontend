@@ -81,10 +81,11 @@ class CarInquiryForm extends Component {
 			start_time: carInquiry.start_time,
 			start_date: carInquiry.start_date == null ? new Date() : new Date(carInquiry.start_date),
 			car_type: carInquiry.car_type,
-			within_city: carInquiry.within_city,
 			car_id: carInquiry.car_id,
 			no_of_days: carInquiry.no_of_days || 1,
 			max_pax: 20,
+			within_city: carInquiry.within_city,
+			multi_city: !carInquiry.multi_city,
 			airport_transfer: false
 		};
 		var max_seat = 0;
@@ -151,8 +152,9 @@ class CarInquiryForm extends Component {
 							<div className='bg-white input-section padded'>
 								<div className='d-none d-md-block form-menu'>
 									<span
-										className={!values.within_city ? 'active' : ''}
+										className={values.multi_city ? 'active' : ''}
 										onClick={() => {
+											setFieldValue('multi_city', true);
 											setFieldValue('within_city', false);
 											setFieldValue('airport_transfer', false);
 											setFieldValue('destination', '');
@@ -164,6 +166,7 @@ class CarInquiryForm extends Component {
 										className={values.within_city ? 'active' : ''}
 										onClick={() => {
 											setFieldValue('within_city', true);
+											setFieldValue('multi_city', false);
 											setFieldValue('airport_transfer', false);
 											setFieldValue('destination', values.source);
 										}}
@@ -174,6 +177,7 @@ class CarInquiryForm extends Component {
 										className={values.airport_transfer ? 'active' : ''}
 										onClick={() => {
 											setFieldValue('within_city', false);
+											setFieldValue('multi_city', false);
 											setFieldValue('airport_transfer', true);
 										}}
 									>
@@ -217,6 +221,9 @@ class CarInquiryForm extends Component {
 											onBlur={handleBlur}
 											onChange={(e, data) => {
 												setFieldValue(`source`, data.value);
+												if (values.within_city) {
+													setFieldValue('destination', data.value);
+												}
 											}}
 											value={values.source}
 											fluid
@@ -374,7 +381,7 @@ class CarInquiryForm extends Component {
 											fluid
 											selection
 											closeOnChange={false}
-											placeholder={`${values.no_of_pax}Travellers`}
+											placeholder={'Traveller'.pluralize(values.no_of_pax)}
 											onClick={(event, data) => {
 												event.preventDefault();
 											}}
@@ -393,7 +400,7 @@ class CarInquiryForm extends Component {
 															max={values.car_type ? values.max_pax : max_seat}
 															min={1}
 															onBlur={handleBlur}
-															title={`${values.no_of_pax} Traveller`}
+															title={'Traveller'.pluralize(values.no_of_pax)}
 															onChange={(value) => {
 																setFieldValue('no_of_pax', value);
 															}}

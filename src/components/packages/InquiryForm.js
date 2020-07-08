@@ -429,10 +429,13 @@ class InquiryForm extends Component {
 														fluid
 														selection
 														closeOnChange={false}
-														placeholder={`${values.number_of_adult} Adult${ifNotZero(
-															values.number_of_child,
-															`, ${values.number_of_child} Child`
-														)}`}
+														placeholder={
+															'Adult'.pluralize(values.number_of_adult) +
+															ifNotZero(
+																values.number_of_child,
+																`, ${'Child'.pluralize(values.number_of_child, 'ren')}`
+															)
+														}
 														onClick={(event, data) => {
 															event.preventDefault();
 														}}
@@ -449,7 +452,9 @@ class InquiryForm extends Component {
 																		type='number'
 																		className='m-1'
 																		onBlur={handleBlur}
-																		title={`${values.number_of_adult} Adult`}
+																		title={`Adult`.pluralize(
+																			values.number_of_adult
+																		)}
 																		onChange={(value) =>
 																			setFieldValue('number_of_adult', value)}
 																		value={values.number_of_adult}
@@ -459,7 +464,10 @@ class InquiryForm extends Component {
 																		type='number'
 																		className='m-1'
 																		onBlur={handleBlur}
-																		title={`${values.number_of_child} Child`}
+																		title={'Child'.pluralize(
+																			values.number_of_child,
+																			'ren'
+																		)}
 																		onChange={(value) =>
 																			setFieldValue('number_of_child', value)}
 																		value={values.number_of_child}

@@ -309,7 +309,7 @@ class SearchBar extends Component {
 															type='number'
 															className='m-1'
 															onBlur={handleBlur}
-															title={`${values.intAdult} Adult`}
+															title={'Adult'.pluralize(values.intAdult)}
 															onChange={(value) => {
 																setFieldValue('intAdult', value);
 																setFieldValue('totalPax', values.intChild + value);
@@ -321,7 +321,7 @@ class SearchBar extends Component {
 															type='number'
 															className='m-1'
 															onBlur={handleBlur}
-															title={`${values.intChild} Child`}
+															title={'Child'.pluralize(values.intChild, 'ren')}
 															onChange={(value) => {
 																setFieldValue('intChild', value);
 																setFieldValue('totalPax', values.intAdult + value);
