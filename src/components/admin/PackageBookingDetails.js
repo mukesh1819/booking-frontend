@@ -6,6 +6,8 @@ import {getPackageBookingConfirmation, deletePackageBooking} from '../../api/pac
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
+import {Badge} from '../shared';
+import {Card} from 'semantic-ui-react';
 
 class PackageBookingDetails extends Component {
 	constructor(props) {
@@ -86,84 +88,75 @@ class PackageBookingDetails extends Component {
 		const {loading} = this.state;
 		return (
 			<div className='container'>
-				<div className=''>
-					<h5>Package Booking</h5>
-					<table className='table table-striped table-hover table-sm table-responsive' ref='main'>
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>idx</th>
-								<th>package_id</th>
-								<th>user_id</th>
-								<th>amount</th>
-								<th>inquiry_id</th>
-								<th>booking_transaction_id</th>
-								<th>status</th>
-								<th>start_date</th>
-								<th>end_date</th>
-								<th>pickup_date</th>
-								<th>pickup_location</th>
-								<th>drop_off_date</th>
-								<th>drop_off_location</th>
-								<th>meals_included</th>
-								<th>remarks</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
+				<Card fluid>
+					<Card.Content>
+						<div className='row'>
+							<div className='col-12 col-md-4 text-center'>
+								<i className='huge icon book' />
+								<h3 className='ui header'>{packageBooking.idx}</h3>
+								<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
+							</div>
+							<div className='col-12 col-md-8'>
+								<div className='list-view'>
+									<h3 className='title'>Booking Details</h3>
+									<div className='list'>
+										<span className='label'>Pickup Date</span>
+										<span className='value'>{packageBooking.pickup_date}</span>
+									</div>
+									<div className='list'>
+										<span className='label'>Pickup Location</span>
+										<span className='value'>{packageBooking.pickup_location}</span>
+									</div>
+									<div className='list'>
+										<span className='label'>Drop off Date</span>
+										<span className='value'>{packageBooking.drop_off_date}</span>
+									</div>
+									<div className='list'>
+										<span className='label'>Drop off Location</span>
+										<span className='value'>{packageBooking.drop_off_location}</span>
+									</div>
+									<div className='list'>
+										<span className='label'>Meals</span>
+										<span className='value'>{packageBooking.meals_included}</span>
+									</div>
+									<div className='list'>
+										<span className='label'>Start Date</span>
+										<span className='value'>{packageBooking.start_date}</span>
+									</div>
+								</div>
+								<div>Remarks: {packageBooking.remarks}</div>
+							</div>
+						</div>
+					</Card.Content>
+				</Card>
+				<div className='text-center'>
+					{packageBooking.inquiry.status === 'verified' && (
+						<span className='text-center py-4'>
+							<Button
+								primary
+								loading={loading}
+								className='btn btn-primary btn-large '
+								onClick={() => this.download(packageBooking.idx)}
+							>
+								Download ticket
+							</Button>
+						</span>
+					)}
+					{packageBooking.status == 'pending' && (
+						<span
+							className='btn btn-secondary'
+							onClick={() => this.onConfirmPackageBooking(packageBooking.idx)}
+						>
+							confirm
+						</span>
+					)}
 
-						<tbody>
-							<tr>
-								<td>{packageBooking.id}</td>
-								<td>{packageBooking.idx}</td>
-								<td>{packageBooking.package_id} </td>
-								<td>{packageBooking.user_id} </td>
-								<td>{packageBooking.amount}</td>
-								<td>{packageBooking.inquiry_id}</td>
-								<td>{packageBooking.booking_transaction_id}</td>
-								<td>{packageBooking.status}</td>
-								<td>{packageBooking.start_date}</td>
-								<td>{packageBooking.end_date}</td>
-								<td>{packageBooking.pickup_date}</td>
-								<td>{packageBooking.pickup_location}</td>
-								<td>{packageBooking.drop_off_date}</td>
-								<td>{packageBooking.drop_off_location}</td>
-								<td>{packageBooking.meals_included}</td>
-								<td>{packageBooking.remarks}</td>
-								<td>
-									{packageBooking.inquiry.status === 'verified' && 
-										<span className='text-center py-4'>
-											<Button
-												primary
-												loading={loading}
-												className='btn btn-primary btn-large '
-												onClick={() => this.download(packageBooking.idx)}
-											>
-												Download ticket
-											</Button>
-										</span>
-									}
-								</td>
-								{packageBooking.status == 'pending' && 
-								<td>
-									<span
-										className='btn btn-secondary'
-										onClick={() => this.onConfirmPackageBooking(packageBooking.idx)}
-									>
-										confirm
-									</span>
-								</td>
-								}
-								<td>
-									<span
-										className='btn bg-none text-danger'
-										onClick={() => this.destroyPackageBooking(packageBooking.idx)}
-									>
-										Delete
-									</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					{/* <span
+						className='btn bg-none text-danger'
+						onClick={() => this.destroyPackageBooking(packageBooking.idx)}
+					>
+						Delete
+					</span> */}
 				</div>
 			</div>
 		);
