@@ -70,7 +70,7 @@ class InquiryDetails extends Component {
 				});
 			});
 
-		getPackageBookingDetails(this.props.location.state.inquiry.package_booking.idx)
+		getPackageBookingDetails(this.props.location.state.inquiry.package_booking ? this.props.location.state.inquiry.package_booking.idx : '')
 			.then((response) => {
 				this.setState({
 					packageBooking: response.data

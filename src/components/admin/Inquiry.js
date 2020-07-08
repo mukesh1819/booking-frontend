@@ -168,7 +168,7 @@ const Inquiry = (props) => {
 						<div className='list-view'>
 							<div className='d-flex align-items-center justify-content-between'>
 								<h3 className='title'>Other Details</h3>
-								<div>
+								{/* <div>
 									<span
 										className='btn bg-none color-accent'
 										onClick={() => {
@@ -180,7 +180,7 @@ const Inquiry = (props) => {
 									>
 										Edit
 									</span>
-								</div>
+								</div> */}
 							</div>
 
 							<div className='list'>

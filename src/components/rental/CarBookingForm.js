@@ -33,11 +33,11 @@ class CarBookingForm extends Component {
 			contact_name: textValidate(yup).required('Required'),
 			contact_email: yup.string().email().required('Required'),
 			mobile_no: numberValidate(yup).required('Required'),
-			pickup_date: yup.date().required('Required').default(function() {
+			pickup_time: yup.date().required('Required').default(function() {
 				return new Date();
 			}),
 			pickup_location: yup.string().required('Required'),
-			drop_off_date: yup.date().required('Required').default(function() {
+			drop_off_time: yup.date().required('Required').default(function() {
 				return new Date();
 			}),
 			drop_off_location: yup.string().required('Required'),
@@ -50,10 +50,10 @@ class CarBookingForm extends Component {
 			contact_email: carBooking.contact_email,
 			mobile_no: carBooking.mobile_no,
 			car_inquiry_idx: carBooking.car_inquiry != null ? carBooking.car_inquiry.idx : car_inquiry_idx,
-			pickup_date: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
+			pickup_time: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
 			pickup_location: inquiry.airport_pickup ? inquiry.source : carBooking.pickup_location,
-			drop_off_date: carBooking.drop_off_date == null ? new Date() : new Date(carBooking.drop_off_date),
+			drop_off_time: carBooking.drop_off_date == null ? new Date() : new Date(carBooking.drop_off_date),
 			drop_off_location: inquiry.airport_dropoff ? inquiry.destination : carBooking.drop_off_location,
 			remarks: carBooking.remarks,
 			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),
@@ -239,19 +239,19 @@ class CarBookingForm extends Component {
 											<div className='field-box'>
 												<label className='d-block'>Pick-up time</label>
 												<DateTimePicker
-													name='pickup_date'
+													name='pickup_time'
 													className=' w-100'
 													type='date'
-													date={values.pickup_date}
+													date={values.pickup_time}
 													minDate={new Date()}
 													maxDate={addDays(new Date(), 365)}
 													onBlur={handleBlur}
-													onChange={(date) => setFieldValue('pickup_date', date)}
-													value={values.pickup_date}
+													onChange={(date) => setFieldValue('pickup_time', date)}
+													value={values.pickup_time}
 													placeholder='Pickup time'
 													showTimeSelectOnly
 												/>
-												<ErrorMessage name='pickup_date' />
+												<ErrorMessage name='pickup_time' />
 											</div>
 										</div>
 
@@ -279,19 +279,19 @@ class CarBookingForm extends Component {
 											<div className='field-box'>
 												<label className='d-block'>Drop-off time</label>
 												<DateTimePicker
-													name='drop_off_date'
+													name='drop_off_time'
 													className=' w-100'
 													type='date'
-													date={values.drop_off_date}
+													date={values.drop_off_time}
 													minDate={new Date()}
 													maxDate={addDays(new Date(), 365)}
 													onBlur={handleBlur}
-													onChange={(date) => setFieldValue('drop_off_date', date)}
-													value={values.drop_off_date}
+													onChange={(date) => setFieldValue('drop_off_time', date)}
+													value={values.drop_off_time}
 													placeholder='Drop-off time'
 													showTimeSelectOnly
 												/>
-												<ErrorMessage name='drop_off_date' />
+												<ErrorMessage name='drop_off_time' />
 											</div>
 										</div>
 
