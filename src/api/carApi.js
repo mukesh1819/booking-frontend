@@ -73,7 +73,7 @@ export function deleteCar(id) {
 	});
 }
 
-export function submitFormData(url, idx, values) {
+export function submitFormData(url, id, values) {
 	const data = new FormData();
 	const {image, ...newValues} = values;
 	Object.keys(newValues).forEach((key) => {
@@ -83,8 +83,8 @@ export function submitFormData(url, idx, values) {
 		data.append(`image[${index}]`, v);
 	});
 	return axios({
-		url: `${API_URL}/${url}`,
-		method: idx ? 'PUT' : 'POST',
+		url: id ? `${API_URL}/${url}/${id}` : `${API_URL}/${url}`,
+		method: id ? 'PUT' : 'POST',
 		data: data,
 		headers: {
 			'Content-Type': 'multipart/form-data'

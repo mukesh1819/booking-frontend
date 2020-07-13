@@ -46,14 +46,14 @@ class CarBookingForm extends Component {
 		});
 
 		const bookingDetails = {
-			contact_name: carBooking.contact_name,
-			contact_email: carBooking.contact_email,
-			mobile_no: carBooking.mobile_no,
+			contact_name: carBooking.idx ? carBooking.contact_name : currentUser.name,
+			contact_email: carBooking.idx ? carBooking.contact_email : currentUser.email,
+			mobile_no: carBooking.idx ? carBooking.mobile_no : currentUser.phone_number,
 			car_inquiry_idx: carBooking.car_inquiry != null ? carBooking.car_inquiry.idx : car_inquiry_idx,
-			pickup_time: carBooking.pickup_date == null ? new Date() : new Date(carBooking.pickup_date),
+			pickup_time: carBooking.pickup_date == null ? new Date(inquiry.start_date) : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
 			pickup_location: inquiry.airport_pickup ? inquiry.source : carBooking.pickup_location,
-			drop_off_time: carBooking.drop_off_date == null ? new Date() : new Date(carBooking.drop_off_date),
+			drop_off_time: carBooking.drop_off_date == null ? addDays(inquiry.start_date, inquiry.no_of_days) : new Date(carBooking.drop_off_date),
 			drop_off_location: inquiry.airport_dropoff ? inquiry.destination : carBooking.drop_off_location,
 			remarks: carBooking.remarks,
 			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),

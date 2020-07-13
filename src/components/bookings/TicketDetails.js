@@ -251,7 +251,7 @@ class TicketDetails extends Component {
 							primary
 							loading={loading}
 							className='btn btn-primary btn-large '
-							onClick={() => this.download(departure.ruid)}
+							onClick={() => this.download(departure.booking_transaction.idx)}
 						>
 							Download ticket
 						</Button>
