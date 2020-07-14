@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Profile from '../users/Profile';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import PartnerProfile from '../partners/PartnerProfile';
+import {PartnerProfile} from '../partners/PartnerProfile';
 import history from '../../history';
 import {showPartner, confirmPartner, deletePartner, activatePartner, deactivatePartner} from '../../api/partnerApi';
 
@@ -43,39 +43,39 @@ class PartnerDetails extends Component {
 			});
 	}
 
-	callPartnerActivate(id){
+	callPartnerActivate(id) {
 		activatePartner(id)
-		.then((response) => {
-			swal({
-				title: 'Partner Activation Request!',
-				text: 'partnership is activated',
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'Partner Activation Request!',
+					text: 'partnership is activated',
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.goBack();
+			})
+			.catch((error) => {
+				console.log(' partner Activation error', error);
 			});
-			history.goBack();
-		})
-		.catch((error) => {
-			console.log(' partner Activation error', error);
-		});
 	}
 
-	callPartnerDeactivate(id){
+	callPartnerDeactivate(id) {
 		deactivatePartner(id)
-		.then((response) => {
-			swal({
-				title: 'Partner deactivation Request!',
-				text: 'partnership is deactivated',
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				swal({
+					title: 'Partner deactivation Request!',
+					text: 'partnership is deactivated',
+					icon: 'success',
+					button: 'Continue!'
+				});
+				history.goBack();
+			})
+			.catch((error) => {
+				console.log(' partner deactivate error', error);
 			});
-			history.goBack();
-		})
-		.catch((error) => {
-			console.log(' partner deactivate error', error);
-		});
 	}
 
-	destroyPartner(id){
+	destroyPartner(id) {
 		// deletePartner(id)
 		// .then((response) => {
 		// 	swal({
@@ -123,14 +123,14 @@ class PartnerDetails extends Component {
 				<PartnerProfile partner={this.state.partner} />
 
 				<div className='col-12 p-4'>
-					{partner.status === 'approved' && 
-					<span>
-						<span className='text-info mr-2'>Partner Created</span>
-						<span className='btn btn-secondary' onClick={() => this.callPartnerDeactivate(partner.idx)}>
+					{partner.status === 'approved' && (
+						<span>
+							<span className='text-info mr-2'>Partner Created</span>
+							<span className='btn btn-secondary' onClick={() => this.callPartnerDeactivate(partner.idx)}>
 								deactivate
+							</span>
 						</span>
-					</span>
-					}
+					)}
 					{partner.status === 'inactive' && (
 						<span>
 							<span className='text-info mr-2'>Partner has been deactivated</span>
@@ -138,7 +138,6 @@ class PartnerDetails extends Component {
 								activate
 							</span>
 						</span>
-						
 					)}
 					{partner.status === 'processing' && (
 						<span className='btn btn-secondary' onClick={() => this.callPartnerConfirm(partner.idx)}>

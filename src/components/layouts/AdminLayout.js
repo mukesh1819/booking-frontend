@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import {Link, NavLink} from 'react-router-dom';
-import {Dropdown} from '../shared';
+import {Dropdown, Sidebar} from '../shared';
 import {logout, userInitials} from '../../helpers';
 import history from '../../history';
-import {Sidebar} from '../shared';
 
 const AdminLayout = ({currentUser, children, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
