@@ -77,14 +77,14 @@ class CarForm extends Component {
 							initialValues={carDetails}
 							validationSchema={CarSchema}
 							onSubmit={(values, {setSubmitting}) => {
-								submitFormData('admin/cars', car.id, {
+								submitFormData('admin/cars', car.idx, {
 									...values,
 									image: document.querySelector('[type=file]').files
 								})
 									.then((response) => {
 										setSubmitting(false);
 										swal({
-											title: 'Car created Success!',
+											title: 'Car created or updated Success!',
 											text: response.data.message,
 											icon: 'success',
 											button: 'continue!'

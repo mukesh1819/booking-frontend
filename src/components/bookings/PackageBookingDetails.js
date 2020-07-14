@@ -88,7 +88,6 @@ class PackageBookingDetails extends Component {
 
 	render() {
 		const {booking, redirectToPayment, loading} = this.state;
-
 		if (redirectToPayment) {
 			return <PaymentForm transaction={booking.booking_transaction} idx={booking.booking_transaction.idx} />;
 		}

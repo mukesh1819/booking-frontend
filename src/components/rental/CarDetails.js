@@ -1,4 +1,6 @@
 import React from 'react';
+import {BASE_URL} from '../../constants';
+
 
 export default function CarDetails(props) {
 	const {car, inquiry} = props;
