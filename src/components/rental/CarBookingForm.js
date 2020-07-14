@@ -63,7 +63,9 @@ class CarBookingForm extends Component {
 
 		return (
 			<div className='container bg-white'>
-				<div className='ui info message fludi'>Estimated Price: {car.price * inquiry.no_of_days}</div>
+				{carBooking.idx == null &&
+					<div className='ui info message fludi'>Estimated Price: {car.price * inquiry.no_of_days}</div>
+				}
 				<Formik
 					initialValues={bookingDetails}
 					validationSchema={BookingSchema}
@@ -183,13 +185,13 @@ class CarBookingForm extends Component {
 														onChange={handleChange}
 														value={values.mobile_no}
 														placeholder='Mobile Number'
-													/>
+												/>
 												</Form.Field>
 												<ErrorMessage name='mobile_no' />
 											</div>
 										</div>
 
-										{inquiry.airport_transfer && (
+										{(inquiry.trip_type == 'Airport Pickup' || inquiry.trip_type == 'Airport Dropoff' ) && (
 											<Fragment>
 												<div className='col-12 col-md-6'>
 													<div className='field-box col'>

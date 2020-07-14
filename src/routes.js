@@ -56,6 +56,7 @@ import AppRoute from './components/AppRoute';
 import PartnerLayout from './components/layouts/PartnerLayout';
 import AddPassengers from './components/flights/AddPassengers';
 import EditPassengers from './components/flights/EditPassengers';
+import PartnerApprovalForm from './components/partners/PartnerApprovalForm';
 
 import {
 	CarInquiryForm,
@@ -107,6 +108,7 @@ const routes = [
 
 	{private: true, path: '/partners/package_form/:partnerId', component: AddPackageForm, layout: UserLayout},
 	{private: true, path: '/admin/package_form', component: NewPackageForm, layout: UserLayout},
+	{private: true, path: '/admin/partner_approval_form', component: PartnerApprovalForm, layout: AdminLayout},
 	{private: true, path: '/admin/partners/:id', component: PartnerProfile, layout: UserLayout},
 	{private: true, path: '/inquiry_details/:idx', component: PackageInquiryDetails, layout: UserLayout},
 	{private: true, path: '/inquiry_form/:idx', component: InquiryForm, layout: UserLayout},

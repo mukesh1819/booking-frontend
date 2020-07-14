@@ -80,3 +80,11 @@ export function showUserRentalBooking(id) {
 		url: `${API_URL}/car_bookings/${id}`
 	});
 }
+
+export function partnerApproval(id, data){
+	return axios({
+		method: 'put',
+		url: `${API_URL}/admin/car_bookings/${id}/approve`,
+		data: {car_booking: data}
+	});
+}

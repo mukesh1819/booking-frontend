@@ -170,7 +170,7 @@ class PackageBookingDetails extends Component {
 								primary
 								loading={loading}
 								className='btn btn-primary btn-large '
-								onClick={() => this.download(booking.idx)}
+								onClick={() => this.download(booking.booking_transaction.idx)}
 							>
 								Download ticket
 							</Button>
