@@ -8,6 +8,7 @@ import history from '../../history';
 
 const Car = function(props) {
 	const {car, currentUser} = props;
+	debugger;
 
 	return (
 		<div class='mb-4'>

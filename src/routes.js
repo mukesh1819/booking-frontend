@@ -15,6 +15,9 @@ import PrivateRoute from './components/PrivateRoute';
 import {
 	BecomePartnerForm,
 	PartnerProfile,
+	PartnerPackageBookings,
+	PartnerCarBookings,
+	PartnerTransactions,
 	PackageForm as AddPackageForm,
 	PackageForm as NewPackageForm
 } from './components/partners';
@@ -138,7 +141,7 @@ const routes = [
 		component: AssignCarBookingForm,
 		layout: AdminLayout
 	},
-	
+
 	{private: true, path: '/admin/vehicle_types', component: VehicleTypeList, layout: AdminLayout},
 	{private: true, path: '/admin/locations', component: LocationList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiries', component: CarInquiryList, layout: AdminLayout},
@@ -168,6 +171,9 @@ const routes = [
 	{private: true, path: '/admin/email', component: UserEmail, layout: AdminLayout},
 	{private: true, path: '/admin/:section', component: Dashboard, layout: AdminLayout},
 	{private: true, path: '/admin', component: Dashboard, layout: AdminLayout},
+	{private: true, path: '/partner/package_bookings', component: PartnerPackageBookings, layout: PartnerLayout},
+	{private: true, path: '/partner/car_bookings', component: PartnerCarBookings, layout: PartnerLayout},
+	{private: true, path: '/partner/transactions', component: PartnerTransactions, layout: PartnerLayout},
 	{private: true, path: '/partner', component: PartnerDashboard, layout: PartnerLayout}
 ];
 
