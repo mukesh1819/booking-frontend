@@ -9,6 +9,7 @@ import {Segment, Card, Menu, Dropdown, Input, Pagination} from 'semantic-ui-reac
 import queryString from 'query-string';
 import history from '../../history';
 import FilterForm from './FilterForm';
+import moment from 'moment';
 
 class PackageBookingList extends Component {
 	constructor(props) {
@@ -227,8 +228,8 @@ class PackageBookingList extends Component {
 										{/* <td>{packageBooking.inquiry_id}</td> */}
 										{/* <td>{packageBooking.booking_transaction_id}</td> */}
 										<td>{carBooking.status}</td>
-										<td>{carBooking.pickup_date}</td>
-										<td>{carBooking.drop_off_date}</td>
+										<td>{moment(carBooking.pickup_date).format('D MMMM, YYYY')}</td>
+										<td>{moment(carBooking.drop_off_date).format('D MMMM, YYYY')}</td>
 										{/* <td>{packageBooking.pickup_date}</td> */}
 										{/* <td>{packageBooking.pickup_location}</td> */}
 										{/* <td>{packageBooking.drop_off_date}</td> */}

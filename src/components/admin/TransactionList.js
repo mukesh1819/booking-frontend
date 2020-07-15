@@ -13,6 +13,7 @@ import {Menu, Segment, Pagination, Input, Accordion, Dropdown, Button} from 'sem
 import {downloadTicket, downloadCsvTicket, downloadXlsTicket} from '../../helpers/general';
 import queryString from 'query-string';
 import FilterForm from './FilterForm';
+import moment from 'moment';
 
 class TransactionList extends Component {
 	constructor(props) {
@@ -284,7 +285,7 @@ class TransactionList extends Component {
 														<Badge type={transaction.state}>{transaction.state}</Badge>
 													</td>
 													<td>{transaction.amount}</td>
-													<td>{transaction.created_at}</td>
+													<td>{moment(transaction.created_at).format('D MMMM, YYYY')}</td>
 													<td>
 														<Link
 															className='btn bg-none text-primary'

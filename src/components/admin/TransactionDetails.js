@@ -12,6 +12,7 @@ import {fetchTicket} from '../../api/flightApi';
 import {Button} from 'semantic-ui-react';
 import history from '../../history';
 import {downloadTicket} from '../../helpers/general';
+import moment from 'moment';
 
 class TransactionDetails extends Component {
 	constructor(props) {
@@ -65,7 +66,7 @@ class TransactionDetails extends Component {
 						</div>
 						<div className='list'>
 							<span className='label'>Created on</span>
-							<span className='value'> {transaction.created_at}</span>
+							<span className='value'> {moment(transaction.created_at).format('D MMMM, YYYY')}</span>
 						</div>
 						<div className='list'>
 							<span className='label'>Status</span>

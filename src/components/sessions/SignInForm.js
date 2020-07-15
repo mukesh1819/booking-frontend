@@ -67,7 +67,6 @@ class SignInForm extends Component {
 									this.props.loginUser(response.data.user);
 									localStorage.setItem('token', response.data.jwt);
 									var path = roleBasedUrl(response.data.user.role, redirectUrl);
-									debugger;
 									history.push(path);
 								} else {
 									console.log('sign in failed error');

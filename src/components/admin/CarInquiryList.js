@@ -9,6 +9,7 @@ import FilterForm from './FilterForm';
 import {CustomMenu} from './Menu';
 import {Card, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
+import moment from 'moment';
 import {Badge} from '../shared';
 // import '../../i18n';
 // import {useTranslation, initReactI18next} from 'react-i18next';
@@ -206,7 +207,7 @@ class CarInquiryList extends Component {
 												</Badge>
 											</td>
 
-											<td>{carInquiry.created_at}</td>
+											<td>{moment(carInquiry.created_at).format('D MMMM, YYYY')}</td>
 											<td>
 												<Link
 													to={{

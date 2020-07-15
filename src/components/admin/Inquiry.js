@@ -3,6 +3,7 @@ import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import {Badge} from '../shared';
 import {getPartnerServices} from '../../api/partnerServiceApi';
+import moment from 'moment';
 
 const Inquiry = (props) => {
 	const package_booking = props.inquiry.package_booking;
@@ -129,7 +130,7 @@ const Inquiry = (props) => {
 					</div>
 					<div className='list'>
 						<span className='label'>Preferred Date</span>
-						<span className='value'>{inquiry.preferred_date}</span>
+						<span className='value'>{moment(inquiry.preferred_date).format('D MMMM, YYYY')}</span>
 					</div>
 					<div className='list'>
 						<span className='label'>Unit Price</span>
@@ -185,11 +186,11 @@ const Inquiry = (props) => {
 
 							<div className='list'>
 								<span className='label'>Start Date</span>
-								<span className='value'> {inquiry.package_booking.start_date}</span>
+								<span className='value'> {moment(inquiry.package_booking.start_date).format('D MMMM, YYYY')}</span>
 							</div>
 							<div className='list'>
 								<span className='label'>End date</span>
-								<span className='value'> {inquiry.package_booking.end_date}</span>
+								<span className='value'> {moment(inquiry.package_booking.end_date).format('D MMMM, YYYY')}</span>
 							</div>
 							<div className='list'>
 								<span className='label'>Pickup Location</span>

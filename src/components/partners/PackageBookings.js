@@ -8,7 +8,7 @@ const PackageBookings = (props) => {
 	const [viewDetails, setViewDetails] = useState(false);
 
 	useEffect(() => {
-		showPartner(props.currentUser.partner.idx)
+		showPartner(props.currentUser.partner ? props.currentUser.partner.idx : '')
 			.then((response) => {
 				setServices(response.data.partner_services);
 			})

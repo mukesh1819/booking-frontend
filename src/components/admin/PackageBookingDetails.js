@@ -8,6 +8,7 @@ import {downloadTicket} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Badge} from '../shared';
 import {Card} from 'semantic-ui-react';
+import moment from 'moment';
 
 class PackageBookingDetails extends Component {
 	constructor(props) {
@@ -101,7 +102,7 @@ class PackageBookingDetails extends Component {
 									<h3 className='title'>Booking Details</h3>
 									<div className='list'>
 										<span className='label'>Pickup Date</span>
-										<span className='value'>{packageBooking.pickup_date}</span>
+										<span className='value'>{moment(packageBooking.pickup_date).format('D MMMM, YYYY')}</span>
 									</div>
 									<div className='list'>
 										<span className='label'>Pickup Location</span>
@@ -109,7 +110,7 @@ class PackageBookingDetails extends Component {
 									</div>
 									<div className='list'>
 										<span className='label'>Drop off Date</span>
-										<span className='value'>{packageBooking.drop_off_date}</span>
+										<span className='value'>{moment(packageBooking.drop_off_date).format('D MMMM, YYYY')}</span>
 									</div>
 									<div className='list'>
 										<span className='label'>Drop off Location</span>
@@ -117,11 +118,11 @@ class PackageBookingDetails extends Component {
 									</div>
 									<div className='list'>
 										<span className='label'>Meals</span>
-										<span className='value'>{packageBooking.meals_included}</span>
+										<span className='value'>{`${packageBooking.meals_included}`}</span>
 									</div>
 									<div className='list'>
 										<span className='label'>Start Date</span>
-										<span className='value'>{packageBooking.start_date}</span>
+										<span className='value'>{moment(packageBooking.start_date).format('D MMMM, YYYY')}</span>
 									</div>
 								</div>
 								<div>Remarks: {packageBooking.remarks}</div>
@@ -144,7 +145,7 @@ class PackageBookingDetails extends Component {
 					)}
 					{packageBooking.status == 'pending' && (
 						<span
-							className='btn btn-secondary'
+							className='btn btn-secondary btn-large ml-3'
 							onClick={() => this.onConfirmPackageBooking(packageBooking.idx)}
 						>
 							confirm

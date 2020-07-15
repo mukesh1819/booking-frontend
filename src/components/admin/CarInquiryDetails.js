@@ -7,6 +7,7 @@ import history from '../../history';
 import swal from 'sweetalert';
 import {Card} from 'semantic-ui-react';
 import {Badge} from '../shared';
+import moment from 'moment';
 
 class CarInquiryDetails extends Component {
 	constructor(props) {
@@ -70,7 +71,7 @@ class CarInquiryDetails extends Component {
 							</div>
 							<div className='list'>
 								<span className='label'>Start Date</span>
-								<span className='value'>{carInquiry.start_date}</span>
+								<span className='value'>{moment(carInquiry.start_date).format('D MMMM, YYYY')}</span>
 							</div>
 							<div className='list'>
 								<span className='label'>No of Days</span>

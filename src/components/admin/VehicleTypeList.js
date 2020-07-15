@@ -8,6 +8,7 @@ import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
 import {CustomMenu} from './Menu';
+import moment from 'moment';
 
 class VehicleTypeList extends Component {
 	constructor(props) {
@@ -182,7 +183,7 @@ class VehicleTypeList extends Component {
 										<tr>
 											<td>{index + 1}</td>
 											<td>{vehicleType.name}</td>
-											<td>{vehicleType.created_at}</td>
+											<td>{moment(vehicleType.created_at).format('D MMMM, YYYY')}</td>
 											<td>{vehicleType.no_of_seats} </td>
 											{/* <td>
 												<Link

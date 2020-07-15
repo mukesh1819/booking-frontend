@@ -11,6 +11,7 @@ import {CustomMenu} from './Menu';
 import {Badge} from '../shared';
 import queryString from 'query-string';
 import {Card, Pagination} from 'semantic-ui-react';
+import moment from 'moment';
 
 class UsersList extends Component {
 	constructor(props) {
@@ -186,7 +187,7 @@ class UsersList extends Component {
 												<Badge type={user.role}>{user.role}</Badge>{' '}
 											</td>
 											<td>{user.phone_number}</td>
-											<td>{user.created_at}</td>
+											<td>{moment(user.created_at).format('D MMMM, YYYY')}</td>
 											<td>
 												<Link
 													to={{

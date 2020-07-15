@@ -10,6 +10,7 @@ import {CustomMenu} from './Menu';
 import history from '../../history';
 import queryString from 'query-string';
 import {Segment, Card, Pagination} from 'semantic-ui-react';
+import moment from 'moment';
 
 class PackagesList extends Component {
 	constructor(props) {
@@ -162,7 +163,7 @@ class PackagesList extends Component {
 													{aPackage.published ? 'Published' : 'Not Published'}
 												</Badge>
 											</td>
-											<td>{aPackage.created_at}</td>
+											<td>{moment(aPackage.created_at).format('D MMMM, YYYY')}</td>
 
 											<td>
 												<Link

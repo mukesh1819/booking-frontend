@@ -8,6 +8,7 @@ import {CustomMenu} from './Menu';
 import {Segment, Card, Menu, Dropdown, Input, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
 import history from '../../history';
+import moment from 'moment';
 
 class PackageBookingList extends Component {
 	constructor(props) {
@@ -221,8 +222,8 @@ class PackageBookingList extends Component {
 										{/* <td>{packageBooking.inquiry_id}</td> */}
 										{/* <td>{packageBooking.booking_transaction_id}</td> */}
 										<td>{packageBooking.status}</td>
-										<td>{packageBooking.start_date}</td>
-										<td>{packageBooking.end_date}</td>
+										<td>{moment(packageBooking.start_date).format('D MMMM, YYYY')}</td>
+										<td>{moment(packageBooking.end_date).format('D MMMM, YYYY')}</td>
 										{/* <td>{packageBooking.pickup_date}</td> */}
 										{/* <td>{packageBooking.pickup_location}</td> */}
 										{/* <td>{packageBooking.drop_off_date}</td> */}

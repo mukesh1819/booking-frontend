@@ -9,6 +9,7 @@ import FilterForm from './FilterForm';
 import {CustomMenu} from './Menu';
 import {Card, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
+import moment from 'moment';
 
 class CategoryList extends Component {
 	constructor(props) {
@@ -170,7 +171,7 @@ class CategoryList extends Component {
 											<td>{index + 1}</td>
 											<td>{category.name}</td>
 											<td>{category.order} </td>
-											<td>{category.created_at}</td>
+											<td>{moment(category.created_at).format('D MMMM, YYYY')}</td>
 											<td>
 												<Link
 													to={{

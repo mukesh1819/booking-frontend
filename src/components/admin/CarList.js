@@ -10,6 +10,7 @@ import {CustomMenu} from './Menu';
 import history from '../../history';
 import queryString from 'query-string';
 import {Segment, Card, Pagination} from 'semantic-ui-react';
+import moment from 'moment';
 
 class PackagesList extends Component {
 	constructor(props) {
@@ -166,7 +167,7 @@ class PackagesList extends Component {
 											<td>{car.price}</td>
 											<td>{car.details}</td>
 											<td>{car.status}</td>
-											<td>{car.created_at}</td>
+											<td>{moment(car.created_at).format('D MMMM, YYYY')}</td>
 
 											<td>
 												<Link

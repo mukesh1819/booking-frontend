@@ -9,6 +9,7 @@ import {CustomMenu} from './Menu';
 import queryString from 'query-string';
 import history from '../../history';
 import {Card, Pagination} from 'semantic-ui-react';
+import moment from 'moment';
 
 class InquiryList extends Component {
 	constructor(props) {
@@ -154,8 +155,8 @@ class InquiryList extends Component {
 											<div>
 												<Badge type={inquiry.status}> {inquiry.status}</Badge>
 											</div>
-											<div>{inquiry.preferred_date}</div>
-											<div>Created At - {inquiry.created_at}</div>
+											<div>{moment(inquiry.preferred_date).format('D MMMM, YYYY')}</div>
+											<div>Created At - {moment(inquiry.created_at).format('D MMMM, YYYY')}</div>
 										</div>
 
 										<div className='col-3'>

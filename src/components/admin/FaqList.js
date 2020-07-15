@@ -8,6 +8,7 @@ import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
 import {CustomMenu} from './Menu';
+import moment from 'moment';
 
 class FaqList extends Component {
 	constructor(props) {
@@ -193,7 +194,7 @@ class FaqList extends Component {
 									</Accordion.Title>
 									<Accordion.Content active={activeIndex === index}>
 										<p>{faq.answer}</p>
-										<p>Created At - {faq.created_at}</p>
+										<p>Created At - {moment(faq.created_at).format('D MMMM, YYYY')}</p>
 									</Accordion.Content>
 								</React.Fragment>
 							);

@@ -8,6 +8,7 @@ import PartnerProfile from './PartnerProfile';
 import {getPartnerCarBookings} from '../../api/carBookingApi';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
 import {Segment} from 'semantic-ui-react';
+import moment from 'moment';
 
 const BookingDetails = ({bookings}) => {
 	return (
@@ -18,9 +19,9 @@ const BookingDetails = ({bookings}) => {
 					<div className='value'>{carBooking.mobile_no}</div>
 					<div className='value'>{carBooking.contact_email}</div>
 					<div className='value'>{carBooking.amount}</div>
-					<div className='value'>{carBooking.pickup_date}</div>
+					<div className='value'>{moment(carBooking.pickup_date).format('D MMMM, YYYY')}</div>
 					<div className='value'>{carBooking.pickup_location}</div>
-					<div className='value'>{carBooking.drop_off_date}</div>
+					<div className='value'>{moment(carBooking.drop_off_date).format('D MMMM, YYYY')}</div>
 					<div className='value'>{carBooking.drop_off_location}</div>
 				</div>
 			))}

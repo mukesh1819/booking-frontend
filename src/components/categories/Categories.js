@@ -47,6 +47,7 @@ class Categories extends Component {
 					}
 				}
 			};
+
 			$('.owl-carousel').owlCarousel(options);
 		}
 	}

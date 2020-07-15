@@ -259,11 +259,11 @@ class CarInquiryForm extends Component {
 												value={values.destination}
 												fluid
 												search
-												selection
+												selection 
 												options={locations
 													.filter((v) => {
 														var predicate = values.airport_dropoff ? 'airport' : 'city';
-														return v.location_type == predicate;
+														return v.location_type == predicate && v.name !== values.source;
 													})
 													.map(function(location) {
 														return {

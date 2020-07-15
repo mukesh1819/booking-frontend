@@ -9,6 +9,7 @@ import {Segment, Card, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
 import history from '../../history';
 import {CustomMenu} from './Menu';
+import moment from 'moment';
 
 class RentalPartnerList extends Component {
 	constructor(props) {
@@ -162,7 +163,7 @@ class RentalPartnerList extends Component {
 												<td>{partner.company_name}</td>
 												<td>{partner.contact_number}</td>
 												<td>{partner.status}</td>
-												<td>{partner.created_at} </td>
+												<td>{moment(partner.created_at).format('D MMMM, YYYY')} </td>
 
 												<td>
 													<Link

@@ -85,7 +85,6 @@ class BookingDetails extends Component {
 
 	render(){
 		const {booking, loading} = this.state;
-
 		return (
 			<React.Fragment>
 				<div className='text-small d-flex justify-content-between'>
@@ -99,12 +98,12 @@ class BookingDetails extends Component {
 					</div>
 					<div>
 						<h5>Booking Details</h5>
-						<div>{booking.booking_date_time}</div>
+						<div>{moment(booking.booking_date_time).format('D MMMM, YYYY')}</div>
 						<div>Pnr No - {booking.pnr_no}</div>
-						<div>{booking.departure_flight_time}</div>
+						<div>{moment(booking.departure_flight_time).format('D MMMM, YYYY')}</div>
 						<div>Refundable - {booking.refundable}</div>
-						<div>Reporting time - {booking.reporting_time}</div>
-						<div>Created At - {booking.created_at}</div>
+						<div>Reporting time - {moment(booking.reporting_time).format('D MMMM, YYYY')}</div>
+						<div>Created At - {moment(booking.created_at).format('D MMMM, YYYY')}</div>
 					</div>
 					<div>
 						{booking.status === 'verified' && 

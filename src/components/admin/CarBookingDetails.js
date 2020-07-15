@@ -12,6 +12,7 @@ import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Badge} from '../shared';
+import moment from 'moment';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -177,11 +178,11 @@ class CarBookingDetails extends Component {
 								<h3 className='title'>Car Booking Details</h3>
 								<div className='list'>
 									<span className='label'>Pickup Time</span>
-									<span className='value'>{carBooking.pickup_date}</span>
+									<span className='value'>{moment(carBooking.pickup_date).format('D MMMM, YYYY')}</span>
 								</div>
 								<div className='list'>
 									<span className='label'>Drop off Time</span>
-									<span className='value'>{carBooking.drop_off_date}</span>
+									<span className='value'>{moment(carBooking.drop_off_date).format('D MMMM, YYYY')}</span>
 								</div>
 
 								<div className='list'>
@@ -220,7 +221,7 @@ class CarBookingDetails extends Component {
 									</div>
 									<div className='list'>
 										<span className='label'>Flight Time</span>
-										<span className='value'> {carBooking.flight_time}</span>
+										<span className='value'> {moment(carBooking.flight_time).format('D MMMM, YYYY')}</span>
 									</div>
 								</div>
 							)}

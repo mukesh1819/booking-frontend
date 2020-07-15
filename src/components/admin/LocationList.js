@@ -9,6 +9,7 @@ import FilterForm from './FilterForm';
 import {CustomMenu} from './Menu';
 import {Card, Pagination} from 'semantic-ui-react';
 import queryString from 'query-string';
+import moment from 'moment';
 
 class LocationList extends Component {
 	constructor(props) {
@@ -178,7 +179,7 @@ class LocationList extends Component {
 											<td>{index + 1}</td>
 											<td>{location.name}</td>
 											<td>{location.location_type} </td>
-											<td>{location.created_at}</td>
+											<td>{moment(location.created_at).format('D MMMM, YYYY')}</td>
 											<td>
 												{/* <Link
 													to={{
