@@ -240,11 +240,9 @@ class CarBookingDetails extends Component {
 									<span className='value'>{carBooking.car_inquiry.destination}</span>
 								</div>
 								<div className='list'>
-									<span className='label'>Aiport Transfer</span>
+									<span className='label'>Trip Type</span>
 									<span className='value'>
-										<Badge type={carBooking.car_inquiry.within_city}>
-											{carBooking.car_inquiry.within_city ? 'True' : 'False'}
-										</Badge>
+										{carBooking.car_inquiry.trip_type}
 									</span>
 								</div>
 							</div>
