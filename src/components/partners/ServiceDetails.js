@@ -14,8 +14,8 @@ import {getPartnerServices} from '../../api/partnerServiceApi';
 
 const Services = (props) => {
 	const {service} = props;
-	const packageInfo = service.extras.pick(['Package Name']);
-	const contactInfo = service.extras.pick([
+	const packageInfo = pick(service.extras, ['Package Name']);
+	const contactInfo = pick(service.extras, [
 		'Head Person',
 		'Email Address',
 		'Address',
@@ -23,7 +23,7 @@ const Services = (props) => {
 		'Number of Person',
 		'Phone Number'
 	]);
-	const bookingInfo = service.extras.pick([
+	const bookingInfo = pick(service.extras, [
 		'Invoice Number',
 		'pickup_location',
 		'drop_off_location',
@@ -33,7 +33,7 @@ const Services = (props) => {
 		'pickup_date',
 		'drop_off_date'
 	]);
-	const remarks = service.extras.pick(['remarks']);
+	const remarks = pick(service.extras, ['remarks']);
 
 	return (
 		<div className='ui segment'>

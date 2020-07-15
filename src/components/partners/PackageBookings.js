@@ -33,18 +33,6 @@ const PackageBookings = (props) => {
 							</div>
 						</div>
 					))}
-					{services.map((service) => (
-						<div className='card'>
-							<div className='card-body'>
-								<div>
-									<div>
-										<h3 className='ui header'> {service.name} </h3>
-										<div className='text-muted'> {service.details} </div>
-									</div>
-								</div>
-							</div>
-						</div>
-					))}
 				</Fragment>
 			)}
 			{viewDetails && <ServiceDetails service={viewDetails} />}
