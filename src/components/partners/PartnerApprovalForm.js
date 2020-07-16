@@ -24,7 +24,7 @@ class PartnerApprovalForm extends Component {
 	componentDidMount() {}
 
 	render() {
-        const {carBooking} = this.props.state ? this.props.state : {carBooking: {}};
+        const {carBooking} = this.props.location.state ? this.props.location.state : {carBooking: {}};
 
 		const PartnerApprovalSchema = yup.object().shape({
 			driver_name: textValidate(yup).required('Required'),
@@ -48,7 +48,7 @@ class PartnerApprovalForm extends Component {
 					initialValues={partnerDetails}
 					validationSchema={PartnerApprovalSchema}
 					onSubmit={(values, {setSubmitting}) => {
-                        partnerApproval('728f884d68aa3d403e0a', values)
+                        partnerApproval(carBooking.idx, values)
                         .then((response) => {
                             setSubmitting(false);
                             swal({

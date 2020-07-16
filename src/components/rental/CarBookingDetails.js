@@ -92,11 +92,11 @@ class CarBookingDetails extends Component {
 									<h3 className='title'>Car Booking Details</h3>
 									<div className='list'>
 										<span className='label'>Pickup Time</span>
-										<span className='value'>{moment(carBooking.pickup_date).format('D MMMM, YYYY')}</span>
+										<span className='value'>{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm:ss')}</span>
 									</div>
 									<div className='list'>
 										<span className='label'>Drop off Time</span>
-										<span className='value'>{moment(carBooking.drop_off_date).format('D MMMM, YYYY')}</span>
+										<span className='value'>{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm:ss')}</span>
 									</div>
 
 									<div className='list'>

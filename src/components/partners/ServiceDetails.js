@@ -7,6 +7,7 @@ import {confirmPartner, showPartner} from '../../api/partnerApi';
 import {Badge, Sidebar} from '../shared';
 import PartnerProfile from './PartnerProfile';
 import {getPartnerServices} from '../../api/partnerServiceApi';
+import moment from 'moment';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
@@ -29,7 +30,11 @@ const Services = (props) => {
 		'Invoice Number',
 		'pickup_location',
 		'drop_off_location',
-		'meals_included',
+		'meals_included'
+		
+	]);
+
+	const bookingDateInfo = pick(service.extras,[
 		'start_date',
 		'end_date',
 		'pickup_date',
@@ -74,6 +79,12 @@ const Services = (props) => {
 								<div className='row'>
 									<div className='eight wide column'>{key.titleize()}:</div>
 									<div className='eight wide column'>{value}</div>
+								</div>
+							))}
+							{Object.entries(bookingDateInfo).map(([key, value]) => (
+								<div className='row'>
+									<div className='eight wide column'>{key.titleize()}:</div>
+									<div className='eight wide column'>{moment(value).format('D MMMM, YYYY')}</div>
 								</div>
 							))}
 						</div>
