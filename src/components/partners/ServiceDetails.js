@@ -14,47 +14,29 @@ import {getPartnerServices} from '../../api/partnerServiceApi';
 
 const Services = (props) => {
 	const {service} = props;
-	const packageInfo = [service.extras['Package Name']];
-	// const contactInfo = service.extras.pick([
-	// 	'Head Person',
-	// 	'Email Address',
-	// 	'Address',
-	// 	'Nationality',
-	// 	'Number of Person',
-	// 	'Phone Number'
-	// ]);
+	const packageInfo = pick(service.extras, ['Package Name']);
 
-	const contactInfo = [
-		service.extras['Head Person'],
-		service.extras['Email Address'],
-		service.extras['Address'],
-		service.extras['Nationality'],
-		service.extras['Number of Person'],
-		service.extras['Phone Number']
-	];
+	const contactInfo = pick(service.extras, [
+		'Head Person',
+		'Email Address',
+		'Address',
+		'Nationality',
+		'Number of Person',
+		'Phone Number'
+	]);
 
-	const bookingInfo = [
-		service.extras['Invoice Number'],
-		service.extras['pickup_location'],
-		service.extras['drop_off_location'],
-		service.extras['meals_included'],
-		service.extras['start_date'],
-		service.extras['end_date'],
-		service.extras['pickup_date'],
-		service.extras['drop_off_date']
-	];
+	const bookingInfo = pick(service.extras, [
+		'Invoice Number',
+		'pickup_location',
+		'drop_off_location',
+		'meals_included',
+		'start_date',
+		'end_date',
+		'pickup_date',
+		'drop_off_date'
+	]);
 
-	// const bookingInfo = service.extras.pick([
-	// 	'Invoice Number',
-	// 	'pickup_location',
-	// 	'drop_off_location',
-	// 	'meals_included',
-	// 	'start_date',
-	// 	'end_date',
-	// 	'pickup_date',
-	// 	'drop_off_date'
-	// ]);
-	const remarks = [service.extras['remarks']];
+	const remarks = pick(service.extras, ['remarks']);
 
 	return (
 		<div className='ui segment'>
