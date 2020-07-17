@@ -10,12 +10,16 @@ import SocialLinks from './SocialLinks';
 import {roleBasedUrl} from '../../helpers';
 import * as yup from 'yup';
 import {Segment} from 'semantic-ui-react';
+import {EmailPrompt, ChangePassword} from './ForgotPassword';
+import {Modal as ModalExample, EmptyContent} from '../shared';
 
 class SignInForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loading: false
+			loading: false,
+			forgot_password: false,
+			change_password: false
 		};
 	}
 
@@ -25,11 +29,17 @@ class SignInForm extends Component {
 		});
 	};
 
+	toggleState = (key) => {
+		this.setState((prevState) => ({
+			[key]: !prevState[key]
+		}));
+	};
+
 	componentDidMount() {}
 
 	render() {
 		const {currentUser} = this.props;
-		const {loading} = this.state;
+		const {loading, forgot_password, change_password} = this.state;
 		var redirectUrl = '/';
 		const UsersSigninForm = yup.object().shape({
 			email: yup.string().email().required('Required'),
@@ -135,8 +145,11 @@ class SignInForm extends Component {
 												/>
 												<ErrorMessage name='password' />
 											</div>
-											<div className='text-small'>
-												<Link to='/forgot'>Forgot Password?</Link>
+											<div
+												className='text-small'
+												onClick={() => this.toggleState('forgot_password')}
+											>
+												Forgot Password?
 											</div>
 										</div>
 										<button
@@ -158,6 +171,22 @@ class SignInForm extends Component {
 						</Segment>
 					)}
 				</Formik>
+
+				<ModalExample
+					title='Forgot Password'
+					show={forgot_password}
+					toggle={() => this.toggleState('forgot_password')}
+				>
+					<EmailPrompt onSubmit={(values) => this.toggleState('change_password')} />
+				</ModalExample>
+
+				<ModalExample
+					title='Change Password'
+					show={change_password}
+					toggle={() => this.toggleState('change_password')}
+				>
+					<ChangePassword />
+				</ModalExample>
 			</div>
 		);
 	}

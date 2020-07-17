@@ -228,8 +228,8 @@ class PackageBookingList extends Component {
 										{/* <td>{packageBooking.inquiry_id}</td> */}
 										{/* <td>{packageBooking.booking_transaction_id}</td> */}
 										<td>{carBooking.status}</td>
-										<td>{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm:ss')}</td>
-										<td>{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm:ss')}</td>
+										<td>{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm')}</td>
+										<td>{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm')}</td>
 										{/* <td>{packageBooking.pickup_date}</td> */}
 										{/* <td>{packageBooking.pickup_location}</td> */}
 										{/* <td>{packageBooking.drop_off_date}</td> */}

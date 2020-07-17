@@ -36,7 +36,7 @@ const BookingDetails = ({bookings}) => {
 									}}
 								>
 									<i className='fas fa-contact' />
-									<span className='btn bg-none text-primary'>approve partner</span>
+									<span className='btn bg-none text-primary'>Approve Booking</span>
 								</Link>
 							</span>
 						)}
