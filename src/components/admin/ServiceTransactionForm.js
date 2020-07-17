@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
-import {passCsrfToken, subDays, addDays} from '../../helpers';
+import {passCsrfToken, subDays, addDays, numberValidate} from '../../helpers';
 import {connect} from 'react-redux';
 import history from '../../history';
-import {Container, Segment, Dropdown} from 'semantic-ui-react';
+import {Container, Segment, Dropdown, Form, TextArea} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb} from '../shared';
 import {Input} from 'semantic-ui-react';
@@ -13,55 +13,50 @@ import ReactDOM from 'react-dom';
 import swal from 'sweetalert';
 import {sortObjectBy, phoneValidate, textValidate, alphaNumericValidate} from '../../helpers';
 import {partnerApproval} from '../../api/carBookingApi';
+import {getPartners} from '../../api/partnerApi';
 
 class ServiceTransactionForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			partners: []
+		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		var params = {};
+		params['q[status_eq]'] = 'approved';
+		getPartners(params)
+			.then((response) => {
+				this.setState({
+					partners: response.data.partners
+				});
+			})
+			.catch((error) => {
+				console.log('partner fetch error', error);
+			});
+	}
 
 	render() {
-		const {carBooking} = this.props.state ? this.props.state : {carBooking: {}};
-
-		const PartnerApprovalSchema = yup.object().shape({
-			driver_name: textValidate(yup).required('Required'),
-			car_color: textValidate(yup).required('Required'),
-			driver_contact: phoneValidate(yup).required('Required'),
-			car_number: alphaNumericValidate(yup).required('Required')
+		const serviceTransactionSchema = yup.object().shape({
+			partner_id: textValidate(yup).required('Required'),
+			direction: textValidate(yup).required('Required'),
+			amount: numberValidate(yup).required('Required')
 		});
-
-		const partnerDetails = {
-			driver_name: carBooking.driver_name,
-			driver_contact: carBooking.driver_contact,
-			car_color: carBooking.car_color,
-			car_number: carBooking.car_number
-		};
+		const {partners} = this.state;
 
 		return (
 			<div className=''>
 				<h3 className='m-3' />
 				<Formik
-					initialValues={partnerDetails}
-					validationSchema={PartnerApprovalSchema}
-					onSubmit={(values, {setSubmitting}) => {
-						partnerApproval('728f884d68aa3d403e0a', values)
-							.then((response) => {
-								setSubmitting(false);
-								swal({
-									title: 'Partner approval success!',
-									text: response.data.message,
-									icon: 'success',
-									button: 'Continue'
-								}).then((value) => {
-									history.push('/');
-								});
-							})
-							.catch((error) => {
-								console.log('Partner approval error', error);
-							});
+					initialValues={{
+						partner_id: '',
+						direction: '',
+						amount: 0,
+						remarks: ''
 					}}
+					validationSchema={serviceTransactionSchema}
+					onSubmit={(values, {setSubmitting}) => {}}
 				>
 					{({
 						values,
@@ -75,66 +70,61 @@ class ServiceTransactionForm extends Component {
 						/* and other goodies */
 					}) => (
 						<React.Fragment>
-							<form onSubmit={handleSubmit}>
+							<Form onSubmit={handleSubmit}>
 								<div className=''>
 									<div className='row'>
-										<div className='col-12 col-md-6'>
+										<div className='col-12 col-md-6 offset-md-3'>
 											<div className='field-box'>
-												<label>Driver Name</label>
-												<Field
-													name='driver_name'
-													className='form-control'
-													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.driver_name}
-												/>
-												<ErrorMessage name='driver_name' />
+												<Form.Field>
+													<Form.Select
+														className=''
+														name='partner_id'
+														label='Select Partner'
+														placeholder='Select Partner'
+														onBlur={handleBlur}
+														onChange={(e, data) => {
+															setFieldValue(`partner_id`, data.value);
+														}}
+														value={values.partner_id}
+														fluid
+														search
+														selection
+														options={partners.map(function(partner) {
+															name = partner.first_name + ' ' + partner.last_name;
+															return {
+																key: partner.id,
+																value: partner.id,
+																text: name
+															};
+														})}
+													/>
+												</Form.Field>
 											</div>
-										</div>
-
-										<div className='col-12 col-md-6'>
 											<div className='field-box'>
-												<label> Driver Mobile Number </label>
-												<IconInput icon='icon-paper-plane' iconPosition='left'>
-													<Field
-														name='driver_contact'
-														className='form-control'
+												<Form.Field>
+													<Form.Input
+														type='number'
+														name='amount'
+														label='Amount'
 														onBlur={handleBlur}
 														onChange={handleChange}
-														value={values.driver_contact}
+														value={values.amount}
 													/>
-												</IconInput>
-												<ErrorMessage name='driver_contact' />
+												</Form.Field>
+												<ErrorMessage name='amount' />
 											</div>
-										</div>
-									</div>
-									<div className='row'>
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label>Car Color</label>
-												<Field
-													name='car_color'
-													className='form-control'
-													onBlur={handleBlur}
+											<Form.Field>
+												<label>Remarks</label>
+												<TextArea
+													name='remarks'
 													onChange={handleChange}
-													value={values.car_color}
-												/>
-												<ErrorMessage name='car_color' />
-											</div>
-										</div>
-
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label>Car Number</label>
-												<Field
-													name='car_number'
-													className='form-control'
 													onBlur={handleBlur}
-													onChange={handleChange}
-													value={values.car_number}
+													placeholder='Remarks'
+													style={{minHeight: 100}}
+													value={values.remarks}
 												/>
-												<ErrorMessage name='car_number' />
-											</div>
+												<ErrorMessage name='remarks' />
+											</Form.Field>
 										</div>
 									</div>
 								</div>
@@ -143,7 +133,7 @@ class ServiceTransactionForm extends Component {
 										Submit
 									</button>
 								</div>
-							</form>
+							</Form>
 						</React.Fragment>
 					)}
 				</Formik>
@@ -152,11 +142,4 @@ class ServiceTransactionForm extends Component {
 	}
 }
 
-const mapStateToProps = ({extras, userStore}) => ({
-	countries: extras.countries,
-	currentUser: userStore.currentUser
-});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceTransactionForm);
+export default ServiceTransactionForm;

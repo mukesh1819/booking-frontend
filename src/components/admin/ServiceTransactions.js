@@ -231,8 +231,15 @@ class ServiceTransactions extends Component {
 										})}
 									</tbody>
 								</table> */}
-								<div className='ui button primary'>Create Service Transaction</div>
 							</Segment>
+							<div className='text-center'>
+								<div
+									className='ui button primary'
+									onClick={() => history.push('/admin/service_transaction/new')}
+								>
+									Create Service Transaction
+								</div>
+							</div>
 
 							{/* <div className='text-center p-2'>
 								<Pagination

@@ -6,7 +6,6 @@ import * as yup from 'yup';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ErrorMessage from '../ErrorMessage';
 
-
 function onCaptchaChange(value) {
 	console.log('Captcha value:', value);
 }
@@ -15,7 +14,6 @@ export default ({values, sendEmail}) => {
 	const MailBoxForm = yup.object().shape({
 		email: yup.string().email().required('Required'),
 		captcha: yup.string().typeError('Required')
-
 	});
 	return (
 		<Formik
@@ -45,53 +43,51 @@ export default ({values, sendEmail}) => {
 				isSubmitting
 				/* and other goodies */
 			}) => (
-				<form onSubmit={handleSubmit}>
-					<Form>
-						<Form.Field>
-							<label className='font-weight-bold'>Email</label>
-							<input
-								name='email'
-								placeholder='Email Address'
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.email}
-							/>
-							<ErrorMessage name='email' />
-						</Form.Field>
-						<Form.Field>
-							<label className='font-weight-bold'>Subject</label>
-							<input
-								name='subject'
-								placeholder='Subject'
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.subject}
-							/>
-						</Form.Field>
-						<Form.Field>
-							<label className='font-weight-bold'>Message</label>
-							<TextArea
-								name='description'
-								onChange={handleChange}
-								onBlur={handleBlur}
-								placeholder='Message'
-								style={{minHeight: 100}}
-								value={values.description}
-							/>
-						</Form.Field>
+				<Form onSubmit={handleSubmit}>
+					<Form.Field>
+						<label className='font-weight-bold'>Email</label>
+						<input
+							name='email'
+							placeholder='Email Address'
+							onChange={handleChange}
+							onBlur={handleBlur}
+							value={values.email}
+						/>
+						<ErrorMessage name='email' />
+					</Form.Field>
+					<Form.Field>
+						<label className='font-weight-bold'>Subject</label>
+						<input
+							name='subject'
+							placeholder='Subject'
+							onChange={handleChange}
+							onBlur={handleBlur}
+							value={values.subject}
+						/>
+					</Form.Field>
+					<Form.Field>
+						<label className='font-weight-bold'>Message</label>
+						<TextArea
+							name='description'
+							onChange={handleChange}
+							onBlur={handleBlur}
+							placeholder='Message'
+							style={{minHeight: 100}}
+							value={values.description}
+						/>
+					</Form.Field>
 
-						<Form.Field>
-							<ReCAPTCHA 
-								sitekey={process.env.REACT_APP_CAPTCHA_KEY}
-								onChange={(value) => setFieldValue('captcha', value)}
-							/>
-							<ErrorMessage name='captcha' />
-						</Form.Field>
-						<button className='btn btn-primary my-3' type='submit' disabled={isSubmitting}>
-							Submit
-						</button>
-					</Form>
-				</form>
+					<Form.Field>
+						<ReCAPTCHA
+							sitekey={process.env.REACT_APP_CAPTCHA_KEY}
+							onChange={(value) => setFieldValue('captcha', value)}
+						/>
+						<ErrorMessage name='captcha' />
+					</Form.Field>
+					<button className='btn btn-primary my-3' type='submit' disabled={isSubmitting}>
+						Submit
+					</button>
+				</Form>
 			)}
 		</Formik>
 	);
