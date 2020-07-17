@@ -113,20 +113,37 @@ class Dashboard extends Component {
 							</Fragment>
 						)}
 
-						{(section == '' || section == '#others') && (
+						{(section == '' || section == '#payments') && (
 							<Fragment>
 								<div className='widget col-sm-12 col-md-4'>
 									<div className='card'>
 										<div className='card-body'>
 											<div className='text-center'>
 												<span className='count'> {transactions} </span> <hr />
-												<Link to='/admin/transaction_list' className='action'>
+												<Link to='/admin/transactions' className='action'>
 													View all transactions
 												</Link>
 											</div>
 										</div>
 									</div>
 								</div>
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'> {transactions} </span> <hr />
+												<Link to='/admin/service_transactions' className='action'>
+													View all service transactions
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+							</Fragment>
+						)}
+
+						{(section == '' || section == '#others') && (
+							<Fragment>
 								<div className='widget col-sm-12 col-md-4'>
 									<div className='card'>
 										<div className='card-body'>

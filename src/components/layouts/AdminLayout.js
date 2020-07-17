@@ -46,6 +46,13 @@ const AdminLayout = ({currentUser, children, logoutUser}) => {
 		},
 		{
 			icon: 'fas fa-wallet',
+			name: 'payments',
+			label: 'Payments',
+			value: '',
+			active: section == 'payments'
+		},
+		{
+			icon: 'fas fa-wallet',
 			name: 'others',
 			label: 'Others',
 			value: '',

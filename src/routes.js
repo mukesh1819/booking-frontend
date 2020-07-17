@@ -80,6 +80,7 @@ import LocationForm from './components/rental/LocationForm';
 import CarInquiryList from './components/admin/CarInquiryList';
 import VehicleTypeList from './components/admin/VehicleTypeList';
 import CarInquiryDetails from './components/admin/CarInquiryDetails';
+import ServiceTransactions from './components/admin/ServiceTransactions';
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -148,7 +149,8 @@ const routes = [
 	{private: true, path: '/admin/car_inquiry_details/:idx', component: CarInquiryDetails, layout: AdminLayout},
 
 	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},
-	{private: true, path: '/admin/transaction_list', component: TransactionList, layout: AdminLayout},
+	{private: true, path: '/admin/transactions', component: TransactionList, layout: AdminLayout},
+	{private: true, path: '/admin/service_transactions', component: ServiceTransactions, layout: AdminLayout},
 	{private: true, path: '/admin/create_user', component: CreateUser, layout: AdminLayout},
 	{private: true, path: '/admin/users_list', component: UsersList, layout: AdminLayout},
 	{private: true, path: '/admin/packages', component: PackagesList, layout: AdminLayout},

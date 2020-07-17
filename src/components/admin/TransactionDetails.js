@@ -151,7 +151,7 @@ class TransactionDetails extends Component {
 												text: response.data.message,
 												icon: 'success',
 												button: 'Continue'
-											}).then((value) => history.push('/admin/transaction_list'));
+											}).then((value) => history.push('/admin/transactions'));
 										})
 										.catch((error) => {
 											console.log('Transaction update error', error);
