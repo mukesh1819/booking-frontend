@@ -112,6 +112,8 @@ const routes = [
 
 	{private: true, path: '/partners/package_form/:partnerId', component: AddPackageForm, layout: UserLayout},
 	{private: true, path: '/admin/package_form', component: NewPackageForm, layout: UserLayout},
+	{private: true, path: '/admin/:car_booking_idx/partner_approval_form', component: PartnerApprovalForm, layout: AdminLayout},
+
 	{private: true, path: '/admin/partner_approval_form', component: PartnerApprovalForm, layout: AdminLayout},
 	{private: true, path: '/admin/partners/:id', component: PartnerProfile, layout: UserLayout},
 	{private: true, path: '/inquiry_details/:idx', component: PackageInquiryDetails, layout: UserLayout},

@@ -9,6 +9,7 @@ import {getPartnerCarBookings} from '../../api/carBookingApi';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
 import {Segment} from 'semantic-ui-react';
 import moment from 'moment';
+import {Link} from 'react-router-dom';
 
 const BookingDetails = ({bookings}) => {
 	return (
@@ -19,10 +20,27 @@ const BookingDetails = ({bookings}) => {
 					<div className='value'>{carBooking.mobile_no}</div>
 					<div className='value'>{carBooking.contact_email}</div>
 					<div className='value'>{carBooking.amount}</div>
-					<div className='value'>{moment(carBooking.pickup_date).format('D MMMM, YYYY')}</div>
+					<div className='value'>{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm:ss')}</div>
 					<div className='value'>{carBooking.pickup_location}</div>
-					<div className='value'>{moment(carBooking.drop_off_date).format('D MMMM, YYYY')}</div>
+					<div className='value'>{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm:ss')}</div>
 					<div className='value'>{carBooking.drop_off_location}</div>
+					<div>
+						{carBooking.status == 'verified' && (
+							<span>
+								<Link
+									to={{
+										pathname: `/admin/${carBooking.idx}/partner_approval_form`,
+										state: {
+											carBooking: carBooking
+										}
+									}}
+								>
+									<i className='fas fa-contact' />
+									<span className='btn bg-none text-primary'>approve partner</span>
+								</Link>
+							</span>
+						)}
+					</div>
 				</div>
 			))}
 		</div>
