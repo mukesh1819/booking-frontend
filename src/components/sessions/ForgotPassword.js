@@ -10,6 +10,8 @@ import SocialLinks from './SocialLinks';
 import {roleBasedUrl} from '../../helpers';
 import * as yup from 'yup';
 import {Segment} from 'semantic-ui-react';
+import {requestForNewPassword} from '../../api/userApi';
+import swal from 'sweetalert';
 
 export const EmailPrompt = (props) => {
 	const [loading, setLoading] = useState(false);
@@ -25,7 +27,16 @@ export const EmailPrompt = (props) => {
 				validationSchema={emailPromptSchema}
 				onSubmit={async (values, {setSubmitting, setStatus}) => {
 					setLoading(true);
-					props.onSubmit(values);
+					requestForNewPassword(values).then((response) => {
+						setLoading(false);
+						swal({
+							title: 'Response',
+							text: response.data.message,
+							icon: response.status == 200 ? 'success' : 'error'
+						}).then((response) => {
+							history.push('/');
+						});
+					});
 				}}
 			>
 				{({
@@ -71,12 +82,23 @@ export const EmailPrompt = (props) => {
 	);
 };
 
-export const ChangePassword = () => {
+export const ChangePassword = (props) => {
 	const [loading, setLoading] = useState(false);
 	const changePasswordSchema = yup.object().shape({
 		password: yup.string().required('Required'),
 		confirm_password: yup.string().required('Required')
 	});
+	const token = new URLSearchParams(props.location.hash.replace('#change_password', '')).get('reset_token');
+	if (!token) {
+		return (
+			<Segment placeholder className='text-center'>
+				<div className='ui icon header'>
+					<i className='exclamation circle red huge icon' />
+					Invalid token
+				</div>
+			</Segment>
+		);
+	}
 	return (
 		<Segment loading={loading}>
 			<Formik
@@ -87,6 +109,7 @@ export const ChangePassword = () => {
 				validationSchema={changePasswordSchema}
 				onSubmit={async (values, {setSubmitting, setStatus}) => {
 					setLoading(true);
+					values.reset_token = token;
 				}}
 			>
 				{({

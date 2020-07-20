@@ -183,10 +183,10 @@ class SignInForm extends Component {
 
 				<ModalExample
 					title='Change Password'
-					show={locationHash == '#change_password'}
+					show={locationHash.includes('#change_password')}
 					toggle={() => history.push('/login')}
 				>
-					<ChangePassword />
+					<ChangePassword {...this.props} />
 				</ModalExample>
 			</div>
 		);

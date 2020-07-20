@@ -1,6 +1,14 @@
 import axios from 'axios';
-import {API_URL, ADMIN_API_URL, BASE_URL} from '../constants';
-import {handleResponse, handleError, useInterceptor} from './apiUtils';
+import {
+	API_URL,
+	ADMIN_API_URL,
+	BASE_URL
+} from '../constants';
+import {
+	handleResponse,
+	handleError,
+	useInterceptor
+} from './apiUtils';
 
 useInterceptor(axios);
 
@@ -91,5 +99,15 @@ export function resendConfirmationCode(id) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/resend_code/${id}`
+	});
+}
+
+export function requestForNewPassword(data) {
+	return axios({
+		method: 'post',
+		url: `${BASE_URL}/forgot`,
+		data: {
+			user: data
+		}
 	});
 }
