@@ -51,6 +51,7 @@ class SignInForm extends Component {
 		// if (currentUser.email !== undefined) {
 		// 	return <Redirect to={redirectUrl} />;
 		// }
+		const locationHash = this.props.location.hash;
 		return (
 			<div className='container full-page'>
 				<Formik
@@ -177,13 +178,13 @@ class SignInForm extends Component {
 					show={forgot_password}
 					toggle={() => this.toggleState('forgot_password')}
 				>
-					<EmailPrompt onSubmit={(values) => this.toggleState('change_password')} />
+					<EmailPrompt onSubmit={(values) => history.push('/login#change_password')} />
 				</ModalExample>
 
 				<ModalExample
 					title='Change Password'
-					show={change_password}
-					toggle={() => this.toggleState('change_password')}
+					show={locationHash == '#change_password'}
+					toggle={() => history.push('/login')}
 				>
 					<ChangePassword />
 				</ModalExample>
