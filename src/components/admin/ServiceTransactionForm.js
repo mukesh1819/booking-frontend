@@ -14,6 +14,7 @@ import swal from 'sweetalert';
 import {sortObjectBy, phoneValidate, textValidate, alphaNumericValidate} from '../../helpers';
 import {partnerApproval} from '../../api/carBookingApi';
 import {getPartners} from '../../api/partnerApi';
+import {createServiceTransaction} from '../../api/serviceTransactionApi';
 
 class ServiceTransactionForm extends Component {
 	constructor(props) {
@@ -39,8 +40,8 @@ class ServiceTransactionForm extends Component {
 
 	render() {
 		const serviceTransactionSchema = yup.object().shape({
-			partner_id: textValidate(yup).required('Required'),
-			direction: textValidate(yup).required('Required'),
+			// partner_id: textValidate(yup).required('Required'),
+			remarks: textValidate(yup).required('Required'),
 			amount: numberValidate(yup).required('Required')
 		});
 		const {partners} = this.state;
@@ -56,7 +57,19 @@ class ServiceTransactionForm extends Component {
 						remarks: ''
 					}}
 					validationSchema={serviceTransactionSchema}
-					onSubmit={(values, {setSubmitting}) => {}}
+					onSubmit={(values, {setSubmitting}) => {
+						createServiceTransaction(values)
+						.then((response) => {
+							setSubmitting(false);
+							swal({
+								title: 'Response',
+								text: response.data.message,
+								icon: response.status == 200 ? 'success' : 'error'
+							}).then((response) => {
+								history.push('/');
+							});
+						})
+					}}
 				>
 					{({
 						values,
