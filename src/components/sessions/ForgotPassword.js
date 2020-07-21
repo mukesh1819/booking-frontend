@@ -10,7 +10,7 @@ import SocialLinks from './SocialLinks';
 import {roleBasedUrl} from '../../helpers';
 import * as yup from 'yup';
 import {Segment} from 'semantic-ui-react';
-import {requestForNewPassword} from '../../api/userApi';
+import {requestForNewPassword, resetPassword} from '../../api/userApi';
 import swal from 'sweetalert';
 
 export const EmailPrompt = (props) => {
@@ -110,6 +110,16 @@ export const ChangePassword = (props) => {
 				onSubmit={async (values, {setSubmitting, setStatus}) => {
 					setLoading(true);
 					values.reset_token = token;
+					resetPassword(values)
+					.then((response) => {
+						swal({
+							title: 'Password changed successfully',
+							text: response.data.message,
+							icon: response.status == 200 ? 'success' : 'error'
+						}).then((response) => {
+							history.push('/');
+						});
+					})
 				}}
 			>
 				{({

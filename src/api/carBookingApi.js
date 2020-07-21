@@ -88,3 +88,11 @@ export function partnerApproval(id, data){
 		data: {car_booking: data}
 	});
 }
+
+export function markComplete(id){
+	return axios({
+		method: 'put',
+		url: `${API_URL}/admin/car_bookings/${id}/mark_complete` 
+	});
+
+}

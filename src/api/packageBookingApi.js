@@ -33,3 +33,11 @@ export function deletePackageBooking(id) {
 		url: `${API_URL}/package_bookings/${id}`
 	});
 }
+
+export function markComplete(id){
+	return axios({
+		method: 'put',
+		url: `${API_URL}/package_bookings/${id}/mark_complete` 
+	});
+
+}

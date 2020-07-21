@@ -6,7 +6,8 @@ import {
 	getCarBookingConfirmation,
 	declineCarBooking,
 	deleteCarBooking,
-	showUserCarBooking
+	showUserCarBooking,
+	markComplete
 } from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
@@ -75,6 +76,19 @@ class CarBookingDetails extends Component {
 			downloadTicket(response.data);
 		});
 	};
+
+	onMarkComplete(id) {
+		markComplete(id)
+		.then((response) => {
+			swal({
+				title: 'Response',
+				text: response.data.message,
+				icon: response.status == 200 ? 'success' : 'error'
+			}).then((response) => {
+				history.push('/');
+			});
+		})
+	}
 
 	destroyCarBooking(id) {
 		// deletePackageBooking(id)
@@ -185,6 +199,14 @@ class CarBookingDetails extends Component {
 												<i className='fas fa-contact' />
 												<span className='btn bg-none text-primary'>Approve Booking</span>
 											</Link>
+										</span>
+									</td>
+								)}
+
+								{carBooking.status == 'approved' && (
+									<td>
+										<span>
+											<span className='btn bg-none text-primary' onClick={ () => this.onMarkComplete(carBooking.idx)}>Mark As Complete</span>
 										</span>
 									</td>
 								)}

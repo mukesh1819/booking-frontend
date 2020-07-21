@@ -111,3 +111,11 @@ export function requestForNewPassword(data) {
 		}
 	});
 }
+
+export function resetPassword(details) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/member/change_password`,
+		data: {user: details}
+	});
+}

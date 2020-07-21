@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
-import {getPackageBookingConfirmation, deletePackageBooking} from '../../api/packageBookingApi';
+import {getPackageBookingConfirmation, deletePackageBooking, markComplete} from '../../api/packageBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
@@ -20,20 +20,20 @@ class PackageBookingDetails extends Component {
 
 	componentDidMount() {}
 
-	onConfirmPackageBooking(id) {
-		getPackageBookingConfirmation(id)
-			.then((response) => {
-				swal({
-					title: 'Package Booking Confirmation!',
-					text: response.data.message,
-					icon: 'success',
-					button: 'Continue!'
-				});
-			})
-			.catch((error) => {
-				console.log('Package booking confirmation error', error);
-			});
-	}
+	// onConfirmPackageBooking(id) {
+	// 	getPackageBookingConfirmation(id)
+	// 		.then((response) => {
+	// 			swal({
+	// 				title: 'Package Booking Confirmation!',
+	// 				text: response.data.message,
+	// 				icon: 'success',
+	// 				button: 'Continue!'
+	// 			});
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log('Package booking confirmation error', error);
+	// 		});
+	// }
 
 	destroyPackageBooking(id) {
 		// deletePackageBooking(id)
@@ -83,6 +83,19 @@ class PackageBookingDetails extends Component {
 			downloadTicket(response.data);
 		});
 	};
+
+	onMarkComplete(id) {
+		markComplete(id)
+		.then((response) => {
+			swal({
+				title: 'Response',
+				text: response.data.message,
+				icon: response.status == 200 ? 'success' : 'error'
+			}).then((response) => {
+				history.push('/');
+			});
+		})
+	}
 
 	render() {
 		const {packageBooking} = this.props.location.state;
@@ -143,13 +156,21 @@ class PackageBookingDetails extends Component {
 							</Button>
 						</span>
 					)}
-					{packageBooking.status == 'pending' && (
+					{/* {packageBooking.inquiry.status == 'pending' && (
 						<span
 							className='btn btn-secondary btn-large ml-3'
 							onClick={() => this.onConfirmPackageBooking(packageBooking.idx)}
 						>
 							confirm
 						</span>
+					)} */}
+
+					{packageBooking.inquiry.status == 'verified' && (
+						<td>
+							<span>
+								<span className='btn bg-none text-primary' onClick={ () => this.onMarkComplete(packageBooking.idx)}>Mark As Complete</span>
+							</span>
+						</td>
 					)}
 
 					{/* <span
