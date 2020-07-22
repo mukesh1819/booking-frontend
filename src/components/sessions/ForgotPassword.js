@@ -86,7 +86,9 @@ export const ChangePassword = (props) => {
 	const [loading, setLoading] = useState(false);
 	const changePasswordSchema = yup.object().shape({
 		password: yup.string().required('Required'),
-		confirm_password: yup.string().required('Required')
+		// confirm_password: yup.string().required('Required'),
+		confirm_password: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match!")
+
 	});
 	const token = new URLSearchParams(props.location.hash.replace('#change_password', '')).get('reset_token');
 	if (!token) {

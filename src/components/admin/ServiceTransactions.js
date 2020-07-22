@@ -14,12 +14,15 @@ import {downloadTicket, downloadCsvTicket, downloadXlsTicket} from '../../helper
 import queryString from 'query-string';
 import FilterForm from './FilterForm';
 import moment from 'moment';
+import {getServiceTransactions} from '../../api/serviceTransactionApi';
+import {CustomMenu} from './Menu';
+
 
 class ServiceTransactions extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			transactions: [],
+			serviceTransactions: [],
 			activeMenuItem: 'All',
 			pagination: {}
 		};
@@ -35,39 +38,42 @@ class ServiceTransactions extends Component {
 		});
 	};
 
-	onStatusChange = (value) => {
-		this.setState({activeMenuItem: value});
-	};
+	
 
-	onTransactionSelect(transaction) {
-		this.setState({
-			selectedTransaction: transaction
-		});
-	}
+	// onStatusChange = (value) => {
+	// 	this.setState({activeMenuItem: value});
+	// };
 
-	handleItemClick = (e, {name}) => {
-		var searchQuery = name == 'All' ? '' : `q[state_eq]=${name.toLowerCase()}`;
-		this.fetchUserTransaction(searchQuery);
-		this.setState({activeMenuItem: name});
-	};
+	// onTransactionSelect(transaction) {
+	// 	this.setState({
+	// 		selectedTransaction: transaction
+	// 	});
+	// }
 
-	setKey(key) {
-		this.setState({
-			key: key
-		});
-	}
+	// handleItemClick = (e, {name}) => {
+	// 	var searchQuery = name == 'All' ? '' : `q[state_eq]=${name.toLowerCase()}`;
+	// 	this.fetchServiceTransaction(searchQuery);
+	// 	this.setState({activeMenuItem: name});
+	// };
+
+	// setKey(key) {
+	// 	this.setState({
+	// 		key: key
+	// 	});
+	// }
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
 		// this.fetchUserTransaction(queryString.parse(this.props.location.search));
+		this.fetchServiceTransaction(queryString.parse(this.props.location.search));
 	}
 
-	fetchUserTransaction(params) {
-		getUserTransaction(params)
+	fetchServiceTransaction(params) {
+		getServiceTransactions(params)
 			.then((response) => {
 				// console.log(response);
 				this.setState({
-					transactions: response.data.booking_transactions,
+					serviceTransactions: response.data.service_transactions,
 					pagination: response.data.meta.pagination
 				});
 			})
@@ -77,44 +83,44 @@ class ServiceTransactions extends Component {
 			});
 	}
 
-	downloadCsv() {
-		getCsvTransaction()
-			.then((response) => {
-				console.log('Transaction response', response.data);
-				downloadCsvTicket(response.data);
-			})
-			.catch((error) => {
-				console.log('csv download error');
-			});
-	}
+	// downloadCsv() {
+	// 	getCsvTransaction()
+	// 		.then((response) => {
+	// 			console.log('Transaction response', response.data);
+	// 			downloadCsvTicket(response.data);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log('csv download error');
+	// 		});
+	// }
 
-	downloadXls() {
-		getXlsTransaction()
-			.then((response) => {
-				console.log('Transaction response', response.data);
-				downloadXlsTicket(response.data);
-			})
-			.catch((error) => {
-				console.log('csv download error');
-			});
-	}
+	// downloadXls() {
+	// 	getXlsTransaction()
+	// 		.then((response) => {
+	// 			console.log('Transaction response', response.data);
+	// 			downloadXlsTicket(response.data);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log('csv download error');
+	// 		});
+	// }
 
 	onFilter = (values) => {
 		this.setState({
-			transactions: values.booking_transactions
+			serviceTransactions: values.service_transactions
 		});
 	};
 
 	render() {
-		const {show, key, selectedTransaction, activeMenuItem, pagination} = this.state;
-		const FilterFields = [
+		const {show, key, serviceTransactions, activeMenuItem, pagination} = this.state;
+		const filterFields = [
 			{
-				name: 'date_gteq',
+				name: 'created_at_gteq',
 				label: 'From Date',
 				type: 'date'
 			},
 			{
-				name: 'date_lteq',
+				name: 'created_at_lteq',
 				label: 'To Date',
 				type: 'date'
 			},
@@ -123,25 +129,52 @@ class ServiceTransactions extends Component {
 				name: 'amount_eq',
 				label: 'amount',
 				type: 'text'
+			},
+
+			{
+				name: 'partner_first_name_or_last_name_cont',
+				label: 'Partner Name',
+				type: 'text'
+			},
+
+			{
+				name: 'closing_balance_eq',
+				label: 'Total Transaction',
+				type: 'text'
+			},
+
+			{
+				name: 'remarks_cont',
+				label: 'Remarks',
+				type: 'text'
 			}
 		];
 		return (
 			<React.Fragment>
-				{this.state.transactions !== null && (
+				{this.state.serviceTransactions !== null && (
 					<div className='ui container'>
-						<FilterForm
-							submitUrl='payments'
+						{/* <FilterForm
+							submitUrl='service_transactions'
 							fields={FilterFields}
 							onSubmit={(values) => this.onFilter(values)}
-						/>
+						/> */}
 						<div className='' id='search-form'>
-							<div className='row'>
-								<div className='col-6'>
+							<div className='row justify-content-between'>
+								<div className='col-4'>
 									<h3 className='title'>Service Transactions</h3>
 								</div>
+								<div
+									className='ui button primary col-5'
+									onClick={() => history.push('/admin/service_transaction/new')}
+								>
+									Create Service Transaction
+								</div>
 							</div>
+							{/* <div className='text-center'>
+								
+							</div> */}
 
-							<Menu pointing>
+							{/* <Menu pointing>
 								<Menu.Item name={activeMenuItem} active={true} />
 								<Menu.Item>
 									<Dropdown clearable text='Status'>
@@ -188,32 +221,58 @@ class ServiceTransactions extends Component {
 										<Input icon='search' placeholder='Search...' />
 									</Menu.Item>
 								</Menu.Menu>
-							</Menu>
+							</Menu> */}
+
+							<CustomMenu
+								submitUrl='service_transactions'
+								filterFields={filterFields}
+								onFilter={(values) => this.onFilter(values)}
+								items={[
+									{
+										label: 'Transaction Type',
+										type: 'dropdown',
+										name: 'direction_eq',
+										objects: [
+											{
+												label: 'debit',
+												value: 'debit'
+											},
+											{
+												label: 'credit',
+												value: 'credit'
+											}
+										]
+									}
+								]}
+							/>
+
 
 							<Segment>
-								{/* <table className='table table-striped table-bordered'>
+								<table className='table table-striped table-bordered'>
 									<thead>
 										<tr>
 											<th>S. No.</th>
-											<th>Transaction Invoice</th>
-											<th>state</th>
+											<th>Transaction Type</th>
 											<th>Amount</th>
+											<th>Partner id</th>
+											<th>Total Balance</th>
+											<th>Remarks</th>
 											<th>Created At</th>
-											<th>Actions</th>
+											{/* <th>Actions</th> */}
 										</tr>
 									</thead>
 									<tbody>
-										{this.state.transactions.map((transaction, index) => {
+										{this.state.serviceTransactions.map((transaction, index) => {
 											return (
 												<tr>
 													<td>{index + 1}</td>
-													<td>{transaction.idx}</td>
-													<td>
-														<Badge type={transaction.state}>{transaction.state}</Badge>
-													</td>
+													<td>{transaction.direction}</td>
 													<td>{transaction.amount}</td>
+													<td>{transaction.partner_id}</td>
+													<td>{transaction.closing_balance}</td>
+													<td>{transaction.remarks}</td>
 													<td>{moment(transaction.created_at).format('D MMMM, YYYY')}</td>
-													<td>
+													{/* <td>
 														<Link
 															className='btn bg-none text-primary'
 															to={{
@@ -225,30 +284,23 @@ class ServiceTransactions extends Component {
 														>
 															Details
 														</Link>
-													</td>
+													</td> */}
 												</tr>
 											);
 										})}
 									</tbody>
-								</table> */}
+								</table>
 							</Segment>
-							<div className='text-center'>
-								<div
-									className='ui button primary'
-									onClick={() => history.push('/admin/service_transaction/new')}
-								>
-									Create Service Transaction
-								</div>
-							</div>
+							
 
-							{/* <div className='text-center p-2'>
+							<div className='text-center p-2'>
 								<Pagination
 									activePage={pagination.current_page}
 									sizePerPage={pagination.per_page}
 									onPageChange={this.changeCurrentPage}
 									totalPages={pagination.total_pages}
 								/>
-							</div> */}
+							</div>
 						</div>
 					</div>
 				)}
