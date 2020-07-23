@@ -23,12 +23,10 @@ const Editable = (props) => {
 
 				{!editMode && (
 					<span className='value text-right'>
-						{value}&nbsp;
-						{!editMode && (
-							<span className='text-bold text-primary actions' onClick={() => setEditMode(true)}>
-								Edit
-							</span>
-						)}
+						{value}
+						<span className='text-bold text-primary actions' onClick={() => setEditMode(true)}>
+							&nbsp;Edit
+						</span>
 					</span>
 				)}
 				{editMode && (
