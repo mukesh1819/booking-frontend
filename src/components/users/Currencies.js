@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 import {setCurrency, setLanguage} from '../../redux/actions';
 import {Flag, Segment} from 'semantic-ui-react';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Badge} from 'react-bootstrap';
 
 export default ({icon = 'icon-paper-plane icon', iconPosition = 'left', children}) => {
 	return (

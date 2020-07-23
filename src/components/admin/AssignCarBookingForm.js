@@ -6,54 +6,52 @@ import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
-import {Button, ButtonGroup} from 'react-bootstrap';
 import {Counter, IconInput, Loading as LoadingScreen} from '../shared';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import ReactDOM from 'react-dom';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {assignPartner} from '../../api/carBookingApi';
-import { getPartners } from '../../api/partnerApi';
+import {getPartners} from '../../api/partnerApi';
 
 class AssignCarBookingForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            partners: []
+			partners: []
 		};
-		
-    }
-    
-    componentDidMount(){
-        var params ={};
+	}
+
+	componentDidMount() {
+		var params = {};
 		params['q[company_type_cont]'] = 'vehicle rental';
 		params['q[status_eq]'] = 'approved';
-        this.fetchPartners(params); 
-    }
+		this.fetchPartners(params);
+	}
 
-    fetchPartners(params){
-        getPartners(params)
-        .then((response) => {
-            this.setState({
-                partners: response.data.partners
-            });
-        })
-        .catch((error) => {
-            console.log("partner fetch error", error)
-        })
-    }
+	fetchPartners(params) {
+		getPartners(params)
+			.then((response) => {
+				this.setState({
+					partners: response.data.partners
+				});
+			})
+			.catch((error) => {
+				console.log('partner fetch error', error);
+			});
+	}
 
 	render() {
-        const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
-        const {partners} = this.state;
+		const {carBooking} = this.props.location.state != null ? this.props.location.state : {carBooking: {}};
+		const {partners} = this.state;
 		const BookingSchema = yup.object().shape({
-            partner_id: yup.string().required('Required'),
-            remarks: yup.string().required('Required')
+			partner_id: yup.string().required('Required'),
+			remarks: yup.string().required('Required')
 		});
-       
+
 		const bookingDetails = {
 			partner_id: carBooking.partner_id || 1,
 			remarks: carBooking.remarks
-        };
+		};
 		return (
 			<div className='container bg-white'>
 				<Formik
@@ -62,7 +60,7 @@ class AssignCarBookingForm extends Component {
 					onSubmit={(values, {setSubmitting}) => {
 						this.setState({
 							searching: true
-                        });
+						});
 						setSubmitting(false);
 						// console.log(values);
 						if (carBooking.idx != null) {
@@ -105,55 +103,52 @@ class AssignCarBookingForm extends Component {
 							</div>
 							<form onSubmit={handleSubmit}>
 								<div className='input-section padded bg-white'>
-
-                                    <div className='row'>
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <label>Select Partners</label>
-                                                <Dropdown
-                                                    className=''
-                                                    name='partner_id'
-                                                    placeholder='Select Partners'
-                                                    onBlur={handleBlur}
-                                                    onChange={(e, data) => {
-                                                        setFieldValue(`partner_id`, data.value);
-                                                    }}
-                                                    value={values.partner_id}
-                                                    fluid
-                                                    search
-                                                    selection
-                                                    options={partners.map(function(partner) {
-                                                        name = partner.first_name + ' ' + partner.last_name;
-                                                        return {
-                                                            key: partner.id,
-                                                            value: partner.id,
-                                                            text: name
-                                                        };
-                                                    })}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
+									<div className='row'>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>Select Partners</label>
+												<Dropdown
+													className=''
+													name='partner_id'
+													placeholder='Select Partners'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(`partner_id`, data.value);
+													}}
+													value={values.partner_id}
+													fluid
+													search
+													selection
+													options={partners.map(function(partner) {
+														name = partner.first_name + ' ' + partner.last_name;
+														return {
+															key: partner.id,
+															value: partner.id,
+															text: name
+														};
+													})}
+												/>
+											</div>
+										</div>
+									</div>
 
 									<div className='row'>
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <label htmlFor=''>Remarks</label>
-                                                <TextArea
-                                                    className='form-control'
-                                                    name='remarks'
-                                                    placeholder='remarks'
-                                                    onBlur={handleBlur}
-                                                    onChange={(e, data) => {
-                                                        setFieldValue(`remarks`, e.target.value);
-                                                    }}
-                                                    value={values.remarks}
-                                                />
-                                                <ErrorMessage name='remarks' />
-                                            </div>
-                                        </div>
-
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label htmlFor=''>Remarks</label>
+												<TextArea
+													className='form-control'
+													name='remarks'
+													placeholder='remarks'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(`remarks`, e.target.value);
+													}}
+													value={values.remarks}
+												/>
+												<ErrorMessage name='remarks' />
+											</div>
+										</div>
 									</div>
 								</div>
 

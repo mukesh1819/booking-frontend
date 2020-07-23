@@ -4,32 +4,29 @@ import swal from 'sweetalert';
 import moment from 'moment';
 import {ifNotZero} from '../../helpers';
 import {Badge} from '../shared';
-import {Accordion} from 'semantic-ui-react';
+import {Accordion, Button} from 'semantic-ui-react';
 import {getBookingDetails} from '../../api/flightApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
-import {Button, ButtonGroup} from 'react-bootstrap';
-
 
 class BookingDetails extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
 			booking: {}
-		}
+		};
 	}
-	componentDidMount(){
-		this.fetchBooking(this.props.match.params.ruid)
+	componentDidMount() {
+		this.fetchBooking(this.props.match.params.ruid);
 	}
 
 	fetchBooking(ruid) {
-		getBookingDetails(ruid)
-		.then((response) => {
+		getBookingDetails(ruid).then((response) => {
 			this.setState({
 				booking: response.data.departing_flight,
 				loading: false
 			});
-		})
+		});
 	}
 
 	destroyBooking = (id) => {
@@ -82,8 +79,7 @@ class BookingDetails extends Component {
 		});
 	};
 
-
-	render(){
+	render() {
 		const {booking, loading} = this.state;
 		return (
 			<React.Fragment>
@@ -106,7 +102,7 @@ class BookingDetails extends Component {
 						<div>Created At - {moment(booking.created_at).format('D MMMM, YYYY')}</div>
 					</div>
 					<div>
-						{booking.status === 'verified' && 
+						{booking.status === 'verified' && (
 							<span className='text-center py-4'>
 								<Button
 									primary
@@ -117,7 +113,7 @@ class BookingDetails extends Component {
 									Download ticket
 								</Button>
 							</span>
-						}
+						)}
 
 						<span className='btn bg-none text-danger' onClick={() => destroyBooking(booking.ruid)}>
 							Delete
@@ -127,6 +123,5 @@ class BookingDetails extends Component {
 			</React.Fragment>
 		);
 	}
-
-};
+}
 export default BookingDetails;

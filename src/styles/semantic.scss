@@ -111,3 +111,13 @@
         width: 50vw;
     }
 }
+
+
+.section-layout {
+    padding: 14px;
+
+    .section {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+}

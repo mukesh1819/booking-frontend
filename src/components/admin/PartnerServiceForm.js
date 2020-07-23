@@ -79,6 +79,22 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 						<ErrorMessage name={`partner_services_attributes[${index}].details`} />
 					</div>
 
+					<div className='field-box'>
+						<label>Amount</label>
+
+						<Field
+							type='number'
+							rows='4'
+							name={`partner_services_attributes[${index}].amount`}
+							className='form-control'
+							onBlur={onBlur}
+							onChange={(e) => onChange(`amount`, e.target.value)}
+							value={partner.amount}
+						/>
+
+						<ErrorMessage name={`partner_services_attributes[${index}].details`} />
+					</div>
+
 					<div className='row'>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>

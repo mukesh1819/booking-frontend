@@ -10,8 +10,7 @@ import {
 	markComplete
 } from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
-import {downloadTicket} from '../../helpers';
-import {Button, ButtonGroup} from 'react-bootstrap';
+import {downloadTicket, pick} from '../../helpers';
 import {Badge} from '../shared';
 import moment from 'moment';
 
@@ -78,8 +77,7 @@ class CarBookingDetails extends Component {
 	};
 
 	onMarkComplete(id) {
-		markComplete(id)
-		.then((response) => {
+		markComplete(id).then((response) => {
 			swal({
 				title: 'Response',
 				text: response.data.message,
@@ -87,7 +85,7 @@ class CarBookingDetails extends Component {
 			}).then((response) => {
 				history.push('/');
 			});
-		})
+		});
 	}
 
 	destroyCarBooking(id) {
@@ -134,204 +132,211 @@ class CarBookingDetails extends Component {
 		const {carBooking, loading} = this.state;
 		return (
 			<div className='container'>
-				<div className=''>
+				<div className='ui grid'>
 					<div className='row'>
-						<div className='col-12 col-md-3 offset-md-2 '>
-							<div className=''>
-								<i className='fas fa-car fa-3x' />
-								<h3 className='title'>
-									{carBooking.first_name}&nbsp;
-									{carBooking.last_name}
-								</h3>
-								<div className=''>
-									Status:&nbsp;<Badge type={carBooking.status}>{carBooking.status}</Badge>
-								</div>
-								<div>IDx: {carBooking.idx}</div>
-								<div>Car Type: {carBooking.car_inquiry.car_type}</div>
-								<div>Amount: {carBooking.amount}</div>
-								<h3 className='title' />
-								{carBooking.status === 'verified' && (
-									<span className='text-center py-4'>
-										<a
-											href='#'
-											primary
-											loading={loading}
-											className='text-danger text-bold'
-											onClick={(e) => {
-												e.preventDefault();
-												this.download(carBooking.idx);
-											}}
-										>
-											Download ticket
-										</a>
-									</span>
-								)}
-
-								{carBooking.status == 'processing' && (
-									<td>
-										<span>
-											<Link
-												to={{
-													pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
-													state: {
-														carBooking: carBooking
-													}
-												}}
-											>
-												<i className='fas fa-contact' />
-												<span className='btn bg-none text-primary'>assign partner</span>
-											</Link>
-										</span>
-									</td>
-								)}
-
-								{carBooking.status == 'verified' && (
-									<td>
-										<span>
-											<Link
-												to={{
-													pathname: `/admin/${carBooking.idx}/partner_approval_form`,
-													state: {
-														carBooking: carBooking
-													}
-												}}
-											>
-												<i className='fas fa-contact' />
-												<span className='btn bg-none text-primary'>Approve Booking</span>
-											</Link>
-										</span>
-									</td>
-								)}
-
-								{carBooking.status == 'approved' && (
-									<td>
-										<span>
-											<span className='btn bg-none text-primary' onClick={ () => this.onMarkComplete(carBooking.idx)}>Mark As Complete</span>
-										</span>
-									</td>
-								)}
-							</div>
-						</div>
-
-						<div className='col-12 col-md-5'>
-							<div className='list-view'>
-								<h3 className='title'>Car Booking Details</h3>
-								<div className='list'>
-									<span className='label'>Pickup Time</span>
-									<span className='value'>
-										{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm:ss')}
-									</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Drop off Time</span>
-									<span className='value'>
-										{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm:ss')}
-									</span>
-								</div>
-
-								<div className='list'>
-									<span className='label'>Pickup Location</span>
-									<span className='value'>{carBooking.pickup_location}</span>
-								</div>
-
-								<div className='list'>
-									<span className='label'>Drop off Location</span>
-									<span className='value'>{carBooking.drop_off_location}</span>
-								</div>
-							</div>
-
-							<div className='list-view'>
-								<h3 className='title'>Contact Details</h3>
-								<div className='list'>
-									<span className='label'>Name</span>
-									<span className='value'>{carBooking.contact_name}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Email</span>
-									<span className='value'> {carBooking.contact_email}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Mobile No</span>
-									<span className='value'>{carBooking.mobile_no}</span>
-								</div>
-							</div>
-
-							{carBooking.flight_no && (
-								<div className='list-view'>
-									<h3 className='title'>Flight Details</h3>
-									<div className='list'>
-										<span className='label'>Flight Number</span>
-										<span className='value'>{carBooking.flight_no}</span>
-									</div>
-									<div className='list'>
-										<span className='label'>Flight Time</span>
-										<span className='value'>
-											{' '}
-											{moment(carBooking.flight_time).format('D MMMM, YYYY')}
-										</span>
-									</div>
-								</div>
+						<div className='right floated right aligned sixteen wide column'>
+							{(carBooking.status == 'pending' || carBooking.status == 'declined') && (
+								<span
+									className='btn btn-success m-2'
+									onClick={() => this.onConfirmCarBooking(carBooking.idx)}
+								>
+									confirm
+								</span>
 							)}
 
-							<div className='list-view'>
-								<h3 className='title'>Inquiry Details</h3>
-								<div className='list'>
-									<span className='label'>Number of pax</span>
-									<span className='value'>{carBooking.car_inquiry.no_of_pax}</span>
+							{(carBooking.status == 'pending' || carBooking.status == 'processing') && (
+								<span
+									className='btn btn-outline-danger m-2'
+									onClick={() => this.onDeclineCarBooking(carBooking.idx)}
+								>
+									decline
+								</span>
+							)}
+
+							{carBooking.status != 'completed' && (
+								<Link
+									className='m-2'
+									to={{
+										pathname: `/car_bookings/${carBooking.idx}/edit`,
+										state: {
+											carBooking: carBooking
+										}
+									}}
+								>
+									<i className='fas fa-contact' />
+									<span className='btn btn-primary'>edit</span>
+								</Link>
+							)}
+
+							{carBooking.status === 'verified' && (
+								<span className='text-center py-4'>
+									<a
+										href='#'
+										primary
+										loading={loading}
+										className='text-danger text-bold'
+										onClick={(e) => {
+											e.preventDefault();
+											this.download(carBooking.idx);
+										}}
+									>
+										Download ticket
+									</a>
+								</span>
+							)}
+
+							{carBooking.status == 'processing' && (
+								<td>
+									<span>
+										<Link
+											to={{
+												pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
+												state: {
+													carBooking: carBooking
+												}
+											}}
+										>
+											<i className='fas fa-contact' />
+											<span className='btn bg-none text-primary'>assign partner</span>
+										</Link>
+									</span>
+								</td>
+							)}
+
+							{carBooking.status == 'verified' && (
+								<td>
+									<span>
+										<Link
+											to={{
+												pathname: `/admin/${carBooking.idx}/partner_approval_form`,
+												state: {
+													carBooking: carBooking
+												}
+											}}
+										>
+											<i className='fas fa-contact' />
+											<span className='btn bg-none text-primary'>Approve Booking</span>
+										</Link>
+									</span>
+								</td>
+							)}
+
+							{carBooking.status == 'approved' && (
+								<td>
+									<span>
+										<span
+											className='btn bg-none text-primary'
+											onClick={() => this.onMarkComplete(carBooking.idx)}
+										>
+											Mark As Complete
+										</span>
+									</span>
+								</td>
+							)}
+						</div>
+					</div>
+				</div>
+				<div className='ui segment'>
+					{/* <h3 className='ui header'> Details </h3> */}
+					<div className='ui internally celled stackable grid section-layout'>
+						<div className='row'>
+							<div className='eight wide column section'>
+								<h3 className='ui header'> Inquiry Details </h3>
+								<div className='ui grid'>
+									{Object.entries(
+										pick(carBooking.car_inquiry, [
+											'source',
+											'destination',
+											'no_of_pax',
+											'trip_type',
+											'no_of_days'
+										])
+									).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
 								</div>
-								<div className='list'>
-									<span className='label'>Source</span>
-									<span className='value'>{carBooking.car_inquiry.source}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Destination</span>
-									<span className='value'>{carBooking.car_inquiry.destination}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Trip Type</span>
-									<span className='value'>{carBooking.car_inquiry.trip_type}</span>
+							</div>
+							<div className='eight wide column section'>
+								<h3 className='ui header'> Booking Details </h3>
+								<div className='ui grid'>
+									{Object.entries(
+										pick(carBooking, ['pickup_date', 'drop_off_date'])
+									).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>
+												{moment(value).format('D MMMM, YYYY HH:mm:ss')}
+											</div>
+										</div>
+									))}
+									{Object.entries(
+										pick(carBooking, ['pickup_location', 'drop_off_location'])
+									).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
+									{carBooking.flight_no && (
+										<Fragment>
+											<div className='row'>
+												<div className='eight wide column'>Flight Number</div>
+												<div className='eight wide column'> {carBooking.flight_no}</div>
+											</div>
+											<div className='row'>
+												<div className='eight wide column'>Flight Time</div>
+												<div className='eight wide column'>
+													{moment(carBooking.flight_time).format('D MMMM, YYYY')}
+												</div>
+											</div>
+										</Fragment>
+									)}
+									<div className='row text-bold text-danger'>
+										<div className='eight wide column'>Amount:</div>
+										<div className='eight wide column'> {carBooking.amount}</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className='text-center'>
-						{(carBooking.status == 'pending' || carBooking.status == 'declined') && (
-							<span
-								className='btn btn-success m-2'
-								onClick={() => this.onConfirmCarBooking(carBooking.idx)}
-							>
-								confirm
-							</span>
-						)}
-
-						{(carBooking.status == 'pending' || carBooking.status == 'processing') && (
-							<span
-								className='btn btn-outline-danger m-2'
-								onClick={() => this.onDeclineCarBooking(carBooking.idx)}
-							>
-								decline
-							</span>
-						)}
-
-						<Link
-							className='m-2'
-							to={{
-								pathname: `/car_bookings/${carBooking.idx}/edit`,
-								state: {
-									carBooking: carBooking
-								}
-							}}
-						>
-							<i className='fas fa-contact' />
-							<span className='btn btn-primary'>edit</span>
-						</Link>
-
-						{/* <span
-							className='btn btn-danger'
-							onClick={() => this.destroyCarBooking(carBooking.idx)}
-						>
-							Delete
-						</span> */}
+						<div className='row'>
+							<div className='eight wide column section'>
+								<h3 className='ui header'> Contact Details </h3>
+								<div className='ui grid'>
+									{Object.entries(
+										pick(carBooking, ['contact_name', 'contact_email', 'mobile_no'])
+									).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
+								</div>
+							</div>
+							<div className='eight wide column section'>
+								<h3 className='ui header'> Other Details </h3>
+								<div className='ui grid'>
+									{Object.entries(pick(carBooking.car_inquiry, ['car_type'])).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
+									<div className='row'>
+										<div className='eight wide column'>Booking Status:</div>
+										<div className='eight wide column'>
+											<Badge type={carBooking.status}>{carBooking.status}</Badge>
+										</div>
+									</div>
+									<div className='row'>
+										<div className='eight wide column'>IDx:</div>
+										<div className='eight wide column'>{carBooking.idx}</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

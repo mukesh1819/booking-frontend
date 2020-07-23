@@ -1,5 +1,4 @@
 import React from 'react';
-import {ListGroup, Button, Modal, Nav, NavItem} from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import history from '../../history';
 import SocialLinks from '../sessions/SocialLinks';

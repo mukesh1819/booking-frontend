@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import {passCsrfToken} from '../../helpers';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
-import {Button, ButtonGroup} from 'react-bootstrap';
 
 import {Counter, IconInput} from '../shared';
 import {Input} from 'semantic-ui-react';

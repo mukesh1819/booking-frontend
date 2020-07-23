@@ -85,8 +85,7 @@ class PackageBookingDetails extends Component {
 	};
 
 	onMarkComplete(id) {
-		markComplete(id)
-		.then((response) => {
+		markComplete(id).then((response) => {
 			swal({
 				title: 'Response',
 				text: response.data.message,
@@ -94,7 +93,7 @@ class PackageBookingDetails extends Component {
 			}).then((response) => {
 				history.push('/');
 			});
-		})
+		});
 	}
 
 	render() {
@@ -115,7 +114,9 @@ class PackageBookingDetails extends Component {
 									<h3 className='title'>Booking Details</h3>
 									<div className='list'>
 										<span className='label'>Pickup Date</span>
-										<span className='value'>{moment(packageBooking.pickup_date).format('D MMMM, YYYY')}</span>
+										<span className='value'>
+											{moment(packageBooking.pickup_date).format('D MMMM, YYYY')}
+										</span>
 									</div>
 									<div className='list'>
 										<span className='label'>Pickup Location</span>
@@ -123,7 +124,9 @@ class PackageBookingDetails extends Component {
 									</div>
 									<div className='list'>
 										<span className='label'>Drop off Date</span>
-										<span className='value'>{moment(packageBooking.drop_off_date).format('D MMMM, YYYY')}</span>
+										<span className='value'>
+											{moment(packageBooking.drop_off_date).format('D MMMM, YYYY')}
+										</span>
 									</div>
 									<div className='list'>
 										<span className='label'>Drop off Location</span>
@@ -135,7 +138,9 @@ class PackageBookingDetails extends Component {
 									</div>
 									<div className='list'>
 										<span className='label'>Start Date</span>
-										<span className='value'>{moment(packageBooking.start_date).format('D MMMM, YYYY')}</span>
+										<span className='value'>
+											{moment(packageBooking.start_date).format('D MMMM, YYYY')}
+										</span>
 									</div>
 								</div>
 								<div>Remarks: {packageBooking.remarks}</div>
@@ -168,7 +173,12 @@ class PackageBookingDetails extends Component {
 					{packageBooking.inquiry.status == 'verified' && (
 						<td>
 							<span>
-								<span className='btn bg-none text-primary' onClick={ () => this.onMarkComplete(packageBooking.idx)}>Mark As Complete</span>
+								<span
+									className='btn bg-none text-primary'
+									onClick={() => this.onMarkComplete(packageBooking.idx)}
+								>
+									Mark As Complete
+								</span>
 							</span>
 						</td>
 					)}
