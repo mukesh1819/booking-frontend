@@ -149,7 +149,7 @@ class PackageBookingList extends Component {
 			},
 
 			{
-				name: 'inquiry_first_name_or_last_name_cont',
+				name: 'inquiry_first_name_or_inquiry_last_name_cont',
 				label: 'Inquiring User',
 				type: 'text'
 			}

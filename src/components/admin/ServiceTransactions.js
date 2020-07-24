@@ -16,6 +16,7 @@ import FilterForm from './FilterForm';
 import moment from 'moment';
 import {getServiceTransactions} from '../../api/serviceTransactionApi';
 import {CustomMenu} from './Menu';
+import {getPartners} from '../../api/partnerApi';
 
 
 class ServiceTransactions extends Component {
@@ -24,14 +25,15 @@ class ServiceTransactions extends Component {
 		this.state = {
 			serviceTransactions: [],
 			activeMenuItem: 'All',
-			pagination: {}
+			pagination: {},
+			partners: []
 		};
 	}
 
 	changeCurrentPage = (e, {activePage}) => {
 		var searchQuery = `?page=${activePage}`;
 		this.setState({currentPage: activePage});
-		this.fetchUserTransaction({page: activePage});
+		this.fetchServiceTransaction({page: activePage});
 		history.push({
 			pathname: window.location.pathname,
 			search: searchQuery
@@ -81,6 +83,13 @@ class ServiceTransactions extends Component {
 				// console.log(error);
 				console.log(' Transaction fetch error', error);
 			});
+
+		getPartners({par_page: 100})
+		.then((response) => {
+			this.setState({
+				partners: response.data.partners
+			});
+		})
 	}
 
 	// downloadCsv() {
@@ -112,7 +121,7 @@ class ServiceTransactions extends Component {
 	};
 
 	render() {
-		const {show, key, serviceTransactions, activeMenuItem, pagination} = this.state;
+		const {show, key, serviceTransactions, activeMenuItem, pagination, partners} = this.state;
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
@@ -131,10 +140,29 @@ class ServiceTransactions extends Component {
 				type: 'text'
 			},
 
+			// {
+			// 	name: 'partner_first_name_or_partner_last_name_cont',
+			// 	label: 'Partner Name',
+			// 	type: 'text'
+			// },
+
 			{
-				name: 'partner_first_name_or_last_name_cont',
 				label: 'Partner Name',
-				type: 'text'
+				type: 'select',
+				//name: 'partner_id_eq',
+				name: 'partner_id_eq',
+				options: partners.map(function(partner) {
+					// key: partner.id
+					// value: partner.id
+					var pName = partner.first_name + " " +  partner.last_name;
+					return{
+						key: partner.id,
+						value: partner.id,
+						text: pName
+					};
+					 
+					
+				})
 			},
 
 			{
@@ -252,13 +280,20 @@ class ServiceTransactions extends Component {
 									<thead>
 										<tr>
 											<th>S. No.</th>
-											<th>Transaction Type</th>
-											<th>Amount</th>
+											<th>Date</th>
+											<th>Partner</th>
+											<th>Description</th>
+											<th>Payment Type</th>
+											<th>Debit</th>
+											<th>Credit</th>
+											<th>Closing Balance</th>
+											<th>Booking Details</th>
+											{/* <th>Amount</th>
 											<th>Partner id</th>
 											<th>Total Balance</th>
 											<th>Remarks</th>
 											<th>Created At</th>
-											{/* <th>Actions</th> */}
+											<th>Actions</th> */}
 										</tr>
 									</thead>
 									<tbody>
@@ -266,12 +301,14 @@ class ServiceTransactions extends Component {
 											return (
 												<tr>
 													<td>{index + 1}</td>
-													<td>{transaction.direction}</td>
-													<td>{transaction.amount}</td>
-													<td>{transaction.partner_id}</td>
-													<td>{transaction.closing_balance}</td>
-													<td>{transaction.remarks}</td>
 													<td>{moment(transaction.created_at).format('D MMMM, YYYY')}</td>
+													<td>{transaction.partner.first_name} {transaction.partner.last_name}</td>
+													<td>{transaction.remarks}</td>
+													<td>payment type</td>
+													<td>{transaction.direction === 'debit' ? transaction.amount : ''}</td>
+													<td>{transaction.direction === 'credit' ? transaction.amount : ''}</td>
+													<td>{transaction.closing_balance}</td>
+													<td>{transaction.idx}</td>
 													{/* <td>
 														<Link
 															className='btn bg-none text-primary'

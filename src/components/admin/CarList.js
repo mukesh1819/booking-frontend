@@ -85,7 +85,18 @@ class PackagesList extends Component {
 				name: 'status_eq',
 				label: 'status',
 				type: 'select',
-				options: ['active', 'inactive']
+				options: [
+					{
+						key: 1,
+						value: 'active',
+						text: 'active'
+					},
+					{
+						key: 2,
+						value: 'inactive',
+						text: 'inactive'
+					}
+				]
 			}
 		];
 

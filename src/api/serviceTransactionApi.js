@@ -19,3 +19,12 @@ export function createServiceTransaction(data) {
 		data: {service_transaction: data}
 	});
 }
+
+
+export function getSummary(params){
+	return axios({
+		method: 'get',
+		url: `${API_URL}/service_transactions/summary`,
+		params: params
+	});
+}

@@ -22,7 +22,6 @@ class FilterForm extends Component {
 		const initialValues = {};
 		fields.forEach((field) => (initialValues[name] = ''));
 		const chunks = fields.chunk(2);
-
 		const options = [
 			{key: 'm', text: 'Male', value: 'male'},
 			{key: 'f', text: 'Female', value: 'female'},
@@ -104,13 +103,7 @@ class FilterForm extends Component {
 														<Form.Select
 															clearable
 															label={field.label}
-															options={field.options.map((v) => {
-																return {
-																	key: v,
-																	value: v,
-																	text: v
-																};
-															})}
+															options={field.options}
 															selection
 															name={field.name}
 															onChange={(e, data) => {

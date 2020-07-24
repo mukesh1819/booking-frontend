@@ -32,11 +32,14 @@ class CarInquiryForm extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchDetails();
+		var params = {
+			per_page: 100
+		}
+		this.fetchDetails(params);
 	}
 
-	fetchDetails() {
-		getVehicles()
+	fetchDetails(params) {
+		getVehicles(params)
 			.then((response) => {
 				this.setState({
 					vehicles: response.data.vehicle_types

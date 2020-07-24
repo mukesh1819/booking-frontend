@@ -82,6 +82,9 @@ import VehicleTypeList from './components/admin/VehicleTypeList';
 import CarInquiryDetails from './components/admin/CarInquiryDetails';
 import ServiceTransactions from './components/admin/ServiceTransactions';
 import ServiceTransactionForm from './components/admin/ServiceTransactionForm';
+import SummaryList from './components/admin/SummaryList';
+
+
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -156,6 +159,7 @@ const routes = [
 	{private: true, path: '/admin/car_inquiries', component: CarInquiryList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiry_details/:idx', component: CarInquiryDetails, layout: AdminLayout},
 
+	{private: true, path: '/admin/summaries', component: SummaryList, layout: AdminLayout},
 	{private: true, path: '/admin/transaction/:idx', component: TransactionDetails, layout: AdminLayout},
 	{private: true, path: '/admin/transactions', component: TransactionList, layout: AdminLayout},
 	{private: true, path: '/admin/service_transactions', component: ServiceTransactions, layout: AdminLayout},

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {getAdminDashboard} from '../../api/flightApi';
 import swal from 'sweetalert';
 import history from '../../history';
+
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
@@ -37,13 +38,16 @@ class Dashboard extends Component {
 					location: response.data.location_count,
 					carInquiry: response.data.car_inquiry_count,
 					vehicleType: response.data.vehicle_type_count,
-					service_transaction: response.data.service_transaction_count
+					service_transaction: response.data.service_transaction_count,
+					summary: response.data.summary_count
 				});
 			})
 			.catch((error) => {
 				// console.log(error);
 				console.log('Dashboard fetch error', error);
 			});
+
+			
 	}
 
 	render() {
@@ -63,7 +67,8 @@ class Dashboard extends Component {
 			location,
 			carInquiry,
 			vehicleType,
-			service_transaction
+			service_transaction,
+			summary
 		} = this.state;
 
 		const section = this.props.location.hash;
@@ -303,6 +308,19 @@ class Dashboard extends Component {
 												<span className='count'> {vehicleType} </span> <hr />
 												<Link to='/admin/vehicle_types' className='action'>
 													View all Vehicle Type
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'> {summary} </span> <hr />
+												<Link to='/admin/summaries' className='action'>
+													View all Summary Transactions
 												</Link>
 											</div>
 										</div>
