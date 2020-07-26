@@ -53,8 +53,8 @@ class SummaryList extends Component{
         getSummary(queryString.parse(this.props.location.search))
 			.then((response) => {
 				this.setState({
-                    summaries: response.data,
-                    pagination: response.data.meta
+                    summaries: response.data
+                    // pagination: response.data.meta.pagination
 				});
 			})
 			.catch((error) => {

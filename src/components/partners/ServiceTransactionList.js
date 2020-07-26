@@ -12,11 +12,10 @@ import swal from 'sweetalert';
 import {Menu, Segment, Pagination, Input, Accordion, Dropdown, Button} from 'semantic-ui-react';
 import {downloadTicket, downloadCsvTicket, downloadXlsTicket} from '../../helpers/general';
 import queryString from 'query-string';
-import FilterForm from './FilterForm';
+import FilterForm from '../admin/FilterForm';
 import moment from 'moment';
 import {getServiceTransactions} from '../../api/serviceTransactionApi';
-import {CustomMenu} from './Menu';
-import {getPartners} from '../../api/partnerApi';
+import {CustomMenu} from '../admin/Menu';
 
 
 class ServiceTransactionList extends Component {
@@ -25,8 +24,7 @@ class ServiceTransactionList extends Component {
 		this.state = {
 			serviceTransactions: [],
 			activeMenuItem: 'All',
-			pagination: {},
-			partners: []
+			pagination: {}
 		};
 	}
 
@@ -84,12 +82,7 @@ class ServiceTransactionList extends Component {
 				console.log(' Transaction fetch error', error);
 			});
 
-		getPartners({par_page: 100})
-		.then((response) => {
-			this.setState({
-				partners: response.data.partners
-			});
-		})
+		
 	}
 
 	// downloadCsv() {
@@ -146,24 +139,7 @@ class ServiceTransactionList extends Component {
 			// 	type: 'text'
 			// },
 
-			{
-				label: 'Partner Name',
-				type: 'select',
-				//name: 'partner_id_eq',
-				name: 'partner_id_eq',
-				options: partners.map(function(partner) {
-					// key: partner.id
-					// value: partner.id
-					var pName = partner.first_name + " " +  partner.last_name;
-					return{
-						key: partner.id,
-						value: partner.id,
-						text: pName
-					};
-					 
-					
-				})
-			},
+			
 
 			{
 				name: 'closing_balance_eq',
@@ -191,12 +167,12 @@ class ServiceTransactionList extends Component {
 								<div className='col-4'>
 									<h3 className='title'>Service Transactions</h3>
 								</div>
-								<div
+								{/* <div
 									className='ui button primary col-5'
 									onClick={() => history.push('/admin/service_transaction/new')}
 								>
 									Create Service Transaction
-								</div>
+								</div> */}
 							</div>
 							{/* <div className='text-center'>
 								

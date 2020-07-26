@@ -18,7 +18,8 @@ class Dashboard extends Component {
 		this.state = {
 			partner: {
 				partner_services: [],
-				car_bookings: []
+				car_bookings: [],
+				service_transactions: []
 			}
 		};
 	}
@@ -99,7 +100,7 @@ class Dashboard extends Component {
 								<div className='card'>
 									<div className='card-body'>
 										<div className='text-center'>
-											<span className='count'> 0 </span> <hr />
+											<span className='count'> {partner.service_transactions.length} </span> <hr />
 											<Link to='/partner/service_transactions' className='action'>
 												View all Service Transactions
 											</Link>

@@ -12,7 +12,7 @@ import {
 	PackageBookingDetails as UserPackageBookingDetails
 } from './components/bookings';
 import PrivateRoute from './components/PrivateRoute';
-// import ServiceTransactionList from './components/partner/ServiceTransactionList';
+import ServiceTransactionList from './components/partners/ServiceTransactionList';
 import {
 	BecomePartnerForm,
 	PartnerProfile,
@@ -113,7 +113,7 @@ const routes = [
 	{private: true, path: '/booking/:idx/edit', component: EditBooking, layout: UserLayout},
 	{private: true, path: '/ticket/:id', component: TicketDetails, layout: UserLayout},
 
-	// {private: true, path: '/partner/service_transactions', component: ServiceTransactionList, layout: PartnerLayout},
+	{private: true, path: '/partner/service_transactions', component: ServiceTransactionList, layout: PartnerLayout},
 
 
 	{private: true, path: '/package_booking/:id', component: UserPackageBookingDetails, layout: UserLayout},
