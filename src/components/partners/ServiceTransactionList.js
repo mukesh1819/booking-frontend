@@ -19,7 +19,7 @@ import {CustomMenu} from './Menu';
 import {getPartners} from '../../api/partnerApi';
 
 
-class ServiceTransactions extends Component {
+class ServiceTransactionList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -346,4 +346,4 @@ class ServiceTransactions extends Component {
 	}
 }
 
-export default ServiceTransactions;
+export default ServiceTransactionList;

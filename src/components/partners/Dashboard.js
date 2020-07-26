@@ -93,6 +93,21 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
+
+						{(section == '' || section == '#service_transactions') && (
+							<div className='widget col-sm-12 col-md-4'>
+								<div className='card'>
+									<div className='card-body'>
+										<div className='text-center'>
+											<span className='count'> 0 </span> <hr />
+											<Link to='/partner/service_transactions' className='action'>
+												View all Service Transactions
+											</Link>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
 					</div>
 					<div className='ui segment'>{section == '#profile' && <PartnerProfile partner={partner} />}</div>
 				</div>

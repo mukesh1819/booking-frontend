@@ -12,6 +12,7 @@ import {
 	PackageBookingDetails as UserPackageBookingDetails
 } from './components/bookings';
 import PrivateRoute from './components/PrivateRoute';
+// import ServiceTransactionList from './components/partner/ServiceTransactionList';
 import {
 	BecomePartnerForm,
 	PartnerProfile,
@@ -112,6 +113,9 @@ const routes = [
 	{private: true, path: '/booking/:idx/edit', component: EditBooking, layout: UserLayout},
 	{private: true, path: '/ticket/:id', component: TicketDetails, layout: UserLayout},
 
+	// {private: true, path: '/partner/service_transactions', component: ServiceTransactionList, layout: PartnerLayout},
+
+
 	{private: true, path: '/package_booking/:id', component: UserPackageBookingDetails, layout: UserLayout},
 
 	{private: true, path: '/partners/package_form/:partnerId', component: AddPackageForm, layout: UserLayout},
@@ -186,6 +190,8 @@ const routes = [
 	{private: true, path: '/admin/email', component: UserEmail, layout: AdminLayout},
 	{private: true, path: '/admin/:section', component: Dashboard, layout: AdminLayout},
 	{private: true, path: '/admin', component: Dashboard, layout: AdminLayout},
+
+
 	{private: true, path: '/partner/package_bookings', component: PartnerPackageBookings, layout: PartnerLayout},
 	{private: true, path: '/partner/car_bookings', component: PartnerCarBookings, layout: PartnerLayout},
 	{private: true, path: '/partner/transactions', component: PartnerTransactions, layout: PartnerLayout},

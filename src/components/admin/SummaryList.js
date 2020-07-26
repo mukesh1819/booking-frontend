@@ -183,7 +183,7 @@ class SummaryList extends Component{
 												<tr>
 													<td>{index + 1}</td>
 													
-                                                    <td>{partners.find((partner) => partner.id == summary.partner_id).first_name} {partners.find((partner) => partner.id == summary.partner_id).last_name}</td>
+                                                    <td>{partners.find((partner) => partner.id == summary.partner_id).full_name} </td>
 													<td>{summary.credit}</td>
 													<td>{summary.debit}</td>
 													<td>{summary.due}</td>
