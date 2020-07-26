@@ -17,7 +17,6 @@ import moment from 'moment';
 import {getServiceTransactions} from '../../api/serviceTransactionApi';
 import {CustomMenu} from '../admin/Menu';
 
-
 class ServiceTransactionList extends Component {
 	constructor(props) {
 		super(props);
@@ -37,8 +36,6 @@ class ServiceTransactionList extends Component {
 			search: searchQuery
 		});
 	};
-
-	
 
 	// onStatusChange = (value) => {
 	// 	this.setState({activeMenuItem: value});
@@ -250,7 +247,6 @@ class ServiceTransactionList extends Component {
 								]}
 							/>
 
-
 							<Segment>
 								<table className='table table-striped table-bordered'>
 									<thead>
@@ -278,11 +274,17 @@ class ServiceTransactionList extends Component {
 												<tr>
 													<td>{index + 1}</td>
 													<td>{moment(transaction.created_at).format('D MMMM, YYYY')}</td>
-													<td>{transaction.partner.first_name} {transaction.partner.last_name}</td>
+													<td>
+														{transaction.partner.first_name} {transaction.partner.last_name}
+													</td>
 													<td>{transaction.remarks}</td>
 													<td>payment type</td>
-													<td>{transaction.direction === 'debit' ? transaction.amount : ''}</td>
-													<td>{transaction.direction === 'credit' ? transaction.amount : ''}</td>
+													<td>
+														{transaction.direction === 'debit' ? transaction.amount : ''}
+													</td>
+													<td>
+														{transaction.direction === 'credit' ? transaction.amount : ''}
+													</td>
 													<td>{transaction.closing_balance}</td>
 													<td>{transaction.idx}</td>
 													{/* <td>
@@ -304,7 +306,6 @@ class ServiceTransactionList extends Component {
 									</tbody>
 								</table>
 							</Segment>
-							
 
 							<div className='text-center p-2'>
 								<Pagination
