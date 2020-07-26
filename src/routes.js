@@ -85,8 +85,6 @@ import ServiceTransactions from './components/admin/ServiceTransactions';
 import ServiceTransactionForm from './components/admin/ServiceTransactionForm';
 import SummaryList from './components/admin/SummaryList';
 
-
-
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
 	{private: false, path: '/signup', component: SignUpForm, layout: UserLayout, footer: true},
@@ -113,8 +111,7 @@ const routes = [
 	{private: true, path: '/booking/:idx/edit', component: EditBooking, layout: UserLayout},
 	{private: true, path: '/ticket/:id', component: TicketDetails, layout: UserLayout},
 
-	// {private: true, path: '/partner/service_transactions', component: ServiceTransactionList, layout: PartnerLayout},
-
+	{private: true, path: '/partner/service_transactions', component: ServiceTransactions, layout: PartnerLayout},
 
 	{private: true, path: '/package_booking/:id', component: UserPackageBookingDetails, layout: UserLayout},
 
@@ -190,7 +187,6 @@ const routes = [
 	{private: true, path: '/admin/email', component: UserEmail, layout: AdminLayout},
 	{private: true, path: '/admin/:section', component: Dashboard, layout: AdminLayout},
 	{private: true, path: '/admin', component: Dashboard, layout: AdminLayout},
-
 
 	{private: true, path: '/partner/package_bookings', component: PartnerPackageBookings, layout: PartnerLayout},
 	{private: true, path: '/partner/car_bookings', component: PartnerCarBookings, layout: PartnerLayout},

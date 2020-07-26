@@ -18,7 +18,6 @@ import {getServiceTransactions} from '../../api/serviceTransactionApi';
 import {CustomMenu} from './Menu';
 import {getPartners} from '../../api/partnerApi';
 
-
 class ServiceTransactionList extends Component {
 	constructor(props) {
 		super(props);
@@ -39,8 +38,6 @@ class ServiceTransactionList extends Component {
 			search: searchQuery
 		});
 	};
-
-	
 
 	// onStatusChange = (value) => {
 	// 	this.setState({activeMenuItem: value});
@@ -84,12 +81,11 @@ class ServiceTransactionList extends Component {
 				console.log(' Transaction fetch error', error);
 			});
 
-		getPartners({par_page: 100})
-		.then((response) => {
+		getPartners({per_page: 100}).then((response) => {
 			this.setState({
 				partners: response.data.partners
 			});
-		})
+		});
 	}
 
 	// downloadCsv() {
@@ -154,14 +150,12 @@ class ServiceTransactionList extends Component {
 				options: partners.map(function(partner) {
 					// key: partner.id
 					// value: partner.id
-					var pName = partner.first_name + " " +  partner.last_name;
-					return{
+					var pName = partner.first_name + ' ' + partner.last_name;
+					return {
 						key: partner.id,
 						value: partner.id,
 						text: pName
 					};
-					 
-					
 				})
 			},
 
@@ -274,7 +268,6 @@ class ServiceTransactionList extends Component {
 								]}
 							/>
 
-
 							<Segment>
 								<table className='table table-striped table-bordered'>
 									<thead>
@@ -302,11 +295,17 @@ class ServiceTransactionList extends Component {
 												<tr>
 													<td>{index + 1}</td>
 													<td>{moment(transaction.created_at).format('D MMMM, YYYY')}</td>
-													<td>{transaction.partner.first_name} {transaction.partner.last_name}</td>
+													<td>
+														{transaction.partner.first_name} {transaction.partner.last_name}
+													</td>
 													<td>{transaction.remarks}</td>
 													<td>payment type</td>
-													<td>{transaction.direction === 'debit' ? transaction.amount : ''}</td>
-													<td>{transaction.direction === 'credit' ? transaction.amount : ''}</td>
+													<td>
+														{transaction.direction === 'debit' ? transaction.amount : ''}
+													</td>
+													<td>
+														{transaction.direction === 'credit' ? transaction.amount : ''}
+													</td>
 													<td>{transaction.closing_balance}</td>
 													<td>{transaction.idx}</td>
 													{/* <td>
@@ -328,7 +327,6 @@ class ServiceTransactionList extends Component {
 									</tbody>
 								</table>
 							</Segment>
-							
 
 							<div className='text-center p-2'>
 								<Pagination
