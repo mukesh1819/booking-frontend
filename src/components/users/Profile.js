@@ -130,7 +130,8 @@ class Profile extends Component {
 								edit={!updating}
 								label='Nationality'
 								name='nationality'
-								value={userCountry ? userCountry.text : ''}
+								value={userCountry != null ? userCountry.value : ''}
+								displayValue = {userCountry != null ? userCountry.text : ''}
 								type='select'
 								options={countries}
 								onSubmit={(value) => this.update(currentUser.id, {country: value})}

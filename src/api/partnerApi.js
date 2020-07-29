@@ -77,3 +77,14 @@ export function getRentalPartners(params){
 		params: params
 	});
 }
+
+export function updatePartnerDetails(id, details){
+	return axios({
+		method: 'patch',
+		url: `${API_URL}/partners/${id}/update_partner_detail`,
+		data: {
+			partner: details
+		}
+
+	});
+}
