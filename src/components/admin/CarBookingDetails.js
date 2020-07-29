@@ -7,19 +7,22 @@ import {
 	declineCarBooking,
 	deleteCarBooking,
 	showUserCarBooking,
-	markComplete
+	markComplete,
+	patchCarBooking
 } from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket, pick} from '../../helpers';
 import {Badge} from '../shared';
 import moment from 'moment';
+import {Form} from 'semantic-ui-react';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			carBooking: {car_inquiry: {}},
-			loading: false
+			loading: false,
+			options: {}
 		};
 	}
 
@@ -76,6 +79,12 @@ class CarBookingDetails extends Component {
 		});
 	};
 
+	setOptions = (option) => {
+		this.setState({
+			options: {...this.state.option, ...option}
+		});
+	};
+
 	onMarkComplete(id) {
 		markComplete(id).then((response) => {
 			swal({
@@ -88,48 +97,14 @@ class CarBookingDetails extends Component {
 		});
 	}
 
-	destroyCarBooking(id) {
-		// deletePackageBooking(id)
-		// 	.then((response) => {
-		// 		swal({
-		// 			title: 'Package Booking deleted!',
-		// 			text: `this package booking is deleted`,
-		// 			icon: 'success',
-		// 			button: 'Continue!'
-		// 		});
-		// 		history.push('/admin/package_booking');
-		// 	})
-		// 	.catch((error) => {
-		// 		swal({
-		// 			title: 'Package Booking Delete error',
-		// 			text: 'Something went wrong. please try again or contact us',
-		// 			icon: 'error',
-		// 			button: 'Continue!'
-		// 		});
-		// 	});
-
-		swal({
-			title: 'Are you sure?',
-			text: 'Once delete, your car booking will be deleted',
-			icon: 'warning',
-			buttons: true,
-			dangerMode: true
-		}).then((willDelete) => {
-			if (willDelete) {
-				deleteCarBooking(id).then((response) => {
-					swal('this car booking is deleted', {
-						icon: 'success'
-					});
-					history.push('/admin/car_bookings');
-				});
-			} else {
-				swal('Your Car booking is not deleted yet');
-			}
+	updateBooking(values) {
+		patchCarBooking(this.props.match.params.idx, values).then((response) => {
+			this.fetchDetails();
 		});
 	}
 
 	render() {
-		const {carBooking, loading} = this.state;
+		const {carBooking, loading, options} = this.state;
 		return (
 			<div className='container'>
 				<div className='ui grid'>
@@ -335,6 +310,54 @@ class CarBookingDetails extends Component {
 										<div className='eight wide column'>{carBooking.idx}</div>
 									</div>
 								</div>
+							</div>
+						</div>
+
+						<div className='row'>
+							<div className='eight wide column section'>
+								<h3 className='ui header'> Remarks </h3>
+								{carBooking.user_remarks &&
+									carBooking.user_remarks.map((i) => {
+										return (
+											<div>
+												<div className='text-bold'>{i.remark}</div>
+												<div className='text-small'>
+													{moment(i.date).format('D MMMM, YYYY hh:mm')}
+												</div>
+												<br />
+											</div>
+										);
+									})}
+
+								{options.addingRemarks && (
+									<Form>
+										<Form.TextArea
+											id='new_remark'
+											label='New Remark'
+											placeholder='Add new remark...'
+										/>
+										<div
+											className='ui basic button green'
+											onClick={() => this.updateBooking({user_remarks: $('#new_remark').val()})}
+										>
+											Submit
+										</div>
+										<div
+											className='ui basic button red'
+											onClick={() => this.setOptions({addingRemarks: false})}
+										>
+											Cancel
+										</div>
+									</Form>
+								)}
+								{!options.addingRemarks && (
+									<div
+										className='ui basic button'
+										onClick={() => this.setOptions({addingRemarks: true})}
+									>
+										Add remarks
+									</div>
+								)}
 							</div>
 						</div>
 					</div>

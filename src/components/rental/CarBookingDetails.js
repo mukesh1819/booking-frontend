@@ -14,7 +14,7 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import PaymentForm from '../payments/PaymentForm';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
-import {createCarBooking, updateCarBooking, showUserRentalBooking} from '../../api/carBookingApi';
+import {showUserRentalBooking} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 
@@ -25,7 +25,6 @@ class CarBookingDetails extends Component {
 			carBooking: {},
 			showPaymentPage: false,
 			loading: false
-
 		};
 	}
 
@@ -57,16 +56,10 @@ class CarBookingDetails extends Component {
 		});
 	};
 
-
 	render() {
 		const {carBooking, loading} = this.state;
 		if (this.state.showPaymentPage) {
-			return(
-			<PaymentForm
-					transaction={carBooking.booking_transaction}
-					idx={carBooking.idx}
-			/>
-			);
+			return <PaymentForm transaction={carBooking.booking_transaction} idx={carBooking.idx} />;
 		}
 
 		return (
@@ -92,11 +85,15 @@ class CarBookingDetails extends Component {
 									<h3 className='title'>Car Booking Details</h3>
 									<div className='list'>
 										<span className='label'>Pickup Time</span>
-										<span className='value'>{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm:ss')}</span>
+										<span className='value'>
+											{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm:ss')}
+										</span>
 									</div>
 									<div className='list'>
 										<span className='label'>Drop off Time</span>
-										<span className='value'>{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm:ss')}</span>
+										<span className='value'>
+											{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm:ss')}
+										</span>
 									</div>
 
 									<div className='list'>
@@ -142,8 +139,12 @@ class CarBookingDetails extends Component {
 							</div>
 						</div>
 					</div>
-					{carBooking.status === 'processing' && <span className='btn btn-primary' onClick={() => this.paymentPage()}>Continue to Payment</span>}
-					{carBooking.status === 'verified' && 
+					{carBooking.status === 'processing' && (
+						<span className='btn btn-primary' onClick={() => this.paymentPage()}>
+							Continue to Payment
+						</span>
+					)}
+					{carBooking.status === 'verified' && (
 						<span className='text-center py-4'>
 							<Button
 								primary
@@ -154,7 +155,7 @@ class CarBookingDetails extends Component {
 								Download ticket
 							</Button>
 						</span>
-					}
+					)}
 				</div>
 			</div>
 		);

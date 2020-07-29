@@ -4,7 +4,7 @@ import {handleResponse, handleError, useInterceptor} from './apiUtils';
 
 useInterceptor(axios);
 
-export function getCarBookings(params){
+export function getCarBookings(params) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/admin/car_bookings`,
@@ -12,7 +12,7 @@ export function getCarBookings(params){
 	});
 }
 
-export function getPartnerCarBookings(params){
+export function getPartnerCarBookings(params) {
 	return axios({
 		method: 'get',
 		url: `${API_URL}/car_bookings`,
@@ -24,7 +24,9 @@ export function createCarBooking(data) {
 	return axios({
 		method: 'post',
 		url: `${API_URL}/car_bookings`,
-		data: {car_booking: data}
+		data: {
+			car_booking: data
+		}
 	});
 }
 
@@ -32,7 +34,19 @@ export function updateCarBooking(id, data) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/car_bookings/${id}`,
-		data: {car_booking: data}
+		data: {
+			car_booking: data
+		}
+	});
+}
+
+export function patchCarBooking(id, data) {
+	return axios({
+		method: 'patch',
+		url: `${API_URL}/car_bookings/${id}`,
+		data: {
+			car_booking: data
+		}
 	});
 }
 
@@ -43,20 +57,20 @@ export function showUserCarBooking(id) {
 	});
 }
 
-export function getCarBookingConfirmation(id, params){
-    return axios({
-        method: 'put',
-        url: `${API_URL}/admin/rentals/${id}/confirm`,
-        params: params
-    });
+export function getCarBookingConfirmation(id, params) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/admin/rentals/${id}/confirm`,
+		params: params
+	});
 }
 
-export function declineCarBooking(id, params){
-    return axios({
-        method: 'put',
-        url: `${API_URL}/admin/rentals/${id}/decline`,
-        params: params
-    });
+export function declineCarBooking(id, params) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/admin/rentals/${id}/decline`,
+		params: params
+	});
 }
 
 export function deleteCarBooking(id) {
@@ -66,11 +80,13 @@ export function deleteCarBooking(id) {
 	});
 }
 
-export function assignPartner(id, details){
+export function assignPartner(id, details) {
 	return axios({
 		method: 'patch',
 		url: `${API_URL}/admin/rentals/${id}/assign_partner`,
-		data: {car_booking: details}
+		data: {
+			car_booking: details
+		}
 	});
 }
 
@@ -81,18 +97,19 @@ export function showUserRentalBooking(id) {
 	});
 }
 
-export function partnerApproval(id, data){
+export function partnerApproval(id, data) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/admin/car_bookings/${id}/approve`,
-		data: {car_booking: data}
+		data: {
+			car_booking: data
+		}
 	});
 }
 
-export function markComplete(id){
+export function markComplete(id) {
 	return axios({
 		method: 'put',
-		url: `${API_URL}/admin/car_bookings/${id}/mark_complete` 
+		url: `${API_URL}/admin/car_bookings/${id}/mark_complete`
 	});
-
 }

@@ -41,7 +41,7 @@ class CarBookingForm extends Component {
 				return new Date();
 			}),
 			drop_off_location: yup.string().required('Required'),
-			remarks: yup.string()
+			user_remarks: yup.string()
 			// flight_no: yup.string()
 		});
 
@@ -50,12 +50,16 @@ class CarBookingForm extends Component {
 			contact_email: carBooking.idx ? carBooking.contact_email : currentUser.email,
 			mobile_no: carBooking.idx ? carBooking.mobile_no : currentUser.phone_number,
 			car_inquiry_idx: carBooking.car_inquiry != null ? carBooking.car_inquiry.idx : car_inquiry_idx,
-			pickup_time: carBooking.pickup_date == null ? new Date(inquiry.start_date) : new Date(carBooking.pickup_date),
+			pickup_time:
+				carBooking.pickup_date == null ? new Date(inquiry.start_date) : new Date(carBooking.pickup_date),
 			amount: carBooking.amount,
 			pickup_location: inquiry.airport_pickup ? inquiry.source : carBooking.pickup_location,
-			drop_off_time: carBooking.drop_off_date == null ? addDays(inquiry.start_date, inquiry.no_of_days) : new Date(carBooking.drop_off_date),
+			drop_off_time:
+				carBooking.drop_off_date == null
+					? addDays(inquiry.start_date, inquiry.no_of_days)
+					: new Date(carBooking.drop_off_date),
 			drop_off_location: inquiry.airport_dropoff ? inquiry.destination : carBooking.drop_off_location,
-			remarks: carBooking.remarks,
+			user_remarks: carBooking.user_remarks,
 			flight_date: carBooking.flight_date == null ? new Date() : new Date(carBooking.flight_date),
 			flight_no: carBooking.flight_no,
 			car_idx: car_idx
@@ -63,9 +67,9 @@ class CarBookingForm extends Component {
 
 		return (
 			<div className='container bg-white'>
-				{carBooking.idx == null &&
+				{carBooking.idx == null && (
 					<div className='ui info message fludi'>Estimated Price: {car.price * inquiry.no_of_days}</div>
-				}
+				)}
 				<Formik
 					initialValues={bookingDetails}
 					validationSchema={BookingSchema}
@@ -185,13 +189,14 @@ class CarBookingForm extends Component {
 														onChange={handleChange}
 														value={values.mobile_no}
 														placeholder='Mobile Number'
-												/>
+													/>
 												</Form.Field>
 												<ErrorMessage name='mobile_no' />
 											</div>
 										</div>
 
-										{(inquiry.trip_type == 'Airport Pickup' || inquiry.trip_type == 'Airport Dropoff' ) && (
+										{(inquiry.trip_type == 'Airport Pickup' ||
+											inquiry.trip_type == 'Airport Dropoff') && (
 											<Fragment>
 												<div className='col-12 col-md-6'>
 													<div className='field-box col'>
@@ -340,15 +345,15 @@ class CarBookingForm extends Component {
 														<label htmlFor=''>Remarks</label>
 														<TextArea
 															className='form-control'
-															name='remarks'
-															placeholder='remarks'
+															name='user_remarks'
+															placeholder='user_remarks'
 															onBlur={handleBlur}
 															onChange={(e, data) => {
-																setFieldValue(`remarks`, e.target.value);
+																setFieldValue(`user_remarks`, e.target.value);
 															}}
-															value={values.remarks}
+															value={values.user_remarks}
 														/>
-														<ErrorMessage name='remarks' />
+														<ErrorMessage name='user_remarks' />
 													</div>
 												</div>
 											</React.Fragment>
