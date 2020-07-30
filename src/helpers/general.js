@@ -3,6 +3,7 @@ import {
 } from '../constants';
 import moment from 'moment';
 import _ from 'lodash';
+import KhaltiCheckout from "khalti-checkout-web";
 
 export function sortObjectBy(obj, key) {
 	obj = obj.sort((a, b) => {
@@ -191,4 +192,31 @@ export function downloadXlsTicket(xls) {
 	link.setAttribute('download', 'file.xls');
 	document.body.appendChild(link);
 	link.click();
+}
+
+export function khaltiCheckout(params) {
+debugger;
+	let config = {
+		"publicKey": "test_public_key_39148b5c085d4de0be0d7e828d884a48",
+		"productIdentity": "1234567890",
+		"productName": "Drogon",
+		"productUrl": "http://gameofthrones.com/buy/Dragons",
+		"eventHandler": {
+			onSuccess (payload) {
+				debugger;
+				console.log(payload);
+			},
+			onError (error) {
+				console.log(error);
+			},
+			onClose () {
+				console.log('widget is closing');
+			}
+		},
+	};
+	
+	let checkout = new KhaltiCheckout(config);
+	return checkout;
+	
+
 }

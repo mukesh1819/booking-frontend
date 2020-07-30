@@ -17,6 +17,8 @@ import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from 
 import {showUserRentalBooking} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
+import KhaltiForm from '../payments/KhaltiForm';
+import {khaltiCheckout} from '../../helpers/general';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -24,7 +26,8 @@ class CarBookingDetails extends Component {
 		this.state = {
 			carBooking: {},
 			showPaymentPage: false,
-			loading: false
+			loading: false,
+			showKhaltiPaymentPage: false
 		};
 	}
 
@@ -47,6 +50,8 @@ class CarBookingDetails extends Component {
 		});
 	}
 
+	
+
 	download = (idx) => {
 		fetchTicket(idx).then((response) => {
 			this.setState({
@@ -61,6 +66,11 @@ class CarBookingDetails extends Component {
 		if (this.state.showPaymentPage) {
 			return <PaymentForm transaction={carBooking.booking_transaction} idx={carBooking.idx} />;
 		}
+
+		if (this.state.showKhaltiPaymentPage) {
+			return <KhaltiForm transaction={carBooking.booking_transaction} idx={carBooking.idx} />;
+		}
+
 
 		return (
 			<div className='container partner-profile'>
@@ -140,9 +150,15 @@ class CarBookingDetails extends Component {
 						</div>
 					</div>
 					{carBooking.status === 'processing' && (
-						<span className='btn btn-primary' onClick={() => this.paymentPage()}>
-							Continue to Payment
-						</span>
+						<div>
+							<span className='btn btn-primary' onClick={() => this.paymentPage()}>
+								Continue to Payment
+							</span>
+
+							<span className='btn btn-primary' id='payment-button' onClick={() => khaltiCheckout({}).show({amount: 1000})}>
+								pay with khalti
+							</span>
+						</div>
 					)}
 					{carBooking.status === 'verified' && (
 						<span className='text-center py-4'>
