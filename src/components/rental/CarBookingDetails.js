@@ -13,12 +13,9 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import PaymentForm from '../payments/PaymentForm';
-import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
+import {checkOutWithKhalti, downloadTicket} from '../../helpers';
 import {showUserRentalBooking} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
-import {downloadTicket} from '../../helpers';
-import KhaltiForm from '../payments/KhaltiForm';
-import {khaltiCheckout} from '../../helpers/general';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -50,7 +47,14 @@ class CarBookingDetails extends Component {
 		});
 	}
 
-	
+	checkout = (booking) => {
+		checkOutWithKhalti({
+			productIdentity: booking.idx,
+			productName: 'RENTAL',
+			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.idx}`,
+			amount: booking.amount
+		});
+	};
 
 	download = (idx) => {
 		fetchTicket(idx).then((response) => {
@@ -70,7 +74,6 @@ class CarBookingDetails extends Component {
 		if (this.state.showKhaltiPaymentPage) {
 			return <KhaltiForm transaction={carBooking.booking_transaction} idx={carBooking.idx} />;
 		}
-
 
 		return (
 			<div className='container partner-profile'>
@@ -155,8 +158,12 @@ class CarBookingDetails extends Component {
 								Continue to Payment
 							</span>
 
-							<span className='btn btn-primary' id='payment-button' onClick={() => khaltiCheckout({}).show({amount: 1000})}>
-								pay with khalti
+							<span
+								className='btn btn-primary'
+								id='payment-button'
+								onClick={() => this.checkout(carBooking)}
+							>
+								Pay with khalti
 							</span>
 						</div>
 					)}

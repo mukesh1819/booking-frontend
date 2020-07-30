@@ -4,3 +4,4 @@ export * from './general';
 export * from './variables';
 export * from './validations';
 export * from './prototypes';
+export * from './payments';
