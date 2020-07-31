@@ -57,7 +57,7 @@ class PartnerApprovalForm extends Component {
                                 icon: 'success',
                                 button: 'Continue'
                             }).then((value) => {
-                                history.push('/');
+                                history.push(`/admin/car_bookings/${carBooking.idx}`);
                             });
                         })
                         .catch((error) => {

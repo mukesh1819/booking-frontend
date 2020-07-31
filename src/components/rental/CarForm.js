@@ -89,7 +89,7 @@ class CarForm extends Component {
 											icon: 'success',
 											button: 'continue!'
 										}).then((value) => {
-											history.push('/admin/cars');
+											history.push(`/admin/cars`);
 										});
 									})
 									.catch((error) => {

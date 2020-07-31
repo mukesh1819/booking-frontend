@@ -11,6 +11,7 @@ import swal from 'sweetalert';
 import {setError} from '../../redux/actions';
 import * as yup from 'yup';
 import {Button, Divider, Grid, Header, Icon, Search, Segment} from 'semantic-ui-react';
+import history from '../../history';
 
 class PackageForm extends Component {
 	constructor(props) {
@@ -137,6 +138,8 @@ class PackageForm extends Component {
 												text: response.data.message,
 												icon: 'success',
 												button: 'continue!'
+											}).then((response) => {
+												history.push('/admin/packages');
 											});
 										})
 										.catch((error) => {
@@ -154,6 +157,8 @@ class PackageForm extends Component {
 												text: response.data.message,
 												icon: 'success',
 												button: 'continue!'
+											}).then((response) => {
+												history.push('/admin/packages');
 											});
 										})
 										.catch((error) => {

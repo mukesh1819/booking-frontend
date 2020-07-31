@@ -19,7 +19,7 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
-import {confirmInquiry, assignPartner} from '../../api/inquiryApi';
+import {confirmInquiry, assignPartner, rejectInquiry} from '../../api/inquiryApi';
 import {getPackageBookingDetails} from '../../api/packageBookingApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
 import PartnerServiceForm from './PartnerServiceForm';
@@ -47,6 +47,8 @@ class InquiryDetails extends Component {
 					text: `${response.data.message}`,
 					icon: 'success',
 					button: 'Continue!'
+				}).then((response) => {
+					history.push('/admin/inquiries');
 				});
 			})
 			.catch((error) => {
@@ -220,6 +222,8 @@ class InquiryDetails extends Component {
 												text: `Your package is confirmed!!! ${response.data.message}`,
 												icon: 'success',
 												button: 'Continue!'
+											}).then((response) => {
+												history.push('/admin/inquiries');
 											});
 										})
 										.catch((error) => {
@@ -454,6 +458,8 @@ class InquiryDetails extends Component {
 													text: `Your package is confirmed!!! ${response.data.message}`,
 													icon: 'success',
 													button: 'Continue!'
+												}).then((response) => {
+													history.push('/admin/inquiries');
 												});
 											})
 											.catch((error) => {

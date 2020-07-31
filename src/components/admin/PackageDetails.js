@@ -20,7 +20,7 @@ class PackageDetails extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				updatePublish(this.props.location.state.aPackage.idx, data.checked).then((response) => {
+				updatePublish(this.props.location.state.aPackage.idx, true).then((response) => {
 					swal('Your package has been published', {
 						icon: 'success'
 					});
@@ -80,7 +80,7 @@ class PackageDetails extends Component {
 					<Package aPackage={aPackage} />
 					{!aPackage.published && (
 						<div className=''>
-							<span className='btn btn-outline-primary' onChange={this.handleChange}>
+							<span className='btn btn-outline-primary' onClick={() => this.handleChange(true)}>
 								Publish Package
 							</span>
 						</div>

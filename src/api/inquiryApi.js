@@ -76,7 +76,7 @@ export function showPackageBooking(id) {
 
 export function rejectInquiry(id){
 	return axios({
-		method: 'get',
+		method: 'put',
 		url: `${API_URL}/inquiries/${id}/reject`
 	});
 }

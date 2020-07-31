@@ -110,6 +110,8 @@ class InquiryForm extends Component {
 										text: response.data.message,
 										icon: 'success',
 										button: 'Continue'
+									}).then((response) => {
+										history.push(`/admin/inquiries`)
 									});
 								})
 								.catch((error) => {

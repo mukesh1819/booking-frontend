@@ -16,6 +16,7 @@ import PaymentForm from '../payments/PaymentForm';
 import {checkOutWithKhalti, downloadTicket} from '../../helpers';
 import {showUserRentalBooking} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
+import KhaltiCheckout from "khalti-checkout-web";
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -51,7 +52,7 @@ class CarBookingDetails extends Component {
 		checkOutWithKhalti({
 			productIdentity: booking.idx,
 			productName: 'RENTAL',
-			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.idx}`,
+			productUrl: "https://visitallnepal.com/admin/car_bookings",
 			amount: booking.amount
 		});
 	};

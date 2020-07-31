@@ -45,12 +45,12 @@ class AssignCarBookingForm extends Component {
 		const {partners} = this.state;
 		const BookingSchema = yup.object().shape({
 			partner_id: yup.string().required('Required'),
-			remarks: yup.string().required('Required')
+			partner_remarks: yup.string().required('Required')
 		});
 
 		const bookingDetails = {
 			partner_id: carBooking.partner_id || 1,
-			remarks: carBooking.remarks
+			partner_remarks: carBooking.partner_remarks
 		};
 		return (
 			<div className='container bg-white'>
@@ -138,15 +138,15 @@ class AssignCarBookingForm extends Component {
 												<label htmlFor=''>Remarks</label>
 												<TextArea
 													className='form-control'
-													name='remarks'
-													placeholder='remarks'
+													name='partner_remarks'
+													placeholder='partner remarks'
 													onBlur={handleBlur}
 													onChange={(e, data) => {
-														setFieldValue(`remarks`, e.target.value);
+														setFieldValue(`partner_remarks`, e.target.value);
 													}}
-													value={values.remarks}
+													value={values.partner_remarks}
 												/>
-												<ErrorMessage name='remarks' />
+												<ErrorMessage name='partner_remarks' />
 											</div>
 										</div>
 									</div>
