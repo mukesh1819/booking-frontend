@@ -45,6 +45,7 @@ class AssignCarBookingForm extends Component {
 		const {partners} = this.state;
 		const BookingSchema = yup.object().shape({
 			partner_id: yup.string().required('Required'),
+			partner_amount: yup.string().required('Required'),
 			partner_remarks: yup.string().required('Required')
 		});
 
@@ -101,55 +102,61 @@ class AssignCarBookingForm extends Component {
 									</h3> */}
 								</div>
 							</div>
-							<form onSubmit={handleSubmit}>
+							<Form onSubmit={handleSubmit}>
 								<div className='input-section padded bg-white'>
-									<div className='row'>
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label>Select Partners</label>
-												<Dropdown
-													className=''
-													name='partner_id'
-													placeholder='Select Partners'
-													onBlur={handleBlur}
-													onChange={(e, data) => {
-														setFieldValue(`partner_id`, data.value);
-													}}
-													value={values.partner_id}
-													fluid
-													search
-													selection
-													options={partners.map(function(partner) {
-														name = partner.first_name + ' ' + partner.last_name;
-														return {
-															key: partner.id,
-															value: partner.id,
-															text: name
-														};
-													})}
-												/>
-											</div>
-										</div>
-									</div>
+									<Form.Select
+										label='Select Partner'
+										className=''
+										name='partner_id'
+										placeholder='Select Partners'
+										onBlur={handleBlur}
+										onChange={(e, data) => {
+											setFieldValue(`partner_id`, data.value);
+										}}
+										value={values.partner_id}
+										fluid
+										search
+										selection
+										options={partners.map(function(partner) {
+											name = partner.first_name + ' ' + partner.last_name;
+											return {
+												key: partner.id,
+												value: partner.id,
+												text: name
+											};
+										})}
+									/>
 
-									<div className='row'>
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label htmlFor=''>Remarks</label>
-												<TextArea
-													className='form-control'
-													name='partner_remarks'
-													placeholder='partner remarks'
-													onBlur={handleBlur}
-													onChange={(e, data) => {
-														setFieldValue(`partner_remarks`, e.target.value);
-													}}
-													value={values.partner_remarks}
-												/>
-												<ErrorMessage name='partner_remarks' />
-											</div>
-										</div>
-									</div>
+									<Form.Field>
+										<Form.Input
+											label='Amount'
+											type='number'
+											className=''
+											name='partner_amount'
+											placeholder='amount'
+											onBlur={handleBlur}
+											onChange={(e, data) => {
+												setFieldValue(`partner_amount`, e.target.value);
+											}}
+											value={values.partner_amount}
+										/>
+										<ErrorMessage name='partner_amount' />
+									</Form.Field>
+
+									<Form.Field>
+										<Form.TextArea
+											label='Remakrs'
+											className=''
+											name='partner_remarks'
+											placeholder='partner remarks'
+											onBlur={handleBlur}
+											onChange={(e, data) => {
+												setFieldValue(`partner_remarks`, e.target.value);
+											}}
+											value={values.partner_remarks}
+										/>
+										<ErrorMessage name='partner_remarks' />
+									</Form.Field>
 								</div>
 
 								<div className='traveller-details '>
@@ -169,7 +176,7 @@ class AssignCarBookingForm extends Component {
 										</div>
 									</div>
 								</div>
-							</form>
+							</Form>
 						</div>
 					)}
 				</Formik>

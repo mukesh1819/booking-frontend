@@ -42,9 +42,10 @@ class InquiryDetails extends Component {
 	rejectUserPackage(id) {
 		rejectInquiry(id)
 			.then((response) => {
+				debugger;
 				swal({
 					title: 'User Package Rejection Response!',
-					text: `${response.data.message}`,
+					text: response.data.message,
 					icon: 'success',
 					button: 'Continue!'
 				}).then((response) => {
@@ -72,7 +73,11 @@ class InquiryDetails extends Component {
 				});
 			});
 
-		getPackageBookingDetails(this.props.location.state.inquiry.package_booking ? this.props.location.state.inquiry.package_booking.idx : '')
+		getPackageBookingDetails(
+			this.props.location.state.inquiry.package_booking
+				? this.props.location.state.inquiry.package_booking.idx
+				: ''
+		)
 			.then((response) => {
 				this.setState({
 					packageBooking: response.data
@@ -191,7 +196,9 @@ class InquiryDetails extends Component {
 		};
 		const partnerServiceDetails = {
 			partner_services_attributes:
-				(packageBooking.idx != undefined && packageBooking.partner_services.length > 0) ? packageBooking.partner_services : [partner_service]
+				packageBooking.idx != undefined && packageBooking.partner_services.length > 0
+					? packageBooking.partner_services
+					: [partner_service]
 		};
 
 		return (
@@ -450,7 +457,7 @@ class InquiryDetails extends Component {
 										// 	});
 										// }
 										// else{
-											assignPartner(inquiry.idx, values)
+										assignPartner(inquiry.idx, values)
 											.then((response) => {
 												// console.log('inquiry response',response.data);
 												swal({
@@ -468,7 +475,6 @@ class InquiryDetails extends Component {
 												console.log('Package confirmation error', error);
 											});
 										// }
-										
 									}}
 								>
 									{({

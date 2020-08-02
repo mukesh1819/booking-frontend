@@ -131,7 +131,7 @@ class Profile extends Component {
 								label='Nationality'
 								name='nationality'
 								value={userCountry != null ? userCountry.value : ''}
-								displayValue = {userCountry != null ? userCountry.text : ''}
+								displayValue={userCountry != null ? userCountry.text : ''}
 								type='select'
 								options={countries}
 								onSubmit={(value) => this.update(currentUser.id, {country: value})}
@@ -183,7 +183,6 @@ class Profile extends Component {
 					{/* <SocialButtonLinks /> */}
 					<ModalExample
 						title='Change Password'
-						buttonLabel='Change'
 						show={changePassword}
 						toggle={this.togglePasswordModal}
 						onSuccess={(value) => this.update(currentUser.id, value)}

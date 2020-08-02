@@ -86,15 +86,17 @@ class CarBookingDetails extends Component {
 	};
 
 	onMarkComplete(id) {
-		markComplete(id).then((response) => {
-			swal({
-				title: 'Response',
-				text: response.message,
-				icon: response.status == 200 ? 'success' : 'error'
-			}).then((response) => {
-				history.push('/admin/car_bookings');
-			});
-		});
+		markComplete(id)
+			.then((response) => {
+				swal({
+					title: 'Response',
+					text: response.data.message,
+					icon: response.status == 200 ? 'success' : 'error'
+				}).then((response) => {
+					history.push('/admin/car_bookings');
+				});
+			})
+			.catch((v) => {});
 	}
 
 	updateBooking(values) {

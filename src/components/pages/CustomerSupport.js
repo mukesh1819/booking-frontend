@@ -48,7 +48,7 @@ class CustomerSupport extends Component {
 				// console.log(response);
 				swal({
 					title: 'Email Sent!',
-					text: response.message,
+					text: response.data.message,
 					icon: 'success',
 					button: 'Continue!'
 				});

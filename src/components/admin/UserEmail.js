@@ -6,29 +6,27 @@ import swal from 'sweetalert';
 import {Badge, MailBox} from '../shared';
 
 class UserEmail extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 	}
 
-	emailUser(variables){
+	emailUser(variables) {
 		sendUserEmail(variables)
-		.then((response) => {
-			// console.log(response);
-			swal({
-				title: 'Email Sent!',
-				text: response.message,
-				icon: 'success',
-				button: 'Continue!'
+			.then((response) => {
+				// console.log(response);
+				swal({
+					title: 'Email Sent!',
+					text: response.data.message,
+					icon: 'success',
+					button: 'Continue!'
+				});
+			})
+			.catch((error) => {
+				console.log('user email error', error);
 			});
-		})
-		.catch((error) => {
-			console.log("user email error",error);
-
-		});
-
 	}
-	
-	render(){
+
+	render() {
 		const {user} = this.props.location.state;
 		return (
 			<div className='container bg-white p-4'>
@@ -65,13 +63,12 @@ class UserEmail extends Component {
 								subject: '',
 								email: user.email
 							}}
-							sendEmail = {(values) => this.emailUser(values)}
+							sendEmail={(values) => this.emailUser(values)}
 						/>
 					</div>
 				</div>
 			</div>
 		);
 	}
-	
-};
+}
 export default UserEmail;

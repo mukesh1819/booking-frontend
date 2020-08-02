@@ -40,7 +40,6 @@ export function useInterceptor(axios) {
 			return response;
 		},
 		function (error) {
-
 			const originalRequest = error.config;
 			if (error.message === 'Network Error') {
 				swal({

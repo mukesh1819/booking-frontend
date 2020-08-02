@@ -15,6 +15,7 @@ import swal from 'sweetalert';
 
 export const EmailPrompt = (props) => {
 	const [loading, setLoading] = useState(false);
+	const [message, setMessage] = useState(null);
 	const emailPromptSchema = yup.object().shape({
 		email: yup.string().email().required('Required')
 	});
@@ -29,6 +30,7 @@ export const EmailPrompt = (props) => {
 					setLoading(true);
 					requestForNewPassword(values).then((response) => {
 						setLoading(false);
+						setMessage(response.data.message);
 						swal({
 							title: 'Response',
 							text: response.data.message,
@@ -78,6 +80,7 @@ export const EmailPrompt = (props) => {
 					</div>
 				)}
 			</Formik>
+			{message && <div className='ui message'>{message}</div>}
 		</Segment>
 	);
 };
@@ -110,15 +113,17 @@ export const ChangePassword = (props) => {
 				onSubmit={async (values, {setSubmitting, setStatus}) => {
 					setLoading(true);
 					values.reset_token = token;
-					resetPassword(values).then((response) => {
-						swal({
-							title: 'Password changed successfully',
-							text: response.data.message,
-							icon: response.status == 200 ? 'success' : 'error'
-						}).then((response) => {
-							history.push('/');
-						});
-					});
+					resetPassword(values)
+						.then((response) => {
+							swal({
+								title: 'Password changed successfully',
+								text: response.data.message,
+								icon: response.status == 200 ? 'success' : 'error'
+							}).then((response) => {
+								history.push('/');
+							});
+						})
+						.catch((v) => console.log(v));
 				}}
 			>
 				{({

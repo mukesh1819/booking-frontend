@@ -85,15 +85,17 @@ class PackageBookingDetails extends Component {
 	};
 
 	onMarkComplete(id) {
-		markComplete(id).then((response) => {
-			swal({
-				title: 'Response',
-				text: response.message,
-				icon: response.status == 200 ? 'success' : 'error'
-			}).then((response) => {
-				history.push('/admin/package_booking');
-			});
-		});
+		markComplete(id)
+			.then((response) => {
+				swal({
+					title: 'Response',
+					text: response.data.message,
+					icon: response.status == 200 ? 'success' : 'error'
+				}).then((response) => {
+					history.push('/admin/package_booking');
+				});
+			})
+			.catch((v) => {});
 	}
 
 	render() {

@@ -73,6 +73,10 @@ class SignInForm extends Component {
 						signIn(variables)
 							.then((response) => {
 								setSubmitting(false);
+								if (response.data.sign_in_count == 0) {
+									debugger;
+									history.push(`/login#change_password?reset_token=${response.data.reset_token}`);
+								}
 								if (response.data.user !== undefined) {
 									// console.log('Logged In user', response);
 									this.props.loginUser(response.data.user);
