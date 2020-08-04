@@ -57,11 +57,13 @@ export function showUserCarBooking(id) {
 	});
 }
 
-export function getCarBookingConfirmation(id, params) {
+export function getCarBookingConfirmation(id, details) {
 	return axios({
 		method: 'put',
 		url: `${API_URL}/admin/rentals/${id}/confirm`,
-		params: params
+		data: {
+			car_booking: details
+		}
 	});
 }
 

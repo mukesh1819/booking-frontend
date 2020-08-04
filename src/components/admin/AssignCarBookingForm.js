@@ -10,7 +10,7 @@ import {Counter, IconInput, Loading as LoadingScreen} from '../shared';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import ReactDOM from 'react-dom';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
-import {assignPartner} from '../../api/carBookingApi';
+import {assignPartner, getCarBookingConfirmation} from '../../api/carBookingApi';
 import {getPartners} from '../../api/partnerApi';
 
 class AssignCarBookingForm extends Component {
@@ -51,7 +51,8 @@ class AssignCarBookingForm extends Component {
 
 		const bookingDetails = {
 			partner_id: carBooking.partner_id || 1,
-			partner_remarks: carBooking.partner_remarks
+			partner_remarks: carBooking.partner_remarks,
+			partner_amount: carBooking.partner_amount
 		};
 		return (
 			<div className='container bg-white'>
@@ -64,7 +65,22 @@ class AssignCarBookingForm extends Component {
 						});
 						setSubmitting(false);
 						// console.log(values);
-						if (carBooking.idx != null) {
+						if(carBooking.status == 'pending' && carBooking.idx != null){
+							getCarBookingConfirmation(carBooking.idx, values)
+							.then((response) => {
+								swal({
+									title: 'Car Booking Confirmation!',
+									text: response.data.message,
+									icon: 'success',
+									button: 'Continue!'
+								});
+								history.push('/admin/car_bookings');
+							})
+							.catch((error) => {
+								console.log('Car booking confirmation error', error);
+							});
+						}
+						else if(carBooking.idx != null) {
 							assignPartner(carBooking.idx, values)
 								.then((response) => {
 									swal({

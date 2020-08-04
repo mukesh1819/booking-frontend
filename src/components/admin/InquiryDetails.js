@@ -42,7 +42,6 @@ class InquiryDetails extends Component {
 	rejectUserPackage(id) {
 		rejectInquiry(id)
 			.then((response) => {
-				debugger;
 				swal({
 					title: 'User Package Rejection Response!',
 					text: response.data.message,
