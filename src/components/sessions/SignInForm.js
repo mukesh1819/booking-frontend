@@ -19,7 +19,8 @@ class SignInForm extends Component {
 		this.state = {
 			loading: false,
 			forgot_password: false,
-			change_password: false
+			change_password: false,
+			message: null
 		};
 	}
 
@@ -39,7 +40,7 @@ class SignInForm extends Component {
 
 	render() {
 		const {currentUser} = this.props;
-		const {loading, forgot_password, change_password} = this.state;
+		const {loading, forgot_password, change_password, message} = this.state;
 		var redirectUrl = '/';
 		const UsersSigninForm = yup.object().shape({
 			email: yup.string().email().required('Required'),
@@ -74,7 +75,6 @@ class SignInForm extends Component {
 							.then((response) => {
 								setSubmitting(false);
 								if (response.data.sign_in_count == 0) {
-									debugger;
 									history.push(`/login#change_password?reset_token=${response.data.reset_token}`);
 								}
 								if (response.data.user !== undefined) {
@@ -82,6 +82,7 @@ class SignInForm extends Component {
 									this.props.loginUser(response.data.user);
 									localStorage.setItem('token', response.data.jwt);
 									var path = roleBasedUrl(response.data.user.role, redirectUrl);
+									this.setState({message: response.data.message});
 									history.push(path);
 								} else {
 									console.log('sign in failed error');
@@ -190,6 +191,7 @@ class SignInForm extends Component {
 					show={locationHash.includes('#change_password')}
 					toggle={() => history.push('/login')}
 				>
+					{message && <div className='ui message'>{message}</div>}
 					<ChangePassword {...this.props} />
 				</ModalExample>
 			</div>

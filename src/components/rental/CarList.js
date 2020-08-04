@@ -59,7 +59,6 @@ class CarList extends Component {
 		this.onSort = this.onSort.bind(this);
 		this.setSearch = this.setSearch.bind(this);
 		this.setLoading = this.setLoading.bind(this);
-		this.onBook = this.onBook.bind(this);
 	}
 
 	onSort(sortKey) {
@@ -77,10 +76,7 @@ class CarList extends Component {
 			};
 		});
 		this.props.selectCar(car);
-	}
-
-	onBook(params) {
-		history.push(`/car_booking_form/${this.state.selectedCar.idx}/${this.props.match.params.car_inquiry_idx}`);
+		history.push(`/car_booking_form/${car.idx}/${this.props.match.params.car_inquiry_idx}`);
 	}
 
 	componentDidMount() {
@@ -199,15 +195,6 @@ class CarList extends Component {
 						))}
 					</div>
 				</div>
-				<ModalExample
-					title='Car Details'
-					buttonLabel='Continue'
-					show={selectedCar !== null}
-					toggle={this.onCarSelect}
-					onSuccess={this.onBook}
-				>
-					{selectedCar && <CarDetails car={selectedCar} inquiry={carInquiryDetails} />}
-				</ModalExample>
 			</div>
 		);
 	}
