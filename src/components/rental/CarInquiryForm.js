@@ -34,7 +34,7 @@ class CarInquiryForm extends Component {
 	componentDidMount() {
 		var params = {
 			per_page: 100
-		}
+		};
 		this.fetchDetails(params);
 	}
 
@@ -152,121 +152,97 @@ class CarInquiryForm extends Component {
 						/* and other goodies */
 					}) => (
 						<form onSubmit={handleSubmit} className='form-wrap'>
-							<div className='bg-white input-section padded'>
-								<div className='d-none d-md-block form-menu'>
-									<span
-										className={values.multi_city ? 'active' : ''}
-										onClick={() => {
-											setFieldValue('multi_city', true);
-											setFieldValue('within_city', false);
-											setFieldValue('airport_transfer', false);
-											setFieldValue('destination', '');
-										}}
-									>
-										Multi City
-									</span>
-									<span
-										className={values.within_city ? 'active' : ''}
-										onClick={() => {
-											setFieldValue('within_city', true);
-											setFieldValue('multi_city', false);
-											setFieldValue('airport_transfer', false);
-											setFieldValue('destination', values.source);
-										}}
-									>
-										Within City
-									</span>
-									<span
-										className={values.airport_transfer ? 'active' : ''}
-										onClick={() => {
-											setFieldValue('within_city', false);
-											setFieldValue('multi_city', false);
-											setFieldValue('airport_transfer', true);
-										}}
-									>
-										Airport Transfer
-									</span>
-								</div>
-								{values.airport_transfer && (
-									<Form>
-										<Form.Group inline widths='equal'>
-											<Radio
-												label='Airport Pickup'
-												name='radioGroup'
-												value='this'
-												checked={values.airport_pickup}
-												onChange={(e, data) => {
-													setFieldValue('airport_pickup', data.checked);
-													setFieldValue('airport_dropoff', !data.checked);
-												}}
-											/>
-											<Form.Radio
-												label='Airport Dropoff'
-												name='radioGroup'
-												value='that'
-												checked={values.airport_dropoff}
-												onChange={(e, data) => {
-													setFieldValue('airport_pickup', !data.checked);
-													setFieldValue('airport_dropoff', data.checked);
-												}}
-											/>
-										</Form.Group>
-									</Form>
-								)}
-
-								<div className='inputs row'>
-									<div className='field-box col'>
-										<label>Source</label>
-										<Dropdown
-											className=''
-											name='source'
-											placeholder='Select location'
-											onBlur={handleBlur}
-											onChange={(e, data) => {
-												setFieldValue(`source`, data.value);
-												if (values.within_city) {
-													setFieldValue('destination', data.value);
-												}
-											}}
-											value={values.source}
-											fluid
-											search
-											selection
-											options={locations
-												.filter((v) => {
-													var predicate = values.airport_pickup ? 'airport' : 'city';
-													return v.location_type == predicate;
-												})
-												.map(function(location) {
-													return {
-														key: location.id,
-														value: location.name,
-														text: location.name
-													};
-												})}
-										/>
-										<ErrorMessage name='source' />
+							<div className=''>
+								<div className='input-section padded'>
+									<div className='row'>
+										<div className='col'>
+											<div className='form-menu'>
+												<span
+													className={values.multi_city ? 'active' : ''}
+													onClick={() => {
+														setFieldValue('multi_city', true);
+														setFieldValue('within_city', false);
+														setFieldValue('airport_transfer', false);
+														setFieldValue('destination', '');
+													}}
+												>
+													Multi City
+												</span>
+												<span
+													className={values.within_city ? 'active' : ''}
+													onClick={() => {
+														setFieldValue('within_city', true);
+														setFieldValue('multi_city', false);
+														setFieldValue('airport_transfer', false);
+														setFieldValue('destination', values.source);
+													}}
+												>
+													Within City
+												</span>
+												<span
+													className={values.airport_transfer ? 'active' : ''}
+													onClick={() => {
+														setFieldValue('within_city', false);
+														setFieldValue('multi_city', false);
+														setFieldValue('airport_transfer', true);
+													}}
+												>
+													Airport Transfer
+												</span>
+											</div>
+										</div>
+									</div>
+									<div className='row'>
+										<div className='col'>
+											{values.airport_transfer && (
+												<Form>
+													<Form.Group inline>
+														<Radio
+															label='Airport Pickup'
+															className='pr-4'
+															checked={values.airport_pickup}
+															onChange={(e, data) => {
+																setFieldValue('airport_pickup', data.checked);
+																setFieldValue('airport_dropoff', !data.checked);
+															}}
+														/>
+														<Radio
+															label='Airport Dropoff'
+															className='pr-4'
+															checked={values.airport_dropoff}
+															onChange={(e, data) => {
+																setFieldValue('airport_pickup', !data.checked);
+																setFieldValue('airport_dropoff', data.checked);
+															}}
+														/>
+													</Form.Group>
+												</Form>
+											)}
+										</div>
 									</div>
 
-									{!values.within_city && (
+									<div className='inputs row'>
 										<div className='field-box col'>
-											<label>Destination</label>
+											<label>Source</label>
 											<Dropdown
 												className=''
-												name='destination'
+												name='source'
 												placeholder='Select location'
 												onBlur={handleBlur}
 												onChange={(e, data) => {
-													setFieldValue(`destination`, data.value);
+													setFieldValue(`source`, data.value);
+													if (values.within_city) {
+														setFieldValue('destination', data.value);
+													}
 												}}
-												value={values.destination}
+												value={values.source}
 												fluid
 												search
-												selection 
+												selection
 												options={locations
 													.filter((v) => {
-														var predicate = values.airport_dropoff ? 'airport' : 'city';
-														return v.location_type == predicate && v.name !== values.source;
+														var predicate = values.airport_pickup ? 'airport' : 'city';
+														return v.location_type == predicate;
 													})
 													.map(function(location) {
 														return {
@@ -276,65 +252,139 @@ class CarInquiryForm extends Component {
 														};
 													})}
 											/>
-											<ErrorMessage name='destination' />
+											<ErrorMessage name='source' />
 										</div>
-									)}
-								</div>
 
-								<div className='inputs row'>
-									<div className='field-box col'>
-										<label>Car Type</label>
-										<Dropdown
-											className=''
-											name='car_type'
-											placeholder='Select cars'
-											onBlur={handleBlur}
-											onChange={(e, data) => {
-												setFieldValue(`car_type`, data.value);
-												if (vehicles.length > 0) {
-													var vehicle_pax = vehicles.find((v) => v.name == data.value);
-													if (vehicle_pax !== null) {
-														setFieldValue(`max_pax`, vehicle_pax.no_of_seats);
-													}
-												}
-											}}
-											value={values.car_type}
-											fluid
-											search
-											selection
-											options={vehicles.map(function(vehicle) {
-												return {
-													key: vehicle.id,
-													value: vehicle.name,
-													text: vehicle.name
-												};
-											})}
-										/>
-										<ErrorMessage name='car_type' />
+										{!values.within_city && (
+											<div className='field-box col'>
+												<label>Destination</label>
+												<Dropdown
+													className=''
+													name='destination'
+													placeholder='Select location'
+													onBlur={handleBlur}
+													onChange={(e, data) => {
+														setFieldValue(`destination`, data.value);
+													}}
+													value={values.destination}
+													fluid
+													search
+													selection
+													options={locations
+														.filter((v) => {
+															var predicate = values.airport_dropoff ? 'airport' : 'city';
+															return (
+																v.location_type == predicate && v.name !== values.source
+															);
+														})
+														.map(function(location) {
+															return {
+																key: location.id,
+																value: location.name,
+																text: location.name
+															};
+														})}
+												/>
+												<ErrorMessage name='destination' />
+											</div>
+										)}
 									</div>
 
-									<div className='field-box col'>
-										<label className='d-block'>start date</label>
-										<DatePicker
-											name='start_date'
-											className=' w-100'
-											type='date'
-											date={values.start_date}
-											minDate={new Date()}
-											maxDate={addDays(new Date(), 365)}
-											onBlur={handleBlur}
-											onChange={(date) => {
-												setFieldValue('start_date', date);
-											}}
-											value={values.start_date}
-											placeholder='start Date'
-										/>
-										<ErrorMessage name='start_date' />
-									</div>
-
-									{!values.airport_transfer && (
+									<div className='inputs row'>
 										<div className='field-box col'>
-											<label htmlFor=''>Number of Days</label>
+											<label>Car Type</label>
+											<Dropdown
+												className=''
+												name='car_type'
+												placeholder='Select car'
+												onBlur={handleBlur}
+												onChange={(e, data) => {
+													setFieldValue(`car_type`, data.value);
+													if (vehicles.length > 0) {
+														var vehicle_pax = vehicles.find((v) => v.name == data.value);
+														if (vehicle_pax !== null) {
+															setFieldValue(`max_pax`, vehicle_pax.no_of_seats);
+														}
+													}
+												}}
+												value={values.car_type}
+												fluid
+												search
+												selection
+												options={vehicles.map(function(vehicle) {
+													return {
+														key: vehicle.id,
+														value: vehicle.name,
+														text: vehicle.name
+													};
+												})}
+											/>
+											<ErrorMessage name='car_type' />
+										</div>
+
+										<div className='field-box col'>
+											<label>Start date</label>
+											<DatePicker
+												name='start_date'
+												className=' w-100'
+												type='date'
+												date={values.start_date}
+												minDate={new Date()}
+												maxDate={addDays(new Date(), 365)}
+												onBlur={handleBlur}
+												onChange={(date) => {
+													setFieldValue('start_date', date);
+												}}
+												value={values.start_date}
+												placeholder='start Date'
+											/>
+											<ErrorMessage name='start_date' />
+										</div>
+
+										{!values.airport_transfer && (
+											<div className='field-box col'>
+												<label htmlFor=''>Number of Days</label>
+												<Dropdown
+													name=''
+													icon='icon-users'
+													className='icon btn-dropdown travellers'
+													iconPosition='left'
+													fluid
+													selection
+													closeOnChange={false}
+													placeholder={`${values.no_of_days} Days`}
+													onClick={(event, data) => {
+														event.preventDefault();
+													}}
+												>
+													<Dropdown.Menu
+														onClick={(e, data) => {
+															e.stopPropagation();
+															e.preventDefault();
+														}}
+														content={
+															<div className='p-2'>
+																<Counter
+																	id='no_of_days'
+																	type='number'
+																	className='m-1'
+																	onBlur={handleBlur}
+																	title={`${values.no_of_days} Days`}
+																	onChange={(value) => {
+																		setFieldValue('no_of_days', value);
+																	}}
+																	value={values.no_of_days}
+																/>
+															</div>
+														}
+													/>
+												</Dropdown>
+												<ErrorMessage name='no_of_days' />
+											</div>
+										)}
+
+										<div className='field-box col'>
+											<label htmlFor=''>Number of Passenger</label>
 											<Dropdown
 												name=''
 												icon='icon-users'
@@ -343,7 +393,7 @@ class CarInquiryForm extends Component {
 												fluid
 												selection
 												closeOnChange={false}
-												placeholder={`${values.no_of_days} Days`}
+												placeholder={'Traveller'.pluralize(values.no_of_pax)}
 												onClick={(event, data) => {
 													event.preventDefault();
 												}}
@@ -356,74 +406,28 @@ class CarInquiryForm extends Component {
 													content={
 														<div className='p-2'>
 															<Counter
-																id='no_of_days'
+																id='no_of_pax'
 																type='number'
 																className='m-1'
+																max={values.car_type ? values.max_pax : max_seat}
+																min={1}
 																onBlur={handleBlur}
-																title={`${values.no_of_days} Days`}
+																title={'Traveller'.pluralize(values.no_of_pax)}
 																onChange={(value) => {
-																	setFieldValue('no_of_days', value);
+																	setFieldValue('no_of_pax', value);
 																}}
-																value={values.no_of_days}
+																value={values.no_of_pax}
 															/>
 														</div>
 													}
 												/>
 											</Dropdown>
-											<ErrorMessage name='no_of_days' />
+											<ErrorMessage name='no_of_pax' />
 										</div>
-									)}
-
-									<div className='field-box col'>
-										<label htmlFor=''>Number of Passenger</label>
-										<Dropdown
-											name=''
-											icon='icon-users'
-											className='icon btn-dropdown travellers'
-											iconPosition='left'
-											fluid
-											selection
-											closeOnChange={false}
-											placeholder={'Traveller'.pluralize(values.no_of_pax)}
-											onClick={(event, data) => {
-												event.preventDefault();
-											}}
-										>
-											<Dropdown.Menu
-												onClick={(e, data) => {
-													e.stopPropagation();
-													e.preventDefault();
-												}}
-												content={
-													<div className='p-2'>
-														<Counter
-															id='no_of_pax'
-															type='number'
-															className='m-1'
-															max={values.car_type ? values.max_pax : max_seat}
-															min={1}
-															onBlur={handleBlur}
-															title={'Traveller'.pluralize(values.no_of_pax)}
-															onChange={(value) => {
-																setFieldValue('no_of_pax', value);
-															}}
-															value={values.no_of_pax}
-														/>
-													</div>
-												}
-											/>
-										</Dropdown>
-										<ErrorMessage name='no_of_pax' />
 									</div>
-								</div>
-							</div>
 
-							<div className='bg-white'>
-								<div className='row'>
-									<div className='col-12 col-md-6' />
-
-									<div className='col-12'>
-										<div className='text-center'>
+									<div className='row'>
+										<div className='col-12 text-center'>
 											<button
 												className='btn btn-primary btn-large mb-2'
 												type='submit'

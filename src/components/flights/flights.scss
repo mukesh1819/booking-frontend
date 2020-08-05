@@ -191,10 +191,17 @@
 
 .form-menu {
     padding: 10px 0px 20px;
+    display: flex;
+    text-align: center;
+
+    @include tablet {
+        text-align: left;
+    }
 
     span {
         color: $primary;
         font-weight: 700;
+        font-size: 0.8rem;
         margin: 0px 10px;
         text-transform: uppercase;
         cursor: pointer;
@@ -205,6 +212,10 @@
 
         &.active {
             border-bottom: 1px solid $accent;
+        }
+
+        @include tablet {
+            font-size: 1rem;
         }
     }
 }
