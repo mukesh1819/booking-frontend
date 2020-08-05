@@ -38,21 +38,23 @@ class CarBookingDetails extends Component {
 		});
 	}
 
-	onConfirmCarBooking(id) {
-		getCarBookingConfirmation(id)
-			.then((response) => {
-				swal({
-					title: 'Car Booking Confirmation!',
-					text: response.data.message,
-					icon: 'success',
-					button: 'Continue!'
-				});
-				history.push('/admin/car_bookings');
-			})
-			.catch((error) => {
-				console.log('Car booking confirmation error', error);
-			});
-	}
+	// onConfirmCarBooking(id) {
+
+
+	// 	getCarBookingConfirmation(id)
+	// 		.then((response) => {
+	// 			swal({
+	// 				title: 'Car Booking Confirmation!',
+	// 				text: response.data.message,
+	// 				icon: 'success',
+	// 				button: 'Continue!'
+	// 			});
+	// 			history.push('/admin/car_bookings');
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log('Car booking confirmation error', error);
+	// 		});
+	// }
 
 	onDeclineCarBooking(id) {
 		declineCarBooking(id)
@@ -113,11 +115,24 @@ class CarBookingDetails extends Component {
 					<div className='row'>
 						<div className='right floated right aligned sixteen wide column'>
 							{(carBooking.status == 'pending' || carBooking.status == 'declined') && (
-								<span
-									className='btn btn-success m-2'
-									onClick={() => this.onConfirmCarBooking(carBooking.idx)}
+								// <span
+								// 	className='btn btn-success m-2'
+								// 	onClick={() => this.onConfirmCarBooking(carBooking.idx)}
+								// >
+								// 	confirm
+								// </span>
+								<span>
+								<Link
+									to={{
+										pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
+										state: {
+											carBooking: carBooking
+										}
+									}}
 								>
-									confirm
+									<i className='fas fa-contact' />
+									<span className='btn bg-none text-primary'>confirm</span>
+								</Link>
 								</span>
 							)}
 
@@ -162,7 +177,7 @@ class CarBookingDetails extends Component {
 								</span>
 							)}
 
-							{carBooking.status == 'processing' && (
+							{(carBooking.status !== 'pending' && carBooking.status !== 'completed') && (
 								<td>
 									<span>
 										<Link

@@ -52,7 +52,7 @@ class CarBookingDetails extends Component {
 		checkOutWithKhalti({
 			productIdentity: booking.idx,
 			productName: 'RENTAL',
-			productUrl: 'https://visitallnepal.com/admin/car_bookings',
+			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.idx}`,
 			amount: booking.amount
 		});
 	};

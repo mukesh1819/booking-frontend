@@ -84,7 +84,7 @@ const Inquiry = (props) => {
 								});
 							}}
 						>
-							{inquiry.status === 'processing' && (
+							{(inquiry.status === 'processing' || inquiry.status === 'verified' ) && (
 								<span className='text-success text-bold'>
 									Assign Partners&nbsp; <i className='fas fa-chevron-right' />
 								</span>
