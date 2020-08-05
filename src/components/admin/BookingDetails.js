@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import moment from 'moment';
-import {ifNotZero} from '../../helpers';
+import {ifNotZero, pick} from '../../helpers';
 import {Badge} from '../shared';
 import {Accordion, Button} from 'semantic-ui-react';
 import {getBookingDetails} from '../../api/flightApi';
@@ -81,26 +81,56 @@ class BookingDetails extends Component {
 
 	render() {
 		const {booking, loading} = this.state;
+
+		const flightDetails = pick(booking, ['flight_id', 'airline', 'flight_no', 'class_code', 'free_baggage']);
+		const bookingDates = pick(booking, [
+			'booking_date_time',
+			'departure_flight_time',
+			'reporting_time',
+			'created_at'
+		]);
+		const bookingDetails = pick(booking, ['pnr_no', 'refundable']);
+
 		return (
 			<React.Fragment>
-				<div className='text-small d-flex justify-content-between'>
-					<div>
-						<h5>Flight Details</h5>
-						<div>Flight Id - {booking.flight_id}</div>
-						<div>{booking.airline}</div>
-						<div>{booking.flight_no}</div>
-						<div>Class code - {booking.class_code}</div>
-						<div>Check-in Baggage - {booking.free_baggage}</div>
+				<div className='ui segment container'>
+					<div className='ui internally celled stackable grid'>
+						<div className='row'>
+							<div className='eight wide column'>
+								<h3 className='ui header'> Flight Details </h3>
+								<div className='ui grid'>
+									{Object.entries(flightDetails).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
+								</div>
+							</div>
+
+							<div className='eight wide column'>
+								<h3 className='ui header'> Booking Details </h3>
+								<div className='ui grid'>
+									{Object.entries(bookingDates).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>
+												{moment(value).format('D MMMM, YYYY')}
+											</div>
+										</div>
+									))}
+
+									{Object.entries(bookingDetails).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
+								</div>
+							</div>
+						</div>
 					</div>
-					<div>
-						<h5>Booking Details</h5>
-						<div>{moment(booking.booking_date_time).format('D MMMM, YYYY')}</div>
-						<div>Pnr No - {booking.pnr_no}</div>
-						<div>{moment(booking.departure_flight_time).format('D MMMM, YYYY')}</div>
-						<div>Refundable - {booking.refundable}</div>
-						<div>Reporting time - {moment(booking.reporting_time).format('D MMMM, YYYY')}</div>
-						<div>Created At - {moment(booking.created_at).format('D MMMM, YYYY')}</div>
-					</div>
+
 					<div>
 						{booking.status === 'verified' && (
 							<span className='text-center py-4'>
@@ -114,10 +144,6 @@ class BookingDetails extends Component {
 								</Button>
 							</span>
 						)}
-
-						<span className='btn bg-none text-danger' onClick={() => destroyBooking(booking.ruid)}>
-							Delete
-						</span>
 					</div>
 				</div>
 			</React.Fragment>

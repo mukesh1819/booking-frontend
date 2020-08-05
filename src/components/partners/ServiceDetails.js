@@ -31,15 +31,9 @@ const Services = (props) => {
 		'pickup_location',
 		'drop_off_location',
 		'meals_included'
-		
 	]);
 
-	const bookingDateInfo = pick(service.extras,[
-		'start_date',
-		'end_date',
-		'pickup_date',
-		'drop_off_date'
-	]);
+	const bookingDateInfo = pick(service.extras, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
 
 	const remarks = pick(service.extras, ['remarks']);
 

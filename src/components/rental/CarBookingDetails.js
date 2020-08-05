@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import {Formik, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
@@ -13,10 +13,10 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import PaymentForm from '../payments/PaymentForm';
-import {checkOutWithKhalti, downloadTicket} from '../../helpers';
+import {checkOutWithKhalti, downloadTicket, pick} from '../../helpers';
 import {showUserRentalBooking} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
-import KhaltiCheckout from "khalti-checkout-web";
+import KhaltiCheckout from 'khalti-checkout-web';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -52,7 +52,7 @@ class CarBookingDetails extends Component {
 		checkOutWithKhalti({
 			productIdentity: booking.idx,
 			productName: 'RENTAL',
-			productUrl: "https://visitallnepal.com/admin/car_bookings",
+			productUrl: 'https://visitallnepal.com/admin/car_bookings',
 			amount: booking.amount
 		});
 	};
@@ -77,97 +77,126 @@ class CarBookingDetails extends Component {
 		}
 
 		return (
-			<div className='container partner-profile'>
-				<div className='card'>
-					<div className='card-body'>
-						<div className='row'>
-							<div className='col-12 col-md-3 offset-md-2 '>
-								<div className=''>
-									<i className='fas fa-car fa-3x' />
-									<h3 className='title'>
-										{carBooking.first_name}&nbsp;
-										{carBooking.last_name}
-									</h3>
-									<div className=''>
-										Status:&nbsp;<Badge type={carBooking.status}>{carBooking.status}</Badge>
+			<div className='ui segment container'>
+				<div className='ui internally celled stackable grid'>
+					<div className='row'>
+						<div className='eight wide column section'>
+							<h3 className='ui header'> Inquiry Details </h3>
+							<div className='ui grid'>
+								{Object.entries(
+									pick(carBooking, ['source', 'destination', 'no_of_pax', 'trip_type', 'no_of_days'])
+								).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
 									</div>
-								</div>
+								))}
 							</div>
+						</div>
 
-							<div className='col-12 col-md-5'>
-								<div className='list-view'>
-									<h3 className='title'>Car Booking Details</h3>
-									<div className='list'>
-										<span className='label'>Pickup Time</span>
-										<span className='value'>
-											{moment(carBooking.pickup_date).format('D MMMM, YYYY HH:mm:ss')}
-										</span>
+						<div className='eight wide column'>
+							<h3 className='ui header'>Car Booking Info</h3>
+							<div className='ui grid'>
+								{Object.entries(
+									pick(carBooking, ['pickup_date', 'drop_off_date'])
+								).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>
+											{moment(value).format('D MMMM, YYYY HH:mm')}
+										</div>
 									</div>
-									<div className='list'>
-										<span className='label'>Drop off Time</span>
-										<span className='value'>
-											{moment(carBooking.drop_off_date).format('D MMMM, YYYY HH:mm:ss')}
-										</span>
+								))}
+								{Object.entries(
+									pick(carBooking, ['pickup_location', 'drop_off_location'])
+								).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
 									</div>
-
-									<div className='list'>
-										<span className='label'>Pickup Location</span>
-										<span className='value'>{carBooking.pickup_location}</span>
+								))}
+								{Object.entries(pick(carBooking, ['first_name', 'last_name'])).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
 									</div>
-
-									<div className='list'>
-										<span className='label'>Drop off Location</span>
-										<span className='value'>{carBooking.drop_off_location}</span>
-									</div>
-								</div>
-
-								<div className='list-view'>
-									<h3 className='title'>Contact Details</h3>
-									<div className='list'>
-										<span className='label'>Name</span>
-										<span className='value'>{carBooking.contact_name}</span>
-									</div>
-									<div className='list'>
-										<span className='label'>Email</span>
-										<span className='value'> {carBooking.contact_email}</span>
-									</div>
-									<div className='list'>
-										<span className='label'>Mobile No</span>
-										<span className='value'>{carBooking.mobile_no}</span>
-									</div>
-								</div>
-
+								))}
 								{carBooking.flight_no && (
-									<div className='list-view'>
-										<h3 className='title'>Flight Details</h3>
-										<div className='list'>
-											<span className='label'>Flight Number</span>
-											<span className='value'>{carBooking.flight_no}</span>
+									<Fragment>
+										<div className='row'>
+											<div className='eight wide column'>Flight Number</div>
+											<div className='eight wide column'> {carBooking.flight_no}</div>
 										</div>
-										<div className='list'>
-											<span className='label'>Flight Time</span>
-											<span className='value'> {carBooking.flight_time}</span>
+										<div className='row'>
+											<div className='eight wide column'>Flight Time</div>
+											<div className='eight wide column'>
+												{moment(carBooking.flight_time).format('D MMMM, YYYY')}
+											</div>
 										</div>
-									</div>
+									</Fragment>
 								)}
+								<div className='row text-bold text-danger'>
+									<div className='eight wide column'>Amount:</div>
+									<div className='eight wide column'> {carBooking.amount}</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					{carBooking.status === 'processing' && (
-						<div>
-							<span className='btn btn-primary' onClick={() => this.paymentPage()}>
-								Continue to Payment
-							</span>
 
-							<span
-								className='btn btn-primary'
-								id='payment-button'
-								onClick={() => this.checkout(carBooking)}
-							>
-								Pay with khalti
-							</span>
+					<div className='row'>
+						<div className='eight wide column'>
+							<h3 className='ui header'>Contact Details</h3>
+							<div className='ui grid'>
+								{Object.entries(
+									pick(carBooking, ['contact_name', 'contact_email, mobile_no'])
+								).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+							</div>
 						</div>
-					)}
+						<div className='eight wide column'>
+							<h3 className='ui header'>Other Details</h3>
+							<div className='ui grid'>
+								{Object.entries(pick(carBooking, ['car_type'])).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+								<div className='row'>
+									<div className='eight wide column'>Booking Status:</div>
+									<div className='eight wide column'>
+										<Badge type={carBooking.status}>{carBooking.status}</Badge>
+									</div>
+								</div>
+								<div className='row'>
+									<div className='eight wide column'>IDx:</div>
+									<div className='eight wide column'>{carBooking.idx}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className='text-center'>
+						{carBooking.status === 'processing' && (
+							<Fragment>
+								<div className='btn btn-primary' onClick={() => this.paymentPage()}>
+									Continue to Payment
+								</div>
+
+								<div
+									className='btn btn-primary text-primary bg-none'
+									id='payment-button'
+									onClick={() => this.checkout(carBooking)}
+								>
+									Pay with khalti
+								</div>
+							</Fragment>
+						)}
+					</div>
+
 					{carBooking.status === 'verified' && (
 						<span className='text-center py-4'>
 							<Button

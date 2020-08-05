@@ -346,7 +346,7 @@ class CarBookingForm extends Component {
 														<TextArea
 															className='form-control'
 															name='user_remarks'
-															placeholder='user_remarks'
+															placeholder='Queries if any....'
 															onBlur={handleBlur}
 															onChange={(e, data) => {
 																setFieldValue(`user_remarks`, e.target.value);

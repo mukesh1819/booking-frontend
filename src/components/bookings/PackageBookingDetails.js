@@ -5,7 +5,7 @@ import history from '../../history';
 import ErrorMessage from '../ErrorMessage';
 import swal from 'sweetalert';
 import moment from 'moment';
-import {isRefundable, ifNotZero} from '../../helpers';
+import {isRefundable, ifNotZero, pick} from '../../helpers';
 import {PaymentForm} from '../payments';
 import {Timer} from '../shared';
 import {Button, ButtonGroup} from 'react-bootstrap';
@@ -15,29 +15,13 @@ import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
 
 const ContactDetails = ({details}) => (
-	<div className='widget'>
-		<div className='card'>
-			<div className='card-header'>
-				<div className='d-flex justify-content-between'>
-					<h3 className='title'>Contact Details</h3>
-				</div>
+	<div className='ui grid'>
+		{Object.entries(details).map(([key, value]) => (
+			<div className='row'>
+				<div className='eight wide column'>{key.titleize()}:</div>
+				<div className='eight wide column'>{value}</div>
 			</div>
-
-			<div className='card-body'>
-				<div>
-					<span className='text-bold'>Name:</span> {details.first_name + details.last_name}
-				</div>
-				<div>
-					<span className='text-bold'>Phone:</span> {details.phone}
-				</div>
-				<div>
-					<span className='text-bold'>Email:</span> {details.email_address}
-				</div>
-				<div>
-					<span className='text-bold'>Head Traveller Name:</span> {details.head_traveller_name}
-				</div>
-			</div>
-		</div>
+		))}
 	</div>
 );
 
@@ -50,11 +34,10 @@ class PackageBookingDetails extends Component {
 				package: {
 					images: []
 				},
-				inquiry: {},
+				inquiry: {}
 			},
 			redirectToPayment: false,
 			loading: false
-
 		};
 	}
 
@@ -91,65 +74,62 @@ class PackageBookingDetails extends Component {
 		if (redirectToPayment) {
 			return <PaymentForm transaction={booking.booking_transaction} idx={booking.booking_transaction.idx} />;
 		}
+
+		const packageInfo = pick(booking.package, ['name']);
+
+		const contactInfo = pick(booking.inquiry, [
+			'first_name',
+			'last_name',
+			'phone',
+			'email_address',
+			'head_traveller_name'
+		]);
+
+		const bookingInfo = pick(booking, ['Invoice Number', 'pickup_location', 'drop_off_location', 'meals_included']);
+
+		const bookingDateInfo = pick(booking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
+
+		const remarks = pick(booking, ['remarks']);
 		return (
-			<div className='container bg-white'>
-				<div className='d-flex justify-content-between p-2'>
-					<h3 className='text-primary title'>. </h3>
-				</div>
-
+			<div className='ui container segment'>
 				<div className='row'>
-					<div className='col-12 col-md-3'>
-						<div className='widget mb-4'>
-							<Package aPackage={booking.package} />
-						</div>
-						<ContactDetails details={booking.inquiry} />
-					</div>
-					<div className='col-12 col-md-9'>
-						<div className='widget mb-4'>
-							<div className='list-view'>
-								<h3 className='title'>Booking Details</h3>
-								<div className='list'>
-									<span className='label'>Invoice</span>
-									<span className='value'>{booking.booking_transaction.idx}</span>
+					<div className='ui internally celled stackable grid'>
+						<div className='row'>
+							<div className='eight wide column'>
+								<h3 className='ui header'> Package Info </h3>
+								<div className='ui grid'>
+									{Object.entries(packageInfo).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
 								</div>
-								<div className='list'>
-									<span className='label'>Pickup Date</span>
-									<span className='value'>{moment(booking.pickup_date).format('D MMMM, YYYY')}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Dropoff Date</span>
-									<span className='value'>
-										{moment(booking.drop_off_date).format('D MMMM, YYYY')}
-									</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Start Date</span>
-									<span className='value'>{moment(booking.start_date).format('D MMMM, YYYY')}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>End Date</span>
-									<span className='value'>{moment(booking.end_date).format('D MMMM, YYYY')}</span>
-								</div>
-
-								<div className='list'>
-									<span className='label'>Pickup Location</span>
-									<span className='value'>{booking.pickup_location}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Drop off Location</span>
-									<span className='value'>{booking.drop_off_location}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Meals</span>
-									<span className='value'>{booking.meals_included}</span>
-								</div>
-								<div>
-									<span className='text-center p-3'>
-										<div className='text-bold'>Total Amount: {booking.amount}</div>
-									</span>
+							</div>
+							<div className='eight wide column'>
+								<h3 className='ui header'> Booking Info </h3>
+								<div className='ui grid'>
+									{Object.entries(bookingInfo).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>{value}</div>
+										</div>
+									))}
+									{Object.entries(bookingDateInfo).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>
+												{moment(value).format('D MMMM, YYYY')}
+											</div>
+										</div>
+									))}
+									<div className='row text-danger text-bold'>
+										<div className='eight wide column'>Total amount:</div>
+										<div className='eight wide column'>Rs. {booking.amount}</div>
+									</div>
 								</div>
 
-								{booking.inquiry.status === "processing" && (
+								{booking.inquiry.status === 'processing' && (
 									<div className='text-center p-4'>
 										<span onClick={this.onContinueToPayment} className='btn btn-primary'>
 											Continue to Payment
@@ -158,12 +138,18 @@ class PackageBookingDetails extends Component {
 								)}
 							</div>
 						</div>
-					</div>
-					<div className='col-12 col-md-4'>
-						<ContactDetails details={booking.inquiry} />
+						<div className='row'>
+							<div className='eight wide column'>
+								<div className='ui header'>Contact Details</div>
+								<ContactDetails details={contactInfo} />
+							</div>
+							<div className='eight wide column'>
+								<div className='ui header'>Other Details</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				{booking.inquiry.status === "verified" && (
+				{booking.inquiry.status === 'verified' && (
 					<div className='text-center p-4'>
 						<span className='text-center py-4'>
 							<Button

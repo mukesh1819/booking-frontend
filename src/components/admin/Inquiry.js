@@ -22,7 +22,6 @@ const Inquiry = (props) => {
 				params['q[package_booking_id_eq'] = package_booking.id;
 				fetchPartnerServices(params);
 			}
-			
 		},
 		[package_booking]
 	);
@@ -119,7 +118,7 @@ const Inquiry = (props) => {
 									Edit
 								</Link>
 							</span>
-							<span className='btn bg-done text-danger' onClick={() => destroy(inquiry.idx)}>
+							<span className='btn bg-none text-danger' onClick={() => destroy(inquiry.idx)}>
 								Delete
 							</span>
 						</div>
@@ -186,11 +185,17 @@ const Inquiry = (props) => {
 
 							<div className='list'>
 								<span className='label'>Start Date</span>
-								<span className='value'> {moment(inquiry.package_booking.start_date).format('D MMMM, YYYY')}</span>
+								<span className='value'>
+									{' '}
+									{moment(inquiry.package_booking.start_date).format('D MMMM, YYYY')}
+								</span>
 							</div>
 							<div className='list'>
 								<span className='label'>End date</span>
-								<span className='value'> {moment(inquiry.package_booking.end_date).format('D MMMM, YYYY')}</span>
+								<span className='value'>
+									{' '}
+									{moment(inquiry.package_booking.end_date).format('D MMMM, YYYY')}
+								</span>
 							</div>
 							<div className='list'>
 								<span className='label'>Pickup Location</span>
