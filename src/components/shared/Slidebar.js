@@ -26,19 +26,8 @@ function Slidebar({items = [], isVisible, onHide}) {
 						<span className='text-bold ml-auto'>{value}</span>
 					</div>
 				))}
-				<hr className='m-0' />
-				<div className='item d-flex justify-content-between' key='flights'>
-					<span>
-						<i className='fas fa-plane-departure  p-2 text-primary' /> {'Flights'}
-					</span>
-				</div>
-				<div className='item d-flex justify-content-between' key='packages'>
-					<span>
-						<i className='fab fa-fort-awesome p-2 text-primary' />
-						{'Packages'}
-					</span>
-				</div>
 			</div>
+			<hr />
 			<SocialLinks />
 		</div>
 	);

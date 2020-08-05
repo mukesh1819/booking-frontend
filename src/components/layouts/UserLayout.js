@@ -32,14 +32,14 @@ class UserLayout extends Component {
 				value: '',
 				link: '/bookings'
 			},
-			{
-				icon: 'icon-user',
-				name: 'settings',
-				label: 'My Account',
-				details: currentUser.name,
-				value: '',
-				link: '/profile'
-			},
+			// {
+			// 	icon: 'icon-user',
+			// 	name: 'settings',
+			// 	label: 'My Account',
+			// 	details: currentUser.name,
+			// 	value: '',
+			// 	link: '/profile'
+			// },
 			// {
 			// 	icon: 'fas fa-money-bill-alt',
 			// 	name: 'currency',
@@ -47,20 +47,20 @@ class UserLayout extends Component {
 			// 	value: currency,
 			// 	link: '/profile'
 			// },
-			{
-				icon: 'icon-user',
-				name: 'settings',
-				label: 'Language',
-				details: '',
-				value: language,
-				link: '/profile'
-			},
+			// {
+			// 	icon: 'icon-user',
+			// 	name: 'settings',
+			// 	label: 'Language',
+			// 	details: '',
+			// 	value: language,
+			// 	link: '/profile'
+			// },
 			{
 				icon: 'fas fa-blender-phone',
 				name: 'contact_us',
 				label: 'Contact Us',
 				value: '',
-				link: '/contact'
+				link: '/support'
 			}
 		];
 		return (
