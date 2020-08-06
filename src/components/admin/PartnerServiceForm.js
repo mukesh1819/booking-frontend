@@ -56,7 +56,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 								return {
 									key: partner.id,
 									value: partner.id,
-									text: name
+									text: `${name } (${partner.company_name})`
 								};
 							})}
 						/>

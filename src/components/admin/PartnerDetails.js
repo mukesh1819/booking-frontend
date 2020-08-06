@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Profile from '../users/Profile';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import {PartnerProfile} from '../partners/PartnerProfile';
+import PartnerProfile from '../partners/PartnerProfile';
 import history from '../../history';
 import {showPartner, confirmPartner, deletePartner, activatePartner, deactivatePartner} from '../../api/partnerApi';
 

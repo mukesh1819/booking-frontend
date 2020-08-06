@@ -10,7 +10,7 @@ import {PersonalProfile, CompanyProfile} from './PartnerProfile';
 import Services from './ServiceDetails';
 import RentalBooking from './RentalBookings';
 import PackageBookings from './PackageBookings';
-import {PartnerProfile} from '.';
+import PartnerProfile from './PartnerProfile';
 
 class Dashboard extends Component {
 	constructor(props) {

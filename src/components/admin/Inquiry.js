@@ -27,7 +27,7 @@ const Inquiry = (props) => {
 	);
 
 	const {inquiry, aPackage, reject, destroy, setActions} = props;
-	const totalAmount = (inquiry.number_of_adult + inquiry.number_of_child) * aPackage.price;
+	// const totalAmount = (inquiry.number_of_adult + inquiry.number_of_child) * aPackage.price;
 	return (
 		<div className='row'>
 			<div className='col-12 col-md-3 offset-md-1 '>
@@ -132,12 +132,16 @@ const Inquiry = (props) => {
 						<span className='value'>{moment(inquiry.preferred_date).format('D MMMM, YYYY')}</span>
 					</div>
 					<div className='list'>
+						<span className='label'>Selected Activity</span>
+						<span className='value'>{inquiry.selected_activity.description}</span>
+					</div>
+					<div className='list'>
 						<span className='label'>Unit Price</span>
-						<span className='value'>{aPackage.price}</span>
+						<span className='value'>{inquiry.selected_activity.price}</span>
 					</div>
 					<div className='list'>
 						<span className='label'>Total Amount</span>
-						<span className='value'>{totalAmount}</span>
+						<span className='value'>{inquiry.total_amount}</span>
 					</div>
 				</div>
 

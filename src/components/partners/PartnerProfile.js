@@ -9,6 +9,8 @@ import {updatePartnerDetails} from '../../api/partnerApi';
 import ModalExample from '../shared/Modal';
 import ChangePasswordForm from '../users/ChangePasswordForm';
 import {Segment} from 'semantic-ui-react';
+import {connect} from 'react-redux';
+
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
@@ -48,7 +50,7 @@ const updatePassword = (id, details, loading, setLoading) => {
 				icon: 'success',
 				button: 'Continue!'
 			}).then(function() {
-				location.reload();
+				location.reload();debugger;
 			});
 			setLoading(loading => false)
 
@@ -65,9 +67,13 @@ export const PersonalProfile = (props) => {
 	const [editMode, setEditMode] = useState(false);
 	const [changePassword, setChangePassword] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const {partner} = props;
+	const {partner, user} = props;
+	var canEdit = true;
 	const togglePasswordModal = ()	=> {
 	setChangePassword(changePassword => !changePassword)
+	}
+	if(user && user.role==='Admin'){
+		canEdit = false
 	}
 	return (
 		<Segment loading={partner.id == undefined || loading}>
@@ -80,9 +86,9 @@ export const PersonalProfile = (props) => {
 				</h3>
 			</div> */}
 			<div className='list-view'>
-				<Editable edit={editMode} label='First Name' value={partner.first_name} onSubmit={(value) => update(partner.idx, {first_name: value}, loading, setLoading)} />
-				<Editable edit={editMode} label='Last Name' value={partner.last_name} onSubmit={(value) => update(partner.idx, {last_name: value}, loading, setLoading)} />
-				<Editable edit={editMode} label='Contact' value={partner.contact_number} onSubmit={(value) => update(partner.idx, {contact_number: value}, loading, setLoading)} />
+				<Editable edit={editMode} canEdit={canEdit} label='First Name' value={partner.first_name} onSubmit={(value) => update(partner.idx, {first_name: value}, loading, setLoading)} />
+				<Editable edit={editMode} canEdit={canEdit} label='Last Name' value={partner.last_name} onSubmit={(value) => update(partner.idx, {last_name: value}, loading, setLoading)} />
+				<Editable edit={editMode} canEdit={canEdit} label='Contact' value={partner.contact_number} onSubmit={(value) => update(partner.idx, {contact_number: value}, loading, setLoading)} />
 				<div className='list'>
 					<span className='label'>Email</span>
 					<span className='value'> {partner.email}</span>
@@ -94,8 +100,9 @@ export const PersonalProfile = (props) => {
 					</span>
 				</div>
 			</div>
-
-			<div className='ui button basic' onClick={togglePasswordModal}>Change password</div>
+			{canEdit &&
+				<div className='ui button basic' onClick={togglePasswordModal}>Change password</div>
+			}
 			<div>
 				<ModalExample
 					title='Change Password'
@@ -120,18 +127,21 @@ export const PersonalProfile = (props) => {
 };
 
 export const CompanyProfile = (props) => {
-	const {partner} = props;
+	const {partner, user} = props;
 	const [loading, setLoading] = useState(false);
-
+	var canEdit = true;
+	if(user && user.role==='Admin'){
+		canEdit = false
+	}
 	return (
 		<Segment loading={partner.id == undefined || loading}>
 			<div className='ui header'>Company Details</div>
 			<div className='list-view'>
-				<Editable label='Name' value={partner.company_name} onSubmit={(value) => update(partner.idx, {company_name: value}, loading, setLoading)} />
-				<Editable label='Email' value={partner.company_email} onSubmit={(value) => update(partner.idx, {company_email: value}, loading, setLoading)} />
-				<Editable label='Contact' value={partner.company_contact_number} onSubmit={(value) => update(partner.idx, {company_contact_number: value}, loading, setLoading)} />
-				<Editable label='Address' value={partner.company_address} onSubmit={(value) => update(partner.idx, {company_address: value}, loading, setLoading)} />
-				<Editable label='Website' value={partner.website} onSubmit={(value) => update(partner.idx, {website: value}, loading, setLoading)} />
+				<Editable label='Name' canEdit={canEdit} value={partner.company_name} onSubmit={(value) => update(partner.idx, {company_name: value}, loading, setLoading)} />
+				<Editable label='Email' canEdit={canEdit} value={partner.company_email} onSubmit={(value) => update(partner.idx, {company_email: value}, loading, setLoading)} />
+				<Editable label='Contact' canEdit={canEdit} value={partner.company_contact_number} onSubmit={(value) => update(partner.idx, {company_contact_number: value}, loading, setLoading)} />
+				<Editable label='Address' canEdit={canEdit} value={partner.company_address} onSubmit={(value) => update(partner.idx, {company_address: value}, loading, setLoading)} />
+				<Editable label='Website' canEdit={canEdit} value={partner.website} onSubmit={(value) => update(partner.idx, {website: value}, loading, setLoading)} />
 
 				{/* <div className='list'>
 					<span className='label'>Name</span>
@@ -158,21 +168,31 @@ export const CompanyProfile = (props) => {
 	);
 };
 
-export const PartnerProfile = (props) => {
-	const {partner} = props;
+
+
+const PartnerProfile = (props) => {
 	return (
 		<div className='ui internally celled stackable grid'>
 			<div className='row'>
 				<div className='eight wide column'>
-					<PersonalProfile partner={partner} />
+					<PersonalProfile {...props} />
 				</div>
 
 				<div className='eight wide column'>
-					<CompanyProfile partner={partner} />
+					<CompanyProfile {...props} />
 				</div>
 			</div>
 		</div>
 	);
 };
 
+const mapStateToProps = ({userStore}) => ({
+	user: userStore.currentUser
+});
+
+const mapDispatchToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PartnerProfile);
+
 {/* <SocialButtonLinks /> */}
+

@@ -119,11 +119,11 @@ class PackageDetails extends Component {
 													<th>Price</th>
 												</tr>
 												{aPackage.activities.map((activity) => {
-													<tr>
+													return <tr>
 														<td>{activity.description}</td>
 														<td>{activity.duration}</td>
 														<td>{activity.price}</td>
-													</tr>;
+													</tr>
 												})}
 											</table>
 										</div>

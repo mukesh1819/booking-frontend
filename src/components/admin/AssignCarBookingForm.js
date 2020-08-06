@@ -138,7 +138,7 @@ class AssignCarBookingForm extends Component {
 											return {
 												key: partner.id,
 												value: partner.id,
-												text: name
+												text: `${name} (${partner.company_name})`
 											};
 										})}
 									/>

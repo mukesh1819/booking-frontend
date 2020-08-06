@@ -3,7 +3,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {Flag, Segment, Dropdown} from 'semantic-ui-react';
 
 const Editable = (props) => {
-	const {edit, label, value, name, type = 'text', options, onSubmit, displayValue} = props;
+	const {edit, label, value, name, type = 'text', options, onSubmit, displayValue, canEdit= true} = props;
 	const [editMode, setEditMode] = useState(false);
 	const [fieldValue, setValue] = useState(value);
 
@@ -29,9 +29,11 @@ const Editable = (props) => {
 				{!editMode && (
 					<span className='value text-right'>
 						{type === 'select' ? displayValue : value}
-						<span className='text-bold text-primary actions' onClick={() => setEditMode(true)}>
-							&nbsp;Edit
-						</span>
+						{canEdit &&
+							<span className='text-bold text-primary actions' onClick={() => setEditMode(true)}>
+								&nbsp;Edit
+							</span>
+						}
 					</span>
 				)}
 				{editMode && (

@@ -198,4 +198,5 @@ class RentalPartnerList extends Component {
 		);
 	}
 }
+
 export default RentalPartnerList;
