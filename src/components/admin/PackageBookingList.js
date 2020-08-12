@@ -9,6 +9,7 @@ import {Segment, Card, Menu, Dropdown, Input, Pagination} from 'semantic-ui-reac
 import queryString from 'query-string';
 import history from '../../history';
 import moment from 'moment';
+import {Badge} from '../shared';
 
 class PackageBookingList extends Component {
 	constructor(props) {
@@ -43,7 +44,6 @@ class PackageBookingList extends Component {
 				this.setState({
 					packageBookings: response.data.package_bookings,
 					pagination: response.data.meta.pagination
-
 				});
 			})
 			.catch((error) => {
@@ -221,7 +221,9 @@ class PackageBookingList extends Component {
 										<td>{packageBooking.amount}</td>
 										{/* <td>{packageBooking.inquiry_id}</td> */}
 										{/* <td>{packageBooking.booking_transaction_id}</td> */}
-										<td>{packageBooking.status}</td>
+										<td>
+											<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
+										</td>
 										<td>{moment(packageBooking.start_date).format('D MMMM, YYYY')}</td>
 										<td>{moment(packageBooking.end_date).format('D MMMM, YYYY')}</td>
 										{/* <td>{packageBooking.pickup_date}</td> */}

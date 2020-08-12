@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {Badge} from '../shared';
 import {getPartnerServices} from '../../api/partnerServiceApi';
 import moment from 'moment';
+import {pick} from '../../helpers';
 
 const Inquiry = (props) => {
 	const package_booking = props.inquiry.package_booking;
@@ -27,200 +28,105 @@ const Inquiry = (props) => {
 	);
 
 	const {inquiry, aPackage, reject, destroy, setActions} = props;
-	// const totalAmount = (inquiry.number_of_adult + inquiry.number_of_child) * aPackage.price;
+	const packageInfo = pick(inquiry.package, ['name']);
+	const contactInfo = pick(inquiry, [
+		'first_name',
+		'last_name',
+		'email_address',
+		'address',
+		'city',
+		'phone',
+		'zip_code'
+	]);
+	const inquiryInfo = pick(inquiry, [
+		'package_name',
+		'head_traveller_name',
+		'number_of_adult',
+		'number_of_child',
+		'pickup_location',
+		'drop_off_location',
+		'total_amount'
+	]);
+	const activityInfo = pick(inquiry.selected_activity, ['description', 'price']);
+	const inquiryDateInfo = pick(inquiry, ['preferred_date', 'start_date', 'end_date']);
+	const otherInfo = pick(inquiry, ['idx']);
+
 	return (
 		<div className='row'>
-			<div className='col-12 col-md-3 offset-md-1 '>
-				{/* <img src='' /> */}
-				<div className=''>
-					<h3 className='title'>Inquirer</h3>
-					<i className='fas fa-user user-icon fa-3x' />
-					<h3 className='value text-large text-bold'>
-						{inquiry.first_name}&nbsp;{inquiry.last_name}
-					</h3>
-					<div className='text-small text-muted'>
-						<i className='fas fa-envelope' />&nbsp;
-						{inquiry.email_address}
-					</div>
-					<div className='text-small text-muted'>
-						<i className='fas fa-globe-americas' />&nbsp;
-						{inquiry.nationality}
-					</div>
-					<div className='text-small text-muted'>
-						<i className='fas fa-address-card' />&nbsp;
-						{inquiry.address}&nbsp;
-						{inquiry.city}&nbsp;
-						{inquiry.zip_code}&nbsp;
-					</div>
-					<div className='text-small text-muted'>
-						<i className='fas fa-phone-volume' />&nbsp;
-						{inquiry.phone}
-					</div>
-					<div>
-						<Badge type={inquiry.status}> {inquiry.status}</Badge>
-					</div>
-					<div className='mt-3'>
-						<div
-							className='cursor-pointer'
-							onClick={() => {
-								setActions({
-									showOtherForm: true,
-									showDetails: false
-								});
-							}}
-						>
-							{inquiry.status === 'pending' && (
-								<span className='text-success text-bold'>
-									Send Confirmation to User&nbsp; <i className='fas fa-chevron-right' />
-								</span>
-							)}
+			<div className='ui segment'>
+				<h3 className='ui header'> Details </h3>
+				<div className='ui internally celled stackable grid'>
+					<div className='row'>
+						<div className='eight wide column'>
+							<h3 className='ui header'> Package Info </h3>
+							<div className='ui grid'>
+								{Object.entries(packageInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+								{Object.entries(activityInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+							</div>
 						</div>
-						<div
-							className='cursor-pointer'
-							onClick={() => {
-								setActions({
-									showPartnerForm: true,
-									showDetails: false
-								});
-							}}
-						>
-							{(inquiry.status === 'processing' || inquiry.status === 'verified' ) && (
-								<span className='text-success text-bold'>
-									Assign Partners&nbsp; <i className='fas fa-chevron-right' />
-								</span>
-							)}
-						</div>
-						<div className='cursor-pointer'>
-							{inquiry.status === 'pending' && (
-								<span className='text-danger text-bold' onClick={() => reject(inquiry.idx)}>
-									Reject
-								</span>
-							)}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className='col-12 col-md-7'>
-				<div className='list-view'>
-					<div className='d-flex align-items-center justify-content-between'>
-						<h3 className='title'>Package Details</h3>
-						<div>
-							<span>
-								<Link
-									to={{
-										pathname: '/admin/edit_inquiry',
-										state: {
-											inquiry: inquiry
-										}
-									}}
-									className='btn bg-none color-accent'
-								>
-									Edit
-								</Link>
-							</span>
-							<span className='btn bg-none text-danger' onClick={() => destroy(inquiry.idx)}>
-								Delete
-							</span>
-						</div>
-					</div>
-					<div className='list'>
-						<span className='label'>Name</span>
-						<span className='value'> {inquiry.package_name}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Preferred Date</span>
-						<span className='value'>{moment(inquiry.preferred_date).format('D MMMM, YYYY')}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Selected Activity</span>
-						<span className='value'>{inquiry.selected_activity.description}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Unit Price</span>
-						<span className='value'>{inquiry.selected_activity.price}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Total Amount</span>
-						<span className='value'>{inquiry.total_amount}</span>
-					</div>
-				</div>
-
-				<div className='list-view'>
-					<h3 className='title'>Traveller Details</h3>
-
-					<div className='list'>
-						<span className='label'>Head Traveller Name</span>
-						<span className='value'> {inquiry.head_traveller_name}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Number of Adults</span>
-						<span className='value'> {inquiry.number_of_adult}</span>
-					</div>
-					<div className='list'>
-						<span className='label'>Number of Child</span>
-						<span className='value'> {inquiry.number_of_child}</span>
-					</div>
-					{inquiry.query !== null && (
-						<div className='list'>
-							<div className='label'>Queries</div>
-							<div className='value'> {inquiry.query}</div>
-						</div>
-					)}
-				</div>
-				{inquiry.status == 'processing' && (
-					<React.Fragment>
-						<div className='list-view'>
+						<div className='eight wide column'>
 							<div className='d-flex align-items-center justify-content-between'>
-								<h3 className='title'>Other Details</h3>
-								{/* <div>
-									<span
-										className='btn bg-none color-accent'
-										onClick={() => {
-											setActions({
-												showOtherForm: true,
-												showDetails: false
-											});
-										}}
-									>
-										Edit
+								<h3 className='ui header'>Inquiry Info</h3>
+								<div>
+									<span>
+										<Link
+											to={{
+												pathname: '/admin/edit_inquiry',
+												state: {
+													inquiry: inquiry
+												}
+											}}
+											className='btn bg-none color-accent'
+										>
+											Edit
+										</Link>
 									</span>
-								</div> */}
-							</div>
-
-							<div className='list'>
-								<span className='label'>Start Date</span>
-								<span className='value'>
-									{' '}
-									{moment(inquiry.package_booking.start_date).format('D MMMM, YYYY')}
-								</span>
-							</div>
-							<div className='list'>
-								<span className='label'>End date</span>
-								<span className='value'>
-									{' '}
-									{moment(inquiry.package_booking.end_date).format('D MMMM, YYYY')}
-								</span>
-							</div>
-							<div className='list'>
-								<span className='label'>Pickup Location</span>
-								<span className='value'> {inquiry.package_booking.pickup_location}</span>
-							</div>
-
-							<div className='list'>
-								<span className='label'>Drop off Location</span>
-								<span className='value'> {inquiry.package_booking.drop_off_location}</span>
-							</div>
-							{inquiry.query !== null && (
-								<div className='list'>
-									<div className='label'>Queries</div>
-									<div className='value'> {inquiry.query}</div>
+									<span className='btn bg-none text-danger' onClick={() => destroy(inquiry.idx)}>
+										Delete
+									</span>
 								</div>
-							)}
+							</div>
+							<div className='ui grid'>
+								{Object.entries(inquiryInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+								{Object.entries(inquiryDateInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{moment(value).format('D MMMM, YYYY')}</div>
+									</div>
+								))}
+							</div>
 						</div>
-
-						<div className='list-view'>
+					</div>
+					<div className='row'>
+						<div className='eight wide column'>
+							<h3 className='ui header'> Contact Info </h3>
+							<div className='ui grid'>
+								{Object.entries(contactInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+							</div>
+						</div>
+						<div className='eight wide column'>
 							<div className='d-flex align-items-center justify-content-between'>
-								<h3 className='title'>Partner Details</h3>
+								<h3 className='ui header'>Partner Details</h3>
 								<div>
 									<span
 										className='btn bg-none color-accent'
@@ -235,44 +141,74 @@ const Inquiry = (props) => {
 									</span>
 								</div>
 							</div>
-
-							{partnerServices.map((partnerService, index) => {
-								return (
-									<React.Fragment>
-										<h4 className='title'>Partner {index + 1}</h4>
-										{Object.entries(partnerService.extras).map(([key, value]) => (
-											<div className='list'>
-												<span className='label'>{key}</span>
-												<span className='value'>{value}</span>
-											</div>
-										))}
-									</React.Fragment>
-								);
-							})}
-							{/* <div className='list'>
-									<span className='label'>Start Date</span>
-									<span className='value'> {inquiry.head_traveller_name}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>End date</span>
-									<span className='value'> {inquiry.number_of_adult}</span>
-								</div>
-								<div className='list'>
-									<span className='label'>Pickup Location</span>
-									<span className='value'> {inquiry.number_of_child}</span>
-								</div>
-
-								<div className='list'>
-									<span className='label'>Drop off Location</span>
-									<span className='value'> {inquiry.number_of_child}</span>
-								</div> */}
-							{inquiry.query !== null && (
-								<div className='list'>
-									<div className='label'>Queries</div>
-									<div className='value'> {inquiry.query}</div>
-								</div>
-							)}
 						</div>
+					</div>
+					<div className='row'>
+						<div className='eight wide column'>
+							<h3 className='ui header'> Other Info </h3>
+							<div className='ui grid'>
+								{Object.entries(otherInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+								<div className='row'>
+									<div className='eight wide column'>Status:</div>
+									<div className='eight wide column'>
+										<Badge type={inquiry.status}>{inquiry.status}</Badge>
+									</div>
+								</div>
+								<div className='row'>
+									<div className='eight wide column'>Queries</div>
+									<div className='eight wide column'> {inquiry.query}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className='text-center mt-3'>
+				<div
+					className='cursor-pointer'
+					onClick={() => {
+						setActions({
+							showOtherForm: true,
+							showDetails: false
+						});
+					}}
+				>
+					{inquiry.status === 'pending' && (
+						<span className='btn btn-success'>Send Confirmation to User&nbsp;</span>
+					)}
+				</div>
+				<div
+					className='cursor-pointer'
+					onClick={() => {
+						setActions({
+							showPartnerForm: true,
+							showDetails: false
+						});
+					}}
+				>
+					{(inquiry.status === 'processing' || inquiry.status === 'verified') && (
+						<span className='btn btn-success'>Assign Partners&nbsp;</span>
+					)}
+				</div>
+				<div className='cursor-pointer'>
+					{inquiry.status === 'pending' && (
+						<span className='btn btn-danger' onClick={() => reject(inquiry.idx)}>
+							Reject
+						</span>
+					)}
+				</div>
+			</div>
+			<div className='col-12 col-md-7'>
+				<div className='list-view' />
+
+				{inquiry.status == 'processing' && (
+					<React.Fragment>
+						<div className='list-view' />
 					</React.Fragment>
 				)}
 			</div>

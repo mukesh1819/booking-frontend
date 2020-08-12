@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import history from '../../history';
 import {getPackageBookingConfirmation, deletePackageBooking, markComplete} from '../../api/packageBookingApi';
 import {fetchTicket} from '../../api/flightApi';
-import {downloadTicket} from '../../helpers';
+import {downloadTicket, pick} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Badge} from '../shared';
 import {Card} from 'semantic-ui-react';
@@ -100,52 +100,106 @@ class PackageBookingDetails extends Component {
 
 	render() {
 		const {packageBooking} = this.props.location.state;
+		const packageInfo = pick(packageBooking.package, ['name']);
+
+		const contactInfo = pick(packageBooking.inquiry, [
+			'first_name',
+			'last_name',
+			'email_address',
+			'address',
+			'city',
+			'head_traveller_name',
+			'nationality',
+			'number_of_adult',
+			'number_of_child',
+			'phone',
+			'query'
+		]);
+
+		const bookingInfo = pick(packageBooking, ['pickup_location', 'drop_off_location', 'meals_included']);
+
+		const bookingDateInfo = pick(packageBooking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
+		const otherInfo = pick(packageBooking, ['idx']);
+		const remarks = pick(packageBooking, ['remarks']);
 		const {loading} = this.state;
 		return (
 			<div className='container'>
 				<Card fluid>
 					<Card.Content>
-						<div className='row'>
-							<div className='col-12 col-md-4 text-center'>
-								<i className='huge icon book' />
-								<h3 className='ui header'>{packageBooking.idx}</h3>
-								<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
-							</div>
-							<div className='col-12 col-md-8'>
-								<div className='list-view'>
-									<h3 className='title'>Booking Details</h3>
-									<div className='list'>
-										<span className='label'>Pickup Date</span>
-										<span className='value'>
-											{moment(packageBooking.pickup_date).format('D MMMM, YYYY')}
-										</span>
+						<div className='ui segment'>
+							<h3 className='ui header'> Booking Details </h3>
+							<div className='ui internally celled stackable grid'>
+								<div className='row'>
+									<div className='eight wide column'>
+										<h3 className='ui header'> Package Info </h3>
+										<div className='ui grid'>
+											{Object.entries(packageInfo).map(([key, value]) => (
+												<div className='row'>
+													<div className='eight wide column'>{key.titleize()}:</div>
+													<div className='eight wide column'>{value}</div>
+												</div>
+											))}
+										</div>
 									</div>
-									<div className='list'>
-										<span className='label'>Pickup Location</span>
-										<span className='value'>{packageBooking.pickup_location}</span>
-									</div>
-									<div className='list'>
-										<span className='label'>Drop off Date</span>
-										<span className='value'>
-											{moment(packageBooking.drop_off_date).format('D MMMM, YYYY')}
-										</span>
-									</div>
-									<div className='list'>
-										<span className='label'>Drop off Location</span>
-										<span className='value'>{packageBooking.drop_off_location}</span>
-									</div>
-									<div className='list'>
-										<span className='label'>Meals</span>
-										<span className='value'>{`${packageBooking.meals_included}`}</span>
-									</div>
-									<div className='list'>
-										<span className='label'>Start Date</span>
-										<span className='value'>
-											{moment(packageBooking.start_date).format('D MMMM, YYYY')}
-										</span>
+									<div className='eight wide column'>
+										<h3 className='ui header'> Contact Info </h3>
+										<div className='ui grid'>
+											{Object.entries(contactInfo).map(([key, value]) => (
+												<div className='row'>
+													<div className='eight wide column'>{key.titleize()}:</div>
+													<div className='eight wide column'>{value}</div>
+												</div>
+											))}
+										</div>
 									</div>
 								</div>
-								<div>Remarks: {packageBooking.remarks}</div>
+								<div className='row'>
+									<div className='eight wide column'>
+										<h3 className='ui header'> Booking Info </h3>
+										<div className='ui grid'>
+											{Object.entries(bookingInfo).map(([key, value]) => (
+												<div className='row'>
+													<div className='eight wide column'>{key.titleize()}:</div>
+													<div className='eight wide column'>{value}</div>
+												</div>
+											))}
+											{Object.entries(bookingDateInfo).map(([key, value]) => (
+												<div className='row'>
+													<div className='eight wide column'>{key.titleize()}:</div>
+													<div className='eight wide column'>
+														{moment(value).format('D MMMM, YYYY')}
+													</div>
+												</div>
+											))}
+										</div>
+									</div>
+									<div className='eight wide column'>
+										<h3 className='ui header'> Other Info </h3>
+										<div className='ui grid'>
+											{Object.entries(otherInfo).map(([key, value]) => (
+												<div className='row'>
+													<div className='eight wide column'>{key.titleize()}:</div>
+													<div className='eight wide column'>{value}</div>
+												</div>
+											))}
+											<div className='row'>
+												<div className='eight wide column'>Status:</div>
+												<div className='eight wide column'>
+													<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
+												</div>
+											</div>
+											<h3 className='ui header'> Remarks </h3>
+											<div className='ui grid'>
+												{Object.entries(remarks).map(([key, value]) => (
+													<div className='row'>
+														<div className='eight wide column'>{key.titleize()}:</div>
+														<div className='eight wide column'>{value}</div>
+													</div>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</Card.Content>
