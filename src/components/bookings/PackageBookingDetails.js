@@ -128,14 +128,6 @@ class PackageBookingDetails extends Component {
 										<div className='eight wide column'>Rs. {booking.amount}</div>
 									</div>
 								</div>
-
-								{booking.inquiry.status === 'processing' && (
-									<div className='text-center p-4'>
-										<span onClick={this.onContinueToPayment} className='btn btn-primary'>
-											Continue to Payment
-										</span>
-									</div>
-								)}
 							</div>
 						</div>
 						<div className='row'>
@@ -149,8 +141,15 @@ class PackageBookingDetails extends Component {
 						</div>
 					</div>
 				</div>
-				{booking.inquiry.status === 'verified' && (
-					<div className='text-center p-4'>
+				<div className='text-center'>
+					{booking.inquiry.status === 'processing' && (
+						<div className='text-center p-4'>
+							<span onClick={this.onContinueToPayment} className='btn btn-primary'>
+								Continue to Payment
+							</span>
+						</div>
+					)}
+					{booking.inquiry.status === 'verified' && (
 						<span className='text-center py-4'>
 							<Button
 								primary
@@ -161,8 +160,8 @@ class PackageBookingDetails extends Component {
 								Download ticket
 							</Button>
 						</span>
-					</div>
-				)}
+					)}
+				</div>
 			</div>
 		);
 	}

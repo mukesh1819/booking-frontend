@@ -1,7 +1,7 @@
 import React, {Component, Fragment, useState, useEffect} from 'react';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
 import {connect} from 'react-redux';
-import ServiceDetails from './ServiceDetails';
+import PackageServiceDetails from './PackageServiceDetails';
 
 const PackageBookings = (props) => {
 	const [services, setServices] = useState([]);
@@ -35,7 +35,7 @@ const PackageBookings = (props) => {
 					))}
 				</Fragment>
 			)}
-			{viewDetails && <ServiceDetails service={viewDetails} />}
+			{viewDetails && <PackageServiceDetails service={viewDetails} />}
 		</Fragment>
 	);
 };

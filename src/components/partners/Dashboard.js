@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
 import {Badge, Sidebar} from '../shared';
 import {PersonalProfile, CompanyProfile} from './PartnerProfile';
-import Services from './ServiceDetails';
+import Services from './PackageServiceDetails';
 import RentalBooking from './RentalBookings';
 import PackageBookings from './PackageBookings';
 import PartnerProfile from './PartnerProfile';
@@ -100,7 +100,8 @@ class Dashboard extends Component {
 								<div className='card'>
 									<div className='card-body'>
 										<div className='text-center'>
-											<span className='count'> {partner.service_transactions.length} </span> <hr />
+											<span className='count'> {partner.service_transactions.length} </span>{' '}
+											<hr />
 											<Link to='/partner/service_transactions' className='action'>
 												View all Service Transactions
 											</Link>
