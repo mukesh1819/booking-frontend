@@ -24,9 +24,9 @@ class UserLayout extends Component {
 		const {sideBarIsVisible} = this.state;
 
 		const sideBarMenu = [
-			{icon: 'icon-home', name: 'home', label: 'Home', value: '', link: '/'},
+			{icon: 'home', name: 'home', label: 'Home', value: '', link: '/'},
 			{
-				icon: 'fas fa-file-invoice',
+				icon: 'book',
 				name: 'my_bookings',
 				label: 'My Bookings',
 				value: '',
@@ -56,7 +56,7 @@ class UserLayout extends Component {
 			// 	link: '/profile'
 			// },
 			{
-				icon: 'fas fa-blender-phone',
+				icon: 'phone square',
 				name: 'contact_us',
 				label: 'Contact Us',
 				value: '',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import history from '../../history';
 import SocialLinks from '../sessions/SocialLinks';
@@ -6,29 +6,30 @@ import SocialLinks from '../sessions/SocialLinks';
 function Slidebar({items = [], isVisible, onHide}) {
 	return (
 		<div className={`slide-nav slide d-md-none ${isVisible ? 'show' : 'closed'}`}>
-			<div className='list-group'>
-				{items.map(({label, name, details, icon, value, link, ...rest}) => (
-					<div
-						className='item d-flex align-items-center'
-						key={name}
-						onClick={() => {
-							history.push(link);
-							onHide();
-						}}
-					>
-						<i className={`${icon} p-2 text-primary`} />
-						<div>
-							<span>{label}</span>
-							<span className='small text-muted' style={{display: 'table'}}>
-								{details}
-							</span>
+			<div className='ui relaxed divided list'>
+				{items.map(({label, name, details = null, icon, value, link, ...rest}) => (
+					<Fragment>
+						<div
+							className='item'
+							key={name}
+							onClick={() => {
+								history.push(link);
+								onHide();
+							}}
+						>
+							<i className={`large icon ${icon} p-2 text-primary`} />
+							<div class='content'>
+								<a class='black header'>{label}</a>
+								<div class='description'>
+									{details}
+									{value}
+								</div>
+							</div>
 						</div>
-						<span className='text-bold ml-auto'>{value}</span>
-					</div>
+					</Fragment>
 				))}
 			</div>
-			<hr />
-			<SocialLinks />
+			{/* <SocialLinks /> */}
 		</div>
 	);
 }

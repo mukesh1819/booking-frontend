@@ -121,3 +121,8 @@
         overflow-y: scroll;
     }
 }
+
+.ui.list>.item a.header {
+    cursor: pointer;
+    color: #545454 !important;
+}
