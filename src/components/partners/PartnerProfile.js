@@ -50,7 +50,7 @@ const updatePassword = (id, details, loading, setLoading) => {
 				icon: 'success',
 				button: 'Continue!'
 			}).then(function() {
-				location.reload();debugger;
+				location.reload();
 			});
 			setLoading(loading => false)
 

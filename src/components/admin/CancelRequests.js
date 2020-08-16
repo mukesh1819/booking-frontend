@@ -28,7 +28,7 @@ class UpdateBooking extends Component {
 			.then((response) => {
 				// console.log(response);
 				this.setState({
-					bookings: response.data
+					bookings: response.data.bookings
 				});
 			})
 			.catch((error) => {
