@@ -203,7 +203,7 @@ class PackageDetails extends Component {
 									</div>
 									<div className='d-inline-block'>
 										<div className='p-2' onClick={this.onSelect} className='btn btn-secondary'>
-											Submit Query
+											Make A Inquiry
 										</div>
 									</div>
 								</div>

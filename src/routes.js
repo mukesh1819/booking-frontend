@@ -84,6 +84,9 @@ import CarInquiryDetails from './components/admin/CarInquiryDetails';
 import ServiceTransactions from './components/admin/ServiceTransactions';
 import ServiceTransactionForm from './components/admin/ServiceTransactionForm';
 import SummaryList from './components/admin/SummaryList';
+import AddonList from './components/admin/AddonList';
+import AddonDetails from './components/admin/AddonDetails';
+import AddonForm from './components/admin/AddonForm';
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -125,6 +128,11 @@ const routes = [
 		component: PartnerApprovalForm,
 		layout: AdminLayout
 	},
+
+	{private: true, path: '/admin/addons', component: AddonList, layout: AdminLayout},
+	{private: true, path: '/admin/addon_details/:idx', component: AddonDetails, layout: AdminLayout},
+	{private: true, path: '/admin/addon_form', component: AddonForm, layout: UserLayout},
+	{private: true, path: '/admin/addon/:idx/edit', component: AddonForm, layout: AdminLayout},
 
 	{private: true, path: '/admin/partner_approval_form', component: PartnerApprovalForm, layout: AdminLayout},
 	{private: true, path: '/admin/partners/:id', component: PartnerProfile, layout: UserLayout},
