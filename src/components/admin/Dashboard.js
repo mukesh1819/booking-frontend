@@ -218,6 +218,19 @@ class Dashboard extends Component {
 										</div>
 									</div>
 								</div>
+								<div className='widget col-sm-12 col-md-4'>
+									<div className='card'>
+										<div className='card-body'>
+											<div className='text-center'>
+												<span className='count'> {addon} </span> <hr />
+												<Link to='/admin/addons' className='action'>
+													View all Addons
+												</Link>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 							</Fragment>
 						)}
 
@@ -329,18 +342,7 @@ class Dashboard extends Component {
 									</div>
 								</div>
 
-								<div className='widget col-sm-12 col-md-4'>
-									<div className='card'>
-										<div className='card-body'>
-											<div className='text-center'>
-												<span className='count'> {addon} </span> <hr />
-												<Link to='/admin/addons' className='action'>
-													View all Addons
-												</Link>
-											</div>
-										</div>
-									</div>
-								</div>
+								
 							</Fragment>
 						)}
 					</div>
