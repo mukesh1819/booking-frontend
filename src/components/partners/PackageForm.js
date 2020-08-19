@@ -383,91 +383,92 @@ class PackageForm extends Component {
 										</div>
 										<Segment placeholder>
 											<div className='row activities'>
-												{values.activities_attributes
-													.filter((v) => !v._destroy)
-													.map((activity, index) => (
-														<div className='activity col-4 py-2'>
-															<div
-																className='text-right'
-																onClick={() => {
-																	// values.activities_attributes.splice(index, 1);
-																	values.activities_attributes[index] = {
-																		id: values.activities_attributes[index].id,
-																		_destroy: true
-																	};
-																	setFieldValue(
-																		'activities_attributes',
-																		values.activities_attributes
-																	);
-																}}
-															>
-																<i className='fas fa-times' />
+												{values.activities_attributes.map(
+													(activity, index) =>
+														!activity._destroy && (
+															<div className='activity col-4 py-2'>
+																<div
+																	className='text-right'
+																	onClick={() => {
+																		// values.activities_attributes.splice(index, 1);
+																		values.activities_attributes[index] = {
+																			id: values.activities_attributes[index].id,
+																			_destroy: true
+																		};
+																		setFieldValue(
+																			'activities_attributes',
+																			values.activities_attributes
+																		);
+																	}}
+																>
+																	<i className='fas fa-times' />
+																</div>
+																<div className='row'>
+																	<div className='col-12'>
+																		<div className='field-box'>
+																			<label>Description</label>
+
+																			<Field
+																				name={`activities_attributes[${index}].description`}
+																				className='form-control'
+																				onBlur={handleBlur}
+																				onChange={handleChange}
+																				value={
+																					values.activities_attributes[index]
+																						.description
+																				}
+																			/>
+
+																			<ErrorMessage
+																				name={`activities_attributes[${index}].description`}
+																			/>
+																		</div>
+																	</div>
+																	<div className='col-12'>
+																		<div className='field-box'>
+																			<label>Duration</label>
+
+																			<Field
+																				name={`activities_attributes[${index}].duration`}
+																				className='form-control'
+																				onBlur={handleBlur}
+																				onChange={handleChange}
+																				value={
+																					values.activities_attributes[index]
+																						.duration
+																				}
+																			/>
+
+																			<ErrorMessage
+																				name={`activities_attributes[${index}].duration`}
+																			/>
+																		</div>
+																	</div>
+																	<div className='col-12'>
+																		<div className='field-box'>
+																			<label>Price</label>
+
+																			<Field
+																				name={`activities_attributes[${index}].price`}
+																				type='number'
+																				className='form-control'
+																				onBlur={handleBlur}
+																				onChange={handleChange}
+																				value={
+																					values.activities_attributes[index]
+																						.price
+																				}
+																			/>
+
+																			<ErrorMessage
+																				name={`activities_attributes[${index}].price`}
+																			/>
+																		</div>
+																	</div>
+																</div>
 															</div>
-															<div className='row'>
-																<div className='col-12'>
-																	<div className='field-box'>
-																		<label>Description</label>
-
-																		<Field
-																			name={`activities_attributes[${index}].description`}
-																			className='form-control'
-																			onBlur={handleBlur}
-																			onChange={handleChange}
-																			value={
-																				values.activities_attributes[index]
-																					.description
-																			}
-																		/>
-
-																		<ErrorMessage
-																			name={`activities_attributes[${index}].description`}
-																		/>
-																	</div>
-																</div>
-																<div className='col-12'>
-																	<div className='field-box'>
-																		<label>Duration</label>
-
-																		<Field
-																			name={`activities_attributes[${index}].duration`}
-																			className='form-control'
-																			onBlur={handleBlur}
-																			onChange={handleChange}
-																			value={
-																				values.activities_attributes[index]
-																					.duration
-																			}
-																		/>
-
-																		<ErrorMessage
-																			name={`activities_attributes[${index}].duration`}
-																		/>
-																	</div>
-																</div>
-																<div className='col-12'>
-																	<div className='field-box'>
-																		<label>Price</label>
-
-																		<Field
-																			name={`activities_attributes[${index}].price`}
-																			type='number'
-																			className='form-control'
-																			onBlur={handleBlur}
-																			onChange={handleChange}
-																			value={
-																				values.activities_attributes[index]
-																					.price
-																			}
-																		/>
-
-																		<ErrorMessage
-																			name={`activities_attributes[${index}].price`}
-																		/>
-																	</div>
-																</div>
-															</div>
-														</div>
-													))}
+														)
+												)}
 												<div className='col-4 d-flex activity align-items-center justify-content-center'>
 													<Header
 														icon
