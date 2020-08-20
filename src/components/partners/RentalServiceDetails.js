@@ -73,6 +73,7 @@ const Services = (props) => {
 						</div>
 					</div>
 					<div className='eight wide column'>
+						<h3 className='ui header'> Remarks </h3>
 						{service.partner_remarks.map((i) => {
 							return (
 								<div>
