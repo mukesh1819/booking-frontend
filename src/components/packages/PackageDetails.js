@@ -119,11 +119,13 @@ class PackageDetails extends Component {
 													<th>Price</th>
 												</tr>
 												{aPackage.activities.map((activity) => {
-													return <tr>
-														<td>{activity.description}</td>
-														<td>{activity.duration}</td>
-														<td>{activity.price}</td>
-													</tr>
+													return (
+														<tr>
+															<td>{activity.description}</td>
+															<td>{activity.duration}</td>
+															<td>{activity.price}</td>
+														</tr>
+													);
 												})}
 											</table>
 										</div>
@@ -191,13 +193,13 @@ class PackageDetails extends Component {
 										{discount > 0 && (
 											<div className='text-small'>
 												<span className='text-muted'>
-													Rs. <del>{price}</del>
+													Rs. <del>{aPackage.price}</del>
 												</span>
 												<span className='text-success'>&nbsp;{discount} off</span>
 											</div>
 										)}
 										<span>
-											<span class='text-medium text-strong'>Rs. {aPackage.price}</span>
+											<span class='text-medium text-strong'>Rs. {price}</span>
 											<span className='text-muted text-small text-right'>/person</span>
 										</span>
 									</div>
