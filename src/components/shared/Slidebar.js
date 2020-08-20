@@ -2,8 +2,9 @@ import React, {Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import history from '../../history';
 import SocialLinks from '../sessions/SocialLinks';
+import {userInfo} from 'os';
 
-function Slidebar({items = [], isVisible, onHide}) {
+function Slidebar({items = [], user = {}, isVisible, onHide}) {
 	return (
 		<div className={`slide-nav slide d-md-none ${isVisible ? 'show' : 'closed'}`}>
 			<div className='ui relaxed divided list'>
@@ -29,7 +30,7 @@ function Slidebar({items = [], isVisible, onHide}) {
 					</Fragment>
 				))}
 			</div>
-			{/* <SocialLinks /> */}
+			{!user.id && <SocialLinks />}
 		</div>
 	);
 }

@@ -71,6 +71,7 @@ class UserLayout extends Component {
 					items={sideBarMenu}
 					side='left'
 					onHide={() => this.toggleSidebar()}
+					user={currentUser}
 				/>
 				{children}
 			</div>
