@@ -111,7 +111,7 @@ class InquiryForm extends Component {
 										icon: 'success',
 										button: 'Continue'
 									}).then((response) => {
-										history.push(`/admin/inquiries`)
+										history.push(`/admin/inquiries`);
 									});
 								})
 								.catch((error) => {
@@ -162,7 +162,16 @@ class InquiryForm extends Component {
 										<div className='col-12'>
 											<span className=''>Package Name: </span>&nbsp;
 											<span className='text-primary title'>{aPackage.name}</span>
+											<div className='ui red message'>
+												Total Price: Rs.{' '}
+												{values.activity ? (
+													<span>{values.activity.price}</span>
+												) : (
+													<span>{aPackage.price}</span>
+												)}
+											</div>
 										</div>
+
 										{aPackage.activities &&
 										aPackage.activities.length > 0 && (
 											<div className='col-12 col-md-6'>
@@ -174,6 +183,10 @@ class InquiryForm extends Component {
 														placeholder='Select activities'
 														onBlur={handleBlur}
 														onChange={(e, data) => {
+															setFieldValue(
+																`activity`,
+																aPackage.activities.find((v) => v.id == data.value)
+															);
 															setFieldValue(`activity_id`, data.value);
 														}}
 														value={values.activity_id}
