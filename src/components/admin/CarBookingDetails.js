@@ -14,7 +14,7 @@ import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket, pick} from '../../helpers';
 import {Badge} from '../shared';
 import moment from 'moment';
-import {Form} from 'semantic-ui-react';
+import RemarksForm from '../shared/RemarksForm';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -39,7 +39,6 @@ class CarBookingDetails extends Component {
 	}
 
 	// onConfirmCarBooking(id) {
-
 
 	// 	getCarBookingConfirmation(id)
 	// 		.then((response) => {
@@ -122,17 +121,17 @@ class CarBookingDetails extends Component {
 								// 	confirm
 								// </span>
 								<span>
-								<Link
-									to={{
-										pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
-										state: {
-											carBooking: carBooking
-										}
-									}}
-								>
-									<i className='fas fa-contact' />
-									<span className='btn bg-none text-primary'>confirm</span>
-								</Link>
+									<Link
+										to={{
+											pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
+											state: {
+												carBooking: carBooking
+											}
+										}}
+									>
+										<i className='fas fa-contact' />
+										<span className='btn bg-none text-primary'>confirm</span>
+									</Link>
 								</span>
 							)}
 
@@ -177,7 +176,8 @@ class CarBookingDetails extends Component {
 								</span>
 							)}
 
-							{(carBooking.status !== 'pending' && carBooking.status !== 'completed') && (
+							{carBooking.status !== 'pending' &&
+							carBooking.status !== 'completed' && (
 								<td>
 									<span>
 										<Link
@@ -332,49 +332,10 @@ class CarBookingDetails extends Component {
 
 						<div className='row'>
 							<div className='eight wide column section'>
-								<h3 className='ui header'> Remarks </h3>
-								{carBooking.user_remarks &&
-									carBooking.user_remarks.map((i) => {
-										return (
-											<div>
-												<div className='text-bold'>{i.remark}</div>
-												<div className='text-small'>
-													{moment(i.date).format('D MMMM, YYYY hh:mm')}
-												</div>
-												<br />
-											</div>
-										);
-									})}
-
-								{options.addingRemarks && (
-									<Form>
-										<Form.TextArea
-											id='new_remark'
-											label='New Remark'
-											placeholder='Add new remark...'
-										/>
-										<div
-											className='ui basic button green'
-											onClick={() => this.updateBooking({user_remarks: $('#new_remark').val()})}
-										>
-											Submit
-										</div>
-										<div
-											className='ui basic button red'
-											onClick={() => this.setOptions({addingRemarks: false})}
-										>
-											Cancel
-										</div>
-									</Form>
-								)}
-								{!options.addingRemarks && (
-									<div
-										className='ui basic button'
-										onClick={() => this.setOptions({addingRemarks: true})}
-									>
-										Add remarks
-									</div>
-								)}
+								<RemarksForm
+									remarks={carBooking.user_remarks}
+									onSubmit={(value) => this.updateBooking({user_remarks: value})}
+								/>
 							</div>
 						</div>
 					</div>

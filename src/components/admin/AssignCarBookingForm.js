@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom';
 import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
 import {assignPartner, getCarBookingConfirmation} from '../../api/carBookingApi';
 import {getPartners} from '../../api/partnerApi';
+import RemarksForm from '../shared/RemarksForm';
 
 class AssignCarBookingForm extends Component {
 	constructor(props) {
@@ -65,22 +66,21 @@ class AssignCarBookingForm extends Component {
 						});
 						setSubmitting(false);
 						// console.log(values);
-						if(carBooking.status == 'pending' && carBooking.idx != null){
+						if (carBooking.status == 'pending' && carBooking.idx != null) {
 							getCarBookingConfirmation(carBooking.idx, values)
-							.then((response) => {
-								swal({
-									title: 'Car Booking Confirmation!',
-									text: response.data.message,
-									icon: 'success',
-									button: 'Continue!'
+								.then((response) => {
+									swal({
+										title: 'Car Booking Confirmation!',
+										text: response.data.message,
+										icon: 'success',
+										button: 'Continue!'
+									});
+									history.push('/admin/car_bookings');
+								})
+								.catch((error) => {
+									console.log('Car booking confirmation error', error);
 								});
-								history.push('/admin/car_bookings');
-							})
-							.catch((error) => {
-								console.log('Car booking confirmation error', error);
-							});
-						}
-						else if(carBooking.idx != null) {
+						} else if (carBooking.idx != null) {
 							assignPartner(carBooking.idx, values)
 								.then((response) => {
 									swal({
@@ -159,7 +159,7 @@ class AssignCarBookingForm extends Component {
 										<ErrorMessage name='partner_amount' />
 									</Form.Field>
 
-									<Form.Field>
+									{/* <Form.Field>
 										<Form.TextArea
 											label='Remakrs'
 											className=''
@@ -172,7 +172,12 @@ class AssignCarBookingForm extends Component {
 											value={values.partner_remarks}
 										/>
 										<ErrorMessage name='partner_remarks' />
-									</Form.Field>
+									</Form.Field> */}
+
+									<RemarksForm
+										remarks={[]}
+										onSubmit={(value) => setFieldValue(`partner_remarks`, value)}
+									/>
 								</div>
 
 								<div className='traveller-details '>
