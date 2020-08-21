@@ -115,3 +115,11 @@ export function markComplete(id) {
 		url: `${API_URL}/admin/car_bookings/${id}/mark_complete`
 	});
 }
+
+export function set_rental_remarks(id, data){
+	return axios({
+		method: 'put',
+		url:`${API_URL}/car_bookings/${id}/set_remarks`,
+		data: {car_booking: data}
+	});
+}

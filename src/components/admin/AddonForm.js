@@ -118,6 +118,7 @@ class AddonForm extends Component {
 											<IconInput icon='icon-paper-plane' iconPosition='left'>
 												<Field
 													// hidden
+													type='number'
 													name='price'
 													className='form-control'
 													onBlur={handleBlur}
