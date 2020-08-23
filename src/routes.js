@@ -116,8 +116,6 @@ const routes = [
 
 	{private: true, path: '/partner/service_transactions', component: ServiceTransactionList, layout: PartnerLayout},
 
-
-	
 	{private: true, path: '/package_booking/:id', component: UserPackageBookingDetails, layout: UserLayout},
 
 	{private: true, path: '/partners/package_form/:partnerId', component: AddPackageForm, layout: UserLayout},
@@ -178,7 +176,7 @@ const routes = [
 	{private: true, path: '/admin/create_user', component: CreateUser, layout: AdminLayout},
 	{private: true, path: '/admin/users_list', component: UsersList, layout: AdminLayout},
 	{private: true, path: '/admin/packages', component: PackagesList, layout: AdminLayout},
-	{private: true, path: '/admin/package_details', component: AdminPackageDetails, layout: AdminLayout},
+	{private: true, path: '/admin/package_details/:idx', component: AdminPackageDetails, layout: AdminLayout},
 	{private: true, path: '/admin/partners', component: PartnerList, layout: AdminLayout},
 	{private: true, path: '/admin/inquiry_details', component: InquiryDetails, layout: AdminLayout},
 	{private: true, path: '/admin/inquiries', component: InquiryList, layout: AdminLayout},

@@ -5,10 +5,28 @@ import {Checkbox, Card} from 'semantic-ui-react';
 import {updatePublish, deletePackage} from '../../api/packageApi';
 import history from '../../history';
 import {Package} from '../packages';
+import {showPackage} from '../../api/packageApi';
 
 class PackageDetails extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			aPackage: {
+				images: [],
+				addons: [],
+				activities: [],
+				category: {}
+			}
+		};
+		showPackage(this.props.match.params.idx)
+			.then((response) => {
+				this.setState({
+					aPackage: response.data
+				});
+			})
+			.catch((error) => {
+				console.log('PACKAGE DETAILS ERROR', error);
+			});
 	}
 
 	handleChange = (e, data) => {
@@ -18,16 +36,14 @@ class PackageDetails extends Component {
 			icon: 'warning',
 			buttons: true,
 			dangerMode: true
-		}).then((willDelete) => {
-			if (willDelete) {
+		}).then((action) => {
+			if (action) {
 				updatePublish(this.props.location.state.aPackage.idx, true).then((response) => {
 					swal('Your package has been published', {
 						icon: 'success'
 					});
 					history.push('/admin/packages');
 				});
-			} else {
-				swal('Your package is not published yet');
 			}
 		});
 	};
@@ -58,22 +74,20 @@ class PackageDetails extends Component {
 			icon: 'warning',
 			buttons: true,
 			dangerMode: true
-		}).then((willDelete) => {
-			if (willDelete) {
+		}).then((action) => {
+			if (action) {
 				deletePackage(id).then((response) => {
 					swal('Your package has been deleted', {
 						icon: 'success'
 					});
 					history.push('/admin/packages');
 				});
-			} else {
-				swal('Your package is not deleted yet');
 			}
 		});
 	}
 
 	render() {
-		const {aPackage} = this.props.location.state;
+		const {aPackage} = this.state;
 		return (
 			<div className='row'>
 				<div className='col-12 col-md-4'>
@@ -85,7 +99,6 @@ class PackageDetails extends Component {
 							</span>
 						</div>
 					)}
-					
 				</div>
 
 				<div className='col-12 col-md-8'>
@@ -122,6 +135,21 @@ class PackageDetails extends Component {
 									<span className='label'>Published</span>
 									<span className='value'>{`${aPackage.published}`}</span>
 								</div>
+							</div>
+
+							<div>
+								<h3 className='title'>Addons</h3>
+								{aPackage.addons.map((addon) => {
+									return (
+										<div
+											class='ui label'
+											data-tooltip={addon.description}
+											data-position='bottom left'
+										>
+											{addon.name}
+										</div>
+									);
+								})}
 							</div>
 
 							<div>

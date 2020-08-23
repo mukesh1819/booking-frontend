@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import CKEditor from 'ckeditor4-react';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import {Counter, IconInput, Loading as LoadingScreen, DatePicker, Stepper, Thumb} from '../shared';
 import {createPackage, updatePackage} from '../../api/packageApi';
@@ -10,7 +10,7 @@ import {BASE_URL} from '../../constants';
 import swal from 'sweetalert';
 import {setError} from '../../redux/actions';
 import * as yup from 'yup';
-import {Button, Divider, Grid, Header, Icon, Search, Segment} from 'semantic-ui-react';
+import {Button, Divider, Grid, Header, Icon, Search, Segment, Dropdown, Form} from 'semantic-ui-react';
 import history from '../../history';
 import {getAddons} from '../../api/addonApi';
 
@@ -112,6 +112,7 @@ class PackageForm extends Component {
 			exclusions: aPackage.exclusions,
 			images: [],
 			category_id: aPackage.category != null ? aPackage.category.id : '',
+			addons: (aPackage.addons || []).map((v) => v.id),
 			activities_attributes: aPackage.activities
 		};
 
@@ -160,7 +161,6 @@ class PackageForm extends Component {
 											console.log(' package update error', error);
 										});
 								} else {
-									values.addons = [1, 2];
 									createPackage({...values, images: document.querySelector('[type=file]').files})
 										.then((response) => {
 											setSubmitting(false);
@@ -375,22 +375,55 @@ class PackageForm extends Component {
 											<ErrorMessage name='description' />
 										</div>
 										<div className='field-box'>
-											<h3 className='title'>Addons</h3>
-											{addons.map((addon) => (
-												<div
-													class='ui button'
-													data-tooltip={addon.description}
-													data-position='bottom left'
-												>
-													{addon.name}
-												</div>
-											))}
+											<Form.Field>
+												<label htmlFor=''>Addons</label>
+												<Form.Select
+													placeholder='Addons'
+													fluid
+													multiple
+													selection
+													value={values.addons}
+													onChange={(e, data) => {
+														setFieldValue('addons', data.value);
+													}}
+													options={addons.map((v) => {
+														return {
+															key: v.id,
+															text: v.name,
+															value: v.id
+														};
+													})}
+												/>
+											</Form.Field>
+
+											{addons.map((addon) => {
+												if (values.addons.includes(addon.id)) {
+													return;
+												}
+												return (
+													<div
+														class='ui button'
+														data-tooltip={addon.description}
+														data-position='bottom left'
+														onClick={() => {
+															if (!values.addons.includes(addon.id)) {
+																setFieldValue('addons', [...values.addons, addon.id]);
+															}
+														}}
+													>
+														{addon.name}
+													</div>
+												);
+											})}
 										</div>
 									</div>
 
 									<div className='input-section'>
 										<div className='row'>
 											<div className='col-12'>
+												<Form.Field>
+													<label htmlFor='' />
+												</Form.Field>
 												<div className='d-flex justify-content-between'>
 													<h3 className='title'>Activities</h3>
 													{/* <span
