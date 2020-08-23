@@ -19,6 +19,7 @@ import ReactDOM from 'react-dom';
 import {createInquiry, updateInquiry} from '../../api/inquiryApi';
 import {showPackage} from '../../api/packageApi';
 import {sortObjectBy, phoneValidate, textValidate, alphaNumericValidate, numberValidate} from '../../helpers';
+import AddonForm from './AddonForm';
 
 class InquiryForm extends Component {
 	constructor(props) {
@@ -88,7 +89,7 @@ class InquiryForm extends Component {
 			head_traveller_name: inquiry.head_traveller_name,
 			activity_id: null,
 			package_id: aPackage.id,
-			addon: {id: []}
+			addons: []
 		};
 		var sortedCountries = sortObjectBy(countries, 'code');
 		return (
@@ -224,6 +225,13 @@ class InquiryForm extends Component {
 												<ErrorMessage name='preferred_date' />
 											</div>
 										</div>
+
+										<AddonForm
+											addons={aPackage.addons}
+											onChange={(value) => {
+												setFieldValue('addons', value);
+											}}
+										/>
 									</div>
 								</div>
 								<div className='inquirer-details '>
