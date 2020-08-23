@@ -94,6 +94,7 @@ class InquiryForm extends Component {
 			number_of_child: inquiry.number_of_child == null ? 0 : inquiry.number_of_child,
 			head_traveller_name: inquiry.head_traveller_name,
 			activity_id: null,
+			activity: inquiry.activity || {},
 			package_id: aPackage.id,
 			addons: []
 		};
@@ -182,12 +183,13 @@ class InquiryForm extends Component {
 																placeholder='Select activities'
 																onBlur={handleBlur}
 																onChange={(e, data) => {
-																	setFieldValue(
-																		`activity`,
-																		aPackage.activities.find(
-																			(v) => v.id == data.value
-																		)
+																	var activity = aPackage.activities.find(
+																		(v) => v.id == data.value
 																	);
+																	this.setState({
+																		price: activity.price
+																	});
+																	setFieldValue(`activity`, activity);
 																	setFieldValue(`activity_id`, data.value);
 																}}
 																value={values.activity_id}
@@ -241,7 +243,10 @@ class InquiryForm extends Component {
 											<div className='ui info message'>
 												<div className='header'>Total Price: Rs. {price + addon_price}</div>
 												<ul className='list'>
-													<li className='content'>Base price - Rs. {price}</li>
+													<li className='content'>
+														{values.activity.name ? values.activity.name : 'Base Price'} -
+														Rs. {price}
+													</li>
 													{aPackage.addons
 														.filter((v) => values.addons.includes(v.id))
 														.map((v) => (
@@ -250,11 +255,6 @@ class InquiryForm extends Component {
 															</li>
 														))}
 												</ul>
-												{/* {values.activity ? (
-													<span>{values.activity.price}</span>
-												) : (
-													<span>{aPackage.price}</span>
-												)} */}
 											</div>
 										</div>
 									</div>
