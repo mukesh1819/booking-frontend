@@ -23,6 +23,7 @@ import Thumb from './Thumb';
 import Timer from './Timer';
 import Tooltip from './Tooltip';
 import MailBox from './MailBox';
+import RemarksForm from './RemarksForm';
 
 export {
     Accordion,
@@ -49,5 +50,6 @@ export {
     Thumb,
     Timer,
     Tooltip,
-    MailBox
+    MailBox,
+    RemarksForm
 }

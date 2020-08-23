@@ -7,7 +7,7 @@ import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import history from '../../history';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import {Counter, IconInput, Loading as LoadingScreen, DatePicker, DateTimePicker} from '../shared';
+import {Counter, IconInput, Loading as LoadingScreen, DatePicker, DateTimePicker, RemarksForm} from '../shared';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
@@ -342,8 +342,8 @@ class CarBookingForm extends Component {
 
 												<div className='col-12 col-md-6'>
 													<div className='field-box'>
-														<label htmlFor=''>Remarks</label>
-														<TextArea
+														<label htmlFor='' />
+														{/* <TextArea
 															className='form-control'
 															name='user_remarks'
 															placeholder='Queries if any....'
@@ -352,8 +352,13 @@ class CarBookingForm extends Component {
 																setFieldValue(`user_remarks`, e.target.value);
 															}}
 															value={values.user_remarks}
-														/>
+														/> */}
 														<ErrorMessage name='user_remarks' />
+
+														<RemarksForm
+															remarks={values.user_remarks}
+															onSubmit={(value) => setFieldValue(`user_remarks`, value)}
+														/>
 													</div>
 												</div>
 											</React.Fragment>

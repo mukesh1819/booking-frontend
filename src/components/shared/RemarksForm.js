@@ -3,12 +3,13 @@ import moment from 'moment';
 import {Form} from 'semantic-ui-react';
 
 export default function RemarksForm({remarks = [], onSubmit}) {
+	const [entries, setRemarks] = useState(remarks);
 	const [isOpen, setOpen] = useState(false);
 	return (
 		<div className=''>
 			<h3 className='ui header'> Remarks </h3>
 
-			{remarks.map((i) => {
+			{entries.map((i) => {
 				return (
 					<div>
 						<div className='text-bold'>{i.remark}</div>
@@ -25,7 +26,7 @@ export default function RemarksForm({remarks = [], onSubmit}) {
 						className='ui basic button green'
 						onClick={() => {
 							var value = $('#new_remark').val();
-							remarks.push({remark: value, date: new Date()});
+							setRemarks([{remark: value, date: new Date()}, ...remarks]);
 							onSubmit(value);
 						}}
 					>

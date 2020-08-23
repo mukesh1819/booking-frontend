@@ -24,8 +24,12 @@ class PackageBookingList extends Component {
 
 	changeCurrentPage = (e, {activePage}) => {
 		var searchQuery = `?page=${activePage}`;
-		this.setState({currentPage: activePage});
-		this.fetchPackageBookings({page: activePage});
+		this.setState({
+			currentPage: activePage
+		});
+		this.fetchPackageBookings({
+			page: activePage
+		});
 		history.push({
 			pathname: window.location.pathname,
 			search: searchQuery
@@ -40,7 +44,7 @@ class PackageBookingList extends Component {
 	fetchPackageBookings = (params) => {
 		getPackageBookings(params)
 			.then((response) => {
-				// console.log('List of Packages', response.data);
+				console.log('List of Packages', response.data);
 				this.setState({
 					packageBookings: response.data.package_bookings,
 					pagination: response.data.meta.pagination
@@ -157,7 +161,7 @@ class PackageBookingList extends Component {
 
 		return (
 			<div className='ui container'>
-				<h3 className='title'>Package Bookings</h3>
+				<h3 className='title'> Package Bookings </h3>
 				<CustomMenu
 					submitUrl='package_bookings'
 					filterFields={filterFields}
@@ -184,48 +188,33 @@ class PackageBookingList extends Component {
 						}
 					]}
 				/>
-
 				<Segment>
 					<table className='table table-striped table-hover table-sm' ref='main'>
 						<thead>
 							<tr>
-								<th>S. No.</th>
-								{/* <th>IDX</th> */}
-								{/* <th>package ID</th> */}
-								{/* <th>User ID</th> */}
-								<th>Amount</th>
-								{/* <th>Inquiry ID</th> */}
-								{/* <th>Booking Transaction ID</th> */}
-								<th>Status</th>
-								<th>Start Date</th>
-								<th>End Date</th>
-								{/* <th>Pickup Date</th> */}
-								{/* <th>Pickup Location</th> */}
-								{/* <th>Drop off Date</th> */}
-								{/* <th>Drop off Location</th> */}
-								{/* <th>Meals Included</th> */}
-								{/* <th>Remarks</th> */}
-								{/* <th>Created At</th> */}
-								<th>Actions</th>
+								<th> S.No. </th> {/* <th>IDX</th> */} {/* <th>package ID</th> */}
+								{/* <th>User ID</th> */} <th> Amount </th> {/* <th>Inquiry ID</th> */}
+								{/* <th>Booking Transaction ID</th> */} <th> Status </th> <th> Start Date </th>
+								<th> End Date </th> {/* <th>Pickup Date</th> */} {/* <th>Pickup Location</th> */}
+								{/* <th>Drop off Date</th> */} {/* <th>Drop off Location</th> */}
+								{/* <th>Meals Included</th> */} {/* <th>Remarks</th> */} {/* <th>Created At</th> */}
+								<th> Actions </th>
 							</tr>
 						</thead>
-
 						<tbody>
 							{packageBookings.map((packageBooking) => {
 								return (
 									<tr>
-										<td>{packageBooking.id}</td>
-										{/* <td>{packageBooking.idx}</td> */}
+										<td> {packageBooking.id} </td> {/* <td>{packageBooking.idx}</td> */}
 										{/* <td>{packageBooking.package_id} </td> */}
-										{/* <td>{packageBooking.user_id} </td> */}
-										<td>{packageBooking.amount}</td>
+										{/* <td>{packageBooking.user_id} </td> */} <td> {packageBooking.amount} </td>
 										{/* <td>{packageBooking.inquiry_id}</td> */}
 										{/* <td>{packageBooking.booking_transaction_id}</td> */}
 										<td>
-											<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
+											<Badge type={packageBooking.status}> {packageBooking.status} </Badge>
 										</td>
-										<td>{moment(packageBooking.start_date).format('D MMMM, YYYY')}</td>
-										<td>{moment(packageBooking.end_date).format('D MMMM, YYYY')}</td>
+										<td> {moment(packageBooking.start_date).format('D MMMM, YYYY')} </td>
+										<td> {moment(packageBooking.end_date).format('D MMMM, YYYY')} </td>
 										{/* <td>{packageBooking.pickup_date}</td> */}
 										{/* <td>{packageBooking.pickup_location}</td> */}
 										{/* <td>{packageBooking.drop_off_date}</td> */}
@@ -243,7 +232,7 @@ class PackageBookingList extends Component {
 												}}
 											>
 												<i className='fas fa-contact' />
-												<span className='px-1'>view</span>
+												<span className='px-1'> view </span>
 											</Link>
 										</td>
 									</tr>
@@ -252,7 +241,6 @@ class PackageBookingList extends Component {
 						</tbody>
 					</table>
 				</Segment>
-
 				<div className='text-center p-2'>
 					<Pagination
 						activePage={pagination.current_page}

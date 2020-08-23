@@ -12,13 +12,15 @@ import {setError} from '../../redux/actions';
 import * as yup from 'yup';
 import {Button, Divider, Grid, Header, Icon, Search, Segment} from 'semantic-ui-react';
 import history from '../../history';
+import {getAddons} from '../../api/addonApi';
 
 class PackageForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			categories: [],
-			activities_attributes: []
+			activities_attributes: [],
+			addons: []
 		};
 		this.fetchDetails = this.fetchDetails.bind(this);
 	}
@@ -37,6 +39,16 @@ class PackageForm extends Component {
 			.catch((error) => {
 				// console.log('CATEGORIES FETCH ERROR');
 				console.log(' category fetch error', error);
+			});
+
+		getAddons()
+			.then((res) => {
+				this.setState({
+					addons: res.data.addons
+				});
+			})
+			.catch((error) => {
+				console.log('ADDON FETCH ERROR', error);
 			});
 
 		const options = {
@@ -87,7 +99,7 @@ class PackageForm extends Component {
 				? this.props.location.state
 				: {aPackage: {images: [], activities: [activity]}};
 		console.log('Package Details', aPackage);
-		const {categories, activities_attributes} = this.state;
+		const {categories, activities_attributes, addons} = this.state;
 		const {countries, nextStep} = this.props;
 
 		const packageDetails = {
@@ -148,6 +160,7 @@ class PackageForm extends Component {
 											console.log(' package update error', error);
 										});
 								} else {
+									values.addons = [1, 2];
 									createPackage({...values, images: document.querySelector('[type=file]').files})
 										.then((response) => {
 											setSubmitting(false);
@@ -360,6 +373,18 @@ class PackageForm extends Component {
 												}}
 											/>
 											<ErrorMessage name='description' />
+										</div>
+										<div className='field-box'>
+											<h3 className='title'>Addons</h3>
+											{addons.map((addon) => (
+												<div
+													class='ui button'
+													data-tooltip={addon.description}
+													data-position='bottom left'
+												>
+													{addon.name}
+												</div>
+											))}
 										</div>
 									</div>
 

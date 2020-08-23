@@ -87,7 +87,8 @@ class InquiryForm extends Component {
 			number_of_child: inquiry.number_of_child == null ? 0 : inquiry.number_of_child,
 			head_traveller_name: inquiry.head_traveller_name,
 			activity_id: null,
-			package_id: aPackage.id
+			package_id: aPackage.id,
+			addon: {id: []}
 		};
 		var sortedCountries = sortObjectBy(countries, 'code');
 		return (

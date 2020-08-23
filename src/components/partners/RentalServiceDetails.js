@@ -4,7 +4,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData, pick} from '../../helpers';
 import swal from 'sweetalert';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
-import {Badge, Sidebar} from '../shared';
+import {Badge, Sidebar, RemarksForm} from '../shared';
 import PartnerProfile from './PartnerProfile';
 import {getPartnerServices} from '../../api/partnerServiceApi';
 import moment from 'moment';
@@ -73,8 +73,9 @@ const Services = (props) => {
 						</div>
 					</div>
 					<div className='eight wide column'>
-						<h3 className='ui header'> Remarks </h3>
-						{service.partner_remarks.map((i) => {
+						{/* <h3 className='ui header'> Remarks </h3> */}
+						<RemarksForm remarks={service.partner_remarks} onSubmit={() => {}} />
+						{/* {service.partner_remarks.map((i) => {
 							return (
 								<div>
 									<div className='text-bold'>{i.remark}</div>
@@ -82,7 +83,7 @@ const Services = (props) => {
 									<br />
 								</div>
 							);
-						})}
+						})} */}
 					</div>
 				</div>
 			</div>
