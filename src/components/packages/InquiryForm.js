@@ -25,7 +25,11 @@ class InquiryForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			aPackage: {}
+			aPackage: {
+				addons: []
+			},
+			price: 0,
+			addon_price: 0
 		};
 		var date = new Date();
 		date.setDate(date.getDate() + 2);
@@ -43,7 +47,8 @@ class InquiryForm extends Component {
 		showPackage(this.props.inquiry != null ? this.props.inquiry.package.idx : this.props.match.params.idx)
 			.then((resp) => {
 				this.setState({
-					aPackage: resp.data
+					aPackage: resp.data,
+					price: resp.data.price
 				});
 			})
 			.catch((error) => {
@@ -53,6 +58,7 @@ class InquiryForm extends Component {
 
 	render() {
 		const {countries} = this.props;
+		const {price, addon_price} = this.state;
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
 		const aPackage = inquiry.package != null ? inquiry.package : this.state.aPackage;
 		const InquiriesSchema = yup.object().shape({
@@ -161,77 +167,96 @@ class InquiryForm extends Component {
 							<form onSubmit={handleSubmit}>
 								<div className='input-section padded bg-white'>
 									<div className='row'>
-										<div className='col-12'>
+										<div className='col-8'>
 											<span className=''>Package Name: </span>&nbsp;
 											<span className='text-primary title'>{aPackage.name}</span>
-											<div className='ui red message'>
-												Total Price: Rs.{' '}
-												{values.activity ? (
+											<div className='row'>
+												{aPackage.activities &&
+												aPackage.activities.length > 0 && (
+													<div className='col-12 col-md-6'>
+														<div className='field-box'>
+															<label>Select Activity</label>
+															<Dropdown
+																className=''
+																name='activity_id'
+																placeholder='Select activities'
+																onBlur={handleBlur}
+																onChange={(e, data) => {
+																	setFieldValue(
+																		`activity`,
+																		aPackage.activities.find(
+																			(v) => v.id == data.value
+																		)
+																	);
+																	setFieldValue(`activity_id`, data.value);
+																}}
+																value={values.activity_id}
+																fluid
+																search
+																selection
+																options={aPackage.activities.map(function(activity) {
+																	return {
+																		key: activity.id,
+																		value: activity.id,
+																		text: activity.description
+																	};
+																})}
+															/>
+															<ErrorMessage name='preferred_date' />
+														</div>
+													</div>
+												)}
+												<div className='col-12 col-md-6'>
+													<div className='field-box'>
+														<label className='d-block'>Preferred date</label>
+														<DatePicker
+															name='preferred_date'
+															className=' w-100'
+															type='date'
+															date={values.preferred_date}
+															minDate={new Date()}
+															maxDate={addDays(new Date(), 365)}
+															onBlur={handleBlur}
+															onChange={(date) => setFieldValue('preferred_date', date)}
+															value={values.preferred_date}
+															placeholder='Arrival Date'
+														/>
+														<ErrorMessage name='preferred_date' />
+													</div>
+												</div>
+											</div>
+											<AddonForm
+												addons={aPackage.addons}
+												onChange={(value) => {
+													setFieldValue('addons', value);
+													this.setState({
+														addon_price: aPackage.addons
+															.filter((v) => value.includes(v.id))
+															.reduce((total, addon) => total + addon.price, 0)
+													});
+												}}
+											/>
+										</div>
+										<div className='col-4'>
+											<div className='ui info message'>
+												<div className='header'>Total Price: Rs. {price + addon_price}</div>
+												<ul className='list'>
+													<li className='content'>Base price - Rs. {price}</li>
+													{aPackage.addons
+														.filter((v) => values.addons.includes(v.id))
+														.map((v) => (
+															<li className='content'>
+																{v.name} - Rs. {v.price}
+															</li>
+														))}
+												</ul>
+												{/* {values.activity ? (
 													<span>{values.activity.price}</span>
 												) : (
 													<span>{aPackage.price}</span>
-												)}
+												)} */}
 											</div>
 										</div>
-
-										{aPackage.activities &&
-										aPackage.activities.length > 0 && (
-											<div className='col-12 col-md-6'>
-												<div className='field-box'>
-													<label>Select Activity</label>
-													<Dropdown
-														className=''
-														name='activity_id'
-														placeholder='Select activities'
-														onBlur={handleBlur}
-														onChange={(e, data) => {
-															setFieldValue(
-																`activity`,
-																aPackage.activities.find((v) => v.id == data.value)
-															);
-															setFieldValue(`activity_id`, data.value);
-														}}
-														value={values.activity_id}
-														fluid
-														search
-														selection
-														options={aPackage.activities.map(function(activity) {
-															return {
-																key: activity.id,
-																value: activity.id,
-																text: activity.description
-															};
-														})}
-													/>
-													<ErrorMessage name='preferred_date' />
-												</div>
-											</div>
-										)}
-										<div className='col-12 col-md-6'>
-											<div className='field-box'>
-												<label className='d-block'>Preferred date</label>
-												<DatePicker
-													name='preferred_date'
-													className=' w-100'
-													type='date'
-													date={values.preferred_date}
-													minDate={new Date()}
-													maxDate={addDays(new Date(), 365)}
-													onBlur={handleBlur}
-													onChange={(date) => setFieldValue('preferred_date', date)}
-													value={values.preferred_date}
-													placeholder='Arrival Date'
-												/>
-												<ErrorMessage name='preferred_date' />
-											</div>
-										</div>
-
-										<AddonForm
-											addons={aPackage.addons}
-											onChange={(value) => {
-												setFieldValue('addons', value);
-											}}
-										/>
 									</div>
 								</div>
 								<div className='inquirer-details '>
