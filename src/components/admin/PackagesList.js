@@ -58,7 +58,6 @@ class PackagesList extends Component {
 
 	render() {
 		const {packages, pagination} = this.state;
-
 		const filterFields = [
 			{
 				name: 'created_at_gteq',
