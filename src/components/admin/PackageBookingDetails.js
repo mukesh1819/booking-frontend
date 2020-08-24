@@ -2,11 +2,17 @@ import React, {Component} from 'react';
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import history from '../../history';
-import {getPackageBookingConfirmation, deletePackageBooking, markComplete} from '../../api/packageBookingApi';
+import {
+	getPackageBookingDetails,
+	getPackageBookingConfirmation,
+	deletePackageBooking,
+	markComplete
+} from '../../api/packageBookingApi';
+import {set_package_remarks} from '../../api/partnerServiceApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket, pick} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import {Badge} from '../shared';
+import {Badge, RemarksForm} from '../shared';
 import {Card} from 'semantic-ui-react';
 import moment from 'moment';
 
@@ -14,11 +20,25 @@ class PackageBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loading: false
+			loading: false,
+			packageBooking: {
+				user_remarks: [],
+				booking_transaction: {},
+				inquiry: {},
+				package: {},
+				partner_services: []
+			}
 		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		getPackageBookingDetails(this.props.match.params.idx).then((v) => {
+			debugger;
+			this.setState({
+				packageBooking: v.data
+			});
+		});
+	}
 
 	// onConfirmPackageBooking(id) {
 	// 	getPackageBookingConfirmation(id)
@@ -36,25 +56,6 @@ class PackageBookingDetails extends Component {
 	// }
 
 	destroyPackageBooking(id) {
-		// deletePackageBooking(id)
-		// 	.then((response) => {
-		// 		swal({
-		// 			title: 'Package Booking deleted!',
-		// 			text: `this package booking is deleted`,
-		// 			icon: 'success',
-		// 			button: 'Continue!'
-		// 		});
-		// 		history.push('/admin/package_booking');
-		// 	})
-		// 	.catch((error) => {
-		// 		swal({
-		// 			title: 'Package Booking Delete error',
-		// 			text: 'Something went wrong. please try again or contact us',
-		// 			icon: 'error',
-		// 			button: 'Continue!'
-		// 		});
-		// 	});
-
 		swal({
 			title: 'Are you sure?',
 			text: 'Once delete, your package booking will be deleted',
@@ -99,7 +100,7 @@ class PackageBookingDetails extends Component {
 	}
 
 	render() {
-		const {packageBooking} = this.props.location.state;
+		const {packageBooking} = this.state;
 		const packageInfo = pick(packageBooking.package, ['name']);
 
 		const contactInfo = pick(packageBooking.inquiry, [
@@ -120,7 +121,6 @@ class PackageBookingDetails extends Component {
 
 		const bookingDateInfo = pick(packageBooking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
 		const otherInfo = pick(packageBooking, ['idx']);
-		const remarks = pick(packageBooking, ['remarks']);
 		const {loading} = this.state;
 		return (
 			<div className='container'>
@@ -188,16 +188,17 @@ class PackageBookingDetails extends Component {
 													<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
 												</div>
 											</div>
-											<h3 className='ui header'> Remarks </h3>
-											<div className='ui grid'>
-												{Object.entries(remarks).map(([key, value]) => (
-													<div className='row'>
-														<div className='eight wide column'>{key.titleize()}:</div>
-														<div className='eight wide column'>{value}</div>
-													</div>
-												))}
-											</div>
 										</div>
+										<RemarksForm
+											remarks={packageBooking.user_remarks}
+											onSubmit={(value) => {
+												set_package_remarks(packageBooking.idx, {
+													partner_remarks: value
+												}).then((v) => {
+													debugger;
+												});
+											}}
+										/>
 									</div>
 								</div>
 							</div>

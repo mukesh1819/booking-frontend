@@ -182,27 +182,37 @@ class InquiryForm extends Component {
 																name='activity_id'
 																placeholder='Select activities'
 																onBlur={handleBlur}
+																clearable
 																onChange={(e, data) => {
-																	var activity = aPackage.activities.find(
-																		(v) => v.id == data.value
-																	);
-																	this.setState({
-																		price: activity.price
-																	});
-																	setFieldValue(`activity`, activity);
+																	if (data.value) {
+																		var activity = aPackage.activities.find(
+																			(v) => v.id == data.value
+																		);
+																		this.setState({
+																			price: activity.price
+																		});
+																		setFieldValue(`activity`, activity);
+																	} else {
+																		this.setState({
+																			price: aPackage.price
+																		});
+																		setFieldValue(`activity`, {});
+																	}
 																	setFieldValue(`activity_id`, data.value);
 																}}
 																value={values.activity_id}
 																fluid
 																search
 																selection
-																options={aPackage.activities.map(function(activity) {
-																	return {
-																		key: activity.id,
-																		value: activity.id,
-																		text: activity.description
-																	};
-																})}
+																options={aPackage.activities
+																	.map(function(activity) {
+																		return {
+																			key: activity.id,
+																			value: activity.id,
+																			text: activity.description
+																		};
+																	})
+																	.prepend({key: '', value: '', text: 'None'})}
 															/>
 															<ErrorMessage name='preferred_date' />
 														</div>

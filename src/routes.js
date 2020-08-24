@@ -137,7 +137,7 @@ const routes = [
 	{private: true, path: '/inquiry_details/:idx', component: PackageInquiryDetails, layout: UserLayout},
 	{private: true, path: '/inquiry_form/:idx', component: InquiryForm, layout: UserLayout},
 	{private: true, path: '/admin/edit_inquiry', component: EditInquiry, layout: UserLayout},
-	{private: true, path: '/admin/package_booking_details/:id', component: PackageBookingDetails, layout: UserLayout},
+	{private: true, path: '/admin/package_booking_details/:idx', component: PackageBookingDetails, layout: UserLayout},
 	{private: true, path: '/payment_success/:idx', component: PaymentSuccess, layout: UserLayout},
 
 	{private: false, path: '/cars/:car_inquiry_idx', component: ListOfCar, layout: UserLayout},

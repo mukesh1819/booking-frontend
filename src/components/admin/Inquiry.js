@@ -57,7 +57,44 @@ const Inquiry = (props) => {
 	return (
 		<div className='row'>
 			<div className='ui segment'>
-				<h3 className='ui header'> Details </h3>
+				<div className='ui grid'>
+					<div className='eight wide column'>
+						<h3 className='ui header'> Details </h3>
+					</div>
+					<div className='eight wide column right-aligned'>
+						{inquiry.status === 'pending' && (
+							<span
+								onClick={() => {
+									setActions({
+										showOtherForm: true,
+										showDetails: false
+									});
+								}}
+								className='ui right floated positive button'
+							>
+								Send Confirmation to User&nbsp;
+							</span>
+						)}
+						{(inquiry.status === 'processing' || inquiry.status === 'verified') && (
+							<span
+								onClick={() => {
+									setActions({
+										showPartnerForm: true,
+										showDetails: false
+									});
+								}}
+								className='ui right floated positive button'
+							>
+								Assign Partners&nbsp;
+							</span>
+						)}
+						{inquiry.status === 'pending' && (
+							<span className='ui right floated negative button' onClick={() => reject(inquiry.idx)}>
+								Reject
+							</span>
+						)}
+					</div>
+				</div>
 				<div className='ui internally celled stackable grid'>
 					<div className='row'>
 						<div className='eight wide column'>
@@ -170,50 +207,6 @@ const Inquiry = (props) => {
 						</div>
 					</div>
 				</div>
-			</div>
-			<div className='text-center mt-3'>
-				<div
-					className='cursor-pointer'
-					onClick={() => {
-						setActions({
-							showOtherForm: true,
-							showDetails: false
-						});
-					}}
-				>
-					{inquiry.status === 'pending' && (
-						<span className='btn btn-success'>Send Confirmation to User&nbsp;</span>
-					)}
-				</div>
-				<div
-					className='cursor-pointer'
-					onClick={() => {
-						setActions({
-							showPartnerForm: true,
-							showDetails: false
-						});
-					}}
-				>
-					{(inquiry.status === 'processing' || inquiry.status === 'verified') && (
-						<span className='btn btn-success'>Assign Partners&nbsp;</span>
-					)}
-				</div>
-				<div className='cursor-pointer'>
-					{inquiry.status === 'pending' && (
-						<span className='btn btn-danger' onClick={() => reject(inquiry.idx)}>
-							Reject
-						</span>
-					)}
-				</div>
-			</div>
-			<div className='col-12 col-md-7'>
-				<div className='list-view' />
-
-				{inquiry.status == 'processing' && (
-					<React.Fragment>
-						<div className='list-view' />
-					</React.Fragment>
-				)}
 			</div>
 		</div>
 	);
