@@ -79,7 +79,6 @@ const Services = (props) => {
 							remarks={service.partner_remarks}
 							onSubmit={(value) => {
 								set_rental_remarks(service.idx, {partner_remarks: value}).then((v) => {
-									debugger;
 								});
 							}}
 						/>

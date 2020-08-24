@@ -47,7 +47,10 @@ const Inquiry = (props) => {
 		'drop_off_location',
 		'total_amount'
 	]);
-	const activityInfo = pick(inquiry.selected_activity, ['description', 'price']);
+	var activityInfo = {};
+	if(inquiry.activity != null){
+		activityInfo = pick(inquiry.activity, ['description', 'price']);
+	}
 	const inquiryDateInfo = pick(inquiry, ['preferred_date', 'start_date', 'end_date']);
 	const otherInfo = pick(inquiry, ['idx']);
 

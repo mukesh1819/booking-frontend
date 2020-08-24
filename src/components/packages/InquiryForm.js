@@ -60,7 +60,7 @@ class InquiryForm extends Component {
 		const {countries} = this.props;
 		const {price, addon_price} = this.state;
 		const {inquiry} = this.props.inquiry != null ? this.props : {inquiry: {}};
-		const aPackage = inquiry.package != null ? inquiry.package : this.state.aPackage;
+		const {aPackage} = this.state;
 		const InquiriesSchema = yup.object().shape({
 			first_name: textValidate(yup).required('Required'),
 			last_name: textValidate(yup).required('Required'),
@@ -247,8 +247,8 @@ class InquiryForm extends Component {
 														{values.activity.name ? values.activity.name : 'Base Price'} -
 														Rs. {price}
 													</li>
-													{aPackage.addons
-														.filter((v) => values.addons.includes(v.id))
+													{aPackage.addons != null &&
+														aPackage.addons.filter((v) => values.addons.includes(v.id))
 														.map((v) => (
 															<li className='content'>
 																{v.name} - Rs. {v.price}
