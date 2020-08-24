@@ -48,7 +48,7 @@ const Inquiry = (props) => {
 		'total_amount'
 	]);
 	var activityInfo = {};
-	if(inquiry.activity != null){
+	if (inquiry.activity != null) {
 		activityInfo = pick(inquiry.activity, ['description', 'price']);
 	}
 	const inquiryDateInfo = pick(inquiry, ['preferred_date', 'start_date', 'end_date']);
@@ -121,7 +121,7 @@ const Inquiry = (props) => {
 									<span>
 										<Link
 											to={{
-												pathname: '/admin/edit_inquiry',
+												pathname: `/admin/inquiry/${inquiry.idx}/edit`,
 												state: {
 													inquiry: inquiry
 												}

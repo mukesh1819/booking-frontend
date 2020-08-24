@@ -46,6 +46,7 @@ import PackagesList from './components/admin/PackagesList';
 import PackageBookingDetails from './components/admin/PackageBookingDetails';
 import InquiryDetails from './components/admin/InquiryDetails';
 import InquiryForm from './components/packages/InquiryForm';
+import CreateInquiry from './components/packages/CreateInquiry';
 import PartnerDetails from './components/admin/PartnerDetails';
 import InquiryList from './components/admin/InquiryList';
 import CategoryList from './components/admin/CategoryList';
@@ -135,8 +136,8 @@ const routes = [
 	{private: true, path: '/admin/partner_approval_form', component: PartnerApprovalForm, layout: AdminLayout},
 	{private: true, path: '/admin/partners/:id', component: PartnerProfile, layout: UserLayout},
 	{private: true, path: '/inquiry_details/:idx', component: PackageInquiryDetails, layout: UserLayout},
-	{private: true, path: '/inquiry_form/:idx', component: InquiryForm, layout: UserLayout},
-	{private: true, path: '/admin/edit_inquiry', component: EditInquiry, layout: UserLayout},
+	{private: true, path: '/inquiry_form/:package_idx', component: CreateInquiry, layout: UserLayout},
+	{private: true, path: '/admin/inquiry/:idx/edit', component: EditInquiry, layout: UserLayout},
 	{private: true, path: '/admin/package_booking_details/:idx', component: PackageBookingDetails, layout: UserLayout},
 	{private: true, path: '/payment_success/:idx', component: PaymentSuccess, layout: UserLayout},
 

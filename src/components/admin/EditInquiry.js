@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {InquiryForm} from '../packages';
 import {IconInput, DatePicker} from '../shared';
 import {passCsrfToken} from '../../helpers';
@@ -13,36 +13,45 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
-import {confirmInquiry} from '../../api/inquiryApi';
+import {confirmInquiry, showInquiry} from '../../api/inquiryApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
 import PartnerServiceForm from './PartnerServiceForm';
+import {showPackage} from '../../api/packageApi';
 
-class EditInquiry extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			partners: []
-		};
-	}
+const EditInquiry = (props) => {
+	const [aPackage, setPackage] = useState({});
+	const [inquiry, setInquiry] = useState({});
+	const idx = inquiry.idx;
 
-	componentDidMount() {}
+	useEffect(
+		() => {
+			if (idx) {
+				showPackage(inquiry.package.idx).then((v) => {
+					debugger;
+					setPackage(v.data);
+				});
+			} else {
+				showInquiry(props.match.params.idx).then((v) => {
+					setInquiry(v.data);
+				});
+			}
+		},
+		[idx]
+	);
 
-	render() {
-		const {inquiry} = this.props.location != null ? this.props.location.state : {inquiry: {}};
-		return (
-			<div className='ui container'>
-				<h3 className='title'>Edit Inquiry</h3>
-				<div className='card'>
-					<div className='card-body'>
-						<div className='row'>
-							<div className='col-12'>
-								<InquiryForm inquiry={inquiry} aPackage={inquiry.package} />
-							</div>
+	return (
+		<div className='ui container'>
+			<h3 className='title'>Edit Inquiry</h3>
+			<div className='card'>
+				<div className='card-body'>
+					<div className='row'>
+						<div className='col-12'>
+							<InquiryForm inquiry={inquiry} aPackage={aPackage} />
 						</div>
 					</div>
 				</div>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 export default EditInquiry;
