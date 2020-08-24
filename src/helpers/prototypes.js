@@ -8,6 +8,11 @@ Array.prototype.chunk = function (size) {
     return chunks;
 };
 
+Array.prototype.prepend = function (...values) {
+    this.unshift(...values);
+    return this;
+};
+
 String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
