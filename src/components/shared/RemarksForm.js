@@ -9,16 +9,6 @@ export default function RemarksForm({remarks = [], onSubmit}) {
 		<div className=''>
 			<h3 className='ui header'> Remarks </h3>
 
-			{entries.map((i) => {
-				return (
-					<div>
-						<div className='text-bold'>{i.remark}</div>
-						<div className='text-small'>{moment(i.date).format('D MMMM, YYYY hh:mm')}</div>
-						<br />
-					</div>
-				);
-			})}
-
 			{isOpen && (
 				<Form>
 					<Form.TextArea id='new_remark' label='New Remark' placeholder='Add new remark...' />
@@ -26,7 +16,7 @@ export default function RemarksForm({remarks = [], onSubmit}) {
 						className='ui basic button green'
 						onClick={() => {
 							var value = $('#new_remark').val();
-							setRemarks([{remark: value, date: new Date()}, ...remarks]);
+							setRemarks([{remark: value, date: new Date(), user: 'You'}, ...remarks]);
 							onSubmit(value);
 						}}
 					>
@@ -43,6 +33,17 @@ export default function RemarksForm({remarks = [], onSubmit}) {
 					Add remarks
 				</div>
 			)}
+
+			{entries.map((i) => {
+				return (
+					<div>
+						<div className='text-bold'>{i.remark}</div>
+						<div className='text-small'>{moment(i.date).format('D MMMM, YYYY hh:mm')}</div>
+						<div className='text-small'>{i.user}</div>
+						<br />
+					</div>
+				);
+			})}
 		</div>
 	);
 }

@@ -4,6 +4,7 @@ import axios from 'axios';
 import {passCsrfToken, toTableData, pick} from '../../helpers';
 import swal from 'sweetalert';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
+import {set_rental_remarks} from '../../api/carBookingApi';
 import {Badge, Sidebar, RemarksForm} from '../shared';
 import PartnerProfile from './PartnerProfile';
 import {getPartnerServices} from '../../api/partnerServiceApi';
@@ -74,7 +75,14 @@ const Services = (props) => {
 					</div>
 					<div className='eight wide column'>
 						{/* <h3 className='ui header'> Remarks </h3> */}
-						<RemarksForm remarks={service.partner_remarks} onSubmit={() => {}} />
+						<RemarksForm
+							remarks={service.partner_remarks}
+							onSubmit={(value) => {
+								set_rental_remarks(service.idx, {partner_remarks: value}).then((v) => {
+									debugger;
+								});
+							}}
+						/>
 						{/* {service.partner_remarks.map((i) => {
 							return (
 								<div>
