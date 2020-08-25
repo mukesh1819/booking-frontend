@@ -346,7 +346,7 @@ class CarInquiryForm extends Component {
 												<label htmlFor=''>Number of Days</label>
 												<Dropdown
 													name=''
-													icon='icon-users'
+													icon='users'
 													className='icon btn-dropdown travellers'
 													iconPosition='left'
 													fluid
@@ -387,7 +387,7 @@ class CarInquiryForm extends Component {
 											<label htmlFor=''>Number of Passenger</label>
 											<Dropdown
 												name=''
-												icon='icon-users'
+												icon='users'
 												className='icon btn-dropdown travellers'
 												iconPosition='left'
 												fluid

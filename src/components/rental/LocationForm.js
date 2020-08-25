@@ -157,7 +157,7 @@ class LocationForm extends Component {
 														</div>
 													</div>
 
-													<div class='text-center'>
+													<div className='text-center'>
 														<button
 															className='btn btn-secondary m-2'
 															type='submit'

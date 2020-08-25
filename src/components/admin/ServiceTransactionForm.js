@@ -274,7 +274,7 @@ class ServiceTransactionForm extends Component {
 										</div>
 									</div>
 								</div>
-								<div class='text-center'>
+								<div className='text-center'>
 									<button className='btn btn-primary mt-4' type='submit' disabled={isSubmitting}>
 										Submit
 									</button>

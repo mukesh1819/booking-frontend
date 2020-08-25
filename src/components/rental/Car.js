@@ -10,7 +10,7 @@ const Car = function(props) {
 	const {car, currentUser} = props;
 
 	return (
-		<div class='mb-4'>
+		<div className='mb-4'>
 			<Card fluid>
 				<Card.Content>
 					<Grid columns={3} stackable>

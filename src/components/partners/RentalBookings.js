@@ -27,7 +27,7 @@ const RentalBookings = (props) => {
 	return (
 		<div className='container'>
 			{!viewDetails && (
-				<table class='ui celled unstackable table'>
+				<table className='ui celled unstackable table'>
 					<thead>
 						<tr>
 							<th>Contact Name</th>

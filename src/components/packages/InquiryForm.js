@@ -30,7 +30,7 @@ const InquiryForm = (props) => {
 		() => {
 			setPrice(aPackage.price);
 		},
-		[inquiry, aPackage]
+		[aPackage]
 	);
 
 	const InquiriesSchema = yup.object().shape({
@@ -185,11 +185,12 @@ const InquiryForm = (props) => {
 													</div>
 												</div>
 											)}
-											{Object.entries(errors).map(([k, v]) => (
+											{/* FORM VALIDATION DEBUGGER */}
+											{/* {Object.entries(errors).map(([k, v]) => (
 												<div>
 													{k}={v}
 												</div>
-											))}
+											))} */}
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
 													<label className='d-block'>Preferred date</label>
@@ -209,18 +210,20 @@ const InquiryForm = (props) => {
 												</div>
 											</div>
 										</div>
-										<AddonForm
-											selected={values.addons}
-											addons={aPackage.addons}
-											onChange={(value) => {
-												setFieldValue('addons', value);
-												setAddonPrice(
-													aPackage.addons
-														.filter((v) => value.includes(v.id))
-														.reduce((total, addon) => total + addon.price, 0)
-												);
-											}}
-										/>
+										{aPackage.addons.length > 0 && (
+											<AddonForm
+												selected={values.addons}
+												addons={aPackage.addons}
+												onChange={(value) => {
+													setFieldValue('addons', value);
+													setAddonPrice(
+														aPackage.addons
+															.filter((v) => value.includes(v.id))
+															.reduce((total, addon) => total + addon.price, 0)
+													);
+												}}
+											/>
+										)}
 									</div>
 									<div className='col-4'>
 										<div className='ui info message'>
@@ -456,7 +459,7 @@ const InquiryForm = (props) => {
 												<Dropdown
 													name=''
 													placeholder='Select traveller'
-													icon='icon-users'
+													icon='users'
 													className='icon btn-dropdown travellers'
 													iconPosition='left'
 													fluid

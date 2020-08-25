@@ -142,7 +142,7 @@ class PackageDetails extends Component {
 								{aPackage.addons.map((addon) => {
 									return (
 										<div
-											class='ui label'
+											className='ui label'
 											data-tooltip={addon.description}
 											data-position='bottom left'
 										>

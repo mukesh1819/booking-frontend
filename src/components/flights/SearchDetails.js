@@ -16,7 +16,7 @@ const SearchDetails = ({details, onModify}) => {
 					</div>
 					<div>
 						<span className='text-small text-muted px-2'>
-							<i class='fas fa-plane departure text-primary' />&nbsp;
+							<i className='fas fa-plane departure text-primary' />&nbsp;
 							{`${moment(details.strFlightDate).format('Do MMMM, YYYY')}`}
 						</span>
 						{details.strTripType === 'R' && (

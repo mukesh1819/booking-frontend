@@ -34,7 +34,7 @@ export default function AddonForm({selected = [], addons = [], onChange}) {
 				}
 				return (
 					<div
-						class='ui button'
+						className='ui button'
 						data-tooltip={addon.description}
 						data-position='bottom left'
 						onClick={() => {

@@ -20,7 +20,7 @@ export default class Users extends Component {
 		};
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		const components = {profile: Profile, bookings: Bookings};
 		this.setState({
 			section: this.props.location.hash,
@@ -83,7 +83,7 @@ export default class Users extends Component {
 							<i className='icon-dribbble' />Details
 						</a>
 						<a
-							class='nav-item nav-link'
+							className='nav-item nav-link'
 							id='nav-bookings-tab'
 							data-toggle='tab'
 							href='#nav-bookings'

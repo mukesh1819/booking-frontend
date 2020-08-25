@@ -4,7 +4,9 @@ import {showPackage} from '../../api/packageApi';
 
 export default function CreateInquiry(props) {
 	const [inquiry, setInquiry] = useState({});
-	const [aPackage, setPackage] = useState({});
+	const [aPackage, setPackage] = useState({
+		addons: []
+	});
 
 	useEffect(() => {
 		showPackage(props.match.params.package_idx)

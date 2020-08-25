@@ -342,7 +342,7 @@ class PassengerForm extends Component {
 								);
 							})}
 							<div className='text-center p-2'>
-								<button type='submit' class='btn btn-primary'>
+								<button type='submit' className='btn btn-primary'>
 									Continue
 								</button>
 							</div>

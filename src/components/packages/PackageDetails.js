@@ -199,7 +199,7 @@ class PackageDetails extends Component {
 											</div>
 										)}
 										<span>
-											<span class='text-medium text-strong'>Rs. {price}</span>
+											<span className='text-medium text-strong'>Rs. {price}</span>
 											<span className='text-muted text-small text-right'>/person</span>
 										</span>
 									</div>

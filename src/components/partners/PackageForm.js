@@ -402,7 +402,7 @@ class PackageForm extends Component {
 												}
 												return (
 													<div
-														class='ui button'
+														className='ui button'
 														data-tooltip={addon.description}
 														data-position='bottom left'
 														onClick={() => {
@@ -545,7 +545,7 @@ class PackageForm extends Component {
 										</Segment>
 									</div>
 
-									<div class='text-center'>
+									<div className='text-center'>
 										<button className='btn btn-secondary m-2' type='submit' disabled={isSubmitting}>
 											Submit
 										</button>

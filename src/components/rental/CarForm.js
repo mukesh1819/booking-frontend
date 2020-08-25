@@ -229,10 +229,8 @@ class CarForm extends Component {
 															})}
 														/>
 													</div>
-
-													
 												</div>
-												<div className='col-12 col-md-6' >
+												<div className='col-12 col-md-6'>
 													<div className='field-box'>
 														<Checkbox
 															name='has_carrier'
@@ -248,7 +246,6 @@ class CarForm extends Component {
 														/>
 														<ErrorMessage name='has_carrier' />
 													</div>
-
 												</div>
 											</div>
 											<div className='row'>
@@ -262,7 +259,7 @@ class CarForm extends Component {
 											</div>
 										</div>
 
-										<div class='text-center'>
+										<div className='text-center'>
 											<button
 												className='btn btn-secondary m-2'
 												type='submit'

@@ -68,8 +68,8 @@ class FilterForm extends Component {
 					/* and other goodies */
 				}) => (
 					<div className='ui segment p-4 fluid'>
-						<div class='content'>
-							<h3 class='ui header'>Filter</h3>
+						<div className='content'>
+							<h3 className='ui header'>Filter</h3>
 						</div>
 
 						<div className='content'>

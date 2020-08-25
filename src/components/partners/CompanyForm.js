@@ -17,7 +17,6 @@ import ReactDOM from 'react-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 import {phoneValidate, textValidate, alphaNumericValidate} from '../../helpers';
 
-
 class CompanyForm extends Component {
 	constructor(props) {
 		super(props);
@@ -39,8 +38,8 @@ class CompanyForm extends Component {
 			company_type: yup.string('String').required('Required'),
 			company_address: alphaNumericValidate(yup).required('Required'),
 			accept_terms: yup.bool().oneOf([true], 'You must accept the terms and conditions'),
-			company_contact_number:phoneValidate(yup),
-			website:  alphaNumericValidate(yup),
+			company_contact_number: phoneValidate(yup),
+			website: alphaNumericValidate(yup),
 			captcha: yup.string().typeError('Required').required('Required')
 		});
 
@@ -269,7 +268,7 @@ class CompanyForm extends Component {
 								</div>
 							</div>
 						</div>
-						<div class='d-flex justify-content-center'>
+						<div className='d-flex justify-content-center'>
 							<button className='btn btn-outline-primary m-2' type='button' onClick={prevStep}>
 								Back
 							</button>

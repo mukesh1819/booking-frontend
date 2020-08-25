@@ -174,7 +174,7 @@ class EditUserForm extends Component {
 												<Form.Field>
 													<label>
 														Password
-														<span class='text-small'>
+														<span className='text-small'>
 															(leave blank if you don 't want to change it)
 														</span>{' '}
 													</label>

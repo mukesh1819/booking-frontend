@@ -42,7 +42,6 @@ class PartnerForm extends Component {
 			contact_number: phoneValidate(yup).required('Required'),
 			country: yup.string().required('Required'),
 			city: textValidate(yup).required('Required')
-			
 		});
 
 		const partnerDetails = {
@@ -204,7 +203,7 @@ class PartnerForm extends Component {
 										</div>
 									</div>
 								</div>
-								<div class='text-center'>
+								<div className='text-center'>
 									<button className='btn btn-primary mt-4' type='submit' disabled={isSubmitting}>
 										Continue
 									</button>

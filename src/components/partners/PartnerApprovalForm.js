@@ -17,28 +17,26 @@ import {partnerApproval} from '../../api/carBookingApi';
 class PartnerApprovalForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-		};
+		this.state = {};
 	}
 
 	componentDidMount() {}
 
 	render() {
-        const {carBooking} = this.props.location.state ? this.props.location.state : {carBooking: {}};
+		const {carBooking} = this.props.location.state ? this.props.location.state : {carBooking: {}};
 
 		const PartnerApprovalSchema = yup.object().shape({
 			driver_name: textValidate(yup).required('Required'),
 			car_color: textValidate(yup).required('Required'),
 			driver_contact: phoneValidate(yup).required('Required'),
 			car_number: alphaNumericValidate(yup).required('Required')
-			
 		});
 
 		const partnerDetails = {
-            driver_name: carBooking.driver_name,
-            driver_contact: carBooking.driver_contact,
-            car_color: carBooking.car_color,
-            car_number: carBooking.car_number
+			driver_name: carBooking.driver_name,
+			driver_contact: carBooking.driver_contact,
+			car_color: carBooking.car_color,
+			car_number: carBooking.car_number
 		};
 
 		return (
@@ -48,21 +46,21 @@ class PartnerApprovalForm extends Component {
 					initialValues={partnerDetails}
 					validationSchema={PartnerApprovalSchema}
 					onSubmit={(values, {setSubmitting}) => {
-                        partnerApproval(carBooking.idx, values)
-                        .then((response) => {
-                            setSubmitting(false);
-                            swal({
-                                title: 'Partner approval success!',
-                                text: response.data.message,
-                                icon: 'success',
-                                button: 'Continue'
-                            }).then((value) => {
-                                history.push(`/admin/car_bookings/${carBooking.idx}`);
-                            });
-                        })
-                        .catch((error) => {
-                            console.log('Partner approval error', error);
-                        })
+						partnerApproval(carBooking.idx, values)
+							.then((response) => {
+								setSubmitting(false);
+								swal({
+									title: 'Partner approval success!',
+									text: response.data.message,
+									icon: 'success',
+									button: 'Continue'
+								}).then((value) => {
+									history.push(`/admin/car_bookings/${carBooking.idx}`);
+								});
+							})
+							.catch((error) => {
+								console.log('Partner approval error', error);
+							});
 					}}
 				>
 					{({
@@ -95,55 +93,52 @@ class PartnerApprovalForm extends Component {
 										</div>
 
 										<div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <label> Driver Mobile Number </label>
-                                                <IconInput icon='icon-paper-plane' iconPosition='left'>
-                                                    <Field
-                                                        name='driver_contact'
-                                                        className='form-control'
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={values.driver_contact}
-                                                    />
-                                                </IconInput>
-                                                <ErrorMessage name='driver_contact' />
-                                            </div>
+											<div className='field-box'>
+												<label> Driver Mobile Number </label>
+												<IconInput icon='icon-paper-plane' iconPosition='left'>
+													<Field
+														name='driver_contact'
+														className='form-control'
+														onBlur={handleBlur}
+														onChange={handleChange}
+														value={values.driver_contact}
+													/>
+												</IconInput>
+												<ErrorMessage name='driver_contact' />
+											</div>
 										</div>
-                                        
 									</div>
 									<div className='row'>
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>Car Color</label>
+												<Field
+													name='car_color'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.car_color}
+												/>
+												<ErrorMessage name='car_color' />
+											</div>
+										</div>
 
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <label>Car Color</label>
-                                                <Field
-                                                    name='car_color'
-                                                    className='form-control'
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.car_color}
-                                                />
-                                                <ErrorMessage name='car_color' />
-                                            </div>
-                                        </div>
-
-                                        <div className='col-12 col-md-6'>
-                                            <div className='field-box'>
-                                                <label>Car Number</label>
-                                                <Field
-                                                    name='car_number'
-                                                    className='form-control'
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.car_number}
-                                                />
-                                                <ErrorMessage name='car_number' />
-                                            </div>
-                                        </div>
-
+										<div className='col-12 col-md-6'>
+											<div className='field-box'>
+												<label>Car Number</label>
+												<Field
+													name='car_number'
+													className='form-control'
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.car_number}
+												/>
+												<ErrorMessage name='car_number' />
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class='text-center'>
+								<div className='text-center'>
 									<button className='btn btn-primary mt-4' type='submit' disabled={isSubmitting}>
 										Submit
 									</button>

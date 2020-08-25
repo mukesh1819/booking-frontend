@@ -287,7 +287,7 @@ class SearchBar extends Component {
 												values.intAdult,
 												`${values.intAdult} Adult`
 											)}${ifNotZero(values.intChild, `, ${values.intChild} Child`)}`}
-											icon='icon-users'
+											icon='users'
 											className='icon btn-dropdown travellers'
 											fluid
 											selection
