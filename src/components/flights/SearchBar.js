@@ -341,8 +341,8 @@ class SearchBar extends Component {
 											name='strNationality'
 											placeholder='Select Country'
 											className='icon btn-dropdown'
-											iconPosition='left'
-											icon='fas fa-globe'
+											iconposition='left'
+											icon='globe'
 											onBlur={handleBlur}
 											onChange={(e, data) => {
 												setFieldValue(`strNationality`, data.value);

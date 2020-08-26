@@ -20,7 +20,15 @@ import {showPackage} from '../../api/packageApi';
 
 const EditInquiry = (props) => {
 	const [aPackage, setPackage] = useState({});
-	const [inquiry, setInquiry] = useState({});
+	const [inquiry, setInquiry] = useState({
+		preferred_date: new Date(),
+		head_traveller_name: null,
+		number_of_adult: 1,
+		number_of_child: 0,
+		activity: {},
+		activity_id: null,
+		addons: []
+	});
 	const idx = inquiry.idx;
 
 	useEffect(

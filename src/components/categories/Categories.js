@@ -72,7 +72,7 @@ class Categories extends Component {
 				{this.state.categories.map((category) => {
 					return (
 						category.packages.length > 0 && (
-							<div className='mb-4'>
+							<div className='mb-4' key={category.idx}>
 								<div className='d-flex justify-content-between align-items-center px-3'>
 									<h2 className='category-title'> {t(category.name)} </h2>
 									<Link to='/packages' className='btn bg-none text-primary'>
@@ -81,7 +81,7 @@ class Categories extends Component {
 								</div>
 								<div className='owl-carousel owl-theme'>
 									{category.packages.map((aPackage) => {
-										return <Package aPackage={aPackage} />;
+										return <Package key={aPackage.idx} aPackage={aPackage} />;
 									})}
 								</div>
 							</div>

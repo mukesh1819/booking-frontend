@@ -41,34 +41,23 @@ const InquiryForm = (props) => {
 		nationality: yup.string().required('Required'),
 		address: alphaNumericValidate(yup).required('Required'),
 		city: textValidate(yup).required('Required'),
-		preferred_date: yup.date().required('Required').default(function() {
-			return new Date();
-		}),
+		// preferred_date: yup.date().required('Required').default(function() {
+		// 	return new Date();
+		// }),
 		zip_code: numberValidate(yup),
 		number_of_adult: numberValidate(yup),
 		number_of_child: numberValidate(yup),
 		head_traveller_name: textValidate(yup).required('Required')
 	});
+
 	const inquiryDetails = {
-		first_name: inquiry.first_name,
-		last_name: inquiry.last_name,
-		email_address: inquiry.email_address,
-		nationality: inquiry.nationality,
-		phone: inquiry.phone,
-		address: inquiry.address,
-		city: inquiry.city,
-		zip_code: inquiry.zip_code,
+		...inquiry,
 		preferred_date: inquiry.preferred_date == null ? new Date() : new Date(inquiry.preferred_date),
 		traveller: inquiry.head_traveller_name == null ? false : true,
-		query: inquiry.query,
-		number_of_adult: inquiry.number_of_adult == null ? 1 : inquiry.number_of_adult,
-		number_of_child: inquiry.number_of_child == null ? 0 : inquiry.number_of_child,
-		head_traveller_name: inquiry.head_traveller_name,
-		activity_id: null,
-		activity: inquiry.activity || {},
-		package_id: aPackage.id,
-		addons: (inquiry.addons || []).map((v) => v.id)
+		package_id: aPackage.id
 	};
+
+	debugger;
 
 	var sortedCountries = sortObjectBy(countries, 'code');
 	return (
@@ -181,7 +170,7 @@ const InquiryForm = (props) => {
 																})
 																.prepend({key: '', value: '', text: 'None'})}
 														/>
-														<ErrorMessage name='preferred_date' />
+														<ErrorMessage name='activity_id' />
 													</div>
 												</div>
 											)}
@@ -355,7 +344,7 @@ const InquiryForm = (props) => {
 												<Dropdown
 													className=' btn-dropdown'
 													name='nationality'
-													icon='fas fa-globe'
+													icon='globe'
 													placeholder='Select Country'
 													onBlur={handleBlur}
 													onChange={(e, data) => {

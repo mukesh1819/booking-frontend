@@ -3,8 +3,18 @@ import {InquiryForm} from '.';
 import {showPackage} from '../../api/packageApi';
 
 export default function CreateInquiry(props) {
-	const [inquiry, setInquiry] = useState({});
+	const [inquiry, setInquiry] = useState({
+		preferred_date: new Date(),
+		head_traveller_name: null,
+		number_of_adult: 1,
+		number_of_child: 0,
+		activity: {},
+		activity_id: null,
+		addons: []
+	});
+
 	const [aPackage, setPackage] = useState({
+		price: 0,
 		addons: []
 	});
 
