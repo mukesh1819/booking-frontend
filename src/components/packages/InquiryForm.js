@@ -54,7 +54,8 @@ const InquiryForm = (props) => {
 		...inquiry,
 		preferred_date: inquiry.preferred_date == null ? new Date() : new Date(inquiry.preferred_date),
 		traveller: inquiry.head_traveller_name == null ? false : true,
-		package_id: aPackage.id
+		package_id: aPackage.id,
+		addons: inquiry.addons.map((v) => v.id)
 	};
 
 	var sortedCountries = sortObjectBy(countries, 'code');
