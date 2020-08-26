@@ -63,7 +63,7 @@ const InquiryForm = (props) => {
 		<div className='container bg-white'>
 			<Formik
 				enableReinitialize
-				initialValues={{inquiryDetails}}
+				initialValues={inquiryDetails}
 				validationSchema={InquiriesSchema}
 				onSubmit={(values, {setSubmitting}) => {
 					values.package_id = inquiryDetails.package_id;
@@ -105,6 +105,7 @@ const InquiryForm = (props) => {
 			>
 				{({
 					values,
+					status,
 					errors,
 					touched,
 					handleChange,
@@ -173,11 +174,11 @@ const InquiryForm = (props) => {
 												</div>
 											)}
 											{/* FORM VALIDATION DEBUGGER */}
-											{/* {Object.entries(errors).map(([k, v]) => (
+											{Object.entries(errors).map(([k, v]) => (
 												<div>
 													{k}={v}
 												</div>
-											))} */}
+											))}
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
 													<label className='d-block'>Preferred date</label>
@@ -220,14 +221,13 @@ const InquiryForm = (props) => {
 													Base Price - Rs.
 													{price}
 												</li>
-												{aPackage.addons != null &&
-													aPackage.addons
-														.filter((v) => values.addons.includes(v.id))
-														.map((v) => (
-															<li className='content'>
-																{v.name} - Rs. {v.price}
-															</li>
-														))}
+												{aPackage.addons
+													.filter((v) => values.addons.includes(v.id))
+													.map((v) => (
+														<li className='content'>
+															{v.name} - Rs. {v.price}
+														</li>
+													))}
 											</ul>
 										</div>
 									</div>
