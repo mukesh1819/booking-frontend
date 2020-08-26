@@ -19,7 +19,9 @@ import PartnerServiceForm from './PartnerServiceForm';
 import {showPackage} from '../../api/packageApi';
 
 const EditInquiry = (props) => {
-	const [aPackage, setPackage] = useState({});
+	const [aPackage, setPackage] = useState({
+		addons: []
+	});
 	const [inquiry, setInquiry] = useState({
 		preferred_date: new Date(),
 		head_traveller_name: null,
@@ -35,7 +37,6 @@ const EditInquiry = (props) => {
 		() => {
 			if (idx) {
 				showPackage(inquiry.package.idx).then((v) => {
-					debugger;
 					setPackage(v.data);
 				});
 			} else {

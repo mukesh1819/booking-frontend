@@ -57,20 +57,17 @@ const InquiryForm = (props) => {
 		package_id: aPackage.id
 	};
 
-	debugger;
-
 	var sortedCountries = sortObjectBy(countries, 'code');
 	return (
 		<div className='container bg-white'>
 			<Formik
 				enableReinitialize
-				initialValues={inquiryDetails}
+				initialValues={{inquiryDetails}}
 				validationSchema={InquiriesSchema}
 				onSubmit={(values, {setSubmitting}) => {
 					values.package_id = inquiryDetails.package_id;
 					setSearching(true);
 					setSubmitting(false);
-					// console.log(values);
 					if (inquiry.id != null) {
 						updateInquiry(inquiry.idx, values)
 							.then((response) => {
@@ -219,7 +216,7 @@ const InquiryForm = (props) => {
 											<div className='header'>Total Price: Rs. {price + addon_price}</div>
 											<ul className='list'>
 												<li className='content'>
-													{values.activity.name ? values.activity.name : 'Base Price'} - Rs.{' '}
+													Base Price - Rs.
 													{price}
 												</li>
 												{aPackage.addons != null &&
