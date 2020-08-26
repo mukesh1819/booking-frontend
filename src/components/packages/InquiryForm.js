@@ -175,11 +175,11 @@ const InquiryForm = (props) => {
 												</div>
 											)}
 											{/* FORM VALIDATION DEBUGGER */}
-											{/* {Object.entries(errors).map(([k, v]) => (
+											{Object.entries(errors).map(([k, v]) => (
 												<div>
 													{k}={v}
 												</div>
-											))} */}
+											))}
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
 													<label className='d-block'>Preferred date</label>
