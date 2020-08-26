@@ -25,7 +25,7 @@ const InquiryForm = (props) => {
 	const [addon_price, setAddonPrice] = useState(0);
 	const [searching, setSearching] = useState(false);
 	const {countries, inquiry, aPackage} = props;
-
+debugger;
 	useEffect(
 		() => {
 			setPrice(aPackage.price);
@@ -219,7 +219,7 @@ const InquiryForm = (props) => {
 													Base Price - Rs.
 													{price}
 												</li>
-												{aPackage.addons != null &&
+												{aPackage.addons.length > 0 &&
 													aPackage.addons
 														.filter((v) => values.addons.includes(v.id))
 														.map((v) => (
