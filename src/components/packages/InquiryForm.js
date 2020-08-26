@@ -55,7 +55,8 @@ debugger;
 		preferred_date: inquiry.preferred_date == null ? new Date() : new Date(inquiry.preferred_date),
 		traveller: inquiry.head_traveller_name == null ? false : true,
 		package_id: aPackage.id,
-		addons: inquiry.addons.map((v) => v.id)
+		addons: inquiry.addons.map((v) => v.id),
+		activity_id: inquiry.activity.id
 	};
 
 	var sortedCountries = sortObjectBy(countries, 'code');
@@ -63,7 +64,7 @@ debugger;
 		<div className='container bg-white'>
 			<Formik
 				enableReinitialize
-				initialValues={{inquiryDetails}}
+				initialValues={inquiryDetails}
 				validationSchema={InquiriesSchema}
 				onSubmit={(values, {setSubmitting}) => {
 					values.package_id = inquiryDetails.package_id;
@@ -105,6 +106,7 @@ debugger;
 			>
 				{({
 					values,
+					status,
 					errors,
 					touched,
 					handleChange,
@@ -173,11 +175,11 @@ debugger;
 												</div>
 											)}
 											{/* FORM VALIDATION DEBUGGER */}
-											{/* {Object.entries(errors).map(([k, v]) => (
+											{Object.entries(errors).map(([k, v]) => (
 												<div>
 													{k}={v}
 												</div>
-											))} */}
+											))}
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
 													<label className='d-block'>Preferred date</label>
@@ -220,14 +222,13 @@ debugger;
 													Base Price - Rs.
 													{price}
 												</li>
-												{aPackage.addons.length > 0 &&
-													aPackage.addons
-														.filter((v) => values.addons.includes(v.id))
-														.map((v) => (
-															<li className='content'>
-																{v.name} - Rs. {v.price}
-															</li>
-														))}
+												{aPackage.addons
+													.filter((v) => values.addons.includes(v.id))
+													.map((v) => (
+														<li className='content'>
+															{v.name} - Rs. {v.price}
+														</li>
+													))}
 											</ul>
 										</div>
 									</div>

@@ -2,7 +2,6 @@ import React, {Fragment, useState} from 'react';
 import {Form} from 'semantic-ui-react';
 
 export default function AddonForm({selected = [], addons = [], onChange}) {
-	debugger;
 	const [selectedAddons, setSelectedAddons] = useState(selected);
 	return (
 		<Fragment>
