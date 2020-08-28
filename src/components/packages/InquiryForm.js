@@ -21,16 +21,24 @@ import {sortObjectBy, phoneValidate, textValidate, alphaNumericValidate, numberV
 import AddonForm from './AddonForm';
 
 const InquiryForm = (props) => {
-	const [price, setPrice] = useState(0);
+	const {countries, inquiry, aPackage} = props;
+	const [pricing, setPricing] = useState({
+		total_price: inquiry.total_amount,
+		base_price: 0,
+		addon_price: 0
+	});
 	const [addon_price, setAddonPrice] = useState(0);
 	const [searching, setSearching] = useState(false);
-	const {countries, inquiry, aPackage} = props;
-debugger;
 	useEffect(
 		() => {
-			setPrice(aPackage.price);
+			setPricing({
+				...pricing,
+				total_price: inquiry.total_amount,
+				base_price: inquiry.activity.price,
+				addon_price: 0
+			});
 		},
-		[aPackage]
+		[inquiry]
 	);
 
 	const InquiriesSchema = yup.object().shape({
@@ -148,10 +156,16 @@ debugger;
 																	var activity = aPackage.activities.find(
 																		(v) => v.id == data.value
 																	);
-																	setPrice(activity.price);
+																	setPricing({
+																		...pricing,
+																		base_price: activity.price
+																	});
 																	setFieldValue(`activity`, activity);
 																} else {
-																	setPrice(aPackage.price);
+																	setPricing({
+																		...pricing,
+																		base_price: aPackage.price
+																	});
 																	setFieldValue(`activity`, {});
 																}
 																setFieldValue(`activity_id`, data.value);
@@ -216,11 +230,11 @@ debugger;
 									</div>
 									<div className='col-4'>
 										<div className='ui info message'>
-											<div className='header'>Total Price: Rs. {price + addon_price}</div>
+											<div className='header'>Total Price: Rs. {pricing.total_price}</div>
 											<ul className='list'>
 												<li className='content'>
 													Base Price - Rs.
-													{price}
+													{pricing.base_price}
 												</li>
 												{aPackage.addons
 													.filter((v) => values.addons.includes(v.id))
