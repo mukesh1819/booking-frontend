@@ -29,7 +29,8 @@ const EditInquiry = (props) => {
 		number_of_child: 0,
 		activity: {},
 		activity_id: null,
-		addons: []
+		addons: [],
+		total_amount: 0
 	});
 	const idx = inquiry.idx;
 
