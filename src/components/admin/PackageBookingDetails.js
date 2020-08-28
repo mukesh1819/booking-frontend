@@ -33,7 +33,6 @@ class PackageBookingDetails extends Component {
 
 	componentDidMount() {
 		getPackageBookingDetails(this.props.match.params.idx).then((v) => {
-			debugger;
 			this.setState({
 				packageBooking: v.data
 			});
@@ -102,7 +101,6 @@ class PackageBookingDetails extends Component {
 	render() {
 		const {packageBooking} = this.state;
 		const packageInfo = pick(packageBooking.package, ['name']);
-
 		const contactInfo = pick(packageBooking.inquiry, [
 			'first_name',
 			'last_name',
@@ -227,7 +225,7 @@ class PackageBookingDetails extends Component {
 						</span>
 					)} */}
 
-					{packageBooking.inquiry.status == 'verified' && (
+					{packageBooking.status === 'verified' && (
 						<td>
 							<span>
 								<span
