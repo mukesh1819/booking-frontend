@@ -95,6 +95,7 @@ const InquiryForm = (props) => {
 								console.log('Update Inquiry Error', error);
 							});
 					} else {
+						debugger;
 						createInquiry(values)
 							.then((response) => {
 								setSubmitting(false);
@@ -190,11 +191,11 @@ const InquiryForm = (props) => {
 												</div>
 											)}
 											{/* FORM VALIDATION DEBUGGER */}
-											{Object.entries(errors).map(([k, v]) => (
+											{/* {Object.entries(errors).map(([k, v]) => (
 												<div>
 													{k}={v}
 												</div>
-											))}
+											))} */}
 											<div className='col-12 col-md-6'>
 												<div className='field-box'>
 													<label className='d-block'>Preferred date</label>
@@ -219,11 +220,16 @@ const InquiryForm = (props) => {
 												selected={values.addons}
 												addons={aPackage.addons}
 												onChange={(value) => {
-													setFieldValue('addons', value);
+													var map = Object.entries(value).map(([key, v]) => {
+														if (v !== undefined) {
+															var addon = aPackage.addons.find((v) => v.id == key);
+															return {id: parseInt(key), count: value[key], ...addon};
+														}
+														return undefined;
+													});
+													setFieldValue('addons', map.filter((v) => v !== undefined));
 													setAddonPrice(
-														aPackage.addons
-															.filter((v) => value.includes(v.id))
-															.reduce((total, addon) => total + addon.price, 0)
+														values.addons.reduce((total, addon) => total + addon.price, 0)
 													);
 												}}
 											/>
@@ -232,20 +238,32 @@ const InquiryForm = (props) => {
 									<div className='col-4'>
 										<div className='ui info message'>
 											<div className='header'>Total Price: Rs. {pricing.total_price}</div>
+
 											<ul className='list'>
 												<li className='content'>
 													Base Price - Rs.
 													{pricing.base_price}
 												</li>
-												{aPackage.addons
-													.filter((v) => values.addons.includes(v.id))
-													.map((v) => (
-														<li className='content'>
-															{v.name} - Rs. {v.price}
-														</li>
-													))}
 											</ul>
 										</div>
+										{values.addons.length > 0 && (
+											<table className='ui table'>
+												<thead>
+													<th>Addon</th>
+													<th>Price</th>
+													<th>Traveller</th>
+												</thead>
+												<tbody>
+													{values.addons.map((v) => (
+														<tr>
+															<td>{v.name}</td>
+															<td>{v.price}</td>
+															<td>{v.count}</td>
+														</tr>
+													))}
+												</tbody>
+											</table>
+										)}
 									</div>
 								</div>
 							</div>

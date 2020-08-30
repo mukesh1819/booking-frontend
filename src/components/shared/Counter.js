@@ -1,7 +1,7 @@
 import {InputGroup, FormControl} from 'react-bootstrap';
 import React, {useState, useEffect} from 'react';
 
-export default ({className, title, value, onChange, min = 0, max = Infinity, ...rest}) => {
+export default ({className, title = 0, value = 0, onChange, min = 0, max = Infinity, ...rest}) => {
 	return (
 		<div className={`counter d-flex justify-content-between align-items-center ${className}`}>
 			<span
