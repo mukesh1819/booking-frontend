@@ -307,7 +307,21 @@ class ServiceTransactions extends Component {
 														{transaction.direction === 'credit' ? transaction.amount : ''}
 													</td>
 													<td>{transaction.closing_balance}</td>
-													<td>{transaction.idx}</td>
+													{(transaction.booking_details && transaction.booking_details.type === "RENTAL") && (
+														<td>
+															<Link to={`/admin/car_bookings/${transaction.booking_details.idx}`}>
+																view details
+															</Link>
+														</td>
+													)}
+													{(transaction.booking_details && transaction.booking_details.type === "PACKAGE") && (
+														<td>
+															<Link to={`/admin/package_booking_details/${transaction.booking_details.idx}`}>
+																view details
+															</Link>
+														</td>
+													)}
+
 													{/* <td>
 														<Link
 															className='btn bg-none text-primary'

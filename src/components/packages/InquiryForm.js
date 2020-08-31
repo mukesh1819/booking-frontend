@@ -29,7 +29,6 @@ const InquiryForm = (props) => {
 	});
 	const [addon_price, setAddonPrice] = useState(0);
 	const [searching, setSearching] = useState(false);
-
 	useEffect(
 		() => {
 			setPricing({

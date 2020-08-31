@@ -109,10 +109,11 @@ export function partnerApproval(id, data) {
 	});
 }
 
-export function markComplete(id) {
+export function markComplete(id, data) {
 	return axios({
 		method: 'put',
-		url: `${API_URL}/admin/car_bookings/${id}/mark_complete`
+		url: `${API_URL}/admin/car_bookings/${id}/mark_complete`,
+		data: {rental_remarks: data}
 	});
 }
 

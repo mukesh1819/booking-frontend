@@ -86,19 +86,19 @@ class CarBookingDetails extends Component {
 		});
 	};
 
-	onMarkComplete(id) {
-		markComplete(id)
-			.then((response) => {
-				swal({
-					title: 'Response',
-					text: response.data.message,
-					icon: response.status == 200 ? 'success' : 'error'
-				}).then((response) => {
-					history.push('/admin/car_bookings');
-				});
-			})
-			.catch((v) => {});
-	}
+	// onMarkComplete(id) {
+	// 	markComplete(id)
+	// 		.then((response) => {
+	// 			swal({
+	// 				title: 'Response',
+	// 				text: response.data.message,
+	// 				icon: response.status == 200 ? 'success' : 'error'
+	// 			}).then((response) => {
+	// 				history.push('/admin/car_bookings');
+	// 			});
+	// 		})
+	// 		.catch((v) => {});
+	// }
 
 	updateBooking(values) {
 		patchCarBooking(this.props.match.params.idx, values).then((response) => {
@@ -216,12 +216,17 @@ class CarBookingDetails extends Component {
 							{carBooking.status == 'approved' && (
 								<td>
 									<span>
-										<span
-											className='btn bg-none text-primary'
-											onClick={() => this.onMarkComplete(carBooking.idx)}
+										<Link
+											to={{
+												pathname: `/admin/${carBooking.idx}/rental_remarks_form`,
+												state: {
+													carBooking: carBooking
+												}
+											}}
 										>
-											Mark As Complete
-										</span>
+											<i className='fas fa-contact' />
+											<span className='btn bg-none text-primary'>Mark As Complete</span>
+										</Link>
 									</span>
 								</td>
 							)}
