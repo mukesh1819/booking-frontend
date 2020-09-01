@@ -3,15 +3,15 @@ import {Form, Popup, Button, Grid, Header} from 'semantic-ui-react';
 import {Counter} from '../shared';
 
 export default function AddonForm({selected = {}, addons = [], onChange}) {
-	const [selectedAddons, setSelectedAddons] = useState({...selected});
+	const [selectedAddons, setSelectedAddons] = useState(selected);
 
 	const getCount = (id) => {
-		return selectedAddons[id] || 0;
+		return (selectedAddons[id] || {count: 0}).count;
 	};
 
-	const setCount = (id, value) => {
+	const setCount = (addon, value) => {
 		var hash = {};
-		hash[id] = value;
+		hash[addon.id] = {...addon, count: value};
 		setSelectedAddons({...selectedAddons, ...hash});
 		onChange({...selectedAddons, ...hash});
 	};
@@ -52,7 +52,7 @@ export default function AddonForm({selected = {}, addons = [], onChange}) {
 									title={`${getCount(addon.id)} Travellers`}
 									value={getCount(addon.id)}
 									onChange={(value) => {
-										setCount(addon.id, value);
+										setCount(addon, value);
 									}}
 								/>
 							</div>

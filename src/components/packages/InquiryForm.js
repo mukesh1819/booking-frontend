@@ -36,12 +36,25 @@ const InquiryForm = (props) => {
 				base_price: inquiry.activity.price == 0 ? aPackage.price : inquiry.activity.price,
 				addon_price: 0
 			});
+			setAddonPrice(getAddonPrice(inquiry.addons));
 		},
 		[inquiry]
 	);
 
+	const idToAddonMap = (addons) => {
+		var hash = {};
+		for (var k in addons) {
+			hash[addons[k].id] = addons[k];
+		}
+		return hash;
+	};
+
 	const getTotalPrice = () => {
 		return pricing.base_price + addon_price;
+	};
+
+	const getAddonPrice = (addons) => {
+		return addons.reduce((total, addon) => total + addon.price * addon.count, 0);
 	};
 
 	const InquiriesSchema = yup.object().shape({
@@ -66,7 +79,6 @@ const InquiryForm = (props) => {
 		preferred_date: inquiry.preferred_date == null ? new Date() : new Date(inquiry.preferred_date),
 		traveller: inquiry.head_traveller_name == null ? false : true,
 		package_id: aPackage.id,
-		addons: inquiry.addons.map((v) => v.id),
 		activity_id: inquiry.activity.id
 	};
 
@@ -221,7 +233,7 @@ const InquiryForm = (props) => {
 												<div>Select Addons</div>
 												{aPackage.addons.length > 0 && (
 													<AddonForm
-														selected={values.addons}
+														selected={idToAddonMap(values.addons)}
 														addons={aPackage.addons}
 														onChange={(value) => {
 															var map = Object.entries(value).map(([key, v]) => {
@@ -231,17 +243,15 @@ const InquiryForm = (props) => {
 																var addon = aPackage.addons.find((v) => v.id == key);
 																return {
 																	id: parseInt(key),
-																	count: value[key],
+																	count: value[key].count,
 																	...addon
 																};
 															});
-															var selectedAddons = map.filter((v) => v !== undefined);
-															setFieldValue('addons', selectedAddons);
-															var totalAddonPrice = selectedAddons.reduce(
-																(total, addon) => total + addon.price * addon.count,
-																0
+															var selectedAddons = map.filter(
+																(v) => v.count !== undefined
 															);
-															setAddonPrice(totalAddonPrice);
+															setFieldValue('addons', selectedAddons);
+															setAddonPrice(getAddonPrice(selectedAddons));
 														}}
 													/>
 												)}
