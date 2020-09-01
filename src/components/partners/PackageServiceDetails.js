@@ -16,7 +16,7 @@ import moment from 'moment';
 const Services = (props) => {
 	const {service} = props;
 	const packageInfo = pick(service.extras, ['Package Name']);
-
+	const addonInfo = pick(service.extras, ['addons']);
 	const contactInfo = pick(service.extras, [
 		'Head Person',
 		'Email Address',
@@ -51,6 +51,17 @@ const Services = (props) => {
 									<div className='eight wide column'>{value}</div>
 								</div>
 							))}
+							{addonInfo.addons !== undefined && (
+								<Fragment>
+									<h3 className='ui header'>Addons</h3>
+									{(JSON.parse(addonInfo.addons) || []).map((addon) => (
+										<div className='row'>
+											<div className='eight wide column'>{addon.name}</div>
+											<div className='eight wide column'>{addon.count}</div>
+										</div>
+									))}
+								</Fragment>
+							)}
 						</div>
 					</div>
 					<div className='eight wide column'>

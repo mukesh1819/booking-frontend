@@ -15,10 +15,20 @@ import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
 import {confirmInquiry} from '../../api/inquiryApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
+import {AddonForm} from '../packages';
 
 export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 	console.log('Inquiry at Partner Service', inquiry);
 	const [editMode, setEditMode] = useState(false);
+
+	const idToAddonMap = (addons) => {
+		var hash = {};
+		for (var k in addons) {
+			hash[addons[k].id] = addons[k];
+		}
+		return hash;
+	};
+
 	return (
 		<div className='row my-2'>
 			<div className='col-12 col-md-6'>
@@ -56,7 +66,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 								return {
 									key: partner.id,
 									value: partner.id,
-									text: `${name } (${partner.company_name})`
+									text: `${name} (${partner.company_name})`
 								};
 							})}
 						/>
@@ -246,6 +256,26 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 							</div>
 						</div>
 					</div>
+
+					<AddonForm
+						selected={idToAddonMap(inquiry.addons)}
+						addons={inquiry.addons}
+						onChange={(value) => {
+							var map = Object.entries(value).map(([key, v]) => {
+								if (v == undefined) {
+									return v;
+								}
+								return {
+									name: v.name,
+									count: v.count
+								};
+							});
+
+							var selectedAddons = map.filter((v) => v !== undefined && v.count !== undefined);
+							partner.extras['addons'] = JSON.stringify(selectedAddons);
+							onChange('extras', partner.extras);
+						}}
+					/>
 
 					<div className='row'>
 						<div className='col-12'>
