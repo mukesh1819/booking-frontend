@@ -18,7 +18,7 @@ import {Tab, Checkbox} from 'semantic-ui-react';
 import {AddonForm} from '../packages';
 
 export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
-	console.log('Inquiry at Partner Service', inquiry);
+	debugger;
 	const [editMode, setEditMode] = useState(false);
 
 	const idToAddonMap = (addons) => {
@@ -256,26 +256,31 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 							</div>
 						</div>
 					</div>
+					<div className='row'>
+						<div className='col-12'>
+							<div>Select Addons</div>
+							<AddonForm
+								selected={idToAddonMap(JSON.parse(partner.extras['addons']) || inquiry.addons)}
+								addons={inquiry.addons}
+								onChange={(value) => {
+									var map = Object.entries(value).map(([key, v]) => {
+										if (v == undefined) {
+											return v;
+										}
+										return {
+											id: v.id,
+											name: v.name,
+											count: v.count
+										};
+									});
 
-					<AddonForm
-						selected={idToAddonMap(inquiry.addons)}
-						addons={inquiry.addons}
-						onChange={(value) => {
-							var map = Object.entries(value).map(([key, v]) => {
-								if (v == undefined) {
-									return v;
-								}
-								return {
-									name: v.name,
-									count: v.count
-								};
-							});
-
-							var selectedAddons = map.filter((v) => v !== undefined && v.count !== undefined);
-							partner.extras['addons'] = JSON.stringify(selectedAddons);
-							onChange('extras', partner.extras);
-						}}
-					/>
+									var selectedAddons = map.filter((v) => v !== undefined && v.count !== undefined);
+									partner.extras['addons'] = JSON.stringify(selectedAddons);
+									onChange('extras', partner.extras);
+								}}
+							/>
+						</div>
+					</div>
 
 					<div className='row'>
 						<div className='col-12'>
