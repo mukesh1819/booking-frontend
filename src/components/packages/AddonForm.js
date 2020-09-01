@@ -33,7 +33,12 @@ export default function AddonForm({selected = {}, addons = [], onChange}) {
 				return (
 					<Popup
 						trigger={
-							<Button color={isSelected(addon.id) ? 'green' : ''}>
+							<Button
+								color={isSelected(addon.id) ? 'green' : ''}
+								onClick={(e) => {
+									e.preventDefault();
+								}}
+							>
 								{addon.name} {getCount(addon.id)}
 							</Button>
 						}
