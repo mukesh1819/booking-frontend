@@ -41,21 +41,28 @@ export default function AddonForm({selected = {}, addons = [], onChange}) {
 						hoverable
 					>
 						<div>
-							<Header as='h4'>Add {addon.name}</Header>
-							<Counter
-								title={`${getCount(addon.id)} Travellers`}
-								value={getCount(addon.id)}
-								onChange={(value) => {
-									setCount(addon.id, value);
-								}}
-							/>
-							<hr />
+							<div className='ui grid'>
+								<div className='ten wide column'>
+									<Header as='h4'>Add {addon.name}</Header>
+								</div>
+								<div className='six wide column right floated' />
+							</div>
+							<div className='my-2'>
+								<Counter
+									title={`${getCount(addon.id)} Travellers`}
+									value={getCount(addon.id)}
+									onChange={(value) => {
+										setCount(addon.id, value);
+									}}
+								/>
+							</div>
+
 							<div className='text-center'>
 								<div className='ui basic red button' onClick={() => deselect(addon.id)}>
 									Remove
 								</div>
 							</div>
-
+							<hr />
 							<p>{addon.description}</p>
 						</div>
 					</Popup>

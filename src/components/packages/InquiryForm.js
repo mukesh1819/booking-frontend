@@ -23,23 +23,26 @@ import AddonForm from './AddonForm';
 const InquiryForm = (props) => {
 	const {countries, inquiry, aPackage} = props;
 	const [pricing, setPricing] = useState({
-		total_price: inquiry.total_amount,
 		base_price: 0,
 		addon_price: 0
 	});
 	const [addon_price, setAddonPrice] = useState(0);
 	const [searching, setSearching] = useState(false);
+
 	useEffect(
 		() => {
 			setPricing({
 				...pricing,
-				total_price: inquiry.total_amount,
-				base_price: inquiry.activity.price,
+				base_price: inquiry.activity.price == 0 ? aPackage.price : inquiry.activity.price,
 				addon_price: 0
 			});
 		},
 		[inquiry]
 	);
+
+	const getTotalPrice = () => {
+		return pricing.base_price + addon_price;
+	};
 
 	const InquiriesSchema = yup.object().shape({
 		first_name: textValidate(yup).required('Required'),
@@ -94,7 +97,6 @@ const InquiryForm = (props) => {
 								console.log('Update Inquiry Error', error);
 							});
 					} else {
-						debugger;
 						createInquiry(values)
 							.then((response) => {
 								setSubmitting(false);
@@ -214,29 +216,41 @@ const InquiryForm = (props) => {
 												</div>
 											</div>
 										</div>
-										{aPackage.addons.length > 0 && (
-											<AddonForm
-												selected={values.addons}
-												addons={aPackage.addons}
-												onChange={(value) => {
-													var map = Object.entries(value).map(([key, v]) => {
-														if (v !== undefined) {
-															var addon = aPackage.addons.find((v) => v.id == key);
-															return {id: parseInt(key), count: value[key], ...addon};
-														}
-														return undefined;
-													});
-													setFieldValue('addons', map.filter((v) => v !== undefined));
-													setAddonPrice(
-														values.addons.reduce((total, addon) => total + addon.price, 0)
-													);
-												}}
-											/>
-										)}
+										<div className='row mt-2'>
+											<div className='col-12'>
+												<div>Select Addons</div>
+												{aPackage.addons.length > 0 && (
+													<AddonForm
+														selected={values.addons}
+														addons={aPackage.addons}
+														onChange={(value) => {
+															var map = Object.entries(value).map(([key, v]) => {
+																if (v == undefined) {
+																	return v;
+																}
+																var addon = aPackage.addons.find((v) => v.id == key);
+																return {
+																	id: parseInt(key),
+																	count: value[key],
+																	...addon
+																};
+															});
+															var selectedAddons = map.filter((v) => v !== undefined);
+															setFieldValue('addons', selectedAddons);
+															var totalAddonPrice = selectedAddons.reduce(
+																(total, addon) => total + addon.price * addon.count,
+																0
+															);
+															setAddonPrice(totalAddonPrice);
+														}}
+													/>
+												)}
+											</div>
+										</div>
 									</div>
 									<div className='col-4'>
 										<div className='ui info message'>
-											<div className='header'>Total Price: Rs. {pricing.total_price}</div>
+											<div className='header'>Total Price: Rs. {getTotalPrice()}</div>
 
 											<ul className='list'>
 												<li className='content'>
@@ -246,7 +260,7 @@ const InquiryForm = (props) => {
 											</ul>
 										</div>
 										{values.addons.length > 0 && (
-											<table className='ui table'>
+											<table className='ui unstackable table'>
 												<thead>
 													<th>Addon</th>
 													<th>Price</th>

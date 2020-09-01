@@ -8,7 +8,9 @@ export default function CreateInquiry(props) {
 		head_traveller_name: null,
 		number_of_adult: 1,
 		number_of_child: 0,
-		activity: {},
+		activity: {
+			price: 0
+		},
 		activity_id: null,
 		addons: [],
 		total_amount: 0
@@ -23,6 +25,7 @@ export default function CreateInquiry(props) {
 		showPackage(props.match.params.package_idx)
 			.then((resp) => {
 				setPackage(resp.data);
+				setInquiry({...inquiry, total_amount: aPackage.price});
 			})
 			.catch((error) => {
 				console.log('fetch package error', error);
