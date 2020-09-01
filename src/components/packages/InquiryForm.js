@@ -248,7 +248,7 @@ const InquiryForm = (props) => {
 																};
 															});
 															var selectedAddons = map.filter(
-																(v) => v.count !== undefined
+																(v) => v !== undefined && v.count !== undefined
 															);
 															setFieldValue('addons', selectedAddons);
 															setAddonPrice(getAddonPrice(selectedAddons));
