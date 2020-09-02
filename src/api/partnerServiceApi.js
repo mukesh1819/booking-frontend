@@ -12,10 +12,19 @@ export function getPartnerServices(params) {
 	});
 }
 
-export function set_package_remarks(id, data){
+export function getPartnerServiceDetails(idx) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/partner_services/${idx}`
+	});
+}
+
+export function set_package_remarks(id, data) {
 	return axios({
 		method: 'put',
-		url:`${API_URL}/partner_services/${id}/set_remarks`,
-		data: {partner_service: data}
+		url: `${API_URL}/partner_services/${id}/set_remarks`,
+		data: {
+			partner_service: data
+		}
 	});
 }

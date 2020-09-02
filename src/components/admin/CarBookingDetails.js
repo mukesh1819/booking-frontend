@@ -178,21 +178,19 @@ class CarBookingDetails extends Component {
 
 							{carBooking.status !== 'pending' &&
 							carBooking.status !== 'completed' && (
-								<td>
-									<span>
-										<Link
-											to={{
-												pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
-												state: {
-													carBooking: carBooking
-												}
-											}}
-										>
-											<i className='fas fa-contact' />
-											<span className='btn bg-none text-primary'>assign partner</span>
-										</Link>
-									</span>
-								</td>
+								<span>
+									<Link
+										to={{
+											pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
+											state: {
+												carBooking: carBooking
+											}
+										}}
+									>
+										<i className='fas fa-contact' />
+										<span className='ui button positive'>Assign Partner</span>
+									</Link>
+								</span>
 							)}
 
 							{carBooking.status == 'verified' && (
@@ -332,15 +330,25 @@ class CarBookingDetails extends Component {
 										<div className='eight wide column'>{carBooking.idx}</div>
 									</div>
 								</div>
-							</div>
-						</div>
 
-						<div className='row'>
-							<div className='eight wide column section'>
-								<RemarksForm
-									remarks={carBooking.user_remarks}
-									onSubmit={(value) => this.updateBooking({user_remarks: value})}
-								/>
+								<div className='row'>
+									<div className='column'>
+										<RemarksForm
+											title='User Remarks'
+											remarks={carBooking.user_remarks}
+											onSubmit={(value) => this.updateBooking({user_remarks: value})}
+										/>
+									</div>
+								</div>
+								<div className='row'>
+									<div className='column'>
+										<RemarksForm
+											title='Partner Remarks'
+											remarks={carBooking.partner_remarks}
+											onSubmit={(value) => this.updateBooking({partner_remarks: value})}
+										/>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

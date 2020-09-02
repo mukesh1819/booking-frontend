@@ -229,6 +229,12 @@ class PackageBookingDetails extends Component {
 													<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
 												</div>
 											</div>
+
+											<div className='row'>
+												<div className='eight wide column'>User Remarks:</div>
+												<div className='eight wide column'>{packageBooking.user_remarks}</div>
+											</div>
+
 											<div className='row'>
 												<div className='column'>
 													<PackageRemarksForm

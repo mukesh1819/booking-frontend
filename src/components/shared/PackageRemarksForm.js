@@ -23,7 +23,7 @@ const PackageRemarksForm = ({remarks = [], partners = [], partner_services = [],
 
 	return (
 		<div className=''>
-			<h3 className='ui header'> Remarks </h3>
+			<h3 className='ui header'>Partner Remarks </h3>
 
 			{isOpen && (
 				<Form

@@ -1,20 +1,33 @@
-import React, {Component, Fragment} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {passCsrfToken, toTableData, pick} from '../../helpers';
 import swal from 'sweetalert';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
-import {Badge, Sidebar} from '../shared';
+import {Badge, Sidebar, RemarksForm} from '../shared';
 import PartnerProfile from './PartnerProfile';
-import {getPartnerServices} from '../../api/partnerServiceApi';
+import {getPartnerServices, getPartnerServiceDetails} from '../../api/partnerServiceApi';
 import moment from 'moment';
+import {set_package_remarks} from '../../api/partnerServiceApi';
 
 // const PartnerProfile = () => {
 // 	return 'PARTNER PROFILE';
 // };
 
 const Services = (props) => {
+	const [partnerService, setPartnerService] = useState({});
 	const {service} = props;
+
+	useEffect(
+		() => {
+			getPartnerServiceDetails(service.idx).then((v) => {
+				debugger;
+				setPartnerService(v.data);
+			});
+		},
+		[service]
+	);
+
 	const packageInfo = pick(service.extras, ['Package Name']);
 	const addonInfo = pick(service.extras, ['addons']);
 	const contactInfo = pick(service.extras, [
@@ -95,14 +108,21 @@ const Services = (props) => {
 						</div>
 					</div>
 					<div className='eight wide column'>
-						<h3 className='ui header'> Remarks </h3>
 						<div className='ui grid'>
-							{Object.entries(remarks).map(([key, value]) => (
-								<div className='row'>
-									<div className='eight wide column'>{key.titleize()}:</div>
-									<div className='eight wide column'>{value}</div>
+							<div className='row'>
+								<div className='column'>
+									<RemarksForm
+										remarks={partnerService.remarks}
+										onSubmit={(value) => {
+											set_package_remarks(partnerService.idx, {
+												partner_remarks: value
+											}).then((v) => {
+												debugger;
+											});
+										}}
+									/>
 								</div>
-							))}
+							</div>
 						</div>
 					</div>
 				</div>
