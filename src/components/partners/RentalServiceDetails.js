@@ -12,7 +12,6 @@ import moment from 'moment';
 
 const Services = (props) => {
 	const {service} = props;
-
 	// idx: "0c27bcbee122e0f30791"
 	// is_visible: false
 	// partner_amount: null
@@ -21,7 +20,7 @@ const Services = (props) => {
 	const bookingInfo = pick(service, ['pickup_location', 'drop_off_location', 'flight_no']);
 	const bookingDateInfo = pick(service, ['pickup_date', 'drop_off_date', 'flight_date']);
 
-	const contactInfo = pick(service, ['contact_name', 'mobile_no', 'contact_email']);
+	const contactInfo = pick(service, ['contact_name', 'mobile_no']);
 
 	const driverInfo = pick(service, ['driver_name', 'driver_contact', 'car_number', 'car_color']);
 
@@ -51,14 +50,21 @@ const Services = (props) => {
 					</div>
 					<div className='eight wide column'>
 						<h3 className='ui header'> Contact Info </h3>
-						<div className='ui grid'>
-							{Object.entries(contactInfo).map(([key, value]) => (
-								<div className='row'>
-									<div className='eight wide column'>{key.titleize()}:</div>
-									<div className='eight wide column'>{value}</div>
-								</div>
-							))}
-						</div>
+						{service.is_visible && (
+							<div className='ui grid'>
+								{Object.entries(contactInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+							</div>
+						)}
+						{!service.is_visible && (
+							<div className='ui message info'>
+								Contact info will be visible once booking is confirmed.
+							</div>
+						)}
 					</div>
 				</div>
 				<div className='row'>
@@ -78,8 +84,7 @@ const Services = (props) => {
 						<RemarksForm
 							remarks={service.partner_remarks}
 							onSubmit={(value) => {
-								set_rental_remarks(service.idx, {partner_remarks: value}).then((v) => {
-								});
+								set_rental_remarks(service.idx, {partner_remarks: value}).then((v) => {});
 							}}
 						/>
 						{/* {service.partner_remarks.map((i) => {
