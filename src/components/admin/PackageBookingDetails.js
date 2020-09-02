@@ -128,7 +128,8 @@ class PackageBookingDetails extends Component {
 			'query'
 		]);
 
-		const bookingInfo = pick(packageBooking, ['pickup_location', 'drop_off_location', 'meals_included']);
+		const bookingInfo = pick(packageBooking, ['pickup_location', 'drop_off_location']);
+		const booleans = pick(packageBooking, ['meals_included']);
 
 		const bookingDateInfo = pick(packageBooking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
 		const otherInfo = pick(packageBooking, ['idx']);
@@ -188,6 +189,14 @@ class PackageBookingDetails extends Component {
 												<div className='row'>
 													<div className='eight wide column'>{key.titleize()}:</div>
 													<div className='eight wide column'>{value}</div>
+												</div>
+											))}
+											{Object.entries(booleans).map(([key, value]) => (
+												<div className='row'>
+													<div className='eight wide column'>{key.titleize()}:</div>
+													<div className='eight wide column'>
+														{value ? 'Included' : 'Not Included'}
+													</div>
 												</div>
 											))}
 											{Object.entries(bookingDateInfo).map(([key, value]) => (

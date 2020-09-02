@@ -86,6 +86,7 @@ class PackageBookingDetails extends Component {
 		]);
 
 		const bookingInfo = pick(booking, ['Invoice Number', 'pickup_location', 'drop_off_location', 'meals_included']);
+		const booleans = pick(booking, ['meals_included']);
 
 		const bookingDateInfo = pick(booking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
 
@@ -115,6 +116,14 @@ class PackageBookingDetails extends Component {
 											<div className='eight wide column'>{value}</div>
 										</div>
 									))}
+									{Object.entries(booleans).map(([key, value]) => (
+										<div className='row'>
+											<div className='eight wide column'>{key.titleize()}:</div>
+											<div className='eight wide column'>
+												{value ? 'Included' : 'Not Included'}
+											</div>
+										</div>
+									))}
 									{Object.entries(bookingDateInfo).map(([key, value]) => (
 										<div className='row'>
 											<div className='eight wide column'>{key.titleize()}:</div>
@@ -128,18 +137,20 @@ class PackageBookingDetails extends Component {
 										<div className='eight wide column'>Rs. {booking.amount}</div>
 									</div>
 									<h5 className='ui header'>Addon Information</h5>
-									{booking.inquiry && booking.inquiry.addons && booking.inquiry.addons.map((addon) => {
-										return(
-											<div className='row'>
-												<div className='eight wide column'>Name</div>
-												<div className='eight wide column'>{addon.name}</div>
-												<div className='eight wide column'>Count</div>
-												<div className='eight wide column'>{addon.count}</div>
-												<div className='eight wide column'>Price</div>
-												<div className='eight wide column'>{addon.price}</div>
-											</div>
-										);
-									})}
+									{booking.inquiry &&
+										booking.inquiry.addons &&
+										booking.inquiry.addons.map((addon) => {
+											return (
+												<div className='row'>
+													<div className='eight wide column'>Name</div>
+													<div className='eight wide column'>{addon.name}</div>
+													<div className='eight wide column'>Count</div>
+													<div className='eight wide column'>{addon.count}</div>
+													<div className='eight wide column'>Price</div>
+													<div className='eight wide column'>{addon.price}</div>
+												</div>
+											);
+										})}
 								</div>
 							</div>
 						</div>

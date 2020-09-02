@@ -167,7 +167,7 @@ class InquiryDetails extends Component {
 				'Invoice Number': inquiry.idx,
 				pickup_location: inquiry.pickup_location,
 				drop_off_location: inquiry.drop_off_location,
-				meals_included: inquiry.meals_included,
+				meals_included: packageBooking.meals_included ? 'Included' : 'Not Included',
 				remarks: ''
 			}
 		};

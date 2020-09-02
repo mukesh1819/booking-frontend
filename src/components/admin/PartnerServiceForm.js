@@ -243,13 +243,13 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 									className=''
 									label={'Meals Included?'}
 									onChange={(event, data) => {
-										partner.extras['meals_included'] = data.checked;
+										partner.extras['meals_included'] = data.checked ? 'Included' : 'Not Included';
 										onChange('extras', partner.extras);
 									}}
-									value={partner.extras['meals_included']}
+									value={partner.extras['meals_included'] == 'Included' ? true : false}
 									onBlur={onBlur}
 									className=''
-									checked={partner.extras.meals_included}
+									checked={partner.extras.meals_included == 'Included' ? true : false}
 								/>
 								<ErrorMessage name='meals_included' />
 							</div>
