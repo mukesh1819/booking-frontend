@@ -24,6 +24,7 @@ import Timer from './Timer';
 import Tooltip from './Tooltip';
 import MailBox from './MailBox';
 import RemarksForm from './RemarksForm';
+import PackageRemarksForm from './PackageRemarksForm';
 
 export {
     Accordion,
@@ -51,5 +52,6 @@ export {
     Timer,
     Tooltip,
     MailBox,
-    RemarksForm
+    RemarksForm,
+    PackageRemarksForm
 }

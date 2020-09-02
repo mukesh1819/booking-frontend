@@ -12,15 +12,17 @@ import {set_package_remarks} from '../../api/partnerServiceApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket, pick} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
-import {Badge, RemarksForm} from '../shared';
+import {Badge, RemarksForm, PackageRemarksForm} from '../shared';
 import {Card, Form} from 'semantic-ui-react';
 import moment from 'moment';
+import {getPartners} from '../../api/partnerApi';
 
 class PackageBookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			loading: false,
+			partners: [],
 			user_remarks: [],
 			partner_remarks: [],
 			isRemarksFormOpen: false,
@@ -40,6 +42,12 @@ class PackageBookingDetails extends Component {
 				packageBooking: v.data,
 				user_remarks: v.data.user_remarks,
 				partner_remarks: v.data.partner_remarks
+			});
+		});
+
+		getPartners().then((response) => {
+			this.setState({
+				partners: response.data.partners
 			});
 		});
 	}
@@ -104,7 +112,7 @@ class PackageBookingDetails extends Component {
 	}
 
 	render() {
-		const {packageBooking, isRemarksFormOpen, user_remarks, partner_remarks} = this.state;
+		const {packageBooking, partners, user_remarks, partner_remarks} = this.state;
 		const packageInfo = pick(packageBooking.package, ['name']);
 		const contactInfo = pick(packageBooking.inquiry, [
 			'first_name',
@@ -190,6 +198,20 @@ class PackageBookingDetails extends Component {
 													</div>
 												</div>
 											))}
+											{packageBooking.inquiry &&
+												packageBooking.inquiry.addons &&
+												packageBooking.inquiry.addons.map((addon) => {
+													return (
+														<div className='row'>
+															<div className='eight wide column'>Name</div>
+															<div className='eight wide column'>{addon.name}</div>
+															<div className='eight wide column'>Count</div>
+															<div className='eight wide column'>{addon.count}</div>
+															<div className='eight wide column'>Price</div>
+															<div className='eight wide column'>{addon.price}</div>
+														</div>
+													);
+												})}
 										</div>
 									</div>
 									<div className='eight wide column'>
@@ -207,81 +229,22 @@ class PackageBookingDetails extends Component {
 													<Badge type={packageBooking.status}>{packageBooking.status}</Badge>
 												</div>
 											</div>
-										</div>
-										<div className=''>
-											<h3 className='ui header'> Remarks </h3>
-
-											{isRemarksFormOpen && (
-												<Form
-													onSubmit={() => {
-														debugger;
-														var value = $('#new_remark').val();
-														this.setState({
-															partner_remarks: [
-																{remark: value, date: new Date(), user: 'You'},
-																...partner_remarks
-															]
-														});
-														set_package_remarks(packageBooking.idx, {
-															partner_remarks: value
-														}).then((v) => {
-															debugger;
-														});
-													}}
-												>
-													<Form.Select
-														id='partner_service_idx'
-														label='Select Partner'
-														options={packageBooking.partner_services.map((v) => ({
-															key: v.idx,
-															value: v.idx,
-															text: v.name
-														}))}
+											<div className='row'>
+												<div className='column'>
+													<PackageRemarksForm
+														remarks={packageBooking.partner_remarks}
+														partners={partners}
+														partner_services={packageBooking.partner_services}
+														onSubmit={(data) => {
+															set_package_remarks(data.idx, {
+																partner_remarks: data.value
+															}).then((v) => {
+																debugger;
+															});
+														}}
 													/>
-													<Form.TextArea
-														id='new_remark'
-														label='New Remark'
-														placeholder='Add new remark...'
-													/>
-													<button type='submit' className='ui basic button green'>
-														Submit
-													</button>
-													<div
-														className='ui basic button red'
-														onClick={() =>
-															this.setState({
-																isRemarksFormOpen: false
-															})}
-													>
-														Cancel
-													</div>
-												</Form>
-											)}
-
-											{!isRemarksFormOpen && (
-												<div
-													className='ui basic button'
-													onClick={() =>
-														this.setState({
-															isRemarksFormOpen: true
-														})}
-												>
-													Add remarks
 												</div>
-											)}
-
-											{partner_remarks.map((i) => {
-												return (
-													<div>
-														<div className='text-bold'>{i.remark}</div>
-														<div className='text-small'>
-															{moment(i.date).format('D MMMM, YYYY hh:mm')}
-														</div>
-														<div className='text-small'>{i.user}</div>
-														<br />
-													</div>
-												);
-											})}
+											</div>
 										</div>
 									</div>
 								</div>

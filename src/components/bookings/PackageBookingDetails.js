@@ -127,6 +127,19 @@ class PackageBookingDetails extends Component {
 										<div className='eight wide column'>Total amount:</div>
 										<div className='eight wide column'>Rs. {booking.amount}</div>
 									</div>
+									<h5 className='ui header'>Addon Information</h5>
+									{booking.inquiry && booking.inquiry.addons && booking.inquiry.addons.map((addon) => {
+										return(
+											<div className='row'>
+												<div className='eight wide column'>Name</div>
+												<div className='eight wide column'>{addon.name}</div>
+												<div className='eight wide column'>Count</div>
+												<div className='eight wide column'>{addon.count}</div>
+												<div className='eight wide column'>Price</div>
+												<div className='eight wide column'>{addon.price}</div>
+											</div>
+										);
+									})}
 								</div>
 							</div>
 						</div>

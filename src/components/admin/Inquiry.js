@@ -149,6 +149,18 @@ const Inquiry = (props) => {
 										<div className='eight wide column'>{moment(value).format('D MMMM, YYYY')}</div>
 									</div>
 								))}
+								{inquiry.addons && inquiry.addons.map((addon) => {
+									return(
+										<div className='row'>
+											<div className='eight wide column'>Name</div>
+											<div className='eight wide column'>{addon.name}</div>
+											<div className='eight wide column'>Count</div>
+											<div className='eight wide column'>{addon.count}</div>
+											<div className='eight wide column'>Price</div>
+											<div className='eight wide column'>{addon.price}</div>
+										</div>
+									);
+								})}
 							</div>
 						</div>
 					</div>

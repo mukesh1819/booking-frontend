@@ -46,8 +46,8 @@ class AssignCarBookingForm extends Component {
 		const {partners} = this.state;
 		const BookingSchema = yup.object().shape({
 			partner_id: yup.string().required('Required'),
-			partner_amount: yup.string().required('Required'),
-			partner_remarks: yup.string().required('Required')
+			partner_amount: yup.string().required('Required')
+			// partner_remarks: yup.string().required('Required')
 		});
 
 		const bookingDetails = {
