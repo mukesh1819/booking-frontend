@@ -180,7 +180,7 @@ const routes = [
 	{private: true, path: '/admin/packages', component: PackagesList, layout: AdminLayout},
 	{private: true, path: '/admin/package_details/:idx', component: AdminPackageDetails, layout: AdminLayout},
 	{private: true, path: '/admin/partners', component: PartnerList, layout: AdminLayout},
-	{private: true, path: '/admin/inquiry_details', component: InquiryDetails, layout: AdminLayout},
+	{private: true, path: '/admin/inquiry_details/:idx', component: InquiryDetails, layout: AdminLayout},
 	{private: true, path: '/admin/inquiries', component: InquiryList, layout: AdminLayout},
 	{private: true, path: '/admin/categories', component: CategoryList, layout: AdminLayout},
 	{private: true, path: '/admin/package_booking', component: PackageBookingList, layout: AdminLayout},

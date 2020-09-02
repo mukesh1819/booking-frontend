@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {Badge} from '../shared';
 import Inquiry from './Inquiry';
 import history from '../../history';
-import {deleteInquiry} from '../../api/inquiryApi';
+import {deleteInquiry, showInquiry} from '../../api/inquiryApi';
 import {InquiryForm} from '../packages';
 import {IconInput, DatePicker} from '../shared';
 import {passCsrfToken} from '../../helpers';
@@ -28,6 +28,7 @@ class InquiryDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			inquiry: {},
 			showDetails: true,
 			showOtherForm: false,
 			showPartnerForm: false,
@@ -36,7 +37,7 @@ class InquiryDetails extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchPartners();
+		this.fetchDetails();
 	}
 
 	rejectUserPackage(id) {
@@ -56,7 +57,26 @@ class InquiryDetails extends Component {
 			});
 	}
 
-	fetchPartners() {
+	fetchDetails() {
+		showInquiry(this.props.match.params.idx).then((response) => {
+			this.setState({
+				inquiry: response.data || {}
+			});
+			getPackageBookingDetails(response.data.package_booking.idx)
+				.then((response) => {
+					this.setState({
+						packageBooking: response.data
+					});
+				})
+				.catch((error) => {
+					swal({
+						title: 'Package Booking fetch error',
+						text: 'Something went wrong. please try again or contact us',
+						icon: 'error',
+						button: 'Continue!'
+					});
+				});
+		});
 		getPartners()
 			.then((response) => {
 				this.setState({
@@ -66,25 +86,6 @@ class InquiryDetails extends Component {
 			.catch((error) => {
 				swal({
 					title: 'Partner fetch error',
-					text: 'Something went wrong. please try again or contact us',
-					icon: 'error',
-					button: 'Continue!'
-				});
-			});
-
-		getPackageBookingDetails(
-			this.props.location.state.inquiry.package_booking
-				? this.props.location.state.inquiry.package_booking.idx
-				: ''
-		)
-			.then((response) => {
-				this.setState({
-					packageBooking: response.data
-				});
-			})
-			.catch((error) => {
-				swal({
-					title: 'Package Booking fetch error',
 					text: 'Something went wrong. please try again or contact us',
 					icon: 'error',
 					button: 'Continue!'
@@ -127,8 +128,7 @@ class InquiryDetails extends Component {
 	}
 
 	render() {
-		const {inquiry} = this.props.location.state;
-		const {partners, packageBooking, showDetails, showOtherForm, showPartnerForm} = this.state;
+		const {inquiry, partners, packageBooking, showDetails, showOtherForm, showPartnerForm} = this.state;
 		var date = new Date();
 
 		const InquiriesSchema = yup.object().shape({

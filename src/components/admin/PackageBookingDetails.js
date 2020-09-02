@@ -13,7 +13,7 @@ import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket, pick} from '../../helpers';
 import {Button, ButtonGroup} from 'react-bootstrap';
 import {Badge, RemarksForm} from '../shared';
-import {Card} from 'semantic-ui-react';
+import {Card, Form} from 'semantic-ui-react';
 import moment from 'moment';
 
 class PackageBookingDetails extends Component {
@@ -21,6 +21,9 @@ class PackageBookingDetails extends Component {
 		super(props);
 		this.state = {
 			loading: false,
+			user_remarks: [],
+			partner_remarks: [],
+			isRemarksFormOpen: false,
 			packageBooking: {
 				user_remarks: [],
 				booking_transaction: {},
@@ -34,7 +37,9 @@ class PackageBookingDetails extends Component {
 	componentDidMount() {
 		getPackageBookingDetails(this.props.match.params.idx).then((v) => {
 			this.setState({
-				packageBooking: v.data
+				packageBooking: v.data,
+				user_remarks: v.data.user_remarks,
+				partner_remarks: v.data.partner_remarks
 			});
 		});
 	}
@@ -99,7 +104,7 @@ class PackageBookingDetails extends Component {
 	}
 
 	render() {
-		const {packageBooking} = this.state;
+		const {packageBooking, isRemarksFormOpen, user_remarks, partner_remarks} = this.state;
 		const packageInfo = pick(packageBooking.package, ['name']);
 		const contactInfo = pick(packageBooking.inquiry, [
 			'first_name',
@@ -137,6 +142,22 @@ class PackageBookingDetails extends Component {
 													<div className='eight wide column'>{value}</div>
 												</div>
 											))}
+											<div className='row'>
+												<div className='eight wide column'>
+													<h3 className='ui header'> Inquiry Details </h3>
+												</div>
+												<div className='eight wide column right floated'>
+													<div
+														className='ui basic button right aligned'
+														onClick={() =>
+															history.push(
+																`/admin/inquiry_details/${packageBooking.inquiry.idx}`
+															)}
+													>
+														View
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 									<div className='eight wide column'>
@@ -187,16 +208,81 @@ class PackageBookingDetails extends Component {
 												</div>
 											</div>
 										</div>
-										<RemarksForm
-											remarks={packageBooking.user_remarks}
-											onSubmit={(value) => {
-												set_package_remarks(packageBooking.idx, {
-													partner_remarks: value
-												}).then((v) => {
-													debugger;
-												});
-											}}
-										/>
+										<div className=''>
+											<h3 className='ui header'> Remarks </h3>
+
+											{isRemarksFormOpen && (
+												<Form
+													onSubmit={() => {
+														debugger;
+														var value = $('#new_remark').val();
+														this.setState({
+															partner_remarks: [
+																{remark: value, date: new Date(), user: 'You'},
+																...partner_remarks
+															]
+														});
+														set_package_remarks(packageBooking.idx, {
+															partner_remarks: value
+														}).then((v) => {
+															debugger;
+														});
+													}}
+												>
+													<Form.Select
+														id='partner_service_idx'
+														label='Select Partner'
+														options={packageBooking.partner_services.map((v) => ({
+															key: v.idx,
+															value: v.idx,
+															text: v.name
+														}))}
+													/>
+													<Form.TextArea
+														id='new_remark'
+														label='New Remark'
+														placeholder='Add new remark...'
+													/>
+													<button type='submit' className='ui basic button green'>
+														Submit
+													</button>
+													<div
+														className='ui basic button red'
+														onClick={() =>
+															this.setState({
+																isRemarksFormOpen: false
+															})}
+													>
+														Cancel
+													</div>
+												</Form>
+											)}
+
+											{!isRemarksFormOpen && (
+												<div
+													className='ui basic button'
+													onClick={() =>
+														this.setState({
+															isRemarksFormOpen: true
+														})}
+												>
+													Add remarks
+												</div>
+											)}
+
+											{partner_remarks.map((i) => {
+												return (
+													<div>
+														<div className='text-bold'>{i.remark}</div>
+														<div className='text-small'>
+															{moment(i.date).format('D MMMM, YYYY hh:mm')}
+														</div>
+														<div className='text-small'>{i.user}</div>
+														<br />
+													</div>
+												);
+											})}
+										</div>
 									</div>
 								</div>
 							</div>
