@@ -17,8 +17,7 @@ import {confirmInquiry} from '../../api/inquiryApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
 import {AddonForm} from '../packages';
 
-export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
-	debugger;
+export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 	const [editMode, setEditMode] = useState(false);
 
 	const idToAddonMap = (addons) => {
@@ -260,7 +259,7 @@ export default ({inquiry, partners, index, partner, onChange, onBlur}) => {
 						<div className='col-12'>
 							<div>Select Addons</div>
 							<AddonForm
-								selected={idToAddonMap(JSON.parse(partner.extras['addons']) || inquiry.addons)}
+								selected={idToAddonMap(JSON.parse(partner.extras['addons'] || null) || inquiry.addons)}
 								addons={inquiry.addons}
 								onChange={(value) => {
 									var map = Object.entries(value).map(([key, v]) => {
