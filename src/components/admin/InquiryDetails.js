@@ -130,7 +130,6 @@ class InquiryDetails extends Component {
 		const {inquiry} = this.props.location.state;
 		const {partners, packageBooking, showDetails, showOtherForm, showPartnerForm} = this.state;
 		var date = new Date();
-
 		const InquiriesSchema = yup.object().shape({
 			start_date: yup.date().default(function() {
 				return new Date();

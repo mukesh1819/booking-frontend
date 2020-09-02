@@ -169,6 +169,18 @@ class PackageBookingDetails extends Component {
 													</div>
 												</div>
 											))}
+											{packageBooking.inquiry && packageBooking.inquiry.addons && packageBooking.inquiry.addons.map((addon) => {
+												return(
+													<div className='row'>
+														<div className='eight wide column'>Name</div>
+														<div className='eight wide column'>{addon.name}</div>
+														<div className='eight wide column'>Count</div>
+														<div className='eight wide column'>{addon.count}</div>
+														<div className='eight wide column'>Price</div>
+														<div className='eight wide column'>{addon.price}</div>
+													</div>
+												);
+											})}
 										</div>
 									</div>
 									<div className='eight wide column'>
@@ -193,7 +205,6 @@ class PackageBookingDetails extends Component {
 												set_package_remarks(packageBooking.idx, {
 													partner_remarks: value
 												}).then((v) => {
-													debugger;
 												});
 											}}
 										/>
