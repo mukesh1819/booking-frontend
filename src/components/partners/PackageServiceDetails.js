@@ -15,19 +15,21 @@ import {set_package_remarks} from '../../api/partnerServiceApi';
 // };
 
 const Services = (props) => {
-	const [partnerService, setPartnerService] = useState({});
-	const {service} = props;
-
+	var [partnerService, setPartnerService] = useState({});
+	var {service} = props;
+	var idx = service != null ? service.idx : props.match.params.idx;
 	useEffect(
 		() => {
-			getPartnerServiceDetails(service.idx).then((v) => {
-				debugger;
+			getPartnerServiceDetails(idx).then((v) => {
 				setPartnerService(v.data);
 			});
 		},
 		[service]
 	);
 
+	if(service == null){
+		service = partnerService;
+	}
 	const packageInfo = pick(service.extras, ['Package Name']);
 	const addonInfo = pick(service.extras, ['addons']);
 	const contactInfo = pick(service.extras, [
@@ -117,7 +119,6 @@ const Services = (props) => {
 											set_package_remarks(partnerService.idx, {
 												partner_remarks: value
 											}).then((v) => {
-												debugger;
 											});
 										}}
 									/>

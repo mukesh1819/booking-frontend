@@ -254,7 +254,6 @@ class PackageBookingDetails extends Component {
 															set_package_remarks(data.idx, {
 																partner_remarks: data.value
 															}).then((v) => {
-																debugger;
 															});
 														}}
 													/>

@@ -186,13 +186,13 @@ class CarBookingDetails extends Component {
 									Continue to Payment
 								</div>
 
-								<div
+								{/* <div
 									className='btn btn-primary text-primary bg-none'
 									id='payment-button'
 									onClick={() => this.checkout(carBooking)}
 								>
 									Pay with khalti
-								</div>
+								</div> */}
 							</Fragment>
 						)}
 					</div>

@@ -278,7 +278,7 @@ class ServiceTransactionList extends Component {
 														{transaction.partner.first_name} {transaction.partner.last_name}
 													</td>
 													<td>{transaction.remarks}</td>
-													<td>payment type</td>
+													<td>{transaction.payment_mode}</td>
 													<td>
 														{transaction.direction === 'debit' ? transaction.amount : ''}
 													</td>
@@ -286,7 +286,21 @@ class ServiceTransactionList extends Component {
 														{transaction.direction === 'credit' ? transaction.amount : ''}
 													</td>
 													<td>{transaction.closing_balance}</td>
-													<td>{transaction.idx}</td>
+													{(transaction.booking_details && transaction.booking_details.type === "RENTAL") && (
+														<td>
+															<Link to={`/partner/rental_details/${transaction.booking_details.idx}`}>
+																view details
+															</Link>
+														</td>
+													)}
+													{(transaction.booking_details && transaction.booking_details.type === "PACKAGE") && (
+														<td>
+															<Link to={`/partner/package_details/${transaction.booking_details.idx}`}>
+																view details
+															</Link>
+														</td>
+													)}
+
 													{/* <td>
 														<Link
 															className='btn bg-none text-primary'

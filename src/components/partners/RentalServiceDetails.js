@@ -1,21 +1,38 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, useState, useEffect, Fragment} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {passCsrfToken, toTableData, pick} from '../../helpers';
 import swal from 'sweetalert';
 import {confirmPartner, showPartner} from '../../api/partnerApi';
-import {set_rental_remarks} from '../../api/carBookingApi';
+import {set_rental_remarks, showUserRentalBooking} from '../../api/carBookingApi';
 import {Badge, Sidebar, RemarksForm} from '../shared';
 import PartnerProfile from './PartnerProfile';
 import {getPartnerServices} from '../../api/partnerServiceApi';
 import moment from 'moment';
 
 const Services = (props) => {
-	const {service} = props;
+	var [rentalService, setRentalService] = useState({});
+	var {service} = props;
+
 	// idx: "0c27bcbee122e0f30791"
 	// is_visible: false
 	// partner_amount: null
 	// status: "processing"
+	// useEffect(
+	// 	() => {
+	// 		showUserRentalBooking(props.match.params.idx).then((v) => {
+	// 			setRentalService(v.data);
+	// 		});
+	// 	},
+	// 	[service]
+	// );
+	
+	if(service == null){
+		showUserRentalBooking(props.match.params.idx).then((v) => {
+			setRentalService(v.data);
+		});
+		service = rentalService;
+	}
 
 	const bookingInfo = pick(service, ['pickup_location', 'drop_off_location', 'flight_no']);
 	const bookingDateInfo = pick(service, ['pickup_date', 'drop_off_date', 'flight_date']);
