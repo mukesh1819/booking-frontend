@@ -89,6 +89,8 @@ import AddonList from './components/admin/AddonList';
 import AddonDetails from './components/admin/AddonDetails';
 import AddonForm from './components/admin/AddonForm';
 import RentalRemarksForm from './components/admin/RentalRemarksForm';
+import RentalServiceDetails from './components/partners/RentalServiceDetails';
+import PackageServiceDetails from './components/partners/PackageServiceDetails';
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -128,6 +130,9 @@ const routes = [
 		component: PartnerApprovalForm,
 		layout: AdminLayout
 	},
+	
+	{private: true, path: '/partner/rental_details/:idx', component: RentalServiceDetails, layout: PartnerLayout},
+	{private: true, path: '/partner/package_details/:idx', component: PackageServiceDetails, layout: PartnerLayout},
 
 	{private: true, path: '/admin/addons', component: AddonList, layout: AdminLayout},
 	{private: true, path: '/admin/addon_details/:idx', component: AddonDetails, layout: AdminLayout},

@@ -80,7 +80,7 @@ class Dashboard extends Component {
 								</div>
 							</div>
 						)}
-						{(section == '' || section == '#transactions') && (
+						{/* {(section == '' || section == '#transactions') && (
 							<div className='widget col-sm-12 col-md-4'>
 								<div className='card'>
 									<div className='card-body'>
@@ -93,7 +93,7 @@ class Dashboard extends Component {
 									</div>
 								</div>
 							</div>
-						)}
+						)} */}
 
 						{(section == '' || section == '#service_transactions') && (
 							<div className='widget col-sm-12 col-md-4'>

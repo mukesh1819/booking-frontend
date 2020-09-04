@@ -299,7 +299,7 @@ class ServiceTransactions extends Component {
 														{transaction.partner.first_name} {transaction.partner.last_name}
 													</td>
 													<td>{transaction.remarks}</td>
-													<td>payment type</td>
+													<td>{transaction.payment_mode}</td>
 													<td>
 														{transaction.direction === 'debit' ? transaction.amount : ''}
 													</td>
