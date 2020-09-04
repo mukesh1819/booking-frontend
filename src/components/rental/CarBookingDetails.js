@@ -76,6 +76,18 @@ class CarBookingDetails extends Component {
 			return <KhaltiForm transaction={carBooking.booking_transaction} idx={carBooking.idx} />;
 		}
 
+		const inquiryInfo = pick(carBooking.car_inquiry, [
+			'source',
+			'destination',
+			'no_of_pax',
+			'no_of_days',
+			'car_type',
+			'trip_type',
+			'start_date'
+		]);
+
+		const booleans = pick(carBooking.car_inquiry, ['within_city']);
+
 		return (
 			<div className='ui segment container'>
 				<div className='ui internally celled stackable grid'>
@@ -83,12 +95,16 @@ class CarBookingDetails extends Component {
 						<div className='eight wide column section'>
 							<h3 className='ui header'> Inquiry Details </h3>
 							<div className='ui grid'>
-								{Object.entries(
-									pick(carBooking, ['source', 'destination', 'no_of_pax', 'trip_type', 'no_of_days'])
-								).map(([key, value]) => (
+								{Object.entries(inquiryInfo).map(([key, value]) => (
 									<div className='row'>
 										<div className='eight wide column'>{key.titleize()}:</div>
 										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+								{Object.entries(booleans).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value ? 'Yes' : 'No'}</div>
 									</div>
 								))}
 							</div>

@@ -38,7 +38,7 @@ class CarInquiryDetails extends Component {
 	render() {
 		const {carInquiry} = this.state;
 		return (
-			<div className='container'>
+			<div className='ui container'>
 				<Card fluid>
 					<Card.Content>
 						<div className='list-view'>

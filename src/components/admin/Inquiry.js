@@ -39,13 +39,11 @@ const Inquiry = (props) => {
 		'zip_code'
 	]);
 	const inquiryInfo = pick(inquiry, [
-		'package_name',
 		'head_traveller_name',
 		'number_of_adult',
 		'number_of_child',
 		'pickup_location',
-		'drop_off_location',
-		'total_amount'
+		'drop_off_location'
 	]);
 	var activityInfo = {};
 	if (inquiry.activity != null) {
@@ -75,7 +73,7 @@ const Inquiry = (props) => {
 								Send Confirmation to User&nbsp;
 							</span>
 						)}
-						{(inquiry.status === 'processing' || inquiry.status === 'verified') && (
+						{partnerServices.length == 0 && (
 							<span
 								onClick={() => {
 									setActions({
@@ -180,19 +178,28 @@ const Inquiry = (props) => {
 						<div className='eight wide column'>
 							<div className='d-flex align-items-center justify-content-between'>
 								<h3 className='ui header'>Partner Details</h3>
-								<div>
-									<span
-										className='btn bg-none color-accent'
-										onClick={() => {
-											setActions({
-												showPartnerForm: true,
-												showDetails: false
-											});
-										}}
-									>
-										Edit
-									</span>
-								</div>
+								{(inquiry.status === 'processing' || inquiry.status === 'verified') && (
+									<div>
+										<span
+											className='btn bg-none color-accent'
+											onClick={() => {
+												setActions({
+													showPartnerForm: true,
+													showDetails: false
+												});
+											}}
+										>
+											Edit
+										</span>
+									</div>
+								)}
+							</div>
+							<div className='ui grid'>
+								{partnerServices.map((service) => (
+									<div className='row'>
+										<div className='column'>{service.name}</div>
+									</div>
+								))}
 							</div>
 						</div>
 					</div>
