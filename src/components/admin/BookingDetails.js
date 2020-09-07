@@ -97,9 +97,9 @@ class BookingDetails extends Component {
 		return (
 			<React.Fragment>
 				<div className='ui segment container'>
-					<div className='ui internally celled stackable grid'>
+					<div className='ui internally celled stackable grid section-layout'>
 						<div className='row'>
-							<div className='eight wide column'>
+							<div className='eight wide column section'>
 								<h3 className='ui header'> Flight Details </h3>
 								<div className='ui grid'>
 									{Object.entries(flightDetails).map(([key, value]) => (
@@ -111,7 +111,7 @@ class BookingDetails extends Component {
 								</div>
 							</div>
 
-							<div className='eight wide column'>
+							<div className='eight wide column section'>
 								<h3 className='ui header'> Booking Details </h3>
 								<div className='ui grid'>
 									{Object.entries(bookingDates).map(([key, value]) => (
@@ -133,7 +133,7 @@ class BookingDetails extends Component {
 							</div>
 						</div>
 						<div className='row'>
-							<div className='column'>
+							<div className='column section'>
 								<h3 className='ui header'> Passenger Details </h3>
 								<PassengerDetails passengers={booking.passengers} />
 							</div>

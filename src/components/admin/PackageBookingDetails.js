@@ -140,9 +140,9 @@ class PackageBookingDetails extends Component {
 					<Card.Content>
 						<div className='ui segment'>
 							<h3 className='ui header'> Booking Details </h3>
-							<div className='ui internally celled stackable grid'>
+							<div className='ui internally celled stackable grid section-layout'>
 								<div className='row'>
-									<div className='eight wide column'>
+									<div className='eight wide column section'>
 										<h3 className='ui header'> Package Info </h3>
 										<div className='ui grid'>
 											{Object.entries(packageInfo).map(([key, value]) => (
@@ -169,7 +169,7 @@ class PackageBookingDetails extends Component {
 											</div>
 										</div>
 									</div>
-									<div className='eight wide column'>
+									<div className='eight wide column section'>
 										<h3 className='ui header'> Contact Info </h3>
 										<div className='ui grid'>
 											{Object.entries(contactInfo).map(([key, value]) => (
@@ -182,7 +182,7 @@ class PackageBookingDetails extends Component {
 									</div>
 								</div>
 								<div className='row'>
-									<div className='eight wide column'>
+									<div className='eight wide column section'>
 										<h3 className='ui header'> Booking Info </h3>
 										<div className='ui grid'>
 											{Object.entries(bookingInfo).map(([key, value]) => (
@@ -223,7 +223,7 @@ class PackageBookingDetails extends Component {
 												})}
 										</div>
 									</div>
-									<div className='eight wide column'>
+									<div className='eight wide column section'>
 										<h3 className='ui header'> Other Info </h3>
 										<div className='ui grid'>
 											{Object.entries(otherInfo).map(([key, value]) => (
@@ -253,8 +253,7 @@ class PackageBookingDetails extends Component {
 														onSubmit={(data) => {
 															set_package_remarks(data.idx, {
 																partner_remarks: data.value
-															}).then((v) => {
-															});
+															}).then((v) => {});
 														}}
 													/>
 												</div>
@@ -266,17 +265,23 @@ class PackageBookingDetails extends Component {
 						</div>
 					</Card.Content>
 				</Card>
-				<div className='text-center'>
+				<div className='text-center py-4'>
 					{packageBooking.inquiry.status === 'verified' && (
-						<span className='text-center py-4'>
-							<Button
-								primary
-								loading={loading}
-								className='btn btn-primary btn-large '
-								onClick={() => this.download(packageBooking.idx)}
-							>
-								Download ticket
-							</Button>
+						<Button
+							primary
+							loading={loading}
+							className='btn btn-primary btn-large '
+							onClick={() => this.download(packageBooking.idx)}
+						>
+							Download ticket
+						</Button>
+					)}
+					{packageBooking.status === 'verified' && (
+						<span
+							className='btn btn-primary btn-large ml-2 '
+							onClick={() => this.onMarkComplete(packageBooking.idx)}
+						>
+							Mark As Complete
 						</span>
 					)}
 					{/* {packageBooking.inquiry.status == 'pending' && (
@@ -287,20 +292,6 @@ class PackageBookingDetails extends Component {
 							confirm
 						</span>
 					)} */}
-
-					{packageBooking.status === 'verified' && (
-						<td>
-							<span>
-								<span
-									className='btn bg-none text-primary'
-									onClick={() => this.onMarkComplete(packageBooking.idx)}
-								>
-									Mark As Complete
-								</span>
-							</span>
-						</td>
-					)}
-
 					{/* <span
 						className='btn bg-none text-danger'
 						onClick={() => this.destroyPackageBooking(packageBooking.idx)}

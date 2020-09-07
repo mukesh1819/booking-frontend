@@ -93,9 +93,9 @@ const Inquiry = (props) => {
 						)}
 					</div>
 				</div>
-				<div className='ui internally celled stackable grid'>
+				<div className='ui internally celled stackable grid section-layout'>
 					<div className='row'>
-						<div className='eight wide column'>
+						<div className='eight wide column section'>
 							<h3 className='ui header'> Package Info </h3>
 							<div className='ui grid'>
 								{Object.entries(packageInfo).map(([key, value]) => (
@@ -112,7 +112,7 @@ const Inquiry = (props) => {
 								))}
 							</div>
 						</div>
-						<div className='eight wide column'>
+						<div className='eight wide column section'>
 							<div className='d-flex align-items-center justify-content-between'>
 								<h3 className='ui header'>Inquiry Info</h3>
 								<div>
@@ -164,7 +164,7 @@ const Inquiry = (props) => {
 						</div>
 					</div>
 					<div className='row'>
-						<div className='eight wide column'>
+						<div className='eight wide column section'>
 							<h3 className='ui header'> Contact Info </h3>
 							<div className='ui grid'>
 								{Object.entries(contactInfo).map(([key, value]) => (
@@ -175,7 +175,7 @@ const Inquiry = (props) => {
 								))}
 							</div>
 						</div>
-						<div className='eight wide column'>
+						<div className='eight wide column section'>
 							<div className='d-flex align-items-center justify-content-between'>
 								<h3 className='ui header'>Partner Details</h3>
 								{(inquiry.status === 'processing' || inquiry.status === 'verified') && (
@@ -204,7 +204,7 @@ const Inquiry = (props) => {
 						</div>
 					</div>
 					<div className='row'>
-						<div className='eight wide column'>
+						<div className='eight wide column section'>
 							<h3 className='ui header'> Other Info </h3>
 							<div className='ui grid'>
 								{Object.entries(otherInfo).map(([key, value]) => (

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Profile from '../users/Profile';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
@@ -119,24 +119,18 @@ class PartnerDetails extends Component {
 	render() {
 		const {partner} = this.state;
 		return (
-			<div className='row'>
+			<Fragment>
 				<PartnerProfile partner={this.state.partner} />
 
-				<div className='col-12 p-4'>
+				<div className='text-center'>
 					{partner.status === 'approved' && (
-						<span>
-							<span className='text-info mr-2'>Partner Created</span>
-							<span className='btn btn-secondary' onClick={() => this.callPartnerDeactivate(partner.idx)}>
-								deactivate
-							</span>
+						<span className='btn btn-secondary' onClick={() => this.callPartnerDeactivate(partner.idx)}>
+							deactivate
 						</span>
 					)}
 					{partner.status === 'inactive' && (
-						<span>
-							<span className='text-info mr-2'>Partner has been deactivated</span>
-							<span className='btn btn-secondary' onClick={() => this.callPartnerActivate(partner.idx)}>
-								activate
-							</span>
+						<span className='btn btn-secondary' onClick={() => this.callPartnerActivate(partner.idx)}>
+							activate
 						</span>
 					)}
 					{partner.status === 'processing' && (
@@ -148,7 +142,7 @@ class PartnerDetails extends Component {
 						Delete
 					</span>
 				</div>
-			</div>
+			</Fragment>
 		);
 	}
 }
