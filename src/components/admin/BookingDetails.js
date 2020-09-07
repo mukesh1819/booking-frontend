@@ -8,12 +8,15 @@ import {Accordion, Button} from 'semantic-ui-react';
 import {getBookingDetails} from '../../api/flightApi';
 import {fetchTicket} from '../../api/flightApi';
 import {downloadTicket} from '../../helpers';
+import PassengerDetails from '../flights/PassengerDetails';
 
 class BookingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			booking: {}
+			booking: {
+				passengers: []
+			}
 		};
 	}
 	componentDidMount() {
@@ -129,20 +132,24 @@ class BookingDetails extends Component {
 								</div>
 							</div>
 						</div>
+						<div className='row'>
+							<div className='column'>
+								<h3 className='ui header'> Passenger Details </h3>
+								<PassengerDetails passengers={booking.passengers} />
+							</div>
+						</div>
 					</div>
 
-					<div>
+					<div className='text-center'>
 						{booking.status === 'verified' && (
-							<span className='text-center py-4'>
-								<Button
-									primary
-									loading={loading}
-									className='btn btn-primary btn-large '
-									onClick={() => this.download(booking.booking_transaction.idx)}
-								>
-									Download ticket
-								</Button>
-							</span>
+							<Button
+								primary
+								loading={loading}
+								className='btn btn-primary btn-large '
+								onClick={() => this.download(booking.booking_transaction.idx)}
+							>
+								Download ticket
+							</Button>
 						)}
 					</div>
 				</div>

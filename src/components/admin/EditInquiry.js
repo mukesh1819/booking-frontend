@@ -20,6 +20,7 @@ import {showPackage} from '../../api/packageApi';
 
 const EditInquiry = (props) => {
 	const [aPackage, setPackage] = useState({
+		price: 0,
 		addons: []
 	});
 	const [inquiry, setInquiry] = useState({
@@ -27,7 +28,9 @@ const EditInquiry = (props) => {
 		head_traveller_name: null,
 		number_of_adult: 1,
 		number_of_child: 0,
-		activity: {},
+		activity: {
+			price: 0
+		},
 		activity_id: null,
 		addons: [],
 		total_amount: 0

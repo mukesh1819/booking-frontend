@@ -71,7 +71,7 @@ class FlightBookings extends Component {
 		console.log('Bookings', bookings);
 
 		if (bookings.length == 0) {
-			return <EmptyContent>No bookings yet.</EmptyContent>;
+			return <EmptyContent> No bookings yet. </EmptyContent>;
 		}
 
 		if (bookingToPay != null) {
@@ -87,7 +87,7 @@ class FlightBookings extends Component {
 							<div className='booking d-flex justify-content-between align-items-center p-3'>
 								<div key={booking.departing_flight.ruid} className=''>
 									<div className=''>
-										<span className='px-2'>{`${booking.departing_flight.departure}`}</span>
+										<span className='px-2'> {`${booking.departing_flight.departure}`} </span>
 										<i
 											className={
 												booking.trip === 'One Way' ? (
@@ -97,24 +97,24 @@ class FlightBookings extends Component {
 												)
 											}
 										/>
-										<span className='px-2'> {`${booking.departing_flight.arrival}`}</span>
+										<span className='px-2'> {`${booking.departing_flight.arrival}`} </span>
 									</div>
 									<div>
 										<span className='text-small text-muted px-2'>
-											<i className='fas fa-plane departure' />&nbsp;
+											<i className='fas fa-plane departure' /> &nbsp;
 											{`${moment(booking.departing_flight.flight_date).format('Do MMMM, YYYY')}`}
 										</span>
 										{booking.trip === 'Two Way' && (
 											<span className='text-small text-muted px-2'>
-												<i className='fas fa-plane arrival' />&nbsp;
+												<i className='fas fa-plane arrival' /> &nbsp;
 												{`${moment(booking.arriving_flight.strReturnDate).format(
 													'Do MMMM, YYYY'
 												)}`}
 											</span>
 										)}
 										<span className='text-small text-muted px-2'>
-											<i className='fas fa-male' />&nbsp;
-											{booking.departing_flight.no_of_adult} Adult
+											<i className='fas fa-male' /> &nbsp; {booking.departing_flight.no_of_adult}
+											Adult
 											{ifNotZero(
 												booking.departing_flight.no_of_child,
 												`, ${booking.departing_flight.no_of_child} Child`
@@ -144,7 +144,6 @@ class FlightBookings extends Component {
 											</div>
 										</Fragment>
 									)}
-
 									{(booking.departing_flight.status == 'completed' ||
 										booking.departing_flight.status == 'verified') && (
 										<Link
@@ -160,10 +159,10 @@ class FlightBookings extends Component {
 										</Link>
 									)}
 									{/* <div>
-														<Badge type={booking.departing_flight.status}>
-															{booking.departing_flight..status}
-														</Badge>
-													</div> */}
+																					<Badge type={booking.departing_flight.status}>
+																						{booking.departing_flight..status}
+																					</Badge>
+																				</div> */}
 								</div>
 							</div>
 						</div>

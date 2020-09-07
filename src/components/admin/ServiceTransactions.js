@@ -181,12 +181,12 @@ class ServiceTransactions extends Component {
 							onSubmit={(values) => this.onFilter(values)}
 						/> */}
 						<div className='' id='search-form'>
-							<div className='row justify-content-between'>
+							<div className='row justify-content-between mb-2'>
 								<div className='col-4'>
 									<h3 className='title'>Service Transactions</h3>
 								</div>
 								<div
-									className='ui button primary col-5'
+									className='ui button primary'
 									onClick={() => history.push('/admin/service_transaction/new')}
 								>
 									Create Service Transaction
@@ -307,20 +307,26 @@ class ServiceTransactions extends Component {
 														{transaction.direction === 'credit' ? transaction.amount : ''}
 													</td>
 													<td>{transaction.closing_balance}</td>
-													{(transaction.booking_details && transaction.booking_details.type === "RENTAL") && (
-														<td>
-															<Link to={`/admin/car_bookings/${transaction.booking_details.idx}`}>
+													<td>
+														{transaction.booking_details &&
+														transaction.booking_details.type === 'RENTAL' && (
+															<Link
+																to={`/admin/car_bookings/${transaction.booking_details
+																	.idx}`}
+															>
 																view details
 															</Link>
-														</td>
-													)}
-													{(transaction.booking_details && transaction.booking_details.type === "PACKAGE") && (
-														<td>
-															<Link to={`/admin/package_booking_details/${transaction.booking_details.idx}`}>
+														)}
+														{transaction.booking_details &&
+														transaction.booking_details.type === 'PACKAGE' && (
+															<Link
+																to={`/admin/package_booking_details/${transaction
+																	.booking_details.idx}`}
+															>
 																view details
 															</Link>
-														</td>
-													)}
+														)}
+													</td>
 
 													{/* <td>
 														<Link

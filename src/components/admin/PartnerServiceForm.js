@@ -31,11 +31,10 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 	return (
 		<div className='row my-2'>
 			<div className='col-12 col-md-6'>
-				<h3 className='title'>Service Details</h3>
+				<h3 className='title'> Service Details </h3>
 				<div className=' p-3 bg-body'>
 					<div className='field-box'>
-						<label>Service Name</label>
-
+						<label> Service Name </label>
 						<Field
 							name={`partner_services_attributes[${index}].name`}
 							className='form-control'
@@ -44,12 +43,10 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 							onChange={(e) => onChange(`name`, e.target.value)}
 							value={partner.name}
 						/>
-
 						<ErrorMessage name={`partner_services_attributes[${index}].name`} />
 					</div>
-
 					<div className='field-box'>
-						<label htmlFor=''>Select Partner</label>
+						<label htmlFor=''> Select Partner </label>
 						<Dropdown
 							className='form-control'
 							name={`partner_services_attributes[${index}].partner_id`}
@@ -71,10 +68,8 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 						/>
 						<ErrorMessage name={`partner_services_attributes[${index}].partner_id`} />
 					</div>
-
 					<div className='field-box'>
-						<label>Service Details</label>
-
+						<label> Service Details </label>
 						<Field
 							component='textarea'
 							rows='4'
@@ -84,13 +79,10 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 							onChange={(e) => onChange(`details`, e.target.value)}
 							value={partner.details}
 						/>
-
 						<ErrorMessage name={`partner_services_attributes[${index}].details`} />
 					</div>
-
 					<div className='field-box'>
-						<label>Amount</label>
-
+						<label> Amount </label>
 						<Field
 							type='number'
 							rows='4'
@@ -100,27 +92,24 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 							onChange={(e) => onChange(`amount`, e.target.value)}
 							value={partner.amount}
 						/>
-
 						<ErrorMessage name={`partner_services_attributes[${index}].details`} />
 					</div>
-
 					<div className='row'>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
-								<label className='d-block'>Start Date</label>
+								<label className='d-block'> Start Date </label>
 
 								<DatePicker
 									name='start_date'
 									className='form-control'
 									type='date'
-									date={partner.start_date}
 									minDate={new Date()}
 									onBlur={onBlur}
 									onChange={(date) => {
 										partner.extras['start_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={partner.extras['start_date']}
+									value={new Date(partner.extras['start_date'])}
 									placeholder='Arrival Date'
 								/>
 
@@ -129,20 +118,19 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 						</div>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
-								<label className='d-block'>End Date</label>
+								<label className='d-block'> End Date </label>
 
 								<DatePicker
 									name='end_date'
 									className='form-control'
 									type='date'
-									date={partner.end_date}
 									minDate={new Date()}
 									onBlur={onBlur}
 									onChange={(date) => {
 										partner.extras['end_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={partner.extras['end_date']}
+									value={new Date(partner.extras['end_date'])}
 									placeholder='Return Date'
 								/>
 
@@ -153,20 +141,19 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 					<div className='row'>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
-								<label className='d-block'>Pickup Date</label>
+								<label className='d-block'> Pickup Date </label>
 
 								<DatePicker
 									name='pickup_date'
 									className='form-control'
 									type='date'
-									date={partner.pickup_date}
 									minDate={new Date()}
 									onBlur={onBlur}
 									onChange={(date) => {
 										partner.extras['pickup_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={partner.extras['pickup_date']}
+									value={new Date(partner.extras['pickup_date'])}
 									placeholder='Pickup Date'
 								/>
 
@@ -175,20 +162,19 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 						</div>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
-								<label className='d-block'>Drop off Date</label>
+								<label className='d-block'> Drop off Date </label>
 
 								<DatePicker
 									name='drop_off_date'
 									className='form-control'
 									type='date'
-									date={partner.drop_off_date}
 									minDate={new Date()}
 									onBlur={onBlur}
 									onChange={(date) => {
 										partner.extras['drop_off_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={partner.extras['drop_off_date']}
+									value={new Date(partner.extras['drop_off_date'])}
 									placeholder='Drop off Date'
 								/>
 
@@ -199,7 +185,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 					<div className='row'>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
-								<label className='d-block'>Pickup location</label>
+								<label className='d-block'> Pickup location </label>
 
 								<Field
 									name='pickup_location'
@@ -217,7 +203,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 						</div>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
-								<label className='d-block'>Drop off location</label>
+								<label className='d-block'> Drop off location </label>
 
 								<Field
 									name='drop_off_location'
@@ -234,7 +220,6 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 							</div>
 						</div>
 					</div>
-
 					<div className='row'>
 						<div className='col-12'>
 							<div className='field-box'>
@@ -246,7 +231,6 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 										partner.extras['meals_included'] = data.checked ? 'Included' : 'Not Included';
 										onChange('extras', partner.extras);
 									}}
-									value={partner.extras['meals_included'] == 'Included' ? true : false}
 									onBlur={onBlur}
 									className=''
 									checked={partner.extras.meals_included == 'Included' ? true : false}
@@ -257,7 +241,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 					</div>
 					<div className='row'>
 						<div className='col-12'>
-							<div>Select Addons</div>
+							<div> Select Addons </div>
 							<AddonForm
 								selected={idToAddonMap(JSON.parse(partner.extras['addons'] || null) || inquiry.addons)}
 								addons={inquiry.addons}
@@ -280,11 +264,10 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 							/>
 						</div>
 					</div>
-
 					<div className='row'>
 						<div className='col-12'>
 							<div className='field-box'>
-								<label>Remarks</label>
+								<label> Remarks </label>
 								<Field
 									name='remarks'
 									className='form-control'
@@ -303,15 +286,15 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 			</div>
 			<div className='col-12 col-md-6'>
 				<div className='list-view'>
-					<h3 className='title'>Inquiry Details</h3>
+					<h3 className='title'> Inquiry Details </h3>
 					{Object.keys(partner.extras).map((key) => {
 						console.log(`${key}: ${partner.extras[key]}`);
 						return (
 							<div className='editable'>
 								<div className='list'>
-									<span className='label'>{key}</span>
+									<span className='label'> {key} </span>
 									<div>
-										<span className='value mr-2'> {partner.extras[key]}</span>
+										<span className='value mr-2'> {partner.extras[key]} </span>
 										<span className='actions'>
 											{!editMode && (
 												<React.Fragment>

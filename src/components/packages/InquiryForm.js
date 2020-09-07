@@ -33,12 +33,12 @@ const InquiryForm = (props) => {
 		() => {
 			setPricing({
 				...pricing,
-				base_price: inquiry.activity.price == 0 ? aPackage.price : inquiry.activity.price,
+				base_price: inquiry.activity == undefined ? aPackage.price : inquiry.activity.price,
 				addon_price: 0
 			});
 			setAddonPrice(getAddonPrice(inquiry.addons));
 		},
-		[inquiry]
+		[inquiry, aPackage]
 	);
 
 	const idToAddonMap = (addons) => {
@@ -79,7 +79,7 @@ const InquiryForm = (props) => {
 		preferred_date: inquiry.preferred_date == null ? new Date() : new Date(inquiry.preferred_date),
 		traveller: inquiry.head_traveller_name == null ? false : true,
 		package_id: aPackage.id,
-		activity_id: inquiry.activity.id
+		activity_id: inquiry.activity == undefined ? '' : inquiry.activity.id
 	};
 
 	var sortedCountries = sortObjectBy(countries, 'code');
