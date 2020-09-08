@@ -51,6 +51,7 @@ class FlightBookings extends Component {
 	fetchDetails = (params) => {
 		getBookings(`q[booking_type_eq]=FLIGHT`)
 			.then((response) => {
+				debugger;
 				console.log('Bookings List', response);
 				this.setState({
 					bookings: response.data
@@ -81,7 +82,9 @@ class FlightBookings extends Component {
 		return (
 			<div>
 				{bookings.map((booking) => {
-					console.log('Bookings', bookings);
+					if (!booking.departing_flight.is_visible) {
+						return;
+					}
 					return (
 						<div className='transaction'>
 							<div className='booking d-flex justify-content-between align-items-center p-3'>
