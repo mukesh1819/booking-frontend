@@ -30,6 +30,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 
 	return (
 		<div className='row my-2'>
+			{/* <div>{JSON.stringify(partner)}</div> */}
 			<div className='col-12 col-md-6'>
 				<h3 className='title'> Service Details </h3>
 				<div className=' p-3 bg-body'>
@@ -109,7 +110,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 										partner.extras['start_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={new Date(partner.extras['start_date'])}
+									value={new Date(partner.extras['start_date'] || null)}
 									placeholder='Arrival Date'
 								/>
 
@@ -130,7 +131,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 										partner.extras['end_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={new Date(partner.extras['end_date'])}
+									value={new Date(partner.extras['end_date'] || null)}
 									placeholder='Return Date'
 								/>
 
@@ -153,7 +154,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 										partner.extras['pickup_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={new Date(partner.extras['pickup_date'])}
+									value={new Date(partner.extras['pickup_date'] || null)}
 									placeholder='Pickup Date'
 								/>
 
@@ -174,7 +175,7 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 										partner.extras['drop_off_date'] = `${date}`;
 										onChange('extras', partner.extras);
 									}}
-									value={new Date(partner.extras['drop_off_date'])}
+									value={new Date(partner.extras['drop_off_date'] || null)}
 									placeholder='Drop off Date'
 								/>
 
