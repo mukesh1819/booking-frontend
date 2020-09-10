@@ -63,11 +63,9 @@ export default ({images = []}) => {
 				</a> */}
 				<div className='owl-carousel owl-theme'>
 					{images.map((v, index) => (
-						<img
-							src={`${process.env.REACT_APP_BASE_URL}/${v.url}`}
-							alt='Image'
-							className='img-responsive'
-							style={{height: 'auto'}}
+						<div
+							class='item img-container'
+							style={{backgroundImage: `url(${process.env.REACT_APP_BASE_URL + '/' + v.url})`}}
 						/>
 					))}
 				</div>

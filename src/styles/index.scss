@@ -704,15 +704,25 @@ footer {
 // Image Gallery
 .img-gallery {
 	.active-image-container {
-		// min-width: 400px;
-		// max-width: 1000px;
-		// min-height: 400px;
-		// max-height: 1000px;
-		height: 70vh;
 
-		img {
-			max-height: 100%;
+		.img-container {
+			width: 100%;
+			height: 70vh;
+			// background: url('bootstrap/img/bg.jpg') no-repeat center center fixed;
+			-webkit-background-size: contain;
+			-moz-background-size: contain;
+			-o-background-size: contain;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
 		}
+
+
+		// img {
+		// 	height: 700px;
+		// 	width: 700px;
+		// 	object-fit: contain;
+		// }
 	}
 }
 
