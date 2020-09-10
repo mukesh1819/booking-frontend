@@ -28,14 +28,14 @@ class PaymentForm extends Component {
 	}
 
 	componentDidUpdate() {
-		// if (this.state.action !== null) {
-		// 	document.getElementById('pay-form').submit();
-		// }
-		makePayment(this.props.transaction)
-			.then((response) => {
-				history.push(`/payment_success/${this.props.idx}`);
-			})
-			.catch((error) => console.log('Payment Error', error));
+		if (this.state.action !== null) {
+			document.getElementById('pay-form').submit();
+		}
+		// makePayment(this.props.transaction)
+		// 	.then((response) => {
+		// 		history.push(`/payment_success/${this.props.idx}`);
+		// 	})
+		// 	.catch((error) => console.log('Payment Error', error));
 	}
 
 	render() {
