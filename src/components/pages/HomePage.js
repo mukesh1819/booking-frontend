@@ -18,7 +18,7 @@ class HomePage extends Component {
         const { t, i18n } = this.props;
         return (
             <React.Fragment>
-                {/* <nav>
+                <nav>
                     <div className="container">
                         <div
                             className="nav nav-tabs nav-fill"
@@ -26,28 +26,30 @@ class HomePage extends Component {
                             role="tablist"
                         >
                             <a
-								className='nav-item nav-link active'
-								id='nav-flights-tab'
-								data-toggle='tab'
-								href='#nav-flights'
-								role='tab'
-								aria-controls='nav-flights'
-								aria-selected='true'
-							>
-								<i className='fas fa-plane departure' />&nbsp; {t('Flights')}
-							</a>
+                                className="nav-item nav-link active"
+                                id="nav-flights-tab"
+                                data-toggle="tab"
+                                href="#nav-flights"
+                                role="tab"
+                                aria-controls="nav-flights"
+                                aria-selected="true"
+                            >
+                                <i className="fas fa-plane departure" />
+                                &nbsp; {t("Flights")}
+                            </a>
 
-							<a
-								className='nav-item nav-link'
-								id='nav-packages-tab'
-								data-toggle='tab'
-								href='#nav-packages'
-								role='tab'
-								aria-controls='nav-packages'
-								aria-selected='false'
-							>
-								<i className='fas fa-briefcase' />&nbsp; {t('Packages')}
-							</a> 
+                            <a
+                                className="nav-item nav-link"
+                                id="nav-packages-tab"
+                                data-toggle="tab"
+                                href="#nav-packages"
+                                role="tab"
+                                aria-controls="nav-packages"
+                                aria-selected="false"
+                            >
+                                <i className="fas fa-briefcase" />
+                                &nbsp; {t("Packages")}
+                            </a>
 
                             <a
                                 className="nav-item nav-link"
@@ -63,10 +65,10 @@ class HomePage extends Component {
                             </a>
                         </div>
                     </div>
-                </nav> */}
+                </nav>
                 <div className="tab-content px-sm-0" id="nav-tabContent">
                     <div
-                        className="tab-pane fade"
+                        className="tab-pane fade show active"
                         id="nav-flights"
                         role="tabpanel"
                         aria-labelledby="nav-flights-tab"
@@ -122,7 +124,7 @@ class HomePage extends Component {
                         </section>
                     </div>
                     <div
-                        className="tab-pane show fade active"
+                        className="tab-pane"
                         id="nav-rentals"
                         role="tabpanel"
                         aria-labelledby="nav-rentals-tab"
