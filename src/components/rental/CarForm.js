@@ -220,7 +220,7 @@ class CarForm extends Component {
 															search
 															selection
 															options={partners.map(function(partner) {
-																name = partner.first_name + ' ' + partner.last_name;
+																name = partner.first_name + ' ' + partner.last_name + ' (' + partner.company_name + ')';
 																return {
 																	key: partner.id,
 																	value: partner.id,
