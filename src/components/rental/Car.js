@@ -67,10 +67,21 @@ const Car = function (props) {
                             >
                                 <div>
                                     <h2 className="ui header">
-                                        Rs. {numberWithCommas(car.price)}{" "}
-                                        <span className="text-small text-muted">
-                                            /day
-                                        </span>
+                                        {car.price && (
+                                            <span>
+                                                Rs.{" "}
+                                                {numberWithCommas(car.price)}
+                                                <span className="text-small text-muted">
+                                                    /day
+                                                </span>
+                                            </span>
+                                        )}
+                                        {!car.price && (
+                                            <span className="text-small text-muted">
+                                                Price will be finalized on
+                                                booking.
+                                            </span>
+                                        )}
                                     </h2>
                                     <button className="ui primary button">
                                         Select

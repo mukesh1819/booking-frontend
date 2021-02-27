@@ -42,6 +42,7 @@ class CarList extends Component {
             loading: true,
             cars: [],
             vehicle_prices: [],
+            estimated_price: 0,
         };
 
         // this.onFlightSelect = this.onFlightSelect.bind(this);
@@ -96,11 +97,12 @@ class CarList extends Component {
         if (this.state.loading) {
             getCars(params)
                 .then((response) => {
-                    console.log(response.data.cars);
+                    console.log(response.data);
                     this.setState({
                         loading: false,
                         cars: response.data.cars,
                         vehicle_prices: response.data.vehicle_prices,
+                        estimated_price: response.data.estimated_price,
                     });
                 })
                 .catch((error) => {
@@ -133,6 +135,7 @@ class CarList extends Component {
             cars,
             vehicle_prices,
             selectedCar,
+            estimated_price,
         } = this.state;
         const { carInquiryDetails } = this.props;
 
@@ -184,14 +187,14 @@ class CarList extends Component {
                         </table>
                     </div>
                 )}
-
+                <div>* Prices shown below are estimated prices. </div>
                 {cars.map((car) => (
                     <div
                         className=""
                         onClick={() => this.onCarSelect(car)}
                         className=""
                     >
-                        <Car car={car} />
+                        <Car car={{ ...car, price: estimated_price }} />
                     </div>
                 ))}
             </div>
