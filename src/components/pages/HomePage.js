@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import { Container, Button, Segment } from "semantic-ui-react";
-import SearchBar from "../flights/SearchBar";
-import CarInquiryForm from "../rental/CarInquiryForm";
-import { yetiImage, buddhaImage, shreeImage } from "../../images";
-import { TabView, Slidebar, Banner } from "../shared";
-import { PackageList } from "../packages";
-import { Categories } from "../categories";
+import React, {Component} from 'react';
+import {Container, Button, Segment} from 'semantic-ui-react';
+import SearchBar from '../flights/SearchBar';
+import CarInquiryForm from '../rental/CarInquiryForm';
+import {yetiImage, buddhaImage, shreeImage} from '../../images';
+import {TabView, Slidebar, Banner} from '../shared';
+import {PackageList} from '../packages';
+import {Categories} from '../categories';
 
 class HomePage extends Component {
-    constructor(props) {
-        super(props);
-    }
+	constructor(props) {
+		super(props);
+	}
 
-    componentDidMount() {}
+	componentDidMount() {}
 
-    render() {
-        const { t, i18n } = this.props;
-        return (
-            <React.Fragment>
-                <nav>
+	render() {
+		const {t, i18n} = this.props;
+		return (
+			<React.Fragment>
+				{/* <nav>
                     <div className="container">
                         <div
                             className="nav nav-tabs nav-fill"
@@ -65,81 +65,58 @@ class HomePage extends Component {
                             </a>
                         </div>
                     </div>
-                </nav>
-                <div className="tab-content px-sm-0" id="nav-tabContent">
-                    <div
-                        className="tab-pane fade show active"
-                        id="nav-flights"
-                        role="tabpanel"
-                        aria-labelledby="nav-flights-tab"
-                    >
-                        <header id="header" className="cover" role="banner">
-                            <div className="container">
-                                <h1 className="text-white text-larger">
-                                    {t("FindAndBookFlights")} <br />{" "}
-                                    {t("WithinNepal")}
-                                </h1>
-                                <div className="airline-logos d-none">
-                                    <img
-                                        src={yetiImage}
-                                        alt="Image"
-                                        className="img-responsive"
-                                    />
-                                    <img
-                                        src={buddhaImage}
-                                        alt="Image"
-                                        className="img-responsive"
-                                    />
-                                    <img
-                                        src={shreeImage}
-                                        alt="Image"
-                                        className="img-responsive"
-                                    />
-                                </div>
-                                <SearchBar {...this.props} />
-                            </div>
-                        </header>
-                        <section className="categories">
-                            <div className="container">
-                                {/* <div className='title'>
+                </nav> */}
+				<div className='tab-content px-sm-0' id='nav-tabContent'>
+					<div className='tab-pane fade' id='nav-flights' role='tabpanel' aria-labelledby='nav-flights-tab'>
+						<header id='header' className='cover' role='banner'>
+							<div className='container'>
+								<h1 className='text-white text-larger'>
+									{t('FindAndBookFlights')} <br /> {t('WithinNepal')}
+								</h1>
+								<div className='airline-logos d-none'>
+									<img src={yetiImage} alt='Image' className='img-responsive' />
+									<img src={buddhaImage} alt='Image' className='img-responsive' />
+									<img src={shreeImage} alt='Image' className='img-responsive' />
+								</div>
+								<SearchBar {...this.props} />
+							</div>
+						</header>
+						<section className='categories'>
+							<div className='container'>
+								{/* <div className='title'>
 							<h2 className='text-center'> Things to do </h2>
 						</div> */}
-                                <Categories {...this.props} />
-                            </div>
-                        </section>
-                    </div>
-                    <div
-                        className="tab-pane fade"
-                        id="nav-packages"
-                        role="tabpanel"
-                        aria-labelledby="nav-packages-tab"
-                    >
-                        <section className="categories">
-                            <div className="container">
-                                {/* <div className='title'>
+								<Categories {...this.props} />
+							</div>
+						</section>
+					</div>
+					<div className='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
+						<section className='categories'>
+							<div className='container'>
+								{/* <div className='title'>
 							<h2 className='text-center'> Things to do </h2>
 						</div> */}
-                                <Categories {...this.props} />
-                            </div>
-                        </section>
-                    </div>
-                    <div
-                        className="tab-pane"
-                        id="nav-rentals"
-                        role="tabpanel"
-                        aria-labelledby="nav-rentals-tab"
-                    >
-                        <header id="header" className="cover" role="banner">
-                            <div className="container">
-                                <h1 className="text-white text-larger">
-                                    {t("Rent Cars")} <br /> {t("WithinNepal")}
-                                </h1>
-                                <CarInquiryForm {...this.props} />
-                            </div>
-                        </header>
-                    </div>
-                </div>
-                {/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
+								<Categories {...this.props} />
+							</div>
+						</section>
+					</div>
+					<div
+						className='tab-pane fade show active'
+						id='nav-rentals'
+						role='tabpanel'
+						aria-labelledby='nav-rentals-tab'
+					>
+						<header id='header' className='cover' role='banner'>
+							<div className='container'>
+								<h1 className='text-white text-larger'>
+									{t('Rent Cars')} <br /> {t('WithinNepal')}
+								</h1>
+								<CarInquiryForm {...this.props} />
+							</div>
+						</header>
+					</div>
+				</div>
+				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>
 					<Tab eventKey='flights' title='Flights'>
 						<HomePage />
 					</Tab>
@@ -150,9 +127,9 @@ class HomePage extends Component {
 						</div>
 					</Tab>
 				</Tabs> */}
-            </React.Fragment>
-        );
-    }
+			</React.Fragment>
+		);
+	}
 }
 
 export default HomePage;

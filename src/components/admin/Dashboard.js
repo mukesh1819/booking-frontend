@@ -188,6 +188,25 @@ class Dashboard extends Component {
                                         <div className="card-body">
                                             <div className="text-center">
                                                 <span className="count">
+                                                    {summary}
+                                                </span>
+                                                <hr />
+                                                <Link
+                                                    to="/admin/summaries"
+                                                    className="action"
+                                                >
+                                                    View all Summary
+                                                    Transactions
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="widget col-sm-12 col-md-4">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="text-center">
+                                                <span className="count">
                                                     {faq}
                                                 </span>
                                                 <hr />
@@ -278,6 +297,26 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="widget col-sm-12 col-md-4">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="text-center">
+                                                <span className="count">
+                                                    {partners}
+                                                </span>
+                                                <hr />
+                                                <Link
+                                                    to="/admin/partners"
+                                                    className="action"
+                                                >
+                                                    View all Partners
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="widget col-sm-12 col-md-4">
                                     <div className="card">
                                         <div className="card-body">
@@ -394,29 +433,7 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </Fragment>
-                        )}
 
-                        {(section == "" || section == "#partners") && (
-                            <Fragment>
-                                <div className="widget col-sm-12 col-md-4">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <div className="text-center">
-                                                <span className="count">
-                                                    {partners}
-                                                </span>
-                                                <hr />
-                                                <Link
-                                                    to="/admin/partners"
-                                                    className="action"
-                                                >
-                                                    View all Package Partners
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div className="widget col-sm-12 col-md-4">
                                     <div className="card">
@@ -430,27 +447,7 @@ class Dashboard extends Component {
                                                     to="/admin/rental_partners"
                                                     className="action"
                                                 >
-                                                    View all Rental Partners
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="widget col-sm-12 col-md-4">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <div className="text-center">
-                                                <span className="count">
-                                                    {summary}
-                                                </span>
-                                                <hr />
-                                                <Link
-                                                    to="/admin/summaries"
-                                                    className="action"
-                                                >
-                                                    View all Summary
-                                                    Transactions
+                                                    View all Partners
                                                 </Link>
                                             </div>
                                         </div>

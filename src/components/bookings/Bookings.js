@@ -39,7 +39,8 @@ export default function Bookings() {
 					<div className='card-body'>
 						<div className='row'>
 							<div className='col-12 p-0'>
-								<Tab menu={{secondary: true}} panes={panes} />
+								{/* <Tab menu={{secondary: true}} panes={panes} /> */}
+								<RentalBookings />
 							</div>
 						</div>
 					</div>
