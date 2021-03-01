@@ -398,7 +398,7 @@ class CarInquiryForm extends Component {
                                                         );
                                                     }}
                                                     onAddItem={(e, data) => {
-                                                        values.source =
+                                                        values.destination =
                                                             data.value;
                                                         this.setState({
                                                             locations: locations.prepend(
