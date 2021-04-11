@@ -18,14 +18,14 @@ class HomePage extends Component {
 		const {t, i18n} = this.props;
 		return (
 			<React.Fragment>
-				{/* <nav>
+				<nav>
                     <div className="container">
                         <div
                             className="nav nav-tabs nav-fill"
                             id="nav-tab"
                             role="tablist"
                         >
-                            <a
+                            {/* <a
                                 className="nav-item nav-link active"
                                 id="nav-flights-tab"
                                 data-toggle="tab"
@@ -36,7 +36,7 @@ class HomePage extends Component {
                             >
                                 <i className="fas fa-plane departure" />
                                 &nbsp; {t("Flights")}
-                            </a>
+                            </a> */}
 
                             <a
                                 className="nav-item nav-link"
@@ -65,7 +65,7 @@ class HomePage extends Component {
                             </a>
                         </div>
                     </div>
-                </nav> */}
+                </nav>
 				<div className='tab-content px-sm-0' id='nav-tabContent'>
 					<div className='tab-pane fade' id='nav-flights' role='tabpanel' aria-labelledby='nav-flights-tab'>
 						<header id='header' className='cover' role='banner'>
@@ -90,7 +90,7 @@ class HomePage extends Component {
 							</div>
 						</section>
 					</div>
-					<div className='tab-pane fade' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
+					<div className='tab-pane fade show active' id='nav-packages' role='tabpanel' aria-labelledby='nav-packages-tab'>
 						<section className='categories'>
 							<div className='container'>
 								{/* <div className='title'>
@@ -101,7 +101,7 @@ class HomePage extends Component {
 						</section>
 					</div>
 					<div
-						className='tab-pane fade show active'
+						className='tab-pane fade'
 						id='nav-rentals'
 						role='tabpanel'
 						aria-labelledby='nav-rentals-tab'
