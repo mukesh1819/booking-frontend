@@ -114,6 +114,15 @@ class HomePage extends Component {
 								<CarInquiryForm {...this.props} />
 							</div>
 						</header>
+
+						<section className='categories'>
+							<div className='container'>
+								{/* <div className='title'>
+							<h2 className='text-center'> Things to do </h2>
+						</div> */}
+								<Categories {...this.props} />
+							</div>
+						</section>
 					</div>
 				</div>
 				{/* <Tabs id='home-tab' activeKey={key} className='dnav-fill' onSelect={(k) => this.setKey(k)}>

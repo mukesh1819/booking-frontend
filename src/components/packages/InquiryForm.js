@@ -63,7 +63,7 @@ const InquiryForm = (props) => {
 		email_address: yup.string().email().required('Required'),
 		phone: phoneValidate(yup).required('Required'),
 		nationality: yup.string().required('Required'),
-		address: alphaNumericValidate(yup).required('Required'),
+		address: yup.string().required('Required'),
 		city: textValidate(yup).required('Required'),
 		// preferred_date: yup.date().required('Required').default(function() {
 		// 	return new Date();
@@ -290,6 +290,7 @@ const InquiryForm = (props) => {
 									</div>
 								</div>
 							</div>
+							
 							<div className='inquirer-details '>
 								<div className='input-section padded bg-primary-light'>
 									<div className='row'>
@@ -309,7 +310,8 @@ const InquiryForm = (props) => {
 														placeholder='First Name'
 													/>
 												</Form.Field>
-												<ErrorMessage name='first_name' />
+												{/* <ErrorMessage name='first_name' /> */}
+												{errors.first_name && <span className="ui tiny red header">{errors.first_name}</span>}
 											</div>
 										</div>
 										<div className='col-12 col-md-6'>
@@ -328,7 +330,9 @@ const InquiryForm = (props) => {
 														placeholder='Last Name'
 													/>
 												</Form.Field>
-												<ErrorMessage name='last_name' />
+												{/* <ErrorMessage name='last_name' /> */}
+												{errors.last_name && <span className="ui tiny red header">{errors.last_name}</span>}
+
 											</div>
 										</div>
 									</div>
@@ -349,7 +353,8 @@ const InquiryForm = (props) => {
 														placeholder='Email Address'
 													/>
 												</Form.Field>
-												<ErrorMessage name='email_address' />
+												{/* <ErrorMessage name='email_address' /> */}
+												{errors.email_address && <span className="ui tiny red header">{errors.email_address}</span>}
 											</div>
 										</div>
 										<div className='col-12 col-md-6'>
@@ -362,6 +367,7 @@ const InquiryForm = (props) => {
 																className='dropdown'
 																defaultValue={values.code}
 																name='code'
+																defaultValue="+977"
 																placeholder='Code'
 																onBlur={handleBlur}
 																onChange={(e, data) => {
@@ -387,7 +393,8 @@ const InquiryForm = (props) => {
 														placeholder='Mobile Number'
 													/>
 												</Form.Field>
-												<ErrorMessage name='phone' />
+												{/* <ErrorMessage name='phone' /> */}
+												{errors.phone && <span className="ui tiny red header">{errors.phone}</span>}
 											</div>
 										</div>
 									</div>
@@ -411,7 +418,8 @@ const InquiryForm = (props) => {
 													selection
 													options={countries}
 												/>
-												<ErrorMessage name='nationality' />
+												{/* <ErrorMessage name='nationality' /> */}
+												{errors.nationality && <span className="ui tiny red header">{errors.nationality}</span>}
 											</div>
 										</div>
 										<div className='col-12 col-md-6'>
@@ -430,7 +438,9 @@ const InquiryForm = (props) => {
 														placeholder='City'
 													/>
 												</Form.Field>
-												<ErrorMessage name='city' />
+												{/* <ErrorMessage name='city' /> */}
+												{errors.city && <span className="ui tiny red header">{errors.city}</span>}
+
 											</div>
 										</div>
 									</div>
@@ -451,7 +461,8 @@ const InquiryForm = (props) => {
 														placeholder='Address'
 													/>
 												</Form.Field>
-												<ErrorMessage name='address' />
+												{/* <ErrorMessage name='address' /> */}
+												{errors.address && <span className="ui tiny red header">{errors.address}</span>}
 											</div>
 										</div>
 										<div className='col-12 col-md-6'>
@@ -474,23 +485,26 @@ const InquiryForm = (props) => {
 											</div>
 										</div>
 									</div>
-									<div className='col-12'>
-										<div className='field-box'>
-											<Checkbox
-												label={'I am one of the traveller'}
-												onChange={(event, data) => {
-													setFieldValue('traveller', data.checked);
-													data.checked &&
-														setFieldValue('head_traveller_name', values.first_name);
-												}}
-												name='traveller'
-												className=''
-												type='checkbox'
-												checked={values.traveller}
-												onBlur={handleBlur}
-											/>
+									<div className="row">
+										<div className='col-12'>
+											<div className='field-box'>
+												<Checkbox
+													label={'I am one of the traveller'}
+													onChange={(event, data) => {
+														setFieldValue('traveller', data.checked);
+														data.checked &&
+															setFieldValue('head_traveller_name', values.first_name);
+													}}
+													name='traveller'
+													className=''
+													type='checkbox'
+													checked={values.traveller}
+													onBlur={handleBlur}
+												/>
+											</div>
 										</div>
 									</div>
+									
 								</div>
 							</div>
 
@@ -554,8 +568,10 @@ const InquiryForm = (props) => {
 														}
 													/>
 												</Dropdown>
-												<ErrorMessage name='number_of_adult' />
-												<ErrorMessage name='number_of_child' />
+												{/* <ErrorMessage name='number_of_adult' />
+												<ErrorMessage name='number_of_child' /> */}
+												{errors.number_of_adult && <span className="ui tiny red header">{errors.number_of_adult}</span>}
+												{errors.number_of_child && <span className="ui tiny red header">{errors.number_of_child}</span>}
 											</div>
 										</div>
 										<div className='col-12 col-md-6'>
@@ -575,10 +591,12 @@ const InquiryForm = (props) => {
 															placeholder='Name of Head Traveller'
 														/>
 													</Form.Field>
-													<ErrorMessage name='head_traveller_name' />
+													{/* <ErrorMessage name='head_traveller_name' /> */}
+													{errors.head_traveller_name && <span className="ui tiny red header">{errors.head_traveller_name}</span>}
 												</div>
 											)}
 										</div>
+										
 										<div className='col-12'>
 											<div className='field-box'>
 												<label htmlFor=''>Special Request</label>

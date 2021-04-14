@@ -43,7 +43,7 @@ class Categories extends Component {
 							"<i class='fas fa-chevron-circle-left text-primary'></i>",
 							"<i class='fas fa-chevron-circle-right text-primary'></i>"
 						],
-						loop: true
+						loop: false
 					}
 				}
 			};

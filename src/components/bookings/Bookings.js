@@ -6,18 +6,18 @@ import {Tab} from 'semantic-ui-react';
 
 export default function Bookings() {
 	const panes = [
-		{
-			menuItem: 'Flights',
-			render: () => (
-				<Tab.Pane attached={false}>
-					<FlightBookings />
-				</Tab.Pane>
-			)
-		},
+		// {
+		// 	menuItem: 'Flights',
+		// 	render: () => (
+		// 		<Tab.Pane attached={false}>
+		// 			<FlightBookings />
+		// 		</Tab.Pane>
+		// 	)
+		// },
 		{
 			menuItem: 'Packages',
 			render: () => (
-				<Tab.Pane attached={false}>
+				<Tab.Pane attached={true}>
 					<PackageBookings />
 				</Tab.Pane>
 			)
@@ -39,8 +39,7 @@ export default function Bookings() {
 					<div className='card-body'>
 						<div className='row'>
 							<div className='col-12 p-0'>
-								{/* <Tab menu={{secondary: true}} panes={panes} /> */}
-								<RentalBookings />
+								<Tab menu={{secondary: true}} panes={panes} />
 							</div>
 						</div>
 					</div>
