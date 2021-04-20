@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import {getVehicles} from '../../api/vehicleApi';
+import {getRouteRates} from '../../api/vehicleApi';
 import swal from 'sweetalert';
 import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown, Pagination} from 'semantic-ui-react';
@@ -10,11 +10,11 @@ import queryString from 'query-string';
 import {CustomMenu} from './Menu';
 import moment from 'moment';
 
-class VehicleTypeList extends Component {
+class RouteRateList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vehicleTypes: [],
+			routeRates: [],
 			pagination: {}
 		};
 	}
@@ -22,7 +22,7 @@ class VehicleTypeList extends Component {
 	changeCurrentPage = (e, {activePage}) => {
 		var searchQuery = `?page=${activePage}`;
 		this.setState({currentPage: activePage});
-		this.fetchVehicleTypeLists({page: activePage});
+		this.fetchRouteRateLists({page: activePage});
 		history.push({
 			pathname: window.location.pathname,
 			search: searchQuery
@@ -31,7 +31,7 @@ class VehicleTypeList extends Component {
 
 	componentDidMount() {
 		passCsrfToken(document, axios);
-		this.fetchVehicleTypeLists(queryString.parse(this.props.location.search));
+		this.fetchRouteRateLists(queryString.parse(this.props.location.search));
 	}
 
 	// handleItemClick = (e, {name}) => {
@@ -48,12 +48,12 @@ class VehicleTypeList extends Component {
 	// 	this.setState({activeIndex: newIndex});
 	// };
 
-	fetchVehicleTypeLists = (params) => {
-		getVehicles(params)
+	fetchRouteRateLists = (params) => {
+		getRouteRates(params)
 			.then((response) => {
-				// console.log('List of Packages', response.data);
+				console.log('List of Rates', response.data);
 				this.setState({
-					vehicleTypes: response.data.vehicle_types,
+					routeRates: response.data.route_rates,
 					pagination: response.data.meta.pagination
 				});
 			})
@@ -104,12 +104,12 @@ class VehicleTypeList extends Component {
 
 	onFilter = (values) => {
 		this.setState({
-			vehicleTypes: values.vehicle_types
+			routeRates: values.route_rates
 		});
 	};
 
 	render() {
-		const {vehicleTypes, pagination} = this.state;
+		const {routeRates, pagination} = this.state;
 		const filterFields = [
 			// {
 			// 	name: 'category_eq',
@@ -128,27 +128,21 @@ class VehicleTypeList extends Component {
 				type: 'date'
             },
             {
-                name: 'no_of_seats_cont',
-                label: 'No of Seats',
-                type: 'text'
-            },
-
-            {
                 label: 'Name',
                 type: 'text',
-                name: 'name_cont'	
+                name: 'vehicle_type_name_cont'	
             }
 		];
 		return (
 			<div className='ui container'>
 				<div className='d-flex justify-content-between'>
-					<h3 className='title'>Vehicle Type List</h3>
+					<h3 className='title'>Route Rate List</h3>
 					{/* <Link to='/admin/faq/faq_form' className='btn bg-none color-accent'>
 						Add Faq
 					</Link> */}
 				</div>
 				<CustomMenu
-					submitUrl='vehicle_types'
+					submitUrl='route_rates'
 					filterFields={filterFields}
 					onFilter={(values) => this.onFilter(values)}
 					items={[
@@ -170,21 +164,23 @@ class VehicleTypeList extends Component {
 							<thead>
 								<tr>
 									<th>S. No.</th>
-									<th>Name</th>
-									<th>Created At</th>
-									<th>No of Seats</th>
+									<th>Vehicle</th>
+									<th>From</th>
+									<th>To</th>
+									<th>Rate</th>
 									{/* <th>Actions</th> */}
 								</tr>
 							</thead>
 
 							<tbody>
-								{vehicleTypes.map((vehicleType, index) => {
+								{routeRates.map((routeRate, index) => {
 									return (
 										<tr>
 											<td>{index + 1}</td>
-											<td>{vehicleType.name}</td>
-											<td>{moment(vehicleType.created_at).format('D MMMM, YYYY')}</td>
-											<td>{vehicleType.no_of_seats} </td>
+											<td>{routeRate.vehicle_type.name}</td>
+											<td>{routeRate.source}</td>
+											<td>{routeRate.destination}</td>
+											<td>{routeRate.price} </td>
 											{/* <td>
 												<Link
 													to={{
@@ -236,4 +232,4 @@ class VehicleTypeList extends Component {
 		);
 	}
 }
-export default VehicleTypeList;
+export default RouteRateList;

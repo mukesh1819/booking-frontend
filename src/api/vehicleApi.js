@@ -11,3 +11,21 @@ export function getVehicles(params) {
 		params: params
 	});
 }
+
+
+export function getVehicleRates(params) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/vehicle_rates`,
+		params: params
+	});
+}
+
+
+export function getRouteRates(params) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/route_rates`,
+		params: params
+	});
+}

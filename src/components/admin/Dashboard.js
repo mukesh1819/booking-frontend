@@ -38,6 +38,8 @@ class Dashboard extends Component {
                     location: response.data.location_count,
                     carInquiry: response.data.car_inquiry_count,
                     vehicleType: response.data.vehicle_type_count,
+                    vehicleRates: response.data.vehicle_rate_count,
+                    routeRates: response.data.route_rate_count,
                     service_transaction:
                         response.data.service_transaction_count,
                     summary: response.data.summary_count,
@@ -67,6 +69,8 @@ class Dashboard extends Component {
             location,
             carInquiry,
             vehicleType,
+            vehicleRates,
+            routeRates,
             service_transaction,
             summary,
             addon,
@@ -372,6 +376,44 @@ class Dashboard extends Component {
                                                     className="action"
                                                 >
                                                     View all Vehicle Type
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="widget col-sm-12 col-md-4">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="text-center">
+                                                <span className="count">
+                                                    {vehicleRates}
+                                                </span>
+                                                <hr />
+                                                <Link
+                                                    to="/admin/vehicle_rates"
+                                                    className="action"
+                                                >
+                                                    View all Vehicle Rates
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="widget col-sm-12 col-md-4">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="text-center">
+                                                <span className="count">
+                                                    {routeRates}
+                                                </span>
+                                                <hr />
+                                                <Link
+                                                    to="/admin/route_rates"
+                                                    className="action"
+                                                >
+                                                    View all Route Rates
                                                 </Link>
                                             </div>
                                         </div>

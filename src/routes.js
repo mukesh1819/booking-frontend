@@ -81,6 +81,8 @@ import LocationList from './components/admin/LocationList';
 import LocationForm from './components/rental/LocationForm';
 import CarInquiryList from './components/admin/CarInquiryList';
 import VehicleTypeList from './components/admin/VehicleTypeList';
+import VehicleRateList from './components/admin/VehicleRateList';
+import RouteRateList from './components/admin/RouteRateList';
 import CarInquiryDetails from './components/admin/CarInquiryDetails';
 import ServiceTransactions from './components/admin/ServiceTransactions';
 import ServiceTransactionForm from './components/admin/ServiceTransactionForm';
@@ -171,6 +173,8 @@ const routes = [
 	},
 
 	{private: true, path: '/admin/vehicle_types', component: VehicleTypeList, layout: AdminLayout},
+	{private: true, path: '/admin/vehicle_rates', component: VehicleRateList, layout: AdminLayout},
+	{private: true, path: '/admin/route_rates', component: RouteRateList, layout: AdminLayout},
 	{private: true, path: '/admin/locations', component: LocationList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiries', component: CarInquiryList, layout: AdminLayout},
 	{private: true, path: '/admin/car_inquiry_details/:idx', component: CarInquiryDetails, layout: AdminLayout},

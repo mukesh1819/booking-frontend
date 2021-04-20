@@ -28,7 +28,7 @@ import ReactDOM from "react-dom";
 import { setCarInquiryDetails } from "../../redux/actions";
 import { connect } from "react-redux";
 
-import { getVehicles } from "../../api/vehicleTypeApi";
+import { getVehicles } from "../../api/vehicleApi";
 import { createCarInquiry, updateCarInquiry } from "../../api/carInquiryApi";
 import { getLocations } from "../../api/locationApi";
 import {
