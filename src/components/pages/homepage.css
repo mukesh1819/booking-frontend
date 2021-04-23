@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:700|Noticia+Text:400i&display=swap");
+
+.testimonial {
+  /* center the article in the viewport */
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  /* include an off-white background */
+  background: hsl(250, 85%, 97%);
+  /* add perspective for the rotation of the article, added through the script */
+  perspective: 500px;
+  min-height: 100%;
+  background-color: #f4f7fc;
+}
+
+article {
+  /* limit the width of the article container */
+  width: 350px;
+  /* display the contents in a column */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: hsl(0, 0%, 100%);
+  line-height: 2;
+  border-radius: 10px;
+  margin: 0.5rem;
+  /* transition for the transform property, updated in the script */
+  transition: transform 0.2s ease-out;
+  box-shadow: 0 0 5px -2px hsla(0, 0%, 0%, 0.1);
+}
+article figure {
+  /* limit the width and height of the figure to show the image in a circle */
+  max-width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  /* specify negative margin matching half the height of the element */
+  margin-top: 10px;
+  /* position relative for the pseudo element */
+  position: relative;
+}
+article figure:before {
+  /* add a border around the figure matching the color of the background, faking the clip */
+  content: "";
+  border-radius: inherit;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  border: 1rem solid hsl(250, 85%, 97%);
+  box-shadow: 0 1px hsla(0, 0%, 0%, 0.1);
+}
+article figure img {
+  /* stretch the image to cover the size of the wrapping container */
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  /* object fit to maintain the aspect ratio and fit the width/height */
+  object-fit: cover;
+}
+
+article div {
+  /* center the text in the div container */
+  text-align: center;
+  margin: 2rem;
+}
+article div p {
+  color: hsl(250, 5%, 45%);
+  font-weight: 400;
+  font-style: italic;
+  margin: 1rem 0 3rem;
+  font-family: "Noticia Text", serif;
+  /* position relative for the pseudo element */
+  position: relative;
+  z-index: 5;
+}
+article div p:before {
+  /* with SVG elements include two icons for the quote */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  z-index: -5;
+  opacity: 0.05;
+  /* position the icons at either end of the paragraph, rotate the second to have a mirrorer image */
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="70" height="70"><rect x="0" y="40" width="30" height="30"></rect><path d="M 0 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path><rect x="40" y="40" width="30" height="30"></rect><path d="M 40 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="70" height="70" transform="rotate(180)"><rect x="0" y="40" width="30" height="30"></rect><path d="M 0 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path><rect x="40" y="40" width="30" height="30"></rect><path d="M 40 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path></svg>');
+  background-position: 20% 20%, 80% 80%;
+  background-repeat: no-repeat;
+}
+article div h1 {
+  /* considerably reduce the size of the heading */
+  color: hsl(260, 5%, 55%);
+  font-family: "Lato", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+.owl-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  border-radius: 2px;
+}
+.contact-card-ul {
+  margin-left: 0;
+}
+.headingtext-contact-container {
+  display: flex;
+  justify-content: center;
+}
+.contactus_card .list-group-item {
+  margin: 0;
+  padding: 5px;
+}
+.contactus_card .card-body {
+  padding: 0;
+}
+.list-group-item span {
+  margin-left: 5px;
+  padding: 5px;
+}
+.contactus_card {
+  margin-bottom: 10px;
+  max-width: 70%;
+  border-radius: 5%;
+}
+.heading-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+}
+.owl-stage {
+  display: flex;
+}
+.contact-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+}
+.card-title {
+  color: white;
+  font-size: 18px;
+  padding: 0px;
+  font-size: 28px;
+  margin-bottom: 8px;
+  margin-left: 4;
+}
+@media only screen and (max-width: 600px) {
+  .contactus_card {
+    font-size: 10px;
+    max-width: 100%;
+  }
+  .text-larger {
+    font-size: 15px;
+  }
+  .card-title {
+    font-size: 19px;
+    text-align: center;
+  }
+}
