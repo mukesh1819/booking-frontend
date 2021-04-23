@@ -45,7 +45,7 @@ class PartnerForm extends Component {
       first_name: textValidate(yup).required("Required"),
       last_name: textValidate(yup).required("Required"),
       email: yup.string().email().required("Required"),
-      // code: yup.string().typeError('Select a code').required('Required'),
+      // code: yup.string().required().default('+977'),
       contact_number: phoneValidate(yup).required("Required"),
       // country: yup.string().required('Required'),
       city: textValidate(yup).required("Required"),
@@ -55,9 +55,9 @@ class PartnerForm extends Component {
       first_name: userName === null ? "" : userName[0],
       last_name: userName[1] === null ? "" : userName[1],
       email: currentUser === null ? "" : currentUser.email,
-      code: currentUser === null ? "" : currentUser.code,
+      code: "+977",
       contact_number: currentUser === null ? "" : currentUser.phone_number,
-      country: currentUser === null ? "" : currentUser.country,
+      country: "NP",
       city: "",
     };
 
