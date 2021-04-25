@@ -195,7 +195,7 @@ class CarInquiryForm extends Component {
                             setFieldValue("destination", "");
                           }}
                         >
-                          Multi City
+                          Car Rentals
                         </span>
                         {/* <span
                                                     className={

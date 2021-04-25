@@ -63,22 +63,8 @@ class HomePage extends Component {
                                 <i className="fas fa-plane departure" />
                                 &nbsp; {t("Flights")}
                             </a> */}
-
               <a
                 className="nav-item nav-link active"
-                id="nav-packages-tab"
-                data-toggle="tab"
-                href="#nav-packages"
-                role="tab"
-                aria-controls="nav-packages"
-                aria-selected="false"
-              >
-                <i className="fas fa-briefcase" />
-                &nbsp; {t("Packages")}
-              </a>
-
-              <a
-                className="nav-item nav-link"
                 id="nav-rentals-tab"
                 data-toggle="tab"
                 href="#nav-rentals"
@@ -88,6 +74,18 @@ class HomePage extends Component {
               >
                 <i className="fas fa-car" />
                 &nbsp; {t("Rentals")}
+              </a>
+              <a
+                className="nav-item nav-link"
+                id="nav-packages-tab"
+                data-toggle="tab"
+                href="#nav-packages"
+                role="tab"
+                aria-controls="nav-packages"
+                aria-selected="false"
+              >
+                <i className="fas fa-briefcase" />
+                &nbsp; {t("Packages")}
               </a>
             </div>
           </div>
@@ -130,7 +128,7 @@ class HomePage extends Component {
             </section>
           </div>
           <div
-            className="tab-pane fade show active"
+            className="tab-pane fade"
             id="nav-packages"
             role="tabpanel"
             aria-labelledby="nav-packages-tab"
@@ -145,7 +143,7 @@ class HomePage extends Component {
             </section>
           </div>
           <div
-            className="tab-pane fade"
+            className="tab-pane fade show active"
             id="nav-rentals"
             role="tabpanel"
             aria-labelledby="nav-rentals-tab"
@@ -193,7 +191,7 @@ class HomePage extends Component {
                                 className="fa fa-envelope "
                                 style={{ color: "red" }}
                               ></i>
-                              <span>bookingnepalnp@gmail.com</span>
+                              <span>info@visitallnepal.com</span>
                             </li>
                           </li>
                         </ul>
@@ -234,7 +232,7 @@ class HomePage extends Component {
                       destinations. Also Couldn’t find a better price for
                       packages myself! Keep it up.
                     </p>
-                    <h1>Pradeep Kumar Mishra</h1>
+                    <h1>Samrat Pradhan</h1>
                   </div>
                 </article>
                 <article>
@@ -249,7 +247,7 @@ class HomePage extends Component {
                       Feels like a good friend who knows me is making a holiday
                       packages for myself.
                     </p>
-                    <h1>Chandra Prakash</h1>
+                    <h1>Sumit Shakya</h1>
                   </div>
                 </article>
                 <article>
@@ -265,7 +263,7 @@ class HomePage extends Component {
                       need to find the phone numbers and keep calling. Solved my
                       long awaiting problem. Keep up the good work!!
                     </p>
-                    <h1>Vaibhav Sharma</h1>
+                    <h1>Mahesh Gautam</h1>
                   </div>
                 </article>
                 <article>
@@ -281,7 +279,7 @@ class HomePage extends Component {
                       helped us decide quickly & after research elsewhere, we
                       came back to book the holiday trip here. Highly recommend!
                     </p>
-                    <h1>Swatantra Singh</h1>
+                    <h1>Aayush Raut</h1>
                   </div>
                 </article>
               </div>

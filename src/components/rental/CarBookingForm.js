@@ -100,7 +100,7 @@ class CarBookingForm extends Component {
 								.then((response) => {
 									setSubmitting(false);
 									swal({
-										title: 'Car Booking created!',
+										title: 'Yayy!! Your booking has been processed. We will get back to you asap with the confirmation!!',
 										text: response.data.message,
 										icon: 'success',
 										button: 'Continue'
