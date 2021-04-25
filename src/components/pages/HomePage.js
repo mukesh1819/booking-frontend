@@ -219,6 +219,7 @@ class HomePage extends Component {
               </div>
             </header>
             <section>
+              <div className="container">
               <div className="testimonial owl-carousel owl-theme">
                 <article>
                   <figure>
@@ -237,6 +238,7 @@ class HomePage extends Component {
                     <h1>Pradeep Kumar Mishra</h1>
                   </div>
                 </article>
+
                 <article>
                   <figure>
                     <img
@@ -284,7 +286,29 @@ class HomePage extends Component {
                     <h1>Swatantra Singh</h1>
                   </div>
                 </article>
+
+                <article>
+                  <figure>
+                    <img
+                      alt="visitallnepal"
+                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                    />
+                  </figure>
+                  <div>
+                    <p>
+                      Must say that we found the best app for planning our tour
+                      to allow us to easily book the car for our planned
+                      destinations. Also Couldn’t find a better price for
+                      packages myself! Keep it up.
+                    </p>
+                    <h1>Pradeep Kumar Mishra</h1>
+                  </div>
+                </article>
+
+                
               </div>
+              </div>
+
             </section>
           </div>
         </div>
