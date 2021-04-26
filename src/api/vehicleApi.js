@@ -29,3 +29,33 @@ export function getRouteRates(params) {
 		params: params
 	});
 }
+
+export function createRouteRate(data) {
+	return axios({
+		method: 'post',
+		url: `${API_URL}/route_rates`,
+		data: {route_rate: data}
+	});
+}
+
+export function showRouteRate(id) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/route_rates/${id}`
+	});
+}
+
+export function updateRouteRate(id, data) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/route_rates/${id}`,
+		data: {route_rate: data}
+	});
+}
+
+export function deleteRouteRate(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/route_rates/${id}`
+	});
+}

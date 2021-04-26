@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import {getRouteRates} from '../../api/vehicleApi';
+import {getRouteRates, deleteRouteRate} from '../../api/vehicleApi';
 import swal from 'sweetalert';
 import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown, Pagination} from 'semantic-ui-react';
@@ -62,45 +62,26 @@ class RouteRateList extends Component {
 			});
 	};
 
-	// destroyFaq(id) {
-		// deleteFaq(id)
-		// 	.then((response) => {
-		// 		swal({
-		// 			title: 'Faq deleted!',
-		// 			text: `this Faq is deleted`,
-		// 			icon: 'success',
-		// 			button: 'Continue!'
-		// 		});
-		// 		history.go();
-		// 	})
-		// 	.catch((error) => {
-		// 		swal({
-		// 			title: 'Faq Delete error',
-		// 			text: 'Something went wrong. please try again or contact us',
-		// 			icon: 'error',
-		// 			button: 'Continue!'
-		// 		});
-		// 	});
-
-	// 	swal({
-	// 		title: 'Are you sure?',
-	// 		text: 'Once delete, your faq will be deleted',
-	// 		icon: 'warning',
-	// 		buttons: true,
-	// 		dangerMode: true
-	// 	}).then((willDelete) => {
-	// 		if (willDelete) {
-	// 			deleteFaq(id).then((response) => {
-	// 				swal('this faq is deleted', {
-	// 					icon: 'success'
-	// 				});
-	// 				history.go();
-	// 			});
-	// 		} else {
-	// 			swal('Your faq is not deleted yet');
-	// 		}
-	// 	});
-	// }
+	destroyRouteRate(id) {
+		swal({
+			title: 'Are you sure?',
+			text: 'Do you want to delete this route rate?',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteRouteRate(id).then((response) => {
+					swal('Route rate deleted', {
+						icon: 'success'
+					});
+					history.go();
+				});
+			} else {
+				swal('Route rate not deleted yet.');
+			}
+		});
+	}
 
 	onFilter = (values) => {
 		this.setState({
@@ -137,18 +118,15 @@ class RouteRateList extends Component {
 			<div className='ui container'>
 				<div className='d-flex justify-content-between'>
 					<h3 className='title'>Route Rate List</h3>
-					{/* <Link to='/admin/faq/faq_form' className='btn bg-none color-accent'>
-						Add Faq
-					</Link> */}
+					<Link to='/admin/route_rate/route_rate_form' className='btn bg-none color-accent'>
+						Add Route Rate
+					</Link>
 				</div>
 				<CustomMenu
 					submitUrl='route_rates'
 					filterFields={filterFields}
 					onFilter={(values) => this.onFilter(values)}
 					items={[
-						
-                        
-            
 					]}
 				/>
 
@@ -168,7 +146,7 @@ class RouteRateList extends Component {
 									<th>From</th>
 									<th>To</th>
 									<th>Rate</th>
-									{/* <th>Actions</th> */}
+									<th>Actions</th>
 								</tr>
 							</thead>
 
@@ -181,24 +159,12 @@ class RouteRateList extends Component {
 											<td>{routeRate.source}</td>
 											<td>{routeRate.destination}</td>
 											<td>{routeRate.price} </td>
-											{/* <td>
+											<td>
 												<Link
 													to={{
-														pathname: `/admin/category_details/${category.idx}`,
+														pathname: `/admin/route_rate/route_rate_form/${routeRate.idx}`,
 														state: {
-															category: category
-														}
-													}}
-												>
-													<i className='fas fa-contact' />
-													<span className='btn bg-none text-primary'>view</span>
-												</Link>
-
-												<Link
-													to={{
-														pathname: '/admin/category_form',
-														state: {
-															category: category
+															routeRate: routeRate
 														}
 													}}
 												>
@@ -207,11 +173,11 @@ class RouteRateList extends Component {
 												</Link>
 												<span
 													className='btn bg-none text-danger'
-													onClick={() => this.destroyCategory(category.idx)}
+													onClick={() => this.destroyRouteRate(routeRate.idx)}
 												>
 													Delete
 												</span>
-											</td> */}
+											</td>
 										</tr>
 									);
 								})}
