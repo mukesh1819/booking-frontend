@@ -4,6 +4,14 @@ import {handleResponse, handleError, useInterceptor} from './apiUtils';
 
 useInterceptor(axios);
 
+export function getAllLocations(params) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/locations`,
+		params: params
+	});
+}
+
 export function getLocations(params) {
 	return axios({
 		method: 'get',

@@ -133,7 +133,7 @@ const InquiryForm = (props) => {
               .then((response) => {
                 setSubmitting(false);
                 swal({
-                  title: "Inquiry Submitted!",
+                  title: "Yayy!! Your enquiry has been Processed. We will get back to you asap with the Confirmation!!",
                   text: response.data.message,
                   icon: "success",
                   button: "Continue",

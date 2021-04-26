@@ -30,7 +30,7 @@ import { connect } from "react-redux";
 
 import { getVehicles } from "../../api/vehicleApi";
 import { createCarInquiry, updateCarInquiry } from "../../api/carInquiryApi";
-import { getLocations } from "../../api/locationApi";
+import { getAllLocations } from "../../api/locationApi";
 import {
   phoneValidate,
   textValidate,
@@ -70,12 +70,12 @@ class CarInquiryForm extends Component {
         console.log("fetch vehicle error", error);
       });
 
-    getLocations()
+    getAllLocations()
       .then((response) => {
         this.setState({
-          locations: response.data.locations,
+          locations: response.data,
         });
-        console.log("locations list ", response.data.locations);
+        console.log("locations list ", response.data);
       })
       .catch((error) => {
         console.log("fetch location error", error);
@@ -195,7 +195,7 @@ class CarInquiryForm extends Component {
                             setFieldValue("destination", "");
                           }}
                         >
-                          Multi City
+                          Car Rentals
                         </span>
                         {/* <span
                                                     className={

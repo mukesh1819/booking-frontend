@@ -93,7 +93,7 @@ const NavBar = ({
                         style={{ color: "red" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
-                        bookingnepalnp@gmail.com
+                      info@visitallnepal.com
                       </span>
                     </li>
                   </ul>
