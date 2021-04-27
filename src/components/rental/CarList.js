@@ -166,6 +166,16 @@ class CarList extends Component {
                         )}
                     </div>
                 </div>
+                <div>* Prices shown below are estimated prices. </div>
+                {cars.map((car) => (
+                    <div
+                        className=""
+                        onClick={() => this.onCarSelect(car)}
+                        className=""
+                    >
+                        <Car car={{ ...car, price: estimated_price }} />
+                    </div>
+                ))}
                 {vehicle_prices.length > 0 && (
                     <div className="card mb-4">
                         <table className="ui fluid basic table">
@@ -187,16 +197,6 @@ class CarList extends Component {
                         </table>
                     </div>
                 )}
-                <div>* Prices shown below are estimated prices. </div>
-                {cars.map((car) => (
-                    <div
-                        className=""
-                        onClick={() => this.onCarSelect(car)}
-                        className=""
-                    >
-                        <Car car={{ ...car, price: estimated_price }} />
-                    </div>
-                ))}
             </div>
         );
     }
