@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {passCsrfToken, toTableData} from '../../helpers';
-import {getVehicleRates} from '../../api/vehicleApi';
+import {getVehicleRates, deleteVehicleRate} from '../../api/vehicleApi';
 import swal from 'sweetalert';
 import history from '../../history';
 import {Accordion, Icon, Menu, Segment, Input, Card, Dropdown, Pagination} from 'semantic-ui-react';
@@ -62,45 +62,26 @@ class VehicleRateList extends Component {
 			});
 	};
 
-	// destroyFaq(id) {
-		// deleteFaq(id)
-		// 	.then((response) => {
-		// 		swal({
-		// 			title: 'Faq deleted!',
-		// 			text: `this Faq is deleted`,
-		// 			icon: 'success',
-		// 			button: 'Continue!'
-		// 		});
-		// 		history.go();
-		// 	})
-		// 	.catch((error) => {
-		// 		swal({
-		// 			title: 'Faq Delete error',
-		// 			text: 'Something went wrong. please try again or contact us',
-		// 			icon: 'error',
-		// 			button: 'Continue!'
-		// 		});
-		// 	});
-
-	// 	swal({
-	// 		title: 'Are you sure?',
-	// 		text: 'Once delete, your faq will be deleted',
-	// 		icon: 'warning',
-	// 		buttons: true,
-	// 		dangerMode: true
-	// 	}).then((willDelete) => {
-	// 		if (willDelete) {
-	// 			deleteFaq(id).then((response) => {
-	// 				swal('this faq is deleted', {
-	// 					icon: 'success'
-	// 				});
-	// 				history.go();
-	// 			});
-	// 		} else {
-	// 			swal('Your faq is not deleted yet');
-	// 		}
-	// 	});
-	// }
+	destroyRouteRate(id) {
+		swal({
+			title: 'Are you sure?',
+			text: 'Do you want to delete this vehicle rate?',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteVehicleRate(id).then((response) => {
+					swal('Vehicle rate deleted', {
+						icon: 'success'
+					});
+					history.go();
+				});
+			} else {
+				swal('Vehicle rate not deleted yet.');
+			}
+		});
+	}
 
 	onFilter = (values) => {
 		this.setState({
@@ -137,9 +118,9 @@ class VehicleRateList extends Component {
 			<div className='ui container'>
 				<div className='d-flex justify-content-between'>
 					<h3 className='title'>Vehicle Rate List</h3>
-					{/* <Link to='/admin/faq/faq_form' className='btn bg-none color-accent'>
-						Add Faq
-					</Link> */}
+					<Link to='/admin/vehicle_rate/vehicle_rate_form' className='btn bg-none color-accent'>
+						Add Vehicle Rate
+					</Link>
 				</div>
 				<CustomMenu
 					submitUrl='vehicle_rates'
@@ -167,7 +148,7 @@ class VehicleRateList extends Component {
 									<th>Vehicle</th>
 									<th>Description</th>
 									<th>Rate</th>
-									{/* <th>Actions</th> */}
+									<th>Actions</th>
 								</tr>
 							</thead>
 
@@ -178,25 +159,13 @@ class VehicleRateList extends Component {
 											<td>{index + 1}</td>
 											<td>{vehicleRate.vehicle_type.name}</td>
 											<td>{vehicleRate.description}</td>
-											<td>{vehicleRate.rate} </td>
-											{/* <td>
+											<td>{vehicleRate.price} </td>
+											<td>
 												<Link
 													to={{
-														pathname: `/admin/category_details/${category.idx}`,
+														pathname: `/admin/vehicle_rate/vehicle_rate_form/${vehicleRate.idx}`,
 														state: {
-															category: category
-														}
-													}}
-												>
-													<i className='fas fa-contact' />
-													<span className='btn bg-none text-primary'>view</span>
-												</Link>
-
-												<Link
-													to={{
-														pathname: '/admin/category_form',
-														state: {
-															category: category
+															vehicleRate: vehicleRate
 														}
 													}}
 												>
@@ -205,11 +174,11 @@ class VehicleRateList extends Component {
 												</Link>
 												<span
 													className='btn bg-none text-danger'
-													onClick={() => this.destroyCategory(category.idx)}
+													onClick={() => this.destroyVehicleRate(vehicleRate.idx)}
 												>
 													Delete
 												</span>
-											</td> */}
+											</td>
 										</tr>
 									);
 								})}

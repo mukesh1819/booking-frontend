@@ -21,6 +21,35 @@ export function getVehicleRates(params) {
 	});
 }
 
+export function createVehicleRate(data) {
+	return axios({
+		method: 'post',
+		url: `${API_URL}/vehicle_rates`,
+		data: {vehicle_rate: data}
+	});
+}
+
+export function showVehicleRate(id) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/vehicle_rates/${id}`
+	});
+}
+
+export function updateVehicleRate(id, data) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/vehicle_rates/${id}`,
+		data: {vehicle_rate: data}
+	});
+}
+
+export function deleteVehicleRate(id) {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/vehicle_rates/${id}`
+	});
+}
 
 export function getRouteRates(params) {
 	return axios({

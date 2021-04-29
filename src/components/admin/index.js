@@ -16,6 +16,7 @@ import TransactionApiResponse from './TransactionApiResponse';
 import PartnerList from './PartnerDetails';
 import PackagesList from './PackagesList';
 import RouteRateForm from './RouteRateForm';
+import VehicleRateForm from './VehicleRateForm';
 
 export {
 	ApiResponse,
