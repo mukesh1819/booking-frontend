@@ -390,7 +390,7 @@ class CarInquiryForm extends Component {
                           return {
                             key: vehicle.id,
                             value: vehicle.name,
-                            text: vehicle.name,
+                            text: vehicle.name + " " + "(" +vehicle.no_of_seats + " seats)",
                           };
                         })}
                       />
