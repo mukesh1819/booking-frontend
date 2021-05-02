@@ -17,6 +17,9 @@ export default ({type = 'light', content, children}) => {
 		case 'confirmed':
 			design = 'success';
 			break;
+		case 'completed':
+			design = 'success';
+			break;
 		case 'approved':
 			design = 'success';
 			break;
