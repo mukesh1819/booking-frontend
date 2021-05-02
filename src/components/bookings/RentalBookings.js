@@ -79,7 +79,7 @@ class RentalBookings extends Component {
 									<div className=''>
 										<Badge type={booking.status}>{booking.status}</Badge>
 									</div>
-									{(booking.status == 'completed' || booking.status == 'verified') && (
+									{(booking.status == 'completed' || booking.status == 'verified' || booking.status == "approved") && (
 										<Link
 											to={{
 												pathname: `/car_bookings/${booking.idx}`

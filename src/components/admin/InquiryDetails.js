@@ -62,7 +62,9 @@ class InquiryDetails extends Component {
 			this.setState({
 				inquiry: response.data || {}
 			});
-			getPackageBookingDetails(response.data.package_booking.idx)
+			if(response.data.package_booking){
+
+				getPackageBookingDetails(response.data.package_booking.idx)
 				.then((response) => {
 					this.setState({
 						packageBooking: response.data
@@ -76,6 +78,9 @@ class InquiryDetails extends Component {
 						button: 'Continue!'
 					});
 				});
+
+			}
+			
 		});
 		getPartners()
 			.then((response) => {
