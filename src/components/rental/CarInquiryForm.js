@@ -343,7 +343,7 @@ class CarInquiryForm extends Component {
                           selection
                           options={locations
                             .filter((v) => {
-                              var predicate = values.airport_dropoff
+                              var predicate = values.airport_transfer && values.airport_dropoff
                                 ? "airport"
                                 : "city";
                               return (
