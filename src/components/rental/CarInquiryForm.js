@@ -119,6 +119,7 @@ class CarInquiryForm extends Component {
       within_city: carInquiry.within_city,
       multi_city: !carInquiry.multi_city,
       airport_transfer: false,
+      airport_pickup: true
     };
     var max_seat = 0;
     var vehicle_max_pax = {};
@@ -245,7 +246,7 @@ class CarInquiryForm extends Component {
                             <Radio
                               label="Airport Pickup"
                               className="pr-4"
-                              checked={values.airport_pickup}
+                              checked={values.airport_transfer && values.airport_pickup}
                               onChange={(e, data) => {
                                 setFieldValue("airport_pickup", data.checked);
                                 setFieldValue("airport_dropoff", !data.checked);

@@ -213,7 +213,7 @@ class CarBookingDetails extends Component {
 						)}
 					</div>
 
-					{carBooking.status === 'completed' && (
+					{(carBooking.status == 'completed'  || carBooking.status == 'verified' || carBooking.status == "approved") && (
 						<span className='text-center py-4'>
 							<Button
 								primary
