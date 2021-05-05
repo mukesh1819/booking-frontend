@@ -31,12 +31,12 @@ const AdminLayout = ({currentUser, children, logoutUser}) => {
 			value: '',
 			active: section == 'rentals'
 		},
-		{
-			icon: 'fas fa-user',
-			name: 'partners',
-			label: 'Partners',
-			active: section == 'partners'
-		},
+		// {
+		// 	icon: 'fas fa-user',
+		// 	name: 'partners',
+		// 	label: 'Partners',
+		// 	active: section == 'partners'
+		// },
 		{
 			icon: 'fas fa-users',
 			name: 'users',
