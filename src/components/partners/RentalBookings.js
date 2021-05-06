@@ -41,7 +41,7 @@ const RentalBookings = (props) => {
 							<tr>
 								<td data-label='contact_name'>{carBooking.contact_name}</td>
 								<td data-label='amount'>{moment(carBooking.pickup_date).format('D MMMM, YYYY')}</td>
-								<td data-label='date'>{carBooking.amount}</td>
+								<td data-label='date'>{carBooking.partner_amount}</td>
 								<td>
 									<span
 										onClick={() => setViewDetails(carBooking)}

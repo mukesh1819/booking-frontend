@@ -88,6 +88,8 @@ class CarBookingDetails extends Component {
 
 		const booleans = pick(carBooking.car_inquiry, ['within_city']);
 
+		const driverInfo = pick(carBooking, ['driver_name', 'driver_contact', 'car_number', 'car_color']);
+
 		return (
 			<div className='ui segment container'>
 				<div className='ui internally celled stackable grid'>
@@ -172,6 +174,22 @@ class CarBookingDetails extends Component {
 									</div>
 								))}
 							</div>
+
+							<h3 className='ui header'> Driver Info </h3>
+							{carBooking.is_visible && <div className='ui grid'>
+								{Object.entries(driverInfo).map(([key, value]) => (
+									<div className='row'>
+										<div className='eight wide column'>{key.titleize()}:</div>
+										<div className='eight wide column'>{value}</div>
+									</div>
+								))}
+							</div>}
+
+							{!carBooking.is_visible && (
+								<div className='ui message info'>
+									Driver info will be visible once booking before 24 hrs of service.
+								</div>
+							)}
 						</div>
 						<div className='eight wide column'>
 							<h3 className='ui header'>Other Details</h3>
@@ -195,6 +213,7 @@ class CarBookingDetails extends Component {
 							</div>
 						</div>
 					</div>
+					
 					<div className='text-center'>
 						{carBooking.status === 'processing' && (
 							<Fragment>
