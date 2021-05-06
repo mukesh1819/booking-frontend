@@ -62,8 +62,8 @@ const NavBar = ({
                   <ul>
                     <li>
                       <i
-                        className="fa fa-phone  "
-                        style={{ color: "black" }}
+                        className="fa fa-phone fa-2 "
+                        style={{ color: "#263f71" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
                         +977-9819615916
@@ -71,7 +71,7 @@ const NavBar = ({
                     </li>
                     <li>
                       <i
-                        className="fab fa-viber "
+                        className="fab fa-viber fa-2 "
                         style={{ color: "purple" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
@@ -80,7 +80,7 @@ const NavBar = ({
                     </li>
                     <li>
                       <i
-                        className="fab fa-whatsapp "
+                        className="fab fa-whatsapp fa-2 "
                         style={{ color: "green" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
@@ -89,8 +89,8 @@ const NavBar = ({
                     </li>
                     <li>
                       <i
-                        className="fa fa-envelope "
-                        style={{ color: "red" }}
+                        className="fa fa-envelope fa-2 "
+                        style={{ color: "#263f71" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
                       info@visitallnepal.com
