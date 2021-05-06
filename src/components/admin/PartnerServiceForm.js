@@ -95,7 +95,8 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 						/>
 						<ErrorMessage name={`partner_services_attributes[${index}].details`} />
 					</div>
-					<div className='row'>
+
+					{/* <div className='row'>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
 								<label className='d-block'> Start Date </label>
@@ -138,8 +139,9 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 								<ErrorMessage name='end_date' />
 							</div>
 						</div>
-					</div>
-					<div className='row'>
+					</div> */}
+
+					{/* <div className='row'>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
 								<label className='d-block'> Pickup Date </label>
@@ -182,7 +184,8 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 								<ErrorMessage name='drop_off_date' />
 							</div>
 						</div>
-					</div>
+					</div> */}
+
 					<div className='row'>
 						<div className='col-12 col-md-6'>
 							<div className='field-box'>
