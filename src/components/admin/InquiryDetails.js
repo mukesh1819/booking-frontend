@@ -148,6 +148,7 @@ class InquiryDetails extends Component {
 			drop_off_date: yup.date().default(function() {
 				return new Date();
 			}),
+			amount: yup.number(),
 			pickup_location: yup.string(),
 			drop_off_location: yup.string(),
 			remarks: yup.string(),
@@ -182,6 +183,7 @@ class InquiryDetails extends Component {
 			end_date: date,
 			pickup_date: date,
 			pickup_location: '',
+			amount: inquiry.number_of_adult * inquiry.total_amount,
 			drop_off_date: date,
 			drop_off_location: '',
 			meals_included: false,
@@ -367,6 +369,40 @@ class InquiryDetails extends Component {
 														</div>
 
 														<div className='row'>
+															<div className='col-12 col-md-6'>
+																<div className='field-box'>
+																	<label className='d-block'>Amount</label>
+
+																	<Field
+																		name='amount'
+																		className='form-control'
+																		onBlur={handleBlur}
+																		onChange={handleChange}
+																		value={values.amount}
+																	/>
+
+																	<ErrorMessage name='amount' />
+																</div>
+															</div>
+
+															<div className='col-12 col-md-6'>
+																<div className='field-box'>
+																	<label>Remarks</label>
+
+																	<Field
+																		name='remarks'
+																		className='form-control'
+																		onBlur={handleBlur}
+																		onChange={handleChange}
+																		value={values.remarks}
+																	/>
+
+																	<ErrorMessage name='remarks' />
+																</div>
+															</div>
+														</div>
+
+														<div className='row'>
 															<div className='col-12'>
 																<div className='field-box'>
 																	<Checkbox
@@ -383,24 +419,6 @@ class InquiryDetails extends Component {
 																		checked={values.meals_included}
 																	/>
 																	<ErrorMessage name='meals_included' />
-																</div>
-															</div>
-														</div>
-
-														<div className='row'>
-															<div className='col-12'>
-																<div className='field-box'>
-																	<label>Remarks</label>
-
-																	<Field
-																		name='remarks'
-																		className='form-control'
-																		onBlur={handleBlur}
-																		onChange={handleChange}
-																		value={values.remarks}
-																	/>
-
-																	<ErrorMessage name='remarks' />
 																</div>
 															</div>
 														</div>

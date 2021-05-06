@@ -79,7 +79,7 @@ const Services = (props) => {
 						)}
 						{!service.is_visible && (
 							<div className='ui message info'>
-								Contact info will be visible once booking is confirmed.
+								Contact info will be visible before 24 hrs of service.
 							</div>
 						)}
 					</div>

@@ -187,7 +187,7 @@ class CarBookingDetails extends Component {
 
 							{!carBooking.is_visible && (
 								<div className='ui message info'>
-									Driver info will be visible once booking before 24 hrs of service.
+									Driver info will be visible before 24 hrs of service.
 								</div>
 							)}
 						</div>

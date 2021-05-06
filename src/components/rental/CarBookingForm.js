@@ -68,7 +68,7 @@ class CarBookingForm extends Component {
 		return (
 			<div className='container bg-white'>
 				{carBooking.idx == null && (
-					<div className='ui info message fludi'>Estimated Price: {car.price * inquiry.no_of_days}</div>
+					<div className='ui info message fluid'>Estimated Price: {car.price * inquiry.no_of_days} / day</div>
 				)}
 				<Formik
 					initialValues={bookingDetails}
