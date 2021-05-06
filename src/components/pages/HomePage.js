@@ -167,29 +167,27 @@ class HomePage extends Component {
                           <li className="contact-card">
                             <li className="list-group-item">
                               <i
-                                className="fa fa-phone  "
-                                style={{ color: "black" }}
+                                className="fa fa-phone fa-2"
                               ></i>
                               <span>+977-9819615916</span>
                             </li>
                             <li className="list-group-item">
                               <i
-                                className="fab fa-viber "
+                                className="fab fa-viber fa-2"
                                 style={{ color: "purple" }}
                               ></i>
                               <span>+977-9819615916</span>
                             </li>
                             <li className="list-group-item">
                               <i
-                                className="fab fa-whatsapp "
+                                className="fab fa-whatsapp fa-2"
                                 style={{ color: "green" }}
                               ></i>
                               <span>+977-9819615916</span>
                             </li>
                             <li className="list-group-item">
                               <i
-                                className="fa fa-envelope "
-                                style={{ color: "red" }}
+                                className="fa fa-envelope fa-2"
                               ></i>
                               <span>info@visitallnepal.com</span>
                             </li>
