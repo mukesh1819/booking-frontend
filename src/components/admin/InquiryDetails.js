@@ -183,7 +183,7 @@ class InquiryDetails extends Component {
 			end_date: date,
 			pickup_date: date,
 			pickup_location: '',
-			amount: inquiry.number_of_adult * inquiry.total_amount,
+			amount: inquiry.total_amount,
 			drop_off_date: date,
 			drop_off_location: '',
 			meals_included: false,
