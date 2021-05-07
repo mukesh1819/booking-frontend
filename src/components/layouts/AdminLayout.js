@@ -8,28 +8,35 @@ import history from '../../history';
 
 const AdminLayout = ({currentUser, children, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
-	const [section, setSection] = useState(undefined);
+	const [section, setSection] = useState('');
 
 	const sideBarMenu = [
+    {
+      icon: 'fas fa-columns',
+			name: '',
+			label: 'My Dashboard',
+			value: '',
+			active: section === ''
+		},
 		{
 			icon: 'fas fa-plane departure',
 			name: 'flights',
 			label: 'Flights',
 			value: '',
-			active: section == 'flights'
+			active: section === 'flights'
 		},
 		{
 			icon: 'fas fa-briefcase',
 			name: 'packages',
 			label: 'Packages',
-			active: section == 'packages'
+			active: section === 'packages'
 		},
 		{
 			icon: 'fas fa-car',
 			name: 'rentals',
 			label: 'Rentals',
 			value: '',
-			active: section == 'rentals'
+			active: section === 'rentals'
 		},
 		// {
 		// 	icon: 'fas fa-user',
@@ -65,7 +72,7 @@ const AdminLayout = ({currentUser, children, logoutUser}) => {
 			<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 				<div className='container align-items-stretch'>
 					<div className='navbar-header d-flex align-items-center'>
-						<Link to='/admin' className='navbar-brand animated bounce delay-2s'>
+						<Link to='/' className='navbar-brand animated bounce delay-2s'>
 							{process.env.REACT_APP_URL}
 						</Link>
 					</div>
@@ -105,7 +112,10 @@ const AdminLayout = ({currentUser, children, logoutUser}) => {
 			</nav>
 			<div className='row'>
 				<div className='d-none d-md-block col-md-2 p-0'>
-					<Sidebar items={sideBarMenu} onItemSelect={(data) => history.push(`/admin#${data}`)} />
+					<Sidebar items={sideBarMenu} onItemSelect={(data) => {
+            setSection(data)
+            history.push(`/admin#${data}`);
+          }} />
 				</div>
 				<div div className='col-12 col-md-10 p-4'>
 					{children}

@@ -10,10 +10,17 @@ import {useTranslation, initReactI18next} from 'react-i18next';
 
 const PartnerLayout = ({currentUser, children}) => {
 	const loggedIn = currentUser.email !== undefined;
-	const [section, setSection] = useState(undefined);
+	const [section, setSection] = useState('');
 	const {t, i18n} = useTranslation();
 
 	const sideBarMenu = [
+    {
+      icon: 'fas fa-columns',
+			name: '',
+			label: 'My Dashboard',
+			value: '',
+			active: section === ''
+		},
 		{
 			icon: 'fas fa-briefcase',
 			name: 'packages',
@@ -41,7 +48,7 @@ const PartnerLayout = ({currentUser, children}) => {
 			<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 				<div className='container align-items-stretch'>
 					<div className='navbar-header d-flex align-items-center'>
-						<Link to='/partner' className='navbar-brand animated bounce delay-2s'>
+						<Link to='/' className='navbar-brand animated bounce delay-2s'>
 							{process.env.REACT_APP_URL}
 						</Link>
 					</div>
@@ -86,7 +93,10 @@ const PartnerLayout = ({currentUser, children}) => {
 			</nav>
 			<div className='row'>
 				<div className='d-none d-md-block col-md-2 p-0'>
-					<Sidebar items={sideBarMenu} onItemSelect={(data) => history.push(`/partner#${data}`)} />
+					<Sidebar items={sideBarMenu} onItemSelect={(data) => {
+            setSection(data)
+            history.push(`/partner#${data}`)}
+          } />
 				</div>
 				<div div className='col-12 col-md-10 p-4'>
 					{children}

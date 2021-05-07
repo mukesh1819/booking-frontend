@@ -47,7 +47,7 @@ const NavBar = ({
             <i className={sideBarIsVisible ? "icon-cross" : "icon-menu"} />
           </button>
           <Link
-            to={roleBasedUrl(currentUser.role, "/")}
+            to="/"
             className="navbar-brand animated bounce delay-2s"
           >
             <span>{t("visitallnepal")}</span>
@@ -56,6 +56,20 @@ const NavBar = ({
 
         <div className="navbar-collapse collapse align-items-stretch">
           <span className="navbar-nav ml-auto align-items-stretch">
+
+          { currentUser.role && ( currentUser.role === 'Admin' || currentUser.role === 'Partner' ) && 
+              <NavLink
+                className="link text-white"
+                to={roleBasedUrl(currentUser.role, "/")}
+                activeStyle={{
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                }}
+              >
+                {t("Mydashboard")}
+              </NavLink>
+          }
+            
             <Dropdown title={"Contact"} className="text-white px-3">
               <div className="d-flex select-countries text-normal">
                 <div>
