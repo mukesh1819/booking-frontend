@@ -18,6 +18,7 @@ import {Tab, Checkbox} from 'semantic-ui-react';
 import {AddonForm} from '../packages';
 
 export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
+  const approvedPartner = partners.filter((partner)=>partner.status === "approved");
 	const [editMode, setEditMode] = useState(false);
 
 	const idToAddonMap = (addons) => {
@@ -58,8 +59,8 @@ export default ({inquiry, partners = [], index, partner, onChange, onBlur}) => {
 							fluid
 							search
 							selection
-							options={partners.map(function(partner) {
-								name = partner.first_name + ' ' + partner.last_name;
+							options={approvedPartner.map(function(partner) {
+                  name = partner.first_name + ' ' + partner.last_name;
 								return {
 									key: partner.id,
 									value: partner.id,
