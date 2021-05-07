@@ -22,13 +22,20 @@ class Dashboard extends Component {
 				service_transactions: []
 			}
 		};
-	}
+  }
+
 
 	componentDidMount() {
-		passCsrfToken(document, axios);
+    passCsrfToken(document, axios);
+    this.setState({partner: {
+      partner_services: [],
+      car_bookings: [],
+      service_transactions: []
+    }});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+    console.log("pramod");
 		if (this.props.currentUser.email != null && prevState.partner.id == null) {
 			this.fetchPartner();
 		}
