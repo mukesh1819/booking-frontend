@@ -34,3 +34,11 @@ export function makePayment(transaction) {
 		}
 	});
 }
+
+export function payWithKhalti(payload) {
+	return axios({
+		method: 'post',
+		url: `${API_URL}/payments/pay_with_khalti.json`,
+		data: payload
+	});
+}

@@ -25,7 +25,6 @@ class CarBookingDetails extends Component {
 			carBooking: {},
 			showPaymentPage: false,
 			loading: false,
-			showKhaltiPaymentPage: false
 		};
 	}
 
@@ -50,9 +49,9 @@ class CarBookingDetails extends Component {
 
 	checkout = (booking) => {
 		checkOutWithKhalti({
-			productIdentity: booking.idx,
+			productIdentity: booking.booking_transaction.idx,
 			productName: 'RENTAL',
-			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.idx}`,
+			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.booking_transaction.idx}`,
 			amount: booking.amount
 		});
 	};
@@ -70,10 +69,6 @@ class CarBookingDetails extends Component {
 		const {carBooking, loading} = this.state;
 		if (this.state.showPaymentPage) {
 			return <PaymentForm transaction={carBooking.booking_transaction} idx={carBooking.idx} />;
-		}
-
-		if (this.state.showKhaltiPaymentPage) {
-			return <KhaltiForm transaction={carBooking.booking_transaction} idx={carBooking.idx} />;
 		}
 
 		const inquiryInfo = pick(carBooking.car_inquiry, [
