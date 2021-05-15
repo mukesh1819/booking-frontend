@@ -12,6 +12,14 @@ export function getPartners(params) {
 	});
 }
 
+export function getAllPartners(params) {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/admin/partners`,
+		params: params
+	});
+}
+
 export function showPartner(id) {
 	return axios({
 		method: 'get',

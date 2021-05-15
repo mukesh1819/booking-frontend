@@ -256,7 +256,6 @@ class CarBookingForm extends Component {
 													onChange={(date) => setFieldValue('pickup_time', date)}
 													value={values.pickup_time}
 													placeholder='Pickup time'
-													showTimeSelectOnly
 												/>
 												<ErrorMessage name='pickup_time' />
 											</div>
@@ -296,7 +295,6 @@ class CarBookingForm extends Component {
 													onChange={(date) => setFieldValue('drop_off_time', date)}
 													value={values.drop_off_time}
 													placeholder='Drop-off time'
-													showTimeSelectOnly
 												/>
 												<ErrorMessage name='drop_off_time' />
 											</div>
