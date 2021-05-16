@@ -36,6 +36,6 @@ export function checkOutWithKhalti(params) {
     let checkout = new KhaltiCheckout(config);
     // Multiply by 100
     checkout.show({
-        amount: params.amount * 10
+        amount: params.amount * 100
     });
 }

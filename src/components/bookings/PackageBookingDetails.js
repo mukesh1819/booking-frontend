@@ -12,7 +12,7 @@ import {Button, ButtonGroup} from 'react-bootstrap';
 import {getDuration} from '../../helpers';
 import {Package} from '../packages';
 import {fetchTicket} from '../../api/flightApi';
-import {downloadTicket} from '../../helpers';
+import {checkOutWithKhalti, downloadTicket} from '../../helpers';
 
 const ContactDetails = ({details}) => (
 	<div className='ui grid'>
@@ -57,6 +57,15 @@ class PackageBookingDetails extends Component {
 	onContinueToPayment = () => {
 		this.setState({
 			redirectToPayment: true
+		});
+	};
+
+	checkout = (booking) => {
+		checkOutWithKhalti({
+			productIdentity: booking.booking_transaction.idx,
+			productName: 'PACKAGE',
+			productUrl: `https://visitallnepal.com/admin/package_bookings/${booking.idx}`,
+			amount: booking.amount
 		});
 	};
 
@@ -171,6 +180,14 @@ class PackageBookingDetails extends Component {
 							<span onClick={this.onContinueToPayment} className='btn btn-primary'>
 								Continue to Payment
 							</span>
+
+							<div
+									className='btn btn-primary'
+									id='payment-button'
+									onClick={() => this.checkout(booking)}
+								>
+									Pay with khalti
+							</div>
 						</div>
 					)}
 					{booking.inquiry.status === 'verified' && (

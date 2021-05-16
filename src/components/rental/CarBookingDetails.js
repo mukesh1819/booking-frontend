@@ -51,7 +51,7 @@ class CarBookingDetails extends Component {
 		checkOutWithKhalti({
 			productIdentity: booking.booking_transaction.idx,
 			productName: 'RENTAL',
-			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.booking_transaction.idx}`,
+			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.idx}`,
 			amount: booking.amount
 		});
 	};
@@ -211,7 +211,7 @@ class CarBookingDetails extends Component {
 					
 					<div className='text-center'>
 						{carBooking.status === 'processing' && (
-							<Fragment>
+							<div className="text-center p-4">
 								<div className='btn btn-primary' onClick={() => this.paymentPage()}>
 									Continue to Payment
 								</div>
@@ -224,7 +224,7 @@ class CarBookingDetails extends Component {
 									Pay with khalti
 								</div>
 
-							</Fragment>
+							</div>
 						)}
 					</div>
 
