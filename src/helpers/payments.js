@@ -1,5 +1,6 @@
 import KhaltiCheckout from "khalti-checkout-web";
 import {payWithKhalti} from "../../src/api/paymentApi";
+import history from '../history';
 
 const PUBLIC_KEY = "test_public_key_39148b5c085d4de0be0d7e828d884a48";
 
@@ -15,11 +16,10 @@ export function checkOutWithKhalti(params) {
                 console.log("Khalti response", payload);
 
                 payWithKhalti(payload).then((v) => {
-                    console.log("server response", v)
+                    history.push(`/payment_success/${payload.productIdentity}`);
                 })
             },
             onError(error) {
-                debugger;
                 console.log(error);
             },
             onClose() {
