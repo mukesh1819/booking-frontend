@@ -16,7 +16,7 @@ export function checkOutWithKhalti(params) {
                 console.log("Khalti response", payload);
 
                 payWithKhalti(payload).then((v) => {
-                    history.push(`/payment_success/${params.productIdentity}`);
+                    history.push(`/payment_success/${payload.product_identity}`);
                 })
             },
             onError(error) {
