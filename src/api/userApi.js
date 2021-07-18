@@ -64,7 +64,7 @@ export function sendEmail(data) {
 export function authorizeGoogle(data) {
 	return axios({
 		method: 'post',
-		url: `${BASE_URL}/google/authorize`,
+		url: `${API_URL}/google/authorize`,
 		data: {
 			user_details: data
 		}
@@ -74,7 +74,7 @@ export function authorizeGoogle(data) {
 export function authorizeFb(data) {
 	return axios({
 		method: 'post',
-		url: `${BASE_URL}/fb/authorize`,
+		url: `${API_URL}/fb/authorize`,
 		data: {
 			user_details: data
 		}
@@ -84,7 +84,7 @@ export function authorizeFb(data) {
 export function verifyEmail(token) {
 	return axios({
 		method: 'get',
-		url: `${BASE_URL}/verify/${token}`
+		url: `${API_URL}/verify/${token}`
 	});
 }
 
@@ -105,7 +105,7 @@ export function resendConfirmationCode(id) {
 export function requestForNewPassword(data) {
 	return axios({
 		method: 'post',
-		url: `${BASE_URL}/forgot`,
+		url: `${API_URL}/forgot`,
 		data: {
 			user: data
 		}

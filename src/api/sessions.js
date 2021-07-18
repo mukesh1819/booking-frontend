@@ -7,7 +7,7 @@ useInterceptor(axios);
 export function signIn(details) {
 	return axios({
 		method: 'post',
-		url: `${BASE_URL}/login`,
+		url: `${API_URL}/login`,
 		data: details
 	});
 }
@@ -22,7 +22,7 @@ export async function signOut(params) {
 export const createUser = (details) => {
 	return axios({
 		method: 'post',
-		url: `${BASE_URL}/sign_up`,
+		url: `${API_URL}/sign_up`,
 		data: details
 	});
 };
