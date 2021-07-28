@@ -31,8 +31,6 @@ class BecomePartnerForm extends Component {
 	componentDidMount() {}
 
 	nextStep = (data) => {
-    console.log(data);
-    alert("dd");
 		this.setState((prevState) => {
 			return {
 				step: (prevState.step += 1),
