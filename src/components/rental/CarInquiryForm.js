@@ -99,12 +99,10 @@ class CarInquiryForm extends Component {
         .default(function () {
           return new Date();
         }),
-      no_of_pax: numberValidate(yup),
       no_of_days: numberValidate(yup),
     });
 
     const inquiryDetails = {
-      no_of_pax: carInquiry.no_of_pax || 1,
       source: carInquiry.source,
       destination: carInquiry.destination,
       start_time: carInquiry.start_time,
@@ -405,7 +403,7 @@ class CarInquiryForm extends Component {
                         className=" w-100"
                         type="date"
                         date={values.start_date}
-                        minDate={new Date()}
+                        minDate={subDays(new Date(), 1)}
                         maxDate={addDays(new Date(), 365)}
                         onBlur={handleBlur}
                         onChange={(date) => {
@@ -459,49 +457,6 @@ class CarInquiryForm extends Component {
                       </div>
                     )}
 
-                    <div className="field-box col">
-                      <label htmlFor="">Number of Passenger</label>
-                      <Dropdown
-                        name=""
-                        icon="users"
-                        className="icon btn-dropdown travellers"
-                        iconPosition="left"
-                        fluid
-                        selection
-                        closeOnChange={false}
-                        placeholder={"Traveller".pluralize(values.no_of_pax)}
-                        onClick={(event, data) => {
-                          event.preventDefault();
-                        }}
-                      >
-                        <Dropdown.Menu
-                          onClick={(e, data) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                          }}
-                          content={
-                            <div className="p-2">
-                              <Counter
-                                id="no_of_pax"
-                                type="number"
-                                className="m-1"
-                                max={
-                                  values.car_type ? values.max_pax : max_seat
-                                }
-                                min={1}
-                                onBlur={handleBlur}
-                                title={"Traveller".pluralize(values.no_of_pax)}
-                                onChange={(value) => {
-                                  setFieldValue("no_of_pax", value);
-                                }}
-                                value={values.no_of_pax}
-                              />
-                            </div>
-                          }
-                        />
-                      </Dropdown>
-                      <ErrorMessage name="no_of_pax" />
-                    </div>
                   </div>
 
                   <div className="row">

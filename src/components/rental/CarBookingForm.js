@@ -67,9 +67,9 @@ class CarBookingForm extends Component {
 
 		return (
 			<div className='container bg-white'>
-				{carBooking.idx == null && (
+				{/* {carBooking.idx == null && (
 					<div className='ui info message fluid'>Estimated Price: {car.price * inquiry.no_of_days} / day</div>
-				)}
+				)} */}
 				<Formik
 					initialValues={bookingDetails}
 					validationSchema={BookingSchema}
