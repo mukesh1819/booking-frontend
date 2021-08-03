@@ -110,7 +110,10 @@ export function getAdminDashboard() {
 export function getCountries() {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/countries`
+		url: `${API_URL}/countries`,
+		validateStatus: function (status) {
+			return status < 400
+		},
 	});
 }
 
@@ -121,3 +124,4 @@ export function fetchTicket(ruid) {
 		responseType: 'blob'
 	});
 }
+

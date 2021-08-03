@@ -46,7 +46,17 @@ export function useInterceptor(axios) {
 					title: error.message,
 					icon: 'error'
 				});
-			} else if (error.response.status === 401) {
+			} 
+
+			else if (error.response.status === 304) {
+				return Promise.resolve('Success')
+			} 
+			
+			else if (error.response.status === 343) {
+				history.push('/profile');
+			} 
+
+			else if (error.response.status === 401) {
 				history.push('/');
 				swal({
 					title: "Not Authorized",
@@ -60,30 +70,36 @@ export function useInterceptor(axios) {
 					history.push('/');
 				});
 
-			} else if (error.response.status === 343) {
-				history.push('/profile');
-			} else if (error.response.status === 422) {
+			}
+			
+			else if (error.response.status === 422) {
 				swal({
 					title: '',
 					text: error.response.data.errors.join("/n"),
 					icon: 'error',
 					button: 'Try Again!'
 				});
-			} else if (error.response.status === 400) {
+			} 
+			
+			else if (error.response.status === 400) {
 				swal({
 					title: error.response.data.exception,
 					text: error.response.data.message,
 					icon: 'error',
 					button: 'Try Again!'
 				});
-			} else if (error.response.status === 500) {
+			} 
+			
+			else if (error.response.status === 500) {
 				swal({
 					title: "Internal Server Error",
 					text: error.message,
 					icon: 'error',
 					button: 'Try Again!'
 				});
-			} else {}
+			}
+			
+			else {}
 
 			return error;
 

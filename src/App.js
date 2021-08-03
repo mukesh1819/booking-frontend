@@ -40,7 +40,7 @@ function App(props) {
 						props.setCountries(countries);
 					})
 					.catch((error) => {
-						console.log(error);
+						console.log("Countries list", error);
 					});
 			}
 
