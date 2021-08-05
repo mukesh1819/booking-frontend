@@ -5,6 +5,7 @@ import ErrorMessage from '../ErrorMessage';
 import * as yup from 'yup';
 import {passCsrfToken, subDays, addDays, ifNotZero} from '../../helpers';
 import history from '../../history';
+import {Modal} from '../shared';
 import {Container, Segment, Dropdown} from 'semantic-ui-react';
 import {Counter, IconInput, Loading as LoadingScreen} from '../shared';
 import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
@@ -13,12 +14,15 @@ import {phoneValidate, textValidate, alphaNumericValidate, numberValidate} from 
 import {assignPartner, getCarBookingConfirmation} from '../../api/carBookingApi';
 import {getPartners} from '../../api/partnerApi';
 import RemarksForm from '../shared/RemarksForm';
+import PartnerApprovalForm from '../partners/PartnerApprovalForm';
+import { AssignDriver } from '../partners';
 
 class AssignCarBookingForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			partners: []
+			partners: [],
+			show_approve_booking: false
 		};
 	}
 
@@ -173,11 +177,12 @@ class AssignCarBookingForm extends Component {
 										/>
 										<ErrorMessage name='partner_remarks' />
 									</Form.Field> */}
-
+									<div className="mb-2"><a className="font-weight-bold" href="#" onClick={(e) => {e.preventDefault(); this.setState({show_approve_booking: true})}}>Assign Driver Details</a></div>
 									<RemarksForm
 										remarks={[]}
 										onSubmit={(value) => setFieldValue(`partner_remarks`, value)}
 									/>
+									
 								</div>
 
 								<div className='traveller-details '>
@@ -201,6 +206,23 @@ class AssignCarBookingForm extends Component {
 						</div>
 					)}
 				</Formik>
+
+				<Modal
+					closeIcon
+					title='Assign Driver'
+					show={this.state.show_approve_booking}
+					toggle={() => {
+						this.setState({
+							show_approve_booking: !this.state.show_approve_booking
+						});
+					}}
+					onSuccess={this.onBook}
+				>
+					<AssignDriver carBooking={carBooking} onSuccess={() => {this.setState({
+						show_approve_booking: false
+					})}}/>
+
+				</Modal>
 			</div>
 		);
 	}

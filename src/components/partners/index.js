@@ -7,6 +7,7 @@ import PartnerPackageBookings from './PackageBookings';
 import PartnerCarBookings from './RentalBookings';
 import PartnerTransactions from './RentalBookings';
 import PartnerProfile from './PartnerProfile';
+import AssignDriver from './AssignDriver';
 
 export {
 	BecomePartnerForm,
@@ -16,7 +17,8 @@ export {
 	PartnerPackageBookings,
 	PartnerCarBookings,
 	PartnerTransactions,
-	PartnerProfile
+	PartnerProfile,
+	AssignDriver
 };
 
 export * from './PartnerProfile';

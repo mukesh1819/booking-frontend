@@ -56,7 +56,7 @@ class CarBookingForm extends Component {
 			pickup_location: inquiry.airport_pickup ? inquiry.source : carBooking.pickup_location,
 			drop_off_time:
 				carBooking.drop_off_date == null
-					? addDays(inquiry.start_date, inquiry.no_of_days)
+					? addDays(inquiry.start_date, (inquiry.no_of_days || 0) - 1 )
 					: new Date(carBooking.drop_off_date),
 			drop_off_location: inquiry.airport_dropoff ? inquiry.destination : carBooking.drop_off_location,
 			user_remarks: carBooking.user_remarks,

@@ -194,7 +194,7 @@ class CarBookingDetails extends Component {
                                     </span>
                                 )}
 
-                            {carBooking.status == "verified" && (
+                            {/* {carBooking.status == "verified" && (
                                 <span>
                                     <Link
                                         to={{
@@ -210,7 +210,7 @@ class CarBookingDetails extends Component {
                                         </span>
                                     </Link>
                                 </span>
-                            )}
+                            )} */}
 
                             {carBooking.status == "approved" && (
                                 <span>
