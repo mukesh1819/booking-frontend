@@ -3,6 +3,7 @@ import swal from "sweetalert";
 import { Link } from "react-router-dom";
 import history from "../../history";
 import {
+    sendCarBookingConfirmation,
     getCarBookingConfirmation,
     declineCarBooking,
     deleteCarBooking,
@@ -38,22 +39,22 @@ class CarBookingDetails extends Component {
         });
     }
 
-    // onConfirmCarBooking(id) {
+    onConfirmCarBooking(id) {
 
-    // 	getCarBookingConfirmation(id)
-    // 		.then((response) => {
-    // 			swal({
-    // 				title: 'Car Booking Confirmation!',
-    // 				text: response.data.message,
-    // 				icon: 'success',
-    // 				button: 'Continue!'
-    // 			});
-    // 			history.push('/admin/car_bookings');
-    // 		})
-    // 		.catch((error) => {
-    // 			console.log('Car booking confirmation error', error);
-    // 		});
-    // }
+    	sendCarBookingConfirmation(id)
+    		.then((response) => {
+    			swal({
+    				title: 'Car Booking Confirmation!',
+    				text: response.data.message,
+    				icon: 'success',
+    				button: 'Continue!'
+    			});
+    			history.push('/admin/car_bookings');
+    		})
+    		.catch((error) => {
+    			console.log('Car booking confirmation error', error);
+    		});
+    }
 
     onDeclineCarBooking(id) {
         declineCarBooking(id)
@@ -123,20 +124,8 @@ class CarBookingDetails extends Component {
                                 // >
                                 // 	confirm
                                 // </span>
-                                <span>
-                                    <Link
-                                        to={{
-                                            pathname: `/admin/${carBooking.idx}/assign_partner_booking_form`,
-                                            state: {
-                                                carBooking: carBooking,
-                                            },
-                                        }}
-                                    >
-                                        <i className="fas fa-contact" />
-                                        <span className="btn bg-none text-primary">
-                                            confirm
-                                        </span>
-                                    </Link>
+                                <span onClick={() => this.onConfirmCarBooking(carBooking.idx)} className="btn bg-none text-primary">
+                                            Send Confirmation to User
                                 </span>
                             )}
 

@@ -73,7 +73,7 @@ const Inquiry = (props) => {
 								Send Confirmation to User&nbsp;
 							</span>
 						)}
-						{partnerServices.length == 0 && (
+						{inquiry.status === "verified" && partnerServices.length == 0 && (
 							<span
 								onClick={() => {
 									setActions({

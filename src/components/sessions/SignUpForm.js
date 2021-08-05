@@ -54,7 +54,7 @@ class SignUpForm extends Component {
 					initialValues={{
 						name: '',
 						email: '',
-						code: '',
+						code: 'NP',
 						phone_number: '',
 						password: '',
 						password_confirmation: ''

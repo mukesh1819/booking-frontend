@@ -93,6 +93,7 @@ const InquiryForm = (props) => {
 
   const inquiryDetails = {
     ...inquiry,
+    nationality: inquiry.nationality || "NP",
     preferred_date:
       inquiry.preferred_date == null
         ? new Date()

@@ -57,6 +57,16 @@ export function showUserCarBooking(id) {
 	});
 }
 
+export function sendCarBookingConfirmation(id, details) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/admin/rentals/${id}/send_confirmation`,
+		data: {
+			car_booking: details
+		}
+	});
+}
+
 export function getCarBookingConfirmation(id, details) {
 	return axios({
 		method: 'put',
