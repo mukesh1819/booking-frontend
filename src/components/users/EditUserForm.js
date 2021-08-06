@@ -217,14 +217,14 @@ class EditUserForm extends Component {
 									</form>
 								)}
 							</Formik>
-							<br />
+							{/* <br />
 							<hr />
 							<h3 className='text-center'> Deactivate the account </h3>
 							<div className='text-center'>
 								<button className='btn btn-danger m-2' type='submit'>
 									Deactivate
 								</button>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>

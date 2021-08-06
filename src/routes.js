@@ -107,7 +107,7 @@ const routes = [
 	{private: false, path: '/about', component: InfoPage, layout: UserLayout, footer: true},
 	{private: false, path: '/partners/new', component: BecomePartnerForm, layout: UserLayout},
 	{private: false, path: '/support', component: CustomerSupport, layout: UserLayout, footer: true},
-	{private: false, path: '/not_verified', component: UserNotVerified, layout: UserLayout, footer: true},
+	{private: false, path: '/confirm', component: UserNotVerified, layout: UserLayout, footer: true},
 	{private: false, path: '/inquiry', component: InquiryForm, layout: UserLayout},
 	{private: false, path: '/verify/:token', component: VerifyUser, layout: UserLayout, footer: true},
 

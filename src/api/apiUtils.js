@@ -53,7 +53,7 @@ export function useInterceptor(axios) {
 			} 
 			
 			else if (error.response.status === 343) {
-				history.push('/profile');
+				history.push('/confirm');
 			} 
 
 			else if (error.response.status === 401) {

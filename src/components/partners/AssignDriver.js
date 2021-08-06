@@ -17,13 +17,16 @@ import {partnerApproval} from '../../api/carBookingApi';
 class AssignDriver extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			message: ""
+		};
 	}
 
 	componentDidMount() {}
 
 	render() {
 		const {carBooking} = this.props;
+		const {message} = this.state;
 
 		const PartnerApprovalSchema = yup.object().shape({
 			driver_name: textValidate(yup).required('Required'),
@@ -75,6 +78,9 @@ class AssignDriver extends Component {
 						/* and other goodies */
 					}) => (
 						<React.Fragment>
+							<div className="ui fluid message">
+								{message}
+							</div>
 							<form onSubmit={handleSubmit}>
 								<div className=''>
 									<div className='row'>

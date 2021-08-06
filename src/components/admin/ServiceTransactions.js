@@ -297,6 +297,7 @@ class ServiceTransactions extends Component {
 													<td>{moment(transaction.created_at).format('D MMMM, YYYY')}</td>
 													<td>
 														{transaction.partner && transaction.partner.first_name} {transaction.partner && transaction.partner.last_name} ({transaction.partner && transaction.partner.company_name})
+														<div>{transaction.partner && transaction.partner.email}</div>
 													</td>
 													<td>{transaction.remarks}</td>
 													<td>{transaction.payment_mode}</td>
