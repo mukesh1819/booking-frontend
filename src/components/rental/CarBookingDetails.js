@@ -17,6 +17,9 @@ import {checkOutWithKhalti, downloadTicket, pick} from '../../helpers';
 import {showUserRentalBooking} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import KhaltiCheckout from 'khalti-checkout-web';
+import KhaltiLogo from '../../images/khalti-logo.png';
+import CardLogo from '../../images/card-logo.png';
+import styles from '../../styles/payment.module.css';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -153,6 +156,27 @@ class CarBookingDetails extends Component {
 									<div className='eight wide column'> {carBooking.amount}</div>
 								</div>
 							</div>
+
+							<div className={`${styles.paymentActions} text-center mt-4`}>
+								{carBooking.status === 'processing' && (
+									<Fragment>
+										<h5 className="font-weight-bold">CONTINUE TO PAYMENT</h5>
+										<div className={`${styles.paymentBody}`}>
+											<div className={`${styles.action}`} onClick={() => this.paymentPage()}>
+												<img src={CardLogo} className='logo' style={{width: '65px'}}/>
+												<div className={`${styles.label} text-primary`}>Pay with Card</div>
+											</div>
+
+											<div className={`${styles.action}`} onClick={() => this.checkout(carBooking)}>
+												<img src={KhaltiLogo} className='logo' />
+												<div className={`${styles.label} text-primary`}>Pay with Khalti</div>
+											</div>
+
+										</div>
+									</Fragment>
+								)}
+							</div>
+
 						</div>
 					</div>
 
@@ -207,25 +231,6 @@ class CarBookingDetails extends Component {
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div className='text-center'>
-						{carBooking.status === 'processing' && (
-							<div className="text-center p-4">
-								<div className='btn btn-primary' onClick={() => this.paymentPage()}>
-									Continue to Payment
-								</div>
-
-								<div
-									className='btn btn-primary'
-									id='payment-button'
-									onClick={() => this.checkout(carBooking)}
-								>
-									Pay with khalti
-								</div>
-
-							</div>
-						)}
 					</div>
 
 					{(carBooking.status == 'completed'  || carBooking.status == 'verified' || carBooking.status == "approved") && (

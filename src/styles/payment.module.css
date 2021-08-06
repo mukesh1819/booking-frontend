@@ -1,0 +1,35 @@
+.paymentActions {
+    border: 1px solid rgba(128, 128, 128, 0.459);
+    border-radius: 5px;
+    padding: 10px
+}
+
+.paymentActions h5 {
+    padding: 0 10px 10px 10px;
+}
+
+.paymentBody {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.paymentActions img {
+    width: 100px;
+}
+
+.action {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.action:hover {
+    border: 1px solid rgba(128, 128, 128, 0.24);
+    box-shadow: 5px 5px #88888829;
+    transform: translate(-2px, -2px);
+    cursor: pointer;
+}

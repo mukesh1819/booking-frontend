@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {getPackageBookingDetails} from '../../api/bookingApi';
 import history from '../../history';
@@ -13,6 +13,9 @@ import {getDuration} from '../../helpers';
 import {Package} from '../packages';
 import {fetchTicket} from '../../api/flightApi';
 import {checkOutWithKhalti, downloadTicket} from '../../helpers';
+import KhaltiLogo from '../../images/khalti-logo.png';
+import CardLogo from '../../images/card-logo.png';
+import styles from '../../styles/payment.module.css';
 
 const ContactDetails = ({details}) => (
 	<div className='ui grid'>
@@ -114,6 +117,22 @@ class PackageBookingDetails extends Component {
 											<div className='eight wide column'>{value}</div>
 										</div>
 									))}
+
+									<h5 className='ui header'>Addon Information</h5>
+									{booking.inquiry &&
+										booking.inquiry.addons &&
+										booking.inquiry.addons.map((addon) => {
+											return (
+												<div className='row'>
+													<div className='eight wide column'>Name</div>
+													<div className='eight wide column'>{addon.name}</div>
+													<div className='eight wide column'>Count</div>
+													<div className='eight wide column'>{addon.count}</div>
+													<div className='eight wide column'>Price</div>
+													<div className='eight wide column'>{addon.price}</div>
+												</div>
+											);
+										})}
 								</div>
 							</div>
 							<div className='eight wide column'>
@@ -145,22 +164,28 @@ class PackageBookingDetails extends Component {
 										<div className='eight wide column'>Total amount:</div>
 										<div className='eight wide column'>Rs. {booking.amount}</div>
 									</div>
-									<h5 className='ui header'>Addon Information</h5>
-									{booking.inquiry &&
-										booking.inquiry.addons &&
-										booking.inquiry.addons.map((addon) => {
-											return (
-												<div className='row'>
-													<div className='eight wide column'>Name</div>
-													<div className='eight wide column'>{addon.name}</div>
-													<div className='eight wide column'>Count</div>
-													<div className='eight wide column'>{addon.count}</div>
-													<div className='eight wide column'>Price</div>
-													<div className='eight wide column'>{addon.price}</div>
-												</div>
-											);
-										})}
 								</div>
+								
+								<div className={`${styles.paymentActions} text-center mt-4`}>
+									{booking.inquiry.status === 'processing' && (
+											<Fragment>
+												<h5 className="font-weight-bold">CONTINUE TO PAYMENT</h5>
+												<div className={`${styles.paymentBody}`}>
+													<div className={`${styles.action}`} onClick={this.onContinueToPayment}>
+														<img src={CardLogo} className='logo' style={{width: '65px'}}/>
+														<div className={`${styles.label} text-primary`}>Pay with Card</div>
+													</div>
+
+													<div className={`${styles.action}`} onClick={() => this.checkout(booking)}>
+														<img src={KhaltiLogo} className='logo' />
+														<div className={`${styles.label} text-primary`}>Pay with Khalti</div>
+													</div>
+
+												</div>
+											</Fragment>
+									)}
+								</div>
+
 							</div>
 						</div>
 						<div className='row'>
@@ -175,21 +200,6 @@ class PackageBookingDetails extends Component {
 					</div>
 				</div>
 				<div className='text-center'>
-					{booking.inquiry.status === 'processing' && (
-						<div className='text-center p-4'>
-							<span onClick={this.onContinueToPayment} className='btn btn-primary'>
-								Continue to Payment
-							</span>
-
-							<div
-									className='btn btn-primary'
-									id='payment-button'
-									onClick={() => this.checkout(booking)}
-								>
-									Pay with khalti
-							</div>
-						</div>
-					)}
 					{booking.inquiry.status === 'verified' && (
 						<span className='text-center py-4'>
 							<Button
