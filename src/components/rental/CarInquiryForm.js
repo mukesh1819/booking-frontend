@@ -103,8 +103,8 @@ class CarInquiryForm extends Component {
     });
 
     const inquiryDetails = {
-      source: carInquiry.source,
-      destination: carInquiry.destination,
+      source: carInquiry.source || "Kathmandu",
+      destination: carInquiry.destination || "Pokhara",
       start_time: carInquiry.start_time,
       start_date:
         carInquiry.start_date == null
@@ -292,7 +292,6 @@ class CarInquiryForm extends Component {
                           });
                         }}
                         value={values.source}
-                        defaultValue="Kathmandu"
                         fluid
                         search
                         selection

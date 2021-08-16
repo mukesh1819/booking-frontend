@@ -102,7 +102,7 @@ class PackageBookingDetails extends Component {
 
 		const bookingDateInfo = pick(booking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
 
-		const remarks = pick(booking, ['remarks']);
+		const remarksInfo = pick(booking, ['remarks']);
 		return (
 			<div className='ui container segment'>
 				<div className='row'>
@@ -196,7 +196,7 @@ class PackageBookingDetails extends Component {
 							<div className='eight wide column'>
 								<div className='ui header'>Other Details</div>
 								<div>
-									{remarks}
+									{remarksInfo.remarks}
 								</div>
 							</div>
 						</div>

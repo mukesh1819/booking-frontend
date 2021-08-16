@@ -166,11 +166,14 @@ class CarList extends Component {
                         )}
                     </div>
                 </div>
-                <div>* Prices shown below are in Nepali Currency (NPR). </div>
-                <div>* Prices shown below are estimated prices. </div>
-                <div>* The price does not include air-condition service in the vehicle. </div>
-                <div>* Extra charge for air-condition service in the vehicle i.e 20% extra for car, 15% for Hiace Van, 15% for Jeep. </div>
-                <div>* Within Kathmandu Valley, price includes air-conditioning. </div>
+
+                <div className="mb-4 text-muted">
+                    <div>* Prices shown below are in Nepali Currency (NPR). </div>
+                    <div>* Prices shown below are estimated prices. </div>
+                    <div>* The price does not include air-condition service in the vehicle. </div>
+                    <div>* Extra charge for air-condition service in the vehicle i.e 20% extra for car, 15% for Hiace Van, 15% for Jeep. </div>
+                    <div>* Within Kathmandu Valley, price includes air-conditioning. </div>
+                </div>
                 
                 {cars.map((car) => (
                     <div
