@@ -8,8 +8,6 @@ import ErrorMessage from '../ErrorMessage';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {confirmInquiry, assignPartner, rejectInquiry} from '../../api/inquiryApi';
 import {getPackageBookingDetails} from '../../api/packageBookingApi';
-import { SetPackageDetails } from '.';
-
 class SetPackageDetails extends Component {
 	constructor(props) {
 		super(props);
