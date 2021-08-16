@@ -14,8 +14,10 @@ import UpdateBooking from './CancelRequests';
 import TransactionList from './TransactionList';
 import TransactionDetails from './TransactionDetails';
 import TransactionApiResponse from './TransactionApiResponse';
-import PartnerList from './PartnerDetails';
+import PartnerList from './PartnerList';
+import PartnerDetails from './PartnerDetails';
 import PackagesList from './PackagesList';
+import InquiryList from './InquiryDetails';
 import RouteRateForm from './RouteRateForm';
 import VehicleRateForm from './VehicleRateForm';
 
