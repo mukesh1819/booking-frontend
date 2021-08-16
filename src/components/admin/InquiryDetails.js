@@ -389,9 +389,9 @@ class InquiryDetails extends Component {
 																</div>
 															</div>
 
-															<div className='col-12 col-md-6'>
+															{true && <div className='col-12 col-md-6'>
 																<div className='field-box'>
-																	<label>Remarks</label>
+																	<label>Other Details</label>
 
 																	<Field
 																		name='remarks'
@@ -403,7 +403,7 @@ class InquiryDetails extends Component {
 
 																	<ErrorMessage name='remarks' />
 																</div>
-															</div>
+															</div>}
 														</div>
 
 														<div className='row'>

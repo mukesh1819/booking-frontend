@@ -195,6 +195,9 @@ class PackageBookingDetails extends Component {
 							</div>
 							<div className='eight wide column'>
 								<div className='ui header'>Other Details</div>
+								<div>
+									{remarks}
+								</div>
 							</div>
 						</div>
 					</div>
