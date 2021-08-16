@@ -553,7 +553,8 @@ section {
 			z-index: 8;
 			opacity: 1;
 			@include transition(.3s);
-			height: -webkit-fill-available;
+			// height: -webkit-fill-available;
+			object-fit: contain;
 		}
 	}
 

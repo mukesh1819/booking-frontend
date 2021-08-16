@@ -292,6 +292,7 @@ class CarInquiryForm extends Component {
                           });
                         }}
                         value={values.source}
+                        defaultValue="Kathmandu"
                         fluid
                         search
                         selection
