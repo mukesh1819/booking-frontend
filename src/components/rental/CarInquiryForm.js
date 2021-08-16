@@ -110,7 +110,7 @@ class CarInquiryForm extends Component {
         carInquiry.start_date == null
           ? new Date()
           : new Date(carInquiry.start_date),
-      car_type: carInquiry.car_type,
+      car_type: carInquiry.car_type || "Car",
       car_id: carInquiry.car_id,
       no_of_days: carInquiry.no_of_days || 1,
       max_pax: 20,

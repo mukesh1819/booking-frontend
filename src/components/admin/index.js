@@ -6,6 +6,7 @@ import CreateUser from './CreateUser';
 import Dashboard from './Dashboard';
 import FlightBookings from './FlightBookings';
 import InquiryDetails from './InquiryDetails';
+import SetPackageDetails from './SetPackageDetails';
 import UsersList from './UsersList';
 import UserEmail from './UserEmail';
 import UserDetails from './UserDetails';
@@ -27,6 +28,7 @@ export {
 	Dashboard,
 	FlightBookings,
 	InquiryDetails,
+	SetPackageDetails,
 	PartnerList,
 	PartnerDetails,
 	TransactionApiResponse,

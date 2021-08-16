@@ -102,7 +102,7 @@ class PackageBookingDetails extends Component {
 
 		const bookingDateInfo = pick(booking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
 
-		const remarksInfo = pick(booking, ['remarks']);
+		const remarksInfo = pick(booking.inquiry, ['remarks']);
 		return (
 			<div className='ui container segment'>
 				<div className='row'>

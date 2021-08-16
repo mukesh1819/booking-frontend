@@ -95,6 +95,7 @@ import RentalServiceDetails from './components/partners/RentalServiceDetails';
 import PackageServiceDetails from './components/partners/PackageServiceDetails';
 import RouteRateForm from './components/admin/RouteRateForm';
 import VehicleRateForm from './components/admin/VehicleRateForm';
+import { SetPackageDetails } from './components/admin';
 
 const routes = [
 	{private: false, path: '/login', component: SignInForm, layout: UserLayout, footer: true},
@@ -173,6 +174,8 @@ const routes = [
 		component: AssignCarBookingForm,
 		layout: AdminLayout
 	},
+
+	{private: true, path: '/admin/:idx/set_package_details', component: SetPackageDetails, layout: AdminLayout},
 
 	{private: true, path: '/admin/vehicle_types', component: VehicleTypeList, layout: AdminLayout},
 	{private: true, path: '/admin/route_rates', component: RouteRateList, layout: AdminLayout},
