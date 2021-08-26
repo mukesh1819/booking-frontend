@@ -51,6 +51,14 @@ export function confirmInquiry(id, values) {
 	});
 }
 
+export function setPackageDetails(id, values) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/inquiries/${id}/set_package_details`,
+		params: values
+	});
+}
+
 export function assignPartner(id, values) {
 	return axios({
 		method: 'put',

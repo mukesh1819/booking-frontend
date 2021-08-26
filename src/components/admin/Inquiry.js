@@ -51,6 +51,7 @@ const Inquiry = (props) => {
 	}
 	const inquiryDateInfo = pick(inquiry, ['preferred_date', 'start_date', 'end_date']);
 	const otherInfo = pick(inquiry, ['idx']);
+	const detailsInfo = pick(inquiry.package_booking, ['details']);
 
 	return (
 		<div className='row'>
@@ -86,6 +87,26 @@ const Inquiry = (props) => {
 								Assign Partners&nbsp;
 							</span>
 						)}
+
+							{!detailsInfo.details && inquiry.status == "verified" && 
+                             (
+                                    <span className="u">
+                                        <Link
+                                            to={{
+                                                pathname: `/admin/${inquiry.idx}/set_package_details`,
+                                                state: {
+                                                    inquiry: inquiry,
+                                                },
+                                            }}
+                                        >
+                                            <i className="fas fa-contact" />
+                                            <span className="ui right floated button positive">
+                                                Set Package Details
+                                            </span>
+                                        </Link>
+                                    </span>
+                                )}
+
 						{inquiry.status === 'pending' && (
 							<span className='ui right floated negative button' onClick={() => reject(inquiry.idx)}>
 								Reject
@@ -213,6 +234,7 @@ const Inquiry = (props) => {
 										<div className='eight wide column'>{value}</div>
 									</div>
 								))}
+								
 								<div className='row'>
 									<div className='eight wide column'>Status:</div>
 									<div className='eight wide column'>
@@ -225,7 +247,37 @@ const Inquiry = (props) => {
 								</div>
 							</div>
 						</div>
+						{detailsInfo.details && 
+							<div className='eight wide column section'>
+
+								<div className='d-flex align-items-center justify-content-between'>
+									<h3 className='ui header'> Package Details </h3>
+									<div>
+										<span>
+											<Link
+												to={{
+													pathname: `/admin/${inquiry.idx}/set_package_details`,
+													state: {
+														inquiry: inquiry,
+													},
+												}}
+												className='btn bg-none color-accent'
+											>
+												Edit
+											</Link>
+										</span>
+									</div>
+								</div>
+								
+								<div className='eight wide column'>
+									{detailsInfo.details}
+								</div>
+
+							</div>
+						}
 					</div>
+
+					
 				</div>
 			</div>
 		</div>

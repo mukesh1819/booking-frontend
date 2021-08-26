@@ -102,7 +102,7 @@ class PackageBookingDetails extends Component {
 
 		const bookingDateInfo = pick(booking, ['start_date', 'end_date', 'pickup_date', 'drop_off_date']);
 
-		const remarksInfo = pick(booking.inquiry, ['remarks']);
+		const detailsInfo = pick(booking, ['details']);
 		return (
 			<div className='ui container segment'>
 				<div className='row'>
@@ -117,6 +117,13 @@ class PackageBookingDetails extends Component {
 											<div className='eight wide column'>{value}</div>
 										</div>
 									))}
+
+								<div className='row'>
+									<div className='eight wide column'>
+										<div className='ui header'>Contact Details</div>
+										<ContactDetails details={contactInfo} />
+									</div>
+								</div>
 
 									<h5 className='ui header'>Addon Information</h5>
 									{booking.inquiry &&
@@ -187,19 +194,18 @@ class PackageBookingDetails extends Component {
 								</div>
 
 							</div>
+
+							
 						</div>
-						<div className='row'>
-							<div className='eight wide column'>
-								<div className='ui header'>Contact Details</div>
-								<ContactDetails details={contactInfo} />
+
+						<div className="row">
+									<div className='eight wide column'>
+										<div className='ui header'>Other Details</div>
+										<div>
+											{detailsInfo.details}
+										</div>
+									</div>
 							</div>
-							<div className='eight wide column'>
-								<div className='ui header'>Other Details</div>
-								<div>
-									{remarksInfo.remarks}
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 				<div className='text-center'>

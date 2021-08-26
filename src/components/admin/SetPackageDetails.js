@@ -6,15 +6,15 @@ import * as yup from 'yup';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import {confirmInquiry, assignPartner, rejectInquiry} from '../../api/inquiryApi';
+import {setPackageDetails, assignPartner, rejectInquiry} from '../../api/inquiryApi';
 import {getPackageBookingDetails} from '../../api/packageBookingApi';
 class SetPackageDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inquiry: {},
-			showPartnerForm: false,
-			packageBooking: {}
+			inquiry: {
+				package_booking: {}
+			},
 		};
 	}
 
@@ -27,25 +27,6 @@ class SetPackageDetails extends Component {
 			this.setState({
 				inquiry: response.data || {}
 			});
-			if(response.data.package_booking){
-
-				getPackageBookingDetails(response.data.package_booking.idx)
-				.then((response) => {
-					this.setState({
-						packageBooking: response.data
-					});
-				})
-				.catch((error) => {
-					swal({
-						title: 'Package Booking fetch error',
-						text: 'Something went wrong. please try again or contact us',
-						icon: 'error',
-						button: 'Continue!'
-					});
-				});
-
-			}
-			
 		});
 	}
 
@@ -55,57 +36,29 @@ class SetPackageDetails extends Component {
 
 	render() {
 		const {inquiry} = this.state;
-		var date = new Date();
 		const InquiriesSchema = yup.object().shape({
-			start_date: yup.date().default(function() {
-				return new Date();
-			}),
-			end_date: yup.date().default(function() {
-				return new Date();
-			}),
-			pickup_date: yup.date().default(function() {
-				return new Date();
-			}),
-			drop_off_date: yup.date().default(function() {
-				return new Date();
-			}),
-			amount: yup.number(),
-			pickup_location: yup.string(),
-			drop_off_location: yup.string(),
-			remarks: yup.string(),
-			partner_id: yup.string(),
-			name: yup.string(),
-			details: yup.string(),
-            remarks: yup.string()
+            details: yup.string()
 		});
 
 		const inquiryDetails = {
-			start_date: date,
-			end_date: date,
-			pickup_date: date,
-			pickup_location: '',
-			amount: inquiry.total_amount,
-			drop_off_date: date,
-			drop_off_location: '',
-			meals_included: false,
-			remarks: ''
+			details: inquiry.package_booking.details
 		};
 
 		return (
 			<div className='container'>
 				<div className='card'>
 					<div className='card-body'>
-						{showOtherForm && (
 							<Formik
+								enableReinitialize
 								initialValues={inquiryDetails}
 								validationSchema={InquiriesSchema}
 								onSubmit={(values, {setSubmitting}) => {
 									setSubmitting(false);
-									confirmInquiry(inquiry.idx, values)
+									setPackageDetails(inquiry.idx, values)
 										.then((response) => {
 											swal({
 												title: 'Package Admin Action!',
-												text: `Package Details have been set!!! ${response.data.message}`,
+												text: `Package Details have been set!!`,
 												icon: 'success',
 												button: 'Continue!'
 											}).then((response) => {
@@ -131,23 +84,26 @@ class SetPackageDetails extends Component {
 									<form onSubmit={handleSubmit}>
 										<div className=''>
                                             <h3>Set Package Details</h3>
+											<br></br>
 											<div className='row'>
 												<div className='col-12'>
 													<div className='input-section'>
 														<div className='row'>
 															{true && <div className='col-12'>
 																<div className='field-box'>
-																	<label>Other Details</label>
+																	{/* <label>Other Details</label> */}
 
 																	<Field
-																		name='remarks'
+																		component='textarea'
+																		rows="4"
+																		name='details'
 																		className='form-control'
 																		onBlur={handleBlur}
 																		onChange={handleChange}
-																		value={values.remarks}
+																		value={values.details}
 																	/>
 
-																	<ErrorMessage name='remarks' />
+																	<ErrorMessage name='details' />
 																</div>
 															</div>}
 														</div>
@@ -161,7 +117,7 @@ class SetPackageDetails extends Component {
 														type='submit'
 														disabled={isSubmitting}
 													>
-														Confirm
+														Submit
 													</button>
 												</div>
 											</div>
@@ -169,7 +125,6 @@ class SetPackageDetails extends Component {
 									</form>
 								)}
 							</Formik>
-						)}
 					</div>
 				</div>
 			</div>

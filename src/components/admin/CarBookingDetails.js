@@ -194,26 +194,6 @@ class CarBookingDetails extends Component {
                                     </span>
                                 )}
 
-                            
-                            {carBooking.status == "verified" &&
-                             (
-                                    <span>
-                                        <Link
-                                            to={{
-                                                pathname: `/admin/${carBooking.idx}/set_package_details`,
-                                                state: {
-                                                    carBooking: carBooking,
-                                                },
-                                            }}
-                                        >
-                                            <i className="fas fa-contact" />
-                                            <span className="ui button positive">
-                                                Set Package Details
-                                            </span>
-                                        </Link>
-                                    </span>
-                                )}
-
                             {/* {carBooking.status == "verified" && (
                                 <span>
                                     <Link

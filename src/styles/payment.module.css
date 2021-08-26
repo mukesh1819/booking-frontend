@@ -21,6 +21,7 @@
 .action {
     border-radius: 5px;
     padding: 10px;
+    transition: position 1s ease-in;
 }
 
 .label {

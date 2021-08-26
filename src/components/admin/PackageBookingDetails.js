@@ -240,6 +240,11 @@ class PackageBookingDetails extends Component {
 											</div>
 
 											<div className='row'>
+												<div className='eight wide column'>Details:</div>
+												<div className='eight wide column'>{packageBooking.details}</div>
+											</div>
+
+											<div className='row'>
 												<div className='eight wide column'>User Remarks:</div>
 												<div className='eight wide column'>{packageBooking.user_remarks}</div>
 											</div>
