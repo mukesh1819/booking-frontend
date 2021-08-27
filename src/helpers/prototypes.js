@@ -27,7 +27,7 @@ String.prototype.titleize = function () {
 };
 
 export function pick(obj, arr) {
-    if (obj === undefined) {
+    if (obj == undefined) {
         return {}
     }
     return arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
