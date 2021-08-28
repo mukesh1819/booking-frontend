@@ -9,10 +9,10 @@ const Footer = () => (
           <div className="footer-widget footer-links">
             <ul className="footer-links">
               <li className="d-md-inline px-2">
-                <a href="/about"> About Us</a>
+                <a href="/about/" target="_blank"> About Us</a>
               </li>
               <li className="d-md-inline px-2">
-                <a href="https://visit-all-nepal.flycricket.io/privacy.html">
+                <a href="https://visit-all-nepal.flycricket.io/privacy.html" target="_blank">
                   Privacy Policy
                 </a>
               </li>
@@ -20,13 +20,13 @@ const Footer = () => (
 								<a href='https://visit-all-nepal.flycricket.io/privacy.html'>Terms & Conditions</a>
 							</li> */}
               <li className="d-md-inline px-2">
-                <a href="/partners/new">Partner With Us</a>
+                <a href="/partners/new" target="_blank">Partner With Us</a>
               </li>
               {/* <li className='d-md-inline px-2'>
 								<a href='/blogs'>Blogs</a>
 							</li> */}
               <li className="d-md-inline px-2">
-                <a href="/support">Customer Support</a>
+                <a href="/support" target="_blank">Customer Support</a>
               </li>
             </ul>
           </div>

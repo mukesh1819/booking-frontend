@@ -118,12 +118,8 @@ class PackageBookingDetails extends Component {
 										</div>
 									))}
 
-								<div className='row'>
-									<div className='eight wide column'>
 										<div className='ui header'>Contact Details</div>
 										<ContactDetails details={contactInfo} />
-									</div>
-								</div>
 
 									<h5 className='ui header'>Addon Information</h5>
 									{booking.inquiry &&
