@@ -170,7 +170,7 @@ export function downloadTicket(pdf) {
 	const url = window.URL.createObjectURL(new Blob([pdf]));
 	const link = document.createElement('a');
 	link.href = url;
-	link.setAttribute('download', 'file.pdf');
+	link.setAttribute('download', `E-Ticket Visitallnepal ${Date.now()}.pdf`);
 	document.body.appendChild(link);
 	link.click();
 }

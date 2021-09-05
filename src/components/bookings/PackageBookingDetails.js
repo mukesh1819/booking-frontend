@@ -19,6 +19,7 @@ import styles from '../../styles/payment.module.css';
 
 const ContactDetails = ({details}) => (
 	<div className='ui grid'>
+
 		{Object.entries(details).map(([key, value]) => (
 			<div className='row'>
 				<div className='eight wide column'>{key.titleize()}:</div>
@@ -104,9 +105,10 @@ class PackageBookingDetails extends Component {
 
 		const detailsInfo = pick(booking, ['details']);
 		return (
+			<Fragment>
 			<div className='ui container segment'>
 				<div className='row'>
-					<div className='ui internally celled stackable grid'>
+					<div className={`${styles.watermark} ui internally celled stackable grid`}>
 						<div className='row'>
 							<div className='eight wide column'>
 								<h3 className='ui header'> Package Info </h3>
@@ -204,21 +206,22 @@ class PackageBookingDetails extends Component {
 							</div>
 					</div>
 				</div>
-				<div className='text-center'>
-					{booking.inquiry.status === 'verified' && (
-						<span className='text-center py-4'>
-							<Button
-								primary
-								loading={loading}
-								className='btn btn-primary btn-large '
-								onClick={() => this.download(booking.booking_transaction.idx)}
-							>
-								Download ticket
-							</Button>
-						</span>
-					)}
-				</div>
 			</div>
+			<div className='text-center'>
+				{booking.inquiry.status === 'verified' && (
+					<span className='text-center py-4'>
+						<Button
+							primary
+							loading={loading}
+							className='btn btn-primary btn-large '
+							onClick={() => this.download(booking.booking_transaction.idx)}
+						>
+							Download ticket
+						</Button>
+					</span>
+				)}
+			</div>
+			</Fragment>
 		);
 	}
 }

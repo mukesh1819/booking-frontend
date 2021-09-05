@@ -186,7 +186,7 @@ class CustomerSupport extends Component {
 					<div className='card mt-4'>
 						<div className='card-body'>
 							<div className='d-flex'>
-								<div
+								{/* <div
 									className='widget p-2'
 									onClick={() => {
 										this.setState({
@@ -203,7 +203,7 @@ class CustomerSupport extends Component {
 										/>
 										<h3 className='count'>Flights</h3>
 									</div>
-								</div>
+								</div> */}
 								<div
 									className='widget p-2'
 									onClick={() => {
@@ -220,6 +220,24 @@ class CustomerSupport extends Component {
 												: ''} fas fa-2x fa-briefcase mb-2`}
 										/>
 										<h3 className='count'>Packages</h3>
+									</div>
+								</div>
+								<div
+									className='widget p-2'
+									onClick={() => {
+										this.setState({
+											selectedCategory: 'rental'
+										});
+										this.fetchFaqs(`q[category_eq]=rental`);
+									}}
+								>
+									<div className='text-center cursor-pointer'>
+										<i
+											className={`${selectedCategory == 'rental'
+												? 'active'
+												: ''} fas fa-2x fa-car mb-2`}
+										/>
+										<h3 className='count'>Rental</h3>
 									</div>
 								</div>
 							</div>

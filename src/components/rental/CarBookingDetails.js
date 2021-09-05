@@ -89,8 +89,17 @@ class CarBookingDetails extends Component {
 		const driverInfo = pick(carBooking, ['driver_name', 'driver_contact', 'car_number', 'car_color']);
 
 		return (
+			<React.Fragment>
 			<div className='ui segment container'>
-				<div className='ui internally celled stackable grid'>
+				    {/* <div>
+						<div class={`${styles.heading} text-center`}>
+							<h3 class="ui sub header mt-2">E-ticket</h3>
+							<div className={styles.vanLogo}>
+							</div>
+						</div>
+					</div> */}
+
+				<div className={`${styles.watermark} ui internally celled stackable grid`}>
 					<div className='row'>
 						<div className='eight wide column section'>
 							<h3 className='ui header'> Inquiry Details </h3>
@@ -232,9 +241,12 @@ class CarBookingDetails extends Component {
 							</div>
 						</div>
 					</div>
+				</div>
+				
+			</div>
 
-					{(carBooking.status == 'completed'  || carBooking.status == 'verified' || carBooking.status == "approved") && (
-						<span className='text-center py-4'>
+			{(carBooking.status == 'completed'  || carBooking.status == 'verified' || carBooking.status == "approved") && (
+						<div className='text-center py-4 w-100'>
 							<Button
 								primary
 								loading={loading}
@@ -243,10 +255,9 @@ class CarBookingDetails extends Component {
 							>
 								Download ticket
 							</Button>
-						</span>
+						</div>
 					)}
-				</div>
-			</div>
+			</React.Fragment>
 		);
 	}
 }

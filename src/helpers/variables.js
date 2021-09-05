@@ -14,8 +14,8 @@ export const supportedLanguages = {
 }
 
 export const companyDetails = {
-    email: "anup.singh2071@gmail.com",
+    email: "info@visitallnepal.com",
     code: "+977",
     contact: "9818311488",
-    directChat: "https://tawk.to/chat/5d91092b6c1dde20ed041129/default"
+    directChat: "https://tawk.to/chat/61307d44649e0a0a5cd42fc5/1feimiloa"
 }

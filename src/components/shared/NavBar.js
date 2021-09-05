@@ -19,6 +19,7 @@ import history from "../../history";
 import { Flag, Segment } from "semantic-ui-react";
 import "../../i18n";
 import { useTranslation, initReactI18next } from "react-i18next";
+import logo from '../../images/logo6.png';
 
 const NavBar = ({
   sideBarIsVisible,
@@ -50,7 +51,19 @@ const NavBar = ({
             to="/"
             className="navbar-brand animated bounce delay-2s"
           >
-            <span>{t("visitallnepal")}</span>
+            <img src={logo} style={{width: "140px"}}></img>
+            {/* <span style={{
+                  padding: "10px",
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                  borderLeft: "none"
+            }}>{t("visitallnepal")}</span> */}
+            {/* <span style={{
+                  padding: "10px",
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                  borderLeft: "none"
+            }}>Visitallnepal</span> */}
           </Link>
         </div>
 

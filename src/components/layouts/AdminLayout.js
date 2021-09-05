@@ -5,6 +5,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {Dropdown, Sidebar} from '../shared';
 import {logout, userInitials} from '../../helpers';
 import history from '../../history';
+import logo from '../../images/logo5.svg';
 
 const AdminLayout = ({currentUser, children, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;
@@ -72,9 +73,10 @@ const AdminLayout = ({currentUser, children, logoutUser}) => {
 			<nav className='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
 				<div className='container align-items-stretch'>
 					<div className='navbar-header d-flex align-items-center'>
-						<Link to='/' className='navbar-brand animated bounce delay-2s'>
-							{process.env.REACT_APP_URL}
-						</Link>
+							<Link to='/' className='navbar-brand animated bounce delay-2s'>
+								{/* {process.env.REACT_APP_URL} */}
+								<img src={logo} style={{width: "140px"}}></img>
+							</Link>
 					</div>
 
 					<div className='navbar-collapse collapse align-items-stretch'>

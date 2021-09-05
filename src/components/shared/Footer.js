@@ -34,17 +34,17 @@ const Footer = () => (
         <div className="">
           <span className="">
             <ul className="social-icons">
-              {/* <li>
-								<a href='#'>
-									<i className='icon-twitter' />
+              <li>
+								<a href='https://www.instagram.com/visitallnepalofficial/' target="_blank">
+									<i className='icon-instagram' />
 								</a>
 							</li>
 							<li>
-								<a href='#'>
+								<a href='https://www.facebook.com/visitallnepalofficial' target="_blank">
 									<i className='icon-facebook' />
 								</a>
 							</li>
-							<li>
+							{/* <li>
 								<a href='#'>
 									<i className='icon-linkedin' />
 								</a>

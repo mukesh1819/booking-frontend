@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {logoutUser} from '../../redux/actions';
 import {connect} from 'react-redux';
 import {Slidebar, NavBar} from '../shared';
+import {
+	roleBasedUrl,
+} from "../../helpers";
 
 class UserLayout extends Component {
 	constructor(props) {
@@ -24,7 +27,8 @@ class UserLayout extends Component {
 		const {sideBarIsVisible} = this.state;
 
 		const sideBarMenu = [
-			{icon: 'home', name: 'home', label: 'Home', value: '', link: '/'},
+			{icon: 'home', name: 'home', label: 'Home', value: '', link: "/"},
+			{icon: 'fas fa-columns', name: 'home', label: 'My Dashboard', value: '', link: roleBasedUrl(currentUser.role, "/")},
 			{
 				icon: 'book',
 				name: 'my_bookings',
@@ -58,7 +62,7 @@ class UserLayout extends Component {
 			{
 				icon: 'phone square',
 				name: 'contact_us',
-				label: 'Contact Us',
+				label: 'Customer Support',
 				value: '',
 				link: '/support'
 			}

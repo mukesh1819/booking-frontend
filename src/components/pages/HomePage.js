@@ -7,6 +7,7 @@ import { TabView, Slidebar, Banner } from "../shared";
 import { PackageList } from "../packages";
 import { Categories } from "../categories";
 import "./homepage.css";
+import logo from '../../images/logo-blue.png'
 
 class HomePage extends Component {
   constructor(props) {
@@ -221,7 +222,7 @@ class HomePage extends Component {
                   <figure>
                     <img
                       alt="visitallnepal"
-                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                      src={logo}
                     />
                   </figure>
                   <div>
@@ -239,7 +240,7 @@ class HomePage extends Component {
                   <figure>
                     <img
                       alt="visitallnepal"
-                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                      src={logo}
                     />
                   </figure>
                   <div>
@@ -254,7 +255,7 @@ class HomePage extends Component {
                   <figure>
                     <img
                       alt="visitallnepal"
-                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                      src={logo}
                     />
                   </figure>
                   <div>
@@ -270,7 +271,7 @@ class HomePage extends Component {
                   <figure>
                     <img
                       alt="visitallnepal"
-                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                      src={logo}
                     />
                   </figure>
                   <div>
@@ -287,7 +288,7 @@ class HomePage extends Component {
                   <figure>
                     <img
                       alt="visitallnepal"
-                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                      src={logo}
                     />
                   </figure>
                   <div>
