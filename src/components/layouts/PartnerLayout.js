@@ -7,6 +7,7 @@ import {logout, userInitials} from '../../helpers';
 import history from '../../history';
 import '../../i18n';
 import {useTranslation, initReactI18next} from 'react-i18next';
+import logo from '../../images/logo6.png';
 
 const PartnerLayout = ({currentUser, children}) => {
 	const loggedIn = currentUser.email !== undefined;
@@ -49,7 +50,8 @@ const PartnerLayout = ({currentUser, children}) => {
 				<div className='container align-items-stretch'>
 					<div className='navbar-header d-flex align-items-center'>
 						<Link to='/' className='navbar-brand animated bounce delay-2s'>
-							{process.env.REACT_APP_URL}
+							{/* {process.env.REACT_APP_URL} */}
+							<img src={logo} style={{width: "140px"}}></img>
 						</Link>
 					</div>
 

@@ -20,6 +20,7 @@ import KhaltiCheckout from 'khalti-checkout-web';
 import KhaltiLogo from '../../images/khalti-logo.png';
 import CardLogo from '../../images/card-logo.png';
 import styles from '../../styles/payment.module.css';
+import '../../styles/pages.css';
 
 class CarBookingDetails extends Component {
 	constructor(props) {
@@ -99,8 +100,8 @@ class CarBookingDetails extends Component {
 						</div>
 					</div> */}
 
-				<div className={`${styles.watermark} ui internally celled stackable grid`}>
-					<div className='row'>
+				<div className={`watermark ui internally celled stackable grid`}>
+					<div className='row z-top'>
 						<div className='eight wide column section'>
 							<h3 className='ui header'> Inquiry Details </h3>
 							<div className='ui grid'>

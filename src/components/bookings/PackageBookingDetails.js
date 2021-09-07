@@ -16,6 +16,7 @@ import {checkOutWithKhalti, downloadTicket} from '../../helpers';
 import KhaltiLogo from '../../images/khalti-logo.png';
 import CardLogo from '../../images/card-logo.png';
 import styles from '../../styles/payment.module.css';
+import "../../styles/pages.css"
 
 const ContactDetails = ({details}) => (
 	<div className='ui grid'>
@@ -108,8 +109,8 @@ class PackageBookingDetails extends Component {
 			<Fragment>
 			<div className='ui container segment'>
 				<div className='row'>
-					<div className={`${styles.watermark} ui internally celled stackable grid`}>
-						<div className='row'>
+					<div className={`watermark ui internally celled stackable grid`}>
+						<div className='row z-top'>
 							<div className='eight wide column'>
 								<h3 className='ui header'> Package Info </h3>
 								<div className='ui grid'>

@@ -5,7 +5,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {Dropdown, Sidebar} from '../shared';
 import {logout, userInitials} from '../../helpers';
 import history from '../../history';
-import logo from '../../images/logo5.svg';
+import logo from '../../images/logo6.png';
 
 const AdminLayout = ({currentUser, children, logoutUser}) => {
 	const loggedIn = currentUser.email !== undefined;

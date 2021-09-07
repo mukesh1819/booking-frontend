@@ -1,0 +1,35 @@
+.vanLogo{
+    background-image: url(https://i.imgur.com/vbwvdDf.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    width: 100px !important;
+    height: 100px !important;
+    margin: 8px;
+ }
+
+ .watermark {
+  display: block;
+  position: relative;
+}
+
+
+ .watermark::after {
+    content: "";
+    background:url(https://i.imgur.com/vbwvdDf.png);
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: 0;   
+    /* border-radius: 50%; */
+    background-position: center;
+    background-size: cover;
+}
+
+.z-top {
+    z-index: 10;
+}
