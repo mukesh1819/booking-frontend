@@ -2,7 +2,7 @@ import KhaltiCheckout from "khalti-checkout-web";
 import {payWithKhalti} from "../../src/api/paymentApi";
 import history from '../history';
 
-const PUBLIC_KEY = "test_public_key_39148b5c085d4de0be0d7e828d884a48";
+const PUBLIC_KEY = "test_public_key_8f0bd30e4ffb4249a33fa6d13a34d46d";
 
 export function checkOutWithKhalti(params) {
 
