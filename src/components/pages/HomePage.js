@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Container, Button, Segment } from "semantic-ui-react";
+import {Link} from 'react-router-dom';
+import { Container, Button, Segment, Accordion } from "semantic-ui-react";
 import SearchBar from "../flights/SearchBar";
 import CarInquiryForm from "../rental/CarInquiryForm";
 import { yetiImage, buddhaImage, shreeImage } from "../../images";
@@ -8,11 +9,23 @@ import { PackageList } from "../packages";
 import { Categories } from "../categories";
 import "./homepage.css";
 import logo from '../../images/logo-blue.png'
+import {abouts} from './abouts';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      activeIndex: -1
+    }
   }
+
+  handleClick = (e, titleProps) => {
+		const {index} = titleProps;
+		const {activeIndex} = this.state;
+		const newIndex = activeIndex === index ? -1 : index;
+
+		this.setState({activeIndex: newIndex});
+	};
 
   componentDidUpdate(prevProps) {
     const options = {
@@ -47,6 +60,7 @@ class HomePage extends Component {
 
   render() {
     const { t, i18n } = this.props;
+    const { activeIndex } = this.state;
     return (
       <React.Fragment>
         <nav>
@@ -131,7 +145,7 @@ class HomePage extends Component {
           <div
             className="tab-pane fade"
             id="nav-packages"
-            role="tabpanel"
+            role="tabpanel"i18n
             aria-labelledby="nav-packages-tab"
           >
             <section className="categories">
@@ -215,6 +229,35 @@ class HomePage extends Component {
                 <CarInquiryForm {...this.props} />
               </div>
             </header>
+
+            <section className="white">
+              <div className="ui container">
+
+              <Accordion styled fluid>
+                {abouts().map((about, index) => {
+                  return (
+                    <React.Fragment>
+                      <Accordion.Title
+                        active={activeIndex === index}
+                        index={index}
+                        onClick={this.handleClick}
+                      >
+                        <h3 className='text-bold mb-2 py-2'>
+                          <i class="fas fa-car"></i> {about.question}
+                        </h3>
+                        {!(activeIndex == index) && <p className="m-0">{about.answer.slice(0, 200) + "... " }</p>}
+                      </Accordion.Title>
+                      <Accordion.Content active={activeIndex === index}>
+                        <p>{about.answer}</p>
+                      </Accordion.Content>
+                    </React.Fragment>
+                  );
+                })}
+              </Accordion>
+              </div>
+
+            </section>
+
             <section>
               <div className="container">
               <div className="testimonial owl-carousel owl-theme">
