@@ -12,10 +12,13 @@ import {
     patchCarBooking,
 } from "../../api/carBookingApi";
 import { fetchTicket } from "../../api/flightApi";
-import { downloadTicket, pick } from "../../helpers";
+import { checkOutWithKhalti, downloadTicket, pick } from "../../helpers";
 import { Badge } from "../shared";
 import moment from "moment";
 import RemarksForm from "../shared/RemarksForm";
+import styles from '../../styles/payment.module.css';
+import KhaltiLogo from '../../images/khalti-logo.png';
+import CardLogo from '../../images/card-logo.png';
 
 class CarBookingDetails extends Component {
     constructor(props) {
@@ -30,6 +33,22 @@ class CarBookingDetails extends Component {
     componentDidMount() {
         this.fetchDetails();
     }
+
+    onContinueToPayment = () => {
+		this.setState({
+			redirectToPayment: true
+		});
+	};
+
+	checkout = (booking) => {
+		checkOutWithKhalti({
+			productIdentity: booking.booking_transaction.idx,
+			productName: 'RENTAL',
+			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.idx}`,
+			amount: booking.amount
+		});
+	};
+
 
     fetchDetails() {
         showUserCarBooking(this.props.match.params.idx).then((response) => {
@@ -326,6 +345,25 @@ class CarBookingDetails extends Component {
                                             {carBooking.amount}
                                         </div>
                                     </div>
+                                    <div className={`${styles.paymentActions} text-center mt-4`}>
+                                    {carBooking.status === 'processing' && (
+                                        <Fragment>
+                                            <h5 className="font-weight-bold">CONTINUE TO PAYMENT</h5>
+                                            <div className={`${styles.paymentBody}`}>
+                                                <div className={`${styles.action}`} onClick={() => this.paymentPage()}>
+                                                    <img src={CardLogo} className='logo' style={{width: '65px'}}/>
+                                                    <div className={`${styles.label} text-primary`}>Pay with Card</div>
+                                                </div>
+
+                                                <div className={`${styles.action}`} onClick={() => this.checkout(carBooking)}>
+                                                    <img src={KhaltiLogo} className='logo' />
+                                                    <div className={`${styles.label} text-primary`}>Pay with Khalti</div>
+                                                </div>
+
+                                            </div>
+                                        </Fragment>
+                                    )}
+							        </div>
                                 </div>
                             </div>
                         </div>

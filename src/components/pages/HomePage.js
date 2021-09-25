@@ -15,7 +15,7 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeIndex: -1
+      activeIndex: 0
     }
   }
 

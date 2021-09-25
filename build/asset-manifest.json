@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.a0d52bd4.chunk.css",
-    "main.js": "/static/js/main.20197446.chunk.js",
-    "main.js.map": "/static/js/main.20197446.chunk.js.map",
+    "main.css": "/static/css/main.c4fc95ed.chunk.css",
+    "main.js": "/static/js/main.18fb1ab4.chunk.js",
+    "main.js.map": "/static/js/main.18fb1ab4.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f6f426a7.js",
     "runtime-main.js.map": "/static/js/runtime-main.f6f426a7.js.map",
     "static/css/2.e7492294.chunk.css": "/static/css/2.e7492294.chunk.css",
-    "static/js/2.a1b7c989.chunk.js": "/static/js/2.a1b7c989.chunk.js",
-    "static/js/2.a1b7c989.chunk.js.map": "/static/js/2.a1b7c989.chunk.js.map",
+    "static/js/2.160d060d.chunk.js": "/static/js/2.160d060d.chunk.js",
+    "static/js/2.160d060d.chunk.js.map": "/static/js/2.160d060d.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.dedbc0dc03481939408407fa481c51ae.js": "/precache-manifest.dedbc0dc03481939408407fa481c51ae.js",
+    "precache-manifest.45e55584bff79775cf3c74017b220278.js": "/precache-manifest.45e55584bff79775cf3c74017b220278.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.e7492294.chunk.css.map": "/static/css/2.e7492294.chunk.css.map",
-    "static/css/main.a0d52bd4.chunk.css.map": "/static/css/main.a0d52bd4.chunk.css.map",
-    "static/js/2.a1b7c989.chunk.js.LICENSE.txt": "/static/js/2.a1b7c989.chunk.js.LICENSE.txt",
+    "static/css/main.c4fc95ed.chunk.css.map": "/static/css/main.c4fc95ed.chunk.css.map",
+    "static/js/2.160d060d.chunk.js.LICENSE.txt": "/static/js/2.160d060d.chunk.js.LICENSE.txt",
     "static/media/404.jpg": "/static/media/404.1b673db5.jpg",
     "static/media/buddha-banner.png": "/static/media/buddha-banner.fb7a7aa4.png",
     "static/media/facebook-logo.png": "/static/media/facebook-logo.44be1ccd.png",
@@ -24,7 +24,6 @@
     "static/media/tab.scss": "/static/media/icomoon.9010f122.woff",
     "static/media/khalti-logo.png": "/static/media/khalti-logo.e61ca258.png",
     "static/media/logo-blue.png": "/static/media/logo-blue.63cec63b.png",
-    "static/media/logo5.svg": "/static/media/logo5.55b3581d.svg",
     "static/media/logo6.png": "/static/media/logo6.4e7b2b38.png",
     "static/media/peace.jpg": "/static/media/peace.78319e26.jpg",
     "static/media/shree-banner.png": "/static/media/shree-banner.9f09c2bd.png",
@@ -34,8 +33,8 @@
   "entrypoints": [
     "static/js/runtime-main.f6f426a7.js",
     "static/css/2.e7492294.chunk.css",
-    "static/js/2.a1b7c989.chunk.js",
-    "static/css/main.a0d52bd4.chunk.css",
-    "static/js/main.20197446.chunk.js"
+    "static/js/2.160d060d.chunk.js",
+    "static/css/main.c4fc95ed.chunk.css",
+    "static/js/main.18fb1ab4.chunk.js"
   ]
 }

@@ -15,6 +15,17 @@ import FilterForm from './FilterForm';
 import moment from 'moment';
 import {getSummary} from '../../api/serviceTransactionApi';
 
+
+const PartnerView = ({partner={}}) => {
+	if(!partner){
+		return <div></div>
+	}
+	return <div>
+		{partner.full_name} ({partner.company_name})
+		<div>{partner.email}</div>
+	</div>
+}
+
 class SummaryList extends Component{
     constructor(props){
         super(props);
@@ -183,7 +194,9 @@ class SummaryList extends Component{
 												<tr>
 													<td>{index + 1}</td>
 													
-                                                    <td>{partners.find((partner) => partner.id == summary.partner_id).full_name} </td>
+                                                    <td>
+														<PartnerView partner={partners.find((partner) => partner.id == summary.partner_id)}></PartnerView>
+													</td>
 													<td>{summary.credit}</td>
 													<td>{summary.debit}</td>
 													<td>{summary.due}</td>
