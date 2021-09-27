@@ -3,8 +3,12 @@ export function abouts(){
             {
                 idx: "", 
                 question: "Why Rent a car in Nepal with us ?", 
-                answer: ` VisitAllNepal Car Rental is one of the best car rental agency & company in Kathmandu, Nepal. Rent a car in Nepal provides you freedom, next flexibility also wherever you travel. We have a large number of vehicle for rental such as Sedan Car, SUV car, Jeep including 4 wheels drive (4WD), van (big & mini) and Bus (big & mini), most of all vehicles are newer. The major benefits of rent a car in Nepal; it makes your trip independence and convenience another you may customize your own schedule. 
-                        VisitAllNepal Car Rental is introducing itself as a professionally managed Nepal’s largest Car Rental/Hire Company and Car Rental Agency based in Kathmandu. Therefore we offer car rental in  Kathmandu, and other cities (places) such as Pokhara, Lumbini, Chitwan, Nagarkot and Dhulikhel. Hence, you may call now +977 9818192604 (mobile) if you need any car rental service in Kathmandu and other places. The company is specialized in local car rental service in Nepal.`,
+                answer: `   We believe Car Rental industry in Nepal requires a managed way to provide service and a secure system to place order and to pay digitally. 
+                            VisitAllNepal.com Car Rental is introducing itself as a professionally managed Nepal’s largest Car Rental company based in Kathmandu. 
+                            We have a large number of vehicle for such as Sedan Car, SUV car, Jeep including 4 wheels drive (4WD), van (big & mini) and Bus (big & mini). 
+                            The major benefit of renting a car with us is our brand value and we look forward to manage and build good will and trust for our customers .  
+                            Therefore we offer car rental in Kathmandu, and other major cities (places) in Nepal.  
+                            The company is specialized in local car rental service in Nepal.`,
                 active: true
             },
 
