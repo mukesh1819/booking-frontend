@@ -177,10 +177,10 @@ class PackageBookingDetails extends Component {
 											<Fragment>
 												<h5 className="font-weight-bold">CONTINUE TO PAYMENT</h5>
 												<div className={`${styles.paymentBody}`}>
-													<div className={`${styles.action}`} onClick={this.onContinueToPayment}>
+													{/* <div className={`${styles.action}`} onClick={this.onContinueToPayment}>
 														<img src={CardLogo} className='logo' style={{width: '65px'}}/>
 														<div className={`${styles.label} text-primary`}>Pay with Card</div>
-													</div>
+													</div> */}
 
 													<div className={`${styles.action}`} onClick={() => this.checkout(booking)}>
 														<img src={KhaltiLogo} className='logo' />

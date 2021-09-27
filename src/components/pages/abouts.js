@@ -4,7 +4,7 @@ export function abouts(){
                 idx: "", 
                 question: "Why Rent a car in Nepal with us ?", 
                 answer: ` VisitAllNepal Car Rental is one of the best car rental agency & company in Kathmandu, Nepal. Rent a car in Nepal provides you freedom, next flexibility also wherever you travel. We have a large number of vehicle for rental such as Sedan Car, SUV car, Jeep including 4 wheels drive (4WD), van (big & mini) and Bus (big & mini), most of all vehicles are newer. The major benefits of rent a car in Nepal; it makes your trip independence and convenience another you may customize your own schedule. 
-                        VisitAllNepal Car Rental is introducing itself as a professionally managed Nepal’s largest Car Rental/Hire Company and Car Rental Agency based in Kathmandu. Therefore we offer car rental in  Kathmandu, and other cities (places) such as Pokhara, Lumbini, Chitwan, Nagarkot and Dhulikhel. Hence, you may call now +977 9818311488 (mobile) if you need any car rental service in Kathmandu and other places. The company is specialized in local car rental service in Nepal.`,
+                        VisitAllNepal Car Rental is introducing itself as a professionally managed Nepal’s largest Car Rental/Hire Company and Car Rental Agency based in Kathmandu. Therefore we offer car rental in  Kathmandu, and other cities (places) such as Pokhara, Lumbini, Chitwan, Nagarkot and Dhulikhel. Hence, you may call now +977 9818192604 (mobile) if you need any car rental service in Kathmandu and other places. The company is specialized in local car rental service in Nepal.`,
                 active: true
             },
 

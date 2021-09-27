@@ -13,11 +13,12 @@ import {Input, Form, Checkbox, TextArea} from 'semantic-ui-react';
 import moment from 'moment';
 import ReactDOM from 'react-dom';
 import PaymentForm from '../payments/PaymentForm';
-import {checkOutWithKhalti, downloadTicket, pick} from '../../helpers';
+import {checkOutWithKhalti, checkOutWithEsewa, downloadTicket, pick} from '../../helpers';
 import {showUserRentalBooking} from '../../api/carBookingApi';
 import {fetchTicket} from '../../api/flightApi';
 import KhaltiCheckout from 'khalti-checkout-web';
 import KhaltiLogo from '../../images/khalti-logo.png';
+import EsewaLogo from '../../images/esewa-logo.png';
 import CardLogo from '../../images/card-logo.png';
 import styles from '../../styles/payment.module.css';
 import '../../styles/pages.css';
@@ -51,8 +52,13 @@ class CarBookingDetails extends Component {
 		});
 	}
 
-	checkout = (booking) => {
-		checkOutWithKhalti({
+	checkout = (booking, gateway) => {
+		const method = {
+			"KHALTI": checkOutWithKhalti,
+			"ESEWA": checkOutWithEsewa
+		}
+
+		method[gateway]({
 			productIdentity: booking.booking_transaction.idx,
 			productName: 'RENTAL',
 			productUrl: `https://visitallnepal.com/admin/car_bookings/${booking.idx}`,
@@ -172,15 +178,20 @@ class CarBookingDetails extends Component {
 									<Fragment>
 										<h5 className="font-weight-bold">CONTINUE TO PAYMENT</h5>
 										<div className={`${styles.paymentBody}`}>
-											<div className={`${styles.action}`} onClick={() => this.paymentPage()}>
+											{/* <div className={`${styles.action}`} onClick={() => this.paymentPage()}>
 												<img src={CardLogo} className='logo' style={{width: '65px'}}/>
 												<div className={`${styles.label} text-primary`}>Pay with Card</div>
-											</div>
+											</div> */}
 
-											<div className={`${styles.action}`} onClick={() => this.checkout(carBooking)}>
+											<div className={`${styles.action}`} onClick={() => this.checkout(carBooking, "KHALTI")}>
 												<img src={KhaltiLogo} className='logo' />
 												<div className={`${styles.label} text-primary`}>Pay with Khalti</div>
 											</div>
+
+											{/* <div className={`${styles.action}`} onClick={() => this.checkout(carBooking, "ESEWA")}>
+												<img src={EsewaLogo} className='logo' />
+												<div className={`${styles.label} text-primary`}>Pay with Esewa</div>
+											</div> */}
 
 										</div>
 									</Fragment>

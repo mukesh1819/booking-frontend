@@ -184,21 +184,21 @@ class HomePage extends Component {
                               <i
                                 className="fa fa-phone fa-2"
                               ></i>
-                              <span>+977-9819615916</span>
+                              <span>+977-9818192604</span>
                             </li>
                             <li className="list-group-item">
                               <i
                                 className="fab fa-viber fa-2"
                                 style={{ color: "purple" }}
                               ></i>
-                              <span>+977-9819615916</span>
+                              <span>+977-9818192604</span>
                             </li>
                             <li className="list-group-item">
                               <i
                                 className="fab fa-whatsapp fa-2"
                                 style={{ color: "green" }}
                               ></i>
-                              <span>+977-9819615916</span>
+                              <span>+977-9818192604</span>
                             </li>
                             <li className="list-group-item">
                               <i
@@ -218,10 +218,10 @@ class HomePage extends Component {
                     <h5 className="card-title">Contact Us</h5>
                       <ul className="list-group list-group-flush fa-ul contact-card-ui">
                         <li className = "contact-card">
-                         <li className = "list-group-item"><i className="fab fa-whatsapp " style={{color:'green'}}>+977-9819615916</i></li> 
-                         <li className = "list-group-item"><i className="fab fa-viber " style={{color:'purple'}}>+977-9819615916</i></li>  
+                         <li className = "list-group-item"><i className="fab fa-whatsapp " style={{color:'green'}}>+977-9818192604</i></li> 
+                         <li className = "list-group-item"><i className="fab fa-viber " style={{color:'purple'}}>+977-9818192604</i></li>  
                          <li className = "list-group-item"><i className="fa fa-envelope " style={{color:'red'}}>bookingnepalnp@gmail.com</i></li>  
-                         <li className = "list-group-item"><i className="fa fa-phone  " style={{color:'black'}}>+977-9819615916</i></li>   
+                         <li className = "list-group-item"><i className="fa fa-phone  " style={{color:'black'}}>+977-9818192604</i></li>   
                         </li>
                       </ul>
                   </div>

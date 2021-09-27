@@ -350,10 +350,10 @@ class CarBookingDetails extends Component {
                                         <Fragment>
                                             <h5 className="font-weight-bold">CONTINUE TO PAYMENT</h5>
                                             <div className={`${styles.paymentBody}`}>
-                                                <div className={`${styles.action}`} onClick={() => this.paymentPage()}>
+                                                {/* <div className={`${styles.action}`} onClick={() => this.paymentPage()}>
                                                     <img src={CardLogo} className='logo' style={{width: '65px'}}/>
                                                     <div className={`${styles.label} text-primary`}>Pay with Card</div>
-                                                </div>
+                                                </div> */}
 
                                                 <div className={`${styles.action}`} onClick={() => this.checkout(carBooking)}>
                                                     <img src={KhaltiLogo} className='logo' />

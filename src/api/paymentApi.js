@@ -42,3 +42,50 @@ export function payWithKhalti(payload) {
 		data: payload
 	});
 }
+
+
+export function payWithEsewa(params) {
+
+
+	console.log(params);
+	debugger;
+
+	var path = "https://uat.esewa.com.np/epay/main";
+	var path = "https://uat.esewa.com.np/epay/main";
+	var form = document.createElement("form");
+	form.setAttribute("method", "POST")
+	form.setAttribute("action", path);
+
+	for(var key in params){
+		var hiddenField = document.createElement("input")
+		hiddenField.setAttribute("type", "hidden");
+		hiddenField.setAttribute("name", key);
+		hiddenField.setAttribute("value", params[key]);
+		form.appendChild(hiddenField)
+	}
+
+	document.body.appendChild(form);
+	form.submit()
+
+}
+
+export function esewaPaymentVerification(params) {
+
+	var path = "https//uat.esewa.com.np/epay/transrec";
+	var form = document.createElement("form");
+	form.setAttribute("method", "POST")
+	form.setAttribute("action", path);
+
+	for(var key in params){
+		var hiddenField = document.createElement("input")
+		hiddenField.setAttribute("type", "hidden");
+		hiddenField.setAttribute("name", key);
+		hiddenField.setAttribute("value", params[key]);
+		form.appendChild(hiddenField)
+	}
+
+	document.body.appendChild(form);
+	form.submit()
+
+}
+

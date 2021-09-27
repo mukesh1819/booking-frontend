@@ -93,7 +93,7 @@ const NavBar = ({
                         style={{ color: "#263f71" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
-                        +977-9819615916
+                        +977-9818192604
                       </span>
                     </li>
                     <li>
@@ -102,7 +102,7 @@ const NavBar = ({
                         style={{ color: "purple" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
-                        +977-9819615916
+                        +977-9818192604
                       </span>
                     </li>
                     <li>
@@ -111,7 +111,7 @@ const NavBar = ({
                         style={{ color: "green" }}
                       ></i>
                       <span style={{ marginLeft: "10px" }}>
-                        +977-9819615916
+                        +977-9818192604
                       </span>
                     </li>
                     <li>
