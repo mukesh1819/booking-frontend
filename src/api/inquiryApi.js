@@ -51,6 +51,14 @@ export function confirmInquiry(id, values) {
 	});
 }
 
+export function confirmInquiryUpdate(id, values) {
+	return axios({
+		method: 'put',
+		url: `${API_URL}/inquiries/${id}/confirm_update`,
+		params: values
+	});
+}
+
 export function setPackageDetails(id, values) {
 	return axios({
 		method: 'put',

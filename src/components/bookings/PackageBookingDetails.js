@@ -70,7 +70,7 @@ class PackageBookingDetails extends Component {
 			productIdentity: booking.booking_transaction.idx,
 			productName: 'PACKAGE',
 			productUrl: `https://visitallnepal.com/admin/package_bookings/${booking.idx}`,
-			amount: booking.amount
+			amount: booking.token_amount
 		});
 	};
 
@@ -166,16 +166,22 @@ class PackageBookingDetails extends Component {
 											</div>
 										</div>
 									))}
+
 									<div className='row text-danger text-bold'>
-										<div className='eight wide column'>Total amount:</div>
+										<div className='eight wide column'>Token amount:</div>
+										<div className='eight wide column'>Rs. {booking.token_amount}</div>
+									</div>
+
+									<div className='row text-bold'>
+										<div className='eight wide column'>Due amount:</div>
 										<div className='eight wide column'>Rs. {booking.amount}</div>
 									</div>
 								</div>
 								
-								<div className={`${styles.paymentActions} text-center mt-4`}>
+								<div className={`${styles.paymentActions} mt-4`}>
 									{booking.inquiry.status === 'processing' && (
 											<Fragment>
-												<h5 className="font-weight-bold">CONTINUE TO PAYMENT</h5>
+												<h5 className="font-weight-bold text-center ">CONTINUE TO PAYMENT</h5>
 												<div className={`${styles.paymentBody}`}>
 													{/* <div className={`${styles.action}`} onClick={this.onContinueToPayment}>
 														<img src={CardLogo} className='logo' style={{width: '65px'}}/>
@@ -188,6 +194,12 @@ class PackageBookingDetails extends Component {
 													</div>
 
 												</div>
+												<p>
+													To confirm your order: <br></br>
+													- Please pay the token amount Rs. {booking.token_amount} here.<br></br>
+													- Pay rest Due amount Rs. {booking.amount} at the counter on arrival.<br></br>
+													* Note : Token amount will not be refunded.
+												</p>
 											</Fragment>
 									)}
 								</div>

@@ -74,6 +74,21 @@ const Inquiry = (props) => {
 								Send Confirmation to User&nbsp;
 							</span>
 						)}
+
+						{inquiry.status === 'processing' && (
+							<span
+								onClick={() => {
+									setActions({
+										showOtherForm: true,
+										showDetails: false,
+										editInquiry: true
+									});
+								}}
+								className='ui right floated primary button'
+							>
+								Edit&nbsp;
+							</span>
+						)}
 						{inquiry.status === "verified" && partnerServices.length == 0 && (
 							<span
 								onClick={() => {
@@ -114,6 +129,7 @@ const Inquiry = (props) => {
 						)}
 					</div>
 				</div>
+				<br></br>
 				<div className='ui internally celled stackable grid section-layout'>
 					<div className='row'>
 						<div className='eight wide column section'>

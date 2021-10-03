@@ -52,7 +52,8 @@ class CarBookingForm extends Component {
 			car_inquiry_idx: carBooking.car_inquiry != null ? carBooking.car_inquiry.idx : car_inquiry_idx,
 			pickup_time:
 				carBooking.pickup_date == null ? new Date(inquiry.start_date) : new Date(carBooking.pickup_date),
-			amount: carBooking.amount * (carBooking.car_inquiry != null ? carBooking.car_inquiry.no_of_days : 1),
+			amount: carBooking.amount * (carBooking.car_inquiry != null ? carBooking.car_inquiry.no_of_days : 1) || 0,
+			token_amount: carBooking.token_amount || 0,
 			pickup_location: inquiry.airport_pickup ? inquiry.source : carBooking.pickup_location,
 			drop_off_time:
 				carBooking.drop_off_date == null
@@ -324,7 +325,20 @@ class CarBookingForm extends Component {
 											<React.Fragment>
 												<div className='col-12 col-md-6'>
 													<div className='field-box'>
-														<label>Amount</label>
+														<label>Token Amount</label>
+
+														<Field
+															name='token_amount'
+															className='form-control'
+															onBlur={handleBlur}
+															onChange={handleChange}
+															value={values.token_amount}
+														/>
+
+														<ErrorMessage name='amount' />
+													</div>
+													<div className='field-box'>
+														<label>Due Amount</label>
 
 														<Field
 															name='amount'

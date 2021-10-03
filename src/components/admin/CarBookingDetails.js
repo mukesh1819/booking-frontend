@@ -58,9 +58,20 @@ class CarBookingDetails extends Component {
         });
     }
 
-    onConfirmCarBooking(id) {
+    onConfirmCarBooking(booking) {
+        const tokenAmount = booking.token_amount;
 
-    	sendCarBookingConfirmation(id)
+        if (!tokenAmount){
+            swal({
+                title: 'Car Booking Confirmation Error',
+                text: "Token amount has not been set.",
+                icon: 'error',
+                button: 'Back!'
+            });
+            return;
+        }
+
+    	sendCarBookingConfirmation(bookin.idx)
     		.then((response) => {
     			swal({
     				title: 'Car Booking Confirmation!',
@@ -143,7 +154,7 @@ class CarBookingDetails extends Component {
                                 // >
                                 // 	confirm
                                 // </span>
-                                <span onClick={() => this.onConfirmCarBooking(carBooking.idx)} className="btn bg-none text-primary">
+                                <span onClick={() => this.onConfirmCarBooking(carBooking)} className="btn bg-none text-primary">
                                             Send Confirmation to User
                                 </span>
                             )}

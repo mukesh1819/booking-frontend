@@ -19,7 +19,7 @@ import moment from 'moment';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {getPartners} from '../../api/partnerApi';
-import {confirmInquiry, assignPartner, rejectInquiry} from '../../api/inquiryApi';
+import {confirmInquiry, confirmInquiryUpdate, assignPartner, rejectInquiry} from '../../api/inquiryApi';
 import {getPackageBookingDetails} from '../../api/packageBookingApi';
 import {Tab, Checkbox} from 'semantic-ui-react';
 import PartnerServiceForm from './PartnerServiceForm';
@@ -133,7 +133,8 @@ class InquiryDetails extends Component {
 	}
 
 	render() {
-		const {inquiry, partners, packageBooking, showDetails, showOtherForm, showPartnerForm} = this.state;
+		const {inquiry, partners, packageBooking, 
+				showDetails, showOtherForm, showPartnerForm, editInquiry} = this.state;
 		var date = new Date();
 		const InquiriesSchema = yup.object().shape({
 			start_date: yup.date().default(function() {
@@ -149,6 +150,7 @@ class InquiryDetails extends Component {
 				return new Date();
 			}),
 			amount: yup.number(),
+			token_amount: yup.number(),
 			pickup_location: yup.string(),
 			drop_off_location: yup.string(),
 			remarks: yup.string(),
@@ -188,9 +190,10 @@ class InquiryDetails extends Component {
 			pickup_date: date,
 			pickup_location: '',
 			amount: inquiry.total_amount,
+			token_amount: inquiry.token_amount,
 			drop_off_date: date,
 			drop_off_location: '',
-			meals_included: false,
+			meals_included: false, 
 			remarks: ''
 		};
 		const partnerServiceDetails = {
@@ -220,12 +223,13 @@ class InquiryDetails extends Component {
 								onSubmit={(values, {setSubmitting}) => {
 									// console.log('VALUES', values);
 									setSubmitting(false);
-									confirmInquiry(inquiry.idx, values)
+									const action = editInquiry ? confirmInquiryUpdate : confirmInquiry
+									action(inquiry.idx, values)
 										.then((response) => {
 											// console.log('inquiry response',response.data);
 											swal({
 												title: 'User Package Response!',
-												text: `Your package is confirmed!!! ${response.data.message}`,
+												text: `Booking has been ${editInquiry ? 'update' :  'confirmed'}!!! ${response.data.message || ""}`,
 												icon: 'success',
 												button: 'Continue!'
 											}).then((response) => {
@@ -373,9 +377,27 @@ class InquiryDetails extends Component {
 														</div>
 
 														<div className='row'>
+															
+
 															<div className='col-12 col-md-6'>
 																<div className='field-box'>
-																	<label className='d-block'>Amount</label>
+																	<label className='d-block'>Token Amount</label>
+
+																	<Field
+																		name='token_amount'
+																		className='form-control'
+																		onBlur={handleBlur}
+																		onChange={handleChange}
+																		value={values.token_amount}
+																	/>
+
+																	<ErrorMessage name='token_amount' />
+																</div>
+															</div>
+
+															<div className='col-12 col-md-6'>
+																<div className='field-box'>
+																	<label className='d-block'>Due Amount</label>
 
 																	<Field
 																		name='amount'
