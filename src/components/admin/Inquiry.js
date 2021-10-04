@@ -29,6 +29,7 @@ const Inquiry = (props) => {
 
 	const {inquiry, aPackage, reject, destroy, setActions} = props;
 	const packageInfo = pick(inquiry.package, ['name']);
+	const amountInfo = pick(inquiry.package_booking, ['token_amount', 'amount']);
 	const contactInfo = pick(inquiry, [
 		'first_name',
 		'last_name',
@@ -47,7 +48,7 @@ const Inquiry = (props) => {
 	]);
 	var activityInfo = {};
 	if (inquiry.activity != null) {
-		activityInfo = pick(inquiry.activity, ['description', 'price']);
+		activityInfo = pick(inquiry.activity, ['description']);
 	}
 	const inquiryDateInfo = pick(inquiry, ['preferred_date', 'start_date', 'end_date']);
 	const otherInfo = pick(inquiry, ['idx']);
@@ -147,6 +148,14 @@ const Inquiry = (props) => {
 										<div className='eight wide column'>{value}</div>
 									</div>
 								))}
+								<div className='row text-bold text-danger'>
+									<div className='eight wide column'>Token amount:</div>
+									<div className='eight wide column'>{amountInfo.token_amount}</div>
+								</div>
+								<div className='row text-bold'>
+									<div className='eight wide column'>Due amount:</div>
+									<div className='eight wide column'>{amountInfo.amount}</div>
+								</div>
 							</div>
 						</div>
 						<div className='eight wide column section'>

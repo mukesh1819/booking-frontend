@@ -349,10 +349,18 @@ class CarBookingDetails extends Component {
                                     )}
                                     <div className="row text-bold text-danger">
                                         <div className="eight wide column">
-                                            Amount:
+                                            Token Amount:
                                         </div>
                                         <div className="eight wide column">
-                                            {" "}
+                                            {carBooking.token_amount}
+                                        </div>
+                                    </div>
+
+                                    <div className="row text-bold">
+                                        <div className="eight wide column">
+                                            Due Amount:
+                                        </div>
+                                        <div className="eight wide column">
                                             {carBooking.amount}
                                         </div>
                                     </div>
