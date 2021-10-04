@@ -71,7 +71,7 @@ class CarBookingDetails extends Component {
             return;
         }
 
-    	sendCarBookingConfirmation(bookin.idx)
+    	sendCarBookingConfirmation(booking.idx)
     		.then((response) => {
     			swal({
     				title: 'Car Booking Confirmation!',
