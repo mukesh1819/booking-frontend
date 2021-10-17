@@ -2,8 +2,8 @@ import KhaltiCheckout from "khalti-checkout-web";
 import {payWithKhalti, payWithEsewa, esewaPaymentVerification} from "../../src/api/paymentApi";
 import history from '../history';
 
-const PUBLIC_KEY = "live_public_key_b7c0a35b05c14967844f354e96f041db";
-// const PUBLIC_KEY = "test_public_key_39148b5c085d4de0be0d7e828d884a48";
+const PUBLIC_KEY = "test_public_key_39148b5c085d4de0be0d7e828d884a48";
+// const PUBLIC_KEY = "live_public_key_b7c0a35b05c14967844f354e96f041db";
 
 export function checkOutWithKhalti(params) {
 

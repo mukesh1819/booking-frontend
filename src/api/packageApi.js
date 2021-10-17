@@ -24,12 +24,13 @@ export function createPackage(data) {
 	});
 }
 
-export function updatePublish(id, data) {
+export function updatePublish(id, action) {
+	var body = {published: action};
 	return axios({
 		method: 'patch',
 		url: `${API_URL}/packages/${id}`,
 		data: {
-			published: data
+			package: body
 		}
 	});
 }

@@ -29,17 +29,17 @@ class PackageDetails extends Component {
 			});
 	}
 
-	handleChange = (e, data) => {
+	publish = (shouldPublish) => {
 		swal({
 			title: 'Are you sure?',
-			text: 'Once checked, your package will be published',
+			text: `Are you sure you want to ${shouldPublish ? 'publish' : 'unpublish'} this package?`,
 			icon: 'warning',
 			buttons: true,
 			dangerMode: true
 		}).then((action) => {
 			if (action) {
-				updatePublish(this.props.location.state.aPackage.idx, true).then((response) => {
-					swal('Your package has been published', {
+				updatePublish(this.props.location.state.aPackage.idx, shouldPublish).then((response) => {
+					swal(`Your package has been ${shouldPublish ? 'published' : 'unpublished'}`, {
 						icon: 'success'
 					});
 					history.push('/admin/packages');
@@ -94,8 +94,16 @@ class PackageDetails extends Component {
 					<Package aPackage={aPackage} />
 					{!aPackage.published && (
 						<div className=''>
-							<span className='btn btn-outline-primary' onClick={() => this.handleChange(true)}>
+							<span className='btn btn-outline-primary' onClick={() => this.publish(true)}>
 								Publish Package
+							</span>
+						</div>
+					)}
+
+					{aPackage.published && (
+						<div className=''>
+							<span className='btn btn-outline-danger' onClick={() => this.publish(false)}>
+								Unpublish Package
 							</span>
 						</div>
 					)}
