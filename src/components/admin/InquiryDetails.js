@@ -11,7 +11,7 @@ import {passCsrfToken} from '../../helpers';
 import * as yup from 'yup';
 import {Formik, Form, Field} from 'formik';
 import ErrorMessage from '../ErrorMessage';
-import {Dropdown} from 'semantic-ui-react';
+import {Dropdown, Button} from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import {Input} from 'semantic-ui-react';
@@ -180,21 +180,22 @@ class InquiryDetails extends Component {
 				pickup_location: inquiry.pickup_location,
 				drop_off_location: inquiry.drop_off_location,
 				meals_included: packageBooking.meals_included ? 'Included' : 'Not Included',
-				remarks: ''
+				remarks: ""
 			}
 		};
+
 
 		const inquiryDetails = {
 			start_date: date,
 			end_date: date,
 			pickup_date: date,
-			pickup_location: '',
-			amount: inquiry.total_amount,
-			token_amount: inquiry.token_amount,
+			pickup_location: packageBooking.pickup_location || '',
+			amount: packageBooking.amount || inquiry.total_amount || 0,
+			token_amount: packageBooking.token_amount || 0,
 			drop_off_date: date,
-			drop_off_location: '',
+			drop_off_location: packageBooking.drop_off_location || '',
 			meals_included: false, 
-			remarks: ''
+			remarks: (packageBooking.user_remarks || []).reduce((v, x) => v + x.remark, "")
 		};
 		const partnerServiceDetails = {
 			partner_services_attributes:
@@ -218,26 +219,28 @@ class InquiryDetails extends Component {
 						)}
 						{showOtherForm && (
 							<Formik
+								enableReinitialize
 								initialValues={inquiryDetails}
 								validationSchema={InquiriesSchema}
 								onSubmit={(values, {setSubmitting}) => {
 									// console.log('VALUES', values);
-									setSubmitting(false);
+									setSubmitting(true);
 									const action = editInquiry ? confirmInquiryUpdate : confirmInquiry
 									action(inquiry.idx, values)
 										.then((response) => {
 											// console.log('inquiry response',response.data);
 											swal({
-												title: 'User Package Response!',
-												text: `Booking has been ${editInquiry ? 'update' :  'confirmed'}!!! ${response.data.message || ""}`,
+												title: 'Done!!!',
+												text: `Booking has been ${editInquiry ? 'updated' :  'confirmed'}!!! ${response.data.message || ""}`,
 												icon: 'success',
 												button: 'Continue!'
 											}).then((response) => {
 												history.push('/admin/inquiries');
 											});
+											setSubmitting(false)
 										})
 										.catch((error) => {
-											// setSubmitting(false);
+											setSubmitting(false);
 											// console.log(error);
 											console.log('Package confirmation error', error);
 										});
@@ -256,6 +259,7 @@ class InquiryDetails extends Component {
 								}) => (
 									<form onSubmit={handleSubmit}>
 										<div className=''>
+											{values.remarks}
 											<div className='row'>
 												<div className='col-12'>
 													<div className='input-section'>
@@ -453,13 +457,14 @@ class InquiryDetails extends Component {
 											</div>
 											<div className='input-section'>
 												<div className='text-center'>
-													<button
-														className='btn btn-secondary m-2 text-center'
+													<Button
+														primary
 														type='submit'
 														disabled={isSubmitting}
+														loading={isSubmitting}
 													>
-														Confirm
-													</button>
+														{`${editInquiry ? 'Update' :  'Confirm'}`}
+													</Button>
 												</div>
 											</div>
 										</div>
